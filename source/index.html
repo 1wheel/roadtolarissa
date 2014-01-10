@@ -1,0 +1,53 @@
+---
+layout: page
+title: ""
+comments: true
+sharing: true
+footer: true
+---
+
+<div id='gallery'></div>
+
+<style>
+article header{
+  display: none;
+}
+
+</style>
+
+<script src="{{ root_url }}/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
+<script>
+function f(str){ return function(obj){ return obj[str]; } }
+
+var projects = [
+  {img: 'Twisters',            url: 'www.roadtolarissa.com/nba-draft'},
+  {img: 'nba-draft',            url: 'www.roadtolarissa.com/nba-draft'},
+  {img: 'meteors',              url: 'www.roadtolarissa.com/nba-draft'},
+  {img: 'FilmStrips',           url: 'www.roadtolarissa.com/nba-draft'},
+  {img: 'WhaleWords',           url: 'www.roadtolarissa.com/nba-draft'},
+  {img: 'UnemploymentRates',    url: 'www.roadtolarissa.com/nba-draft'},
+  {img: 'RedditGraphs',         url: 'www.roadtolarissa.com/nba-draft'},
+  {img: 'SierpinskiTriangle',   url: 'www.roadtolarissa.com/nba-draft'},
+];
+
+var margin = '25px';
+d3.select('#gallery').selectAll('img')
+    .data(projects).enter()
+  .append('a')
+    .attr('href', f('url'))
+  .append('img')
+    .attr('src', function(d){ return '/images/thumbnails/' + d.img + '.png'; })
+    .style('margin-bottom', margin)
+    .style('margin-left', function(d, i){ return i % 2 ? margin : 0; })
+    .style('width', '360px')
+
+var parentElement = d3.select('#gallery').node().parentElement;
+
+d3.select(parentElement)
+    .style('padding-top', margin)
+  .select('header')
+    .remove();
+
+</script>
+
+
