@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Uncategorized | Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/blog/categories/uncategorized/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-01-14T23:47:56-05:00</updated>
+  <updated>2014-01-15T01:47:04-05:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -82,7 +82,7 @@
   
   <entry>
     <title type="html"><![CDATA[NBA Draft]]></title>
-    <link href="http://roadtolarissa.com/nba_draft.html"/>
+    <link href="http://roadtolarissa.com/nba_draft"/>
     <updated>2013-06-16T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/nba_draft</id>
     <content type="html"><![CDATA[<p style="text-align: center;">
@@ -129,7 +129,7 @@ Finally, clicking a bar opens a link with more information about the player whic
   
   <entry>
     <title type="html"><![CDATA[Meteor Map]]></title>
-    <link href="http://roadtolarissa.com/meteor-map.html"/>
+    <link href="http://roadtolarissa.com/meteor-map"/>
     <updated>2013-05-19T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/meteor-map</id>
     <content type="html"><![CDATA[<p><a href="http://roadtolarissa.com/meteors/"><img class=" wp-image-234 alignnone" alt="meteor map" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/meteormap.png" width="620" height="421" /></a></p>
@@ -140,14 +140,11 @@ Finally, clicking a bar opens a link with more information about the player whic
 
 <p>Most of the ~30 hours I&rsquo;ve spent working on this map were spent adding some of these small improvements:</p>
 
-<p>&amp;#x20*   <strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors' mass. I initially tried to make each circle&rsquo;s radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than &frac12;, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle&rsquo;s area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.
-*   <strong>Mouseover</strong> <strong>effects</strong></p>
-
-<pre><code>[&lt;img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" /&gt;][4]  
-The data set had some additional information that I wasn't sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its [meteorological society page][5] which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.
-</code></pre>
-
 <ul>
+<li><strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors' mass. I initially tried to make each circle&rsquo;s radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than &frac12;, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle&rsquo;s area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.</li>
+<li><strong>Mouseover</strong> <strong>effects</strong><br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png"><img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" /></a><br/>
+The data set had some additional information that I wasn&rsquo;t sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its <a href="http://www.lpi.usra.edu/meteor/metbull.php?code=23593">meteorological society page</a> which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.</li>
 <li><strong>Crossfilters<br/>
 </strong>To make the map even more interactive, I incorporated the year and mass data into histogram <a href="http://square.github.io/crossfilter/">crossfilters</a>. I&rsquo;ve used the crossfilter library indirectly before, through <a href="http://nickqizhu.github.io/dc.js/">dc.js</a> which has several chart types premade. Getting the circles on the map to change with transitions went beyond what dc.js can do out of the box and I had to get my hands dirty with the actual crossfilter library. The messiness of the code I ended up with reflects that - I&rsquo;m getting closer to doing things correctly, but I&rsquo;m not quite there yet.</li>
 </ul>
@@ -185,7 +182,7 @@ The data set had some additional information that I wasn't sure how to represent
   
   <entry>
     <title type="html"><![CDATA[Whale Words]]></title>
-    <link href="http://roadtolarissa.com/whale-words.html"/>
+    <link href="http://roadtolarissa.com/whale-words"/>
     <updated>2013-01-28T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/whale-words</id>
     <content type="html"><![CDATA[<p><a href="http://www.roadtolarissa.com/whalewords"><img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" /></a></p>

@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-01-14T23:47:56-05:00</updated>
+  <updated>2014-01-15T01:47:04-05:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -82,7 +82,7 @@
   
   <entry>
     <title type="html"><![CDATA[NBA Draft]]></title>
-    <link href="http://roadtolarissa.com/nba_draft.html"/>
+    <link href="http://roadtolarissa.com/nba_draft"/>
     <updated>2013-06-16T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/nba_draft</id>
     <content type="html"><![CDATA[<p style="text-align: center;">
@@ -129,7 +129,7 @@ Finally, clicking a bar opens a link with more information about the player whic
   
   <entry>
     <title type="html"><![CDATA[Meteor Map]]></title>
-    <link href="http://roadtolarissa.com/meteor-map.html"/>
+    <link href="http://roadtolarissa.com/meteor-map"/>
     <updated>2013-05-19T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/meteor-map</id>
     <content type="html"><![CDATA[<p><a href="http://roadtolarissa.com/meteors/"><img class=" wp-image-234 alignnone" alt="meteor map" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/meteormap.png" width="620" height="421" /></a></p>
@@ -140,14 +140,11 @@ Finally, clicking a bar opens a link with more information about the player whic
 
 <p>Most of the ~30 hours I&rsquo;ve spent working on this map were spent adding some of these small improvements:</p>
 
-<p>&amp;#x20*   <strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors&#8217; mass. I initially tried to make each circle&rsquo;s radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than &frac12;, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle&rsquo;s area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.
-*   <strong>Mouseover</strong> <strong>effects</strong></p>
-
-<pre><code>[&lt;img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" /&gt;][4]  
-The data set had some additional information that I wasn't sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its [meteorological society page][5] which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.
-</code></pre>
-
 <ul>
+<li><strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors&#8217; mass. I initially tried to make each circle&rsquo;s radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than &frac12;, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle&rsquo;s area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.</li>
+<li><strong>Mouseover</strong> <strong>effects</strong><br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png"><img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" /></a><br/>
+The data set had some additional information that I wasn&rsquo;t sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its <a href="http://www.lpi.usra.edu/meteor/metbull.php?code=23593">meteorological society page</a> which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.</li>
 <li><strong>Crossfilters<br/>
 </strong>To make the map even more interactive, I incorporated the year and mass data into histogram <a href="http://square.github.io/crossfilter/">crossfilters</a>. I&rsquo;ve used the crossfilter library indirectly before, through <a href="http://nickqizhu.github.io/dc.js/">dc.js</a> which has several chart types premade. Getting the circles on the map to change with transitions went beyond what dc.js can do out of the box and I had to get my hands dirty with the actual crossfilter library. The messiness of the code I ended up with reflects that - I&rsquo;m getting closer to doing things correctly, but I&rsquo;m not quite there yet.</li>
 </ul>
@@ -185,7 +182,7 @@ The data set had some additional information that I wasn't sure how to represent
   
   <entry>
     <title type="html"><![CDATA[Whale Words]]></title>
-    <link href="http://roadtolarissa.com/whale-words.html"/>
+    <link href="http://roadtolarissa.com/whale-words"/>
     <updated>2013-01-28T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/whale-words</id>
     <content type="html"><![CDATA[<p><a href="http://www.roadtolarissa.com/whalewords"><img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" /></a></p>
@@ -227,7 +224,7 @@ The data set had some additional information that I wasn't sure how to represent
   
   <entry>
     <title type="html"><![CDATA[Unemployment Rates]]></title>
-    <link href="http://roadtolarissa.com/unemployment-rates.html"/>
+    <link href="http://roadtolarissa.com/unemployment-rates"/>
     <updated>2013-01-21T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/unemployment-rates</id>
     <content type="html"><![CDATA[<p><a href="http://www.roadtolarissa.com/unemployment"><img class="aligncenter size-large wp-image-185" title="unemployment rates" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate1-1024x705.png" alt="" width="640" height="440" /></a></p>
@@ -250,7 +247,7 @@ The data set had some additional information that I wasn't sure how to represent
   
   <entry>
     <title type="html"><![CDATA[Zoomable Sierpinski Triangle With d3.js]]></title>
-    <link href="http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js.html"/>
+    <link href="http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js"/>
     <updated>2012-12-21T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js</id>
     <content type="html"><![CDATA[<p style="text-align: center;">
@@ -297,17 +294,27 @@ function addTriangle(cx, cy, r){
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Interactive Visualization of White House Petition Signatures]]></title>
-    <link href="http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures.html"/>
+    <title type="html"><![CDATA[White House Petition Signatures]]></title>
+    <link href="http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures"/>
     <updated>2012-12-19T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p><img class=" wp-image-234 alignnone" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/petition.png" /></p>
+
+<p><a href="http://roadtolarissa.com/whitehouse/">http://roadtolarissa.com/whitehouse/</a></p>
+
+<p>I finished writing the scrapper and graphing aspects of this a few weeks ago; I’ve been putting off publicly posting while trying to make it more attractive/usable.</p>
+
+<p>I’m mostly worried about the color scheme. I didn’t want to embarrass myself making something garish, so I went in a very drab, utilitarian direction. I think I may have gone too far, but I’m not sure what good alternative would look like. I got away with not worrying too much about color with redditgraphs because the data was naturally graphable with many different colors which allowed the layout to be understated. That really isn’t possible with the petitions.</p>
+
+<p>I’m also not sure about the layout. On widescreens, the two charts are shown side by side so all the petition info can be view on one screen. On smaller displays though, this makes the charts a little too small. I could make the charts bigger with a toggle button or showing them stacked on top of each other like they are with non-widescreens, but that would require clicking a button or scrolling to view all the information about a petition. Additionally if I start tracking more petitions, I will need to make the left panel scrollable.</p>
+
+<p>Finally, I’ve derived estimations about party affiliation and age for each petition and I don’t know how to include them. Since these estimations are based only on name and location, they aren’t nearly as accurate as the gender ones – 35% of the people wanting to impeach Obama are apparently democrats – so I’ve left them out to avoid cluttering the table more. They do a decent job of showing the relative rank of each petition though and should probably be included.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Next Project]]></title>
-    <link href="http://roadtolarissa.com/next-project.html"/>
+    <link href="http://roadtolarissa.com/next-project"/>
     <updated>2012-11-20T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/next-project</id>
     <content type="html"><![CDATA[<p>Finished with redditgraphs, I have a couple of ideas about what I&rsquo;d like to work on next; I&rsquo;m posting them to clarify my own thoughts and to get feedback.</p>
@@ -343,7 +350,7 @@ Scrape the text, date, score, author and band information from every published r
   
   <entry>
     <title type="html"><![CDATA[Redditgraphs Retrospective]]></title>
-    <link href="http://roadtolarissa.com/redditgraphs-retrospective.html"/>
+    <link href="http://roadtolarissa.com/redditgraphs-retrospective"/>
     <updated>2012-11-17T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/redditgraphs-retrospective</id>
     <content type="html"><![CDATA[<p>It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the application and trying to share it with people. After posting the basic demo on /r/javascript, I was encouraged make improvements and host the project on its own domain. Registering &#8220;<a href="www.redditgraphs.com">redditgraphs.com</a>&#8221; for a year only cost $5 and it seemed more memorable and easier to access than &#8220;roadtolarissa.com/javascript/reddit-comment-visualizer&#8220;. I spent another week adding functionality &#8211; hourly trends, weekly trends, direct linking to user names &#8211; and making the UI prettier.</p>
@@ -374,7 +381,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#116;&#x69;&#112;&#115;&#64;&#119;&#x65;&#x62;&#x73;&#105;&#116;&#x65;&#46;&#x63;&#111;&#109;">&#x74;&#105;&#x70;&#115;&#x40;&#119;&#x65;&#98;&#115;&#x69;&#x74;&#101;&#x2e;&#x63;&#x6f;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#x74;&#105;&#112;&#115;&#64;&#119;&#x65;&#98;&#x73;&#x69;&#116;&#x65;&#46;&#99;&#x6f;&#109;">&#116;&#105;&#112;&#115;&#x40;&#x77;&#101;&#x62;&#x73;&#105;&#x74;&#x65;&#x2e;&#99;&#x6f;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 
@@ -405,7 +412,7 @@ Scrape the text, date, score, author and band information from every published r
   
   <entry>
     <title type="html"><![CDATA[Reddit Comment Visualizer]]></title>
-    <link href="http://roadtolarissa.com/reddit-comment-visualizer.html"/>
+    <link href="http://roadtolarissa.com/reddit-comment-visualizer"/>
     <updated>2012-10-19T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/reddit-comment-visualizer</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve spent the last few days working on a <a href="http://www.roadtolarissa.com/javascript/reddit-comment-visualizer/">visualizer for reddit comments</a>.  Using reddit&rsquo;s API, the program downloads a user&rsquo;s comments and graphs them with <a href="http://www.flotcharts.org/">flot</a>.</p>
@@ -478,7 +485,7 @@ Scrape the text, date, score, author and band information from every published r
   
   <entry>
     <title type="html"><![CDATA[Yglesias on Amazon's P/E Ratio]]></title>
-    <link href="http://roadtolarissa.com/yglesias-on-amazons-pe-ratio.html"/>
+    <link href="http://roadtolarissa.com/yglesias-on-amazons-pe-ratio"/>
     <updated>2012-10-10T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/yglesias-on-amazons-pe-ratio</id>
     <content type="html"><![CDATA[<p>Yglesias <a href="http://www.slate.com/blogs/moneybox/2012/10/09/wal_mart_testing_same_day_delivery.html">wonders</a> why Amazon&rsquo;s P/E is so high:</p>
@@ -500,8 +507,8 @@ PETER THIEL:Search technology was developed a decade ago.  It&rsquo;s a bet tha
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Speed Issues With Goko's Online Dominion Implementation]]></title>
-    <link href="http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation.html"/>
+    <title type="html"><![CDATA[Speed Issues Goko Dominion]]></title>
+    <link href="http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation"/>
     <updated>2012-10-06T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation</id>
     <content type="html"><![CDATA[<p>This isn&rsquo;t very scientific, but to get a better sense of how slow playing <a href="http://boardgamegeek.com/boardgame/36218/dominion">Dominion</a> on  <a href="http://goko.com/games/">goko</a> is compared to <a href="http://dominion.isotropic.org/play">isotropic</a> and to find out exactly what is making it slower, I spent an hour on both and recorded how the time was spent:</p>
@@ -552,7 +559,7 @@ On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
   
   <entry>
     <title type="html"><![CDATA[Connect 4 AI: How It Works]]></title>
-    <link href="http://roadtolarissa.com/connect-4-ai-how-it-works.html"/>
+    <link href="http://roadtolarissa.com/connect-4-ai-how-it-works"/>
     <updated>2012-09-30T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/connect-4-ai-how-it-works</id>
     <content type="html"><![CDATA[<p>The <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">connect 4 playing program</a> uses a <a href="http://en.wikipedia.org/wiki/Minimax">minmax algorithm</a>.</p>
@@ -623,7 +630,7 @@ On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
   
   <entry>
     <title type="html"><![CDATA[Maximin Connect 4 Completed]]></title>
-    <link href="http://roadtolarissa.com/maximin-connect-4-completed.html"/>
+    <link href="http://roadtolarissa.com/maximin-connect-4-completed"/>
     <updated>2012-09-29T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/maximin-connect-4-completed</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve finished working on the Maximin Connect 4 program. I&rsquo;ve set up a <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">page</a> where you can play around with the AI since I&rsquo;m not sure how to embed HTML in these posts. Some general things I learned (I&rsquo;ll make a separate post with more Connect 4 specific ideas once I&rsquo;ve run some more tests on the AI):</p>
@@ -642,7 +649,7 @@ On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
   
   <entry>
     <title type="html"><![CDATA[First Post]]></title>
-    <link href="http://roadtolarissa.com/first-post.html"/>
+    <link href="http://roadtolarissa.com/first-post"/>
     <updated>2012-09-27T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/first-post</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve found that writing todo lists enormously increases my productivity while programming. Programming is all about breaking larger problems into smaller problems over and over until the problems are small enough to solve easily. Lists provide a map of the problems that need solving and make it possible to work on a smaller subset of them without having to simultaneously worry about the global structure of the program.</p>

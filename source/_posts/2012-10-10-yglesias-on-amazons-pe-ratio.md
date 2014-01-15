@@ -2,7 +2,7 @@
 title: "Yglesias on Amazon's P/E Ratio"
 author: admin
 layout: post
-permalink: /yglesias-on-amazons-pe-ratio.html
+permalink: /yglesias-on-amazons-pe-ratio
 categories:
   - Uncategorized
 ---

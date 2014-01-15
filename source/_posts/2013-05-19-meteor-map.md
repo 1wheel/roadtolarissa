@@ -2,7 +2,7 @@
 title: Meteor Map
 author: admin
 layout: post
-permalink: /meteor-map.html
+permalink: /meteor-map
 categories:
   - Uncategorized
 ---
@@ -14,7 +14,7 @@ I started from &#8216;scratch' with a blank [map of the world generated][3] by d
 
 Most of the ~30 hours I've spent working on this map were spent adding some of these small improvements:
 
-&#x20*   <strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors' mass. I initially tried to make each circle's radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than 1/2, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle's area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.
+*   <strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors' mass. I initially tried to make each circle's radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than 1/2, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle's area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.
 *   **Mouseover** **effects**  
     [<img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" />][4]  
     The data set had some additional information that I wasn't sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its [meteorological society page][5] which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.

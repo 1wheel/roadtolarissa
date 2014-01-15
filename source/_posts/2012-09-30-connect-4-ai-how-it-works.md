@@ -2,7 +2,7 @@
 title: 'Connect 4 AI: How it Works'
 author: admin
 layout: post
-permalink: /connect-4-ai-how-it-works.html
+permalink: /connect-4-ai-how-it-works
 categories:
   - Uncategorized
 ---

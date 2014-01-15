@@ -1,8 +1,8 @@
 ---
-title: "Speed Issues with Goko's Online Dominion Implementation"
+title: "Speed Issues Goko Dominion"
 author: admin
 layout: post
-permalink: /speed-issues-with-gokos-online-dominion-implementation.html
+permalink: /speed-issues-with-gokos-online-dominion-implementation
 categories:
   - Uncategorized
 ---
