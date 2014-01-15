@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Uncategorized | Road to Larissa]]></title>
+  <link href="http://roadtolarissa.com/blog/categories/uncategorized/atom.xml" rel="self"/>
+  <link href="http://roadtolarissa.com/"/>
+  <updated>2014-01-14T23:47:56-05:00</updated>
+  <id>http://roadtolarissa.com/</id>
+  <author>
+    <name><![CDATA[Adam Pearce]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Twisters]]></title>
+    <link href="http://roadtolarissa.com/twisters-post"/>
+    <updated>2013-10-22T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/twisters-post</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">
+  <a href="http://roadtolarissa.com/twisters/"><img class=" wp-image-287 aligncenter" title="Tornado Map" alt="" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/nados-1024x988.png" width="640" height="617" /></a>
+  <p  style="text-align: center;">
+    <em><a href="http://roadtolarissa.com/twisters/">Interactive tornado map</a></em>
+  </p>
+</p>
+
+
+
+
+<p style="text-align: left;">
+  This is a remake of a <a href="http://uxblog.idvsolutions.com/2013/06/tornado-travel-map.html">map</a> John Nelson made over the summer:
+</p>
+
+
+
+
+<p style="text-align: center;">
+  <a href="http://uxblog.idvsolutions.com/2013/06/tornado-travel-map.html"><img class="aligncenter" title="Another Tornado Map" alt="" src="http://farm8.staticflickr.com/7373/9027126483_1f55a634ab_z.jpg" width="640" height="443" /></a>
+</p>
+
+
+
+
+<p style="text-align: left;">
+  Seeing Nelson&#8217;s map for the first time, I was struck at how well its combination of two intuitive ideas &#8211; transforming starting/ending locations into direction and displaying those directions with a polar histogram &#8211; created an instantly understandable visualization. It does a wonderful job of clearly communicating an idea to a wide audience. Sharing what I&#8217;ve learned from looking at this map with a sentence: &#8220;Most tornadoes in the US travel Northeast and typically occur in the East&#8221; isn&#8217;t nearly as impactful (a week after hearing that I probably wouldn&#8217;t remember the direction) or informative (what do &#8216;most&#8217; and &#8216;typically&#8217; mean?) as looking at the map.
+</p>
+
+
+
+
+<p style="text-align: left;">
+  I&#8217;ve tried to emulate the aesthetic of Nelson&#8217;s map while attaching one more simple idea &#8211; <a href="http://square.github.io/crossfilter/">crossfilter </a>- to it. Some things I&#8217;m happy with:
+</p>
+
+
+<ul>
+<li><strong>Click to Zoom<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png"><img class=" wp-image-288 aligncenter" alt="ok" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png" width="461" height="235" /></a></br></strong>d3&#8242;s built in <a href="https://github.com/mbostock/d3/wiki/Zoom-Behavior">zoom </a>is nice, but it is tricky to use on devices without a scroll wheel. Putting an <a href="http://bl.ocks.org/mbostock/4699541">onclick zoom event</a> on each state avoids this difficulty and has the huge add bonus of playing very nicely with crossfilter.  The state to state transitions are my favorite part of this map. Getting multistate tornadoes to behave correctly took a little bit of <a href="https://github.com/1wheel/tornado-tuners/blob/master/matchStates.py">data wrangling</a> and tinkering with crossfilter; I really like the result.</li>
+<li><strong>Brushable Arc<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png"><img class="size-full wp-image-289 aligncenter" alt="arc" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png" width="198" height="173" /></a></strong></br>Not the most useful or impressive thing in the world, but I don&#8217;t think anyone has done this before in d3 and after another <a href="http://www.roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js/">struggle </a>with trigonometry, I&#8217;m trilled that it actually works. I&#8217;d like to make it more accessible  - it might work well in <a href="http://nickqizhu.github.io/dc.js/">dc.js</a> - but the code needs a lot of polishing first.</li>
+</ul>
+
+
+<p>Some &#8216;Todos&#8217; without a checkmark:</p>
+
+<ul>
+<li><strong>Responsive Design<br/>
+</strong>Most screens will have some empty horizontal space and not enough vertical space to view the entire display at once.  Resizable charts with D3 aren&#8217;t actually that difficult to create &#8211; if the drawing of the chart is correctly <a href="http://bost.ocks.org/mike/chart/">decoupled</a> from its other functions you essentially get that behavior for free by redrawing after window.onresize - but (attractively) laying out 9 differently sized charts is.</li>
+<li><strong>Adjustable Color<br/>
+</strong>Setting the attributes of the lines so they matched the actual tornadoes was fun &#8211; direction, start, stop, width, and length clearly apply to both &#8211; but color, more than anything else, is the most visible property of the lines. Nelson colors according to direction to hammer home the point of his chart. I went with <a href="http://en.wikipedia.org/wiki/Fujita_scale">wind speed</a> since it seemed more meteorological and less morbid than deaths; I would have liked to avoid imposing that decision on the viewer. I&#8217;m hoping the graphs on this blog share the sense of playfulness I have exploring data and adjustable colors would have done a good job of that.</li>
+<li><strong>Tracking Dollar Damage<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc1.png"><img class="size-full wp-image-291 aligncenter" alt="arc" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc1.png" width="598" height="129" /><br/>
+</a></strong>eh&#8230; Probably too many charts on the page already.</li>
+<li><strong>Mouse Over Effects<br/>
+</strong>Unlike the my last three projects, there wasn&#8217;t an easy way to find images of the focused items. In lieu of a tooltip, it would have been cool to highlight each bar that the moused over tornado was a member of and possibly display text on the bar showing the corresponding exact value. Currently the only way to find out more about a given tornado on the map is to fiddle with the bars, which is pretty dorky (or with d3.select($0).data(), which is pretty obscure).</li>
+</ul>
+
+
+<p>But! I haven&#8217;t posted anything for four months and I&#8217;m looking forward to starting something new and applying some of what I&#8217;ve learned <a href="https://www.quovo.com/us/no/index.php">working full time</a> with d3 over the the last two months.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[NBA Draft]]></title>
+    <link href="http://roadtolarissa.com/nba_draft.html"/>
+    <updated>2013-06-16T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/nba_draft</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">
+  <a href="http://roadtolarissa.com/nba-draft/"><img class="wp-image-266 aligncenter" alt="nbaSplash" src="http://www.roadtolarissa.com/wp-content/uploads/2013/06/nbaSplash.png" width="500" height="215" /><br /> </a><em><a href="http://roadtolarissa.com/nba-draft/">Interactive graphic</a> comparing the top picks to the top performers in the NBA</em>
+</p>
+
+
+
+
+<p style="text-align: left;">
+  This is another remake, courtesy of the <a href="http://www.nytimes.com/interactive/2013/04/25/sports/football/picking-the-best-in-the-nfl-draft.html?_r=0">NYT</a>:
+</p>
+
+
+
+
+<p style="text-align: center;">
+  <a href="http://www.nytimes.com/interactive/2013/04/25/sports/football/picking-the-best-in-the-nfl-draft.html?_r=0"><img class=" wp-image-268 aligncenter" alt="nflspalsh" src="http://www.roadtolarissa.com/wp-content/uploads/2013/06/nflspalsh.png" width="508" height="165" /></a>
+</p>
+
+
+
+
+<p style="text-align: left;">
+  Assorted thoughts:
+</p>
+
+
+<ul>
+<li><p>Clearer differences between players of different skill level. In basketball, there is a huge difference between the best player in a draft (Lebron James in 03) and the 5th best (David West in 03). Representing the top players with a gradient highlights these differences. Shades of grey also differentiate &#x20; average &#x20; players from those who never played. I&rsquo;m not sure this color scheme would have worked as well with the NFL graphic since the larger drafts require thinner bars.</p></li>
+<li><p>More information about players.<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/06/tonyparker1.png"><img class="size-full wp-image-270 aligncenter" alt="tonyparker" src="http://www.roadtolarissa.com/wp-content/uploads/2013/06/tonyparker1.png" width="296" height="329" /></a></p>
+
+<p>Instead of a tricky formula based on &ldquo;number of starts, Pro Bowls and other factors,&rdquo; I went with the product of minutes played and <a href="http://en.wikipedia.org/wiki/Player_Efficiency_Rating">player efficiency rating</a>. Adding a chart of those numbers exposes those calculations and making it yearly creates a snapshot of a player&rsquo;s entire career. Looking at the bar graph in isolation now, it really looks like it needs axis tickmarks. In the context of the whole graphic though, they make things way too busy.<br/>
+I also copied from the last <a href="http://www.roadtolarissa.com/film-strips/">two</a>&#x20;<a href="http://roadtolarissa.com/meteors/">projects</a> I worked on and added an image of each player to the tooltip.<br/>
+Finally, clicking a bar opens a link with more information about the player which makes it significantly simpler for the viewer to continue finding things out.</p></li>
+<li><p>Team specific information. To make it easier to find a player or see how a team has done over time, mousing over or clicking a team name highlights picks by that team. Moving the slider also updates each team&rsquo;s number of top picks. I&rsquo;m a big fan of having animated transitions be accompanied by text updates. It makes the comparisons between two stats more concrete and quantitative while generating memorable takeaway numbers on the fly (&ldquo;did you know that the Grizzlies have never drafted a top 3 player?&rdquo;). I think the NYT&rsquo;s incorporation of this effect was more successful; by only updated two numbers at a time it could explain them in a sentence, drawing attention to them with bold text.</p></li>
+<li><p>Because I was tacking on features, I ended up with a more cluttered display. I usually try to make the instructions only a sentence long to reduce the amount of text on the page. That wasn&rsquo;t possible here, so I ended up a big block of words at the end. I probably should add some images, color, and/or formatting to it but it has been almost a month since my last post and I&rsquo;m ready to move onto the next project now.</p></li>
+<li>I really like how the NYT graphic passively shows player names in an unobtrusive manner.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Meteor Map]]></title>
+    <link href="http://roadtolarissa.com/meteor-map.html"/>
+    <updated>2013-05-19T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/meteor-map</id>
+    <content type="html"><![CDATA[<p><a href="http://roadtolarissa.com/meteors/"><img class=" wp-image-234 alignnone" alt="meteor map" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/meteormap.png" width="620" height="421" /></a></p>
+
+<p><em>An <a href="http://roadtolarissa.com/meteors/">interactive map</a> made for <a href="http://visualizing.org/contests/visualizing-meteorites">visualizing.org's Meteorites contest</a>.</em></p>
+
+<p>I started from &#8216;scratch' with a blank <a href="http://www.jasondavies.com/maps/transition/">map of the world generated</a> by d3. Each meteor in the contest data set had a latitude and longitude, so I used those coordinates to plot a small circle on the map to represent each impact. After coloring the circles orange, the map looked almost like the one above.</p>
+
+<p>Most of the ~30 hours I&rsquo;ve spent working on this map were spent adding some of these small improvements:</p>
+
+<p>&amp;#x20*   <strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors' mass. I initially tried to make each circle&rsquo;s radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than &frac12;, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle&rsquo;s area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.
+*   <strong>Mouseover</strong> <strong>effects</strong></p>
+
+<pre><code>[&lt;img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" /&gt;][4]  
+The data set had some additional information that I wasn't sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its [meteorological society page][5] which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.
+</code></pre>
+
+<ul>
+<li><strong>Crossfilters<br/>
+</strong>To make the map even more interactive, I incorporated the year and mass data into histogram <a href="http://square.github.io/crossfilter/">crossfilters</a>. I&rsquo;ve used the crossfilter library indirectly before, through <a href="http://nickqizhu.github.io/dc.js/">dc.js</a> which has several chart types premade. Getting the circles on the map to change with transitions went beyond what dc.js can do out of the box and I had to get my hands dirty with the actual crossfilter library. The messiness of the code I ended up with reflects that - I&rsquo;m getting closer to doing things correctly, but I&rsquo;m not quite there yet.</li>
+</ul>
+
+
+<p>Ultimately, I ended up with a presentation pretty close to <a href="http://vimeo.com/59791629">Javier de la Torre&rsquo;s</a>:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2013/05/cartodb.png"><img class="alignnone size-full wp-image-247" alt="cartodb" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/cartodb.png" width="744" height="442" /></a></p>
+
+<p>I  think my version has a number of improvements (obviously, I just finished making it!) &#8211; the better looking tooltips which active on mouseover not on click, the crossfilters, dotmap instead of heatmap (I really don&rsquo;t like what happens to their contiguous areas on zoom)  - but Torre apparently made his in only 30 minutes. I don&rsquo;t regret the additional time spent on mine since most of it was spent learning, but <a href="http://osm2.cartodb.com/tables/2320/public#/map">cartodb</a> or <a href="https://developers.google.com/fusiontables/">fusion tables</a> look like they would be the appropriate tool to use the vast majority of the time. I am a little frustrated I wasn&rsquo;t able to do more with the flexibility of d3 - the only other published entry for the contest I&rsquo;ve seen, <a href="http://bolid.es/">bolid.es</a>, is stunning &#8211; and I&rsquo;m looking forward to seeing what else gets made.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Film Strips]]></title>
+    <link href="http://roadtolarissa.com/film-strips-post"/>
+    <updated>2013-05-02T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/film-strips-post</id>
+    <content type="html"><![CDATA[<p><a href="http://roadtolarissa.com/film-strips/"><img class="alignnone  wp-image-220" alt="filmstrips" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/filmstrips.png" width="640" height="417" /></a></p>
+
+<p style="text-align: center;">
+  <a href="http://roadtolarissa.com/film-strips/">http://roadtolarissa.com/film-strips/</a>
+</p>
+
+
+<p>I&rsquo;ve had this idea bouncing around in the back of my head for a few months. When I finally got around to working on it, I was pleasantly surprised to have a functional prototype after only a few hours.</p>
+
+<p>The idea is pretty simple: Take a bunch of <a href="http://www.ffmpeg.org/">sequential stills from a movie</a>, create a map of how their <a href="http://www.pythonware.com/products/pil/">average color</a> changes over time, and add a <a href="http://d3js.org/">mouseover effect</a> that shows the enlarged still. Thanks to google and stackoverflow, it didn&rsquo;t take too long to find programs and libraries that did most of what I was picturing and with my experience on other projects, gluing everything together went smoothly.</p>
+
+<p>Because of disk space constraints, I&rsquo;m only hosting the 2013 Best Picture Nominees. Many more (static) film strips are located at <a href="http://moviebarcode.tumblr.com/">MovieBarcode</a> which this project was inspired by. You can also make interactive film strips from your own movie files &#8211; the whole process is <a href="https://github.com/1wheel/film-strips">automated </a>&ndash; if you&rsquo;re not familiar with python though, getting all the tools setup will take a few hours.</p>
+
+<p>I have a couple of idea of additional features (subtitle integration, variable bar width, experiments with other ways of generating and showing color, ect) but since this is sitting in distinctly gray area of fair use, I&rsquo;m a little hesitant to put more time into it. I am glad I did what I&rsquo;ve done. I&rsquo;ve started working at an actual workplace and I&rsquo;d like to stay (/get back) in the habit of working on things for fun.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Whale Words]]></title>
+    <link href="http://roadtolarissa.com/whale-words.html"/>
+    <updated>2013-01-28T00:00:00-05:00</updated>
+    <id>http://roadtolarissa.com/whale-words</id>
+    <content type="html"><![CDATA[<p><a href="http://www.roadtolarissa.com/whalewords"><img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" /></a></p>
+
+<p>This is a display of word frequency in Moby Dick that I just finished making. It draws heavily on <a href="http://stanford.edu/~garylee/bibly/#verse">Bibly</a>, which displays word frequency in the Bible.</p>
+
+<p><a href="http://stanford.edu/~garylee/bibly/#verse"><img class="aligncenter size-large wp-image-194" title="Bibly" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/bibly-1024x593.png" alt="" width="640" height="370" /></a>To get more practice with d3.js, I wrote everything from scratch. Having a visual reference was still extremely helpfu, though. Some things I really liked about their implementation/would have run into trouble without:</p>
+
+<ul>
+<li>Grouping words into equally sized buckets to create a histogram. This sounds obvious, but I had some trouble getting to it. My first idea for this project came when I saw a <a href="http://i.imgur.com/c7de3.png">infographic of word frequency in the Wire</a>. I wanted to make an interactive version of the same data, showing the number of occurrences of each word per episode. Since each episode contains roughly the same amount of dialog, it would be relatively simple to draw a single bar for each episode. When I decided to work with Moby Dick instead, my first attempt drew one bar per chapter and with the variable width bars, it looked awful. Unable to find a solution, I put the project aside until I came across Bibly.</li>
+<li>The use of two colors of bars on the x-axis to detonate chapter length. I would have used tick marks, but solid bars are a significantly better visual metaphor for chapters which persist for the entirely of their length and aren&rsquo;t one time events. Bars are also better mouseover targets.</li>
+<li>This might be a little silly, but I really like the &#8216;[Enter] a Word' formulation. I tried a lot of different instructions for the splash page of <a href="http://redditgraphs.com">redditgraphs</a>, but really struggled finding one that was both concise and clear.</li>
+</ul>
+
+
+<p><span style="font-size: 16px;">Some things I added or removed:</span></p>
+
+<ul>
+<li>An autocomplete drop down to text box.<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/01/drop-down.png"><img class="size-full wp-image-195 aligncenter" title="Drop Down" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/drop-down.png" alt="" width="173" height="330" /></a>In addition to downloading the text of the Moby Dick (about 1 MB), the webpage also downloads an array containing all the none <a href="http://en.wikipedia.org/wiki/Stop_words">stop words</a> in Moby Dick and the number of their occurrences (about .2 MB). Typing a few letters searches though the array for the most common words that match, then displays them and their frequencies in a drop down menu. This is pretty sweet for a couple of reasons. Displaying the frequency of many words at once increases the information density of the site &#8211; the drop down with no text entered yet basically shows as much information as the entire Wire infographic.  At the same time, it increases usability (if the user doesn&rsquo;t realize the need to press enter, the suggestions are click targets) and invites exploration (it is hard thinking of interesting words to search for on the fly, the autocomplete shows several of them at a time).</li>
+<li>The highlight functionality or the recent search display. I&rsquo;ve been reading though public available portions of the <a href="https://graphics.stanford.edu/wikis/cs448b-12-fall/">cs488b syllabus</a> and can see why Bibly included them, but I wanted to keep the page as simple as possible.</li>
+<li>Mousing over a bar immediately shows the corresponding quotation at the bottom of the page instead of showing tooltip with a list of quotations to click on.</li>
+<li>None of the height, width, word bucket size, or chapter length values depend on <a href="http://en.wikipedia.org/wiki/Magic_number_(programming)">magic numbers</a>. This makes it easy to resize the graph to fill the browser window, rescale the y-axis for different words, and potentially use the same code to display other books.</li>
+</ul>
+
+
+<p>Some things that I would like to add or improve:</p>
+
+<ul>
+<li>Resizing the page after it has loaded should resize the graph too. I didn&rsquo;t work with <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a> in mind though, so it would take some work to implement this.</li>
+<li>Loading splash screen should have a loading bar or changing text.</li>
+<li>The text display should have a way to read more of the passage. Maybe clicking could open a new scrollable window containing the entire text with passage highlighted.</li>
+<li>The numbers on the autocomplete drop down should align to the right. This is surprisingly difficult to do without breaking jquery ui.</li>
+<li>It&rsquo;d be super cool to include more books. Most of the process is automated, but some hand editing was required to the make the raw text from Project Gutenberg usable for the parseBook.py program I wrote. It would be feasible to do the same for the freely available texts in the <a href="http://www.stjohnscollege.edu/academic/readlist.shtml">St. John&rsquo;s program</a>. Alternatively (or additionally), if I wrote a parse parseEPUB.py program (which wouldn&rsquo;t require any hand editing for each text since chapter titles are written in constant ways) and ran it server side, it might be possible to allow users to upload any book formatted as an <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a> without DRM that they own and display a graph for their book. I&rsquo;m not sure how useful or used this would be; even if the user has and knows where to find an ebook on their hard drive, it will probably be from Amazon and/or contain DRM.</li>
+<li>While I was looking though the <a href="http://nltk.org/">nltk</a> documentation, I came across this graph: I&rsquo;m not sure if it is a necessarily better display of the same information. Frequency is a little harder to discern and it just looks less interesting, but it takes up less spaces and opens up the possibly of easily comparing the frequency of different words.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Road to Larissa]]></title>
+  <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
+  <link href="http://roadtolarissa.com/"/>
+  <updated>2014-01-14T23:47:56-05:00</updated>
+  <id>http://roadtolarissa.com/</id>
+  <author>
+    <name><![CDATA[Adam Pearce]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Twisters]]></title>
+    <link href="http://roadtolarissa.com/twisters-post"/>
+    <updated>2013-10-22T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/twisters-post</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">
+  <a href="http://roadtolarissa.com/twisters/"><img class=" wp-image-287 aligncenter" title="Tornado Map" alt="" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/nados-1024x988.png" width="640" height="617" /></a>
+  <p  style="text-align: center;">
+    <em><a href="http://roadtolarissa.com/twisters/">Interactive tornado map</a></em>
+  </p>
+</p>
+
+
+
+
+<p style="text-align: left;">
+  This is a remake of a <a href="http://uxblog.idvsolutions.com/2013/06/tornado-travel-map.html">map</a> John Nelson made over the summer:
+</p>
+
+
+
+
+<p style="text-align: center;">
+  <a href="http://uxblog.idvsolutions.com/2013/06/tornado-travel-map.html"><img class="aligncenter" title="Another Tornado Map" alt="" src="http://farm8.staticflickr.com/7373/9027126483_1f55a634ab_z.jpg" width="640" height="443" /></a>
+</p>
+
+
+
+
+<p style="text-align: left;">
+  Seeing Nelson&#8217;s map for the first time, I was struck at how well its combination of two intuitive ideas &#8211; transforming starting/ending locations into direction and displaying those directions with a polar histogram &#8211; created an instantly understandable visualization. It does a wonderful job of clearly communicating an idea to a wide audience. Sharing what I&#8217;ve learned from looking at this map with a sentence: &#8220;Most tornadoes in the US travel Northeast and typically occur in the East&#8221; isn&#8217;t nearly as impactful (a week after hearing that I probably wouldn&#8217;t remember the direction) or informative (what do &#8216;most&#8217; and &#8216;typically&#8217; mean?) as looking at the map.
+</p>
+
+
+
+
+<p style="text-align: left;">
+  I&#8217;ve tried to emulate the aesthetic of Nelson&#8217;s map while attaching one more simple idea &#8211; <a href="http://square.github.io/crossfilter/">crossfilter </a>- to it. Some things I&#8217;m happy with:
+</p>
+
+
+<ul>
+<li><strong>Click to Zoom<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png"><img class=" wp-image-288 aligncenter" alt="ok" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png" width="461" height="235" /></a></br></strong>d3&#8242;s built in <a href="https://github.com/mbostock/d3/wiki/Zoom-Behavior">zoom </a>is nice, but it is tricky to use on devices without a scroll wheel. Putting an <a href="http://bl.ocks.org/mbostock/4699541">onclick zoom event</a> on each state avoids this difficulty and has the huge add bonus of playing very nicely with crossfilter.  The state to state transitions are my favorite part of this map. Getting multistate tornadoes to behave correctly took a little bit of <a href="https://github.com/1wheel/tornado-tuners/blob/master/matchStates.py">data wrangling</a> and tinkering with crossfilter; I really like the result.</li>
+<li><strong>Brushable Arc<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png"><img class="size-full wp-image-289 aligncenter" alt="arc" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png" width="198" height="173" /></a></strong></br>Not the most useful or impressive thing in the world, but I don&#8217;t think anyone has done this before in d3 and after another <a href="http://www.roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js/">struggle </a>with trigonometry, I&#8217;m trilled that it actually works. I&#8217;d like to make it more accessible  - it might work well in <a href="http://nickqizhu.github.io/dc.js/">dc.js</a> - but the code needs a lot of polishing first.</li>
+</ul>
+
+
+<p>Some &#8216;Todos&#8217; without a checkmark:</p>
+
+<ul>
+<li><strong>Responsive Design<br/>
+</strong>Most screens will have some empty horizontal space and not enough vertical space to view the entire display at once.  Resizable charts with D3 aren&#8217;t actually that difficult to create &#8211; if the drawing of the chart is correctly <a href="http://bost.ocks.org/mike/chart/">decoupled</a> from its other functions you essentially get that behavior for free by redrawing after window.onresize - but (attractively) laying out 9 differently sized charts is.</li>
+<li><strong>Adjustable Color<br/>
+</strong>Setting the attributes of the lines so they matched the actual tornadoes was fun &#8211; direction, start, stop, width, and length clearly apply to both &#8211; but color, more than anything else, is the most visible property of the lines. Nelson colors according to direction to hammer home the point of his chart. I went with <a href="http://en.wikipedia.org/wiki/Fujita_scale">wind speed</a> since it seemed more meteorological and less morbid than deaths; I would have liked to avoid imposing that decision on the viewer. I&#8217;m hoping the graphs on this blog share the sense of playfulness I have exploring data and adjustable colors would have done a good job of that.</li>
+<li><strong>Tracking Dollar Damage<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc1.png"><img class="size-full wp-image-291 aligncenter" alt="arc" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc1.png" width="598" height="129" /><br/>
+</a></strong>eh&#8230; Probably too many charts on the page already.</li>
+<li><strong>Mouse Over Effects<br/>
+</strong>Unlike the my last three projects, there wasn&#8217;t an easy way to find images of the focused items. In lieu of a tooltip, it would have been cool to highlight each bar that the moused over tornado was a member of and possibly display text on the bar showing the corresponding exact value. Currently the only way to find out more about a given tornado on the map is to fiddle with the bars, which is pretty dorky (or with d3.select($0).data(), which is pretty obscure).</li>
+</ul>
+
+
+<p>But! I haven&#8217;t posted anything for four months and I&#8217;m looking forward to starting something new and applying some of what I&#8217;ve learned <a href="https://www.quovo.com/us/no/index.php">working full time</a> with d3 over the the last two months.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[NBA Draft]]></title>
+    <link href="http://roadtolarissa.com/nba_draft.html"/>
+    <updated>2013-06-16T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/nba_draft</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">
+  <a href="http://roadtolarissa.com/nba-draft/"><img class="wp-image-266 aligncenter" alt="nbaSplash" src="http://www.roadtolarissa.com/wp-content/uploads/2013/06/nbaSplash.png" width="500" height="215" /><br /> </a><em><a href="http://roadtolarissa.com/nba-draft/">Interactive graphic</a> comparing the top picks to the top performers in the NBA</em>
+</p>
+
+
+
+
+<p style="text-align: left;">
+  This is another remake, courtesy of the <a href="http://www.nytimes.com/interactive/2013/04/25/sports/football/picking-the-best-in-the-nfl-draft.html?_r=0">NYT</a>:
+</p>
+
+
+
+
+<p style="text-align: center;">
+  <a href="http://www.nytimes.com/interactive/2013/04/25/sports/football/picking-the-best-in-the-nfl-draft.html?_r=0"><img class=" wp-image-268 aligncenter" alt="nflspalsh" src="http://www.roadtolarissa.com/wp-content/uploads/2013/06/nflspalsh.png" width="508" height="165" /></a>
+</p>
+
+
+
+
+<p style="text-align: left;">
+  Assorted thoughts:
+</p>
+
+
+<ul>
+<li><p>Clearer differences between players of different skill level. In basketball, there is a huge difference between the best player in a draft (Lebron James in 03) and the 5th best (David West in 03). Representing the top players with a gradient highlights these differences. Shades of grey also differentiate &#x20; average &#x20; players from those who never played. I&rsquo;m not sure this color scheme would have worked as well with the NFL graphic since the larger drafts require thinner bars.</p></li>
+<li><p>More information about players.<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/06/tonyparker1.png"><img class="size-full wp-image-270 aligncenter" alt="tonyparker" src="http://www.roadtolarissa.com/wp-content/uploads/2013/06/tonyparker1.png" width="296" height="329" /></a></p>
+
+<p>Instead of a tricky formula based on &ldquo;number of starts, Pro Bowls and other factors,&rdquo; I went with the product of minutes played and <a href="http://en.wikipedia.org/wiki/Player_Efficiency_Rating">player efficiency rating</a>. Adding a chart of those numbers exposes those calculations and making it yearly creates a snapshot of a player&rsquo;s entire career. Looking at the bar graph in isolation now, it really looks like it needs axis tickmarks. In the context of the whole graphic though, they make things way too busy.<br/>
+I also copied from the last <a href="http://www.roadtolarissa.com/film-strips/">two</a>&#x20;<a href="http://roadtolarissa.com/meteors/">projects</a> I worked on and added an image of each player to the tooltip.<br/>
+Finally, clicking a bar opens a link with more information about the player which makes it significantly simpler for the viewer to continue finding things out.</p></li>
+<li><p>Team specific information. To make it easier to find a player or see how a team has done over time, mousing over or clicking a team name highlights picks by that team. Moving the slider also updates each team&rsquo;s number of top picks. I&rsquo;m a big fan of having animated transitions be accompanied by text updates. It makes the comparisons between two stats more concrete and quantitative while generating memorable takeaway numbers on the fly (&ldquo;did you know that the Grizzlies have never drafted a top 3 player?&rdquo;). I think the NYT&rsquo;s incorporation of this effect was more successful; by only updated two numbers at a time it could explain them in a sentence, drawing attention to them with bold text.</p></li>
+<li><p>Because I was tacking on features, I ended up with a more cluttered display. I usually try to make the instructions only a sentence long to reduce the amount of text on the page. That wasn&rsquo;t possible here, so I ended up a big block of words at the end. I probably should add some images, color, and/or formatting to it but it has been almost a month since my last post and I&rsquo;m ready to move onto the next project now.</p></li>
+<li>I really like how the NYT graphic passively shows player names in an unobtrusive manner.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Meteor Map]]></title>
+    <link href="http://roadtolarissa.com/meteor-map.html"/>
+    <updated>2013-05-19T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/meteor-map</id>
+    <content type="html"><![CDATA[<p><a href="http://roadtolarissa.com/meteors/"><img class=" wp-image-234 alignnone" alt="meteor map" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/meteormap.png" width="620" height="421" /></a></p>
+
+<p><em>An <a href="http://roadtolarissa.com/meteors/">interactive map</a> made for <a href="http://visualizing.org/contests/visualizing-meteorites">visualizing.org&#8217;s Meteorites contest</a>.</em></p>
+
+<p>I started from &#8216;scratch&#8217; with a blank <a href="http://www.jasondavies.com/maps/transition/">map of the world generated</a> by d3. Each meteor in the contest data set had a latitude and longitude, so I used those coordinates to plot a small circle on the map to represent each impact. After coloring the circles orange, the map looked almost like the one above.</p>
+
+<p>Most of the ~30 hours I&rsquo;ve spent working on this map were spent adding some of these small improvements:</p>
+
+<p>&amp;#x20*   <strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors&#8217; mass. I initially tried to make each circle&rsquo;s radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than &frac12;, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle&rsquo;s area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.
+*   <strong>Mouseover</strong> <strong>effects</strong></p>
+
+<pre><code>[&lt;img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" /&gt;][4]  
+The data set had some additional information that I wasn't sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its [meteorological society page][5] which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.
+</code></pre>
+
+<ul>
+<li><strong>Crossfilters<br/>
+</strong>To make the map even more interactive, I incorporated the year and mass data into histogram <a href="http://square.github.io/crossfilter/">crossfilters</a>. I&rsquo;ve used the crossfilter library indirectly before, through <a href="http://nickqizhu.github.io/dc.js/">dc.js</a> which has several chart types premade. Getting the circles on the map to change with transitions went beyond what dc.js can do out of the box and I had to get my hands dirty with the actual crossfilter library. The messiness of the code I ended up with reflects that - I&rsquo;m getting closer to doing things correctly, but I&rsquo;m not quite there yet.</li>
+</ul>
+
+
+<p>Ultimately, I ended up with a presentation pretty close to <a href="http://vimeo.com/59791629">Javier de la Torre&rsquo;s</a>:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2013/05/cartodb.png"><img class="alignnone size-full wp-image-247" alt="cartodb" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/cartodb.png" width="744" height="442" /></a></p>
+
+<p>I  think my version has a number of improvements (obviously, I just finished making it!) &#8211; the better looking tooltips which active on mouseover not on click, the crossfilters, dotmap instead of heatmap (I really don&rsquo;t like what happens to their contiguous areas on zoom)  - but Torre apparently made his in only 30 minutes. I don&rsquo;t regret the additional time spent on mine since most of it was spent learning, but <a href="http://osm2.cartodb.com/tables/2320/public#/map">cartodb</a> or <a href="https://developers.google.com/fusiontables/">fusion tables</a> look like they would be the appropriate tool to use the vast majority of the time. I am a little frustrated I wasn&rsquo;t able to do more with the flexibility of d3 - the only other published entry for the contest I&rsquo;ve seen, <a href="http://bolid.es/">bolid.es</a>, is stunning &#8211; and I&rsquo;m looking forward to seeing what else gets made.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Film Strips]]></title>
+    <link href="http://roadtolarissa.com/film-strips-post"/>
+    <updated>2013-05-02T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/film-strips-post</id>
+    <content type="html"><![CDATA[<p><a href="http://roadtolarissa.com/film-strips/"><img class="alignnone  wp-image-220" alt="filmstrips" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/filmstrips.png" width="640" height="417" /></a></p>
+
+<p style="text-align: center;">
+  <a href="http://roadtolarissa.com/film-strips/">http://roadtolarissa.com/film-strips/</a>
+</p>
+
+
+<p>I&rsquo;ve had this idea bouncing around in the back of my head for a few months. When I finally got around to working on it, I was pleasantly surprised to have a functional prototype after only a few hours.</p>
+
+<p>The idea is pretty simple: Take a bunch of <a href="http://www.ffmpeg.org/">sequential stills from a movie</a>, create a map of how their <a href="http://www.pythonware.com/products/pil/">average color</a> changes over time, and add a <a href="http://d3js.org/">mouseover effect</a> that shows the enlarged still. Thanks to google and stackoverflow, it didn&rsquo;t take too long to find programs and libraries that did most of what I was picturing and with my experience on other projects, gluing everything together went smoothly.</p>
+
+<p>Because of disk space constraints, I&rsquo;m only hosting the 2013 Best Picture Nominees. Many more (static) film strips are located at <a href="http://moviebarcode.tumblr.com/">MovieBarcode</a> which this project was inspired by. You can also make interactive film strips from your own movie files &#8211; the whole process is <a href="https://github.com/1wheel/film-strips">automated </a>&ndash; if you&rsquo;re not familiar with python though, getting all the tools setup will take a few hours.</p>
+
+<p>I have a couple of idea of additional features (subtitle integration, variable bar width, experiments with other ways of generating and showing color, ect) but since this is sitting in distinctly gray area of fair use, I&rsquo;m a little hesitant to put more time into it. I am glad I did what I&rsquo;ve done. I&rsquo;ve started working at an actual workplace and I&rsquo;d like to stay (/get back) in the habit of working on things for fun.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Whale Words]]></title>
+    <link href="http://roadtolarissa.com/whale-words.html"/>
+    <updated>2013-01-28T00:00:00-05:00</updated>
+    <id>http://roadtolarissa.com/whale-words</id>
+    <content type="html"><![CDATA[<p><a href="http://www.roadtolarissa.com/whalewords"><img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" /></a></p>
+
+<p>This is a display of word frequency in Moby Dick that I just finished making. It draws heavily on <a href="http://stanford.edu/~garylee/bibly/#verse">Bibly</a>, which displays word frequency in the Bible.</p>
+
+<p><a href="http://stanford.edu/~garylee/bibly/#verse"><img class="aligncenter size-large wp-image-194" title="Bibly" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/bibly-1024x593.png" alt="" width="640" height="370" /></a>To get more practice with d3.js, I wrote everything from scratch. Having a visual reference was still extremely helpfu, though. Some things I really liked about their implementation/would have run into trouble without:</p>
+
+<ul>
+<li>Grouping words into equally sized buckets to create a histogram. This sounds obvious, but I had some trouble getting to it. My first idea for this project came when I saw a <a href="http://i.imgur.com/c7de3.png">infographic of word frequency in the Wire</a>. I wanted to make an interactive version of the same data, showing the number of occurrences of each word per episode. Since each episode contains roughly the same amount of dialog, it would be relatively simple to draw a single bar for each episode. When I decided to work with Moby Dick instead, my first attempt drew one bar per chapter and with the variable width bars, it looked awful. Unable to find a solution, I put the project aside until I came across Bibly.</li>
+<li>The use of two colors of bars on the x-axis to detonate chapter length. I would have used tick marks, but solid bars are a significantly better visual metaphor for chapters which persist for the entirely of their length and aren&rsquo;t one time events. Bars are also better mouseover targets.</li>
+<li>This might be a little silly, but I really like the &#8216;[Enter] a Word&#8217; formulation. I tried a lot of different instructions for the splash page of <a href="http://redditgraphs.com">redditgraphs</a>, but really struggled finding one that was both concise and clear.</li>
+</ul>
+
+
+<p><span style="font-size: 16px;">Some things I added or removed:</span></p>
+
+<ul>
+<li>An autocomplete drop down to text box.<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/01/drop-down.png"><img class="size-full wp-image-195 aligncenter" title="Drop Down" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/drop-down.png" alt="" width="173" height="330" /></a>In addition to downloading the text of the Moby Dick (about 1 MB), the webpage also downloads an array containing all the none <a href="http://en.wikipedia.org/wiki/Stop_words">stop words</a> in Moby Dick and the number of their occurrences (about .2 MB). Typing a few letters searches though the array for the most common words that match, then displays them and their frequencies in a drop down menu. This is pretty sweet for a couple of reasons. Displaying the frequency of many words at once increases the information density of the site &#8211; the drop down with no text entered yet basically shows as much information as the entire Wire infographic.  At the same time, it increases usability (if the user doesn&rsquo;t realize the need to press enter, the suggestions are click targets) and invites exploration (it is hard thinking of interesting words to search for on the fly, the autocomplete shows several of them at a time).</li>
+<li>The highlight functionality or the recent search display. I&rsquo;ve been reading though public available portions of the <a href="https://graphics.stanford.edu/wikis/cs448b-12-fall/">cs488b syllabus</a> and can see why Bibly included them, but I wanted to keep the page as simple as possible.</li>
+<li>Mousing over a bar immediately shows the corresponding quotation at the bottom of the page instead of showing tooltip with a list of quotations to click on.</li>
+<li>None of the height, width, word bucket size, or chapter length values depend on <a href="http://en.wikipedia.org/wiki/Magic_number_(programming)">magic numbers</a>. This makes it easy to resize the graph to fill the browser window, rescale the y-axis for different words, and potentially use the same code to display other books.</li>
+</ul>
+
+
+<p>Some things that I would like to add or improve:</p>
+
+<ul>
+<li>Resizing the page after it has loaded should resize the graph too. I didn&rsquo;t work with <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a> in mind though, so it would take some work to implement this.</li>
+<li>Loading splash screen should have a loading bar or changing text.</li>
+<li>The text display should have a way to read more of the passage. Maybe clicking could open a new scrollable window containing the entire text with passage highlighted.</li>
+<li>The numbers on the autocomplete drop down should align to the right. This is surprisingly difficult to do without breaking jquery ui.</li>
+<li>It&rsquo;d be super cool to include more books. Most of the process is automated, but some hand editing was required to the make the raw text from Project Gutenberg usable for the parseBook.py program I wrote. It would be feasible to do the same for the freely available texts in the <a href="http://www.stjohnscollege.edu/academic/readlist.shtml">St. John&rsquo;s program</a>. Alternatively (or additionally), if I wrote a parse parseEPUB.py program (which wouldn&rsquo;t require any hand editing for each text since chapter titles are written in constant ways) and ran it server side, it might be possible to allow users to upload any book formatted as an <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a> without DRM that they own and display a graph for their book. I&rsquo;m not sure how useful or used this would be; even if the user has and knows where to find an ebook on their hard drive, it will probably be from Amazon and/or contain DRM.</li>
+<li>While I was looking though the <a href="http://nltk.org/">nltk</a> documentation, I came across this graph: I&rsquo;m not sure if it is a necessarily better display of the same information. Frequency is a little harder to discern and it just looks less interesting, but it takes up less spaces and opens up the possibly of easily comparing the frequency of different words.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unemployment Rates]]></title>
+    <link href="http://roadtolarissa.com/unemployment-rates.html"/>
+    <updated>2013-01-21T00:00:00-05:00</updated>
+    <id>http://roadtolarissa.com/unemployment-rates</id>
+    <content type="html"><![CDATA[<p><a href="http://www.roadtolarissa.com/unemployment"><img class="aligncenter size-large wp-image-185" title="unemployment rates" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate1-1024x705.png" alt="" width="640" height="440" /></a></p>
+
+<p>Three years ago, the New York Times published a <a href="http://www.nytimes.com/interactive/2009/11/06/business/economy/unemployment-lines.html">nifty interactive graphic</a> showing how the recession had impacted the unemployment rate of different demographic groups. Wanting show a broader range of dates, add features, and get more practice with d3.js, I started working on a remake.</p>
+
+<p>During my job at Goody Goody, I got some practice getting time series from Bureau of Labor Statistics. Since I was only interested in a few types of data like the CPI and unemployment rate in Texas, I used their <a href="http://data.bls.gov/pdq/querytool.jsp?survey=ln">clunky java app</a> to get the data I needed.</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate2.png"><img class="aligncenter size-full wp-image-186" title="BLS java app" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate2.png" alt="" width="784" height="459" /></a></p>
+
+<p>I briefly contemplated manually selecting all the series that I wanted to use for downloading but decided not to because of the amount of time and errors that would be involved in doing that. Poking around the BLS website more, I found their <a href="ftp://ftp.bls.gov/pub/time.series/ln">FTP site</a> which contained huge text files with unemployment time series. This wasn&#8217;t particularly user friendly, but all the data was machine readable and I wrote a <a href="https://github.com/1wheel/unemployment/blob/master/parseBLS.py">small python program</a> to extract and repackage the time series I wanted to show.</p>
+
+<p>Even at this relatively early stage, I made a couple of decisions to limit the project&rsquo;s scope. The BLS collects a huge amount of demographic data &#8211; martial status, occupation, disabilities, veteran, reasons for not working more, ect. &#8211; and I omitted most of them because only a limited number of groupings have <a href="http://en.wikipedia.org/wiki/Cross_tabulation">crosstabs</a>. I also picked the semi arbitrary start year of 2001 to keep amount of data the page requires down. Many of the series go back to the 1950s and including them would have required either long page load times or a tricker system of only downloading requested time frames.</p>
+
+<p>Implementing the page in d3.js wasn&rsquo;t too difficult. I&rsquo;m getting more familiar with the library and the style of coding that works well with it. The biggest issue with the library  right now is its inability to do smooth transitions in none webkit browsers. The NYT&#8217;s version of the graphic was written in flash and doesn&rsquo;t lag in firefox. Beta builds of firefox with the right experimental settings enabled display the page fine, but I&rsquo;m not sure how long it will be before those improvements are widely installed.</p>
+
+<p>In terms of new features, I added another set of buttons to allow for easy comparisons between two different demographic groups and a brush on the bottom graph for selecting time. These additions take some of the focus away from the recession, but also historically contextualize the unemployment rate and draw the viewer to explore the data.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Zoomable Sierpinski Triangle With d3.js]]></title>
+    <link href="http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js.html"/>
+    <updated>2012-12-21T00:00:00-05:00</updated>
+    <id>http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">
+  <a href="http://roadtolarissa.com/triangles/"><img class="aligncenter size-large wp-image-168" title="triangle" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/triangle-1024x815.png" alt="" width="640" height="509" /></a>http://roadtolarissa.com/triangles/
+</p>
+
+
+<p>After finishing up the <a href="http://www.roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures/">petition project</a>, I wanted to use what I learned about d3.js to create something a little more fun. After a few hours<sup>1</sup> of work,  I had this:</p>
+
+<pre class="brush: jscript; title: ; notranslate" title="">//triangle centered at (cx, cy) with circumradius r
+function addTriangle(cx, cy, r){
+  svg.append('polygon')
+    .on(mobile ? "click" : "mouseover", function(d){
+      addTriangle(  cx,             cy - r/2,       r/2);     
+      addTriangle(  cx - r*sin30/2, cy + r*cos30/2, r/2);     
+      addTriangle(  cx + r*sin30/2, cy + r*cos30/2, r/2);
+      
+      d3.select(this).on('mouseover', function(){});
+      d3.select(this).on('click', function(){
+        addTriangle(cx, cy, r);});
+    })
+    .attr('fill', 'white')
+    .attr('points', (cx)  +','+   (cy)  +' '+ 
+                    (cx)  +','+   (cy)  +' '+
+                    (cx)  +','+   (cy))
+    .transition()
+    .duration(600)
+    .delay(10)
+      .attr('fill', randomColor())
+      .attr('points', (cx)  +','+   (cy-r)          +' '+ 
+              (cx-r*sin30)  +','+   (cy + r*cos30)  +' '+
+              (cx+r*sin30)  +','+   (cy + r*cos30))
+}
+</pre>
+
+
+<p>which is currently live at the above link. There are a lot of things I&rsquo;d like to add &#8211; proper mobile support, more fractal patterns, deeper zooming, and more interesting coloring &#8211; but I&rsquo;ve just been clicking and scrolling around the triangles instead. It&#8217;s incredible to me that such a small snipping of code could create something so visually engaging. Even though the internet already has dozens of Sierpinski Triangles, I haven&rsquo;t found any as interactive and eloquent as this one (which is because of d3.js, not anything I&rsquo;ve done) so I feel ok posting it.</p>
+
+<ol>
+<li>The most frustrating part of making this: tricking myself into think that I had forgotten everything about geometry. From about 2 AM to 3.30 AM, I was trying to find the vertices of an equilateral triangle given the circumradius and center. This is pretty easy to do with trigonometry (see lines 21-23) , but I kept getting lopsided triangles no matter how I calculated the vertices. I even ended up pulling a geometry textbook off the shelf to check that I was doing the math correctly. Eventually (and I can&rsquo;t remember what lead me to this realization or why it didn&rsquo;t come earlier) it dawned on me that Math.sin(x) thought x was in radians and I was entering degrees.</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Interactive Visualization of White House Petition Signatures]]></title>
+    <link href="http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures.html"/>
+    <updated>2012-12-19T00:00:00-05:00</updated>
+    <id>http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Next Project]]></title>
+    <link href="http://roadtolarissa.com/next-project.html"/>
+    <updated>2012-11-20T00:00:00-05:00</updated>
+    <id>http://roadtolarissa.com/next-project</id>
+    <content type="html"><![CDATA[<p>Finished with redditgraphs, I have a couple of ideas about what I&rsquo;d like to work on next; I&rsquo;m posting them to clarify my own thoughts and to get feedback.</p>
+
+<p><strong>Games<br/>
+</strong></p>
+
+<ul>
+<li> <em>Hangout Boardgames</em><br/>
+I hadn&rsquo;t touched this project in about a month until two days when I started working on it again. I added <a href="http://www.roadtolarissa.com/javascript/hangout-boardgames/">backgammon</a>, fixed some bugs, and made it publicly accessible on <a href="https://plus.google.com/hangouts/_?gid=687984412875">Google+</a> (I think). Before sharing it with more people, the UI common to each game needs some more work. I think the concept is better than all the other hangout apps I&rsquo;ve seen &#8211; instead of having the game board take up the entire screen, the game takes place entirely on a small (on most screens) 400&#215;400 tile and the video feed from your opponent fills the rest of the space. The UI to switch teams and change the game is very spartan. I&rsquo;d to make it better but I&rsquo;m having trouble finding a solution that doesn&rsquo;t clash individual games differing art styles:<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/Board-Game-UI.png"><img class="aligncenter size-full wp-image-140" title="Board Game UI" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/Board-Game-UI.png" alt="" width="434" height="482" /><br/>
+</a>Rejoining a hangout also causes a mysterious crash about 20% of the time, which needs to be fixed before release.</li>
+<li> <em>Lyric Typing Game</em><br/>
+Over the summer, I made a rudimentary typing game for Spotify. Pulling lyrics from tunewiki, it displays the word as they are being sung and the user tries to type them before they finish playing. It&rsquo;d be really cool to make this app available on spotify, unfortunately licencing lyrics is super expensive (minimum <a href="https://developer.musixmatch.com/">$20,000</a>). I might try to contact providers of tunewiki to see if they want to include the game in their own spotify application or at the very least make a post about the app and record a video of it working.</li>
+<li><em>Neocolonialism</em><br/>
+Over the summer, I exchanged several lengthy emails with Seth Alter, the creator of <a href="http://subalterngames.com/">Neocolonialism</a>. Playing  the game with my friends was great, but we ran into several nasty bugs. I sent him an email with game play suggestions and an offer to help debug the game. After corresponding for a few days, he took me up on the offer but I got nervous and didn&rsquo;t respond for two weeks. He didn&rsquo;t reply (understandably) and I haven&rsquo;t talked with him since, but I&rsquo;d still really to help out. I don&rsquo;t think it would be super hard for me to make a demo version of the game for google hangouts. Playing on hangouts would automatically integrate voice and video while avoiding many of the hangups that make it difficult to get the game up and running &#8211;  currently, everyone has to separately install the game, type in the correct IP address, and fix router issues. Before contacting Seth again, I should finish up the the board game app in order to have a solid proof of concept. I&rsquo;m not sure I&rsquo;ll get a response &#8211; we&rsquo;re still on each other&rsquo;s gtalk friends list, but I&rsquo;ve been removed from the &#8216;Thnx&#8217; section of the rulebook &#8211; still, trying probably won&rsquo;t hurt anything.</li>
+</ul>
+
+
+<p><strong>Visualizations</strong></p>
+
+<ul>
+<li><em>Whitehouse Petitions<br/>
+</em>In response to Obama&rsquo;s reelection, secessionists posted a <a href="https://petitions.whitehouse.gov/petition/peacefully-grant-state-texas-withdraw-united-states-america-and-create-its-own-new-government/BmdWCP8B">petition </a>requesting &#8220;Peacefully grant the State of Texas to withdraw from the United States of America and create its own NEW government [sic].&#8221; By scraping the page for the locations of all the signers, this <a href="http://www.reddit.com/r/dataisbeautiful/comments/13853n/texas_secession_petition/">graph</a> was generated: <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/T1NYT1.png"><img class="aligncenter size-large wp-image-151" title="T1NYT" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/T1NYT1-1024x675.png" alt="" width="640" height="421" /></a>While there are a number of problems with the graph -the locations should be exaggerated by county instead of city and it needs to show density instead of logged total numbers &#8211; the idea is very good. I would like expand both the types of graphs shown &#8211; the rate of signing, the gender of signers, the predicted partisanship of the signers &#8211; and the number of petitions. There are dozens of active petitions and if everything was automated, it would not be hard to rescrape and update the graphs once a day.</li>
+<li><em>More redditgraphs</em><br/>
+I&rsquo;d like to generate more user specific statistics using comment history text pulled from the reddit API. I&rsquo;ve read several papers which used text corpora from blogger, twitter,  and youtube to predict user age and gender. Doing the same with reddit comments is feasible, but the lack of a training set (reddit has no user profile page) and structural limitations with the reddit API make the task much more more difficult than it should be. Since I&rsquo;m taking a break from reddit, I&rsquo;m putting this idea on hold for a while.</li>
+<li><em>Pitchfork Statistics </em><br/>
+Scrape the text, date, score, author and band information from every published review on pitchfork to see the score distribution, what words correlate with better scores, and how word usage has changed during the site&rsquo;s history.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redditgraphs Retrospective]]></title>
+    <link href="http://roadtolarissa.com/redditgraphs-retrospective.html"/>
+    <updated>2012-11-17T00:00:00-05:00</updated>
+    <id>http://roadtolarissa.com/redditgraphs-retrospective</id>
+    <content type="html"><![CDATA[<p>It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the application and trying to share it with people. After posting the basic demo on /r/javascript, I was encouraged make improvements and host the project on its own domain. Registering &#8220;<a href="www.redditgraphs.com">redditgraphs.com</a>&#8221; for a year only cost $5 and it seemed more memorable and easier to access than &#8220;roadtolarissa.com/javascript/reddit-comment-visualizer&#8220;. I spent another week adding functionality &#8211; hourly trends, weekly trends, direct linking to user names &#8211; and making the UI prettier.</p>
+
+<p>Improving the UI was harder than adding functionality. I don&rsquo;t think I&rsquo;ve ever created anything particularly visually beautiful before in my life. The previous UI was definitely not pretty but since I was using the default radio button and drop down menus, it didn&rsquo;t feel like I was exposing part of myself or actively making something bad or mockable. Still, several changes were necessary to improve usability. Most importantly, the previous graph picker was too small and did not attract enough attention:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview3.png"><img class="aligncenter size-full wp-image-114" title="Old Graph Type" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview3.png" alt="" width="180" height="130" /></a></p>
+
+<p>One of the biggest difficulties in creating this type of interactive display is leading the user to interesting interactions. After posting this version, I received several requests to add histograms and karma plotting &#8211; features already included, but buried in ambigously titled drop down menus. I had thought putting the options in the upper left hand corner would make them impossible to miss. Since that wasn&rsquo;t the case, I used large, tile-like icons to draw even more attention to the different graph types in the redesign:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview4.png"><img class="aligncenter size-full wp-image-115" title="New Graph Types" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview4.png" alt="" width="221" height="410" /></a></p>
+
+<p>By making the icons the largest, most colorful non graph item on the page, it is much clearer that they are supposed to be clicked on and played with. Additionally, convanying the opitions in a less textual manner allowed me to move away from the confusing &#8220;Graph Settings: Graph Type: Type&#8221; formulation. I think there is still a lot of room for improvement, especially on the data icons, but I&rsquo;m not sure how to do it without learning a lot more or paying something. The pile of books and the ruler look like clip art because that&rsquo;s what they are.</p>
+
+<p>The rest of the redesign followed a similar pattern. All the radios and spinboxes were replaced by more clickable and colorful buttons and sliders. I added a banner and logo at the top, which took much longer than I excepted to get just right.</p>
+
+<p>This was the result:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview.png"><img class="aligncenter size-large wp-image-109" title="Changes to redditgraphs" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview-1024x717.png" alt="" width="640" height="448" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>Satisfied with both the look and functionality, I posted a link and a description to /r/dataisbeautiful. The surprising amount of the feedback was almost entirely positive and several thousand people visited the site. This was very exciting &#8211; I&rsquo;m don&rsquo;t think anything else I&rsquo;ve done has ever been used by so many people in so short a time. I also tweeted links  to several tech journalists and one ended up writing a short article.</p>
+
+<p>Afterwords, I spent a few days making some of the suggested improvements &#8211; viewing submissions as well as comments, adding the option to log scale some of the axes, and direct linking to different graph types. Around this time, working with the code started to become much more unpleasant. The main culprit was (and is) the function that takes raw data download from reddit and transforms it into a graph. Since I hadn&#8217;t anticipated having so many options, features were added one at a time until the thing started to resemble a huge knot.</p>
+
+<p>Encouraged by the suggestions to share the site with more people, I posted links on some of the default subreddits. Unfortunately, the reception wasn&rsquo;t nearly as positive. Some of the time, my posts were basically ignored (/r/WTF, /r/YouShouldKnow) without many people seeing them. More often, they would would start doing well and than get removed by a moderator for being off topic (/r/askreddit, /r/technology, /r/LifeProTips, /r/offbeat).</p>
+
+<p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
+
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#116;&#x69;&#112;&#115;&#64;&#119;&#x65;&#x62;&#x73;&#105;&#116;&#x65;&#46;&#x63;&#111;&#109;">&#x74;&#105;&#x70;&#115;&#x40;&#119;&#x65;&#98;&#115;&#x69;&#x74;&#101;&#x2e;&#x63;&#x6f;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
+
+<p>During most of the this time, I wasn&rsquo;t really doing anything productive. It was super easy to write up a post or an email and then sit around writing responses and browsing reddit for a few too many hours. To avoid this problem without giving up hope on getting more users, I spent a few days learning python and <a href="https://github.com/1wheel/reddit-comment-visualizer/blob/master/commentbot.py">wrote a bot</a> to scan recent comments for mentions of &#8216;your comment history&#8217; or &#8216;my comment history&#8217; and reply with a link to the mentioned person&rsquo;s redditgraph. Initially, I manually copied/pasted the comments and only posted a few per day. Seeing that 75% of the replies to the &#8216;bot&#8217; were positive, I decided to totally automate its posting and expand the number of terms it searched for. The maker of the the <a href="http://stattit.com/">statit</a> contacted me on gtalk, telling me that I should throttle or turn off the bot or the admins would ban it. I knew he was probably right, I couldn&rsquo;t bring myself to disable to continuous stream of comments I was creating. The thrill I got from redditgraphs came primarily from the idea that thousands of people around the world were using their computers to simultaneously automate a process that I had shared with them; with the commenting bot the sharing itself was automated.</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof2.png"><img class="aligncenter size-full wp-image-123" title="redditbot comment" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof2.png" alt="" width="852" height="88" /></a></p>
+
+<p>The next morning, the bot was banned.</p>
+
+<p>Getting responses and posting wasn&rsquo;t fun anymore, so I&rsquo;ve decided to stop posting on reddit. While I did learn more about reddit and communicated with admins, moderators, and bloggers more than I had before, I don&rsquo;t think it is the most useful topic to learn about and I didn&rsquo;t need to spend weeks on it. I definitely don&rsquo;t need to need more time making the greenlines on this graph go up higher:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/bwgraph.png"><img class="aligncenter  wp-image-127" title="Traffic graph for redditgraphs" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/bwgraph.png" alt="" width="800" height="400" /></a>
+</p>
+
+
+<p>One more generally applicable thing I found out: feedback isn&rsquo;t helpful in terms of adding features. Before the redesign no one was asking for large icons instead of drop down menu, but from all the comments asking about different graph types I inferred that they needed to be added. One of the more useful features I came up with allowed for searching for specific phrases in the comment history. This didn&rsquo;t get added to the live version mainly because I wasn&rsquo;t sure how to add it to the UI &#8211; should there be a user name text box and a search text box right on top of each other? Requiring people to typing in a regex didn&rsquo;t seem feasible, but where would the rules of a simpler syntax be communicated? I assumed that someone would ask for searching and I would have a reason to add it, but no one did and I never got around to it.</p>
+
+<p>A small proportion of the comments were useful, maybe 10 or 20 out out of the ~250 that I received. That number is even more miniscule compared to the total number number of people who have viewed the site:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof3.png"><img class="aligncenter size-full wp-image-129" title="makeusof" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof3.png" alt="" width="508" height="123" /></a></p>
+
+<p>It makes sense that most people wouldn&rsquo;t send feedback &#8211; I look at lots of things people have made on the internet and I write something back to the creator far less than 1% of the time. This highlights the importance of having a clear idea of what you&rsquo;d like to make and generating and refining your own work towards that idea. Getting feedback in the form of a conversation with someone you actually know before sharing widely is also extremely valuable. Unlike your actual friends, internet commenters don&rsquo;t have any incentive to engage deeply with your idea and most don&rsquo;t end up doing so.</p>
+
+<p>I&rsquo;ve been working on a few smaller projects since. Nothing is super finished, but I should have a post about the works in progress up later today.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Reddit Comment Visualizer]]></title>
+    <link href="http://roadtolarissa.com/reddit-comment-visualizer.html"/>
+    <updated>2012-10-19T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/reddit-comment-visualizer</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve spent the last few days working on a <a href="http://www.roadtolarissa.com/javascript/reddit-comment-visualizer/">visualizer for reddit comments</a>.  Using reddit&rsquo;s API, the program downloads a user&rsquo;s comments and graphs them with <a href="http://www.flotcharts.org/">flot</a>.</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/scatter-plot-screen-shot.png"><img class="aligncenter size-full wp-image-85" title="Scatter Plot Screen Shot" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/scatter-plot-screen-shot.png" alt="" width="734" height="497" /></a></p>
+
+<p>The most obvious way to graph a set of data points is with a scatter plot. Since reddit&rsquo;s <a href="http://www.reddit.com/user/1wheel/comments/">user page</a> only displays 20 comments at a time, it is very difficult to get a sense about how time has been spent on the site. On this scatter plot, every one of my comments is represented by a small circle plotted so its length position along the y-axis represents its number of (non-quotation) characters. Mousing over a circle displays the comment it represents on the right panel. I can see that I&rsquo;ve spent most of my time talking about League of Legends, that I commented a lot in last July, and that I&rsquo;m posting less frequently now.</p>
+
+<p>Unfortunately, while it is easy to see that most of my comments are not very long, it isn&rsquo;t very clear exactly how many shorter comments there are since the points cluster together closely at the bottom of the graph. Adding a heat map or <a href="http://bost.ocks.org/mike/fisheye/">fisheye zoom</a> to the scatter plot could fix this problem, but neither are implemented in flot. Instead, I use a totally different graph type to display the data:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Histogram-of-Length.png"><img class="aligncenter size-full wp-image-81" title="Histogram of Length" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Histogram-of-Length.png" alt="" width="719" height="665" /></a></p>
+
+<p>flot also does not include histograms, but sorting and grouping the comments then displaying them with the <a href="http://people.iola.dk/olau/flot/examples/stacking.html">stacking plugin</a> is simpler than creating a fisheye zoom effect within flot. By removing the time component of the graph, the distribution of comment length becomes much easier to see &#8211; the vast majority of comments I&rsquo;ve made are quite short, even more so than the scatter plot shows.</p>
+
+<p>Still, while the distribution of comment&rsquo;s length is apparent in the histogram, the distribution of comment length in each subreddit is difficult to discern. Like with the scatter plot, it is clear that the most commonly element &#8211; this time the League of Legends subreddit instead of short posts &#8211; occurs quite often and others less frequently, but the actual ratio between them is not clear.</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/pie-chart.png"><img class="aligncenter size-full wp-image-83" title="pie chart" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/pie-chart.png" alt="" width="651" height="662" /></a></p>
+
+<p>Pie charts <a href="http://andrewgelman.com/2010/09/thinking_outsid/">generally don&rsquo;t get a lot of love</a>, but I use one to display total karma (and total comment length, and number of comments) by subreddit because it does a decent job of displaying the ratios and is simpler, more immediately understandable graph than the others. The second point is particularly important with the pie chart because mousing over a wedge shows a quantitative breakdown of the comments on a particular subreddit:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/pie-details.png"><img class="aligncenter size-full wp-image-84" title="pie details" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/pie-details.png" alt="" width="207" height="207" /></a>The mouse over detail for all the other, more complicated charts is mostly composed of the text of the comment which is easier to process than sums and averages. The simpler  display of the pie graph allows for comparatively more complicated details.</p>
+
+<p>While removing time from the graph allows for a closer examination of different properties of commenting patterns, it also (obviously) masks how those patterns change over time. One of my initial motivations in undertaking this project was to see if my own habits on Reddit have changed over time, particularly how my commenting on the League of Legends subreddit had changed after I had stopped playing. For that, a sort of  pie chart on a timeline graph was needed, like the histograph from Civilization 3:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Civ-Histograph.png"><img class="aligncenter size-full wp-image-88" title="Civ Histograph" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Civ-Histograph.png" alt="" width="902" height="690" /></a></p>
+
+<p>When I tried to find a histograph plugin for though, I ran into a problem:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Google-Search-for-histograph.png"><img class="aligncenter size-full wp-image-93" title="Google Search for histograph" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Google-Search-for-histograph.png" alt="" width="197" height="32" /></a>Apparently, by &#8216;histograph&#8217; Firaxis meant &#8216;history graph&#8217;, not &#8216;histograph, a term of art describing a type of graph&#8217; like I have been assuming they meant for the last 11 years. I&rsquo;ve tried finding the actual name for this type of graph, but so haven&rsquo;t been able to unearth one. Undeterred, I implemented a histograph in flot:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Histograph-of-Reddit-Comments2.png"><img class="aligncenter size-full wp-image-94" title="Histograph of Reddit Comments" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Histograph-of-Reddit-Comments2.png" alt="" width="634" height="743" /></a></p>
+
+<p>This graph shows, in a way none of the others would be able to clearly, how rrenaud initially spent most of his time commenting on r/programming but then transitioned to r/gaming, r/MachineLearning, and r/dominion. (Since reddit shows everyone&rsquo;s comments to everyone else, this app can be used to view other user&rsquo;s comment history. Doing so seems a little stalkerish. At the same time, the scatter plot view provides the best, quickest overview of a reddit profile that I&rsquo;ve ever seen. By mousing over outliers and fiddling with the plot settings, it is possible to see someone else&rsquo;s most and least popular comments, the posts that they&rsquo;ve spent the most time writing and what they wrote when they first started using reddit in seconds. If rrenaud ever comes across this post, hopefully he isn&rsquo;t too weirded out &#8211; the graphs on his excellent <a href="http://rftgstats.com/">Race to the Galaxy stats page</a> inspired some of my work here and his site preservers <a href="http://rftgstats.com/player_1wheel.html">my mediocre rating</a> at the game (In my defense, I lost 10 of my last 11 games; there is probably some sort of connection between the win/loss record and my decision to stop playing))</p>
+
+<p>While the graph is valuable, it need more work. By showing the accumulated number of comments at each time interval instead of the rate of commenting, the start of the graph is extremely sensitive to small changes in commenting patterns while the end doesn’t move near enough. rrenurd essentially doesn’t comment in r/programming anymore but since the graph shows a stock instead of a flow, the graph doesn’t clearly show that information. I’d like a graph of the commenting rate instead, but I’m having trouble creating one which both displays the flow of comments in different subreddits and easily communicates its meaning. Even the current form of the histograph struggles on the communication front – the title of the graph and scale of the y axis need to be changed to better convey the concept of proportions changing over time.</p>
+
+<p>I’ve come a little closer to these goals graphing something similar:<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Average-Comments-per-Day.png"><img class="aligncenter size-full wp-image-103" title="Average Comments per Day" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Average-Comments-per-Day.png" alt="" width="898" height="638" /></a></p>
+
+<p>This graph needs less explanation because “Comments per Day” is an easier idea to communicate than what the histograph is trying to show even though both are reconstructing a flow from discrete points.</p>
+
+<p>I’d still like to improve this graph. In particular, the smoothing algorithm needs more work. Ideally, the leftmost part of the smoother would not have a large gap.  I’ve tried different kernel smoothers and radii but haven’t found anything that is responsive enough to small change in the data without leaving gaps.</p>
+
+<p>Other things to improve:</p>
+
+<ol start="1">
+  <li>
+    Splitting the graphing code into separate functions based on graph type. I was planning on doing this originally, but as I added more graph types it because less clear which parts of the program were unique to a graph type and which needed to be shared. The code was fairly concise and well organized when the page only showed a scatter plot; now it is a huge mess.
+  </li>
+  <li>
+    I’m really not sure how manage errors that occur when connecting to Reddit’s servers. The console displays a 404 message when the user name doesn’t exist and another message if no connection is made, but I have no idea how to make those events trigger things in my program. Currently, if a valid response isn’t received within 4 seconds an error message is displayed. This isn’t that great of a solution since sometimes Reddit’s servers take more than 4 seconds to reply with a valid response and sometimes they respond with a 404 message is less than 4 seconds. jQuery’s .ajax() has settings to fix this problem, but those callbacks don’t work with JSONP (something else I don’t understand – how does using prevent cross scripting?).
+  </li>
+  <li>
+    The page only uses CSS to position and hide elements. I think everything lines up ok in chrome, but in other browsers it looks pretty bad. Defining the appearance of the buttons and forms so different browsers use the same defined appearance instead of their different defaults would help. I’m hoping I can find a way of making pages look ‘nice’ without having to spend too much time on it; looking into different frameworks is probably a good idea.
+  </li>
+  <li>
+    Watching the graph change as older comments load (Reddit will send a maximum of 100 comments at a time) or slowly increasing the minimum comment length by holding down the button results in a nifty animation. Drawing the graph takes only a few milliseconds, so drawing the graph over and over again with slightly different parameter creates the appearance of motion. All of the graphs could be improved with optional animation. For example, an animated pie chart could show the same information as the histograph while being easier to understand and more engaging to look at. UI issues are preventing me from adding animation to the live version - the page is already getting close to being cluttered and there are huge number of ways to add motion to a graph. I need to figure which animated graphs are best along with a concise way of displaying to option to view them.
+  </li>
+  <li>
+    Allowing users to login with their Reddit information could also improve usability. The Reddit API only exposes friends and voting patterns of the currently logged in user. Displaying a drop down list of those friends would remove the need to copy/paste their strangely spelled names. More interestingly, the same analysis that is performed by the comments could be performed on upvoted content. I think I vote more often and in more places than I comment; that information might provide a better sense of time spent on the site. I suspect that number of votes that Reddit exposes might limit the value of this information. Only the 1000 most recent comments and submissions can be viewed and they same rule probably applies to votes. Since everyone automatically upvotes every comment they make, many of the votes would have to be thrown out. Additionally, votes on comments and submissions should probably be treated separately for everything other than subreddit analysis  which would further reduce number of available data points.
+  </li>
+  <li>
+    There are also comment analytics which are not directly exposed by Reddit. It would be neat to see who replies to you the most and vice versa. Keep track of different commenters on Reddit isn&#8217;t easy &#8211; I&#8217;ve had several conversations with people I know in person on Reddit and not realized it until they brought it up in real life. Reddit Enhancement Suite helps with this, but I&#8217;m still curious  to see how often I actually communicate back and forth with different people. Unfortunately, loading information about each comment&#8217;s parent and children might take too long to run in a webpage. Assuming 1000 comments each with an average of 1.5 combined parents and children, 1500 requests would take 3000 rate limited seconds to process &#8211; nearly an hour.
+  </li>
+</ol>
+
+
+<p>Even considering the above reservations, I&rsquo;m pretty happy about the current state of this app so I&rsquo;m going to post it to reddit to get some feedback. I&rsquo;ve also been pleasantly surprised about how long this took me to make &#8211; 40 hours of not especially difficult work over a week is still a longish amount of time but it&#8217;s significantly less than I would have spent a few months ago.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Yglesias on Amazon's P/E Ratio]]></title>
+    <link href="http://roadtolarissa.com/yglesias-on-amazons-pe-ratio.html"/>
+    <updated>2012-10-10T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/yglesias-on-amazons-pe-ratio</id>
+    <content type="html"><![CDATA[<p>Yglesias <a href="http://www.slate.com/blogs/moneybox/2012/10/09/wal_mart_testing_same_day_delivery.html">wonders</a> why Amazon&rsquo;s P/E is so high:</p>
+
+<blockquote><p>This raises the question in my mind, and not for the first time, of why Amazon merits a<a href="http://ycharts.com/companies/AMZN/pe_ratio" target="_blank">price/earnings ratio of 310</a>. For comparison&rsquo;s sake, <a href="http://ycharts.com/companies/WMT/pe_ratio" target="_blank">Wal-Mart is at 16</a>, <a href="http://ycharts.com/companies/AAPL/pe_ratio" target="_blank">Apple is at 15</a>,<a href="http://ycharts.com/companies/TGT/pe_ratio" target="_blank">Target is at 15</a>, <a href="http://ycharts.com/companies/MSFT/pe_ratio" target="_blank">Microsoft is at 15</a>, and <a href="http://ycharts.com/companies/HD/pe_ratio" target="_blank">Home Depot is at 22</a>. If you just compare Amazon&rsquo;s P/E ratio to the other established retailers you might think &#8220;well it has a high valuation because it&rsquo;s really a high-tech company.&#8221; But Amazon also has a much higher P/E ratio than established tech companies. The presumption seems to be that at some future point Amazon will be able to abandon its current model of huge volumes on tiny profit margins and thus supercharge earnings by raising margins. But for that to be the case, you have to assume that no other company will be able to compete with them in the web-based retail space <em>even if they start charging higher prices</em>.</p></blockquote>
+
+<p>Last quarter, <a href="http://www.google.es/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;cad=rja&amp;ved=0CCAQFjAA&amp;url=http%3A%2F%2Fonline.wsj.com%2Farticle%2FSB10000872396390443343704577551350639011184.html&amp;ei=UW91UPX1EoWY1AWkp4CQBA&amp;usg=AFQjCNFDo8D-1qzxifDvaNdxhoJYCDTV-g&amp;sig2=wPPPw-lxCqtcLwRYM0VEKA">Amazon&rsquo;s profits dropped from $191 million to $7 million</a> which resulted in their P/E ratio rising to astronomical levels. This changed didn&rsquo;t happen because of lost sales (revenue went up 29%) or because Amazon suddenly became very inefficient; it happened because Amazon aggressively expanded the scale of its current operations and invested in new areas. $65 million of potential profits were spent on acquiring <a href="http://dealbook.nytimes.com/2012/03/19/amazon-com-buys-kiva-systems-for-775-million/">Kiva System</a> and and construction started on 17 new warehouses this year while Amazon also worked at developing a <a href="http://www.bloomberg.com/news/2012-07-06/amazon-said-to-plan-smartphone-to-vie-with-apple.html">phone</a> and created entirely new <a href="http://www.google.es/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;cad=rja&amp;ved=0CCAQFjAA&amp;url=http%3A%2F%2Fwww.ft.com%2Fcms%2Fs%2F0%2Fcc3a0eee-c1de-11e1-8e7c-00144feabdc0.html&amp;ei=HHJ1UKzYGqjX0QX0sIDgAw&amp;usg=AFQjCNGXEhBHpHy4QUIHabdhW2V6PvkmbA&amp;sig2=75tTHXightfEvoh5eeFsPQ">business ecosystems</a>.</p>
+
+<p>Investors aren&rsquo;t buying Amazon&rsquo;s stock and hoping that Amazon will be able to raise prices and reduce costs without a competitor stepping in, like Yglesias suggests. They are investing Amazon&rsquo;s ability to predict and profit from <a href="http://tech.fortune.cnn.com/2012/07/17/transcript-schmidt-thiel/">future technological disruptions</a>:</p>
+
+<blockquote><p>ADAM LASHINSKY:Amazon is the only one, in my mind, of the big tech companies that&rsquo;s actually reinvesting all its money, that has enough of a vision of the future that they&rsquo;re actually able to reinvest all their profits.<br/>
+&#8230;<br/>
+PETER THIEL:Search technology was developed a decade ago.  It&rsquo;s a bet that there will be no one else who will come up with a better search technology.  So, you invest in Google, because you&rsquo;re betting against technological innovation in search.  And it&rsquo;s like a bank that generates enormous cash flows every year, but you can&rsquo;t issue a dividend, because the day you take that $30 billion and send it back to people you&rsquo;re admitting that you&rsquo;re no longer a technology company.</p></blockquote>
+
+<p>I&rsquo;m not a big <a href="http://www.newyorker.com/reporting/2011/11/28/111128fa_fact_packer?currentPage=all">Thiel fan</a>, but the correctness of his point here is underscored by recent revelations that both Google and Apple spent more on patents &#8211; trying to preserve the status quo &#8211; then they did on R&amp;D (<a href="http://www.nytimes.com/2012/10/08/technology/patent-wars-among-tech-giants-can-stifle-competition.html?pagewanted=all">nyt</a>/<a href="http://www.stanford.edu/dept/law/ipsc/Paper%20PDF/Chien,%20Colleen%20-%20Paper.pdf">original source</a>). Amazon also<a href="http://seattletimes.com/html/businesstechnology/2002384545_bizbriefs16.html"> sues over patents</a> but they don&rsquo;t spend billions of dollars on them and invests its money <a href="http://www.zerohedge.com/news/2012-09-30/presenting-worlds-biggest-hedge-fund-you-have-never-heard">instead of hoarding</a>.</p>
+
+<p>While the P/E ratio is a useful metric, looking at it in isolation  like Yglesias does ignores everything else about a company. While a P/E of 310 initially sounds ridiculous, it would be even more ridiculous to value Amazon so its P/E was 20 &#8211; its market cap would be several times smaller than the its <a href="http://phx.corporate-ir.net/External.File?item=UGFyZW50SUQ9MTQ3Mjk0fENoaWxkSUQ9LTF8VHlwZT0z&amp;t=1">available cash</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Speed Issues With Goko's Online Dominion Implementation]]></title>
+    <link href="http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation.html"/>
+    <updated>2012-10-06T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation</id>
+    <content type="html"><![CDATA[<p>This isn&rsquo;t very scientific, but to get a better sense of how slow playing <a href="http://boardgamegeek.com/boardgame/36218/dominion">Dominion</a> on  <a href="http://goko.com/games/">goko</a> is compared to <a href="http://dominion.isotropic.org/play">isotropic</a> and to find out exactly what is making it slower, I spent an hour on both and recorded how the time was spent:</p>
+
+<blockquote><p>2.17 &#8211; Log in<br/>
+2.18 &#8211; Create table<br/>
+2.19 &#8211; Game loads<br/>
+2.24 &#8211; Try playing a feast to gain a witch. Feast is outlined in blue, but clicking on it does nothing.<br/>
+2.25 &#8211; After clicking on feast for some time, it finally leaves my hand and I&rsquo;m able to get a witch<br/>
+2.37 &#8211; Game ends after 22 turns<br/>
+2.37 &#8211; Try to join a new game<br/>
+2.39 &#8211; Loading bar stuck at 1/10 of the way. Reload Page.<br/>
+2.41 &#8211; Log back in, create new table<br/>
+2.43 &#8211; Start game<br/>
+2.58 &#8211; Game ends after 19 turns<br/>
+2.59 &#8211; Create Table<br/>
+3.09 &#8211; Finally start game<br/>
+3.20 &#8211; &#8220;Internet Connect Lost &#8211; Press Ok to Reload Page&#8221; after 13 turns.</p></blockquote>
+
+<p>I&rsquo;m currently streaming music and clicking through google reader, so I&rsquo;m pretty sure the problem is on their end. Clicking &#8220;Ok&#8221; does not reload the page. Pressing f5 brings up an alert warning me that &#8220;Leaving this page will end any game in progress&#8221; which is a silly warning since the game has already effectively ended. It has been over an hour, so I switch to isotropic:</p>
+
+<blockquote><p>3.31 Enter isotropic queue and start game<br/>
+3.36 Game ends after 16 turns. If cellar is any indication, vault would be awful on goko.<br/>
+3.43 Game ends after 16 turns.<br/>
+3.48 Game ends after 18 turns. Start a new one<br/>
+3.53 19 Turns<br/>
+4\:07 19 Turns &#8211; The longest game on isotropic used Possession and Platinums and takes as much time as the shortest completed game on goko which used the base set.<br/>
+4.13 11 Turns<br/>
+4\:20 22 Turns<br/>
+4.30 21 Turns</p></blockquote>
+
+<p>So, in an hour I was able to play 8 games on isotropic and (generously) 3 on goko.</p>
+
+<p>Assuming goko implements a quick play button (which they have shown no interest in doing), speeds up game loading (Ads between games will probably make things faster ? Even if you&rsquo;ve purchased sets, if you&rsquo;re playing with anyone who hasn&rsquo;t, you&rsquo;ll have to wait&#8230;), and fixes the issues with the game crashing on load (which they are probably working on) so the time it takes to get in a game becomes negligible like it is on isotropic, goko would still be substantially slower:</p>
+
+<p>On isotropic, 60 minutes /8 games = 7.5 minutes per game.<br/>
+On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
+
+<p>Why is goko so slow? Contrary what I initially thought and what I&rsquo;ve seen suggested several times on <a href="http://forum.dominionstrategy.com/">f.ds</a>, the issue isn&rsquo;t animations. The unofficial iOS app has animations and it isn&rsquo;t too difficult to play a game in 4 minutes or less. The problem is with how goko has written their app. Testing with wireshark and a stopwatch both confirm that taking any action requiring server side interaction on goko requires about 3 or 4 seconds before the UI will be ready for the next action. On isotropic, I haven&rsquo;t seen it take more then 600 ms. goko compounds this problem by requiring unnecessary server side interaction. I&rsquo;ve <a href="http://forum.dominionstrategy.com/index.php?topic=4738.msg110781#msg110781">reported</a> this problem, but I don&rsquo;t think they realize how big of a problem it is:</p>
+
+<blockquote><p>There isn&rsquo;t any need for the server to know what order I&rsquo;ve clicked on the chapel\cellar\vault cards so I&rsquo;m not sure why the client has to send that information and wait on a response while I&rsquo;m growing impatient. Isotropic gets around this issue with checkboxes and the iOS dominion app uses check marks on the selected cards. In addition to making the game play faster, their implementation also reduces the impact of miss clicks since checks can be unmarked before confirming the move.</p></blockquote>
+
+<p>On their own, these delays make playing the bots alone frustrating but are tolerable enough. With multiple players though, the delays start to snowball as each player anticipates the other taking longer and longer until the game isn&rsquo;t playable.</p>
+
+<p><em>This was originally a <a href="http://forum.dominionstrategy.com/index.php?topic=4895.msg115584#msg115584">forum post</a>; since part of the purpose of blog is to collect things I&rsquo;ve written instead of having everything float away in comment threads, I&rsquo;m saving it here. Additionally, the <a href="http://forum.dominionstrategy.com/index.php?topic=4895.msg115742#msg115742">creator of Dominion replied</a> to me so this is probably the most meaningful thing I&rsquo;ve ever done.</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Connect 4 AI: How It Works]]></title>
+    <link href="http://roadtolarissa.com/connect-4-ai-how-it-works.html"/>
+    <updated>2012-09-30T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/connect-4-ai-how-it-works</id>
+    <content type="html"><![CDATA[<p>The <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">connect 4 playing program</a> uses a <a href="http://en.wikipedia.org/wiki/Minimax">minmax algorithm</a>.</p>
+
+<p>Every time the computer decides what move to make next, it considers all of its possible moves:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c1.png"><img class="aligncenter size-full wp-image-36" title="Red Moves" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c1.png" alt="" width="418" height="477" /></a>
+</p>
+
+
+<p>The computer then pretends that each of the moves it has considered has actually taken place. For every possible move, it looks at all the moves the other player could make in response. For example, while considering what would happen if it played a red piece down the 7th column, the computer would examine the following yellow plays:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c2.png"><img class="aligncenter size-full wp-image-38" title="Yellow Moves" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c2.png" alt="" width="418" height="477" /></a>
+</p>
+
+
+<p>Each of these yellow moves is analyzed in the same way. 8 initial moves each have 8 responses for a total 64 distinct board positions after two moves. After three moves, there are 64*8 = 512 possibilities. The amount of times this process repeats is determined by the <strong>search depth</strong> of the algorithm. When the program is called the first time, it is passed a depth parameter. Each time another layer of moves is considered, the depth is decremented by one.</p>
+
+<p>Once the depth is equal to 0, all of the moves on the current layer are evaluated. Winning moves for red are given a score of 1000, while winning scores for yellow are given a score of -1000. Every time a layer of 8 possible moves is considered, if the red player was placing a piece, the move with the highest score is picked, while the yellow player does the opposite. After a move has been picked, it is sent back up the chain and used to evaluate the move before it along with the 7 other evaluations which have also been sent back up. The algorithm is called minmax because the computer is looking to minimize its maximum losses.</p>
+
+<p>In the above picture, the computer would test all 8 yellow moves and conclude that the best move for the yellow player would be the 5th column since that results in a yellow win and a score of -1000. That score is sent back up the chain of moves with the scores of the other 7 moves, resulting in the following:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c3.png"><img class="aligncenter size-full wp-image-41" title="Red Evaluation" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c3.png" alt="" width="434" height="479" /></a>
+</p>
+
+
+<p>From the computer&rsquo;s perspective, it has the red player move to the 5th column to minimize its maximum losses (since 0 is less of a loss than -1000), but to us humans it looks like it is blocking yellow from completing a four in a row.</p>
+
+<p>None of the parts of the algorithms discussed so far are specific to connect 4. Any two player game with alternating moves and terminal wins and losses can be played by considering chains of future moves looking for wins to force and losses to avoid. Unfortunately, a connect 4 program that only looks at wins and losses which takes its turn in a reasonable time frame isn&rsquo;t a very good player. Since examining all the possible move sequences of consisting of n moves requires 8<sup>n</sup> board evaluations, looking farther ahead requires exponentially more time. If there was a computer fast enough to look ahead all the way to the end of the game, it would be possible to play a perfect game of connect 4 (in fact, <a href="http://www.connectfour.net/Files/connect4.pdf">a computer has done so for the 7&#215;6 version</a> of the game, which is part of the reason why I&rsquo;ve been working on the 8&#215;8 version).</p>
+
+<p>With reasonably good play by both players, ending conditions can be many more moves father ahead than the computer can examine. Because of this, the computer needs a <strong>heuristic function</strong> to evaluate board states without a winner on them. Without one, during the opening plays the computer moves almost randomly, just avoiding positions that would allow their opponent to force a win within the next few moves. To the computer, red and yellow are essentially tied in this board state:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellowahead.png"><img class="aligncenter size-full wp-image-44" title="Yellow Ahead" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellowahead.png" alt="" width="414" height="407" /></a>
+</p>
+
+
+<p>But it should be obvious to any human player that yellow has established a superior board position over red. This inability to distinguish nonterminal board states is corrected with the addition of above mentioned heuristic function. Currently, to the compare non terminal states, the computer counts the number of open 3 in a rows each player has. This simple rule allows the computer to understand the previously inscrutable board state like this instead:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellow3view.png"><img class="aligncenter size-full wp-image-45" title="Yellow 3 in a Row" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellow3view.png" alt="" width="414" height="407" /></a>
+</p>
+
+
+<p>The computer now knows that in this board position yellow is ahead; if the computer was playing red it would avoid move sequences that resulted in this position while if the computer was playing yellow it would try to set up as many of these three in a rows as possible. This heuristic seems to work fairly well &#8211; with the current set up, allowing the computer to make move searches with a depth of 4 produces an AI that beats me about half the time, while against a depth 5 opponent I lose most of the time.</p>
+
+<p>There isn&rsquo;t anything special about the heuristic I&rsquo;ve chosen. Any function that takes a board state as a input and returns a number will work as a heuristic  There are three things I considered when picking this one:</p>
+
+<ol>
+<li>Computational cost. Since every move requires running the heuristic thousands of times if it is too complicated, the depth of searches will be adversely affected.</li>
+<li>Correspondence to wins. If a heuristic doesn&rsquo;t provide useful about the game, there isn&rsquo;t any reason to use one.</li>
+<li>Ease of Implementation. More complicated heuristics take more time to program so they run quickly and without errors.</li>
+</ol>
+
+
+<p>Since I mostly wanted to get a version of the AI up and running, my decision was heavily weighted towards the third option. In the code, the heuristics algorithm only has to check all the empty spaces to see if they are in line with a 3 in a row. This was simple to implement because I had already written to code to check for 4 in a rows. In the future, experimenting with other heuristics will probably improve the AI. Counting 3 in a rows still struggles at differentiating between early game positions and values unusable 3 in rows late game:<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/endgamemistake2.png"><img class="aligncenter size-full wp-image-50" title="End Game Miscount" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/endgamemistake2.png" alt="" width="400" height="407" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>The computer thinks that the red player has an fairly favorable position since it has two more 3 in a rows than the yellow player even though the game must end before they can be completed. Having already created a baseline heuristic, once I learn more about connect 4 and can come up with better heuristics, I can have the AI play thousands of slightly randomized game against another AI using a different AI evaluate which heuristic is best.</p>
+
+<p>In my next post, I&rsquo;ll analyze the impact of changing the heuristic. I&rsquo;ll also discuss the implications of using a variation on the minmax algorithm, <a href="http://en.wikipedia.org/wiki/Alpha-beta_pruning">alphabeta pruning</a> with history based move ordering.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Maximin Connect 4 Completed]]></title>
+    <link href="http://roadtolarissa.com/maximin-connect-4-completed.html"/>
+    <updated>2012-09-29T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/maximin-connect-4-completed</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve finished working on the Maximin Connect 4 program. I&rsquo;ve set up a <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">page</a> where you can play around with the AI since I&rsquo;m not sure how to embed HTML in these posts. Some general things I learned (I&rsquo;ll make a separate post with more Connect 4 specific ideas once I&rsquo;ve run some more tests on the AI):</p>
+
+<ul>
+<li>Different browsers render javascript in wildly different ways. In Chrome and with the most limited searches, each game takes about two seconds to play with pieces appearing and disappearing faster then game board can be understood. Firefox can also play a few games quickly, but starts to redraw the frame slower and slower until it only updates once every few games. Initially, I thought this was because Firefox had terrible garbage collection or was unable to deal with extended recursion. After adding better game logging, I realized Firefox was playing only about 20% less games then Chrome, but looked much worse because it had stopped rending. Opera performed about the same as Firework while IE9 failed to display the page (either because security settings stopped it from loading local javascript or because it wasn&#8217;t comparable with some aspect of the javascript).</li>
+<li>To make the program display better in non-Chrome browsers, I added an option to disable animation while the bots play each other. Hopefully, I don&rsquo;t run into many more large gaps between browsers. The main appeal of javascript is its ability to run on everyone&rsquo;s computer without downloading or installing anything. If the AI requires Chrome to run properly at some point, that advantage is lost and it would make sense to switch to another language for increased performance. After javascript, I&rsquo;m most familiar with matlab but since none of the algorithms I&rsquo;m planning on using lend themselves to vectorization, I don&rsquo;t think it would be that fruitful. I&rsquo;ve seen other AI projects done in python but I haven&rsquo;t used python for years.</li>
+<li>javascript&rsquo;s lack of a build in way to pass functions a copy of an Array instead of a reference to the Array really slows down the AI &#8211; over 1/3 of the the processing time is spent on copying Arrays.<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile.png"><img class="aligncenter size-full wp-image-28" title="CPU Profile" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile.png" alt="" width="267" height="99" /></a>Fixing this shouldn&rsquo;t be that difficult; the psuedo code I read suggested using a &#8216;undoMove&#8217; function instead of creating new Arrays every ply. Thinking that storing an extra few Arrays wouldn&rsquo;t be too costly, I didn&rsquo;t do that. Since <em>creating </em>Arrays is costly,  an &#8216;undoMove&#8217; function should be used.</li>
+<li>Implementing a working version of the psuedo code required over 20 times as many lines of code. <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile1.png"><img class="aligncenter size-full wp-image-29" title="profile" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile1.png" alt="" width="550" height="319" /></a>In my defense, my code also includes the negamax algorithm; still actually writing the eval function and hooks for the rest of the Connect 4 program to use requires more verbosity then I was expecting. Looking over the code, there is some duplicated functionality that would be nice to remove, particularly the similarities between the negamax and alphabeta code.</li>
+<li>I&rsquo;m never sure how general to make things ahead of time. Working on my reversi game, I initially created a version that worked locally in one browser window. After playing around with the hangout API, I slowly added functionality to the handout version &#8211; syncing board state between all participants  computers, only allowing the active player make move, buttons to start a new game, ect. Once I finished reversi, I wanted to add more games, but the prospect of getting a new game working only though testing on hangouts was daunting because loading new version of code takes over a minute and I&rsquo;m used to iterating much faster then that. Additionally, if I found problems with code that interacted with the hangout API, I&rsquo;d have to also correct the issue in the other games code. While this isn&rsquo;t a huge deal with only two games, it&rsquo;d become a big time suck once six or seven games were made. To get around these difficulties, I wrote a wrapper for the reversi program that generalized board updates and game endings away from the specific logic of reversi. While I was working on the wrappered reversi which worked locally, I felt fairly silly since I had already created a copy of reversi that worked locally! I think the extra effort was worthwhile &#8211; it only took me a few hours to write a checkers game with the local wrapper and it didn&rsquo;t require too much more work to make checkers also work with hangouts.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[First Post]]></title>
+    <link href="http://roadtolarissa.com/first-post.html"/>
+    <updated>2012-09-27T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/first-post</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve found that writing todo lists enormously increases my productivity while programming. Programming is all about breaking larger problems into smaller problems over and over until the problems are small enough to solve easily. Lists provide a map of the problems that need solving and make it possible to work on a smaller subset of them without having to simultaneously worry about the global structure of the program.</p>
+
+<p>I&rsquo;d like to learn more about creating computer programs able to play board games; to that end, over the next day or two I&rsquo;m going to be working on an AI for 8&#215;8 Connect 4 and try to accomplish the following:</p>
+
+<ol>
+<li>Implement a Minimax algorithm using javascript since game logic and GUI are already written. The heuristic evaluation function will probably count the number of winning moves available to both players.</li>
+<li>Add alpha-beta punning to the Minimax algorithm.</li>
+<li>Create a Monte-Carlo Tree Search algorithm for Connect 4. I&rsquo;m not currently very familiar with this technique, but based on what I&rsquo;ve read so far, it looks like it is <a href="http://en.wikipedia.org/wiki/Monte_Carlo_method#Games">state of the art</a>.</li>
+<li>Have the programs play each other (with similar run times) and post the results.</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

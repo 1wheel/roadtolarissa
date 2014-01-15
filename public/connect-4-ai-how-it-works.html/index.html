@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Connect 4 AI: How It Works - Road to Larissa</title>
+  <meta name="author" content="Adam Pearce">
+
+  
+  <meta name="description" content="The connect 4 playing program uses a minmax algorithm. Every time the computer decides what move to make next, it considers all of its possible moves &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://roadtolarissa.com/connect-4-ai-how-it-works.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Road to Larissa" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+
+  <script src="/javascripts/libs/jquery.min.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+ 
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Road to Larissa</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:roadtolarissa.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<!-- <ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+ -->
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Connect 4 AI: How It Works</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-30T00:00:00-04:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">connect 4 playing program</a> uses a <a href="http://en.wikipedia.org/wiki/Minimax">minmax algorithm</a>.</p>
+
+<p>Every time the computer decides what move to make next, it considers all of its possible moves:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c1.png"><img class="aligncenter size-full wp-image-36" title="Red Moves" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c1.png" alt="" width="418" height="477" /></a>
+</p>
+
+
+<p>The computer then pretends that each of the moves it has considered has actually taken place. For every possible move, it looks at all the moves the other player could make in response. For example, while considering what would happen if it played a red piece down the 7th column, the computer would examine the following yellow plays:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c2.png"><img class="aligncenter size-full wp-image-38" title="Yellow Moves" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c2.png" alt="" width="418" height="477" /></a>
+</p>
+
+
+<p>Each of these yellow moves is analyzed in the same way. 8 initial moves each have 8 responses for a total 64 distinct board positions after two moves. After three moves, there are 64*8 = 512 possibilities. The amount of times this process repeats is determined by the <strong>search depth</strong> of the algorithm. When the program is called the first time, it is passed a depth parameter. Each time another layer of moves is considered, the depth is decremented by one.</p>
+
+<p>Once the depth is equal to 0, all of the moves on the current layer are evaluated. Winning moves for red are given a score of 1000, while winning scores for yellow are given a score of -1000. Every time a layer of 8 possible moves is considered, if the red player was placing a piece, the move with the highest score is picked, while the yellow player does the opposite. After a move has been picked, it is sent back up the chain and used to evaluate the move before it along with the 7 other evaluations which have also been sent back up. The algorithm is called minmax because the computer is looking to minimize its maximum losses.</p>
+
+<p>In the above picture, the computer would test all 8 yellow moves and conclude that the best move for the yellow player would be the 5th column since that results in a yellow win and a score of -1000. That score is sent back up the chain of moves with the scores of the other 7 moves, resulting in the following:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c3.png"><img class="aligncenter size-full wp-image-41" title="Red Evaluation" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c3.png" alt="" width="434" height="479" /></a>
+</p>
+
+
+<p>From the computer&rsquo;s perspective, it has the red player move to the 5th column to minimize its maximum losses (since 0 is less of a loss than -1000), but to us humans it looks like it is blocking yellow from completing a four in a row.</p>
+
+<p>None of the parts of the algorithms discussed so far are specific to connect 4. Any two player game with alternating moves and terminal wins and losses can be played by considering chains of future moves looking for wins to force and losses to avoid. Unfortunately, a connect 4 program that only looks at wins and losses which takes its turn in a reasonable time frame isn&rsquo;t a very good player. Since examining all the possible move sequences of consisting of n moves requires 8<sup>n</sup> board evaluations, looking farther ahead requires exponentially more time. If there was a computer fast enough to look ahead all the way to the end of the game, it would be possible to play a perfect game of connect 4 (in fact, <a href="http://www.connectfour.net/Files/connect4.pdf">a computer has done so for the 7&#215;6 version</a> of the game, which is part of the reason why I&rsquo;ve been working on the 8&#215;8 version).</p>
+
+<p>With reasonably good play by both players, ending conditions can be many more moves father ahead than the computer can examine. Because of this, the computer needs a <strong>heuristic function</strong> to evaluate board states without a winner on them. Without one, during the opening plays the computer moves almost randomly, just avoiding positions that would allow their opponent to force a win within the next few moves. To the computer, red and yellow are essentially tied in this board state:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellowahead.png"><img class="aligncenter size-full wp-image-44" title="Yellow Ahead" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellowahead.png" alt="" width="414" height="407" /></a>
+</p>
+
+
+<p>But it should be obvious to any human player that yellow has established a superior board position over red. This inability to distinguish nonterminal board states is corrected with the addition of above mentioned heuristic function. Currently, to the compare non terminal states, the computer counts the number of open 3 in a rows each player has. This simple rule allows the computer to understand the previously inscrutable board state like this instead:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellow3view.png"><img class="aligncenter size-full wp-image-45" title="Yellow 3 in a Row" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellow3view.png" alt="" width="414" height="407" /></a>
+</p>
+
+
+<p>The computer now knows that in this board position yellow is ahead; if the computer was playing red it would avoid move sequences that resulted in this position while if the computer was playing yellow it would try to set up as many of these three in a rows as possible. This heuristic seems to work fairly well &#8211; with the current set up, allowing the computer to make move searches with a depth of 4 produces an AI that beats me about half the time, while against a depth 5 opponent I lose most of the time.</p>
+
+<p>There isn&rsquo;t anything special about the heuristic I&rsquo;ve chosen. Any function that takes a board state as a input and returns a number will work as a heuristic  There are three things I considered when picking this one:</p>
+
+<ol>
+<li>Computational cost. Since every move requires running the heuristic thousands of times if it is too complicated, the depth of searches will be adversely affected.</li>
+<li>Correspondence to wins. If a heuristic doesn&rsquo;t provide useful about the game, there isn&rsquo;t any reason to use one.</li>
+<li>Ease of Implementation. More complicated heuristics take more time to program so they run quickly and without errors.</li>
+</ol>
+
+
+<p>Since I mostly wanted to get a version of the AI up and running, my decision was heavily weighted towards the third option. In the code, the heuristics algorithm only has to check all the empty spaces to see if they are in line with a 3 in a row. This was simple to implement because I had already written to code to check for 4 in a rows. In the future, experimenting with other heuristics will probably improve the AI. Counting 3 in a rows still struggles at differentiating between early game positions and values unusable 3 in rows late game:<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/endgamemistake2.png"><img class="aligncenter size-full wp-image-50" title="End Game Miscount" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/endgamemistake2.png" alt="" width="400" height="407" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>The computer thinks that the red player has an fairly favorable position since it has two more 3 in a rows than the yellow player even though the game must end before they can be completed. Having already created a baseline heuristic, once I learn more about connect 4 and can come up with better heuristics, I can have the AI play thousands of slightly randomized game against another AI using a different AI evaluate which heuristic is best.</p>
+
+<p>In my next post, I&rsquo;ll analyze the impact of changing the heuristic. I&rsquo;ll also discuss the implications of using a variation on the minmax algorithm, <a href="http://en.wikipedia.org/wiki/Alpha-beta_pruning">alphabeta pruning</a> with history based move ordering.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-30T00:00:00-04:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/maximin-connect-4-completed.html" title="Previous Post: Maximin Connect 4 Completed">&laquo; Maximin Connect 4 Completed</a>
+      
+      
+        <a class="basic-alignment right" href="/speed-issues-with-gokos-online-dominion-implementation.html" title="Next Post: Speed Issues with Goko's Online Dominion Implementation">Speed Issues with Goko's Online Dominion Implementation &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Adam Pearce</h1>
+    <a href='adam.r.pearce@gmail.com' target='_blank' >
+	  	<img src='/images/email.png'  style="margin-bottom: 4px">
+    </a>
+
+    <a href='/atom.xml' target='_blank'>
+      <img src='/images/rss.png'>
+    </a>
+
+    <a href='http://stackoverflow.com/users/1333195/adam-pearce' target='_blank'>
+      <img src='/images/stackoverflow.png'>
+    </a>
+
+    <a href='https://github.com/1wheel' target='_blank'>
+      <img src='/images/gitcat.png' style="height: 32px;">
+    </a>
+
+    <a href='https://twitter.com/adamrpearce' target='_blank'>
+      <img src='/images/twitter_bird.png'>
+    </a>
+
+    <a href='http://www.last.fm/user/uniwheel' target='_blank'>
+      <img src='/images/last.fm.png'>
+    </a>
+
+<!--     <a href='https://www.goodreads.com/user/show/1964465-adam' target='_blank'>
+      <img src='/images/github.png'>
+    </a>
+ -->
+    <a href='http://www.linkedin.com/pub/adam-pearce/65/557/a27' target='_blank'>
+      <img src='/images/linkedin.png'>
+    </a>
+    
+</section>
+<section>
+  <h1>Posts</h1>
+    
+      <li class="post">
+        <a href="/twisters-post">Twisters</a>
+      </li>
+    
+      <li class="post">
+        <a href="/nba_draft.html">NBA Draft</a>
+      </li>
+    
+      <li class="post">
+        <a href="/meteor-map.html">Meteor Map</a>
+      </li>
+    
+      <li class="post">
+        <a href="/film-strips-post">Film Strips</a>
+      </li>
+    
+      <li class="post">
+        <a href="/whale-words.html">Whale Words</a>
+      </li>
+    
+      <li class="post">
+        <a href="/unemployment-rates.html">Unemployment Rates</a>
+      </li>
+    
+      <li class="post">
+        <a href="/zoomable-sierpinski-triangle-with-d3-js.html">Zoomable Sierpinski Triangle With d3.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/interactive-visualization-of-white-house-petition-signatures.html">Interactive Visualization of White House Petition Signatures</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next-project.html">Next Project</a>
+      </li>
+    
+      <li class="post">
+        <a href="/redditgraphs-retrospective.html">Redditgraphs Retrospective</a>
+      </li>
+    
+      <li class="post">
+        <a href="/reddit-comment-visualizer.html">Reddit Comment Visualizer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/yglesias-on-amazons-pe-ratio.html">Yglesias on Amazon's P/E Ratio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/speed-issues-with-gokos-online-dominion-implementation.html">Speed Issues With Goko's Online Dominion Implementation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/connect-4-ai-how-it-works.html">Connect 4 AI: How It Works</a>
+      </li>
+    
+      <li class="post">
+        <a href="/maximin-connect-4-completed.html">Maximin Connect 4 Completed</a>
+      </li>
+    
+      <li class="post">
+        <a href="/first-post.html">First Post</a>
+      </li>
+    
+</section>
+
+
+<!--   	
+  	
+  	
+  	  
+  	  <h2>2013</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/twisters-post">Twisters</a></h1>
+<time datetime="2013-10-22T00:00:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>22</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/nba_draft.html">NBA Draft</a></h1>
+<time datetime="2013-06-16T00:00:00-04:00" pubdate><span class='month'>Jun</span> <span class='day'>16</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/meteor-map.html">Meteor Map</a></h1>
+<time datetime="2013-05-19T00:00:00-04:00" pubdate><span class='month'>May</span> <span class='day'>19</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/film-strips-post">Film Strips</a></h1>
+<time datetime="2013-05-02T00:00:00-04:00" pubdate><span class='month'>May</span> <span class='day'>02</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/whale-words.html">Whale Words</a></h1>
+<time datetime="2013-01-28T00:00:00-05:00" pubdate><span class='month'>Jan</span> <span class='day'>28</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/unemployment-rates.html">Unemployment Rates</a></h1>
+<time datetime="2013-01-21T00:00:00-05:00" pubdate><span class='month'>Jan</span> <span class='day'>21</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	  
+  	  <h2>2012</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/zoomable-sierpinski-triangle-with-d3-js.html">Zoomable Sierpinski Triangle With d3.js</a></h1>
+<time datetime="2012-12-21T00:00:00-05:00" pubdate><span class='month'>Dec</span> <span class='day'>21</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/interactive-visualization-of-white-house-petition-signatures.html">Interactive Visualization of White House Petition Signatures</a></h1>
+<time datetime="2012-12-19T00:00:00-05:00" pubdate><span class='month'>Dec</span> <span class='day'>19</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/next-project.html">Next Project</a></h1>
+<time datetime="2012-11-20T00:00:00-05:00" pubdate><span class='month'>Nov</span> <span class='day'>20</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/redditgraphs-retrospective.html">Redditgraphs Retrospective</a></h1>
+<time datetime="2012-11-17T00:00:00-05:00" pubdate><span class='month'>Nov</span> <span class='day'>17</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/reddit-comment-visualizer.html">Reddit Comment Visualizer</a></h1>
+<time datetime="2012-10-19T00:00:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>19</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/redditgraphs/'>redditgraphs</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/yglesias-on-amazons-pe-ratio.html">Yglesias on Amazon's P/E Ratio</a></h1>
+<time datetime="2012-10-10T00:00:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>10</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/speed-issues-with-gokos-online-dominion-implementation.html">Speed Issues With Goko's Online Dominion Implementation</a></h1>
+<time datetime="2012-10-06T00:00:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>06</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/connect-4-ai-how-it-works.html">Connect 4 AI: How It Works</a></h1>
+<time datetime="2012-09-30T00:00:00-04:00" pubdate><span class='month'>Sep</span> <span class='day'>30</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/maximin-connect-4-completed.html">Maximin Connect 4 Completed</a></h1>
+<time datetime="2012-09-29T00:00:00-04:00" pubdate><span class='month'>Sep</span> <span class='day'>29</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/first-post.html">First Post</a></h1>
+<time datetime="2012-09-27T00:00:00-04:00" pubdate><span class='month'>Sep</span> <span class='day'>27</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+ -->
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Adam Pearce -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

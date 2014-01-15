@@ -2,7 +2,7 @@
 title: Twisters
 author: admin
 layout: post
-permalink: /twisters-post.html
+permalink: /twisters-post
 categories:
   - Uncategorized
 ---
@@ -30,9 +30,9 @@ categories:
 </p>
 
 *   **Click to Zoom  
-    [<img class=" wp-image-288 aligncenter" alt="ok" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png" width="461" height="235" />][1]**d3&#8242;s built in [zoom ][2]is nice, but it is tricky to use on devices without a scroll wheel. Putting an [onclick zoom event][3] on each state avoids this difficulty and has the huge add bonus of playing very nicely with crossfilter.  The state to state transitions are my favorite part of this map. Getting multistate tornadoes to behave correctly took a little bit of [data wrangling][4] and tinkering with crossfilter; I really like the result.
+    [<img class=" wp-image-288 aligncenter" alt="ok" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png" width="461" height="235" />][1]</br>**d3&#8242;s built in [zoom ][2]is nice, but it is tricky to use on devices without a scroll wheel. Putting an [onclick zoom event][3] on each state avoids this difficulty and has the huge add bonus of playing very nicely with crossfilter.  The state to state transitions are my favorite part of this map. Getting multistate tornadoes to behave correctly took a little bit of [data wrangling][4] and tinkering with crossfilter; I really like the result.
 *   **Brushable Arc  
-    [<img class="size-full wp-image-289 aligncenter" alt="arc" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png" width="198" height="173" />][5]**Not the most useful or impressive thing in the world, but I don&#8217;t think anyone has done this before in d3 and after another [struggle ][6]with trigonometry, I&#8217;m trilled that it actually works. I&#8217;d like to make it more accessible  - it might work well in [dc.js][7] - but the code needs a lot of polishing first.
+    [<img class="size-full wp-image-289 aligncenter" alt="arc" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png" width="198" height="173" />][5]**</br>Not the most useful or impressive thing in the world, but I don&#8217;t think anyone has done this before in d3 and after another [struggle ][6]with trigonometry, I&#8217;m trilled that it actually works. I&#8217;d like to make it more accessible  - it might work well in [dc.js][7] - but the code needs a lot of polishing first.
 
 Some &#8216;Todos&#8217; without a checkmark:
 

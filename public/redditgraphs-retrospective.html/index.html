@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Redditgraphs Retrospective - Road to Larissa</title>
+  <meta name="author" content="Adam Pearce">
+
+  
+  <meta name="description" content="It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://roadtolarissa.com/redditgraphs-retrospective.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Road to Larissa" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+
+  <script src="/javascripts/libs/jquery.min.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+ 
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Road to Larissa</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:roadtolarissa.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<!-- <ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+ -->
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Redditgraphs Retrospective</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the application and trying to share it with people. After posting the basic demo on /r/javascript, I was encouraged make improvements and host the project on its own domain. Registering &#8220;<a href="www.redditgraphs.com">redditgraphs.com</a>&#8221; for a year only cost $5 and it seemed more memorable and easier to access than &#8220;roadtolarissa.com/javascript/reddit-comment-visualizer&#8220;. I spent another week adding functionality &#8211; hourly trends, weekly trends, direct linking to user names &#8211; and making the UI prettier.</p>
+
+<p>Improving the UI was harder than adding functionality. I don&rsquo;t think I&rsquo;ve ever created anything particularly visually beautiful before in my life. The previous UI was definitely not pretty but since I was using the default radio button and drop down menus, it didn&rsquo;t feel like I was exposing part of myself or actively making something bad or mockable. Still, several changes were necessary to improve usability. Most importantly, the previous graph picker was too small and did not attract enough attention:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview3.png"><img class="aligncenter size-full wp-image-114" title="Old Graph Type" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview3.png" alt="" width="180" height="130" /></a></p>
+
+<p>One of the biggest difficulties in creating this type of interactive display is leading the user to interesting interactions. After posting this version, I received several requests to add histograms and karma plotting &#8211; features already included, but buried in ambigously titled drop down menus. I had thought putting the options in the upper left hand corner would make them impossible to miss. Since that wasn&rsquo;t the case, I used large, tile-like icons to draw even more attention to the different graph types in the redesign:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview4.png"><img class="aligncenter size-full wp-image-115" title="New Graph Types" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview4.png" alt="" width="221" height="410" /></a></p>
+
+<p>By making the icons the largest, most colorful non graph item on the page, it is much clearer that they are supposed to be clicked on and played with. Additionally, convanying the opitions in a less textual manner allowed me to move away from the confusing &#8220;Graph Settings: Graph Type: Type&#8221; formulation. I think there is still a lot of room for improvement, especially on the data icons, but I&rsquo;m not sure how to do it without learning a lot more or paying something. The pile of books and the ruler look like clip art because that&rsquo;s what they are.</p>
+
+<p>The rest of the redesign followed a similar pattern. All the radios and spinboxes were replaced by more clickable and colorful buttons and sliders. I added a banner and logo at the top, which took much longer than I excepted to get just right.</p>
+
+<p>This was the result:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview.png"><img class="aligncenter size-large wp-image-109" title="Changes to redditgraphs" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview-1024x717.png" alt="" width="640" height="448" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>Satisfied with both the look and functionality, I posted a link and a description to /r/dataisbeautiful. The surprising amount of the feedback was almost entirely positive and several thousand people visited the site. This was very exciting &#8211; I&rsquo;m don&rsquo;t think anything else I&rsquo;ve done has ever been used by so many people in so short a time. I also tweeted links  to several tech journalists and one ended up writing a short article.</p>
+
+<p>Afterwords, I spent a few days making some of the suggested improvements &#8211; viewing submissions as well as comments, adding the option to log scale some of the axes, and direct linking to different graph types. Around this time, working with the code started to become much more unpleasant. The main culprit was (and is) the function that takes raw data download from reddit and transforms it into a graph. Since I hadn&#8217;t anticipated having so many options, features were added one at a time until the thing started to resemble a huge knot.</p>
+
+<p>Encouraged by the suggestions to share the site with more people, I posted links on some of the default subreddits. Unfortunately, the reception wasn&rsquo;t nearly as positive. Some of the time, my posts were basically ignored (/r/WTF, /r/YouShouldKnow) without many people seeing them. More often, they would would start doing well and than get removed by a moderator for being off topic (/r/askreddit, /r/technology, /r/LifeProTips, /r/offbeat).</p>
+
+<p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
+
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#116;&#x69;&#112;&#115;&#64;&#119;&#x65;&#x62;&#x73;&#105;&#116;&#x65;&#46;&#x63;&#111;&#109;">&#x74;&#105;&#x70;&#115;&#x40;&#119;&#x65;&#98;&#115;&#x69;&#x74;&#101;&#x2e;&#x63;&#x6f;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
+
+<p>During most of the this time, I wasn&rsquo;t really doing anything productive. It was super easy to write up a post or an email and then sit around writing responses and browsing reddit for a few too many hours. To avoid this problem without giving up hope on getting more users, I spent a few days learning python and <a href="https://github.com/1wheel/reddit-comment-visualizer/blob/master/commentbot.py">wrote a bot</a> to scan recent comments for mentions of &#8216;your comment history&#8217; or &#8216;my comment history&#8217; and reply with a link to the mentioned person&rsquo;s redditgraph. Initially, I manually copied/pasted the comments and only posted a few per day. Seeing that 75% of the replies to the &#8216;bot&#8217; were positive, I decided to totally automate its posting and expand the number of terms it searched for. The maker of the the <a href="http://stattit.com/">statit</a> contacted me on gtalk, telling me that I should throttle or turn off the bot or the admins would ban it. I knew he was probably right, I couldn&rsquo;t bring myself to disable to continuous stream of comments I was creating. The thrill I got from redditgraphs came primarily from the idea that thousands of people around the world were using their computers to simultaneously automate a process that I had shared with them; with the commenting bot the sharing itself was automated.</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof2.png"><img class="aligncenter size-full wp-image-123" title="redditbot comment" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof2.png" alt="" width="852" height="88" /></a></p>
+
+<p>The next morning, the bot was banned.</p>
+
+<p>Getting responses and posting wasn&rsquo;t fun anymore, so I&rsquo;ve decided to stop posting on reddit. While I did learn more about reddit and communicated with admins, moderators, and bloggers more than I had before, I don&rsquo;t think it is the most useful topic to learn about and I didn&rsquo;t need to spend weeks on it. I definitely don&rsquo;t need to need more time making the greenlines on this graph go up higher:</p>
+
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/bwgraph.png"><img class="aligncenter  wp-image-127" title="Traffic graph for redditgraphs" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/bwgraph.png" alt="" width="800" height="400" /></a>
+</p>
+
+
+<p>One more generally applicable thing I found out: feedback isn&rsquo;t helpful in terms of adding features. Before the redesign no one was asking for large icons instead of drop down menu, but from all the comments asking about different graph types I inferred that they needed to be added. One of the more useful features I came up with allowed for searching for specific phrases in the comment history. This didn&rsquo;t get added to the live version mainly because I wasn&rsquo;t sure how to add it to the UI &#8211; should there be a user name text box and a search text box right on top of each other? Requiring people to typing in a regex didn&rsquo;t seem feasible, but where would the rules of a simpler syntax be communicated? I assumed that someone would ask for searching and I would have a reason to add it, but no one did and I never got around to it.</p>
+
+<p>A small proportion of the comments were useful, maybe 10 or 20 out out of the ~250 that I received. That number is even more miniscule compared to the total number number of people who have viewed the site:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof3.png"><img class="aligncenter size-full wp-image-129" title="makeusof" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof3.png" alt="" width="508" height="123" /></a></p>
+
+<p>It makes sense that most people wouldn&rsquo;t send feedback &#8211; I look at lots of things people have made on the internet and I write something back to the creator far less than 1% of the time. This highlights the importance of having a clear idea of what you&rsquo;d like to make and generating and refining your own work towards that idea. Getting feedback in the form of a conversation with someone you actually know before sharing widely is also extremely valuable. Unlike your actual friends, internet commenters don&rsquo;t have any incentive to engage deeply with your idea and most don&rsquo;t end up doing so.</p>
+
+<p>I&rsquo;ve been working on a few smaller projects since. Nothing is super finished, but I should have a post about the works in progress up later today.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T00:00:00-05:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/reddit-comment-visualizer.html" title="Previous Post: Reddit Comment Visualizer">&laquo; Reddit Comment Visualizer</a>
+      
+      
+        <a class="basic-alignment right" href="/next-project.html" title="Next Post: Next Project">Next Project &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Adam Pearce</h1>
+    <a href='adam.r.pearce@gmail.com' target='_blank' >
+	  	<img src='/images/email.png'  style="margin-bottom: 4px">
+    </a>
+
+    <a href='/atom.xml' target='_blank'>
+      <img src='/images/rss.png'>
+    </a>
+
+    <a href='http://stackoverflow.com/users/1333195/adam-pearce' target='_blank'>
+      <img src='/images/stackoverflow.png'>
+    </a>
+
+    <a href='https://github.com/1wheel' target='_blank'>
+      <img src='/images/gitcat.png' style="height: 32px;">
+    </a>
+
+    <a href='https://twitter.com/adamrpearce' target='_blank'>
+      <img src='/images/twitter_bird.png'>
+    </a>
+
+    <a href='http://www.last.fm/user/uniwheel' target='_blank'>
+      <img src='/images/last.fm.png'>
+    </a>
+
+<!--     <a href='https://www.goodreads.com/user/show/1964465-adam' target='_blank'>
+      <img src='/images/github.png'>
+    </a>
+ -->
+    <a href='http://www.linkedin.com/pub/adam-pearce/65/557/a27' target='_blank'>
+      <img src='/images/linkedin.png'>
+    </a>
+    
+</section>
+<section>
+  <h1>Posts</h1>
+    
+      <li class="post">
+        <a href="/twisters-post">Twisters</a>
+      </li>
+    
+      <li class="post">
+        <a href="/nba_draft.html">NBA Draft</a>
+      </li>
+    
+      <li class="post">
+        <a href="/meteor-map.html">Meteor Map</a>
+      </li>
+    
+      <li class="post">
+        <a href="/film-strips-post">Film Strips</a>
+      </li>
+    
+      <li class="post">
+        <a href="/whale-words.html">Whale Words</a>
+      </li>
+    
+      <li class="post">
+        <a href="/unemployment-rates.html">Unemployment Rates</a>
+      </li>
+    
+      <li class="post">
+        <a href="/zoomable-sierpinski-triangle-with-d3-js.html">Zoomable Sierpinski Triangle With d3.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/interactive-visualization-of-white-house-petition-signatures.html">Interactive Visualization of White House Petition Signatures</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next-project.html">Next Project</a>
+      </li>
+    
+      <li class="post">
+        <a href="/redditgraphs-retrospective.html">Redditgraphs Retrospective</a>
+      </li>
+    
+      <li class="post">
+        <a href="/reddit-comment-visualizer.html">Reddit Comment Visualizer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/yglesias-on-amazons-pe-ratio.html">Yglesias on Amazon's P/E Ratio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/speed-issues-with-gokos-online-dominion-implementation.html">Speed Issues With Goko's Online Dominion Implementation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/connect-4-ai-how-it-works.html">Connect 4 AI: How It Works</a>
+      </li>
+    
+      <li class="post">
+        <a href="/maximin-connect-4-completed.html">Maximin Connect 4 Completed</a>
+      </li>
+    
+      <li class="post">
+        <a href="/first-post.html">First Post</a>
+      </li>
+    
+</section>
+
+
+<!--   	
+  	
+  	
+  	  
+  	  <h2>2013</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/twisters-post">Twisters</a></h1>
+<time datetime="2013-10-22T00:00:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>22</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/nba_draft.html">NBA Draft</a></h1>
+<time datetime="2013-06-16T00:00:00-04:00" pubdate><span class='month'>Jun</span> <span class='day'>16</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/meteor-map.html">Meteor Map</a></h1>
+<time datetime="2013-05-19T00:00:00-04:00" pubdate><span class='month'>May</span> <span class='day'>19</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/film-strips-post">Film Strips</a></h1>
+<time datetime="2013-05-02T00:00:00-04:00" pubdate><span class='month'>May</span> <span class='day'>02</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/whale-words.html">Whale Words</a></h1>
+<time datetime="2013-01-28T00:00:00-05:00" pubdate><span class='month'>Jan</span> <span class='day'>28</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/unemployment-rates.html">Unemployment Rates</a></h1>
+<time datetime="2013-01-21T00:00:00-05:00" pubdate><span class='month'>Jan</span> <span class='day'>21</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	  
+  	  <h2>2012</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/zoomable-sierpinski-triangle-with-d3-js.html">Zoomable Sierpinski Triangle With d3.js</a></h1>
+<time datetime="2012-12-21T00:00:00-05:00" pubdate><span class='month'>Dec</span> <span class='day'>21</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/interactive-visualization-of-white-house-petition-signatures.html">Interactive Visualization of White House Petition Signatures</a></h1>
+<time datetime="2012-12-19T00:00:00-05:00" pubdate><span class='month'>Dec</span> <span class='day'>19</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/next-project.html">Next Project</a></h1>
+<time datetime="2012-11-20T00:00:00-05:00" pubdate><span class='month'>Nov</span> <span class='day'>20</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/redditgraphs-retrospective.html">Redditgraphs Retrospective</a></h1>
+<time datetime="2012-11-17T00:00:00-05:00" pubdate><span class='month'>Nov</span> <span class='day'>17</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/reddit-comment-visualizer.html">Reddit Comment Visualizer</a></h1>
+<time datetime="2012-10-19T00:00:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>19</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/redditgraphs/'>redditgraphs</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/yglesias-on-amazons-pe-ratio.html">Yglesias on Amazon's P/E Ratio</a></h1>
+<time datetime="2012-10-10T00:00:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>10</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/speed-issues-with-gokos-online-dominion-implementation.html">Speed Issues With Goko's Online Dominion Implementation</a></h1>
+<time datetime="2012-10-06T00:00:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>06</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/connect-4-ai-how-it-works.html">Connect 4 AI: How It Works</a></h1>
+<time datetime="2012-09-30T00:00:00-04:00" pubdate><span class='month'>Sep</span> <span class='day'>30</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/maximin-connect-4-completed.html">Maximin Connect 4 Completed</a></h1>
+<time datetime="2012-09-29T00:00:00-04:00" pubdate><span class='month'>Sep</span> <span class='day'>29</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+  	
+  	
+  	<article>
+  	  
+<h1><a href="/first-post.html">First Post</a></h1>
+<time datetime="2012-09-27T00:00:00-04:00" pubdate><span class='month'>Sep</span> <span class='day'>27</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a></span>
+</footer>
+
+
+  	</article>
+  	
+ -->
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Adam Pearce -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
