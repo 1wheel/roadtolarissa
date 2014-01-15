@@ -2,7 +2,7 @@
 title: Reddit Comment Visualizer
 author: admin
 layout: post
-permalink: /reddit-comment-visualizer.html
+permalink: /reddit-comment-visualizer
 categories:
   - redditgraphs
 tags:

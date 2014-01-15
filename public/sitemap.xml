@@ -1,68 +1,66 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://roadtolarissa.com/first-post.html</loc>
-        <lastmod>2013-12-18T00:26:15-05:00</lastmod>
+        <loc>http://roadtolarissa.com/first-post</loc>
+        <lastmod>2014-01-15T00:52:21-05:00</lastmod>
     </url>
     <url>
-        <loc>http://roadtolarissa.com/maximin-connect-4-completed.html</loc>
-        <lastmod>2013-12-18T00:26:24-05:00</lastmod>
+        <loc>http://roadtolarissa.com/maximin-connect-4-completed</loc>
+        <lastmod>2014-01-15T00:52:26-05:00</lastmod>
     </url>
     <url>
-        <loc>http://roadtolarissa.com/connect-4-ai-how-it-works.html</loc>
-        <lastmod>2013-12-18T00:26:26-05:00</lastmod>
+        <loc>http://roadtolarissa.com/connect-4-ai-how-it-works</loc>
+        <lastmod>2014-01-15T00:52:31-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation</loc>
+        <lastmod>2014-01-15T00:44:34-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://roadtolarissa.com/yglesias-on-amazons-pe-ratio</loc>
+        <lastmod>2014-01-15T00:52:55-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://roadtolarissa.com/reddit-comment-visualizer</loc>
+        <lastmod>2014-01-15T00:52:34-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://roadtolarissa.com/redditgraphs-retrospective</loc>
+        <lastmod>2014-01-15T00:52:37-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://roadtolarissa.com/next-project</loc>
+        <lastmod>2014-01-15T00:52:40-05:00</lastmod>
     </url>
     <url>
         <loc>
-            http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation.html
+            http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures
         </loc>
-        <lastmod>2013-12-18T00:31:07-05:00</lastmod>
+        <lastmod>2014-01-15T00:41:37-05:00</lastmod>
     </url>
     <url>
-        <loc>http://roadtolarissa.com/yglesias-on-amazons-pe-ratio.html</loc>
-        <lastmod>2013-12-18T00:28:55-05:00</lastmod>
+        <loc>http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js</loc>
+        <lastmod>2014-01-15T00:52:44-05:00</lastmod>
     </url>
     <url>
-        <loc>http://roadtolarissa.com/reddit-comment-visualizer.html</loc>
-        <lastmod>2013-12-18T00:26:29-05:00</lastmod>
+        <loc>http://roadtolarissa.com/unemployment-rates</loc>
+        <lastmod>2014-01-15T00:52:47-05:00</lastmod>
     </url>
     <url>
-        <loc>http://roadtolarissa.com/redditgraphs-retrospective.html</loc>
-        <lastmod>2013-12-18T00:26:29-05:00</lastmod>
-    </url>
-    <url>
-        <loc>http://roadtolarissa.com/next-project.html</loc>
-        <lastmod>2013-12-18T00:26:30-05:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures.html
-        </loc>
-        <lastmod>2013-12-18T00:19:40-05:00</lastmod>
-    </url>
-    <url>
-        <loc>http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js.html</loc>
-        <lastmod>2013-12-18T00:26:34-05:00</lastmod>
-    </url>
-    <url>
-        <loc>http://roadtolarissa.com/unemployment-rates.html</loc>
-        <lastmod>2013-12-18T00:26:35-05:00</lastmod>
-    </url>
-    <url>
-        <loc>http://roadtolarissa.com/whale-words.html</loc>
-        <lastmod>2013-12-18T00:26:36-05:00</lastmod>
+        <loc>http://roadtolarissa.com/whale-words</loc>
+        <lastmod>2014-01-15T00:52:51-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/film-strips-post</loc>
         <lastmod>2014-01-10T00:03:48-05:00</lastmod>
     </url>
     <url>
-        <loc>http://roadtolarissa.com/meteor-map.html</loc>
-        <lastmod>2013-12-18T00:26:37-05:00</lastmod>
+        <loc>http://roadtolarissa.com/meteor-map</loc>
+        <lastmod>2014-01-15T00:16:39-05:00</lastmod>
     </url>
     <url>
-        <loc>http://roadtolarissa.com/nba_draft.html</loc>
-        <lastmod>2014-01-10T00:10:16-05:00</lastmod>
+        <loc>http://roadtolarissa.com/nba_draft</loc>
+        <lastmod>2014-01-15T00:14:49-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/twisters-post</loc>
@@ -78,14 +76,14 @@
     </url>
     <url>
         <loc>http://roadtolarissa.com/</loc>
-        <lastmod>2014-01-14T23:47:56-05:00</lastmod>
+        <lastmod>2014-01-15T01:23:01-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/blog/archives/</loc>
-        <lastmod>2014-01-14T23:47:56-05:00</lastmod>
+        <lastmod>2014-01-15T00:52:55-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/blog/</loc>
-        <lastmod>2014-01-14T23:47:56-05:00</lastmod>
+        <lastmod>2014-01-15T00:52:55-05:00</lastmod>
     </url>
 </urlset>

@@ -2,7 +2,7 @@
 title: First Post
 author: admin
 layout: post
-permalink: /first-post.html
+permalink: /first-post
 categories:
   - Uncategorized
 tags:
