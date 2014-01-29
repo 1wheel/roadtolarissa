@@ -9,7 +9,8 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="Interactive tornado map This is a remake of a map John Nelson made over the summer: Seeing Nelson&#8217;s map for the first time, I was struck at &hellip;">
+  <meta name="description" content="ahhsdf kk
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +114,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/circular-synth-scales">Synth Scales</a>
+      </li>
+    
+      <li class="post">
         <a href="/twisters-post">Twisters</a>
       </li>
     
@@ -180,6 +185,19 @@
 
 
 <!--   	
+  	
+  	
+  	  
+  	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/circular-synth-scales">Synth Scales</a></h1>
+<time datetime="2014-01-15T00:00:00-05:00" pubdate><span class='month'>Jan</span> <span class='day'>15</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
   	
   	
   	  
@@ -421,7 +439,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/twisters-post">Twisters</a></h1>
+      <h1 class="entry-title"><a href="/circular-synth-scales">Synth Scales</a></h1>
     
     
       <p class="meta">
@@ -437,72 +455,16 @@
   
 
 
-<time datetime="2013-10-22T00:00:00-04:00" pubdate data-updated="true"></time>
+<time datetime="2014-01-15T00:00:00-05:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p style="text-align: center;">
-  <a href="http://roadtolarissa.com/twisters/"><img class=" wp-image-287 aligncenter" title="Tornado Map" alt="" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/nados-1024x988.png" width="640" height="617" /></a>
-  <p  style="text-align: center;">
-    <em><a href="http://roadtolarissa.com/twisters/">Interactive tornado map</a></em>
-  </p>
-</p>
+  <div class="entry-content"><p>ahhsdf</p>
 
-
-
-
-<p style="text-align: left;">
-  This is a remake of a <a href="http://uxblog.idvsolutions.com/2013/06/tornado-travel-map.html">map</a> John Nelson made over the summer:
-</p>
-
-
-
-
-<p style="text-align: center;">
-  <a href="http://uxblog.idvsolutions.com/2013/06/tornado-travel-map.html"><img class="aligncenter" title="Another Tornado Map" alt="" src="http://farm8.staticflickr.com/7373/9027126483_1f55a634ab_z.jpg" width="640" height="443" /></a>
-</p>
-
-
-
-
-<p style="text-align: left;">
-  Seeing Nelson&#8217;s map for the first time, I was struck at how well its combination of two intuitive ideas &#8211; transforming starting/ending locations into direction and displaying those directions with a polar histogram &#8211; created an instantly understandable visualization. It does a wonderful job of clearly communicating an idea to a wide audience. Sharing what I&#8217;ve learned from looking at this map with a sentence: &#8220;Most tornadoes in the US travel Northeast and typically occur in the East&#8221; isn&#8217;t nearly as impactful (a week after hearing that I probably wouldn&#8217;t remember the direction) or informative (what do &#8216;most&#8217; and &#8216;typically&#8217; mean?) as looking at the map.
-</p>
-
-
-
-
-<p style="text-align: left;">
-  I&#8217;ve tried to emulate the aesthetic of Nelson&#8217;s map while attaching one more simple idea &#8211; <a href="http://square.github.io/crossfilter/">crossfilter </a>- to it. Some things I&#8217;m happy with:
-</p>
-
-
-<ul>
-<li><strong>Click to Zoom<br/>
-<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png"><img class=" wp-image-288 aligncenter" alt="ok" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png" width="461" height="235" /></a></br></strong>d3&#8242;s built in <a href="https://github.com/mbostock/d3/wiki/Zoom-Behavior">zoom </a>is nice, but it is tricky to use on devices without a scroll wheel. Putting an <a href="http://bl.ocks.org/mbostock/4699541">onclick zoom event</a> on each state avoids this difficulty and has the huge add bonus of playing very nicely with crossfilter.  The state to state transitions are my favorite part of this map. Getting multistate tornadoes to behave correctly took a little bit of <a href="https://github.com/1wheel/tornado-tuners/blob/master/matchStates.py">data wrangling</a> and tinkering with crossfilter; I really like the result.</li>
-<li><strong>Brushable Arc<br/>
-<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png"><img class="size-full wp-image-289 aligncenter" alt="arc" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png" width="198" height="173" /></a></strong></br>Not the most useful or impressive thing in the world, but I don&#8217;t think anyone has done this before in d3 and after another <a href="http://www.roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js/">struggle </a>with trigonometry, I&#8217;m trilled that it actually works. I&#8217;d like to make it more accessible  - it might work well in <a href="http://nickqizhu.github.io/dc.js/">dc.js</a> - but the code needs a lot of polishing first.</li>
-</ul>
-
-
-<p>Some &#8216;Todos&#8217; without a checkmark:</p>
-
-<ul>
-<li><strong>Responsive Design<br/>
-</strong>Most screens will have some empty horizontal space and not enough vertical space to view the entire display at once.  Resizable charts with D3 aren&#8217;t actually that difficult to create &#8211; if the drawing of the chart is correctly <a href="http://bost.ocks.org/mike/chart/">decoupled</a> from its other functions you essentially get that behavior for free by redrawing after window.onresize - but (attractively) laying out 9 differently sized charts is.</li>
-<li><strong>Adjustable Color<br/>
-</strong>Setting the attributes of the lines so they matched the actual tornadoes was fun &#8211; direction, start, stop, width, and length clearly apply to both &#8211; but color, more than anything else, is the most visible property of the lines. Nelson colors according to direction to hammer home the point of his chart. I went with <a href="http://en.wikipedia.org/wiki/Fujita_scale">wind speed</a> since it seemed more meteorological and less morbid than deaths; I would have liked to avoid imposing that decision on the viewer. I&#8217;m hoping the graphs on this blog share the sense of playfulness I have exploring data and adjustable colors would have done a good job of that.</li>
-<li><strong>Tracking Dollar Damage<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc1.png"><img class="size-full wp-image-291 aligncenter" alt="arc" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc1.png" width="598" height="129" /><br/>
-</a></strong>eh&#8230; Probably too many charts on the page already.</li>
-<li><strong>Mouse Over Effects<br/>
-</strong>Unlike the my last three projects, there wasn&#8217;t an easy way to find images of the focused items. In lieu of a tooltip, it would have been cool to highlight each bar that the moused over tornado was a member of and possibly display text on the bar showing the corresponding exact value. Currently the only way to find out more about a given tornado on the map is to fiddle with the bars, which is pretty dorky (or with d3.select($0).data(), which is pretty obscure).</li>
-</ul>
-
-
-<p>But! I haven&#8217;t posted anything for four months and I&#8217;m looking forward to starting something new and applying some of what I&#8217;ve learned <a href="https://www.quovo.com/us/no/index.php">working full time</a> with d3 over the the last two months.</p>
+<p>kk</p>
 </div>
   
   
