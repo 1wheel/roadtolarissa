@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+</style>
+<body>
+  <svg id='synth'></svg>
+<script src="d3.js"></script>
+
+<script>
+//helper functions
+var f = function(str){ return function(obj){ return obj[str]; }}
+var compose = function(g, h){ return function(d){ return g(h(d)); }}
+
+var width = 750,
+    height = 750,
+    numBeats = 16,
+    pitches = [130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94, 261.63, 146.83*2, 164.81*2, 174.61*2, 196.00*2, 220.00*2, 246.94*2, 261.63*2].reverse();
+
+var heightScale = d3.scale.linear()
+    .domain([0, pitches.length])
+    .range([100, height/2]);
+
+var rotationScale = d3.scale.linear()
+    .domain([0, numBeats - 1])
+    .range([360/numBeats, 360]);
+
+var arc = d3.svg.arc()
+    .innerRadius(function(d, i){ return heightScale(i); })
+    .outerRadius(function(d, i){ return heightScale(i + 1) - 1; })
+    .startAngle(0)
+    .endAngle(2*Math.PI/numBeats - .005)
+
+var color = d3.scale.ordinal()
+    .domain(d3.range(4))
+    .range(['white', 'steelblue', 'red', 'green']);
+
+var svg = d3.select('#synth')
+    .attr('height', height)
+    .attr('width', width)
+  .append('g')
+    .attr('transform', 'translate(' + [width/2, height/2] +')');
+
+var beats = svg.selectAll('g')
+    .data(d3.range(numBeats)).enter()
+  .append('g')
+    .attr('transform', function(d){ return 'rotate(' + rotationScale(d) + ')'; })
+
+var notes = beats.selectAll('circle')
+    .data(function(){ return pitches.map(function(d, i){ return {pitch: d, lockon: 0}; }); }).enter()
+  .append('path')
+    .attr('d', arc)
+    .on('click', function(d){
+      d.lockon = (d.lockon + 1) % 4;
+      d.on = d.lockon;
+      console.log(d.lockon);
+      d3.select(this).call(colorNote);
+    })
+    .on('mouseover', function(d){
+      if (d.lockon){ return ; }
+      d.on = 1;
+      d3.select(this)
+          .style('stroke', 'lightgrey')
+        .transition().duration(100)
+          .style('fill', 'steelblue')
+    })
+    .on('mouseout', function(d){
+      d.on = d.lockon;
+      d3.select(this)
+          .style('stroke', 'lightgrey')
+        .transition().duration(1000)
+          .call(colorNote)
+    })
+    .style('stroke-width', 2)
+    .style('stroke', 'lightgrey')
+    .style('fill', 'white')
+
+function colorNote(selection){
+  selection.style('fill', function(d){ return color(d.lockon); });
+}
+
+var ac = new webkitAudioContext();
+ac.createGainNode();
+function osc(pitch, waveform){
+  oscillator = ac.createOscillator(),
+  oscillator.type = waveform;
+  oscillator.frequency.value = pitch;
+  gainNode = ac.createGainNode();
+  oscillator.connect(gainNode);
+  gainNode.connect(ac.destination);
+  gainNode.gain.value = .4;
+  return {osc: oscillator, gain: gainNode};
+};
+var nextBeat = 0;
+var nextBeatTime = ac.currentTime;
+
+
+setInterval(function(){
+  //console.log([nextBeatTime, ac.currentTime]);
+  while (nextBeatTime < ac.currentTime + .1){    
+    beats.filter(function(d, i){ return i == nextBeat; })
+      .selectAll('path')
+        .each(function(d){
+          if (d.on){ //play pitch if not is on
+            var o = osc(d.pitch, d.on);
+            o.osc.start(nextBeatTime);
+            o.osc.stop(nextBeatTime + .1)
+          }
+          var selection = d3.select(this).style('stroke', 'purple')
+          setTimeout(function(){
+            selection.style('stroke', 'lightgrey');
+          }, 250)
+        })
+        // .transition().delay((nextBeatTime - ac.currentTime)*1000).duration(100)
+        //   .style('stroke', 'purple')
+        // .transition().duration(500)
+        //   .style('stroke', 'lightgrey')
+
+    //update time and index for the next beat 
+    nextBeatTime += 60/240;         //120 BPM
+    nextBeat = (nextBeat + 1) % numBeats; 
+  }
+}, 25)
+</script>
+
+</body>

@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="I&rsquo;ve found that writing todo lists enormously increases my productivity while programming. Programming is all about breaking larger problems &hellip;">
+  <meta name="description" content="I&rsquo;ve finished working on the Maximin Connect 4 program. I&rsquo;ve set up a page where you can play around with the AI since I&rsquo;m not sure &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/circular-synth-scales">Synth Scales</a>
+      </li>
+    
+      <li class="post">
         <a href="/twisters-post">Twisters</a>
       </li>
     
@@ -180,6 +184,19 @@
 
 
 <!--   	
+  	
+  	
+  	  
+  	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/circular-synth-scales">Synth Scales</a></h1>
+<time datetime="2014-01-15T00:00:00-05:00" pubdate><span class='month'>Jan</span> <span class='day'>15</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
   	
   	
   	  
@@ -421,7 +438,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/first-post">First Post</a></h1>
+      <h1 class="entry-title"><a href="/maximin-connect-4-completed">Maximin Connect 4 Completed</a></h1>
     
     
       <p class="meta">
@@ -437,23 +454,23 @@
   
 
 
-<time datetime="2012-09-27T00:00:00-04:00" pubdate data-updated="true"></time>
+<time datetime="2012-09-29T00:00:00-04:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&rsquo;ve found that writing todo lists enormously increases my productivity while programming. Programming is all about breaking larger problems into smaller problems over and over until the problems are small enough to solve easily. Lists provide a map of the problems that need solving and make it possible to work on a smaller subset of them without having to simultaneously worry about the global structure of the program.</p>
+  <div class="entry-content"><p>I&rsquo;ve finished working on the Maximin Connect 4 program. I&rsquo;ve set up a <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">page</a> where you can play around with the AI since I&rsquo;m not sure how to embed HTML in these posts. Some general things I learned (I&rsquo;ll make a separate post with more Connect 4 specific ideas once I&rsquo;ve run some more tests on the AI):</p>
 
-<p>I&rsquo;d like to learn more about creating computer programs able to play board games; to that end, over the next day or two I&rsquo;m going to be working on an AI for 8&#215;8 Connect 4 and try to accomplish the following:</p>
-
-<ol>
-<li>Implement a Minimax algorithm using javascript since game logic and GUI are already written. The heuristic evaluation function will probably count the number of winning moves available to both players.</li>
-<li>Add alpha-beta punning to the Minimax algorithm.</li>
-<li>Create a Monte-Carlo Tree Search algorithm for Connect 4. I&rsquo;m not currently very familiar with this technique, but based on what I&rsquo;ve read so far, it looks like it is <a href="http://en.wikipedia.org/wiki/Monte_Carlo_method#Games">state of the art</a>.</li>
-<li>Have the programs play each other (with similar run times) and post the results.</li>
-</ol>
+<ul>
+<li>Different browsers render javascript in wildly different ways. In Chrome and with the most limited searches, each game takes about two seconds to play with pieces appearing and disappearing faster then game board can be understood. Firefox can also play a few games quickly, but starts to redraw the frame slower and slower until it only updates once every few games. Initially, I thought this was because Firefox had terrible garbage collection or was unable to deal with extended recursion. After adding better game logging, I realized Firefox was playing only about 20% less games then Chrome, but looked much worse because it had stopped rending. Opera performed about the same as Firework while IE9 failed to display the page (either because security settings stopped it from loading local javascript or because it wasn&#8217;t comparable with some aspect of the javascript).</li>
+<li>To make the program display better in non-Chrome browsers, I added an option to disable animation while the bots play each other. Hopefully, I don&rsquo;t run into many more large gaps between browsers. The main appeal of javascript is its ability to run on everyone&rsquo;s computer without downloading or installing anything. If the AI requires Chrome to run properly at some point, that advantage is lost and it would make sense to switch to another language for increased performance. After javascript, I&rsquo;m most familiar with matlab but since none of the algorithms I&rsquo;m planning on using lend themselves to vectorization, I don&rsquo;t think it would be that fruitful. I&rsquo;ve seen other AI projects done in python but I haven&rsquo;t used python for years.</li>
+<li>javascript&rsquo;s lack of a build in way to pass functions a copy of an Array instead of a reference to the Array really slows down the AI &#8211; over 1/3 of the the processing time is spent on copying Arrays.<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile.png"><img class="aligncenter size-full wp-image-28" title="CPU Profile" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile.png" alt="" width="267" height="99" /></a>Fixing this shouldn&rsquo;t be that difficult; the psuedo code I read suggested using a &#8216;undoMove&#8217; function instead of creating new Arrays every ply. Thinking that storing an extra few Arrays wouldn&rsquo;t be too costly, I didn&rsquo;t do that. Since <em>creating </em>Arrays is costly,  an &#8216;undoMove&#8217; function should be used.</li>
+<li>Implementing a working version of the psuedo code required over 20 times as many lines of code. <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile1.png"><img class="aligncenter size-full wp-image-29" title="profile" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile1.png" alt="" width="550" height="319" /></a>In my defense, my code also includes the negamax algorithm; still actually writing the eval function and hooks for the rest of the Connect 4 program to use requires more verbosity then I was expecting. Looking over the code, there is some duplicated functionality that would be nice to remove, particularly the similarities between the negamax and alphabeta code.</li>
+<li>I&rsquo;m never sure how general to make things ahead of time. Working on my reversi game, I initially created a version that worked locally in one browser window. After playing around with the hangout API, I slowly added functionality to the handout version &#8211; syncing board state between all participants  computers, only allowing the active player make move, buttons to start a new game, ect. Once I finished reversi, I wanted to add more games, but the prospect of getting a new game working only though testing on hangouts was daunting because loading new version of code takes over a minute and I&rsquo;m used to iterating much faster then that. Additionally, if I found problems with code that interacted with the hangout API, I&rsquo;d have to also correct the issue in the other games code. While this isn&rsquo;t a huge deal with only two games, it&rsquo;d become a big time suck once six or seven games were made. To get around these difficulties, I wrote a wrapper for the reversi program that generalized board updates and game endings away from the specific logic of reversi. While I was working on the wrappered reversi which worked locally, I felt fairly silly since I had already created a copy of reversi that worked locally! I think the extra effort was worthwhile &#8211; it only took me a few hours to write a checkers game with the local wrapper and it didn&rsquo;t require too much more work to make checkers also work with hangouts.</li>
+</ul>
 
 </div>
   
@@ -463,6 +480,8 @@
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/17/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
