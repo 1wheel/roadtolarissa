@@ -4,11 +4,12 @@
 </style>
 <body>
   <svg id='synth'></svg>
-<script src="d3.js"></script>
 
+  <div id='synthSliders'></div>
+<script src="d3.js"></script>
 <script>
 //helper functions
-var f = function(str){ return function(obj){ return obj[str]; }}
+var f = function(str){ return function(obj){ return str ? obj[str] : obj; }}
 var compose = function(g, h){ return function(d){ return g(h(d)); }}
 
 var width = 750,
@@ -26,13 +27,13 @@ var rotationScale = d3.scale.linear()
 
 var arc = d3.svg.arc()
     .innerRadius(function(d, i){ return heightScale(i); })
-    .outerRadius(function(d, i){ return heightScale(i + 1) - 1; })
+    .outerRadius(function(d, i){ return heightScale(i + 1) - 0; })
     .startAngle(0)
-    .endAngle(2*Math.PI/numBeats - .005)
+    .endAngle(2*Math.PI/numBeats)
 
 var color = d3.scale.ordinal()
     .domain(d3.range(4))
-    .range(['white', 'steelblue', 'red', 'green']);
+    .range(['white', '#338AE5', '#FFB800', '#BA5FD6']);
 
 var svg = d3.select('#synth')
     .attr('height', height)
@@ -52,74 +53,97 @@ var notes = beats.selectAll('circle')
     .on('click', function(d){
       d.lockon = (d.lockon + 1) % 4;
       d.on = d.lockon;
-      console.log(d.lockon);
-      d3.select(this).call(colorNote);
+      d3.select(this)
+          .call(colorNote)
+          .style('stroke', 'black');
     })
     .on('mouseover', function(d){
-      if (d.lockon){ return ; }
-      d.on = 1;
+      d.on = (d.lockon + 1) % 4;
       d3.select(this)
-          .style('stroke', 'lightgrey')
         .transition().duration(100)
-          .style('fill', 'steelblue')
+          .style('fill', color(d.on));
     })
     .on('mouseout', function(d){
       d.on = d.lockon;
       d3.select(this)
-          .style('stroke', 'lightgrey')
         .transition().duration(1000)
-          .call(colorNote)
+          .call(colorNote);
     })
-    .style('stroke-width', 2)
+    .style('stroke-width', 1.4)
     .style('stroke', 'lightgrey')
     .style('fill', 'white')
 
-function colorNote(selection){
-  selection.style('fill', function(d){ return color(d.lockon); });
-}
+function colorNote(selection){ selection.style('fill', compose(color, f('on'))); }
 
 var ac = new webkitAudioContext();
 ac.createGainNode();
-function osc(pitch, waveform){
-  oscillator = ac.createOscillator(),
-  oscillator.type = waveform;
-  oscillator.frequency.value = pitch;
-  gainNode = ac.createGainNode();
-  oscillator.connect(gainNode);
-  gainNode.connect(ac.destination);
-  gainNode.gain.value = .4;
-  return {osc: oscillator, gain: gainNode};
-};
 var nextBeat = 0;
 var nextBeatTime = ac.currentTime;
-
-
 setInterval(function(){
-  //console.log([nextBeatTime, ac.currentTime]);
+  //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
   while (nextBeatTime < ac.currentTime + .1){    
     beats.filter(function(d, i){ return i == nextBeat; })
       .selectAll('path')
         .each(function(d){
-          if (d.on){ //play pitch if not is on
+          if (d.on){
             var o = osc(d.pitch, d.on);
             o.osc.start(nextBeatTime);
-            o.osc.stop(nextBeatTime + .1)
+            o.osc.stop(nextBeatTime + getDuration())
           }
-          var selection = d3.select(this).style('stroke', 'purple')
+          var selection = d3.select(this).style('stroke', 'grey')
           setTimeout(function(){
             selection.style('stroke', 'lightgrey');
-          }, 250)
+          }, getBPM()*1000)
         })
-        // .transition().delay((nextBeatTime - ac.currentTime)*1000).duration(100)
-        //   .style('stroke', 'purple')
-        // .transition().duration(500)
-        //   .style('stroke', 'lightgrey')
 
-    //update time and index for the next beat 
-    nextBeatTime += 60/240;         //120 BPM
+    //update time and index of nextBeat 
+    nextBeatTime += getBPM();
     nextBeat = (nextBeat + 1) % numBeats; 
   }
 }, 25)
+
+
+//add sliders to the page
+var sliders = d3.select('#synthSliders').selectAll('input')
+    .data(['Pitch', 'BPM', 'Duration']).enter()
+  .append('div')
+    .style({display: 'inline-block', 'margin-left': '89.5px', 'text-align': 'center'})
+
+sliders.append('p').text(f());
+
+sliders.append('p').append('input')
+    .attr({type: 'range', min: '0', max: '1', step: '0.0001', value: '.5'})
+    .attr('id', f());
+
+//use inverse log scales for better sliders 
+function getPitch(){
+  var scale = d3.scale.log().domain([.1, 10]);
+  return scale.invert((d3.select('#Pitch').node().valueAsNumber));
+}
+function getBPM(){
+  var scale = d3.scale.log().domain([40, 1200]);
+  var rv = 60/scale.invert((d3.select('#BPM').node().valueAsNumber));
+  return rv;
+}
+function getDuration(){
+  var scale = d3.scale.log().domain([.05, 1]);
+  return scale.invert((d3.select('#Duration').node().valueAsNumber));
+}
+
+
+//generate oscillator
+function osc(pitch, waveform){
+  oscillator = ac.createOscillator(),
+  oscillator.type = waveform;
+  oscillator.frequency.value = pitch*getPitch();
+  gainNode = ac.createGainNode();
+  oscillator.connect(gainNode);
+  gainNode.connect(ac.destination);
+  gainNode.gain.value = .2;
+  return {osc: oscillator, gain: gainNode};
+};
 </script>
+
+
 
 </body>
