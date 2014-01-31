@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-01-31T01:58:00-05:00</updated>
+  <updated>2014-01-31T03:35:29-05:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -15,7 +15,7 @@
   
   <entry>
     <title type="html"><![CDATA[Making Music With D3]]></title>
-    <link href="http://roadtolarissa.com/circular-synth-scales"/>
+    <link href="http://roadtolarissa.com/synth"/>
     <updated>2014-01-15T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/synth-scales</id>
     <content type="html"><![CDATA[<p><svg id='synth'></svg></p>
@@ -23,24 +23,26 @@
 <div id='synthSliders'></div>
 
 
-<p><em>Click to add a note, requires firefox or chrome. Remake of <a href="http://www.roadtolarissa.com/synth-scales/">my remake</a> of <a href="http://tonematrix.audiotool.com/">tonematrix</a>.</em></p>
+<p><em>Click to add a note; requires firefox or chrome. Remake of <a href="http://www.roadtolarissa.com/synth-scales/">my remake</a> of <a href="http://tonematrix.audiotool.com/">tonematrix</a>.</em></p>
 
 <p>Polar coordinates are pretty cool for displaying looping music! The music actually loops and larger boxes produce lower pitches, just like they do in real life. Other, smaller improvements:</p>
 
 <ul>
-<li>Log scaled sliders allow for finer control of large and small values. Going up or down an octave sound like the same distance to our ears, but on a linear scale 220 Hz is four times closer to 440 Hz than 880 Hz.</li>
-<li>Double and triple clicking produce replaces the default square waveform with saw and triangle ones. And adds more color!</li>
+<li>Log scaled sliders allow for finer control of large and small values. Going up or down an octave sound like the same distance to our ears, but on a linear scale 220 Hz is four times closer to 440 Hz than 880 Hz. With a bigger ranges, more and more of the smaller interesting values cluster together on a linear slider.</li>
+<li>Double and triple clicking produce replaces the default square waveform with saw and triangle waveforms. And adds more color!</li>
 <li>I&rsquo;ve lowered the gain. Previously playing more than two notes would create an awful screech; not maxing out the sound card avoids this problem.</li>
-<li>Cleaner code!</li>
+<li><a href="https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/synthScale.js">Cleaner code.</a> After over a year of d3 and javascript, I think I&rsquo;m really starting get a handle on writing clearly and idiomatically. Bit too much post here, but it is amazing what 150 lines can when built on top of the right abstractions.</li>
 </ul>
 
 
-<p>cleaner code</p>
+<p>Still todo:</p>
 
-<p>mousedown draw, better flicker, generate share link, embedable</p>
+<ul>
+<li>Customizable beats &ndash; both the raw number and their duration to allow for swinging and different time signatures.</li>
+<li>More scales and some sort of visualization of half and whole steps. It would also be interesting to explore explicitly educational interactive demonstrations of music theory.</li>
+<li>Saving/sharing state and more ambitiously, saving/sharing history to playback the process of making a song.</li>
+</ul>
 
-<p>Change number of beats, group by measure and change time signature.
-History</p>
 
 <script src="http://roadtolarissa.com/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
 
@@ -418,7 +420,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x74;&#105;&#112;&#115;&#64;&#119;&#101;&#x62;&#x73;&#x69;&#116;&#101;&#46;&#x63;&#x6f;&#109;">&#116;&#x69;&#112;&#115;&#x40;&#119;&#101;&#x62;&#115;&#x69;&#x74;&#x65;&#x2e;&#99;&#x6f;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#x74;&#105;&#112;&#x73;&#x40;&#119;&#x65;&#x62;&#x73;&#x69;&#116;&#101;&#46;&#99;&#111;&#109;">&#116;&#105;&#x70;&#x73;&#64;&#119;&#x65;&#98;&#115;&#105;&#116;&#x65;&#x2e;&#x63;&#x6f;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 

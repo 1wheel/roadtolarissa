@@ -29,17 +29,21 @@ var color = d3.scale.ordinal()
     .domain(d3.range(4))
     .range(['white', '#338AE5', '#FFB800', '#BA5FD6']);
 
+//translate (0, 0) to center of svg to make circle math easier
 var svg = d3.select('#synth')
     .attr('height', height)
     .attr('width', width)
   .append('g')
     .attr('transform', 'translate(' + [width/2, height/2] +')');
 
+//create a g element for each beat
+//rotated so we only have to worry about circular math 
 var beats = svg.selectAll('g')
     .data(d3.range(numBeats)).enter()
   .append('g')
     .attr('transform', function(d){ return 'rotate(' + rotationScale(d) + ')'; })
 
+//add array of notes to each beat
 var notes = beats.selectAll('path')
     .data(function(){ return pitches.map(function(d, i){ return {pitch: d, lockon: 0}; }); }).enter()
   .append('path')
