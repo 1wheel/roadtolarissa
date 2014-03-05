@@ -13,24 +13,20 @@
 var f = function(str){ return function(obj){ return str ? obj[str] : obj; }}
 var compose = function(g, h){ return function(d){ return g(h(d)); }}
 var indexF = function(d, i){ return i; }
-var x, y, color, line;
+var x, y, color, line, years, segmentG, longStaggeredG;
 
 d3.json('formatedData.json', function(error, data){
-  var longs = data[0].str
-      .split('---')
-      .map(function(d){
-        return d.split(' ').map(function(num){ return +num; }); });
+  var longs = data.years[0];
   
   var threshhold = 10000;
-  staggeredLongs = longs.map(function(longitude){
+  years = data.years.map(function(year){ return year.map(function(longitude, longitudeNum){
     var rv = [];
 
-    var aboveThreshhold = false;
     var i = longitude.length - 2;
     var nextSegment = [longitude[i-1]];
     while (i > 0){
       i = i - 1;
-      if (aboveThreshhold != longitude[i] > threshhold){
+      if (~data.breaks[longitudeNum].indexOf(i)){
         nextSegment.push(longitude[i]);
         rv.push({points: nextSegment.reverse(), index: i});
         nextSegment = [];
@@ -38,10 +34,9 @@ d3.json('formatedData.json', function(error, data){
       }
       nextSegment.push(longitude[i]);
     }
-    if (nextSegment.some(function(d){ return d === undefined; })){ debugger; }
     rv.push({points: nextSegment.reverse(), index: 0});
     return rv;
-  });
+  }); });
 
   var width = 700,
       height = 700;
@@ -53,7 +48,7 @@ d3.json('formatedData.json', function(error, data){
       .domain([0, longs.length])
       .range([0, height]);
 
-  color = d3.scale.linear()
+  popHeight = d3.scale.linear()
       .domain([0, .2, d3.max(d3.merge(longs))])
       .range([0, -1, -100]);
 
@@ -61,62 +56,39 @@ d3.json('formatedData.json', function(error, data){
     .append('svg')
       .attr({width: width, height: height});
 
-  // var longG = svg.selectAll('g')
-  //     .data(longs).enter()
-  //   .append('g')
-  //     .attr('transform', function(d, i){ return 'translate(0, ' + y(i) + ')'; })
-
-  // longG.selectAll('circle')
-  //     .data(function(d){ return d; }).enter()
-  //   .append('circle')
-  //     .attr('cx', function(d, i){ return x(i); })
-  //     .style('color', 'black')
-  //     .style('opacity', color)
-  //     .attr('r', 1)
-
-
-  // line = d3.svg.area()
-  //     .x(function(d, i){ return x(i); })
-  //     .y(0)
-  //     .y1(function(d){ return color(d); });
-
-  // longG
-  //   .append('path')
-  //     .attr('d', line)
-  //     .style('fill', 'white ')
-  //     .style('stroke-width', '.1px')
-  //     .style('stroke', 'black');
-
   area = d3.svg.area()
       .x(function(d, i){ return x(i); })
-      .y(0)
-      .y1(function(d){ return color(d); });
+      .y0(function(d){ return popHeight(d); })
+      .y1(0);
 
   line = d3.svg.line()
       .x(function(d, i){ return x(i); })
-      .y(function(d){ return color(d); });
+      .y(function(d){ return popHeight(d); });
 
-  var longStaggeredG = svg.selectAll('g')
-      .data(staggeredLongs).enter()
+  longStaggeredG = svg.selectAll('g')
+      .data(years[0]).enter()
     .append('g')
       .attr('transform', function(d, i){ return 'translate(0, ' + y(i) + ')'; })
 
-  var segmentG =longStaggeredG.selectAll('g')
+  segmentG = longStaggeredG.selectAll('g')
       .data(function(d){ return d; }).enter()
     .append('g')
       .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)'; });
 
   segmentG.append('path')
       .attr('d', compose(area, f('points')))
-      .style('fill', 'white ')
-      .style('opacity', function(d){ return d.points[0] > threshhold ? 1 : .2; });
+      .style('fill', 'white ');
 
   segmentG.append('path')
       .attr('d', compose(line, f('points')))
-      .style('fill', 'white ')
+      .style('fill', 'rgba(0,0,0,0) ')
       .style('stroke-width', '1px')
       .style('stroke', 'black')
       .style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2; });
 
 });
+
+function transition(index){
+  segmentG;
+}
 </script>
