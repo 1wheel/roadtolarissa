@@ -87,7 +87,21 @@ d3.json('formatedData.json', function(error, data){
       .style('stroke-width', '1px')
       .style('stroke', 'black')
       .style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2 })
-})
+
+
+
+  d3.select('#joymap').append('div').style('width', width + 'px').selectAll('span')
+      .data([1990, 1995, 2000, 2005, 2010, 2015]).enter()
+    .append('div')
+      .classed('yearDiv', true)
+      .style({'display': 'inline-block', 'width': 100/6 + '%', 'text-align': 'center', 'cursor': 'pointer'})
+      .text(f())
+      .on('click', function(d, i){
+        transition(i);
+        d3.select('#joymap').selectAll('.yearDiv').style('font-weight', 'normal')
+        d3.select(this).style('font-weight', 'bold');
+      });
+});
 
 function transition(index){
   longStaggeredG.data(years[index]).each(function(longData, longitudeNum){
@@ -95,21 +109,21 @@ function transition(index){
     d3.select(this).selectAll('.line').data(longData)
   })
 
-  d3.selectAll('.area').transition().attr('d', compose(area, f('points')))
-  d3.selectAll('.line').transition().attr('d', compose(line, f('points')))
+  d3.selectAll('.area').attr('d', compose(area, f('points')))
+  d3.selectAll('.line').attr('d', compose(line, f('points')))
 }
 
-var currentIndex = 0
+// var currentIndex = 0
 // d3.timer(function(){
 //   currentIndex = (currentIndex + 1) % 6
 //   console.log(currentIndex)
 //   transition(currentIndex)
 // }, 2000)
 
-function timeoutLoop(){
-  currentIndex = (currentIndex + 1) % 6
-  transition(currentIndex)
-  setTimeout(timeoutLoop, 1000)
-}
-setTimeout(timeoutLoop, 1000)
+// function timeoutLoop(){
+//   currentIndex = (currentIndex + 1) % 6
+//   transition(currentIndex)
+//   setTimeout(timeoutLoop, 1000)
+// }
+// setTimeout(timeoutLoop, 1000)
 </script>
