@@ -11,8 +11,8 @@
     font: 12px sans-serif;
     background: rgba(255, 255, 255, .3);
     border: solid 1px yellow;
-*/    border-radius: 8px;
-    /*pointer-events: none;*/
+    /*border-radius: 8px;*/
+    pointer-events: none;
     opacity: 0;
   }
 
@@ -177,6 +177,10 @@ d3.json('formatedData.json', function(error, data){
             .attr('y', miniY)
             .attr('height', function(d){ return miniHeight - miniY(d); })
             .attr('fill', function(d, i){ return i == currentIndex ? 'rgba(50, 50, 50, .6)' : 'rgba(100, 100, 100, .5)' })
+      })
+      .on('mouseout', function(){
+        highlightRect.attr('opacity', 0)
+        tooltip.style('opacity', 0)
       })
 
 
