@@ -5,90 +5,111 @@
 </head>
 
 <body>
-  <div id='joyMapSVG'></div>
+  <div id='joymap'></div>
   <script src="d3-3.3.3.js"></script>
 </body>
 
 <script>
-var f = function(str){ return function(obj){ return str ? obj[str] : obj; }}
-var compose = function(g, h){ return function(d){ return g(h(d)); }}
-var indexF = function(d, i){ return i; }
-var x, y, color, line, years, segmentG, longStaggeredG;
+var f = function(str){ return function(obj){ return str ? obj[str] : obj }}
+var indexF = function(d, i){ return i }
+var compose = function(g, h){ return function(d){ return g(h(d)) }}
+
+var x, y, color, line, years, segmentG, longStaggeredG
 
 d3.json('formatedData.json', function(error, data){
-  var longs = data.years[0];
-  
-  var threshhold = 10000;
+  var longs = data.years[5]
+  var threshhold = 10000
   years = data.years.map(function(year){ return year.map(function(longitude, longitudeNum){
-    var rv = [];
-
-    var i = longitude.length - 2;
-    var nextSegment = [longitude[i-1]];
+    var rv = []
+    var i = longitude.length - 2
+    var nextSegment = [longitude[i-1]]
     while (i > 0){
-      i = i - 1;
+      i = i - 1
       if (~data.breaks[longitudeNum].indexOf(i)){
-        nextSegment.push(longitude[i]);
-        rv.push({points: nextSegment.reverse(), index: i});
-        nextSegment = [];
-        aboveThreshhold = longitude[i] > threshhold;
+        nextSegment.push(longitude[i])
+        rv.push({points: nextSegment.reverse(), index: i})
+        nextSegment = []
       }
-      nextSegment.push(longitude[i]);
+      nextSegment.push(longitude[i])
     }
-    rv.push({points: nextSegment.reverse(), index: 0});
-    return rv;
-  }); });
+    rv.push({points: nextSegment.reverse(), index: 0})
+    return rv
+  }) })
 
   var width = 700,
-      height = 700;
+      height = 700
 
   x = d3.scale.linear()
       .domain([0, longs[0].length])
-      .range([0, width]);
+      .range([0, width])
   y = d3.scale.linear()
       .domain([0, longs.length])
-      .range([0, height]);
+      .range([0, height])
 
   popHeight = d3.scale.linear()
       .domain([0, .2, d3.max(d3.merge(longs))])
-      .range([0, -1, -100]);
+      .range([0, -1, -200])
 
-  var svg = d3.select('#joyMapSVG')
+  var svg = d3.select('#joymap')
     .append('svg')
-      .attr({width: width, height: height});
+      .attr({width: width, height: height})
 
   area = d3.svg.area()
-      .x(function(d, i){ return x(i); })
-      .y0(function(d){ return popHeight(d); })
-      .y1(0);
+      .x(function(d, i){ return x(i) })
+      .y0(function(d){ return popHeight(d) })
+      .y1(0)
 
   line = d3.svg.line()
-      .x(function(d, i){ return x(i); })
-      .y(function(d){ return popHeight(d); });
+      .x(function(d, i){ return x(i) })
+      .y(function(d){ return popHeight(d) })
 
   longStaggeredG = svg.selectAll('g')
       .data(years[0]).enter()
     .append('g')
-      .attr('transform', function(d, i){ return 'translate(0, ' + y(i) + ')'; })
+      .attr('transform', function(d, i){ return 'translate(0, ' + y(i) + ')' })
 
-  segmentG = longStaggeredG.selectAll('g')
-      .data(function(d){ return d; }).enter()
-    .append('g')
-      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)'; });
 
-  segmentG.append('path')
+  longStaggeredG.selectAll('.area')
+      .data(function(d){ return d }).enter()
+    .append('path')
+      .classed('area', true)
       .attr('d', compose(area, f('points')))
-      .style('fill', 'white ');
+      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
+      .style('fill', 'white ')
 
-  segmentG.append('path')
+  longStaggeredG.selectAll('.line')
+      .data(function(d){ return d }).enter()
+    .append('path')
+      .classed('line', true)
       .attr('d', compose(line, f('points')))
+      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
       .style('fill', 'rgba(0,0,0,0) ')
       .style('stroke-width', '1px')
       .style('stroke', 'black')
-      .style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2; });
-
-});
+      .style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2 })
+})
 
 function transition(index){
-  segmentG;
+  longStaggeredG.data(years[index]).each(function(longData, longitudeNum){
+    d3.select(this).selectAll('.area').data(longData);
+    d3.select(this).selectAll('.line').data(longData)
+  })
+
+  d3.selectAll('.area').transition().attr('d', compose(area, f('points')))
+  d3.selectAll('.line').transition().attr('d', compose(line, f('points')))
 }
+
+var currentIndex = 0
+// d3.timer(function(){
+//   currentIndex = (currentIndex + 1) % 6
+//   console.log(currentIndex)
+//   transition(currentIndex)
+// }, 2000)
+
+function timeoutLoop(){
+  currentIndex = (currentIndex + 1) % 6
+  transition(currentIndex)
+  setTimeout(timeoutLoop, 1000)
+}
+setTimeout(timeoutLoop, 1000)
 </script>
