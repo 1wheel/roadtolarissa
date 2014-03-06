@@ -3,17 +3,24 @@ _ = require('lodash-node')
 
 
 // 286 longitude bands
-breaks = [];
+var breaks = [];
 for (var i = 0; i < 286; i++){ breaks.push([]); }
 
 var years = [];
 
-fileNames = fs.readdirSync('rawData/')
+//ileNames = fs.readdirSync('rawData/')
+fileNames = ["glp90ag30.asc", "glp95ag30.asc", "glp00ag30.asc", "glp05ag30.asc", "glp10ag30.asc", "glp15ag30.asc"];
 fileNames.forEach(function(fileName){
 	var data = fs.readFileSync('rawData/' + fileName, 'ascii');
-	var lines = data.split('\n').filter(function(d){ return d.length > 100; }).map(function(line){
-		return line.split(' ').map(function(num){ return +num; }); 
-	});
+	var lines = data.split('\n')
+		//remove meta data rows
+		.filter(function(d){ return d.length > 100; })
+		.map(function(line){
+			return line.split(' ')
+				.map(function(d){ return +d; })
+				.map(function(d, i, array){ return i % 2 ? 0 : d + array[i + 1]; })
+				.filter(function(d, i){ return i % 2 == 0; })
+		});
 
 	years.push(lines);
 
@@ -31,6 +38,7 @@ fileNames.forEach(function(fileName){
 	});
 });
 
+//remove duplicates
 breaks.map(_.uniq);
 
 fs.writeFile('formatedData.json', JSON.stringify({breaks: breaks, years: years, fileNames: fileNames}));
