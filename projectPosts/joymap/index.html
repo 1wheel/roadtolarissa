@@ -2,10 +2,28 @@
 <head>
   <meta charset="UTF-8">
 
+  <style>
+
+  #joymap-tooltip {
+    position: absolute;
+    width: 150px;
+    padding: 8px;
+    font: 12px sans-serif;
+    background: rgba(255, 255, 255, .3);
+    border: solid 1px yellow;
+*/    border-radius: 8px;
+    /*pointer-events: none;*/
+    opacity: 0;
+  }
+  </style>
+
+
 </head>
 
 <body>
-  <div id='joymap'></div>
+  <div id='joymap'>
+    <div id='joymap-tooltip'></div>
+  </div>
   <script src="d3-3.3.3.js"></script>
 </body>
 
@@ -40,7 +58,7 @@ d3.json('formatedData.json', function(error, data){
       height = 700
 
   x = d3.scale.linear()
-      .domain([0, longs[0].length])
+      .domain([0, longs[0].length - 1])
       .range([0, width])
   y = d3.scale.linear()
       .domain([0, longs.length])
@@ -90,20 +108,81 @@ d3.json('formatedData.json', function(error, data){
 
 
 
+  var miniHeight = 100,
+      miniWidth = 150
+      miniX = d3.scale.ordinal()
+        .rangeRoundBands([0, miniWidth], .1)
+        .domain(d3.range(years.length)),
+      miniY = d3.scale.linear()
+        .range([miniHeight, 0]) 
+
+  var tooltip = d3.select('#joymap-tooltip')
+  tooltip.append('div').style({'text-align': 'center', 'font-weight': 'bold', 'font-size': '105%'})
+  var miniSvg = tooltip.append('svg').attr({height: miniHeight, width: miniWidth});
+
+  miniSvg.selectAll('text')
+      .data(['90', '95', '00', '05', '10', '15']).enter()
+    .append('text')
+      .text(f())
+      .attr('x', function(d, i){ return miniX(i) + miniX.rangeBand()/2; })
+      .attr({'y': miniHeight, 'text-anchor': 'middle'})
+
+  miniSvg.selectAll('rect')
+      .data(d3.range(6)).enter()
+    .append('rect')
+      .attr('x', function(d, i){ return miniX(i); })
+      .attr({y: 0, height: 10, width: miniX.rangeBand(), fill: 'rgba(100, 100, 100, .5)'})
+
+  var boxSize = 10
+  var highlightRect = svg.append('rect').attr({height: y(boxSize), width: x(boxSize), opacity: 0, fill: 'yellow'})
+
+  svg.append('rect')
+      .attr({height: height, width: width, opacity: 0})
+      .on('mousemove', function(){
+        var pos = d3.mouse(this)
+        var indices = [x.invert(pos[0]), y.invert(Math.max(pos[1] - y(boxSize), 0))].map(Math.round)
+        var selectedData = data.years.map(function(year){
+          return d3.sum(year.slice(indices[1], boxSize + indices[1]).map(function(d){
+            return d3.sum(d.slice(indices[0], boxSize + indices[0])) }))  
+        })
+
+        highlightRect
+            .attr('opacity', .5)
+            .attr('x', x(indices[0]))
+            .attr('y', y(indices[1]))
+            .style('stroke-width', '5px')
+
+        tooltip.style({opacity: 1, left: d3.event.pageX + x(boxSize) + 'px', top: d3.event.pageY + 'px'})
+
+        tooltip.select('div').text(d3.format(",.0f")(selectedData[currentIndex]))
+
+        tooltip.selectAll('text').style('font-weight', function(d, i){ return i == currentIndex ? 'bold' : 'normal' })
+
+        miniY.domain([0, d3.max(selectedData.concat(1))]);
+        tooltip.selectAll('rect').data(selectedData)
+            .attr('y', miniY)
+            .attr('height', function(d){ return miniHeight - miniY(d); });
+
+      })
+
+
+
   d3.select('#joymap').append('div').style('width', width + 'px').selectAll('span')
       .data([1990, 1995, 2000, 2005, 2010, 2015]).enter()
     .append('div')
       .classed('yearDiv', true)
       .style({'display': 'inline-block', 'width': 100/6 + '%', 'text-align': 'center', 'cursor': 'pointer'})
       .text(f())
+      .style('font-weight', function(d, i){ return i ? 'normal' : 'bold' })
       .on('click', function(d, i){
-        transition(i);
+        transition(i)
         d3.select('#joymap').selectAll('.yearDiv').style('font-weight', 'normal')
-        d3.select(this).style('font-weight', 'bold');
+        d3.select(this).style('font-weight', 'bold')
       });
 });
 
 function transition(index){
+  currentIndex = index;
   longStaggeredG.data(years[index]).each(function(longData, longitudeNum){
     d3.select(this).selectAll('.area').data(longData);
     d3.select(this).selectAll('.line').data(longData)
@@ -112,18 +191,12 @@ function transition(index){
   d3.selectAll('.area').attr('d', compose(area, f('points')))
   d3.selectAll('.line').attr('d', compose(line, f('points')))
 }
+var currentIndex = 0;
 
-// var currentIndex = 0
 // d3.timer(function(){
 //   currentIndex = (currentIndex + 1) % 6
 //   console.log(currentIndex)
 //   transition(currentIndex)
 // }, 2000)
 
-// function timeoutLoop(){
-//   currentIndex = (currentIndex + 1) % 6
-//   transition(currentIndex)
-//   setTimeout(timeoutLoop, 1000)
-// }
-// setTimeout(timeoutLoop, 1000)
 </script>
