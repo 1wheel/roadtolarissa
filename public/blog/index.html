@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="James Cheshire&rsquo;s Population Lines redone with d3 //helper functions function f(str){ return function(obj){ return str ? obj[str] : obj }} &hellip;">
+  <meta name="description" content="James Cheshire&rsquo;s Population Lines redone with d3 Orignally, I wanted //helper functions function f(str){ return function(obj){ return str ? &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -482,6 +482,8 @@
 <p></br>
 <em>James Cheshire&rsquo;s <a href="http://spatial.ly/2013/09/population-lines/">Population Lines</a> redone with d3</em></p>
 
+<p>Orignally, I wanted</p>
+
 <script src="/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
 
 
@@ -577,7 +579,7 @@
           miniY = d3.scale.linear()
             .range([miniHeight, 0]) 
 
-      var tooltip = d3.select('body').append('div').attr('id', 'joymap-tooltip')
+      var tooltip = d3.select('html').append('div').attr('id', 'joymap-tooltip')
       tooltip.append('div').attr('id', 'joymap-tooltip-title')
 
       var miniSvg = tooltip.append('svg').attr({height: miniHeight, width: miniWidth});
