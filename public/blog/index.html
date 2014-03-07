@@ -631,6 +631,8 @@
             tooltip.style('opacity', 0)
           })
 
+
+
       d3.select('#joymap').append('div').style('width', width + 'px').selectAll('span')
           .data([1990, 1995, 2000, 2005, 2010, 2015]).enter()
         .append('div')
@@ -642,7 +644,9 @@
             transition(i)
             d3.select('#joymap').selectAll('.yearDiv').style('font-weight', 'normal')
             d3.select(this).style('font-weight', 'bold')
-          });
+          })
+          .on('mouseover', function(){ d3.select(this).style('text-decoration', 'underline') })
+          .on('mouseout',  function(){ d3.select(this).style('text-decoration', '') })
     });
 
     var currentIndex = 0
