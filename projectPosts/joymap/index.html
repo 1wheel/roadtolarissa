@@ -41,15 +41,14 @@
 </body>
 
 <script>
+//helper functions
 function f(str){ return function(obj){ return str ? obj[str] : obj }}
 function indexF(d, i){ return i }
 function compose(g, h){ return function(d, i){ return g(h(d, i)) }}
-function neg(d){ return !d }
 
 var x, y, color, line, years, segmentG, longStaggeredG
 
 d3.json('formatedData.json', function(error, data){
-  var longs = data.years[5]
   var threshhold = 20000;
   years = data.years.map(function(year){ return year.map(function(longitude, longitudeNum){
     var rv = []
@@ -71,6 +70,7 @@ d3.json('formatedData.json', function(error, data){
   var width = 700,
       height = 700
 
+  var longs = data.years[5];
   x = d3.scale.linear()
       .domain([0, longs[0].length - 1])
       .range([0, width])
@@ -95,34 +95,29 @@ d3.json('formatedData.json', function(error, data){
       .x(compose(x, indexF))
       .y(popHeight)
 
-  lineArea = d3.svg.area()
-      .x(function(d, i){ return x(i) })
-      .y0(popHeight)
-      .y1(function(d){ return popHeight(d) + (d > 20000 ? 1 : .2) })
-
   longStaggeredG = svg.selectAll('g')
-      .data(data.years[0]).enter()
+      .data(years[0]).enter()
     .append('g')
       .attr('transform', function(d, i){ return 'translate(0, ' + y(i) + ')' })
 
-  longStaggeredG//.selectAll('.area')
-      //.data(function(d){ return d.filter(function(e){ return e !== null }) }).enter()
+  longStaggeredG.selectAll('.area')
+      .data(f()).enter()
     .append('path')
       .classed('area', true)
-      .attr('d', function(d){ return area(d); })
-      // .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
+      .attr('d', compose(area, f('points')))
+      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
       .style('fill', 'white ')
 
-  longStaggeredG//.selectAll('.line')
-      //.data(function(d){ return d.filter(function(e){ return e !== null }) }).enter()
+  longStaggeredG.selectAll('.line')
+      .data(f()).enter()
     .append('path')
       .classed('line', true)
-      .attr('d', lineArea)
-      // .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
-      .style('fill', 'rgba(0,0,0,1) ')
-      .style('stroke-width', '0px')
+      .attr('d', compose(line, f('points')))
+      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
+      .style('fill', 'rgba(0,0,0,0) ')
+      .style('stroke-width', '1px')
       .style('stroke', 'black')
-      //.style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2 })
+      .style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2 })
 
 
 
@@ -149,7 +144,7 @@ d3.json('formatedData.json', function(error, data){
   miniSvg.selectAll('rect')
       .data(d3.range(6)).enter()
     .append('rect')
-      .attr('x', function(d, i){ return miniX(i); })
+      .attr('x', compose(miniX, indexF))
       .attr({y: 0, height: 10, width: miniX.rangeBand()})
 
   var boxSize = 10
@@ -204,6 +199,7 @@ d3.json('formatedData.json', function(error, data){
       });
 });
 
+var currentIndex = 0
 function transition(index){
   currentIndex = index;
   longStaggeredG.data(years[index]).each(function(longData, longitudeNum){
@@ -214,12 +210,5 @@ function transition(index){
   d3.selectAll('.area').attr('d', compose(area, f('points')))
   d3.selectAll('.line').attr('d', compose(line, f('points')))
 }
-var currentIndex = 0;
-
-// d3.timer(function(){
-//   currentIndex = (currentIndex + 1) % 6
-//   console.log(currentIndex)
-//   transition(currentIndex)
-// }, 2000)
 
 </script>
