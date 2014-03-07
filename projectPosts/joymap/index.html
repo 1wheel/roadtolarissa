@@ -41,9 +41,10 @@
 </body>
 
 <script>
-var f = function(str){ return function(obj){ return str ? obj[str] : obj }}
-var indexF = function(d, i){ return i }
-var compose = function(g, h){ return function(d){ return g(h(d)) }}
+function f(str){ return function(obj){ return str ? obj[str] : obj }}
+function indexF(d, i){ return i }
+function compose(g, h){ return function(d, i){ return g(h(d, i)) }}
+function neg(d){ return !d }
 
 var x, y, color, line, years, segmentG, longStaggeredG
 
@@ -86,38 +87,42 @@ d3.json('formatedData.json', function(error, data){
       .attr({width: width, height: height})
 
   area = d3.svg.area()
-      .x(function(d, i){ return x(i) })
-      .y0(function(d){ return popHeight(d) })
+      .x(compose(x, indexF))
+      .y0(popHeight)
       .y1(0)
 
   line = d3.svg.line()
+      .x(compose(x, indexF))
+      .y(popHeight)
+
+  lineArea = d3.svg.area()
       .x(function(d, i){ return x(i) })
-      .y(function(d){ return popHeight(d) })
+      .y0(popHeight)
+      .y1(function(d){ return popHeight(d) + (d > 20000 ? 1 : .2) })
 
   longStaggeredG = svg.selectAll('g')
-      .data(years[0]).enter()
+      .data(data.years[0]).enter()
     .append('g')
       .attr('transform', function(d, i){ return 'translate(0, ' + y(i) + ')' })
 
-
-  longStaggeredG.selectAll('.area')
-      .data(function(d){ return d }).enter()
+  longStaggeredG//.selectAll('.area')
+      //.data(function(d){ return d.filter(function(e){ return e !== null }) }).enter()
     .append('path')
       .classed('area', true)
-      .attr('d', compose(area, f('points')))
-      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
+      .attr('d', function(d){ return area(d); })
+      // .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
       .style('fill', 'white ')
 
-  longStaggeredG.selectAll('.line')
-      .data(function(d){ return d }).enter()
+  longStaggeredG//.selectAll('.line')
+      //.data(function(d){ return d.filter(function(e){ return e !== null }) }).enter()
     .append('path')
       .classed('line', true)
-      .attr('d', compose(line, f('points')))
-      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
-      .style('fill', 'rgba(0,0,0,0) ')
-      .style('stroke-width', '1px')
+      .attr('d', lineArea)
+      // .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
+      .style('fill', 'rgba(0,0,0,1) ')
+      .style('stroke-width', '0px')
       .style('stroke', 'black')
-      .style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2 })
+      //.style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2 })
 
 
 
