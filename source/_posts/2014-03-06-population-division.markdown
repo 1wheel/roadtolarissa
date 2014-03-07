@@ -107,7 +107,7 @@ Orignally, I wanted
 	      miniY = d3.scale.linear()
 	        .range([miniHeight, 0]) 
 
-	  var tooltip = d3.select('body').append('div').attr('id', 'joymap-tooltip')
+	  var tooltip = d3.select('html').append('div').attr('id', 'joymap-tooltip')
 	  tooltip.append('div').attr('id', 'joymap-tooltip-title')
 
 	  var miniSvg = tooltip.append('svg').attr({height: miniHeight, width: miniWidth});
