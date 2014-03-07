@@ -32,7 +32,7 @@ fileNames.forEach(function(fileName){
 	years.push(lines);
 
 	lines.forEach(function(longitude, longitudeNum){
-		var threshhold = 10000;
+		var threshhold = 20000;
 		var i = longitude.length - 2;
 		var aboveThreshhold = false;
 		while (i > 0){
