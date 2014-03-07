@@ -49,7 +49,7 @@ var x, y, color, line, years, segmentG, longStaggeredG
 
 d3.json('formatedData.json', function(error, data){
   var longs = data.years[5]
-  var threshhold = 10000
+  var threshhold = 20000;
   years = data.years.map(function(year){ return year.map(function(longitude, longitudeNum){
     var rv = []
     var i = longitude.length - 2
