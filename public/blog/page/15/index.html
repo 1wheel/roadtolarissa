@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="The connect 4 playing program uses a minmax algorithm. Every time the computer decides what move to make next, it considers all of its possible moves &hellip;">
+  <meta name="description" content="This isn&rsquo;t very scientific, but to get a better sense of how slow playing Dominion on  goko is compared to isotropic and to find out exactly &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/population-division">Population Division</a>
+      </li>
+    
+      <li class="post">
         <a href="/synth">Making Music With D3</a>
       </li>
     
@@ -188,6 +192,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/population-division">Population Division</a></h1>
+<time datetime="2014-03-06T00:00:00-05:00" pubdate><span class='month'>Mar</span> <span class='day'>06</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -438,7 +452,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/connect-4-ai-how-it-works">Connect 4 AI: How It Works</a></h1>
+      <h1 class="entry-title"><a href="/speed-issues-with-gokos-online-dominion-implementation">Speed Issues Goko Dominion</a></h1>
     
     
       <p class="meta">
@@ -454,76 +468,56 @@
   
 
 
-<time datetime="2012-09-30T00:00:00-04:00" pubdate data-updated="true"></time>
+<time datetime="2012-10-06T00:00:00-04:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>The <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">connect 4 playing program</a> uses a <a href="http://en.wikipedia.org/wiki/Minimax">minmax algorithm</a>.</p>
+  <div class="entry-content"><p>This isn&rsquo;t very scientific, but to get a better sense of how slow playing <a href="http://boardgamegeek.com/boardgame/36218/dominion">Dominion</a> on  <a href="http://goko.com/games/">goko</a> is compared to <a href="http://dominion.isotropic.org/play">isotropic</a> and to find out exactly what is making it slower, I spent an hour on both and recorded how the time was spent:</p>
 
-<p>Every time the computer decides what move to make next, it considers all of its possible moves:</p>
+<blockquote><p>2.17 &#8211; Log in<br/>
+2.18 &#8211; Create table<br/>
+2.19 &#8211; Game loads<br/>
+2.24 &#8211; Try playing a feast to gain a witch. Feast is outlined in blue, but clicking on it does nothing.<br/>
+2.25 &#8211; After clicking on feast for some time, it finally leaves my hand and I&rsquo;m able to get a witch<br/>
+2.37 &#8211; Game ends after 22 turns<br/>
+2.37 &#8211; Try to join a new game<br/>
+2.39 &#8211; Loading bar stuck at 1/10 of the way. Reload Page.<br/>
+2.41 &#8211; Log back in, create new table<br/>
+2.43 &#8211; Start game<br/>
+2.58 &#8211; Game ends after 19 turns<br/>
+2.59 &#8211; Create Table<br/>
+3.09 &#8211; Finally start game<br/>
+3.20 &#8211; &#8220;Internet Connect Lost &#8211; Press Ok to Reload Page&#8221; after 13 turns.</p></blockquote>
 
-<p style="text-align: center;">
-  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c1.png"><img class="aligncenter size-full wp-image-36" title="Red Moves" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c1.png" alt="" width="418" height="477" /></a>
-</p>
+<p>I&rsquo;m currently streaming music and clicking through google reader, so I&rsquo;m pretty sure the problem is on their end. Clicking &#8220;Ok&#8221; does not reload the page. Pressing f5 brings up an alert warning me that &#8220;Leaving this page will end any game in progress&#8221; which is a silly warning since the game has already effectively ended. It has been over an hour, so I switch to isotropic:</p>
 
+<blockquote><p>3.31 Enter isotropic queue and start game<br/>
+3.36 Game ends after 16 turns. If cellar is any indication, vault would be awful on goko.<br/>
+3.43 Game ends after 16 turns.<br/>
+3.48 Game ends after 18 turns. Start a new one<br/>
+3.53 19 Turns<br/>
+4\:07 19 Turns &#8211; The longest game on isotropic used Possession and Platinums and takes as much time as the shortest completed game on goko which used the base set.<br/>
+4.13 11 Turns<br/>
+4\:20 22 Turns<br/>
+4.30 21 Turns</p></blockquote>
 
-<p>The computer then pretends that each of the moves it has considered has actually taken place. For every possible move, it looks at all the moves the other player could make in response. For example, while considering what would happen if it played a red piece down the 7th column, the computer would examine the following yellow plays:</p>
+<p>So, in an hour I was able to play 8 games on isotropic and (generously) 3 on goko.</p>
 
-<p style="text-align: center;">
-  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c2.png"><img class="aligncenter size-full wp-image-38" title="Yellow Moves" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c2.png" alt="" width="418" height="477" /></a>
-</p>
+<p>Assuming goko implements a quick play button (which they have shown no interest in doing), speeds up game loading (Ads between games will probably make things faster ? Even if you&rsquo;ve purchased sets, if you&rsquo;re playing with anyone who hasn&rsquo;t, you&rsquo;ll have to wait&#8230;), and fixes the issues with the game crashing on load (which they are probably working on) so the time it takes to get in a game becomes negligible like it is on isotropic, goko would still be substantially slower:</p>
 
+<p>On isotropic, 60 minutes /8 games = 7.5 minutes per game.<br/>
+On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
 
-<p>Each of these yellow moves is analyzed in the same way. 8 initial moves each have 8 responses for a total 64 distinct board positions after two moves. After three moves, there are 64*8 = 512 possibilities. The amount of times this process repeats is determined by the <strong>search depth</strong> of the algorithm. When the program is called the first time, it is passed a depth parameter. Each time another layer of moves is considered, the depth is decremented by one.</p>
+<p>Why is goko so slow? Contrary what I initially thought and what I&rsquo;ve seen suggested several times on <a href="http://forum.dominionstrategy.com/">f.ds</a>, the issue isn&rsquo;t animations. The unofficial iOS app has animations and it isn&rsquo;t too difficult to play a game in 4 minutes or less. The problem is with how goko has written their app. Testing with wireshark and a stopwatch both confirm that taking any action requiring server side interaction on goko requires about 3 or 4 seconds before the UI will be ready for the next action. On isotropic, I haven&rsquo;t seen it take more then 600 ms. goko compounds this problem by requiring unnecessary server side interaction. I&rsquo;ve <a href="http://forum.dominionstrategy.com/index.php?topic=4738.msg110781#msg110781">reported</a> this problem, but I don&rsquo;t think they realize how big of a problem it is:</p>
 
-<p>Once the depth is equal to 0, all of the moves on the current layer are evaluated. Winning moves for red are given a score of 1000, while winning scores for yellow are given a score of -1000. Every time a layer of 8 possible moves is considered, if the red player was placing a piece, the move with the highest score is picked, while the yellow player does the opposite. After a move has been picked, it is sent back up the chain and used to evaluate the move before it along with the 7 other evaluations which have also been sent back up. The algorithm is called minmax because the computer is looking to minimize its maximum losses.</p>
+<blockquote><p>There isn&rsquo;t any need for the server to know what order I&rsquo;ve clicked on the chapel\cellar\vault cards so I&rsquo;m not sure why the client has to send that information and wait on a response while I&rsquo;m growing impatient. Isotropic gets around this issue with checkboxes and the iOS dominion app uses check marks on the selected cards. In addition to making the game play faster, their implementation also reduces the impact of miss clicks since checks can be unmarked before confirming the move.</p></blockquote>
 
-<p>In the above picture, the computer would test all 8 yellow moves and conclude that the best move for the yellow player would be the 5th column since that results in a yellow win and a score of -1000. That score is sent back up the chain of moves with the scores of the other 7 moves, resulting in the following:</p>
+<p>On their own, these delays make playing the bots alone frustrating but are tolerable enough. With multiple players though, the delays start to snowball as each player anticipates the other taking longer and longer until the game isn&rsquo;t playable.</p>
 
-<p style="text-align: center;">
-  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c3.png"><img class="aligncenter size-full wp-image-41" title="Red Evaluation" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/c3.png" alt="" width="434" height="479" /></a>
-</p>
-
-
-<p>From the computer&rsquo;s perspective, it has the red player move to the 5th column to minimize its maximum losses (since 0 is less of a loss than -1000), but to us humans it looks like it is blocking yellow from completing a four in a row.</p>
-
-<p>None of the parts of the algorithms discussed so far are specific to connect 4. Any two player game with alternating moves and terminal wins and losses can be played by considering chains of future moves looking for wins to force and losses to avoid. Unfortunately, a connect 4 program that only looks at wins and losses which takes its turn in a reasonable time frame isn&rsquo;t a very good player. Since examining all the possible move sequences of consisting of n moves requires 8<sup>n</sup> board evaluations, looking farther ahead requires exponentially more time. If there was a computer fast enough to look ahead all the way to the end of the game, it would be possible to play a perfect game of connect 4 (in fact, <a href="http://www.connectfour.net/Files/connect4.pdf">a computer has done so for the 7&#215;6 version</a> of the game, which is part of the reason why I&rsquo;ve been working on the 8&#215;8 version).</p>
-
-<p>With reasonably good play by both players, ending conditions can be many more moves father ahead than the computer can examine. Because of this, the computer needs a <strong>heuristic function</strong> to evaluate board states without a winner on them. Without one, during the opening plays the computer moves almost randomly, just avoiding positions that would allow their opponent to force a win within the next few moves. To the computer, red and yellow are essentially tied in this board state:</p>
-
-<p style="text-align: center;">
-  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellowahead.png"><img class="aligncenter size-full wp-image-44" title="Yellow Ahead" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellowahead.png" alt="" width="414" height="407" /></a>
-</p>
-
-
-<p>But it should be obvious to any human player that yellow has established a superior board position over red. This inability to distinguish nonterminal board states is corrected with the addition of above mentioned heuristic function. Currently, to the compare non terminal states, the computer counts the number of open 3 in a rows each player has. This simple rule allows the computer to understand the previously inscrutable board state like this instead:</p>
-
-<p style="text-align: center;">
-  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellow3view.png"><img class="aligncenter size-full wp-image-45" title="Yellow 3 in a Row" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/yellow3view.png" alt="" width="414" height="407" /></a>
-</p>
-
-
-<p>The computer now knows that in this board position yellow is ahead; if the computer was playing red it would avoid move sequences that resulted in this position while if the computer was playing yellow it would try to set up as many of these three in a rows as possible. This heuristic seems to work fairly well &#8211; with the current set up, allowing the computer to make move searches with a depth of 4 produces an AI that beats me about half the time, while against a depth 5 opponent I lose most of the time.</p>
-
-<p>There isn&rsquo;t anything special about the heuristic I&rsquo;ve chosen. Any function that takes a board state as a input and returns a number will work as a heuristic  There are three things I considered when picking this one:</p>
-
-<ol>
-<li>Computational cost. Since every move requires running the heuristic thousands of times if it is too complicated, the depth of searches will be adversely affected.</li>
-<li>Correspondence to wins. If a heuristic doesn&rsquo;t provide useful about the game, there isn&rsquo;t any reason to use one.</li>
-<li>Ease of Implementation. More complicated heuristics take more time to program so they run quickly and without errors.</li>
-</ol>
-
-
-<p>Since I mostly wanted to get a version of the AI up and running, my decision was heavily weighted towards the third option. In the code, the heuristics algorithm only has to check all the empty spaces to see if they are in line with a 3 in a row. This was simple to implement because I had already written to code to check for 4 in a rows. In the future, experimenting with other heuristics will probably improve the AI. Counting 3 in a rows still struggles at differentiating between early game positions and values unusable 3 in rows late game:<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/endgamemistake2.png"><img class="aligncenter size-full wp-image-50" title="End Game Miscount" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/endgamemistake2.png" alt="" width="400" height="407" /></a></p>
-
-<p>&nbsp;</p>
-
-<p>The computer thinks that the red player has an fairly favorable position since it has two more 3 in a rows than the yellow player even though the game must end before they can be completed. Having already created a baseline heuristic, once I learn more about connect 4 and can come up with better heuristics, I can have the AI play thousands of slightly randomized game against another AI using a different AI evaluate which heuristic is best.</p>
-
-<p>In my next post, I&rsquo;ll analyze the impact of changing the heuristic. I&rsquo;ll also discuss the implications of using a variation on the minmax algorithm, <a href="http://en.wikipedia.org/wiki/Alpha-beta_pruning">alphabeta pruning</a> with history based move ordering.</p>
+<p><em>This was originally a <a href="http://forum.dominionstrategy.com/index.php?topic=4895.msg115584#msg115584">forum post</a>; since part of the purpose of blog is to collect things I&rsquo;ve written instead of having everything float away in comment threads, I&rsquo;m saving it here. Additionally, the <a href="http://forum.dominionstrategy.com/index.php?topic=4895.msg115742#msg115742">creator of Dominion replied</a> to me so this is probably the most meaningful thing I&rsquo;ve ever done.</em></p>
 </div>
   
   
