@@ -2,92 +2,96 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://roadtolarissa.com/first-post</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/maximin-connect-4-completed</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/connect-4-ai-how-it-works</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/yglesias-on-amazons-pe-ratio</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/reddit-comment-visualizer</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/redditgraphs-retrospective</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/next-project</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>
             http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures
         </loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/unemployment-rates</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/whale-words</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/film-strips-post</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/meteor-map</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/nba_draft</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/twisters-post</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/synth</loc>
-        <lastmod>2014-01-31T03:34:59-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://roadtolarissa.com/population-division</loc>
+        <lastmod>2014-03-06T23:37:43-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/super-awesome/</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/robots.txt</loc>
-        <lastmod>2014-01-27T20:17:07-05:00</lastmod>
-    </url>
-    <url>
-        <loc>http://roadtolarissa.com/</loc>
-        <lastmod>2014-01-31T03:34:59-05:00</lastmod>
+        <lastmod>2014-03-04T23:17:41-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/blog/archives/</loc>
-        <lastmod>2014-01-31T03:34:59-05:00</lastmod>
+        <lastmod>2014-03-06T23:37:43-05:00</lastmod>
     </url>
     <url>
         <loc>http://roadtolarissa.com/blog/</loc>
-        <lastmod>2014-01-31T03:34:59-05:00</lastmod>
+        <lastmod>2014-03-06T23:37:43-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://roadtolarissa.com/</loc>
+        <lastmod>2014-03-06T23:37:43-05:00</lastmod>
     </url>
 </urlset>

@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="http://roadtolarissa.com/whitehouse/ I finished writing the scrapper and graphing aspects of this a few weeks ago; I’ve been putting off publicly &hellip;">
+  <meta name="description" content="http://roadtolarissa.com/triangles/ After finishing up the petition project, I wanted to use what I learned about d3.js to create something a little &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/population-division">Population Division</a>
+      </li>
+    
+      <li class="post">
         <a href="/synth">Making Music With D3</a>
       </li>
     
@@ -188,6 +192,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/population-division">Population Division</a></h1>
+<time datetime="2014-03-06T00:00:00-05:00" pubdate><span class='month'>Mar</span> <span class='day'>06</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -438,7 +452,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/interactive-visualization-of-white-house-petition-signatures">White House Petition Signatures</a></h1>
+      <h1 class="entry-title"><a href="/zoomable-sierpinski-triangle-with-d3-js">Zoomable Sierpinski Triangle With d3.js</a></h1>
     
     
       <p class="meta">
@@ -454,24 +468,53 @@
   
 
 
-<time datetime="2012-12-19T00:00:00-05:00" pubdate data-updated="true"></time>
+<time datetime="2012-12-21T00:00:00-05:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><img class=" wp-image-234 alignnone" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/petition.png" /></p>
+  <div class="entry-content"><p style="text-align: center;">
+  <a href="http://roadtolarissa.com/triangles/"><img class="aligncenter size-large wp-image-168" title="triangle" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/triangle-1024x815.png" alt="" width="640" height="509" /></a>http://roadtolarissa.com/triangles/
+</p>
 
-<p><a href="http://roadtolarissa.com/whitehouse/">http://roadtolarissa.com/whitehouse/</a></p>
 
-<p>I finished writing the scrapper and graphing aspects of this a few weeks ago; I’ve been putting off publicly posting while trying to make it more attractive/usable.</p>
+<p>After finishing up the <a href="http://www.roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures/">petition project</a>, I wanted to use what I learned about d3.js to create something a little more fun. After a few hours<sup>1</sup> of work,  I had this:</p>
 
-<p>I’m mostly worried about the color scheme. I didn’t want to embarrass myself making something garish, so I went in a very drab, utilitarian direction. I think I may have gone too far, but I’m not sure what good alternative would look like. I got away with not worrying too much about color with redditgraphs because the data was naturally graphable with many different colors which allowed the layout to be understated. That really isn’t possible with the petitions.</p>
+<pre class="brush: jscript; title: ; notranslate" title="">//triangle centered at (cx, cy) with circumradius r
+function addTriangle(cx, cy, r){
+  svg.append('polygon')
+    .on(mobile ? "click" : "mouseover", function(d){
+      addTriangle(  cx,             cy - r/2,       r/2);     
+      addTriangle(  cx - r*sin30/2, cy + r*cos30/2, r/2);     
+      addTriangle(  cx + r*sin30/2, cy + r*cos30/2, r/2);
+      
+      d3.select(this).on('mouseover', function(){});
+      d3.select(this).on('click', function(){
+        addTriangle(cx, cy, r);});
+    })
+    .attr('fill', 'white')
+    .attr('points', (cx)  +','+   (cy)  +' '+ 
+                    (cx)  +','+   (cy)  +' '+
+                    (cx)  +','+   (cy))
+    .transition()
+    .duration(600)
+    .delay(10)
+      .attr('fill', randomColor())
+      .attr('points', (cx)  +','+   (cy-r)          +' '+ 
+              (cx-r*sin30)  +','+   (cy + r*cos30)  +' '+
+              (cx+r*sin30)  +','+   (cy + r*cos30))
+}
+</pre>
 
-<p>I’m also not sure about the layout. On widescreens, the two charts are shown side by side so all the petition info can be view on one screen. On smaller displays though, this makes the charts a little too small. I could make the charts bigger with a toggle button or showing them stacked on top of each other like they are with non-widescreens, but that would require clicking a button or scrolling to view all the information about a petition. Additionally if I start tracking more petitions, I will need to make the left panel scrollable.</p>
 
-<p>Finally, I’ve derived estimations about party affiliation and age for each petition and I don’t know how to include them. Since these estimations are based only on name and location, they aren’t nearly as accurate as the gender ones – 35% of the people wanting to impeach Obama are apparently democrats – so I’ve left them out to avoid cluttering the table more. They do a decent job of showing the relative rank of each petition though and should probably be included.</p>
+<p>which is currently live at the above link. There are a lot of things I&rsquo;d like to add &#8211; proper mobile support, more fractal patterns, deeper zooming, and more interesting coloring &#8211; but I&rsquo;ve just been clicking and scrolling around the triangles instead. It&#8217;s incredible to me that such a small snipping of code could create something so visually engaging. Even though the internet already has dozens of Sierpinski Triangles, I haven&rsquo;t found any as interactive and eloquent as this one (which is because of d3.js, not anything I&rsquo;ve done) so I feel ok posting it.</p>
+
+<ol>
+<li>The most frustrating part of making this: tricking myself into think that I had forgotten everything about geometry. From about 2 AM to 3.30 AM, I was trying to find the vertices of an equilateral triangle given the circumradius and center. This is pretty easy to do with trigonometry (see lines 21-23) , but I kept getting lopsided triangles no matter how I calculated the vertices. I even ended up pulling a geometry textbook off the shelf to check that I was doing the math correctly. Eventually (and I can&rsquo;t remember what lead me to this realization or why it didn&rsquo;t come earlier) it dawned on me that Math.sin(x) thought x was in radians and I was entering degrees.</li>
+</ol>
+
 </div>
   
   

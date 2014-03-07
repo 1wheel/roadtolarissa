@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="This is a display of word frequency in Moby Dick that I just finished making. It draws heavily on Bibly, which displays word frequency in the Bible &hellip;">
+  <meta name="description" content="http://roadtolarissa.com/film-strips/ I&rsquo;ve had this idea bouncing around in the back of my head for a few months. When I finally got around to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/population-division">Population Division</a>
+      </li>
+    
+      <li class="post">
         <a href="/synth">Making Music With D3</a>
       </li>
     
@@ -188,6 +192,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/population-division">Population Division</a></h1>
+<time datetime="2014-03-06T00:00:00-05:00" pubdate><span class='month'>Mar</span> <span class='day'>06</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -438,7 +452,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/whale-words">Whale Words</a></h1>
+      <h1 class="entry-title"><a href="/film-strips-post">Film Strips</a></h1>
     
     
       <p class="meta">
@@ -454,47 +468,27 @@
   
 
 
-<time datetime="2013-01-28T00:00:00-05:00" pubdate data-updated="true"></time>
+<time datetime="2013-05-02T00:00:00-04:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><a href="http://www.roadtolarissa.com/whalewords"><img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" /></a></p>
+  <div class="entry-content"><p><a href="http://roadtolarissa.com/film-strips/"><img class="alignnone  wp-image-220" alt="filmstrips" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/filmstrips.png" width="640" height="417" /></a></p>
 
-<p>This is a display of word frequency in Moby Dick that I just finished making. It draws heavily on <a href="http://stanford.edu/~garylee/bibly/#verse">Bibly</a>, which displays word frequency in the Bible.</p>
-
-<p><a href="http://stanford.edu/~garylee/bibly/#verse"><img class="aligncenter size-large wp-image-194" title="Bibly" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/bibly-1024x593.png" alt="" width="640" height="370" /></a>To get more practice with d3.js, I wrote everything from scratch. Having a visual reference was still extremely helpfu, though. Some things I really liked about their implementation/would have run into trouble without:</p>
-
-<ul>
-<li>Grouping words into equally sized buckets to create a histogram. This sounds obvious, but I had some trouble getting to it. My first idea for this project came when I saw a <a href="http://i.imgur.com/c7de3.png">infographic of word frequency in the Wire</a>. I wanted to make an interactive version of the same data, showing the number of occurrences of each word per episode. Since each episode contains roughly the same amount of dialog, it would be relatively simple to draw a single bar for each episode. When I decided to work with Moby Dick instead, my first attempt drew one bar per chapter and with the variable width bars, it looked awful. Unable to find a solution, I put the project aside until I came across Bibly.</li>
-<li>The use of two colors of bars on the x-axis to detonate chapter length. I would have used tick marks, but solid bars are a significantly better visual metaphor for chapters which persist for the entirely of their length and aren&rsquo;t one time events. Bars are also better mouseover targets.</li>
-<li>This might be a little silly, but I really like the &#8216;[Enter] a Word&#8217; formulation. I tried a lot of different instructions for the splash page of <a href="http://redditgraphs.com">redditgraphs</a>, but really struggled finding one that was both concise and clear.</li>
-</ul>
+<p style="text-align: center;">
+  <a href="http://roadtolarissa.com/film-strips/">http://roadtolarissa.com/film-strips/</a>
+</p>
 
 
-<p><span style="font-size: 16px;">Some things I added or removed:</span></p>
+<p>I&rsquo;ve had this idea bouncing around in the back of my head for a few months. When I finally got around to working on it, I was pleasantly surprised to have a functional prototype after only a few hours.</p>
 
-<ul>
-<li>An autocomplete drop down to text box.<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/01/drop-down.png"><img class="size-full wp-image-195 aligncenter" title="Drop Down" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/drop-down.png" alt="" width="173" height="330" /></a>In addition to downloading the text of the Moby Dick (about 1 MB), the webpage also downloads an array containing all the none <a href="http://en.wikipedia.org/wiki/Stop_words">stop words</a> in Moby Dick and the number of their occurrences (about .2 MB). Typing a few letters searches though the array for the most common words that match, then displays them and their frequencies in a drop down menu. This is pretty sweet for a couple of reasons. Displaying the frequency of many words at once increases the information density of the site &#8211; the drop down with no text entered yet basically shows as much information as the entire Wire infographic.  At the same time, it increases usability (if the user doesn&rsquo;t realize the need to press enter, the suggestions are click targets) and invites exploration (it is hard thinking of interesting words to search for on the fly, the autocomplete shows several of them at a time).</li>
-<li>The highlight functionality or the recent search display. I&rsquo;ve been reading though public available portions of the <a href="https://graphics.stanford.edu/wikis/cs448b-12-fall/">cs488b syllabus</a> and can see why Bibly included them, but I wanted to keep the page as simple as possible.</li>
-<li>Mousing over a bar immediately shows the corresponding quotation at the bottom of the page instead of showing tooltip with a list of quotations to click on.</li>
-<li>None of the height, width, word bucket size, or chapter length values depend on <a href="http://en.wikipedia.org/wiki/Magic_number_(programming)">magic numbers</a>. This makes it easy to resize the graph to fill the browser window, rescale the y-axis for different words, and potentially use the same code to display other books.</li>
-</ul>
+<p>The idea is pretty simple: Take a bunch of <a href="http://www.ffmpeg.org/">sequential stills from a movie</a>, create a map of how their <a href="http://www.pythonware.com/products/pil/">average color</a> changes over time, and add a <a href="http://d3js.org/">mouseover effect</a> that shows the enlarged still. Thanks to google and stackoverflow, it didn&rsquo;t take too long to find programs and libraries that did most of what I was picturing and with my experience on other projects, gluing everything together went smoothly.</p>
 
+<p>Because of disk space constraints, I&rsquo;m only hosting the 2013 Best Picture Nominees. Many more (static) film strips are located at <a href="http://moviebarcode.tumblr.com/">MovieBarcode</a> which this project was inspired by. You can also make interactive film strips from your own movie files &#8211; the whole process is <a href="https://github.com/1wheel/film-strips">automated </a>&ndash; if you&rsquo;re not familiar with python though, getting all the tools setup will take a few hours.</p>
 
-<p>Some things that I would like to add or improve:</p>
-
-<ul>
-<li>Resizing the page after it has loaded should resize the graph too. I didn&rsquo;t work with <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a> in mind though, so it would take some work to implement this.</li>
-<li>Loading splash screen should have a loading bar or changing text.</li>
-<li>The text display should have a way to read more of the passage. Maybe clicking could open a new scrollable window containing the entire text with passage highlighted.</li>
-<li>The numbers on the autocomplete drop down should align to the right. This is surprisingly difficult to do without breaking jquery ui.</li>
-<li>It&rsquo;d be super cool to include more books. Most of the process is automated, but some hand editing was required to the make the raw text from Project Gutenberg usable for the parseBook.py program I wrote. It would be feasible to do the same for the freely available texts in the <a href="http://www.stjohnscollege.edu/academic/readlist.shtml">St. John&rsquo;s program</a>. Alternatively (or additionally), if I wrote a parse parseEPUB.py program (which wouldn&rsquo;t require any hand editing for each text since chapter titles are written in constant ways) and ran it server side, it might be possible to allow users to upload any book formatted as an <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a> without DRM that they own and display a graph for their book. I&rsquo;m not sure how useful or used this would be; even if the user has and knows where to find an ebook on their hard drive, it will probably be from Amazon and/or contain DRM.</li>
-<li>While I was looking though the <a href="http://nltk.org/">nltk</a> documentation, I came across this graph: I&rsquo;m not sure if it is a necessarily better display of the same information. Frequency is a little harder to discern and it just looks less interesting, but it takes up less spaces and opens up the possibly of easily comparing the frequency of different words.</li>
-</ul>
-
+<p>I have a couple of idea of additional features (subtitle integration, variable bar width, experiments with other ways of generating and showing color, ect) but since this is sitting in distinctly gray area of fair use, I&rsquo;m a little hesitant to put more time into it. I am glad I did what I&rsquo;ve done. I&rsquo;ve started working at an actual workplace and I&rsquo;d like to stay (/get back) in the habit of working on things for fun.</p>
 </div>
   
   

@@ -1,44 +1,40 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
-
-  <style>
-
-  #joymap-tooltip {
-    position: absolute;
-    width: 150px;
-    padding: 8px;
-    font: 12px sans-serif;
-    background: rgba(255, 255, 255, .3);
-    border: solid 1px yellow;
-    /*border-radius: 8px;*/
-    pointer-events: none;
-    opacity: 0;
-  }
-
-  #joymap-tooltip-title{
-    text-align: center;
-     font-weight: bold;
-     font-size: 105%;
-      text-shadow:
-        -1px -1px 0 white,
-        0px -1px 0 white,
-        1px -1px 0 white,
-        -1px 1px 0 white,
-        0px 1px 0 white,
-        1px 1px 0 white;
-   }
-  </style>
-
-
 </head>
 
 <body>
+<style>
+
+#joymap-tooltip {
+  position: absolute;
+  width: 150px;
+  padding: 8px;
+  font: 12px sans-serif;
+  background: rgba(255, 255, 255, .3);
+  border: solid 1px gold;
+  /*border-radius: 8px;*/
+  pointer-events: none;
+  opacity: 0;
+}
+
+#joymap-tooltip-title{
+  text-align: center;
+   font-weight: bold;
+   font-size: 105%;
+    text-shadow:
+      -1px -1px 0 white,
+      0px -1px 0 white,
+      1px -1px 0 white,
+      -1px 1px 0 white,
+      0px 1px 0 white,
+      1px 1px 0 white;
+ }
+</style>
   <div id='joymap'>
     <div id='joymap-tooltip'></div>
   </div>
   <script src="d3-3.3.3.js"></script>
-</body>
 
 <script>
 //helper functions
@@ -49,6 +45,7 @@ function compose(g, h){ return function(d, i){ return g(h(d, i)) }}
 var x, y, color, line, years, segmentG, longStaggeredG
 
 d3.json('formatedData.json', function(error, data){
+  //segment longitude lines so high population and low populations can have different stroke widths
   var threshhold = 20000;
   years = data.years.map(function(year){ return year.map(function(longitude, longitudeNum){
     var rv = []
@@ -148,7 +145,7 @@ d3.json('formatedData.json', function(error, data){
       .attr({y: 0, height: 10, width: miniX.rangeBand()})
 
   var boxSize = 10
-  var highlightRect = svg.append('rect').attr({height: y(boxSize), width: x(boxSize), opacity: 0, fill: 'yellow'})
+  var highlightRect = svg.append('rect').attr({height: y(boxSize), width: x(boxSize), opacity: 0, fill: 'gold'})
 
   svg.append('rect')
       .attr({height: height, width: width, opacity: 0})
@@ -212,3 +209,5 @@ function transition(index){
 }
 
 </script>
+
+</body>

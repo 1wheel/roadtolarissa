@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="http://roadtolarissa.com/film-strips/ I&rsquo;ve had this idea bouncing around in the back of my head for a few months. When I finally got around to &hellip;">
+  <meta name="description" content="An interactive map made for visualizing.org&#8217;s Meteorites contest. I started from &#8216;scratch&#8217; with a blank map of the world generated &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/population-division">Population Division</a>
+      </li>
+    
+      <li class="post">
         <a href="/synth">Making Music With D3</a>
       </li>
     
@@ -188,6 +192,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/population-division">Population Division</a></h1>
+<time datetime="2014-03-06T00:00:00-05:00" pubdate><span class='month'>Mar</span> <span class='day'>06</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -438,7 +452,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/film-strips-post">Film Strips</a></h1>
+      <h1 class="entry-title"><a href="/meteor-map">Meteor Map</a></h1>
     
     
       <p class="meta">
@@ -454,27 +468,36 @@
   
 
 
-<time datetime="2013-05-02T00:00:00-04:00" pubdate data-updated="true"></time>
+<time datetime="2013-05-19T00:00:00-04:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><a href="http://roadtolarissa.com/film-strips/"><img class="alignnone  wp-image-220" alt="filmstrips" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/filmstrips.png" width="640" height="417" /></a></p>
+  <div class="entry-content"><p><a href="http://roadtolarissa.com/meteors/"><img class=" wp-image-234 alignnone" alt="meteor map" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/meteormap.png" width="620" height="421" /></a></p>
 
-<p style="text-align: center;">
-  <a href="http://roadtolarissa.com/film-strips/">http://roadtolarissa.com/film-strips/</a>
-</p>
+<p><em>An <a href="http://roadtolarissa.com/meteors/">interactive map</a> made for <a href="http://visualizing.org/contests/visualizing-meteorites">visualizing.org&#8217;s Meteorites contest</a>.</em></p>
+
+<p>I started from &#8216;scratch&#8217; with a blank <a href="http://www.jasondavies.com/maps/transition/">map of the world generated</a> by d3. Each meteor in the contest data set had a latitude and longitude, so I used those coordinates to plot a small circle on the map to represent each impact. After coloring the circles orange, the map looked almost like the one above.</p>
+
+<p>Most of the ~30 hours I&rsquo;ve spent working on this map were spent adding some of these small improvements:</p>
+
+<ul>
+<li><strong style="line-height: 16px;">Circle size and color proportional to meteor mass<br /> </strong>The data set also included the meteors&#8217; mass. I initially tried to make each circle&rsquo;s radius proportional to the square root of the mass so each pixel of circle would correspond to some amount of mass. Because of the masses of meteors varied so much  the largest were too big and smallest were too small to see. After playing around with exponents smaller than &frac12;, I eventually switched to logarithmic scaling. This gets rid of any simple correspondence between a circle&rsquo;s area and mass, but fits the data much better. Glancing at the histogram, it appears that the distribution of masses is approximately log-normal.</li>
+<li><strong>Mouseover</strong> <strong>effects</strong><br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png"><img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" /></a><br/>
+The data set had some additional information that I wasn&rsquo;t sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its <a href="http://www.lpi.usra.edu/meteor/metbull.php?code=23593">meteorological society page</a> which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.</li>
+<li><strong>Crossfilters<br/>
+</strong>To make the map even more interactive, I incorporated the year and mass data into histogram <a href="http://square.github.io/crossfilter/">crossfilters</a>. I&rsquo;ve used the crossfilter library indirectly before, through <a href="http://nickqizhu.github.io/dc.js/">dc.js</a> which has several chart types premade. Getting the circles on the map to change with transitions went beyond what dc.js can do out of the box and I had to get my hands dirty with the actual crossfilter library. The messiness of the code I ended up with reflects that - I&rsquo;m getting closer to doing things correctly, but I&rsquo;m not quite there yet.</li>
+</ul>
 
 
-<p>I&rsquo;ve had this idea bouncing around in the back of my head for a few months. When I finally got around to working on it, I was pleasantly surprised to have a functional prototype after only a few hours.</p>
+<p>Ultimately, I ended up with a presentation pretty close to <a href="http://vimeo.com/59791629">Javier de la Torre&rsquo;s</a>:</p>
 
-<p>The idea is pretty simple: Take a bunch of <a href="http://www.ffmpeg.org/">sequential stills from a movie</a>, create a map of how their <a href="http://www.pythonware.com/products/pil/">average color</a> changes over time, and add a <a href="http://d3js.org/">mouseover effect</a> that shows the enlarged still. Thanks to google and stackoverflow, it didn&rsquo;t take too long to find programs and libraries that did most of what I was picturing and with my experience on other projects, gluing everything together went smoothly.</p>
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2013/05/cartodb.png"><img class="alignnone size-full wp-image-247" alt="cartodb" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/cartodb.png" width="744" height="442" /></a></p>
 
-<p>Because of disk space constraints, I&rsquo;m only hosting the 2013 Best Picture Nominees. Many more (static) film strips are located at <a href="http://moviebarcode.tumblr.com/">MovieBarcode</a> which this project was inspired by. You can also make interactive film strips from your own movie files &#8211; the whole process is <a href="https://github.com/1wheel/film-strips">automated </a>&ndash; if you&rsquo;re not familiar with python though, getting all the tools setup will take a few hours.</p>
-
-<p>I have a couple of idea of additional features (subtitle integration, variable bar width, experiments with other ways of generating and showing color, ect) but since this is sitting in distinctly gray area of fair use, I&rsquo;m a little hesitant to put more time into it. I am glad I did what I&rsquo;ve done. I&rsquo;ve started working at an actual workplace and I&rsquo;d like to stay (/get back) in the habit of working on things for fun.</p>
+<p>I  think my version has a number of improvements (obviously, I just finished making it!) &#8211; the better looking tooltips which active on mouseover not on click, the crossfilters, dotmap instead of heatmap (I really don&rsquo;t like what happens to their contiguous areas on zoom)  - but Torre apparently made his in only 30 minutes. I don&rsquo;t regret the additional time spent on mine since most of it was spent learning, but <a href="http://osm2.cartodb.com/tables/2320/public#/map">cartodb</a> or <a href="https://developers.google.com/fusiontables/">fusion tables</a> look like they would be the appropriate tool to use the vast majority of the time. I am a little frustrated I wasn&rsquo;t able to do more with the flexibility of d3 - the only other published entry for the contest I&rsquo;ve seen, <a href="http://bolid.es/">bolid.es</a>, is stunning &#8211; and I&rsquo;m looking forward to seeing what else gets made.</p>
 </div>
   
   
