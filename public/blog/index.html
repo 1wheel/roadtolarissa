@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content=" James Cheshire&rsquo;s Population Lines redone with d3 Orignally, I wanted do something really cool ">
+  <meta name="description" content="James Cheshire&rsquo;s Population Lines redone with d3. Data from NASA. Fullscreen. Originally I wanted to use the population map as a template for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -479,11 +479,20 @@
 
 
 <p></br>
-<em>James Cheshire&rsquo;s <a href="http://spatial.ly/2013/09/population-lines/">Population Lines</a> redone with d3</em></p>
+<em>James Cheshire&rsquo;s <a href="http://spatial.ly/2013/09/population-lines/">Population Lines</a> redone with d3. <a href="http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-count">Data</a> from NASA. <a href="/population-division-fullscreen.html">Fullscreen</a>.</em></p>
 
-<p>Orignally, I wanted do something really cool</p>
+<p>Originally I wanted to use the population map as a template for exploring different ways of transitioning data with d3. With different delays and durations, a variety of vertical and horizontal sweeping effects can be created. Unfortunately, it isn&rsquo;t possible to animate hundreds line elements simultaneously smoothly. <a href="http://4c.ucc.ie/~larsko/#other">Lars Kotthoff&rsquo;s</a> <a href="https://github.com/mbostock/d3/pull/448">variable width</a> line generator did help cut down on the thousands of elements I start with &ndash; at first, the darker lines representing higher populations by segmenting each longitude into low and high lines &ndash; and with staggering, only a few dozen at a time are animated in the finished version.</p>
+
+<p>Aesthetically, I was really drawn towards Cheshire&rsquo;s use of light and dark lines. A simple coloring rule makes China look like the cover of Unknown Pleasures and parts of South America like a map of Mordor.</p>
+
+<p>Functionally, having a single threshold representing high and low density makes it easy to compare different areas. Outside of the Sahara, for example, most of Africa is more populated than the western interior of the US. If I had more time, I would have made the threshold adjustable so the map could show where/how many people lived at various densities.</p>
+
+<p>Sticking to the no</p>
 
 <script src="/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
+
+
+<script src="/javascripts/posts/joymap/line-variable.js" type="text/javascript"></script>
 
 
 <script src="/javascripts/posts/joymap/drawMap.js" type="text/javascript"></script>

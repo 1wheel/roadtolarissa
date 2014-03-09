@@ -5,6 +5,7 @@ function compose(g, h){ return function(d, i){ return g(h(d, i)) }}
 
 var x, y, color, line, years, segmentG, longStaggeredG
 
+var fullscreen = fullscreen ? true : false;
 if (fullscreen){ d3.select('body').style('margin', '0px') }
 
 d3.json('/javascripts/posts/joymap/formatedData.json', function(error, data){
@@ -15,6 +16,7 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, data){
 	
 	function draw(){
 		d3.select('#joymap').selectAll('*').remove();
+		d3.select('#joymap-tooltip').remove();
 
 	  var threshhold = 20000;
 
@@ -36,6 +38,9 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, data){
 	  var svg = d3.select('#joymap')
 	    .append('svg')
 	      .attr({width: width, height: height})
+
+	  // svg.append('rect')    
+	  //     .attr({width: width, height: height, fill: 'lightgrey'})
 
 	  area = d3.svg.area()
 	      .x(compose(x, indexF))
@@ -83,7 +88,7 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, data){
 	      miniY = d3.scale.linear()
 	        .range([miniHeight, 0]) 
 
-	  var tooltip = d3.select('html').append('div').attr('id', 'joymap-tooltip')
+	  var tooltip = d3.select('body').append('div').attr('id', 'joymap-tooltip')
 	  tooltip.append('div').attr('id', 'joymap-tooltip-title')
 
 	  var miniSvg = tooltip.append('svg').attr({height: miniHeight, width: miniWidth});
@@ -178,7 +183,7 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, data){
 
 		if (fullscreen){
 			d3.select('#joymap').append('link')
-					.style({position: 'absolute', left: 0, top: 0, 'font-size': '8pt', display: 'block', cursor: 'pointer'})
+					.style({position: 'absolute', left: 0, top: 0, 'font-size': '10pt', display: 'block', cursor: 'pointer'})
 					.text('About')
 					.attr('href', 'http://0.0.0.0:8000/population-division/')
 					.on('click', function(){ window.location = '/population-division/' })

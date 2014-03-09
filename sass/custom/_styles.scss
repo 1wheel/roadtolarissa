@@ -38,28 +38,30 @@ aside.sidebar img:hover{
 
 
 
- #joymap-tooltip {
-  position: absolute;
-  width: 150px;
-  padding: 8px;
-  font: 12px sans-serif;
-  background: rgba(255, 255, 255, .3);
-  border: solid 1px gold;
-  /*border-radius: 8px;*/
-  pointer-events: none;
-  opacity: 0;
-}
+	#joymap-tooltip {
+	  position: absolute;
+	  width: 150px;
+	  padding: 8px;
+	  font: 12px sans-serif;
+	  background: rgba(255, 255, 255, .3);
+	  border: solid 1px gold;
+	  /*border-radius: 8px;*/
+	  pointer-events: none;
+	  opacity: 0;
+	  top: 0;
+	  left: 0;
+	}
 
-#joymap-tooltip-title{
-  text-align: center;
-	font-weight: bold;
-	font-size: 105%;
-	background-color:rgba(0,0,0,0) !important;
-	text-shadow:
-	  -1px -1px 0 white,
-	  0px -1px 0 white,
-	  1px -1px 0 white,
-	  -1px 1px 0 white,
-	  0px 1px 0 white,
-	  1px 1px 0 white;
- }
+	#joymap-tooltip-title{
+	  text-align: center;
+	   font-weight: bold;
+	   font-size: 105%;
+	    text-shadow:
+	      -1px -1px 0 white,
+	      0px -1px 0 white,
+	      1px -1px 0 white,
+	      -1px 1px 0 white,
+	      0px 1px 0 white,
+	      1px 1px 0 white;
+	   background-color:rgba(0,0,0,0) !important;
+	 }
