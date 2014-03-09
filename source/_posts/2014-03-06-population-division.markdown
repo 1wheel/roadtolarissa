@@ -10,7 +10,7 @@ permalink: /population-division
 <div id='joymap'></div>
 
 </br>
-*James Cheshire's [Population Lines](http://spatial.ly/2013/09/population-lines/) redone with d3. [Data](http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-count) from NASA. [Fullscreen](/population-division-fullscreen.html).*
+*James Cheshire's [Population Lines](http://spatial.ly/2013/09/population-lines/) redone with d3. [Data](http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-count) from NASA. [Fullscreen](/population-division-fullscreen.html) and [code](https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/joymap/drawMap.js)*
 
 Originally I wanted to use the population map as a template for exploring different ways of transitioning data with d3. With different delays and durations, a variety of vertical and horizontal sweeping effects can be created. Unfortunately, it isn't possible to animate hundreds line elements simultaneously smoothly. [Lars Kotthoff's](http://4c.ucc.ie/~larsko/#other) [variable width](https://github.com/mbostock/d3/pull/448) line generator did help cut down on the thousands of elements I start with - at first, the darker lines representing higher populations by segmenting each longitude into low and high lines - and with staggering, only a few dozen at a time are animated in the finished version.    
 
@@ -20,8 +20,8 @@ Functionally, having a two colors representing high and low density makes it eas
 
 Using a polylinear scale to convert population to line height, I created another threshold effect:
 
-	  popHeight = d3.scale.linear()
-	      .domain([0, 1, d3.max(d3.merge(longs))])
+	  populationToHeight = d3.scale.linear()
+	      .domain([0, 1, d3.max(d3.merge(longitudes))])
 	      .range([0, -1, -180])
 
 Segments with a population of 0 have a height of 0. Segments with a population of 1 or more have a height between 1 and 180. Since essentially all land is inhabited, even sparsely populated coasts get a nice bevel differentiating them from the ocean. Greenland's ice sheet is also clearly shown.

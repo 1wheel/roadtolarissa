@@ -23,28 +23,28 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, years){
     var width  = fullscreen ? Math.max(400, window.innerWidth - 1): 750,
         height = fullscreen ? Math.max(400, window.innerHeight - 30) : 570
 
-    var longs = years[5]
+    var longitudes = years[5]
     var x = d3.scale.linear()
-            .domain([0, longs[0].length - 1])
+            .domain([0, longitudes[0].length - 1])
             .range([0, width]),
         y = d3.scale.linear()
-            .domain([0, longs.length])
+            .domain([0, longitudes.length])
             .range([0, height]),
         //population -> line height
-        popHeight = d3.scale.linear()
-            .domain([0, 1, d3.max(d3.merge(longs))])
+        populationToHeight = d3.scale.linear()
+            .domain([0, 1, d3.max(d3.merge(longitudes))])
             .range([0, -1, -180*height/570]),
         //white triangles to cover up lines in the back
         area = d3.svg.area()
             .x(compose(x, indexF))
-            .y0(popHeight)
+            .y0(populationToHeight)
             .y1(0),
         //varible width stroke
         //By Lars Kotthoff
         //https://github.com/mbostock/d3/pull/448
         line = d3.svg.line.variable()
             .x(compose(x, indexF))
-            .y(popHeight)
+            .y(populationToHeight)
             .w(function(d){ return d > threshhold ? .5*height/570 : 0 })
 
 
@@ -83,7 +83,7 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, years){
             .range([toolHeight, 0]) 
 
     //add tooltip to the page - appended to body to avoid relative/absolute positioning issues
-    var tooltip = d3.select('body').append('div').attr('id', 'joymap-tooltip')
+    var tooltip = d3.select('html').append('div').attr('id', 'joymap-tooltip')
     tooltip.append('div').attr('id', 'joymap-tooltip-title')
 
     var toolSVG = tooltip.append('svg').attr({height: toolHeight, width: toolWidth})
