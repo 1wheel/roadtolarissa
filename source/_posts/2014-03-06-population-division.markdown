@@ -16,9 +16,17 @@ Originally I wanted to use the population map as a template for exploring differ
 
 Aesthetically, I was really drawn towards Cheshire's use of light and dark lines. A simple coloring rule makes China look like the cover of Unknown Pleasures and parts of South America like a map of Mordor. 
 
-Functionally, having a single threshold representing high and low density makes it easy to compare different areas. Outside of the Sahara, for example, most of Africa is more populated than the western interior of the US. If I had more time, I would have made the threshold adjustable so the map could show where/how many people lived at various densities. 
+Functionally, having a two colors representing high and low density makes it easy to compare different areas. Outside of the Sahara, for example, most of Africa is more populated than the western interior of the US. If I had more time, I would have made the threshold adjustable so the map could show where/how many people lived at various densities. 
 
-Sticking to the no
+Using a polylinear scale to convert population to line height, I created another threshold effect:
+
+  popHeight = d3.scale.linear()
+      .domain([0, 1, d3.max(d3.merge(longs))])
+      .range([0, -1, -180])
+
+Segments with a population of 0 have a height of 0. Segments with a population of 1 or more have a height between 1 and 180. Since essentially all land is inhabited, even sparsely populated coasts get a nice bevel differentiating them from the ocean. Greenland's ice sheet is also clearly shown.
+
+I'm not totally satisfied with the tooltip. Making the size of the highlighted area adjustable would make insights like the ['half of humanity lives in this circle'](http://www.washingtonpost.com/blogs/worldviews/wp/2013/05/07/map-more-than-half-of-humanity-lives-within-this-circle/) discoverable. I also wish the size of the bars corresponded the absolute number of people highlight to make comparison between areas easier. Using a log scale common to all regions made at a glance comparisons between regions easier but  obscured change over time. Plotting percentage change as a line on top of log scaled bars would achieve both goals; however that would require multiple axis and wouldn't be nearly as simple or clean. 
 
 
 <script src="/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
