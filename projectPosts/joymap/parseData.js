@@ -48,4 +48,4 @@ fileNames.forEach(function(fileName){
 //remove duplicates
 breaks.map(_.uniq);
 
-fs.writeFile('formatedData.json', JSON.stringify({breaks: breaks, years: years, fileNames: fileNames}));
+fs.writeFile('formatedData.json', JSON.stringify(years));
