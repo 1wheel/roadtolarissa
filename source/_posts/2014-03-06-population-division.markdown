@@ -20,9 +20,9 @@ Functionally, having a two colors representing high and low density makes it eas
 
 Using a polylinear scale to convert population to line height, I created another threshold effect:
 
-  popHeight = d3.scale.linear()
-      .domain([0, 1, d3.max(d3.merge(longs))])
-      .range([0, -1, -180])
+	  popHeight = d3.scale.linear()
+	      .domain([0, 1, d3.max(d3.merge(longs))])
+	      .range([0, -1, -180])
 
 Segments with a population of 0 have a height of 0. Segments with a population of 1 or more have a height between 1 and 180. Since essentially all land is inhabited, even sparsely populated coasts get a nice bevel differentiating them from the ocean. Greenland's ice sheet is also clearly shown.
 
