@@ -149,7 +149,7 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, years){
         })
 
 
-    //add year buttons the bottom of the page
+    //add year buttons
     d3.select('#joymap').append('div').style('width', width + 'px').selectAll('span')
         .data([1990, 1995, 2000, 2005, 2010, 2015]).enter()
       .append('div')
@@ -158,14 +158,15 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, years){
           .text(f())
           .style('font-weight', function(d, i){ return i == currentIndex ? 'bold' : 'normal' })
           .on('click', function(d, i){
-            transition(i)
+            transitionYearIndex(i)
             d3.select('#joymap').selectAll('.yearDiv').style('font-weight', 'normal')
             d3.select(this).style('font-weight', 'bold')
           })
           .on('mouseover', function(){ d3.select(this).style('text-decoration', 'underline') })
           .on('mouseout',  function(){ d3.select(this).style('text-decoration', '') })
 
-    function transition(index){
+    function transitionYearIndex(index){
+      //different color/direction when moving forward and backword in time
       var movingUp = index > currentIndex
       currentIndex = index
       longitudeGroup.data(years[index]).each(function(longData, longitudeNum){
@@ -184,6 +185,7 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, years){
       })
     }
 
+    //add about link
     if (fullscreen){
       d3.select('#joymap').append('div')
           .style({position: 'absolute', left: 0, top: 0, 'font-size': '10pt', cursor: 'pointer'})
