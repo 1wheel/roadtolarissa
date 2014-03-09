@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-03-09T04:25:34-04:00</updated>
+  <updated>2014-03-09T05:02:48-04:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -28,9 +28,19 @@
 
 <p>Aesthetically, I was really drawn towards Cheshire&rsquo;s use of light and dark lines. A simple coloring rule makes China look like the cover of Unknown Pleasures and parts of South America like a map of Mordor.</p>
 
-<p>Functionally, having a single threshold representing high and low density makes it easy to compare different areas. Outside of the Sahara, for example, most of Africa is more populated than the western interior of the US. If I had more time, I would have made the threshold adjustable so the map could show where/how many people lived at various densities.</p>
+<p>Functionally, having a two colors representing high and low density makes it easy to compare different areas. Outside of the Sahara, for example, most of Africa is more populated than the western interior of the US. If I had more time, I would have made the threshold adjustable so the map could show where/how many people lived at various densities.</p>
 
-<p>Sticking to the no</p>
+<p>Using a polylinear scale to convert population to line height, I created another threshold effect:</p>
+
+<p>  popHeight = d3.scale.linear()</p>
+
+<pre><code>  .domain([0, 1, d3.max(d3.merge(longs))])
+  .range([0, -1, -180])
+</code></pre>
+
+<p>Segments with a population of 0 have a height of 0. Segments with a population of 1 or more have a height between 1 and 180. Since essentially all land is inhabited, even sparsely populated coasts get a nice bevel differentiating them from the ocean. Greenland&rsquo;s ice sheet is also clearly shown.</p>
+
+<p>I&rsquo;m not totally satisfied with the tooltip. Making the size of the highlighted area adjustable would make insights like the <a href="http://www.washingtonpost.com/blogs/worldviews/wp/2013/05/07/map-more-than-half-of-humanity-lives-within-this-circle/">&lsquo;half of humanity lives in this circle&rsquo;</a> discoverable. I also wish the size of the bars corresponded the absolute number of people highlight to make comparison between areas easier. Using a log scale common to all regions made at a glance comparisons between regions easier but  obscured change over time. Plotting percentage change as a line on top of log scaled bars would achieve both goals; however that would require multiple axis and wouldn&rsquo;t be nearly as simple or clean.</p>
 
 <script src="http://roadtolarissa.com/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
 
@@ -452,7 +462,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#x74;&#105;&#112;&#115;&#x40;&#x77;&#x65;&#x62;&#x73;&#105;&#x74;&#101;&#x2e;&#x63;&#x6f;&#109;">&#116;&#105;&#112;&#x73;&#x40;&#119;&#x65;&#x62;&#115;&#x69;&#x74;&#101;&#46;&#99;&#111;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x74;&#x69;&#112;&#x73;&#64;&#119;&#101;&#x62;&#115;&#105;&#116;&#101;&#x2e;&#99;&#x6f;&#x6d;">&#116;&#x69;&#112;&#115;&#64;&#119;&#x65;&#98;&#115;&#105;&#x74;&#101;&#46;&#99;&#x6f;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 

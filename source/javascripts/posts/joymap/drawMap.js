@@ -24,16 +24,15 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, data){
 	      height = fullscreen ? Math.max(400, window.innerHeight - 30) : 570
 
 	  var longs = data.years[5];
-	  x = d3.scale.linear()
-	      .domain([0, longs[0].length - 1])
-	      .range([0, width])
-	  y = d3.scale.linear()
-	      .domain([0, longs.length])
-	      .range([0, height])
-
+	  var x = d3.scale.linear()
+		      .domain([0, longs[0].length - 1])
+		      .range([0, width]),
+		  y = d3.scale.linear()
+		      .domain([0, longs.length])
+		      .range([0, height]),
 	  popHeight = d3.scale.linear()
-	      .domain([0, .2, d3.max(d3.merge(longs))])
-	      .range([0, -1, -200])
+	      .domain([0, 1, d3.max(d3.merge(longs))])
+	      .range([0, -1, -180*height/570])
 
 	  var svg = d3.select('#joymap')
 	    .append('svg')
