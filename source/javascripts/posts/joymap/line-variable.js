@@ -1,3 +1,5 @@
+//By Lars Kotthoff
+//https://github.com/mbostock/d3/pull/448
 d3.svg.line.variable = function() {
     return d3_svg_lineVariable();
 }
