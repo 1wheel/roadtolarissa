@@ -1,32 +1,25 @@
-	//helper functions
-	function f(str){ return function(obj){ return str ? obj[str] : obj }}
-	function indexF(d, i){ return i }
-	function compose(g, h){ return function(d, i){ return g(h(d, i)) }}
+//helper functions
+function f(str){ return function(obj){ return str ? obj[str] : obj }}
+function indexF(d, i){ return i }
+function compose(g, h){ return function(d, i){ return g(h(d, i)) }}
 
-	var x, y, color, line, years, segmentG, longStaggeredG
+var x, y, color, line, years, segmentG, longStaggeredG
 
-	d3.json('/javascripts/posts/joymap/formatedData.json', function(error, data){
-	  //segment longitude lines so high population and low populations can have different stroke widths
+if (fullscreen){ d3.select('body').style('margin', '0px') }
+
+d3.json('/javascripts/posts/joymap/formatedData.json', function(error, data){
+	var currentIndex = 0
+
+	draw()
+	window.onresize = draw; 
+	
+	function draw(){
+		d3.select('#joymap').selectAll('*').remove();
+
 	  var threshhold = 20000;
-	  years = data.years.map(function(year){ return year.map(function(longitude, longitudeNum){
-	    var rv = []
-	    var i = longitude.length - 2
-	    var nextSegment = [longitude[i-1]]
-	    while (i > 0){
-	      i = i - 1
-	      if (~data.breaks[longitudeNum].indexOf(i)){
-	        nextSegment.push(longitude[i])
-	        rv.push({points: nextSegment.reverse(), index: i})
-	        nextSegment = []
-	      }
-	      nextSegment.push(longitude[i])
-	    }
-	    rv.push({points: nextSegment.reverse(), index: 0})
-	    return rv
-	  }) })
 
-	  var width = 750,
-	      height = 750
+	  var width  = fullscreen ? Math.max(400, window.innerWidth - 1): 750,
+	      height = fullscreen ? Math.max(400, window.innerHeight - 30) : 570
 
 	  var longs = data.years[5];
 	  x = d3.scale.linear()
@@ -53,37 +46,40 @@
 	      .x(compose(x, indexF))
 	      .y(popHeight)
 
+	  line = d3.svg.line.variable()
+	      .x(compose(x, indexF))
+	      .y(popHeight)
+	      .w(function(d){ return d > threshhold ? .5*height/570 : 0 })
+
+
 	  longStaggeredG = svg.selectAll('g')
-	      .data(years[0]).enter()
+	      .data(data.years[currentIndex]).enter()
 	    .append('g')
 	      .attr('transform', function(d, i){ return 'translate(0, ' + y(i) + ')' })
 
-	  longStaggeredG.selectAll('.area')
-	      .data(f()).enter()
+	  longStaggeredG
 	    .append('path')
 	      .classed('area', true)
-	      .attr('d', compose(area, f('points')))
+	      .attr('d', area)
 	      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
 	      .style('fill', 'white ')
 
-	  longStaggeredG.selectAll('.line')
-	      .data(f()).enter()
+	  longStaggeredG
 	    .append('path')
 	      .classed('line', true)
-	      .attr('d', compose(line, f('points')))
+	      .attr('d', line)
 	      .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
-	      .style('fill', 'rgba(0,0,0,0) ')
-	      .style('stroke-width', '1px')
+	      .style('fill', 'black')
+	      .style('stroke-width', '.5px')
 	      .style('stroke', 'black')
-	      .style('opacity', function(d){ return d.points[d.points.length - 1] > threshhold ? 1 : .2 })
-
+	      .style('stroke-opacity', function(d){ return .2 })
 
 
 	  var miniHeight = 100,
 	      miniWidth = 150
 	      miniX = d3.scale.ordinal()
 	        .rangeRoundBands([0, miniWidth], .1)
-	        .domain(d3.range(years.length)),
+	        .domain(d3.range(data.years.length)),
 	      miniY = d3.scale.linear()
 	        .range([miniHeight, 0]) 
 
@@ -124,7 +120,10 @@
 	            .attr('y', y(indices[1]))
 	            .style('stroke-width', '5px')
 
-	        tooltip.style({opacity: 1, left: d3.event.pageX + x(boxSize) + 'px', top: d3.event.pageY + 'px'})
+	        tooltip.style({
+	        	opacity: 1, 
+	        	left: d3.event.pageX + (indices[0] < x.domain()[1]/2 ? x(boxSize) : -tooltip.node().clientWidth) + 'px', 
+	        	top:  d3.event.pageY + (indices[1] < y.domain()[1]/2 ? 0 : - y(boxSize) - tooltip.node().clientHeight) + 'px'})
 
 	        tooltip.select('div').text(d3.format(",.0f")(selectedData[currentIndex]))
 
@@ -157,16 +156,33 @@
 	      })
 	      .on('mouseover', function(){ d3.select(this).style('text-decoration', 'underline') })
 	      .on('mouseout',  function(){ d3.select(this).style('text-decoration', '') })
-	});
 
-	var currentIndex = 0
-	function transition(index){
-	  currentIndex = index;
-	  longStaggeredG.data(years[index]).each(function(longData, longitudeNum){
-	    d3.select(this).selectAll('.area').data(longData);
-	    d3.select(this).selectAll('.line').data(longData)
-	  })
+		function transition(index){
+			var movingUp = index > currentIndex;
+		  currentIndex = index;
+		  longStaggeredG.data(data.years[index]).each(function(longData, longitudeNum){
+		  	var delay = 20*(movingUp ? data.years[0].length - longitudeNum : longitudeNum) - 300;
+		    d3.select(this).select('.area')
+		    		.datum(longData)
+		    	.transition().duration(600).delay(delay)
+		    		.attr('d', area)	
 
-	  d3.selectAll('.area').attr('d', compose(area, f('points')))
-	  d3.selectAll('.line').attr('d', compose(line, f('points')))
+		    d3.select(this).select('.line')
+		    		.datum(longData)
+		    	.transition().duration(600).delay(delay)
+		    		.attr('d', line)	
+		    		.each('start', function(){ d3.select(this).style('fill', movingUp ? '#006600' : 'steelblue') })
+		    		.style('fill', 'black')
+		  })
+		}
+
+		if (fullscreen){
+			d3.select('#joymap').append('link')
+					.style({position: 'absolute', left: 0, top: 0, 'font-size': '8pt', display: 'block', cursor: 'pointer'})
+					.text('About')
+					.attr('href', 'http://0.0.0.0:8000/population-division/')
+					.on('click', function(){ window.location = '/population-division/' })
+		}
 	}
+});
+
