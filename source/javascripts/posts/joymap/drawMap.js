@@ -45,7 +45,7 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, years){
         line = d3.svg.line.variable()
             .x(compose(x, indexF))
             .y(populationToHeight)
-            .w(function(d){ return d > threshhold ? .5*height/570 : 0 })
+            .w(function(d){ return d > threshhold ? .6*height/570 : 0 })
 
 
     //draw lines on main main map
@@ -70,7 +70,7 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, years){
         .classed('line', true)
         .attr('d', line)
         .attr('transform', function(d, i){ return 'translate(' + x(d.index) + ',0)' })
-        .style({fill: 'black', 'stroke-width': '.5px', stroke: 'black', 'stroke-opacity': .2})
+        .style({fill: 'black', 'stroke-width': '.5px', stroke: 'black', 'stroke-opacity': .1})
 
 
     //varibles and scales for toolTip bar chart
