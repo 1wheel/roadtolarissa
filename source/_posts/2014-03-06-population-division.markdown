@@ -14,7 +14,7 @@ permalink: /population-division
 
 Originally I wanted to use the population map as a template for exploring different ways of transitioning data with d3. With delays and durations, a variety of vertical and horizontal sweeping effects can be created. Unfortunately, it isn't possible to simultaneously animate hundreds of line elements smoothly. [Lars Kotthoff's](http://4c.ucc.ie/~larsko/#other) [variable width](https://github.com/mbostock/d3/pull/448) line generator did help cut down on the thousands of elements I started with - at first, the darker lines representing higher populations were formed by separating each longitude into a series of low and high segments - and with staggering, only a few dozen at a time are animated in the finished version.    
 
-Aesthetically, I was really drawn towards Cheshire's use of light and dark lines. A simple coloring rule makes China look like the cover of [Unknown Pleasures](YOUTUBE) and parts of South America like a map of Mordor. 
+Aesthetically, I was really drawn towards Cheshire's use of light and dark lines. A simple coloring rule makes China look like the cover of [Unknown Pleasuree](http://www.youtube.com/watch?v=wVvoQIdD80U) and parts of South America like a map of Mordor. 
 
 Functionally, having two colors representing high and low density makes it easy to compare different areas. Outside of the Sahara, for example, most of Africa is more populated than the western interior of the US. If I had more time, I would have made the density dividing point adjustable so the map could show where/how many people lived at various densities. 
 
@@ -33,3 +33,4 @@ I'm not totally satisfied with the tooltip. Making the size of the highlighted a
 <script src="/javascripts/posts/joymap/line-variable.js" type="text/javascript"></script>
 <script src="/javascripts/posts/joymap/drawMap.js" type="text/javascript"></script>
 
+<meta property="og:image" content="/images/thumbnails/joymap.png" />

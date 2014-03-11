@@ -8,11 +8,11 @@ permalink: /synth
 <svg id='synth'></svg>
 <div id='synthSliders'></div>
 
-*Click to add a note; requires firefox or chrome. Remake of [my remake](http://www.roadtolarissa.com/synth-scales/) of [tonematrix](http://tonematrix.audiotool.com/).*
+*Click to add a note; requires firefox or chrome. Remake of [Jack Vishneski's](http://umn.academia.edu/JackVishneski) and my [remake](http://www.roadtolarissa.com/synth-scales/) of [tonematrix](http://tonematrix.audiotool.com/).*
 
 Polar coordinates are pretty cool for displaying looping music! The music actually loops and larger boxes produce lower pitches, just like they do in real life. Other, smaller improvements:
 
-- Log scaled sliders allow for finer control of large and small values. Going up or down an octave sounds like the same distance to our ears, but on a linear scale 220 Hz is four times closer to 440 Hz than 880 Hz. With bigger ranges, more and more of the smaller interesting values cluster together on a linear slider.
+- Log scaled sliders allow for finer control of large and small values. Going up or down an octave sounds like the same distance to our ears, but on a linear scale 220 Hz is four times closer to 440 Hz than 880 Hz. With bigger ranges, most of the smaller interesting values cluster together on a linear slider.
 - Double and triple clicking produce replaces the default square waveform with saw and triangle waveforms. And adds more color!
 - I've lowered the gain. Previously playing more than two notes would create an awful screech; not maxing out the sound card avoids this problem.
 - [Cleaner code.](https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/synthScale.js) After over a year of d3 and javascript, I think I'm really starting get a handle on writing clearly and idiomatically. Bit too much post here, but it is amazing what 150 lines can do when built on top of the right abstractions.
