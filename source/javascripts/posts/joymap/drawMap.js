@@ -124,10 +124,11 @@ d3.json('/javascripts/posts/joymap/formatedData.json', function(error, years){
               .attr({x: x(indices[0]), y: y(indices[1]), opacity: .5})
               .style('stroke-width', '5px')
 
+          var tooltipNode = tooltip.node();
           tooltip.style({
             opacity: 1, 
-            left: d3.event.pageX + (indices[0] < x.domain()[1]/2 ? x(boxSize) : -tooltip.node().clientWidth) + 'px', 
-            top:  d3.event.pageY + (indices[1] < y.domain()[1]/2 ? 0 : - y(boxSize) - tooltip.node().clientHeight) + 'px'})
+            left: d3.event.pageX + (indices[0] < x.domain()[1]/2 ? 0 : - tooltipNode.clientWidth) + 'px', 
+            top:  d3.event.pageY + (indices[1] < y.domain()[1]/2 ? 0 : - y(boxSize) - tooltipNode.clientHeight) + 'px'})
 
           //update tooltip title number
           tooltip.select('div').text(d3.format(",.0f")(selectedData[currentIndex]))
