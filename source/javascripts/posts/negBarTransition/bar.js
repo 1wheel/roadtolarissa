@@ -27,6 +27,7 @@ svg.selectAll('rect')
     .attr('width', x.rangeBand())
     .attr('y', function(d){ return y(d > 0 ? d : 0); })
     .attr('height', function(d){ return y(0) - y(Math.abs(d)); })
+    .attr('__current__', function(d){ return d; })
 
 
 d3.select('body').append('h1')
@@ -37,6 +38,7 @@ d3.select('body').append('h1')
         .transition().duration(1000)
           .attr('y', function(d){ return y(d > 0 ? d : 0); })
           .attr('height', function(d){ return y(0) - y(Math.abs(d)); })
+          .attr('__current__', function(d){ return d; })
     })
 
 d3.select('body').append('h1')
@@ -45,18 +47,25 @@ d3.select('body').append('h1')
       svg.selectAll('rect')
           .data(d3.shuffle(data))
         .transition().duration(1000)
-          .attrTween('y', function(d){
-            var current = d3.select(this)
+          .tween('yPos', function(d){
+            var bar = d3.select(this);
+            var i = d3.interpolate(bar.attr('__current__'), d);
+            bar.attr('__current__', function(d){ return d; })
+            return function(t){
+              var e = i(t);
+              bar
+                  .attr('y', y(e > 0 ? e : 0))
+                  .attr('height', y(0) - y(Math.abs(e)))
+            }
           })
-          .attr('y', function(d){ return y(d > 0 ? d : 0); })
-          .attr('height', function(d){ return y(0) - y(Math.abs(d)); })
     })
 
-function currentBarData(bar){
-  var height = bar.attr('height');
-  var yPos = bar.attr('y');
-  return (yPos < 0 ? -1 : 1)*(y.invert(height) - y(0));
-}
+// function currentBarData(bar){
+//   bar = d3.select(bar)
+//   var height = +bar.attr('height');
+//   var yPos = +bar.attr('y');
+//   return (yPos < 0 ? -1 : 1)*(y.invert(height) - y(0));
+// }
 
 function arcTween(a) {
   var i = d3.interpolate(this._current, a);
