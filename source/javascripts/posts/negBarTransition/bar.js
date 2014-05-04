@@ -2,7 +2,7 @@
 var f = function(str){ return function(obj){ return str ? obj[str] : obj; }}
 var compose = function(g, h){ return function(d, i){ return g(h(d, i)); }}
 
-var numBars = 10;
+var numBars = 4;
 var data = d3.range(-numBars*2, numBars*2, 2);
 
 var width = 200,
@@ -27,6 +27,7 @@ svg.selectAll('rect')
     .attr('width', x.rangeBand())
     .attr('y', function(d){ return y(d > 0 ? d : 0); })
     .attr('height', function(d){ return y(0) - y(Math.abs(d)); })
+    .style('fill', function(d){ return d > 0 ? 'steelblue' : 'red'; })
     .attr('__current__', function(d){ return d; })
 
 
@@ -34,19 +35,21 @@ d3.select('body').append('h1')
     .text('Naive Transition')
     .on('click', function(){
       svg.selectAll('rect')
-          .data(d3.shuffle(data))
-        .transition().duration(1000)
+          .call(randomizeData)
+        .transition().duration(2000)
           .attr('y', function(d){ return y(d > 0 ? d : 0); })
           .attr('height', function(d){ return y(0) - y(Math.abs(d)); })
           .attr('__current__', function(d){ return d; })
+          .style('fill', function(d){ return d > 0 ? 'steelblue' : 'red'; });
+
     })
 
 d3.select('body').append('h1')
     .text('Tween Transition')
     .on('click', function(){
       svg.selectAll('rect')
-          .data(d3.shuffle(data))
-        .transition().duration(1000)
+          .call(randomizeData)
+        .transition().duration(2000)
           .tween('yPos', function(d){
             var bar = d3.select(this);
             var i = d3.interpolate(bar.attr('__current__'), d);
@@ -56,6 +59,7 @@ d3.select('body').append('h1')
               bar
                   .attr('y', y(e > 0 ? e : 0))
                   .attr('height', y(0) - y(Math.abs(e)))
+                  .style('fill', (.1 < t && t < .9) ? 'black' : e > 0 ? 'steelblue' : 'red')
             }
           })
     })
@@ -75,6 +79,12 @@ function arcTween(a) {
   };
 }
 
+function randomizeData(selection){
+  selection.data(selection.data().map(function(d){
+    return (d < 0 ? 1 : -1)*Math.random()*numBars*2;
+  }))
+}
 
 d3.selectAll('h1')
     .style('cursor', 'pointer')
+
