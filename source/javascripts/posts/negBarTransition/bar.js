@@ -55,7 +55,7 @@ d3.select('body').append('h1')
               bar
                   .attr('y', y(e > 0 ? e : 0))
                   .attr('height', y(0) - y(Math.abs(e)))
-                  .style('fill', (.1 < t && t < .9) ? 'black' : e > 0 ? 'steelblue' : 'red')
+                  .style('fill',  e > 0 ? 'steelblue' : 'red')
             }
           })
     })
