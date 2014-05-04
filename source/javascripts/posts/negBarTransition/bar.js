@@ -1,7 +1,3 @@
-//helper functions
-var f = function(str){ return function(obj){ return str ? obj[str] : obj; }}
-var compose = function(g, h){ return function(d, i){ return g(h(d, i)); }}
-
 var numBars = 4;
 var data = d3.range(-numBars*2, numBars*2, 2);
 
