@@ -52,21 +52,30 @@
 <body>
 
 	<style>
-
+		#mouseOverGraphs div{
+			height: 200px;
+			width: 200px;
+			display: inline-block;
+		}
 	</style>
+
 	<script>
 		var fullscreen = true;
 	</script>
 	<div id='joymap'></div>
 
-
-	<div id='interpolationLine' style='height: 200px; width: 200px'></div>
+	<div id='mouseOverGraphs'>
+		<div id='tweenCandleBar'></div>
+		<div id='interpolationLine'></div>
+		<div id='naiveCandleBar'></div>
+	</div>
 
   <script src="/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
 
   <script src="/javascripts/posts/negBarTransition/lib.js" type="text/javascript"></script>
   <script src="/javascripts/posts/negBarTransition/bar.js" type="text/javascript"></script>
   <script src="/javascripts/posts/negBarTransition/interpolationLine.js" type="text/javascript"></script>
+  <script src="/javascripts/posts/negBarTransition/candleBar.js" type="text/javascript"></script>
   <script src="/javascripts/posts/negBarTransition/wrapper.js" type="text/javascript"></script>
 
 </body>
