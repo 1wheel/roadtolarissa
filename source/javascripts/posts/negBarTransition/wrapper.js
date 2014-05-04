@@ -31,18 +31,15 @@ function updateExtent(extent){
 			.heightF(compose(valToHeight, i))
 			.yF(compose(valToY, i))
 
-	var i = d3.interpolate(extent[0], extent[1]);
+	var hExtent = extent.map(valToHeight)
+	var yExtent = extent.map(valToY)
 	naiveCandleBar
 			.extent(extent)
-			.heightF(function(t){
-				return yScale(0) - yScale(Math.abs(i(t)));
-			})
-			.yF(function(t){
-				return yScale(i(t) > 0 ? i(t) : 0)
-			})
+			.heightF(d3.interpolate(hExtent[0], hExtent[1]))
+			.yF(d3.interpolate(yExtent[0], yExtent[1]))
 
 	function valToHeight(d){ return yScale(0) - yScale(Math.abs(d)); }
-	function valToY(d){ return yScale(d) > 0 ? d : 0; }
+	function valToY(d){ return yScale(d > 0 ? d : 0); }
 
 
 }
