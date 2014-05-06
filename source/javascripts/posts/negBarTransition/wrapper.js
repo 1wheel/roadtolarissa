@@ -1,24 +1,25 @@
 var interpolationLine = graphs.interpolationLine()
 		.parent(d3.select('#interpolationLine').node())
-		.ease('	1`')
+		.ease('linear')
 		.draw();
 
 var tweenCandleBar = graphs.candleBar()
 		.parent(d3.select('#tweenCandleBar').node())
 		.draw();
-
+var tweenLine = graphs.iToHeightLine()
+		.parent(d3.select('#tweenLine').node())
 
 var naiveCandleBar = graphs.candleBar()
 		.parent(d3.select('#naiveCandleBar').node())
 		.draw();
+var naiveLine = graphs.iToHeightLine()
+		.parent(d3.select('#naiveLine').node())
 
+interpolationLine.on('mouseT', updateT);
 
-var dispatchingGraphs = [interpolationLine];
-var listeningGraphs = dispatchingGraphs.slice().concat([tweenCandleBar, naiveCandleBar]);
+var dispatchingI = [];
+var listeningI = [].slice().concat([tweenCandleBar, naiveCandleBar]);
 
-dispatchingGraphs.forEach(function(graph){
-	graph.on('mouseT', updateHover);
-})
 
 
 function updateExtent(extent){
@@ -32,6 +33,14 @@ function updateExtent(extent){
 			.yF(compose(valToY, i))
 			.fillF(compose(valToFill, i))
 
+	tweenLine
+			.extent(extent)
+			.heightF(compose(valToHeight, i))
+			.yF(compose(valToY, i))
+			.yScale(yScale)
+			.draw();
+
+
 	var hExtent = extent.map(valToHeight)
 	var yExtent = extent.map(valToY)
 	var fExtent = extent.map(valToFill);
@@ -41,6 +50,13 @@ function updateExtent(extent){
 			.yF(d3.interpolate(yExtent[0], yExtent[1]))
 			.fillF(d3.interpolate(fExtent[0], fExtent[1]))
 			.yScale(yScale)
+	naiveLine
+			.extent(extent)
+			.heightF(d3.interpolate(hExtent[0], hExtent[1]))
+			.yF(d3.interpolate(yExtent[0], yExtent[1]))
+			.yScale(yScale)
+			.draw();
+
 
 	function valToHeight(d){ return yScale(0) - yScale(Math.abs(d)); }
 	function valToY(d){ return yScale(d > 0 ? d : 0); }
@@ -52,14 +68,18 @@ updateExtent([-15, 10])
 
 var currentHover;
 var manualHoverInterupt = false;
-function updateHover(t, automatic){
+function updateT(t, automatic){
 	if (!automatic){ manualHoverInterupt = true; }
 	currentHover = t;
-	listeningGraphs.forEach(function(graph){
-		graph.mouse(t);
-	});
+	
+	interpolationLine.mouse(t);
+
+	var updateI = d3.ease(interpolationLine.ease())(t);
+	[tweenCandleBar, naiveCandleBar].forEach(function(graph){
+		graph.mouse(updateI);
+	})
 }
-updateHover(0);
+updateT(0);
 
 
 d3.select('#playButton')
@@ -67,7 +87,7 @@ d3.select('#playButton')
 			manualHoverInterupt = false
 			var i = d3.interpolate(currentHover, currentHover === 1 ? 0 : 1);
 			d3.timer(function(t){
-				updateHover(i(Math.min(t, 1000)/1000));
-				return t > 1000 || !manualHoverInterupt; 
+				updateT(i(Math.min(t, 1000)/1000), true);
+				return t > 1000 || manualHoverInterupt; 
 			})
 		})
