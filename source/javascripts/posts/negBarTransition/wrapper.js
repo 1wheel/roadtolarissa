@@ -40,6 +40,7 @@ function updateExtent(extent){
 			.heightF(d3.interpolate(hExtent[0], hExtent[1]))
 			.yF(d3.interpolate(yExtent[0], yExtent[1]))
 			.fillF(d3.interpolate(fExtent[0], fExtent[1]))
+			.yScale(yScale)
 
 	function valToHeight(d){ return yScale(0) - yScale(Math.abs(d)); }
 	function valToY(d){ return yScale(d > 0 ? d : 0); }
@@ -49,10 +50,24 @@ function updateExtent(extent){
 updateExtent([-15, 10])
 
 
-
-function updateHover(t){
+var currentHover;
+var manualHoverInterupt = false;
+function updateHover(t, automatic){
+	if (!automatic){ manualHoverInterupt = true; }
+	currentHover = t;
 	listeningGraphs.forEach(function(graph){
 		graph.mouse(t);
-	})
+	});
 }
 updateHover(0);
+
+
+d3.select('#playButton')
+		.on('click', function(){
+			manualHoverInterupt = false
+			var i = d3.interpolate(currentHover, currentHover === 1 ? 0 : 1);
+			d3.timer(function(t){
+				updateHover(i(Math.min(t, 1000)/1000));
+				return t > 1000 || !manualHoverInterupt; 
+			})
+		})

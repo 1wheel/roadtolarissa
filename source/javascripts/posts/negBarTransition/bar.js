@@ -19,6 +19,7 @@ var svg = d3.select('body').append('svg')
 svg.selectAll('rect')
     .data(data).enter()
   .append('rect')
+    .classed('bar', true)
     .attr('x', function(d, i){ return x(i); })
     .attr('width', x.rangeBand())
     .attr('y', function(d){ return y(d > 0 ? d : 0); })
@@ -26,11 +27,14 @@ svg.selectAll('rect')
     .style('fill', function(d){ return d > 0 ? 'steelblue' : 'red'; })
     .attr('__current__', function(d){ return d; })
 
+svg.append('rect')
+    .attr({width: width, height: 2, y: y(0), class: 'barXaxis'})  
+  
 
 d3.select('body').append('h1')
     .text('Naive Transition')
     .on('click', function(){
-      svg.selectAll('rect')
+      svg.selectAll('.bar')
           .call(randomizeData)
         .transition().duration(2000)
           .attr('y', function(d){ return y(d > 0 ? d : 0); })
@@ -43,7 +47,7 @@ d3.select('body').append('h1')
 d3.select('body').append('h1')
     .text('Tween Transition')
     .on('click', function(){
-      svg.selectAll('rect')
+      svg.selectAll('.bar')
           .call(randomizeData)
         .transition().duration(2000)
           .tween('yPos', function(d){
