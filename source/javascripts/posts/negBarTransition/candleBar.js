@@ -5,17 +5,20 @@ graphs.candleBar = function(){
       heightF,
       yF,
       fillF,
-      extent;
+      extent,
+      width,
+      height,
+      margin = {top: 10, right: 10, bottom: 10, left: 10};
 
   var rv = {};
 
   rv.draw = function(){
     d3.select(parent).select('*').remove();
 
-    var boundindRect = parent.getBoundingClientRect(),
-        margin = {top: 10, right: 10, bottom: 10, left: 10},
-        width = boundindRect.width - margin.left - margin.right,
-        height = boundindRect.height - margin.top - margin.bottom;
+    var boundindRect = parent.getBoundingClientRect();
+
+    width = boundindRect.width - margin.left - margin.right,
+    height = boundindRect.height - margin.top - margin.bottom;
 
 
     svg = d3.select(parent).append("svg")
@@ -33,8 +36,17 @@ graphs.candleBar = function(){
     svg.append('rect')
         .attr({'width': width + margin.left + margin.right, class: 'barXaxis', height: 2, x: -margin.left});
 
-    svg.append('path')
+    svg.selectAll('.heightCandle')
+        .data([0, 1, 2]).enter()
+      .append('path')
         .attr('class', 'heightCandle')
+
+    svg.selectAll('label')
+        .data(['y', 'h']).enter()
+    .append('text')
+        .text(f())
+        .style('fill', function(d){ return d === 'y' ? 'purple' : 'orange'}
+        .classed('heightLabel', true)
 
     return rv;
   }
@@ -49,8 +61,20 @@ graphs.candleBar = function(){
     svg.select('.barXaxis')
         .attr('y', yScale(0))
 
-    svg.select('.heightCandle')
-        .attr('d', 'M 50 50 l 10 10')
+    svg.selectAll('.heightCandle')
+        .style({stroke: 'purple', 'stroke-width': '2px'})
+        .attr('d', function(d){
+          var rv;
+          if (d === 0){
+            rv = ['M', -margin.left, '0 l', margin.left, '0'];
+          } else if(d === 1){
+            rv = ['M', -margin.left*.5, '0 l 0', yVal];
+          } else{
+            rv = ['M', -margin.left, yVal, 'l', margin.left, '0']
+          }
+          return rv.join(' ');
+        })
+
   }
 
   rv.parent = function(__){
