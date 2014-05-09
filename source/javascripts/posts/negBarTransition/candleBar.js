@@ -45,8 +45,8 @@ graphs.candleBar = function(){
         .data(['y', 'h']).enter()
     .append('text')
         .text(f())
-        .style('fill', function(d){ return d === 'y' ? 'purple' : 'orange'}
-        .classed('heightLabel', true)
+        .style('fill', function(d){ return d === 'y' ? 'purple' : 'orange'})
+        .classed('label', true)
 
     return rv;
   }
@@ -73,6 +73,11 @@ graphs.candleBar = function(){
             rv = ['M', -margin.left, yVal, 'l', margin.left, '0']
           }
           return rv.join(' ');
+        })
+
+    svg.selectAll('.label')
+        .attr('y', function(d){
+          return d === 'y' ? yVal/2 : yVal + heightVal/2
         })
 
   }
