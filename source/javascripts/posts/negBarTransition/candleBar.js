@@ -36,7 +36,12 @@ graphs.candleBar = function(){
     svg.append('rect')
         .attr({'width': width + margin.left + margin.right, class: 'barXaxis', height: 2, x: -margin.left});
 
-    svg.selectAll('.heightCandle')
+    svg.selectAll('candleGroup')
+        .data([0, 1]).enter()
+      .append('g')
+        .attr('transform', function(d, i){ return 'translate(' + (i ? width : 0) + ', 0)'; })
+        .style('stroke', function(d){ return d ? 'purple' : 'orange'; })
+    .selectAll('.heightCandle')
         .data([0, 1, 2]).enter()
       .append('path')
         .attr('class', 'heightCandle')
@@ -62,8 +67,8 @@ graphs.candleBar = function(){
         .attr('y', yScale(0))
 
     svg.selectAll('.heightCandle')
-        .style({stroke: 'purple', 'stroke-width': '2px'})
-        .attr('d', function(d){
+        .style('stroke-width', '2px')
+        .attr('d', function(d, i){
           var rv;
           if (d === 0){
             rv = ['M', -margin.left, '0 l', margin.left, '0'];
