@@ -8,7 +8,7 @@ graphs.candleBar = function(){
       extent,
       width,
       height,
-      margin = {top: 10, right: 10, bottom: 10, left: 10};
+      margin = {top: 10, right: 15, bottom: 10, left: 10};
 
   var rv = {};
 
@@ -36,11 +36,16 @@ graphs.candleBar = function(){
     svg.append('rect')
         .attr({'width': width + margin.left + margin.right, class: 'barXaxis', height: 2, x: -margin.left});
 
-    svg.selectAll('candleGroup')
-        .data([0, 1]).enter()
-      .append('g')
-        .attr('transform', function(d, i){ return 'translate(' + (i ? width : 0) + ', 0)'; })
-        .style('stroke', function(d){ return d ? 'purple' : 'orange'; })
+    svg.append('g')
+        .style('stroke', 'purple')
+    .selectAll('.yCandle')
+        .data([0, 1, 2]).enter()
+      .append('path')
+        .attr('class', 'yCandle')
+
+    svg.append('g')
+        .attr('transform', 'translate(' + (width + margin.left) + ', 0)')
+        .style('stroke', 'orange')
     .selectAll('.heightCandle')
         .data([0, 1, 2]).enter()
       .append('path')
@@ -52,6 +57,7 @@ graphs.candleBar = function(){
         .text(f())
         .style('fill', function(d){ return d === 'y' ? 'purple' : 'orange'})
         .classed('label', true)
+        .attr('x', function(d, i){ return i ? width + margin.right/2 : 0 })
 
     return rv;
   }
@@ -66,7 +72,7 @@ graphs.candleBar = function(){
     svg.select('.barXaxis')
         .attr('y', yScale(0))
 
-    svg.selectAll('.heightCandle')
+    svg.selectAll('.yCandle')
         .style('stroke-width', '2px')
         .attr('d', function(d, i){
           var rv;
@@ -79,6 +85,21 @@ graphs.candleBar = function(){
           }
           return rv.join(' ');
         })
+
+    svg.selectAll('.heightCandle')
+        .style('stroke-width', '2px')
+        .attr('d', function(d, i){
+          var rv;
+          if (d === 0){
+            rv = ['M', -margin.left, yVal, 'l', margin.left, '0'];
+          } else if(d === 1){
+            rv = ['M', -margin.left*.5, yVal, 'l 0', heightVal];
+          } else{
+            rv = ['M', -margin.left, yVal + heightVal, 'l', margin.left, '0']
+          }
+          return rv.join(' ');
+        })
+
 
     svg.selectAll('.label')
         .attr('y', function(d){
