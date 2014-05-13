@@ -14,7 +14,7 @@ graphs.interpolationLine = function(){
     d3.select(parent).select('*').remove();
 
     var boundingRect = parent.getBoundingClientRect(),
-        margin = {top: 20, right: 20, bottom: 30, left: 40},
+        margin = {top: 0, right: 0, bottom: 0, left: 0},
         width = boundingRect.width - margin.left - margin.right,
         height = boundingRect.height - margin.top - margin.bottom;
 

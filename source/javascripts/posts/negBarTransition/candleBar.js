@@ -8,7 +8,7 @@ graphs.candleBar = function(){
       extent,
       width,
       height,
-      margin = {top: 10, right: 15, bottom: 10, left: 10};
+      margin = {top: 0, right: 15  , bottom: 0, left: 10};
 
   var rv = {};
 
@@ -58,6 +58,7 @@ graphs.candleBar = function(){
         .style('fill', function(d){ return d === 'y' ? 'purple' : 'orange'})
         .classed('label', true)
         .attr('x', function(d, i){ return i ? width + margin.right/2 : 0 })
+
 
     return rv;
   }

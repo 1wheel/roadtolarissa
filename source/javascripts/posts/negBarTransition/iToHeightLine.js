@@ -49,7 +49,7 @@ graphs.iToHeightLine = function(){
 
     svg.append('circle')
         .attr({r: 3, fill: 'red'})
-        .style('cursor-event', 'none')
+        .style('pointer-event', 'none')
 
     return rv;
   }
