@@ -6,7 +6,7 @@ var nextBeatM = 0;
 var nextBeatTime = ac.currentTime;
 setInterval(function(){
   //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
-  while (nextBeatTime < ac.currentTime + .1){  
+  while (nextBeatTime < ac.currentTime + .1  && !isPaused){  
     //on every nth beat, spin the larger circle and apply notes  
     if (!(totalBeats % ratioM)){
       //spin larger wheel
@@ -76,8 +76,21 @@ setInterval(function(){
     nextBeat = (nextBeat + 1) % numBeats; 
     totalBeats++;
   }
-}, 25)
+}, 25);
 
+var isPaused = false;
+var pauseStart = 0;
+var totalPause = 0;
+function togglePause(){
+  isPaused = !isPaused;
+  if (isPaused){
+    pauseStart = ac.currentTime;
+  } else {
+    totalPause += ac.currentTime - pauseStart;
+    nextBeatTime += ac.currentTime - pauseStart;
+  }
+
+}
 
 //add sliders to the page
 var sliders = d3.select('#synthSliders').selectAll('input')
