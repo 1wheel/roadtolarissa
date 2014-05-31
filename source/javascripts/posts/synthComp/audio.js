@@ -11,8 +11,8 @@ setInterval(function(){
     if (!(totalBeats % ratioM)){
       //spin larger wheel
       svgM
-        .transition().duration(getBPM()*9*1000).ease('linear')
-          .attr('transform', 'rotate(' + -(-nextBeatM/numBeatsM*360) + ')');
+        .transition().duration(getBPM()*8*1000).ease('linear')
+          .attr('transform', 'rotate(' + (-nextBeatM/numBeatsM*360 -180) + ')');
 
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
@@ -28,7 +28,6 @@ setInterval(function(){
           });
 
       //apply updates to slow circle
-      console.log(totalBeats % numBeats, ((totalBeats % numBeats) + Math.ceil(numBeats/2)) % numBeats)
       beats.filter(function(d, i){ return i == (Math.ceil(numBeats/2) + totalBeats) % numBeats; })
         .selectAll('path')
           .each(function(d, i){
@@ -60,7 +59,7 @@ setInterval(function(){
           //highlight and unhighlight selected column
           //visually exact timing doesn't matter as much
           //easier to hear something off by a few ms
-          var selection = d3.select(this).style('stroke', 'grey')
+          var selection = d3.select(this).style('stroke', 'blue')
           //use timeout instead of transition so mouseovers transitions don't cancel)
           setTimeout(function(){
             selection.style('stroke', 'lightgrey');
