@@ -31,6 +31,7 @@ var svgM = d3.select('#synth2')
   .append('g')
     .attr('transform', 'translate(' + [width/2, height/2] +')')
   .append('g')
+    .attr('transform', 'rotate(-180)')
 
 //create a g element for each beat
 //rotated so we only have to worry about circular math 
