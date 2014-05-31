@@ -12,7 +12,7 @@ setInterval(function(){
       //spin larger wheel
       svgM
         .transition().duration(getBPM()*8*1000).ease('linear')
-          .attr('transform', 'rotate(' + (-nextBeatM/numBeatsM*360 -180) + ')');
+          .attr('transform', 'rotate(' + (-(.5 + nextBeatM)/numBeatsM*360 - 90) + ')');
 
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
@@ -41,7 +41,7 @@ setInterval(function(){
           })
 
 
-      nextBeatM = (nextBeatM + 1) % numBeatsM;
+      nextBeatM = (((nextBeatM - 1) % numBeatsM) + numBeatsM) % numBeatsM;
     }
 
 
