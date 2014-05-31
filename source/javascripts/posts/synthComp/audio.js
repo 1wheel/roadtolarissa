@@ -6,12 +6,12 @@ var nextBeatM = 0;
 var nextBeatTime = ac.currentTime;
 setInterval(function(){
   //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
-  while (nextBeatTime < ac.currentTime + .1){    
-    //grab the active beat column 
-    if (!(nextBeat % ratioM)){
+  while (nextBeatTime < ac.currentTime + .1){  
+    //on every nth beat, spin the larger circle and apply notes  
+    if (!(totalBeats % ratioM)){
       //spin larger wheel
       svgM
-        .transition().duration(getBPM()*ratioM*1000).ease('linear')
+        .transition().duration(getBPM()*9*1000).ease('linear')
           .attr('transform', 'rotate(' + -(-nextBeatM/numBeatsM*360) + ')');
 
       //extract update information
@@ -28,10 +28,10 @@ setInterval(function(){
           });
 
       //apply updates to slow circle
-      beats.filter(function(d, i){ return i == totalBeats % ratioM; })
+      console.log(totalBeats % numBeats, ((totalBeats % numBeats) + Math.ceil(numBeats/2)) % numBeats)
+      beats.filter(function(d, i){ return i == (Math.ceil(numBeats/2) + totalBeats) % numBeats; })
         .selectAll('path')
           .each(function(d, i){
-            console.log(d.on);
             if (updateArray[i]){
               d.on = +!d.on;
               d3.select(this)
@@ -47,7 +47,8 @@ setInterval(function(){
 
 
 
-    beats.filter(function(d, i){ return i == nextBeat; })
+    //grab the active beat column 
+    beats.filter(function(d, i){ return i == totalBeats % numBeats; })
       .selectAll('path')
         .each(function(d){
           //if the note is selected, play pitch at scheduled nextBeat
@@ -68,7 +69,7 @@ setInterval(function(){
 
     svg
       .transition().duration(getBPM()*1000).ease('linear')
-        .attr('transform', 'rotate(' + (-nextBeat/numBeats*360) + ')');
+        .attr('transform', 'rotate(' + (-totalBeats%numBeats/numBeats*360 - 180) + ')');
 
 
     //update time and index of nextBeat 
