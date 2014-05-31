@@ -46,28 +46,9 @@ var notesM = beatsM.selectAll('path')
     }).enter()
   .append('path')
     .attr('d', arc)
-    .on('click', function(d){
-      d.on = +!d.on;
-      d3.select(this)
-        .transition().duration(0)
-          .call(colorNote)
-          .style('stroke', 'black');
-    })
-    .on('mousemove', function(d){
-      d3.select(this)
-        .transition().duration(0)
-          .style('fill', d.on ? 'darkgrey' : 'lightgrey');
-    })
-    .on('mouseout', function(d){
-      d3.select(this)
-        .transition().duration(1000)
-          .call(colorNote);
-    })
-    .style('stroke-width', 1.4)
-    .style('stroke', 'lightgrey')
-    .style('fill', 'white');
+    .call(styleNotes);
 
-function colorNote(selection){ selection.style('fill', compose(color, f('on'))); }
+
 
 
 var ratioM = 7;

@@ -11,7 +11,7 @@ setInterval(function(){
     if (!(totalBeats % ratioM)){
       //spin larger wheel
       svgM
-        .transition().duration(getBPM()*8*1000).ease('linear')
+        .transition().duration(getBPM()*ratioM*1000).ease('linear')
           .attr('transform', 'rotate(' + (-(.5 + nextBeatM)/numBeatsM*360 - 90) + ')');
 
       //extract update information
@@ -59,11 +59,16 @@ setInterval(function(){
           //highlight and unhighlight selected column
           //visually exact timing doesn't matter as much
           //easier to hear something off by a few ms
-          var selection = d3.select(this).style('stroke', 'blue')
+          var selection = d3.select(this).style('opacity', 1)
+              .transition().duration(getBPM()*1000*2)
+                .style('opacity', '.7')
+                .call(colorNote);
           //use timeout instead of transition so mouseovers transitions don't cancel)
-          setTimeout(function(){
-            selection.style('stroke', 'lightgrey');
-          }, getBPM()*1000)
+          // setTimeout(function(){
+          //   selection
+          //       //.style('opacity', '.7')
+          //       .call(colorNote)
+          // }, getBPM()*1000)
         });
 
     svg

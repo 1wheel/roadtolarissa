@@ -47,6 +47,12 @@ var notes = beats.selectAll('path')
       return {pitch: d, on: false, i: i}; }); 
     }).enter()
   .append('path')
+    .call(styleNotes);
+
+function colorNote(selection){ selection.style('fill', compose(color, f('on'))); }
+
+function styleNotes(selection){
+  selection
     .attr('d', arc)
     .on('click', function(d){
       d.on = +!d.on;
@@ -62,11 +68,11 @@ var notes = beats.selectAll('path')
     })
     .on('mouseout', function(d){
       d3.select(this)
-        .transition().duration(1000)
+        .transition().duration(0)
           .call(colorNote);
     })
     .style('stroke-width', 1.4)
     .style('stroke', 'lightgrey')
-    .style('fill', 'white');
-
-function colorNote(selection){ selection.style('fill', compose(color, f('on'))); }
+    .style('fill', 'white')
+    .classed('note', true)
+}
