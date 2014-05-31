@@ -108,6 +108,20 @@
 		var fullscreen = true;
 	</script>
 
+	<div>
+		<p>Left circle spins, playing a WebAudio cord corresponding to the highlighted blocks (first <a href='http://roadtolarissa.com/synth/'>version</a>).</p>
+		<p>Every 7 beats, the right circle advances 1/9th of a rotation. Every blue highlight block on the right circle swaps the on/off status of the corresponding block on the left circle. Remove blocks flash red, added block green.</p>
+		<p>Click a block to toggle its state</p>
+		<p>Every 8*7*9 beats left untouched, the state of the left circle will flip. It will return to its original state after 1004 beats</p>
+		Todos:
+		<ul>
+			<li>Save state in URL</li>
+			<li>Add UI number of beats on both circles, their ratio and the number/type of notes</li>
+			<li>Show ratio with gear animation</li>
+			<li>More than two circles?</li>
+			<li>Actual write up</li>
+		</ul>
+	</div>
 
 	<svg id='synth'></svg>
 	<svg id='synth2'></svg>
