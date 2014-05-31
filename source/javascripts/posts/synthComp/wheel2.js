@@ -73,7 +73,6 @@ function colorNote(selection){ selection.style('fill', compose(color, f('on')));
 var ratioM = 7;
 
 notesM.each(function(d){
-  console.log(d);
   if (Math.random() > .7){
     d3.select(this).on('click').call(this, d);
   }

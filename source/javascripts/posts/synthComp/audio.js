@@ -1,12 +1,52 @@
 var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
 ac.createGain();
 var nextBeat = 0;
+var totalBeats =  0;
 var nextBeatM = 0;
 var nextBeatTime = ac.currentTime;
 setInterval(function(){
   //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
   while (nextBeatTime < ac.currentTime + .1){    
     //grab the active beat column 
+    if (!(nextBeat % ratioM)){
+      //spin larger wheel
+      svgM
+        .transition().duration(getBPM()*ratioM*1000).ease('linear')
+          .attr('transform', 'rotate(' + -(-nextBeatM/numBeatsM*360) + ')');
+
+      //extract update information
+      var updateArray = pitches.map(function(d){ return false; });
+      beatsM.filter(function(d, i){ return i === nextBeatM; })
+        .selectAll('path')
+          .each(function(d, i){
+            updateArray[i] = d.on;
+            //TODO flash color
+            d3.select(this)
+                .style('fill', d.on ? 'blue' : 'white')
+              .transition().duration(3000)
+                .call(colorNote);
+          });
+
+      //apply updates to slow circle
+      beats.filter(function(d, i){ return i == totalBeats % ratioM; })
+        .selectAll('path')
+          .each(function(d, i){
+            console.log(d.on);
+            if (updateArray[i]){
+              d.on = +!d.on;
+              d3.select(this)
+                  .style('fill', d.on ? 'green' : 'red')
+                .transition().duration(2000)
+                  .call(colorNote);
+            }
+          })
+
+
+      nextBeatM = (nextBeatM + 1) % numBeatsM;
+    }
+
+
+
     beats.filter(function(d, i){ return i == nextBeat; })
       .selectAll('path')
         .each(function(d){
@@ -30,32 +70,11 @@ setInterval(function(){
       .transition().duration(getBPM()*1000).ease('linear')
         .attr('transform', 'rotate(' + (-nextBeat/numBeats*360) + ')');
 
-    if (!nextBeat){
-      //spin larger wheel
-      svgM
-        .transition().duration(getBPM()*9*1000).ease('linear')
-          .attr('transform', 'rotate(' + -(-nextBeatM/numBeatsM*360) + ')');
-
-      //extract update information
-      var updateArray = pitches.map(function(d){ return false; });
-      beatsM.filter(function(d, i){ return i === nextBeatM; })
-        .selectAll('path')
-          .each(function(d, i){
-            updateArray = d.on;
-            console.log(this);
-            //TODO flash color
-            d3.select(this)
-                .style('fill', d.on ? 'blue' : 'white')
-              .transition()
-                .call(colorNote);
-          });
-
-      nextBeatM = (nextBeatM + 1) % numBeatsM;
-    }
 
     //update time and index of nextBeat 
     nextBeatTime += getBPM();
     nextBeat = (nextBeat + 1) % numBeats; 
+    totalBeats++;
   }
 }, 25)
 
