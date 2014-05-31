@@ -33,6 +33,8 @@ var svg = d3.select('#synth')
   .append('g')
     .attr('transform', 'translate(' + [width/2, height/2] +')')
   .append('g')
+    .attr('transform', 'rotate(-180)')
+
 
 //create a g element for each beat
 //rotated so we only have to worry about circular math 
@@ -60,6 +62,8 @@ function styleNotes(selection){
         .transition().duration(0)
           .call(colorNote)
           .style('stroke', 'black');
+
+      updateURL();
     })
     .on('mousemove', function(d){
       d3.select(this)
@@ -75,4 +79,13 @@ function styleNotes(selection){
     .style('stroke', 'lightgrey')
     .style('fill', 'white')
     .classed('note', true)
+}
+
+
+function updateURL(){
+
+}
+
+function readURL(){
+
 }
