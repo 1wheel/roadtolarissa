@@ -133,7 +133,7 @@ function osc(pitch, waveform){
   gainNode = ac.createGain();
   oscillator.connect(gainNode);
   gainNode.connect(ac.destination);
-  gainNode.gain.value = .2;
+  gainNode.gain.value = .1;
   return {osc: oscillator, gain: gainNode};
 };
 
