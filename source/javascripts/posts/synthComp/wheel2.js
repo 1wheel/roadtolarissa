@@ -1,6 +1,6 @@
 var width = 750,
     height = 750,
-    numBeatsM = 9;
+    numBeatsM = 11;
 
 //beat number to angle
 var rotationScale = d3.scale.linear()
