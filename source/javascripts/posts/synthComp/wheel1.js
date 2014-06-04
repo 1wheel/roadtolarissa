@@ -2,7 +2,7 @@ var width = 750,
     height = 750,
     numBeats = 8,
     pitches = [130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94, 261.63, 146.83*2, 164.81*2, 174.61*2, 196.00*2, 220.00*2, 246.94*2, 261.63*2].reverse();
-    pitches = pitches.slice(8);
+    pitches = pitches.filter(function(d, i){ return i % 2; });
 
 //beat number to angle
 var rotationScale = d3.scale.linear()
