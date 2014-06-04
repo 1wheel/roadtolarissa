@@ -53,9 +53,3 @@ var notesM = beatsM.selectAll('path')
 
 
 var ratioM = 7;
-
-notesM.each(function(d){
-  if (Math.random() > .7){
-    d3.select(this).on('click').call(this, d);
-  }
-})

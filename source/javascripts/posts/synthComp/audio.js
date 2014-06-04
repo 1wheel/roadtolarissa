@@ -83,19 +83,6 @@ setInterval(function(){
   }
 }, 25);
 
-var isPaused = false;
-var pauseStart = 0;
-var totalPause = 0;
-function togglePause(){
-  isPaused = !isPaused;
-  if (isPaused){
-    pauseStart = ac.currentTime;
-  } else {
-    totalPause += ac.currentTime - pauseStart;
-    nextBeatTime += ac.currentTime - pauseStart;
-  }
-
-}
 
 //add sliders to the page
 var sliders = d3.select('#synthSliders').selectAll('input')
@@ -137,3 +124,46 @@ function osc(pitch, waveform){
   return {osc: oscillator, gain: gainNode};
 };
 
+
+var isPaused = false;
+var pauseStart = 0;
+var totalPause = 0;
+function togglePause(){
+  isPaused = !isPaused;
+  if (isPaused){
+    pauseStart = ac.currentTime;
+  } else {
+    totalPause += ac.currentTime - pauseStart;
+    nextBeatTime += ac.currentTime - pauseStart;
+  }
+
+}
+
+function clear(){
+  d3.selectAll('.note').each(function(d){
+    if (d.on){
+      d3.select(this).on('click').call(this, d);
+    }
+  });
+}
+
+function randomize(){
+  clear();
+  d3.selectAll('.note').each(function(d){
+    if (Math.random() > .93){
+      d3.select(this).on('click').call(this, d);
+    }
+  });
+}
+
+
+d3.select('#buttons').selectAll('.button')
+    .data(
+      [ {text: 'Play/Pause',  fun: togglePause},
+        {text: 'Clear',       fun: clear},
+        {text: 'Randomize',   fun: randomize}]).enter()
+    .append('span')
+      .text(f('text'))
+      .on('click', function(d){ d.fun(); });
+
+randomize();
