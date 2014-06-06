@@ -167,3 +167,9 @@ d3.select('#buttons').selectAll('.button')
       .on('click', function(d){ d.fun(); });
 
 randomize();
+
+
+function toURL(){
+  return d3.selectAll('.note').data().map(function(d){
+    return d.on ? '1' : '0'; }).join('');
+}
