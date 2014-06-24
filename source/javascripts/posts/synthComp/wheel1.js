@@ -61,7 +61,6 @@ function styleNotes(selection){
       d3.select(this)
         .transition().duration(0)
           .call(colorNote)
-          .style('stroke', 'black');
 
       updateURL();
     })

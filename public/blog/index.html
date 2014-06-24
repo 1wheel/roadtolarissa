@@ -9,7 +9,10 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="James Cheshire&rsquo;s Population Lines redone with d3. Data from NASA. Fullscreen and code. Originally I wanted to use the population map as a &hellip;">
+  <meta name="description" content="Writing D3 typically involves writing lots of anonymous functions. The scatter plot example illustrates typical use cases: Scale computations 1
+2
+3
+4 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +116,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/blog/2014/06/23/even-fewer-lamdas-with-d3/">Even Fewer Lambdas in D3</a>
+      </li>
+    
+      <li class="post">
         <a href="/population-division">Population Division</a>
       </li>
     
@@ -192,6 +199,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/blog/2014/06/23/even-fewer-lamdas-with-d3/">Even Fewer Lambdas in D3</a></h1>
+<time datetime="2014-06-23T00:00:00-04:00" pubdate><span class='month'>Jun</span> <span class='day'>23</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -452,7 +469,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/population-division">Population Division</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/06/23/even-fewer-lamdas-with-d3/">Even Fewer Lambdas in D3</a></h1>
     
     
       <p class="meta">
@@ -468,46 +485,42 @@
   
 
 
-<time datetime="2014-03-06T00:00:00-05:00" pubdate data-updated="true"></time>
+<time datetime="2014-06-23T00:00:00-04:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div id='joymap'></div>
+  <div class="entry-content"><p>Writing D3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates typical use cases:</p>
+
+<h4>Scale computations</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">linear</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">range</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="p">])</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalWidth</span><span class="p">;</span> <span class="p">})));</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">linear</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">range</span><span class="p">([</span><span class="nx">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalLength</span><span class="p">;</span> <span class="p">})));</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p></br>
-<em>James Cheshire&rsquo;s <a href="http://spatial.ly/2013/09/population-lines/">Population Lines</a> redone with d3. <a href="http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-count">Data</a> from NASA. <a href="/population-division-fullscreen.html">Fullscreen</a> and <a href="https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/joymap/drawMap.js">code</a>.</em></p>
+<p><code>data</code> is an array of objects, each with a <code>sepalWidth</code> and a <code>sepalLength</code> property. <code>data.map</code> is a function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">built into</a> every Javascript array. It takes a function (in this case, <code>function(d){ return d.sepalWidth; }</code>), calls it on each element of the original array, and returns a new array containing the returned values.</p>
 
-<p>Originally I wanted to use the population map as a template for exploring different ways of transitioning data with d3. With delays and durations, a variety of vertical and horizontal sweeping effects can be created. Unfortunately, it isn&rsquo;t possible to simultaneously animate hundreds of line elements smoothly. <a href="http://4c.ucc.ie/~larsko/#other">Lars Kotthoff&rsquo;s</a> <a href="https://github.com/mbostock/d3/pull/448">variable width</a> line generator did help cut down on the thousands of elements I started with &ndash; at first, the darker lines representing higher populations were formed by separating each longitude into a series of low and high segments &ndash; and with staggering, only a few dozen at a time are animated in the finished version.</p>
+<p>Since <code>sepalWidth</code> is always a number, we get</p>
 
-<p>Aesthetically, I was really drawn towards Cheshire&rsquo;s use of light and dark lines. A simple coloring rule makes China look like the cover of <a href="http://www.youtube.com/watch?v=wVvoQIdD80U">Unknown Pleasures</a> and parts of South America like a map of Mordor.</p>
+<ul>
+<li>basdfas beepsdfsdf;lskdfj</li>
+</ul>
 
-<p>Functionally, having two colors representing high and low density makes it easy to compare different areas. Outside of the Sahara, for example, most of Africa is more populated than the western interior of the US. If I had more time, I would have made the density dividing point adjustable so the map could show where/how many people lived at various densities.</p>
-
-<p>Using a polylinear scale to convert population to line height, I created another threshold effect:</p>
-
-<pre><code>  populationToHeight = d3.scale.linear()
-      .domain([0, 1, d3.max(d3.merge(longitudes))])
-      .range([0, -1, -180])
-</code></pre>
-
-<p>Segments with a population of 0 have a height of 0. Segments with a population of 1 or more have a height between 1 and 180, with each additional person adding significantly less than 1 pixel of height. Since essentially all land is inhabited, even sparsely populated coasts get a nice bevel differentiating them from the ocean. Greenland&rsquo;s ice sheet is also clearly shown.</p>
-
-<p>I&rsquo;m not totally satisfied with the tooltip. Making the size of the highlighted area adjustable would make insights like the popular <a href="http://www.washingtonpost.com/blogs/worldviews/wp/2013/05/07/map-more-than-half-of-humanity-lives-within-this-circle/">&lsquo;half of humanity lives in this circle&rsquo;</a> map discoverable. I also wish the size of the bars corresponded to the absolute number of people highlighted to make comparison between areas easier. Using a log scale common to all regions made at a glance comparisons between regions easier but obscured change over time. Plotting percentage change as a line on top of log scaled bars would achieve both goals; however that would require multiple axii which would significantly detract from the simplicity of the rest of the display.</p>
-
-<script src="/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
-
-
-<script src="/javascripts/posts/joymap/line-variable.js" type="text/javascript"></script>
-
-
-<script src="/javascripts/posts/joymap/drawMap.js" type="text/javascript"></script>
-
-
-<p><meta property="og:image" content="/images/thumbnails/joymap.png" /></p>
 </div>
   
   
