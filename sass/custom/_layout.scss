@@ -42,3 +42,22 @@ aside.sidebar{
 	padding-top: 5px !important;
 	padding-right: 0px !important;
 }
+
+
+
+//style code box
+.code{
+	figcaption{
+		display: none;
+	}
+	.gutter{
+		display: none;
+	}
+	.javascript{
+		background: white url('') !important;
+	}
+	.highlight{
+		background-color: white !important;
+		border-color: #EDEDED !important;
+	}
+}

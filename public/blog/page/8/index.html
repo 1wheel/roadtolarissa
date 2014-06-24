@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="Three years ago, the New York Times published a nifty interactive graphic showing how the recession had impacted the unemployment rate of different &hellip;">
+  <meta name="description" content="This is a display of word frequency in Moby Dick that I just finished making. It draws heavily on Bibly, which displays word frequency in the Bible &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/blog/2014/06/23/even-fewer-lamdas-with-d3/">Even Fewer Lambdas in D3</a>
+      </li>
+    
+      <li class="post">
         <a href="/population-division">Population Division</a>
       </li>
     
@@ -192,6 +196,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/blog/2014/06/23/even-fewer-lamdas-with-d3/">Even Fewer Lambdas in D3</a></h1>
+<time datetime="2014-06-23T00:00:00-04:00" pubdate><span class='month'>Jun</span> <span class='day'>23</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -452,7 +466,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/unemployment-rates">Unemployment Rates</a></h1>
+      <h1 class="entry-title"><a href="/whale-words">Whale Words</a></h1>
     
     
       <p class="meta">
@@ -468,28 +482,47 @@
   
 
 
-<time datetime="2013-01-21T00:00:00-05:00" pubdate data-updated="true"></time>
+<time datetime="2013-01-28T00:00:00-05:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><a href="http://www.roadtolarissa.com/unemployment"><img class="aligncenter size-large wp-image-185" title="unemployment rates" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate1-1024x705.png" alt="" width="640" height="440" /></a></p>
+  <div class="entry-content"><p><a href="http://www.roadtolarissa.com/whalewords"><img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" /></a></p>
 
-<p>Three years ago, the New York Times published a <a href="http://www.nytimes.com/interactive/2009/11/06/business/economy/unemployment-lines.html">nifty interactive graphic</a> showing how the recession had impacted the unemployment rate of different demographic groups. Wanting show a broader range of dates, add features, and get more practice with d3.js, I started working on a remake.</p>
+<p>This is a display of word frequency in Moby Dick that I just finished making. It draws heavily on <a href="http://stanford.edu/~garylee/bibly/#verse">Bibly</a>, which displays word frequency in the Bible.</p>
 
-<p>During my job at Goody Goody, I got some practice getting time series from Bureau of Labor Statistics. Since I was only interested in a few types of data like the CPI and unemployment rate in Texas, I used their <a href="http://data.bls.gov/pdq/querytool.jsp?survey=ln">clunky java app</a> to get the data I needed.</p>
+<p><a href="http://stanford.edu/~garylee/bibly/#verse"><img class="aligncenter size-large wp-image-194" title="Bibly" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/bibly-1024x593.png" alt="" width="640" height="370" /></a>To get more practice with d3.js, I wrote everything from scratch. Having a visual reference was still extremely helpfu, though. Some things I really liked about their implementation/would have run into trouble without:</p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate2.png"><img class="aligncenter size-full wp-image-186" title="BLS java app" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate2.png" alt="" width="784" height="459" /></a></p>
+<ul>
+<li>Grouping words into equally sized buckets to create a histogram. This sounds obvious, but I had some trouble getting to it. My first idea for this project came when I saw a <a href="http://i.imgur.com/c7de3.png">infographic of word frequency in the Wire</a>. I wanted to make an interactive version of the same data, showing the number of occurrences of each word per episode. Since each episode contains roughly the same amount of dialog, it would be relatively simple to draw a single bar for each episode. When I decided to work with Moby Dick instead, my first attempt drew one bar per chapter and with the variable width bars, it looked awful. Unable to find a solution, I put the project aside until I came across Bibly.</li>
+<li>The use of two colors of bars on the x-axis to detonate chapter length. I would have used tick marks, but solid bars are a significantly better visual metaphor for chapters which persist for the entirely of their length and aren&rsquo;t one time events. Bars are also better mouseover targets.</li>
+<li>This might be a little silly, but I really like the &#8216;[Enter] a Word&#8217; formulation. I tried a lot of different instructions for the splash page of <a href="http://redditgraphs.com">redditgraphs</a>, but really struggled finding one that was both concise and clear.</li>
+</ul>
 
-<p>I briefly contemplated manually selecting all the series that I wanted to use for downloading but decided not to because of the amount of time and errors that would be involved in doing that. Poking around the BLS website more, I found their <a href="ftp://ftp.bls.gov/pub/time.series/ln">FTP site</a> which contained huge text files with unemployment time series. This wasn&#8217;t particularly user friendly, but all the data was machine readable and I wrote a <a href="https://github.com/1wheel/unemployment/blob/master/parseBLS.py">small python program</a> to extract and repackage the time series I wanted to show.</p>
 
-<p>Even at this relatively early stage, I made a couple of decisions to limit the project&rsquo;s scope. The BLS collects a huge amount of demographic data &#8211; martial status, occupation, disabilities, veteran, reasons for not working more, ect. &#8211; and I omitted most of them because only a limited number of groupings have <a href="http://en.wikipedia.org/wiki/Cross_tabulation">crosstabs</a>. I also picked the semi arbitrary start year of 2001 to keep amount of data the page requires down. Many of the series go back to the 1950s and including them would have required either long page load times or a tricker system of only downloading requested time frames.</p>
+<p><span style="font-size: 16px;">Some things I added or removed:</span></p>
 
-<p>Implementing the page in d3.js wasn&rsquo;t too difficult. I&rsquo;m getting more familiar with the library and the style of coding that works well with it. The biggest issue with the library  right now is its inability to do smooth transitions in none webkit browsers. The NYT&#8217;s version of the graphic was written in flash and doesn&rsquo;t lag in firefox. Beta builds of firefox with the right experimental settings enabled display the page fine, but I&rsquo;m not sure how long it will be before those improvements are widely installed.</p>
+<ul>
+<li>An autocomplete drop down to text box.<a href="http://www.roadtolarissa.com/wp-content/uploads/2013/01/drop-down.png"><img class="size-full wp-image-195 aligncenter" title="Drop Down" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/drop-down.png" alt="" width="173" height="330" /></a>In addition to downloading the text of the Moby Dick (about 1 MB), the webpage also downloads an array containing all the none <a href="http://en.wikipedia.org/wiki/Stop_words">stop words</a> in Moby Dick and the number of their occurrences (about .2 MB). Typing a few letters searches though the array for the most common words that match, then displays them and their frequencies in a drop down menu. This is pretty sweet for a couple of reasons. Displaying the frequency of many words at once increases the information density of the site &#8211; the drop down with no text entered yet basically shows as much information as the entire Wire infographic.  At the same time, it increases usability (if the user doesn&rsquo;t realize the need to press enter, the suggestions are click targets) and invites exploration (it is hard thinking of interesting words to search for on the fly, the autocomplete shows several of them at a time).</li>
+<li>The highlight functionality or the recent search display. I&rsquo;ve been reading though public available portions of the <a href="https://graphics.stanford.edu/wikis/cs448b-12-fall/">cs488b syllabus</a> and can see why Bibly included them, but I wanted to keep the page as simple as possible.</li>
+<li>Mousing over a bar immediately shows the corresponding quotation at the bottom of the page instead of showing tooltip with a list of quotations to click on.</li>
+<li>None of the height, width, word bucket size, or chapter length values depend on <a href="http://en.wikipedia.org/wiki/Magic_number_(programming)">magic numbers</a>. This makes it easy to resize the graph to fill the browser window, rescale the y-axis for different words, and potentially use the same code to display other books.</li>
+</ul>
 
-<p>In terms of new features, I added another set of buttons to allow for easy comparisons between two different demographic groups and a brush on the bottom graph for selecting time. These additions take some of the focus away from the recession, but also historically contextualize the unemployment rate and draw the viewer to explore the data.</p>
+
+<p>Some things that I would like to add or improve:</p>
+
+<ul>
+<li>Resizing the page after it has loaded should resize the graph too. I didn&rsquo;t work with <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a> in mind though, so it would take some work to implement this.</li>
+<li>Loading splash screen should have a loading bar or changing text.</li>
+<li>The text display should have a way to read more of the passage. Maybe clicking could open a new scrollable window containing the entire text with passage highlighted.</li>
+<li>The numbers on the autocomplete drop down should align to the right. This is surprisingly difficult to do without breaking jquery ui.</li>
+<li>It&rsquo;d be super cool to include more books. Most of the process is automated, but some hand editing was required to the make the raw text from Project Gutenberg usable for the parseBook.py program I wrote. It would be feasible to do the same for the freely available texts in the <a href="http://www.stjohnscollege.edu/academic/readlist.shtml">St. John&rsquo;s program</a>. Alternatively (or additionally), if I wrote a parse parseEPUB.py program (which wouldn&rsquo;t require any hand editing for each text since chapter titles are written in constant ways) and ran it server side, it might be possible to allow users to upload any book formatted as an <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a> without DRM that they own and display a graph for their book. I&rsquo;m not sure how useful or used this would be; even if the user has and knows where to find an ebook on their hard drive, it will probably be from Amazon and/or contain DRM.</li>
+<li>While I was looking though the <a href="http://nltk.org/">nltk</a> documentation, I came across this graph: I&rsquo;m not sure if it is a necessarily better display of the same information. Frequency is a little harder to discern and it just looks less interesting, but it takes up less spaces and opens up the possibly of easily comparing the frequency of different words.</li>
+</ul>
+
 </div>
   
   

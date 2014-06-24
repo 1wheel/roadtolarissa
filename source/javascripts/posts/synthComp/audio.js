@@ -61,7 +61,7 @@ setInterval(function(){
           //easier to hear something off by a few ms
           var selection = d3.select(this).style('opacity', 1)
               .transition().duration(getBPM()*1000*2)
-                .style('opacity', '.7')
+                //.style('opacity', '.7')
                 .call(colorNote);
           //use timeout instead of transition so mouseovers transitions don't cancel)
           // setTimeout(function(){
