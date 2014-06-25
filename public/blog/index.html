@@ -9,10 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="Writing D3 typically involves writing lots of anonymous functions. The scatter plot example illustrates typical use cases: Scale computations 1
-2
-3
-4 &hellip;">
+  <meta name="description" content="Writing D3 typically involves writing lots of anonymous functions. The scatter plot example illustrates two typical use cases: scales and attributes &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -492,7 +489,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Writing D3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates typical use cases:</p>
+  <div class="entry-content"><p>Writing D3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates two typical use cases: scales and attributes.</p>
 
 <h4>Scale computations</h4>
 
@@ -505,21 +502,52 @@
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">linear</span><span class="p">()</span>
 </span><span class='line'>    <span class="p">.</span><span class="nx">range</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="p">])</span>
-</span><span class='line'>    <span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalWidth</span><span class="p">;</span> <span class="p">})));</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalWidth</span><span class="p">;</span> <span class="p">})))</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">linear</span><span class="p">()</span>
 </span><span class='line'>    <span class="p">.</span><span class="nx">range</span><span class="p">([</span><span class="nx">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-</span><span class='line'>    <span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalLength</span><span class="p">;</span> <span class="p">})));</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalLength</span><span class="p">;</span> <span class="p">})))</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p><code>data</code> is an array of objects, each with a <code>sepalWidth</code> and a <code>sepalLength</code> property. <code>data.map</code> is a function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">built into</a> every Javascript array. It takes a function (in this case, <code>function(d){ return d.sepalWidth; }</code>), calls it on each element of the original array, and returns a new array containing the returned values.</p>
 
-<p>Since <code>sepalWidth</code> is always a number, we get</p>
+<p>Since <code>sepalWidth</code> is always a number, we get back an array of numbers. This array is immediately passed to <code>d3.extent</code>, which returns the min and max sepalWidth and is used to set the domain of the <code>x</code> scale.</p>
 
-<ul>
-<li>basdfas beepsdfsdf;lskdfj</li>
-</ul>
+<h4>Data driven attributes</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.dot&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">sepalWidth</span><span class="p">);</span> <span class="p">})</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">y</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">sepalLength</span><span class="p">);</span> <span class="p">})</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">color</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">species</span><span class="p">);</span> <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element&rsquo;s &ldquo;cx&rdquo; property equal to the return value of the function. This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point, and the results alter the appearance of the elements on the page.</p>
+
+<p>In addition to attributes, text and interaction can also be controlled with functions operating on data:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">legend</span> <span class="o">=</span> <span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.legend&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">color</span><span class="p">.</span><span class="nx">domain</span><span class="p">())</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">d</span><span class="p">;</span> <span class="p">})</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">d</span> <span class="o">+</span> <span class="s1">&#39; Clicked!&#39;</span><span class="p">);</span> <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 
 </div>
   
