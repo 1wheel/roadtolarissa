@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-06-26T23:56:30-05:00</updated>
+  <updated>2014-06-27T00:39:46-05:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -72,14 +72,34 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">legend</span> <span class="o">=</span> <span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.legend&quot;</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">color</span><span class="p">.</span><span class="nx">domain</span><span class="p">())</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">data</span><span class="p">([</span><span class="s1">&#39;flowerName1&#39;</span><span class="p">,</span> <span class="s1">&#39;flowerName2&#39;</span><span class="p">,</span> <span class="s1">&#39;flowerName3&#39;</span><span class="p">])</span>
 </span><span class='line'>    <span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span>
 </span><span class='line'>      <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">d</span><span class="p">;</span> <span class="p">})</span>
 </span><span class='line'>      <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">d</span> <span class="o">+</span> <span class="s1">&#39; Clicked!&#39;</span><span class="p">);</span> <span class="p">})</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what is was passed.</p>
 
+<h4>Generalizations</h4>
+
+<p>Needing a function that returns what it is passed turns out to be surprisingly common. We can save a bit of typing by save a copy of the identify function:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">idFn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">;</span> <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and instead of typing out all the syntactical noise of <code>functionn</code>, <code>return</code>, <code>(</code> and <code>:</code>  every time we need it, we can say what we mean</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">idFn</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>admittedly, this isn&rsquo;t a huge improve ment.</p>
 ]]></content>
   </entry>
   
@@ -531,7 +551,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#116;&#x69;&#x70;&#115;&#64;&#x77;&#x65;&#98;&#115;&#x69;&#116;&#x65;&#46;&#x63;&#x6f;&#x6d;">&#116;&#x69;&#112;&#x73;&#64;&#x77;&#101;&#98;&#x73;&#105;&#x74;&#101;&#46;&#x63;&#111;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#116;&#x69;&#x70;&#x73;&#64;&#119;&#x65;&#x62;&#x73;&#x69;&#x74;&#x65;&#46;&#x63;&#x6f;&#x6d;">&#116;&#105;&#x70;&#115;&#64;&#x77;&#101;&#x62;&#115;&#x69;&#x74;&#101;&#46;&#99;&#x6f;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 

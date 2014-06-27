@@ -543,14 +543,34 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">legend</span> <span class="o">=</span> <span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.legend&quot;</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">color</span><span class="p">.</span><span class="nx">domain</span><span class="p">())</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">data</span><span class="p">([</span><span class="s1">&#39;flowerName1&#39;</span><span class="p">,</span> <span class="s1">&#39;flowerName2&#39;</span><span class="p">,</span> <span class="s1">&#39;flowerName3&#39;</span><span class="p">])</span>
 </span><span class='line'>    <span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span>
 </span><span class='line'>      <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">d</span><span class="p">;</span> <span class="p">})</span>
 </span><span class='line'>      <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">d</span> <span class="o">+</span> <span class="s1">&#39; Clicked!&#39;</span><span class="p">);</span> <span class="p">})</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what is was passed.</p>
 
+<h4>Generalizations</h4>
+
+<p>Needing a function that returns what it is passed turns out to be surprisingly common. We can save a bit of typing by save a copy of the identify function:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">idFn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">;</span> <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and instead of typing out all the syntactical noise of <code>functionn</code>, <code>return</code>, <code>(</code> and <code>:</code>  every time we need it, we can say what we mean</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">idFn</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>admittedly, this isn&rsquo;t a huge improve ment.</p>
 </div>
   
   
