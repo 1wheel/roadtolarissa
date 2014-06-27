@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Redditgraphs | Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/blog/categories/redditgraphs/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-06-25T00:44:48-04:00</updated>
+  <updated>2014-06-26T23:56:30-05:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Reddit Comment Visualizer]]></title>
     <link href="http://roadtolarissa.com/reddit-comment-visualizer"/>
-    <updated>2012-10-19T00:00:00-04:00</updated>
+    <updated>2012-10-19T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/reddit-comment-visualizer</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve spent the last few days working on a <a href="http://www.roadtolarissa.com/javascript/reddit-comment-visualizer/">visualizer for reddit comments</a>.  Using reddit&rsquo;s API, the program downloads a user&rsquo;s comments and graphs them with <a href="http://www.flotcharts.org/">flot</a>.</p>
 
