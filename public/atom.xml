@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-06-25T00:44:48-04:00</updated>
+  <updated>2014-06-26T23:56:30-05:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Even Fewer Lambdas in D3]]></title>
     <link href="http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/"/>
-    <updated>2014-06-23T00:00:00-04:00</updated>
+    <updated>2014-06-23T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3</id>
     <content type="html"><![CDATA[<p>Writing D3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates two typical use cases: scales and attributes.</p>
 
@@ -41,7 +41,7 @@
 
 <p><code>data</code> is an array of objects, each with a <code>sepalWidth</code> and a <code>sepalLength</code> property. <code>data.map</code> is a function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">built into</a> every Javascript array. It takes a function (in this case, <code>function(d){ return d.sepalWidth; }</code>), calls it on each element of the original array, and returns a new array containing the returned values.</p>
 
-<p>Since <code>sepalWidth</code> is always a number, we get back an array of numbers. This array is immediately passed to <code>d3.extent</code>, which returns the min and max sepalWidth and is used to set the domain of the <code>x</code> scale.</p>
+<p>Since <code>sepalWidth</code> is always a number, <code>map</code> returns an array of numbers. This array is immediately passed to <code>d3.extent</code>, which returns the min and max sepalWidth and is used to set the domain of the <code>x</code> scale.</p>
 
 <h4>Data driven attributes</h4>
 
@@ -60,7 +60,9 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element&rsquo;s &ldquo;cx&rdquo; property equal to the return value of the function. This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point, and the results alter the appearance of the elements on the page.</p>
+<p><code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element&rsquo;s &ldquo;cx&rdquo; property equal to the return value of the function. By also setting the &ldquo;cy&rdquo; property of each circle to be proportional to <code>sepalLenght</code>, a scatter plot showing <code>sepalWidth</code> v. <code>sepalLength</code> is created.</p>
+
+<p>This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point, and the results alter the appearance of the elements on the page.</p>
 
 <p>In addition to attributes, text and interaction can also be controlled with functions operating on data:</p>
 
@@ -84,7 +86,7 @@
   <entry>
     <title type="html"><![CDATA[Population Division]]></title>
     <link href="http://roadtolarissa.com/population-division"/>
-    <updated>2014-03-06T00:00:00-05:00</updated>
+    <updated>2014-03-06T00:00:00-06:00</updated>
     <id>http://roadtolarissa.com/population-division</id>
     <content type="html"><![CDATA[<div id='joymap'></div>
 
@@ -125,7 +127,7 @@
   <entry>
     <title type="html"><![CDATA[Making Music With D3]]></title>
     <link href="http://roadtolarissa.com/synth"/>
-    <updated>2014-01-15T00:00:00-05:00</updated>
+    <updated>2014-01-15T00:00:00-06:00</updated>
     <id>http://roadtolarissa.com/synth-scales</id>
     <content type="html"><![CDATA[<p><svg id='synth'></svg></p>
 
@@ -164,7 +166,7 @@
   <entry>
     <title type="html"><![CDATA[Twisters]]></title>
     <link href="http://roadtolarissa.com/twisters-post"/>
-    <updated>2013-10-22T00:00:00-04:00</updated>
+    <updated>2013-10-22T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/twisters-post</id>
     <content type="html"><![CDATA[<p style="text-align: center;">
   <a href="http://roadtolarissa.com/twisters/"><img class=" wp-image-287 aligncenter" title="Tornado Map" alt="" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/nados-1024x988.png" width="640" height="617" /></a>
@@ -231,7 +233,7 @@
   <entry>
     <title type="html"><![CDATA[NBA Draft]]></title>
     <link href="http://roadtolarissa.com/nba_draft"/>
-    <updated>2013-06-16T00:00:00-04:00</updated>
+    <updated>2013-06-16T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/nba_draft</id>
     <content type="html"><![CDATA[<p style="text-align: center;">
   <a href="http://roadtolarissa.com/nba-draft/"><img class="wp-image-266 aligncenter" alt="nbaSplash" src="http://www.roadtolarissa.com/wp-content/uploads/2013/06/nbaSplash.png" width="500" height="215" /><br /> </a><em><a href="http://roadtolarissa.com/nba-draft/">Interactive graphic</a> comparing the top picks to the top performers in the NBA</em>
@@ -278,7 +280,7 @@ Finally, clicking a bar opens a link with more information about the player whic
   <entry>
     <title type="html"><![CDATA[Meteor Map]]></title>
     <link href="http://roadtolarissa.com/meteor-map"/>
-    <updated>2013-05-19T00:00:00-04:00</updated>
+    <updated>2013-05-19T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/meteor-map</id>
     <content type="html"><![CDATA[<p><a href="http://roadtolarissa.com/meteors/"><img class=" wp-image-234 alignnone" alt="meteor map" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/meteormap.png" width="620" height="421" /></a></p>
 
@@ -309,7 +311,7 @@ The data set had some additional information that I wasn&rsquo;t sure how to rep
   <entry>
     <title type="html"><![CDATA[Film Strips]]></title>
     <link href="http://roadtolarissa.com/film-strips-post"/>
-    <updated>2013-05-02T00:00:00-04:00</updated>
+    <updated>2013-05-02T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/film-strips-post</id>
     <content type="html"><![CDATA[<p><a href="http://roadtolarissa.com/film-strips/"><img class="alignnone  wp-image-220" alt="filmstrips" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/filmstrips.png" width="640" height="417" /></a></p>
 
@@ -331,7 +333,7 @@ The data set had some additional information that I wasn&rsquo;t sure how to rep
   <entry>
     <title type="html"><![CDATA[Whale Words]]></title>
     <link href="http://roadtolarissa.com/whale-words"/>
-    <updated>2013-01-28T00:00:00-05:00</updated>
+    <updated>2013-01-28T00:00:00-06:00</updated>
     <id>http://roadtolarissa.com/whale-words</id>
     <content type="html"><![CDATA[<p><a href="http://www.roadtolarissa.com/whalewords"><img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" /></a></p>
 
@@ -373,7 +375,7 @@ The data set had some additional information that I wasn&rsquo;t sure how to rep
   <entry>
     <title type="html"><![CDATA[Unemployment Rates]]></title>
     <link href="http://roadtolarissa.com/unemployment-rates"/>
-    <updated>2013-01-21T00:00:00-05:00</updated>
+    <updated>2013-01-21T00:00:00-06:00</updated>
     <id>http://roadtolarissa.com/unemployment-rates</id>
     <content type="html"><![CDATA[<p><a href="http://www.roadtolarissa.com/unemployment"><img class="aligncenter size-large wp-image-185" title="unemployment rates" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate1-1024x705.png" alt="" width="640" height="440" /></a></p>
 
@@ -396,7 +398,7 @@ The data set had some additional information that I wasn&rsquo;t sure how to rep
   <entry>
     <title type="html"><![CDATA[Zoomable Sierpinski Triangle With d3.js]]></title>
     <link href="http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js"/>
-    <updated>2012-12-21T00:00:00-05:00</updated>
+    <updated>2012-12-21T00:00:00-06:00</updated>
     <id>http://roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js</id>
     <content type="html"><![CDATA[<p style="text-align: center;">
   <a href="http://roadtolarissa.com/triangles/"><img class="aligncenter size-large wp-image-168" title="triangle" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/triangle-1024x815.png" alt="" width="640" height="509" /></a>http://roadtolarissa.com/triangles/
@@ -444,7 +446,7 @@ function addTriangle(cx, cy, r){
   <entry>
     <title type="html"><![CDATA[White House Petition Signatures]]></title>
     <link href="http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures"/>
-    <updated>2012-12-19T00:00:00-05:00</updated>
+    <updated>2012-12-19T00:00:00-06:00</updated>
     <id>http://roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures</id>
     <content type="html"><![CDATA[<p><img class=" wp-image-234 alignnone" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/petition.png" /></p>
 
@@ -463,7 +465,7 @@ function addTriangle(cx, cy, r){
   <entry>
     <title type="html"><![CDATA[Next Project]]></title>
     <link href="http://roadtolarissa.com/next-project"/>
-    <updated>2012-11-20T00:00:00-05:00</updated>
+    <updated>2012-11-20T00:00:00-06:00</updated>
     <id>http://roadtolarissa.com/next-project</id>
     <content type="html"><![CDATA[<p>Finished with redditgraphs, I have a couple of ideas about what I&rsquo;d like to work on next; I&rsquo;m posting them to clarify my own thoughts and to get feedback.</p>
 
@@ -499,7 +501,7 @@ Scrape the text, date, score, author and band information from every published r
   <entry>
     <title type="html"><![CDATA[Redditgraphs Retrospective]]></title>
     <link href="http://roadtolarissa.com/redditgraphs-retrospective"/>
-    <updated>2012-11-17T00:00:00-05:00</updated>
+    <updated>2012-11-17T00:00:00-06:00</updated>
     <id>http://roadtolarissa.com/redditgraphs-retrospective</id>
     <content type="html"><![CDATA[<p>It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the application and trying to share it with people. After posting the basic demo on /r/javascript, I was encouraged make improvements and host the project on its own domain. Registering &#8220;<a href="www.redditgraphs.com">redditgraphs.com</a>&#8221; for a year only cost $5 and it seemed more memorable and easier to access than &#8220;roadtolarissa.com/javascript/reddit-comment-visualizer&#8220;. I spent another week adding functionality &#8211; hourly trends, weekly trends, direct linking to user names &#8211; and making the UI prettier.</p>
 
@@ -529,7 +531,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#58;&#116;&#x69;&#112;&#115;&#x40;&#x77;&#x65;&#x62;&#x73;&#x69;&#x74;&#101;&#46;&#99;&#111;&#109;">&#x74;&#105;&#x70;&#x73;&#x40;&#x77;&#101;&#x62;&#x73;&#105;&#x74;&#x65;&#46;&#x63;&#x6f;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#116;&#x69;&#x70;&#115;&#64;&#x77;&#x65;&#98;&#115;&#x69;&#116;&#x65;&#46;&#x63;&#x6f;&#x6d;">&#116;&#x69;&#112;&#x73;&#64;&#x77;&#101;&#98;&#x73;&#105;&#x74;&#101;&#46;&#x63;&#111;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 
@@ -561,7 +563,7 @@ Scrape the text, date, score, author and band information from every published r
   <entry>
     <title type="html"><![CDATA[Reddit Comment Visualizer]]></title>
     <link href="http://roadtolarissa.com/reddit-comment-visualizer"/>
-    <updated>2012-10-19T00:00:00-04:00</updated>
+    <updated>2012-10-19T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/reddit-comment-visualizer</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve spent the last few days working on a <a href="http://www.roadtolarissa.com/javascript/reddit-comment-visualizer/">visualizer for reddit comments</a>.  Using reddit&rsquo;s API, the program downloads a user&rsquo;s comments and graphs them with <a href="http://www.flotcharts.org/">flot</a>.</p>
 
@@ -634,7 +636,7 @@ Scrape the text, date, score, author and band information from every published r
   <entry>
     <title type="html"><![CDATA[Yglesias on Amazon's P/E Ratio]]></title>
     <link href="http://roadtolarissa.com/yglesias-on-amazons-pe-ratio"/>
-    <updated>2012-10-10T00:00:00-04:00</updated>
+    <updated>2012-10-10T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/yglesias-on-amazons-pe-ratio</id>
     <content type="html"><![CDATA[<p>Yglesias <a href="http://www.slate.com/blogs/moneybox/2012/10/09/wal_mart_testing_same_day_delivery.html">wonders</a> why Amazon&rsquo;s P/E is so high:</p>
 
@@ -657,7 +659,7 @@ PETER THIEL:Search technology was developed a decade ago.  It&rsquo;s a bet tha
   <entry>
     <title type="html"><![CDATA[Speed Issues Goko Dominion]]></title>
     <link href="http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation"/>
-    <updated>2012-10-06T00:00:00-04:00</updated>
+    <updated>2012-10-06T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/speed-issues-with-gokos-online-dominion-implementation</id>
     <content type="html"><![CDATA[<p>This isn&rsquo;t very scientific, but to get a better sense of how slow playing <a href="http://boardgamegeek.com/boardgame/36218/dominion">Dominion</a> on  <a href="http://goko.com/games/">goko</a> is compared to <a href="http://dominion.isotropic.org/play">isotropic</a> and to find out exactly what is making it slower, I spent an hour on both and recorded how the time was spent:</p>
 
@@ -708,7 +710,7 @@ On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
   <entry>
     <title type="html"><![CDATA[Connect 4 AI: How It Works]]></title>
     <link href="http://roadtolarissa.com/connect-4-ai-how-it-works"/>
-    <updated>2012-09-30T00:00:00-04:00</updated>
+    <updated>2012-09-30T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/connect-4-ai-how-it-works</id>
     <content type="html"><![CDATA[<p>The <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">connect 4 playing program</a> uses a <a href="http://en.wikipedia.org/wiki/Minimax">minmax algorithm</a>.</p>
 
@@ -779,7 +781,7 @@ On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
   <entry>
     <title type="html"><![CDATA[Maximin Connect 4 Completed]]></title>
     <link href="http://roadtolarissa.com/maximin-connect-4-completed"/>
-    <updated>2012-09-29T00:00:00-04:00</updated>
+    <updated>2012-09-29T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/maximin-connect-4-completed</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve finished working on the Maximin Connect 4 program. I&rsquo;ve set up a <a href="http://www.roadtolarissa.com/javascript/connect-4-AI/">page</a> where you can play around with the AI since I&rsquo;m not sure how to embed HTML in these posts. Some general things I learned (I&rsquo;ll make a separate post with more Connect 4 specific ideas once I&rsquo;ve run some more tests on the AI):</p>
 
@@ -798,7 +800,7 @@ On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
   <entry>
     <title type="html"><![CDATA[First Post]]></title>
     <link href="http://roadtolarissa.com/first-post"/>
-    <updated>2012-09-27T00:00:00-04:00</updated>
+    <updated>2012-09-27T00:00:00-05:00</updated>
     <id>http://roadtolarissa.com/first-post</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve found that writing todo lists enormously increases my productivity while programming. Programming is all about breaking larger problems into smaller problems over and over until the problems are small enough to solve easily. Lists provide a map of the problems that need solving and make it possible to work on a smaller subset of them without having to simultaneously worry about the global structure of the program.</p>
 
