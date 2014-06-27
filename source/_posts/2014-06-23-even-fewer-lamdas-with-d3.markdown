@@ -41,11 +41,23 @@ In addition to attributes, text and interaction can also be controlled with func
 
 ```javascript 
 var legend = svg.selectAll(".legend")
-      .data(color.domain())
+      .data(['flowerName1', 'flowerName2', 'flowerName3'])
     .enter().append("div")
       .text(function(d) { return d; })
       .on('click', function(d){ alert(d + ' Clicked!'); })
 ```
+Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like `.attr`, `.text(function(d){ return d; })` calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, `.text` (as the name suggests) sets the text. Since the bound data is an array of strings and we're only trying to print each of them out, our function just returns what is was passed. 
 
+####Generalizations
 
+Needing a function that returns what it is passed turns out to be surprisingly common. We can save a bit of typing by save a copy of the identify function: 
+```javascript
+var idFn = function(d){ return d; };
+```
+and instead of typing out all the syntactical noise of `functionn`, `return`, `(` and `:`  every time we need it, we can say what we mean
+```javascript
+    .enter().append("div")
+        .text(idFn)
+```
 
+admittedly, this isn't a huge improve ment. 
