@@ -50,14 +50,28 @@ Instead of binding an element of the data array to a circle, we attach names of 
 
 ####Generalizations
 
-Needing a function that returns what it is passed turns out to be surprisingly common. We can save a bit of typing by save a copy of the identify function: 
+Needing a function that returns what it is passed turns out to be surprisingly common. We can skip a bit of typing by saving a refernce to the identify function: 
 ```javascript
 var idFn = function(d){ return d; };
 ```
-and instead of typing out all the syntactical noise of `functionn`, `return`, `(` and `:`  every time we need it, we can say what we mean
+and instead of typing out all the syntactical noise of `function`, `return`, `(` and `:`  every time we need it, we can say exactly what we mean everything time an identity function is used:
 ```javascript
     .enter().append("div")
         .text(idFn)
 ```
 
-admittedly, this isn't a huge improve ment. 
+Admittedly, this isn't a huge improvement. We could try extend this idea by creating more named functions to access field properties:
+
+```javascript 
+var getSepalWidth = function(d){ return d.sepalWidth; }
+var getSepalLength = function(d){ return d.sepalLength; }
+
+var datum = {sepalWidth: 10, sepalWidth: 34};
+console.log(getSepalWidth(datum));    //10
+console.log(getSepalLength(datum));   //34
+
+x.domain(d3.extent(data.map(getSepalWidth)));
+x.domain(d3.extent(data.map(getSepalLength)));
+```
+
+This make the the meat of our code more consise, but requires repetive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of 
