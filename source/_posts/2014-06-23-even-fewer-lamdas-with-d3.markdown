@@ -74,4 +74,67 @@ x.domain(d3.extent(data.map(getSepalWidth)));
 x.domain(d3.extent(data.map(getSepalLength)));
 ```
 
-This make the the meat of our code more consise, but requires repetive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of 
+This make the the meat of our code more consise, but requires repetitive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:
+```javascript
+var ƒ = function(field){
+	return function(object){ 
+		return object[field]
+	}
+}
+
+console.log(ƒ('sepalWidth')(datum));    //10
+console.log(ƒ('sepalLength')(datum));   //34
+```
+Calling `ƒ('fieldName')` returns a function that takes an object and returns its `fieldName` property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to tip - option-f. I like that it evokes purpose ƒeild accessor without being verbose. 
+
+For the most common pattern of anoymus functions though, getting a property from an object and transforming it with a scale function `.attr("cx", function(d) { return x(d.sepalWidth); })`, we're still stuck typing out of the entirely of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead manually spelling it:
+```javascript
+var compose = function(g, h){
+	return function(d){
+		return g(h(d))
+	}
+}
+
+var addOne = function(d){ return d + 1 }
+var timesFive = function(d){ return d*10 }
+var divideByTwo = function(d){ return d/2 }
+
+compose(addOne, timesFive)(2)		//(2*5) + 1 = 11
+compose(addOne, timesFive)(10)	//(10*5) + 1 = 51
+compose(timesFive, addOne)(10)	//(10 + 1)*5 =  55
+compose(divideByTwo, addOne)(14)	//(14 + 1)*5 =  7.5
+```
+
+`compose` takes two functions and returns function representing the composition of those functions. Using compose in conjecture ƒ allows us to eliminate almost all of the noise of inline lambda's from our d3 code:
+
+```javascript
+    .enter().append("circle")
+      .attr("cx", compose(x, ƒ('sepalWidth'))
+      .attr("cy", compose(y, ƒ('sepalLength'))
+
+```
+
+####More modifications
+Since we're making our helpful functions, we can modify them to make the more useful. `ƒ`, for example, can replace `idFn` if we add a check for an `undefined` arguement:
+
+```javascript
+function ƒ(field){
+    return function(object){ 
+        return typeof(field) === 'undefined' ? object : object[field];
+    }
+}
+
+datum === ƒ()(datum) //true
+```
+I've tried having `ƒ` accept arrays to access nested properties (not convinved that its that useful since it ƒ(['prop1', 'prop2', 'prop3']) is equivlent to compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3')) and not throw an exception when the returned function isn't passed an object.  
+
+The annoated source of underscore shows how `compose` can be extend to take any number of functions. 
+
+
+####Further reading
+These helpers for d3 and d3 itself makes heavy use of function's first class status in d3. Lots of cool things can be done with that! 
+
+Javascript allogne
+Scoreunder
+Funcation Javascript
+Undscore equivelents in native js and d3
