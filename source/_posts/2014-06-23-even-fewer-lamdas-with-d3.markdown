@@ -18,7 +18,7 @@ var y = d3.scale.linear()
     .domain(d3.extent(data.map(function(d){ return d.sepalLength; })))
 ```
 
-`data` is an array of objects, each with a `sepalWidth` and a `sepalLength` property. `data.map` is a function [built into](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) every Javascript array. It takes a function (in this case, `function(d){ return d.sepalWidth; }`), calls it on each element of the original array, and returns a new array containing the returned values. 
+`data` is an array of objects, each with a `sepalWidth` and a `sepalLength` property. `data.map` is a function [built into](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) every javascript array. It takes a function (in this case, `function(d){ return d.sepalWidth; }`), calls it on each element of the original array, and returns a new array containing the returned values. 
 
 Since `sepalWidth` is always a number, `map` returns an array of numbers. This array is immediately passed to `d3.extent`, which returns the min and max sepalWidth and is used to set the domain of the `x` scale.
 
@@ -50,11 +50,11 @@ Instead of binding an element of the data array to a circle, we attach names of 
 
 ####Generalizations
 
-Needing a function that returns what it is passed turns out to be surprisingly common. We can skip a bit of typing by saving a refernce to the identify function: 
+Needing a function that returns what it is passed turns out to be surprisingly common. We can skip a bit of typing by saving a reference to the identify function: 
 ```javascript
 var idFn = function(d){ return d; };
 ```
-and instead of typing out all the syntactical noise of `function`, `return`, `(` and `:`  every time we need it, we can say exactly what we mean everything time an identity function is used:
+and instead of typing out all the syntactical noise of `functionn`, `return`, `(` and `:`  every time we need it, we can say exactly what we mean everything time an identity function is used:
 ```javascript
     .enter().append("div")
         .text(idFn)
@@ -85,9 +85,9 @@ var ƒ = function(field){
 console.log(ƒ('sepalWidth')(datum));    //10
 console.log(ƒ('sepalLength')(datum));   //34
 ```
-Calling `ƒ('fieldName')` returns a function that takes an object and returns its `fieldName` property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to tip - option-f. I like that it evokes purpose ƒeild accessor without being verbose. 
+Calling `ƒ('fieldName')` returns a function that takes an object and returns its `fieldName` property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to tip - option-f. I like that it evokes its purpose 'ƒield accessor' without being verbose. 
 
-For the most common pattern of anoymus functions though, getting a property from an object and transforming it with a scale function `.attr("cx", function(d) { return x(d.sepalWidth); })`, we're still stuck typing out of the entirely of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead manually spelling it:
+For the most common pattern of anonymous functions though, getting a property from an object and transforming it with a scale function `.attr("cx", function(d) { return x(d.sepalWidth); })`, we're still stuck typing out of the entirely of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead manually spelling it:
 ```javascript
 var compose = function(g, h){
 	return function(d){
@@ -115,7 +115,7 @@ compose(divideByTwo, addOne)(14)	//(14 + 1)*5 =  7.5
 ```
 
 ####More modifications
-Since we're making our helpful functions, we can modify them to make the more useful. `ƒ`, for example, can replace `idFn` if we add a check for an `undefined` arguement:
+Since we're making our helpful functions, we can modify them to make the more useful. `ƒ`, for example, can replace `idFn` if we add a check for an `undefined` argument:
 
 ```javascript
 function ƒ(field){
@@ -128,11 +128,11 @@ datum === ƒ()(datum) //true
 ```
 I've tried having `ƒ` accept arrays to access nested properties (not convinved that its that useful since it ƒ(['prop1', 'prop2', 'prop3']) is equivlent to compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3')) and not throw an exception when the returned function isn't passed an object.  
 
-The annoated source of underscore shows how `compose` can be extend to take any number of functions. 
+The [annotated source](http://underscorejs.org/docs/underscore.html) of underscore shows how `compose` can be extend to take any number of functions. 
 
 
 ####Further reading
-These helpers for d3 and d3 itself makes heavy use of function's first class status in d3. Lots of cool things can be done with that! 
+These helpers for d3 and d3 itself makes heavy use of function's first class status in d3. Some referencing:
 
 Javascript allogne
 Scoreunder
