@@ -126,7 +126,7 @@ function ƒ(field){
 
 datum === ƒ()(datum) //true
 ```
-I've tried having `ƒ` accept arrays to access nested properties (not convinved that its that useful since it ƒ(['prop1', 'prop2', 'prop3']) is equivlent to compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3')) and not throw an exception when the returned function isn't passed an object.  
+I've tried having `ƒ` accept arrays to access nested properties (not convinced that its that useful since it `ƒ(['prop1', 'prop2', 'prop3'])` is equivlent to `compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))`. Another variation: a 'safe' version of ƒ that doesn't throw an error when the returned function isn't.
 
 The [annotated source](http://underscorejs.org/docs/underscore.html) of underscore shows how `compose` can be extend to take any number of functions. 
 
@@ -134,7 +134,8 @@ The [annotated source](http://underscorejs.org/docs/underscore.html) of undersco
 ####Further reading
 These helpers for d3 and d3 itself makes heavy use of function's first class status in d3. Some referencing:
 
-Javascript allogne
-Scoreunder
-Funcation Javascript
-Undscore equivelents in native js and d3
+[Javascript Allongé](https://leanpub.com/javascript-allonge/read)
+[Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA)
+[Functional Javascript](http://blog.fogus.me/2013/05/29/fun-js-pt-1-functional-javascript/)
+[Underscore equivalents in native js and d3]
+(https://gist.github.com/mbostock/3934356)

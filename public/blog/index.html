@@ -681,7 +681,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>I&rsquo;ve tried having <code>ƒ</code> accept arrays to access nested properties (not convinved that its that useful since it ƒ([&lsquo;prop1&rsquo;, &lsquo;prop2&rsquo;, &lsquo;prop3&rsquo;]) is equivlent to compose(ƒ(&lsquo;prop1&rsquo;), ƒ(&lsquo;prop2&rsquo;), ƒ(&lsquo;prop3&rsquo;)) and not throw an exception when the returned function isn&rsquo;t passed an object.</p>
+<p>I&rsquo;ve tried having <code>ƒ</code> accept arrays to access nested properties (not convinced that its that useful since it <code>ƒ(['prop1', 'prop2', 'prop3'])</code> is equivlent to <code>compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))</code>. Another variation: a &lsquo;safe&rsquo; version of ƒ that doesn&rsquo;t throw an error when the returned function isn&rsquo;t.</p>
 
 <p>The <a href="http://underscorejs.org/docs/underscore.html">annotated source</a> of underscore shows how <code>compose</code> can be extend to take any number of functions.</p>
 
@@ -689,10 +689,11 @@
 
 <p>These helpers for d3 and d3 itself makes heavy use of function&rsquo;s first class status in d3. Some referencing:</p>
 
-<p>Javascript allogne
-Scoreunder
-Funcation Javascript
-Undscore equivelents in native js and d3</p>
+<p><a href="https://leanpub.com/javascript-allonge/read">Javascript Allongé</a>
+<a href="https://www.youtube.com/watch?v=m3svKOdZijA">Hey Underscore, You&rsquo;re Doing It Wrong!</a>
+<a href="http://blog.fogus.me/2013/05/29/fun-js-pt-1-functional-javascript/">Functional Javascript</a>
+[Underscore equivalents in native js and d3]
+(<a href="https://gist.github.com/mbostock/3934356">https://gist.github.com/mbostock/3934356</a>)</p>
 </div>
   
   
