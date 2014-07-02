@@ -18,7 +18,7 @@ var y = d3.scale.linear()
     .domain(d3.extent(data.map(function(d){ return d.sepalLength; })))
 ```
 
-`data` is an array of objects, each with a `sepalWidth` and a `sepalLength` property. `data.map` is a function [built into](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) every javascript array. It takes a function (in this case, `function(d){ return d.sepalWidth; }`), calls it on each element of the original array, and returns a new array containing the returned values. 
+`data` is an array of objects, each with a `sepalWidth` and a `sepalLength` property. `data.map` is a function [built into](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) every javascript array. It takes a function (in this case, `function(d){ return d.sepalWidth; }`), calls it on each element of the original array, and returns a new array consisting of the returned values. 
 
 Since `sepalWidth` is always a number, `map` returns an array of numbers. This array is immediately passed to `d3.extent`, which returns the min and max sepalWidth and is used to set the domain of the `x` scale.
 
@@ -132,10 +132,9 @@ The [annotated source](http://underscorejs.org/docs/underscore.html) of undersco
 
 
 ####Further reading
-These helpers for d3 and d3 itself makes heavy use of function's first class status in d3. Some referencing:
+These helpers for d3 and d3 itself makes heavy use of function's first class status in d3. Some references:
 
-[Javascript Allongé](https://leanpub.com/javascript-allonge/read)
-[Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA)
-[Functional Javascript](http://blog.fogus.me/2013/05/29/fun-js-pt-1-functional-javascript/)
-[Underscore equivalents in native js and d3]
-(https://gist.github.com/mbostock/3934356)
+- [Javascript Allongé](https://leanpub.com/javascript-allonge/read)
+- [Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA)
+- [Functional Javascript](http://blog.fogus.me/2013/05/29/fun-js-pt-1-functional-javascript/)
+- [Underscore equivalents in native js and d3](https://gist.github.com/mbostock/3934356)
