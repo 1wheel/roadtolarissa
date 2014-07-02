@@ -20,7 +20,7 @@ var y = d3.scale.linear()
 
 `data` is an array of objects, each with a `sepalWidth` and a `sepalLength` property. `data.map` is a function [built into](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) every javascript array. It takes a function (in this case, `function(d){ return d.sepalWidth; }`), calls it on each element of the original array, and returns a new array consisting of the returned values. 
 
-Since `sepalWidth` is always a number, `map` returns an array of numbers. This array is immediately passed to `d3.extent`, which returns the min and max sepalWidth and is used to set the domain of the `x` scale.
+Since `sepalWidth` is always a number, `map` returns an array of numbers. This array is immediately passed to `d3.extent`, which returns the min and max sepalWidths and is used to set the domain of the `x` scale.
 
 ####Data driven attributes  
 
@@ -35,7 +35,7 @@ svg.selectAll(".dot")
 
 `.attr("cx", function(d) { return x(d.sepalWidth); })` iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element's "cx" property equal to the return value of the function. By also setting the "cy" property of each circle to be proportional to `sepalLenght`, a scatter plot showing `sepalWidth` v. `sepalLength` is created. 
 
-This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point, and the results alter the appearance of the elements on the page.
+This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.
 
 In addition to attributes, text and interaction can also be controlled with functions operating on data:
 
@@ -46,7 +46,7 @@ var legend = svg.selectAll(".legend")
       .text(function(d) { return d; })
       .on('click', function(d){ alert(d + ' Clicked!'); })
 ```
-Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like `.attr`, `.text(function(d){ return d; })` calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, `.text` (as the name suggests) sets the text. Since the bound data is an array of strings and we're only trying to print each of them out, our function just returns what is was passed. 
+Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like `.attr`, `.text(function(d){ return d; })` calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, `.text` (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we're only trying to print each of them out, our function just returns what is was passed. 
 
 ####Generalizations
 
@@ -54,7 +54,7 @@ Needing a function that returns what it is passed turns out to be surprisingly c
 ```javascript
 var idFn = function(d){ return d; };
 ```
-and instead of typing out all the syntactical noise of `functionn`, `return`, `(` and `:`  every time we need it, we can say exactly what we mean everything time an identity function is used:
+and instead of typing out all the syntactical noise of `function`, `return`, `(` and `:`  every time we need it, we can say exactly what we mean everything time an identity function is used:
 ```javascript
     .enter().append("div")
         .text(idFn)
@@ -74,7 +74,7 @@ x.domain(d3.extent(data.map(getSepalWidth)));
 x.domain(d3.extent(data.map(getSepalLength)));
 ```
 
-This make the the meat of our code more consise, but requires repetitive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:
+This make the the meat of our code more concise, but requires repetitive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:
 ```javascript
 var ƒ = function(field){
 	return function(object){ 
@@ -132,7 +132,7 @@ The [annotated source](http://underscorejs.org/docs/underscore.html) of undersco
 
 
 ####Further reading
-These helpers for d3 and d3 itself makes heavy use of function's first class status in d3. Some references:
+These helpers for d3 and d3 itself makes heavy use of function's first class status in Javascript. More cool things we can do with functions:
 
 - [Javascript Allongé](https://leanpub.com/javascript-allonge/read)
 - [Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA)
