@@ -512,7 +512,7 @@
 
 <p><code>data</code> is an array of objects, each with a <code>sepalWidth</code> and a <code>sepalLength</code> property. <code>data.map</code> is a function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">built into</a> every javascript array. It takes a function (in this case, <code>function(d){ return d.sepalWidth; }</code>), calls it on each element of the original array, and returns a new array consisting of the returned values.</p>
 
-<p>Since <code>sepalWidth</code> is always a number, <code>map</code> returns an array of numbers. This array is immediately passed to <code>d3.extent</code>, which returns the min and max sepalWidth and is used to set the domain of the <code>x</code> scale.</p>
+<p>Since <code>sepalWidth</code> is always a number, <code>map</code> returns an array of numbers. This array is immediately passed to <code>d3.extent</code>, which returns the min and max sepalWidths and is used to set the domain of the <code>x</code> scale.</p>
 
 <h4>Data driven attributes</h4>
 
@@ -533,7 +533,7 @@
 
 <p><code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element&rsquo;s &ldquo;cx&rdquo; property equal to the return value of the function. By also setting the &ldquo;cy&rdquo; property of each circle to be proportional to <code>sepalLenght</code>, a scatter plot showing <code>sepalWidth</code> v. <code>sepalLength</code> is created.</p>
 
-<p>This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point, and the results alter the appearance of the elements on the page.</p>
+<p>This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.</p>
 
 <p>In addition to attributes, text and interaction can also be controlled with functions operating on data:</p>
 
@@ -550,7 +550,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what is was passed.</p>
+<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what is was passed.</p>
 
 <h4>Generalizations</h4>
 
@@ -561,7 +561,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>and instead of typing out all the syntactical noise of <code>functionn</code>, <code>return</code>, <code>(</code> and <code>:</code>  every time we need it, we can say exactly what we mean everything time an identity function is used:</p>
+<p>and instead of typing out all the syntactical noise of <code>function</code>, <code>return</code>, <code>(</code> and <code>:</code>  every time we need it, we can say exactly what we mean everything time an identity function is used:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -593,7 +593,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This make the the meat of our code more consise, but requires repetitive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:</p>
+<p>This make the the meat of our code more concise, but requires repetitive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -687,7 +687,7 @@
 
 <h4>Further reading</h4>
 
-<p>These helpers for d3 and d3 itself makes heavy use of function&rsquo;s first class status in d3. Some references:</p>
+<p>These helpers for d3 and d3 itself makes heavy use of function&rsquo;s first class status in Javascript. More cool things we can do with functions:</p>
 
 <ul>
 <li><a href="https://leanpub.com/javascript-allonge/read">Javascript Allongé</a></li>
