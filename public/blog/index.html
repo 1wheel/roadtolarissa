@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="Writing D3 typically involves writing lots of anonymous functions. The scatter plot example illustrates two typical use cases: scales and attributes &hellip;">
+  <meta name="description" content="Writing d3 typically involves writing lots of anonymous functions. The scatter plot example illustrates two typical use cases: scales and attributes &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -489,7 +489,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Writing D3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates two typical use cases: scales and attributes.</p>
+  <div class="entry-content"><p>Writing d3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates two typical use cases: scales and attributes.</p>
 
 <h4>Scale computations</h4>
 
@@ -533,7 +533,7 @@
 
 <p><code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element&rsquo;s &ldquo;cx&rdquo; property equal to the return value of the function. By also setting the &ldquo;cy&rdquo; property of each circle to be proportional to <code>sepalLenght</code>, a scatter plot showing <code>sepalWidth</code> v. <code>sepalLength</code> is created.</p>
 
-<p>This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.</p>
+<p>This process is at the core of d3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.</p>
 
 <p>In addition to attributes, text and interaction can also be controlled with functions operating on data:</p>
 
@@ -550,7 +550,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what is was passed.</p>
+<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what it was passed.</p>
 
 <h4>Generalizations</h4>
 
@@ -570,7 +570,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Admittedly, this isn&rsquo;t a huge improvement. We could try extend this idea by creating more named functions to access field properties:</p>
+<p>Admittedly, this isn&rsquo;t a huge improvement. We could try to extend this idea by creating more named functions to access field properties:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -593,7 +593,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This make the the meat of our code more concise, but requires repetitive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:</p>
+<p>This makes the meat of our code more concise, but requires repetitive boilerplate code and mentally keeping track of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -616,7 +616,7 @@
 
 <p>Calling <code>ƒ('fieldName')</code> returns a function that takes an object and returns its <code>fieldName</code> property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to tip &ndash; option-f. I like that it evokes its purpose &lsquo;ƒield accessor&rsquo; without being verbose.</p>
 
-<p>For the most common pattern of anonymous functions though, getting a property from an object and transforming it with a scale function <code>.attr("cx", function(d) { return x(d.sepalWidth); })</code>, we&rsquo;re still stuck typing out of the entirely of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead manually spelling it:</p>
+<p>However, for the most common pattern of anonymous functions &ndash; getting a property from an object and transforming it with a scale function <code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> &ndash; we&rsquo;re still stuck typing out the entirety of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead of manually spelling it:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -649,7 +649,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>compose</code> takes two functions and returns function representing the composition of those functions. Using compose in conjecture ƒ allows us to eliminate almost all of the noise of inline lambda&rsquo;s from our d3 code:</p>
+<p><code>compose</code> takes two functions and returns one function representing the composition of those functions. Using <code>compose</code> with <code>ƒ</code> allows us to eliminate almost all of the noise of inline lambdas from our d3 code:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -662,7 +662,7 @@
 
 <h4>More modifications</h4>
 
-<p>Since we&rsquo;re making our helpful functions, we can modify them to make the more useful. <code>ƒ</code>, for example, can replace <code>idFn</code> if we add a check for an <code>undefined</code> argument:</p>
+<p>Since we&rsquo;re making our helper functions, we can modify them to be even more useful. <code>ƒ</code>, for example, can replace <code>idFn</code> if we add a check for an <code>undefined</code> field:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -681,13 +681,13 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>I&rsquo;ve tried having <code>ƒ</code> accept arrays to access nested properties (not convinced that its that useful since it <code>ƒ(['prop1', 'prop2', 'prop3'])</code> is equivlent to <code>compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))</code>. Another variation: a &lsquo;safe&rsquo; version of ƒ that doesn&rsquo;t throw an error when the returned function isn&rsquo;t.</p>
+<p>I&rsquo;ve tried having <code>ƒ</code> accept arrays to access nested properties (not convinced that its that useful since it <code>ƒ(['prop1', 'prop2', 'prop3'])</code> is equivalent to <code>compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))</code>). Another variation: a &lsquo;safe&rsquo; version of `ƒ&#8220; that doesn&rsquo;t throw an error when the passed object is undefined.</p>
 
 <p>The <a href="http://underscorejs.org/docs/underscore.html">annotated source</a> of underscore shows how <code>compose</code> can be extend to take any number of functions.</p>
 
 <h4>Further reading</h4>
 
-<p>These helpers for d3 and d3 itself makes heavy use of function&rsquo;s first class status in Javascript. More cool things we can do with functions:</p>
+<p>These helpers for d3 and d3 itself makes heavy use of function&rsquo;s first class status in Javascript. More cool things that functions can do:</p>
 
 <ul>
 <li><a href="https://leanpub.com/javascript-allonge/read">Javascript Allongé</a></li>

@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-07-02T01:19:21-04:00</updated>
+  <updated>2014-07-03T20:53:31-04:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -18,7 +18,7 @@
     <link href="http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/"/>
     <updated>2014-06-23T00:00:00-04:00</updated>
     <id>http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3</id>
-    <content type="html"><![CDATA[<p>Writing D3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates two typical use cases: scales and attributes.</p>
+    <content type="html"><![CDATA[<p>Writing d3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates two typical use cases: scales and attributes.</p>
 
 <h4>Scale computations</h4>
 
@@ -62,7 +62,7 @@
 
 <p><code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element&rsquo;s &ldquo;cx&rdquo; property equal to the return value of the function. By also setting the &ldquo;cy&rdquo; property of each circle to be proportional to <code>sepalLenght</code>, a scatter plot showing <code>sepalWidth</code> v. <code>sepalLength</code> is created.</p>
 
-<p>This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.</p>
+<p>This process is at the core of d3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.</p>
 
 <p>In addition to attributes, text and interaction can also be controlled with functions operating on data:</p>
 
@@ -79,7 +79,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what is was passed.</p>
+<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what it was passed.</p>
 
 <h4>Generalizations</h4>
 
@@ -99,7 +99,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Admittedly, this isn&rsquo;t a huge improvement. We could try extend this idea by creating more named functions to access field properties:</p>
+<p>Admittedly, this isn&rsquo;t a huge improvement. We could try to extend this idea by creating more named functions to access field properties:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -122,7 +122,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This make the the meat of our code more concise, but requires repetitive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:</p>
+<p>This makes the meat of our code more concise, but requires repetitive boilerplate code and mentally keeping track of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -145,7 +145,7 @@
 
 <p>Calling <code>ƒ('fieldName')</code> returns a function that takes an object and returns its <code>fieldName</code> property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to tip &ndash; option-f. I like that it evokes its purpose &lsquo;ƒield accessor&rsquo; without being verbose.</p>
 
-<p>For the most common pattern of anonymous functions though, getting a property from an object and transforming it with a scale function <code>.attr("cx", function(d) { return x(d.sepalWidth); })</code>, we&rsquo;re still stuck typing out of the entirely of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead manually spelling it:</p>
+<p>However, for the most common pattern of anonymous functions &ndash; getting a property from an object and transforming it with a scale function <code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> &ndash; we&rsquo;re still stuck typing out the entirety of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead of manually spelling it:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -178,7 +178,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>compose</code> takes two functions and returns function representing the composition of those functions. Using compose in conjecture ƒ allows us to eliminate almost all of the noise of inline lambda&rsquo;s from our d3 code:</p>
+<p><code>compose</code> takes two functions and returns one function representing the composition of those functions. Using <code>compose</code> with <code>ƒ</code> allows us to eliminate almost all of the noise of inline lambdas from our d3 code:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -191,7 +191,7 @@
 
 <h4>More modifications</h4>
 
-<p>Since we&rsquo;re making our helpful functions, we can modify them to make the more useful. <code>ƒ</code>, for example, can replace <code>idFn</code> if we add a check for an <code>undefined</code> argument:</p>
+<p>Since we&rsquo;re making our helper functions, we can modify them to be even more useful. <code>ƒ</code>, for example, can replace <code>idFn</code> if we add a check for an <code>undefined</code> field:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -210,13 +210,13 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>I&rsquo;ve tried having <code>ƒ</code> accept arrays to access nested properties (not convinced that its that useful since it <code>ƒ(['prop1', 'prop2', 'prop3'])</code> is equivlent to <code>compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))</code>. Another variation: a &lsquo;safe&rsquo; version of ƒ that doesn&rsquo;t throw an error when the returned function isn&rsquo;t.</p>
+<p>I&rsquo;ve tried having <code>ƒ</code> accept arrays to access nested properties (not convinced that its that useful since it <code>ƒ(['prop1', 'prop2', 'prop3'])</code> is equivalent to <code>compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))</code>). Another variation: a &lsquo;safe&rsquo; version of `ƒ&#8220; that doesn&rsquo;t throw an error when the passed object is undefined.</p>
 
 <p>The <a href="http://underscorejs.org/docs/underscore.html">annotated source</a> of underscore shows how <code>compose</code> can be extend to take any number of functions.</p>
 
 <h4>Further reading</h4>
 
-<p>These helpers for d3 and d3 itself makes heavy use of function&rsquo;s first class status in Javascript. More cool things we can do with functions:</p>
+<p>These helpers for d3 and d3 itself makes heavy use of function&rsquo;s first class status in Javascript. More cool things that functions can do:</p>
 
 <ul>
 <li><a href="https://leanpub.com/javascript-allonge/read">Javascript Allongé</a></li>
@@ -676,7 +676,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#116;&#105;&#112;&#x73;&#64;&#x77;&#x65;&#98;&#115;&#x69;&#x74;&#x65;&#46;&#99;&#x6f;&#x6d;">&#x74;&#105;&#x70;&#115;&#64;&#x77;&#101;&#98;&#115;&#105;&#x74;&#x65;&#46;&#99;&#x6f;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#116;&#x69;&#112;&#x73;&#64;&#119;&#101;&#x62;&#115;&#105;&#116;&#101;&#x2e;&#x63;&#111;&#x6d;">&#116;&#105;&#112;&#x73;&#64;&#119;&#101;&#98;&#115;&#105;&#x74;&#101;&#46;&#x63;&#x6f;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 
