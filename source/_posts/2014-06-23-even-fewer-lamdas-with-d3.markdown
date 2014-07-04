@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Even Fewer Lambdas In D3"
+title: "Even Fewer Lambdas In d3"
 comments: true
 categories: 
 ---
-Writing D3 typically involves writing lots of anonymous functions. The [scatter plot](http://bl.ocks.org/mbostock/3887118) example illustrates two typical use cases: scales and attributes.  
+Writing d3 typically involves writing lots of anonymous functions. The [scatter plot](http://bl.ocks.org/mbostock/3887118) example illustrates two typical use cases: scales and attributes.  
 
 ####Scale computations 
 
@@ -35,7 +35,7 @@ svg.selectAll(".dot")
 
 `.attr("cx", function(d) { return x(d.sepalWidth); })` iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element's "cx" property equal to the return value of the function. By also setting the "cy" property of each circle to be proportional to `sepalLenght`, a scatter plot showing `sepalWidth` v. `sepalLength` is created. 
 
-This process is at the core of D3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.
+This process is at the core of d3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.
 
 In addition to attributes, text and interaction can also be controlled with functions operating on data:
 
@@ -46,7 +46,7 @@ var legend = svg.selectAll(".legend")
       .text(function(d) { return d; })
       .on('click', function(d){ alert(d + ' Clicked!'); })
 ```
-Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like `.attr`, `.text(function(d){ return d; })` calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, `.text` (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we're only trying to print each of them out, our function just returns what is was passed. 
+Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like `.attr`, `.text(function(d){ return d; })` calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, `.text` (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we're only trying to print each of them out, our function just returns what it was passed. 
 
 ####Generalizations
 
@@ -60,7 +60,7 @@ and instead of typing out all the syntactical noise of `function`, `return`, `(`
         .text(idFn)
 ```
 
-Admittedly, this isn't a huge improvement. We could try extend this idea by creating more named functions to access field properties:
+Admittedly, this isn't a huge improvement. We could try to extend this idea by creating more named functions to access field properties:
 
 ```javascript 
 var getSepalWidth = function(d){ return d.sepalWidth; }
@@ -74,7 +74,7 @@ x.domain(d3.extent(data.map(getSepalWidth)));
 x.domain(d3.extent(data.map(getSepalLength)));
 ```
 
-This make the the meat of our code more concise, but requires repetitive boilerplate code and mentally keep tracking of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:
+This makes the meat of our code more concise, but requires repetitive boilerplate code and mentally keeping track of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:
 ```javascript
 var ƒ = function(field){
 	return function(object){ 
@@ -87,7 +87,7 @@ console.log(ƒ('sepalLength')(datum));   //34
 ```
 Calling `ƒ('fieldName')` returns a function that takes an object and returns its `fieldName` property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to tip - option-f. I like that it evokes its purpose 'ƒield accessor' without being verbose. 
 
-For the most common pattern of anonymous functions though, getting a property from an object and transforming it with a scale function `.attr("cx", function(d) { return x(d.sepalWidth); })`, we're still stuck typing out of the entirely of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead manually spelling it:
+However, for the most common pattern of anonymous functions - getting a property from an object and transforming it with a scale function `.attr("cx", function(d) { return x(d.sepalWidth); })` - we're still stuck typing out the entirety of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead of manually spelling it:
 ```javascript
 var compose = function(g, h){
 	return function(d){
@@ -105,7 +105,7 @@ compose(timesFive, addOne)(10)	//(10 + 1)*5 =  55
 compose(divideByTwo, addOne)(14)	//(14 + 1)*5 =  7.5
 ```
 
-`compose` takes two functions and returns function representing the composition of those functions. Using compose in conjecture ƒ allows us to eliminate almost all of the noise of inline lambda's from our d3 code:
+`compose` takes two functions and returns one function representing the composition of those functions. Using `compose` with `ƒ` allows us to eliminate almost all of the noise of inline lambdas from our d3 code:
 
 ```javascript
     .enter().append("circle")
@@ -115,7 +115,7 @@ compose(divideByTwo, addOne)(14)	//(14 + 1)*5 =  7.5
 ```
 
 ####More modifications
-Since we're making our helpful functions, we can modify them to make the more useful. `ƒ`, for example, can replace `idFn` if we add a check for an `undefined` argument:
+Since we're making our helper functions, we can modify them to be even more useful. `ƒ`, for example, can replace `idFn` if we add a check for an `undefined` field:
 
 ```javascript
 function ƒ(field){
@@ -126,13 +126,13 @@ function ƒ(field){
 
 datum === ƒ()(datum) //true
 ```
-I've tried having `ƒ` accept arrays to access nested properties (not convinced that its that useful since it `ƒ(['prop1', 'prop2', 'prop3'])` is equivlent to `compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))`. Another variation: a 'safe' version of ƒ that doesn't throw an error when the returned function isn't.
+I've tried having `ƒ` accept arrays to access nested properties (not convinced that its that useful since it `ƒ(['prop1', 'prop2', 'prop3'])` is equivalent to `compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))`). Another variation: a 'safe' version of `ƒ`` that doesn't throw an error when the passed object is undefined.
 
 The [annotated source](http://underscorejs.org/docs/underscore.html) of underscore shows how `compose` can be extend to take any number of functions. 
 
 
 ####Further reading
-These helpers for d3 and d3 itself makes heavy use of function's first class status in Javascript. More cool things we can do with functions:
+These helpers for d3 and d3 itself makes heavy use of function's first class status in Javascript. More cool things that functions can do:
 
 - [Javascript Allongé](https://leanpub.com/javascript-allonge/read)
 - [Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA)
