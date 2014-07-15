@@ -166,7 +166,7 @@ d3.select('#buttons').selectAll('.button')
       .text(f('text'))
       .on('click', function(d){ d.fun(); });
 
-randomize();
+clear();
 
 
 function toURL(){
