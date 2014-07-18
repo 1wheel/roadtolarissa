@@ -1,6 +1,5 @@
-var width = 750,
-    height = 750,
-    numBeatsM = 11;
+var height = rBlue*radius*2 - 5,
+    numBeatsM = 7;
 
 //beat number to angle
 var rotationScale = d3.scale.linear()
@@ -10,7 +9,7 @@ var rotationScale = d3.scale.linear()
 //pitch index to distance from center of circle
 var heightScale = d3.scale.linear()
     .domain([0, pitches.length])
-    .range([100, height/2 - 1]);
+    .range([25, height/2 - 1]);
 
 //member of pitchs to arc path
 var arc = d3.svg.arc()
@@ -24,18 +23,9 @@ var color = d3.scale.ordinal()
     .domain(d3.range(4))
     .range(['white', 'black']);
 
-//translate (0, 0) to center of svg to make circle math easier
-var svgM = d3.select('#synth2')
-    .attr('height', height)
-    .attr('width', width)
-  .append('g')
-    .attr('transform', 'translate(' + [width/2, height/2] +')')
-  .append('g')
-    .attr('transform', 'rotate(-180)')
-
 //create a g element for each beat
 //rotated so we only have to worry about circular math 
-var beatsM = svgM.selectAll('g')
+var beatsM = d3.select('.blue .gearG').selectAll('g')
     .data(d3.range(numBeatsM)).enter()
   .append('g')
     .attr('transform', function(d){ return 'rotate(' + rotationScale(d) + ')'; })

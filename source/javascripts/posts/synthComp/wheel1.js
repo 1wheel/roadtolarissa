@@ -1,5 +1,4 @@
-var width = 750,
-    height = 750,
+var height = rYellow*radius*2 - 5,
     numBeats = 8,
     pitches = [130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94, 261.63, 146.83*2, 164.81*2, 174.61*2, 196.00*2, 220.00*2, 246.94*2, 261.63*2].reverse();
     pitches = pitches.filter(function(d, i){ return i % 2; });
@@ -12,7 +11,7 @@ var rotationScale = d3.scale.linear()
 //pitch index to distance from center of circle
 var heightScale = d3.scale.linear()
     .domain([0, pitches.length])
-    .range([100, height/2 - 1]);
+    .range([25, height/2 - 1]);
 
 //member of pitchs to arc path
 var arc = d3.svg.arc()
@@ -26,19 +25,10 @@ var color = d3.scale.ordinal()
     .domain(d3.range(4))
     .range(['white', 'black']);
 
-//translate (0, 0) to center of svg to make circle math easier
-var svg = d3.select('#synth')
-    .attr('height', height)
-    .attr('width', width)
-  .append('g')
-    .attr('transform', 'translate(' + [width/2, height/2] +')')
-  .append('g')
-    .attr('transform', 'rotate(-180)')
-
 
 //create a g element for each beat
 //rotated so we only have to worry about circular math 
-var beats = svg.selectAll('g')
+var beats = d3.select('.yellow .gearG').selectAll('g')
     .data(d3.range(numBeats)).enter()
   .append('g')
     .attr('transform', function(d){ return 'rotate(' + rotationScale(d) + ')'; })
