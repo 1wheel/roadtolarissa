@@ -4,15 +4,24 @@ var nextBeat = 0;
 var totalBeats =  0;
 var nextBeatM = 0;
 var nextBeatTime = ac.currentTime;
-setInterval(function(){
+
+var lastTime = Date.now();
+var lastAngle = 0;
+d3.timer(function(){
+  var now = Date.now();
+  lastAngle = (now - lastTime)/(getBPM()*1000)*40 + lastAngle;
+  lastTime = now;
+  d3.selectAll(".gearG").attr("transform", function(d){
+    return "rotate(" + lastAngle  * d.direction + ")"; });
+
   //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
   while (nextBeatTime < ac.currentTime + .1  && !isPaused){  
     //on every nth beat, spin the larger circle and apply notes  
     if (!(totalBeats % ratioM)){
       //spin larger wheel
-      svgM
-        .transition().duration(getBPM()*ratioM*1000).ease('linear')
-          .attr('transform', 'rotate(' + (-(.5 + nextBeatM)/numBeatsM*360 - 90) + ')');
+      // svgM
+      //   .transition().duration(getBPM()*ratioM*1000).ease('linear')
+      //     .attr('transform', 'rotate(' + (-(.5 + nextBeatM)/numBeatsM*360 - 90) + ')');
 
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
@@ -71,9 +80,9 @@ setInterval(function(){
           // }, getBPM()*1000)
         });
 
-    svg
-      .transition().duration(getBPM()*1000).ease('linear')
-        .attr('transform', 'rotate(' + (-totalBeats%numBeats/numBeats*360 - 180) + ')');
+    // svg
+    //   .transition().duration(getBPM()*1000).ease('linear')
+    //     .attr('transform', 'rotate(' + (-totalBeats%numBeats/numBeats*360 - 180) + ')');
 
 
     //update time and index of nextBeat 
@@ -81,7 +90,7 @@ setInterval(function(){
     nextBeat = (nextBeat + 1) % numBeats; 
     totalBeats++;
   }
-}, 25);
+});
 
 
 //add sliders to the page
