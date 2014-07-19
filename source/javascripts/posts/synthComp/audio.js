@@ -9,7 +9,7 @@ var lastTime = Date.now();
 var lastAngle = 0;
 d3.timer(function(){
   var now = Date.now();
-  lastAngle = (now - lastTime)/(getBPM()*1000)*40 + lastAngle;
+  lastAngle = (now - lastTime)/(getHz()*25) + lastAngle;
   lastTime = now;
   d3.selectAll(".gearG").attr("transform", function(d){
     return "rotate(" + lastAngle  * d.direction + ")"; });
@@ -18,10 +18,6 @@ d3.timer(function(){
   while (nextBeatTime < ac.currentTime + .1  && !isPaused){  
     //on every nth beat, spin the larger circle and apply notes  
     if (!(totalBeats % ratioM)){
-      //spin larger wheel
-      // svgM
-      //   .transition().duration(getBPM()*ratioM*1000).ease('linear')
-      //     .attr('transform', 'rotate(' + (-(.5 + nextBeatM)/numBeatsM*360 - 90) + ')');
 
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
@@ -53,8 +49,6 @@ d3.timer(function(){
       nextBeatM = (((nextBeatM - 1) % numBeatsM) + numBeatsM) % numBeatsM;
     }
 
-
-
     //grab the active beat column 
     beats.filter(function(d, i){ return i == totalBeats % numBeats; })
       .selectAll('path')
@@ -65,28 +59,25 @@ d3.timer(function(){
             o.osc.start(nextBeatTime);
             o.osc.stop(nextBeatTime + getDuration())
           }
+
           //highlight and unhighlight selected column
           //visually exact timing doesn't matter as much
           //easier to hear something off by a few ms
           var selection = d3.select(this).style('opacity', 1)
-              .transition().duration(getBPM()*1000*2)
-                //.style('opacity', '.7')
+              .transition().duration(getHz()*1000*2)
+                .style('opacity', '.7')
                 .call(colorNote);
+
           //use timeout instead of transition so mouseovers transitions don't cancel)
-          // setTimeout(function(){
-          //   selection
-          //       //.style('opacity', '.7')
-          //       .call(colorNote)
-          // }, getBPM()*1000)
+          setTimeout(function(){
+            selection
+                //.style('opacity', '.7')
+                .call(colorNote)
+          }, getHz()*1000)
         });
 
-    // svg
-    //   .transition().duration(getBPM()*1000).ease('linear')
-    //     .attr('transform', 'rotate(' + (-totalBeats%numBeats/numBeats*360 - 180) + ')');
-
-
     //update time and index of nextBeat 
-    nextBeatTime += getBPM();
+    nextBeatTime += getHz();
     nextBeat = (nextBeat + 1) % numBeats; 
     totalBeats++;
   }
@@ -111,7 +102,7 @@ function getPitch(){
   var scale = d3.scale.log().base(2).domain([.1, 10]);
   return scale.invert((d3.select('#Pitch').node().valueAsNumber));
 }
-function getBPM(){
+function getHz(){
   var scale = d3.scale.log().base(2).domain([40, 1200]);
   var rv = 60/scale.invert((d3.select('#BPM').node().valueAsNumber));
   return rv;
