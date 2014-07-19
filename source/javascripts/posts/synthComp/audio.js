@@ -1,3 +1,4 @@
+
 var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
 ac.createGain();
 var nextBeat = 0;
@@ -21,13 +22,13 @@ d3.timer(function(){
 
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
-      beatsM.filter(function(d, i){ return i === nextBeatM; })
+      beatsM.filter(function(d, i){ return ratioM - i === nextBeatM; })
         .selectAll('path')
           .each(function(d, i){
             updateArray[i] = d.on;
             //TODO flash color
             d3.select(this)
-                .style('fill', d.on ? 'blue' : 'white')
+                .style('fill', d.on ? 'black' : 'black')
               .transition().duration(3000)
                 .call(colorNote);
           });
@@ -70,6 +71,7 @@ d3.timer(function(){
 
           //use timeout instead of transition so mouseovers transitions don't cancel)
           setTimeout(function(){
+            if (!selection){ return; }
             selection
                 //.style('opacity', '.7')
                 .call(colorNote)
