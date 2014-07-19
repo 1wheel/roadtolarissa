@@ -3,38 +3,49 @@ var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
 ac.createGain();
 var nextBeat = 0;
 var totalBeats =  0;
-var nextBeatM = 0;
+var lastBeatB = 7;
 var nextBeatTime = ac.currentTime;
-var lastTime = ac.currentTime;
-var lastAngle = 0;
 d3.timer(function(){
-  var now = ac.currentTime;
-  lastAngle = (now - lastTime)*getHz()*360 + lastAngle;
-  lastTime = now;
+  var lastAngle = 360/numBeats*(totalBeats - (nextBeatTime - ac.currentTime)/((1/getHz())/numBeats));
   d3.selectAll(".gearG").attr("transform", function(d){
     return "rotate(" + lastAngle  * d.direction + ")"; });
 
   //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
   while (nextBeatTime < ac.currentTime + .1  && !isPaused){  
+    
     //on every nth beat apply notes  
-
-    if (!(totalBeats % ratioM)){
+    //this is pretty hackish, lots of trouble syncing up the roations
+    if (!(totalBeats % (rBlue - 2))){
 
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
-      beatsM.filter(function(d, i){ return ratioM - i === nextBeatM; })
-        .selectAll('path')
-          .each(function(d, i){
-            updateArray[i] = d.on;
-            //TODO flash color
-            d3.select(this)
-                .style('fill', d.on ? 'black' : 'black')
-              .transition().duration(3000)
-                .call(colorNote);
-          });
+      var filtered;
+      var minLeft = 99999;
+      beatsM.each(function(d, i){
+        var rect = this.getBoundingClientRect();
+        if (rect.left < minLeft){
+          minLeft = rect.left;
+          filtered = d3.select(this);
+          filteredI = i;
+        }
+      });
 
-      //apply updates to slow circle
-      beats.filter(function(d, i){ return i == (Math.ceil(numBeats/2) + totalBeats) % numBeats; })
+
+      if (filteredI != lastBeatB){
+        console.log(filteredI, totalBeats);
+        filtered
+          .selectAll('path')
+            .each(function(d, i){
+              updateArray[i] = d.on;
+              //TODO flash color
+              d3.select(this)
+                  .style('fill', d.on ? 'black' : 'black')
+                .transition().duration(1000)
+                  .call(colorNote);
+            });
+
+        //apply updates to fast circle
+        beats.filter(function(d, i){ return i == (5 + totalBeats) % numBeats; })
         .selectAll('path')
           .each(function(d, i){
             if (updateArray[i]){
@@ -46,8 +57,8 @@ d3.timer(function(){
             }
           })
 
-
-      nextBeatM = (((nextBeatM - 1) % numBeatsM) + numBeatsM) % numBeatsM;
+      lastBeatB = filteredI
+      }
     }
 
     //grab the active beat column 
@@ -55,7 +66,7 @@ d3.timer(function(){
       .selectAll('path')
         .each(function(d){
           //if the note is selected, play pitch at scheduled nextBeat
-          if (d.on){
+          if (false && d.on){
             var o = osc(d.pitch, d.on);
             o.osc.start(nextBeatTime);
             o.osc.stop(nextBeatTime + getDuration())
@@ -66,17 +77,9 @@ d3.timer(function(){
           //easier to hear something off by a few ms
           var selection = d3.select(this)
           selection.style('opacity', 1)
-              .transition().duration(getHz()*1000*2)
-                .style('opacity', '.7')
+                //.style('fill', 'blue')
+              .transition().duration(getHz()*500*2)
                 .call(colorNote);
-
-          //use timeout instead of transition so mouseovers transitions don't cancel)
-          setTimeout(function(){
-            if (!selection){ return; }
-            selection
-                //.style('opacity', '.7')
-                .call(colorNote)
-          }, getHz()*1000)
         });
 
     //update time and index of nextBeat 
@@ -106,7 +109,7 @@ function getPitch(){
   return scale.invert((d3.select('#Pitch').node().valueAsNumber));
 }
 function getHz(){
-  var scale = d3.scale.log().base(2).domain([.02, 1]);
+  var scale = d3.scale.log().base(2).domain([.02, 100]);
   var rv = scale.invert((d3.select('#BPM').node().valueAsNumber));
   return rv;
 }
