@@ -3,7 +3,6 @@ var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
 ac.createGain();
 var nextBeat = 0;
 var totalBeats =  0;
-var lastBeatB = 7;
 var nextBeatTime = ac.currentTime;
 d3.timer(function(){
   var lastAngle = 360/numBeats*(totalBeats - (nextBeatTime - ac.currentTime)/((1/getHz())/numBeats));
@@ -14,38 +13,26 @@ d3.timer(function(){
   while (nextBeatTime < ac.currentTime + .1  && !isPaused){  
     
     //on every nth beat apply notes  
-    //this is pretty hackish, lots of trouble syncing up the roations
-    if (!(totalBeats % (rBlue - 2))){
+    if (!(totalBeats % offset)){
+      //console.log(totalBeats/offset %numBeatsB, lastAngle*1/offset % 360);
+      console.log([totalBeats, totalBeats % numBeats, (totalBeats/offset) % numBeatsB])
 
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
-      var filtered;
-      var minLeft = 99999;
-      beatsM.each(function(d, i){
-        var rect = this.getBoundingClientRect();
-        if (rect.left < minLeft){
-          minLeft = rect.left;
-          filtered = d3.select(this);
-          filteredI = i;
-        }
-      });
 
+      beatsB.filter(function(d, i){ return numBeatsB - i - 1 === totalBeats/offset % numBeatsB; })
+        .selectAll('path')
+          .each(function(d, i){
+            updateArray[i] = d.on;
+            //TODO flash color
+            d3.select(this)
+                .style('fill', d.on ? 'black' : 'black')
+              .transition().duration(1000)
+                .call(colorNote);
+          });
 
-      if (filteredI != lastBeatB){
-        console.log(filteredI, totalBeats);
-        filtered
-          .selectAll('path')
-            .each(function(d, i){
-              updateArray[i] = d.on;
-              //TODO flash color
-              d3.select(this)
-                  .style('fill', d.on ? 'black' : 'black')
-                .transition().duration(1000)
-                  .call(colorNote);
-            });
-
-        //apply updates to fast circle
-        beats.filter(function(d, i){ return i == (5 + totalBeats) % numBeats; })
+      //apply updates to fast circle
+      beats.filter(function(d, i){ return i == (5 + totalBeats) % numBeats; })
         .selectAll('path')
           .each(function(d, i){
             if (updateArray[i]){
@@ -56,31 +43,9 @@ d3.timer(function(){
                   .call(colorNote);
             }
           })
-
-      lastBeatB = filteredI
-      }
     }
 
-    //grab the active beat column 
-    beats.filter(function(d, i){ return i == totalBeats % numBeats; })
-      .selectAll('path')
-        .each(function(d){
-          //if the note is selected, play pitch at scheduled nextBeat
-          if (false && d.on){
-            var o = osc(d.pitch, d.on);
-            o.osc.start(nextBeatTime);
-            o.osc.stop(nextBeatTime + getDuration())
-          }
 
-          //highlight and unhighlight selected column
-          //visually exact timing doesn't matter as much
-          //easier to hear something off by a few ms
-          var selection = d3.select(this)
-          selection.style('opacity', 1)
-                //.style('fill', 'blue')
-              .transition().duration(getHz()*500*2)
-                .call(colorNote);
-        });
 
     //update time and index of nextBeat 
     nextBeatTime += (1/getHz())/numBeats;

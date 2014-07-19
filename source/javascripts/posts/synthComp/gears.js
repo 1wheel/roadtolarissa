@@ -2,14 +2,16 @@ var width = 900,
     height = 560,
     radius = 21,
     rRed = 9;
-    rBlue = 7;
     rYellow = 9;
     x = Math.sin(2 * Math.PI / 3),
     y = Math.cos(2 * Math.PI / 3),
     speed = .03,
-    start = Date.now();
+    start = Date.now(),
 
-var ratioM = 9;
+    offset = 7,
+    numBeats = 8,
+    numBeatsB = 9,
+    rBlue = offset*numBeatsB/numBeats;
 
 (function(){
 
@@ -24,7 +26,7 @@ var ratioM = 9;
   svg.append("g")
       .attr("class", "red")
       .attr("transform", "translate(" + (radius*0) + ",0) rotate(" + 16 + ")")
-      .datum({teeth: 11*rRed, radius: radius*rRed, direction: -1})
+      .datum({teeth: numBeats*rRed, radius: radius*rRed, direction: -1})
     .append('g')
       .classed('gearG', true)
     .append("path")
@@ -33,7 +35,7 @@ var ratioM = 9;
   svg.append("g")
       .attr("class", "red")
       .attr("transform", "translate(" + (radius*0) + ",0) rotate(" + 16 + ")")
-      .datum({teeth: 11, radius: radius, direction: -1})
+      .datum({teeth: numBeats, radius: radius, direction: -1})
     .append('g')
       .classed('gearG', true)
     .append("path")
@@ -42,8 +44,8 @@ var ratioM = 9;
 
   svg.append("g")
       .attr("class", "blue")
-      .attr("transform", "translate(" + (0) + "," + -(radius*(1.58 + rBlue)) + ") rotate(" + 180/rBlue + ")")
-      .datum({teeth: 11*rBlue, radius: radius*rBlue, direction: 1/rBlue})
+      .attr("transform", "translate(" + (0) + "," + -(radius*(1.58 + rBlue)) + ") rotate(" + 360/rBlue + ")")
+      .datum({teeth: numBeats*rBlue, radius: radius*rBlue, direction: 1/rBlue})
     .append('g')
       .classed('gearG', true)
     .append("path")
@@ -52,7 +54,7 @@ var ratioM = 9;
   svg.append("g")
       .attr("class", "yellow")
       .attr("transform", "translate(" + -(radius*(rRed + rYellow +.58)) + ",0) rotate(" + 0 + ")")
-      .datum({teeth: 11*rYellow, radius: radius*rYellow, direction: rRed/rYellow})
+      .datum({teeth: numBeats*rYellow, radius: radius*rYellow, direction: rRed/rYellow})
     .append('g')
       .classed('gearG', true)
     .append("path")
