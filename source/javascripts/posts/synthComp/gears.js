@@ -59,22 +59,24 @@ var ratioM = rRed;
       .attr("d", gear);
 
 
-  function gear(d) {
-    var n = d.teeth,
-        r0 = Math.abs(d.radius) + radius/2,
-        r2 = r0 - radius/2,
-        r3 = Math.max(8, d.radius/9),
-        da = Math.PI / n,
-        a0 = -Math.PI / 2 + (d.annulus ? Math.PI / n : 0),
-        i = -1,
-        path = ["M", r0 * Math.cos(a0), ",", r0 * Math.sin(a0)];
-    while (++i < n){
-      path.push("L", r0 * Math.cos(a0 += da), ",", r0 * Math.sin(a0))
-      path.push("L", r2 * Math.cos(a0 += da), ",", r2 * Math.sin(a0))
-    } 
+function gear(d) {
+  var n = d.teeth,
+      r0 = Math.abs(d.radius) + radius/2,
+      r2 = r0 - radius/2,
+      r3 = Math.max(8, d.radius/9),
+      da = Math.PI / n,
+      a0 = -Math.PI / 2,
+      i = -1,
+      path = ["M", r0 * Math.cos(a0), ",", r0 * Math.sin(a0)];
+  while (++i < n){
     path.push("L", r0 * Math.cos(a0), ",", r0 * Math.sin(a0))
-    path.push("M0,", -r3, "A", r3, ",", r3, " 0 0,0 0,", r3, "A", r3, ",", r3, " 0 0,0 0,", -r3, "Z");
-    
-    return path.join("");
-  }
+    a0 += da;
+    path.push("L", r2 * Math.cos(a0), ",", r2 * Math.sin(a0))
+    a0 += da;
+  } 
+  path.push("L", r0 * Math.cos(a0), ",", r0 * Math.sin(a0))
+
+  path.push("M0,", -r3, "A", r3, ",", r3, " 0 0,0 0,", r3, "A", r3, ",", r3, " 0 0,0 0,", -r3, "Z");
+  return path.join("");
+}
 })();
