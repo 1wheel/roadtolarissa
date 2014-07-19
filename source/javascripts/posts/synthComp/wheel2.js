@@ -1,10 +1,10 @@
 var height = rBlue*radius*2 - 5,
-    numBeatsM = 9;
+    numBeatsB = 9;
 
 //beat number to angle
 var rotationScale = d3.scale.linear()
-    .domain([0, numBeatsM - 1])
-    .range([360/numBeatsM, 360]);
+    .domain([0, numBeatsB - 1])
+    .range([360/numBeatsB, 360]);
 
 //pitch index to distance from center of circle
 var heightScale = d3.scale.linear()
@@ -16,7 +16,7 @@ var arc = d3.svg.arc()
     .innerRadius(function(d, i){ return heightScale(i); })
     .outerRadius(function(d, i){ return heightScale(i + 1) - 0; })
     .startAngle(0)
-    .endAngle(2*Math.PI/numBeatsM)
+    .endAngle(2*Math.PI/numBeatsB)
 
 //waveform number to color
 var color = d3.scale.ordinal()
@@ -26,7 +26,7 @@ var color = d3.scale.ordinal()
 //create a g element for each beat
 //rotated so we only have to worry about circular math 
 var beatsM = d3.select('.blue .gearG').selectAll('g')
-    .data(d3.range(numBeatsM)).enter()
+    .data(d3.range(numBeatsB)).enter()
   .append('g')
     .attr('transform', function(d){ return 'rotate(' + rotationScale(d) + ')'; })
 
@@ -38,8 +38,3 @@ var notesM = beatsM.selectAll('path')
   .append('path')
     .attr('d', arc)
     .call(styleNotes);
-
-
-
-
-var ratioM = rBlue;
