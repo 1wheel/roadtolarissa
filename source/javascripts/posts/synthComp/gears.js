@@ -3,13 +3,13 @@ var width = 900,
     radius = 21,
     rRed = 9;
     rBlue = 7;
-    rYellow = 8;
+    rYellow = 9;
     x = Math.sin(2 * Math.PI / 3),
     y = Math.cos(2 * Math.PI / 3),
     speed = .03,
     start = Date.now();
 
-var ratioM = rRed;
+var ratioM = 9;
 
 (function(){
 
@@ -51,7 +51,7 @@ var ratioM = rRed;
 
   svg.append("g")
       .attr("class", "yellow")
-      .attr("transform", "translate(" + -(radius*(rRed + rYellow +.58)) + ",0) rotate(" + 180/rYellow + ")")
+      .attr("transform", "translate(" + -(radius*(rRed + rYellow +.58)) + ",0) rotate(" + 0 + ")")
       .datum({teeth: 11*rYellow, radius: radius*rYellow, direction: -rRed/rYellow})
     .append('g')
       .classed('gearG', true)
