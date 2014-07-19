@@ -1,5 +1,5 @@
 var height = rBlue*radius*2 - 5,
-    numBeatsM = 7;
+    numBeatsM = 9;
 
 //beat number to angle
 var rotationScale = d3.scale.linear()
@@ -42,4 +42,4 @@ var notesM = beatsM.selectAll('path')
 
 
 
-var ratioM = 7;
+var ratioM = rBlue;

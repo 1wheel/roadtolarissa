@@ -1,23 +1,23 @@
-
+ 
 var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
 ac.createGain();
 var nextBeat = 0;
 var totalBeats =  0;
 var nextBeatM = 0;
 var nextBeatTime = ac.currentTime;
-
-var lastTime = Date.now();
+var lastTime = ac.currentTime;
 var lastAngle = 0;
 d3.timer(function(){
-  var now = Date.now();
-  lastAngle = (now - lastTime)/(getHz()*25) + lastAngle;
+  var now = ac.currentTime;
+  lastAngle = (now - lastTime)*getHz()*360 + lastAngle;
   lastTime = now;
   d3.selectAll(".gearG").attr("transform", function(d){
     return "rotate(" + lastAngle  * d.direction + ")"; });
 
   //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
   while (nextBeatTime < ac.currentTime + .1  && !isPaused){  
-    //on every nth beat, spin the larger circle and apply notes  
+    //on every nth beat apply notes  
+
     if (!(totalBeats % ratioM)){
 
       //extract update information
@@ -64,7 +64,8 @@ d3.timer(function(){
           //highlight and unhighlight selected column
           //visually exact timing doesn't matter as much
           //easier to hear something off by a few ms
-          var selection = d3.select(this).style('opacity', 1)
+          var selection = d3.select(this)
+          selection.style('opacity', 1)
               .transition().duration(getHz()*1000*2)
                 .style('opacity', '.7')
                 .call(colorNote);
@@ -79,7 +80,8 @@ d3.timer(function(){
         });
 
     //update time and index of nextBeat 
-    nextBeatTime += getHz();
+    nextBeatTime += getHz()*numBeats;
+    console.log(nextBeatTime, lastAngle);
     nextBeat = (nextBeat + 1) % numBeats; 
     totalBeats++;
   }
@@ -105,8 +107,9 @@ function getPitch(){
   return scale.invert((d3.select('#Pitch').node().valueAsNumber));
 }
 function getHz(){
-  var scale = d3.scale.log().base(2).domain([40, 1200]);
-  var rv = 60/scale.invert((d3.select('#BPM').node().valueAsNumber));
+  var scale = d3.scale.log().base(2).domain([.02, 1]);
+  var rv = scale.invert((d3.select('#BPM').node().valueAsNumber));
+  return 1/8;
   return rv;
 }
 function getDuration(){
