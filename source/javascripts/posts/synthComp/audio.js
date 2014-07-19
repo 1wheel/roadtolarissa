@@ -80,8 +80,7 @@ d3.timer(function(){
         });
 
     //update time and index of nextBeat 
-    nextBeatTime += getHz()*numBeats;
-    console.log(nextBeatTime, lastAngle);
+    nextBeatTime += (1/getHz())/numBeats;
     nextBeat = (nextBeat + 1) % numBeats; 
     totalBeats++;
   }
@@ -109,7 +108,6 @@ function getPitch(){
 function getHz(){
   var scale = d3.scale.log().base(2).domain([.02, 1]);
   var rv = scale.invert((d3.select('#BPM').node().valueAsNumber));
-  return 1/8;
   return rv;
 }
 function getDuration(){
