@@ -25,7 +25,7 @@ var width = 900,
 
   svg.append("g")
       .attr("class", "red")
-      .attr("transform", "translate(" + (radius*0) + ",0) rotate(" + 16 + ")")
+      .attr("transform", "translate(" + (radius*0) + ",0) rotate(" + 0 + ")")
       .datum({teeth: numBeats*rRed, radius: radius*rRed, direction: -1})
     .append('g')
       .classed('gearG', true)
@@ -34,7 +34,7 @@ var width = 900,
 
   svg.append("g")
       .attr("class", "red")
-      .attr("transform", "translate(" + (radius*0) + ",0) rotate(" + 16 + ")")
+      .attr("transform", "translate(" + (radius*0) + ",0) rotate(" + 0 + ")")
       .datum({teeth: numBeats, radius: radius, direction: -1})
     .append('g')
       .classed('gearG', true)
@@ -53,7 +53,7 @@ var width = 900,
 
   svg.append("g")
       .attr("class", "yellow")
-      .attr("transform", "translate(" + -(radius*(rRed + rYellow +.58)) + ",0) rotate(" + 0 + ")")
+      .attr("transform", "translate(" + -(radius*(rRed + rYellow +.58)) + ",0) rotate(" + 2 + ")")
       .datum({teeth: numBeats*rYellow, radius: radius*rYellow, direction: rRed/rYellow})
     .append('g')
       .classed('gearG', true)
