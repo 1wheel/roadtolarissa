@@ -14,8 +14,6 @@ d3.timer(function(){
     
     //on every nth beat apply notes  
     if (!(totalBeats % offset)){
-      //console.log(totalBeats/offset %numBeatsB, lastAngle*1/offset % 360);
-      console.log([totalBeats, totalBeats % numBeats, (totalBeats/offset) % numBeatsB])
 
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
@@ -74,7 +72,7 @@ function getPitch(){
   return scale.invert((d3.select('#Pitch').node().valueAsNumber));
 }
 function getHz(){
-  var scale = d3.scale.log().base(2).domain([.02, 100]);
+  var scale = d3.scale.log().base(2).domain([.01, 1]);
   var rv = scale.invert((d3.select('#BPM').node().valueAsNumber));
   return rv;
 }

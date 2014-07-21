@@ -22,7 +22,7 @@ var arc = d3.svg.arc()
 //waveform number to color
 var color = d3.scale.ordinal()
     .domain(d3.range(4))
-    .range(['white', 'black']);
+    //.range(['rgba(255, 255, 255, .4)', 'rgba(255, 255, 255, .4)']);
 
 
 //create a g element for each beat
@@ -56,7 +56,7 @@ function styleNotes(selection){
     .on('mousemove', function(d){
       d3.select(this)
         .transition().duration(0)
-          .style('fill', d.on ? 'darkgrey' : 'lightgrey');
+          //.style('fill', d.on ? 'darkgrey' : 'lightgrey');
     })
     .on('mouseout', function(d){
       d3.select(this)
@@ -64,8 +64,8 @@ function styleNotes(selection){
           .call(colorNote);
     })
     .style('stroke-width', 1.4)
-    .style('stroke', 'lightgrey')
-    .style('fill', 'white')
+    .style('stroke', 'white')
+    .style('fill', 'rgba(255, 255, 255, .4')
     .classed('note', true)
 }
 
