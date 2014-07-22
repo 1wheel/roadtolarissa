@@ -17,11 +17,6 @@ var arc = d3.svg.arc()
     .startAngle(0)
     .endAngle(2*Math.PI/numBeatsB)
 
-//waveform number to color
-var color = d3.scale.ordinal()
-    .domain(d3.range(4))
-    .range(['white', 'black']);
-
 //create a g element for each beat
 //rotated so we only have to worry about circular math 
 var beatsB = d3.select('.blue .gearG').selectAll('g')

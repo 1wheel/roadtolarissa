@@ -24,7 +24,7 @@ d3.timer(function(){
             updateArray[i] = d.on;
             //TODO flash color
             d3.select(this)
-                .style('fill', d.on ? 'black' : 'black')
+                .style('fill', d.on ? 'rgba(100, 100, 100, .6)' : 'rgba(255, 255, 255, .6)')
               .transition().duration(1000)
                 .call(colorNote);
           });
@@ -37,7 +37,7 @@ d3.timer(function(){
               d.on = +!d.on;
               d3.select(this)
                   .style('fill', d.on ? 'green' : 'red')
-                .transition().duration(2000)
+                .transition().duration(1000)
                   .call(colorNote);
             }
           })
