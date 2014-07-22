@@ -21,8 +21,8 @@ var arc = d3.svg.arc()
 
 //waveform number to color
 var color = d3.scale.ordinal()
-    .domain(d3.range(4))
-    //.range(['rgba(255, 255, 255, .4)', 'rgba(255, 255, 255, .4)']);
+    .domain([true, false])
+    .range(['rgb(255, 255, 255)', 'rgb(255, 255, 255)']);
 
 
 //create a g element for each beat
@@ -40,13 +40,16 @@ var notes = beats.selectAll('path')
   .append('path')
     .call(styleNotes);
 
-function colorNote(selection){ selection.style('fill', compose(color, f('on'))); }
+function colorNote(selection){ selection
+    .style('fill', compose(color, f('on')))
+    .style('fill-opacity', function(d){ return d.on ? 0 : .5; }) 
+  }
 
 function styleNotes(selection){
   selection
     .attr('d', arc)
     .on('click', function(d){
-      d.on = +!d.on;
+      d.on = !d.on;
       d3.select(this)
         .transition().duration(0)
           .call(colorNote)
@@ -56,16 +59,16 @@ function styleNotes(selection){
     .on('mousemove', function(d){
       d3.select(this)
         .transition().duration(0)
-          //.style('fill', d.on ? 'darkgrey' : 'lightgrey');
+          .style('fill', d.on ? 'darkgrey' : 'lightgrey');
     })
     .on('mouseout', function(d){
       d3.select(this)
-        .transition().duration(0)
+        .transition().duration(1000)
           .call(colorNote);
     })
     .style('stroke-width', 1.4)
     .style('stroke', 'white')
-    .style('fill', 'rgba(255, 255, 255, .4')
+    .call(colorNote)    
     .classed('note', true)
 }
 
