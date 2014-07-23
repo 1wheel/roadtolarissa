@@ -24,8 +24,9 @@ d3.timer(function(){
             updateArray[i] = d.on;
             //TODO flash color
             d3.select(this)
-                .style('fill', d.on ? 'rgba(100, 100, 100, .6)' : 'rgba(255, 255, 255, .6)')
-              .transition().duration(1000)
+                .style('fill', d.on ? '#4A84CF' : '#AEE0FF')
+                .style('fill-opacity', 1)
+              .transition().duration(2000)
                 .call(colorNote);
           });
 
@@ -36,8 +37,9 @@ d3.timer(function(){
             if (updateArray[i]){
               d.on = +!d.on;
               d3.select(this)
-                  .style('fill', d.on ? 'green' : 'red')
-                .transition().duration(1000)
+                  .style('fill', d.on ? '#6AC342' : '#CE3101')
+                  .style('fill-opacity', 1)
+                .transition().duration(1000).delay(250)
                   .call(colorNote);
             }
           })
@@ -72,7 +74,7 @@ function getPitch(){
   return scale.invert((d3.select('#Pitch').node().valueAsNumber));
 }
 function getHz(){
-  var scale = d3.scale.log().base(2).domain([.01, 1]);
+  var scale = d3.scale.log().base(2).domain([.01, 100]);
   var rv = scale.invert((d3.select('#BPM').node().valueAsNumber));
   return rv;
 }
@@ -119,12 +121,11 @@ function clear(){
 function randomize(){
   clear();
   d3.selectAll('.note').each(function(d){
-    if (Math.random() > .93){
+    if (Math.random() > .3){
       d3.select(this).on('click').call(this, d);
     }
   });
 }
-
 
 d3.select('#buttons').selectAll('.button')
     .data(
@@ -136,6 +137,7 @@ d3.select('#buttons').selectAll('.button')
       .on('click', function(d){ d.fun(); });
 
 clear();
+randomize();
 
 
 function toURL(){
