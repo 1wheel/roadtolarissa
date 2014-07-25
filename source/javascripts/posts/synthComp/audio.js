@@ -4,6 +4,7 @@ ac.createGain();
 var nextBeat = 0;
 var totalBeats =  0;
 var nextBeatTime = ac.currentTime;
+lastApplyBeat = 0;
 d3.timer(function(){
   var lastAngle = 360/numBeats*(totalBeats - (nextBeatTime - ac.currentTime)/((1/getHz())/numBeats));
   d3.selectAll(".gearG").attr("transform", function(d){
@@ -31,7 +32,7 @@ d3.timer(function(){
           });
 
       //apply updates to fast circle
-      beats.filter(function(d, i){ return i == (5 + totalBeats) % numBeats; })
+      beats.filter(function(d, i){ return i == lastApplyBeat; })
         .selectAll('path')
           .each(function(d, i){
             if (updateArray[i]){
@@ -43,6 +44,10 @@ d3.timer(function(){
                   .call(colorNote);
             }
           })
+
+      console.log(lastApplyBeat);
+      lastApplyBeat = (lastApplyBeat + 1) % numBeats;
+
     }
 
 
