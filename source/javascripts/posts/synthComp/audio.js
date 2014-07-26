@@ -24,7 +24,7 @@ d3.timer(function(){
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
 
-      beatsB.filter(function(d, i){ return numBeatsB - i - 1 === (5 + totalBeats/offset) % numBeatsB; })
+      beatsB.filter(function(d, i){ return i === (5 + totalBeats/offset) % numBeatsB; })
         .selectAll('path')
           .each(function(d, i){
             updateArray[i] = d.on;
@@ -72,6 +72,7 @@ d3.timer(function(){
           selection
             .style('opacity', 1)
             .style('fill', 'black')
+                .style('fill-opacity', '.7')
               .transition().duration(getHz()*1000*2)
                 .style('opacity', '.7')
                 .call(colorNote);
@@ -81,7 +82,7 @@ d3.timer(function(){
             selection
                 //.style('opacity', '.7')
                 .call(colorNote)
-          }, getHz()*1000)
+          }, getHz()*1000000)
         });
 
     totalBeats++;
