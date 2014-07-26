@@ -1,17 +1,22 @@
  
 var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
 ac.createGain();
-var nextBeat = 0;
 var totalBeats =  0;
-var nextBeatTime = ac.currentTime;
-lastApplyBeat = 0;
+var beatFraction = 0;
+
+var lastAcTime = ac.currentTime;
+var lastApplyBeat = 0;
 d3.timer(function(){
-  var lastAngle = 360/numBeats*(totalBeats - (nextBeatTime - ac.currentTime)/((1/getHz())/numBeats));
+  var beatDuration = (1/getHz())/numBeats;
+  beatFraction += (ac.currentTime -lastAcTime)/((1/getHz())/numBeats);
+  lastAcTime = ac.currentTime;
+  var lastAngle = 360/numBeats*(totalBeats + beatFraction);
+
   d3.selectAll(".gearG").attr("transform", function(d){
     return "rotate(" + lastAngle  * d.direction + ")"; });
 
   //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
-  while (nextBeatTime < ac.currentTime + .1  && !isPaused){  
+  while (beatFraction > .9 && !isPaused){  
     
     //on every nth beat apply notes  
     if (!(totalBeats % offset)){
@@ -19,7 +24,7 @@ d3.timer(function(){
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
 
-      beatsB.filter(function(d, i){ return numBeatsB - i - 1 === totalBeats/offset % numBeatsB; })
+      beatsB.filter(function(d, i){ return numBeatsB - i - 1 === (5 + totalBeats/offset) % numBeatsB; })
         .selectAll('path')
           .each(function(d, i){
             updateArray[i] = d.on;
@@ -45,17 +50,42 @@ d3.timer(function(){
             }
           })
 
-      console.log(lastApplyBeat);
       lastApplyBeat = (lastApplyBeat + 1) % numBeats;
-
     }
 
+    //grab the active beat column 
+    beats.filter(function(d, i){ return i == totalBeats % numBeats; })
+      .selectAll('path')
+        .each(function(d){
+          //if the note is selected, play pitch at scheduled nextBeat
+          if (d.on){
+            var o = osc(d.pitch, d.on);
+            var nextBeatTime = ac.currentTime// TODO set to correct time + (1 - 0);
+            o.osc.start(nextBeatTime);
+            o.osc.stop(nextBeatTime + getDuration())
+          }
 
+          //highlight and unhighlight selected column
+          //visually exact timing doesn't matter as much
+          //easier to hear something off by a few ms
+          var selection = d3.select(this);
+          selection
+            .style('opacity', 1)
+            .style('fill', 'black')
+              .transition().duration(getHz()*1000*2)
+                .style('opacity', '.7')
+                .call(colorNote);
 
-    //update time and index of nextBeat 
-    nextBeatTime += (1/getHz())/numBeats;
-    nextBeat = (nextBeat + 1) % numBeats; 
+          //use timeout instead of transition so mouseovers transitions don't cancel)
+          setTimeout(function(){
+            selection
+                //.style('opacity', '.7')
+                .call(colorNote)
+          }, getHz()*1000)
+        });
+
     totalBeats++;
+    beatFraction--;
   }
 });
 
@@ -79,7 +109,7 @@ function getPitch(){
   return scale.invert((d3.select('#Pitch').node().valueAsNumber));
 }
 function getHz(){
-  var scale = d3.scale.log().base(2).domain([.01, 100]);
+  var scale = d3.scale.log().base(2).domain([.01, 5]);
   var rv = scale.invert((d3.select('#BPM').node().valueAsNumber));
   return rv;
 }
@@ -91,12 +121,12 @@ function getDuration(){
 //generate oscillator
 function osc(pitch, waveform){
   oscillator = ac.createOscillator(),
-  oscillator.type = waveform;
+  oscillator.type = 1;
   oscillator.frequency.value = pitch*getPitch();
   gainNode = ac.createGain();
   oscillator.connect(gainNode);
   gainNode.connect(ac.destination);
-  gainNode.gain.value = .1;
+  gainNode.gain.value = .04;
   return {osc: oscillator, gain: gainNode};
 };
 
@@ -110,7 +140,6 @@ function togglePause(){
     pauseStart = ac.currentTime;
   } else {
     totalPause += ac.currentTime - pauseStart;
-    nextBeatTime += ac.currentTime - pauseStart;
   }
 
 }
