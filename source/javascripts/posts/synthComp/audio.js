@@ -166,9 +166,9 @@ function loadState(){
     totalBeats = isNaN(hash[0]) ? 0 : +(hash[0])
     if (hash.length == 2){ 
       var loadedNotes = decode(hash[1]).split('');
-      d3.selectAll('.note').each(function(d, i){
-        d.on === !!loadedNotes[i];
-      });  
+      d3.selectAll('.note')
+          .each(function(d, i){ d.on = loadedNotes[i] === "1" ? true : false; })
+          .call(colorNote);  
     }
   }
 }
