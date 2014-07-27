@@ -7,8 +7,10 @@ var beatFraction = 0;
 var lastAcTime = ac.currentTime;
 var lastApplyBeat = 1;
 d3.timer(function(){
-  var beatDuration = (1/getHz())/numBeats;
-  beatFraction += (ac.currentTime -lastAcTime)/((1/getHz())/numBeats);
+  var beatDuration = (1/Hz())/numBeats;
+  if (!isPaused){
+    beatFraction += (ac.currentTime - lastAcTime)/((1/Hz())/numBeats);
+  }
   lastAcTime = ac.currentTime;
   var lastAngle = 360/numBeats*(totalBeats + beatFraction);
 
@@ -72,7 +74,7 @@ d3.timer(function(){
           selection
                 .style('fill', 'black')
                 .style('fill-opacity', '.7')
-              .transition().duration(getHz()*1000*2)
+              .transition().duration(Hz()*1000*2)
                 .call(colorNote);
         });
 
@@ -100,41 +102,30 @@ function getPitch(){
   var scale = d3.scale.log().base(2).domain([.1, 10]);
   return scale.invert((d3.select('#Pitch').node().valueAsNumber));
 }
-function getHz(){
-  var scale = d3.scale.log().base(2).domain([.01, 5]);
-  var rv = scale.invert((d3.select('#BPM').node().valueAsNumber));
-  return rv;
-}
+
 function getDuration(){
   var scale = d3.scale.log().base(2).domain([.05, 1]);
   return scale.invert((d3.select('#Duration').node().valueAsNumber));
 }
 
-//generate oscillator
-function osc(pitch, waveform){
-  oscillator = ac.createOscillator(),
-  oscillator.type = 1;
-  oscillator.frequency.value = pitch*getPitch();
-  gainNode = ac.createGain();
-  oscillator.connect(gainNode);
-  gainNode.connect(ac.destination);
-  gainNode.gain.value = .04;
-  return {osc: oscillator, gain: gainNode};
-};
+//Hz is call several times each frame; cache DOM look up
+var Hz = (function(){
+  var scale = d3.scale.log().base(2).domain([.01, 5]);
+  var value;
+  function setValue(){
+    value = scale.invert(this.valueAsNumber);
+  }
+  d3.select('#BPM').on('change', setValue);
+  setValue.call(d3.select('#BPM').node());
+
+  return function(){ return value; }
+})();
+
+
 
 
 var isPaused = false;
-var pauseStart = 0;
-var totalPause = 0;
-function togglePause(){
-  isPaused = !isPaused;
-  if (isPaused){
-    pauseStart = ac.currentTime;
-  } else {
-    totalPause += ac.currentTime - pauseStart;
-  }
-
-}
+function togglePause(){ isPaused = !isPaused; }
 
 function clear(){
   d3.selectAll('.note').each(function(d){
@@ -170,3 +161,17 @@ function toURL(){
   return d3.selectAll('.note').data().map(function(d){
     return d.on ? '1' : '0'; }).join('');
 }
+
+
+
+//generate oscillator
+function osc(pitch, waveform){
+  oscillator = ac.createOscillator(),
+  oscillator.type = 1;
+  oscillator.frequency.value = pitch*getPitch();
+  gainNode = ac.createGain();
+  oscillator.connect(gainNode);
+  gainNode.connect(ac.destination);
+  gainNode.gain.value = .04;
+  return {osc: oscillator, gain: gainNode};
+};
