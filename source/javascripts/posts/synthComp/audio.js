@@ -8,7 +8,7 @@ var lastAcTime = ac.currentTime;
 d3.timer(function(){
   var beatDuration = (1/Hz())/numBeats;
   if (!isPaused){
-    beatFraction += (ac.currentTime - lastAcTime)/((1/Hz())/numBeats);
+    beatFraction += (ac.currentTime - lastAcTime)/beatDuration;
   }
   lastAcTime = ac.currentTime;
   var lastAngle = 360/numBeats*(totalBeats + beatFraction);
@@ -71,12 +71,13 @@ d3.timer(function(){
           selection
                 .style('fill', 'black')
                 .style('fill-opacity', '.7')
-              .transition().duration(Hz()*1000*2)
+              .transition().duration(beatDuration*1000*2)
                 .call(colorNote);
         });
 
     totalBeats++;
     beatFraction--;
+    updateURL();
   }
 });
 
@@ -150,19 +151,25 @@ d3.select('#buttons').selectAll('.button')
       .text(f('text'))
       .on('click', function(d){ d.fun(); });
 
-clear();
-randomize();
 
-
+//set url to reflect state on note change or beat
 function updateURL(){
-  window.location.hash =  encode(d3.selectAll('.note').data().map(function(d){
+  window.location.hash = totalBeats + '+' +encode(d3.selectAll('.note').data().map(function(d){
     return d.on ? '1' : '0'; }).join(''));
+  console.log('updating' + window.location.hash);
 }
 
-var loadedNotes = decode(window.location.hash).split('')
-d3.selectAll('.note').each(function(d, i){
-  d.on === !!loadedNotes[i];
-});
+//set state to url on load
+var hash = window.location.hash.split('+');
+if (hash){
+  totalBeats = isNaN(hash[0]) ? 0 : +(hash[0])
+  if (hash.length == 2){ 
+    var loadedNotes = decode(window.location.hash[1]).split('');
+    d3.selectAll('.note').each(function(d, i){
+      d.on === !!loadedNotes[i];
+    });  
+  }
+}
 
 
 
