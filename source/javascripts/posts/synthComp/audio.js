@@ -51,7 +51,7 @@ d3.timer(function(){
                   .call(colorNote);
             }
           })
-
+      console.log(totalBeats/7, lastApplyBeat);
       lastApplyBeat = (numBeats + lastApplyBeat - 1) % numBeats;
     }
 
@@ -157,10 +157,15 @@ clear();
 randomize();
 
 
-function toURL(){
-  return d3.selectAll('.note').data().map(function(d){
-    return d.on ? '1' : '0'; }).join('');
+function updateURL(){
+  window.location.hash =  encode(d3.selectAll('.note').data().map(function(d){
+    return d.on ? '1' : '0'; }).join(''));
 }
+
+var loadedNotes = decode(window.location.hash).split('')
+d3.selectAll('.note').each(function(d, i){
+  d.on === !!loadedNotes[i];
+});
 
 
 
