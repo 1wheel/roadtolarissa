@@ -5,7 +5,7 @@ var totalBeats =  0;
 var beatFraction = 0;
 
 var lastAcTime = ac.currentTime;
-var lastApplyBeat = 0;
+var lastApplyBeat = 1;
 d3.timer(function(){
   var beatDuration = (1/getHz())/numBeats;
   beatFraction += (ac.currentTime -lastAcTime)/((1/getHz())/numBeats);
@@ -54,7 +54,7 @@ d3.timer(function(){
     }
 
     //grab the active beat column 
-    beats.filter(function(d, i){ return i == (totalBeats + 4) % numBeats; })
+    beats.filter(function(d, i){ return i == (totalBeats + 5) % numBeats; })
       .selectAll('path')
         .each(function(d){
           //if the note is selected, play pitch at scheduled nextBeat
@@ -68,20 +68,12 @@ d3.timer(function(){
           //highlight and unhighlight selected column
           //visually exact timing doesn't matter as much
           //easier to hear something off by a few ms
-          var selection = d3.select('this');
+          var selection = d3.select(this);
           selection
-                .style('opacity', 1)
                 .style('fill', 'black')
                 .style('fill-opacity', '.7')
               .transition().duration(getHz()*1000*2)
                 .call(colorNote);
-
-          //use timeout instead of transition so mouseovers transitions don't cancel)
-          setTimeout(function(){
-            selection
-                //.style('opacity', '.7')
-                .call(colorNote)
-          }, getHz()*1000000)
         });
 
     totalBeats++;
