@@ -1,4 +1,3 @@
- 
 var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
 ac.createGain();
 var totalBeats =  0;
@@ -59,7 +58,7 @@ d3.timer(function(){
           //if the note is selected, play pitch at scheduled nextBeat
           if (d.on){
             var o = osc(d.pitch, d.on);
-            var nextBeatTime = ac.currentTime// TODO set to correct time + (1 - 0);
+            var nextBeatTime = ac.currentTime + (1 - beatFraction)*beatDuration;
             o.osc.start(nextBeatTime);
             o.osc.stop(nextBeatTime + getDuration())
           }
