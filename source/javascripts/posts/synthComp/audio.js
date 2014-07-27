@@ -2,8 +2,10 @@ var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
 ac.createGain();
 var totalBeats =  0;
 var beatFraction = 0;
-
 var lastAcTime = ac.currentTime;
+
+loadState();
+
 d3.timer(function(){
   var beatDuration = (1/Hz())/numBeats;
   if (!isPaused){
@@ -59,8 +61,8 @@ d3.timer(function(){
           if (d.on){
             var o = osc(d.pitch, d.on);
             var nextBeatTime = ac.currentTime + (1 - beatFraction)*beatDuration;
-            o.osc.start(nextBeatTime);
-            o.osc.stop(nextBeatTime + getDuration())
+            //o.osc.start(nextBeatTime);
+            //o.osc.stop(nextBeatTime + getDuration())
           }
 
           //highlight and unhighlight selected column
@@ -155,18 +157,19 @@ d3.select('#buttons').selectAll('.button')
 function updateURL(){
   window.location.hash = totalBeats + '+' +encode(d3.selectAll('.note').data().map(function(d){
     return d.on ? '1' : '0'; }).join(''));
-  console.log('updating' + window.location.hash);
 }
 
 //set state to url on load
-var hash = window.location.hash.split('+');
-if (hash){
-  totalBeats = isNaN(hash[0]) ? 0 : +(hash[0])
-  if (hash.length == 2){ 
-    var loadedNotes = decode(window.location.hash[1]).split('');
-    d3.selectAll('.note').each(function(d, i){
-      d.on === !!loadedNotes[i];
-    });  
+function loadState(){
+  var hash = window.location.hash.replace('#', '').split('+');
+  if (hash){
+    totalBeats = isNaN(hash[0]) ? 0 : +(hash[0])
+    if (hash.length == 2){ 
+      var loadedNotes = decode(hash[1]).split('');
+      d3.selectAll('.note').each(function(d, i){
+        d.on === !!loadedNotes[i];
+      });  
+    }
   }
 }
 
