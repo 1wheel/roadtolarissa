@@ -5,7 +5,6 @@ var totalBeats =  0;
 var beatFraction = 0;
 
 var lastAcTime = ac.currentTime;
-var lastApplyBeat = 1;
 d3.timer(function(){
   var beatDuration = (1/Hz())/numBeats;
   if (!isPaused){
@@ -39,7 +38,7 @@ d3.timer(function(){
           });
 
       //apply updates to fast circle
-      beats.filter(function(d, i){ return i == lastApplyBeat; })
+      beats.filter(function(d, i){ return i == (9 + (-totalBeats/7) % 8) % 8; })
         .selectAll('path')
           .each(function(d, i){
             if (updateArray[i]){
@@ -51,8 +50,6 @@ d3.timer(function(){
                   .call(colorNote);
             }
           })
-      console.log(totalBeats/7, lastApplyBeat);
-      lastApplyBeat = (numBeats + lastApplyBeat - 1) % numBeats;
     }
 
     //grab the active beat column 
