@@ -61,8 +61,8 @@ d3.timer(function(){
           if (d.on){
             var o = osc(d.pitch, d.on);
             var nextBeatTime = ac.currentTime + (1 - beatFraction)*beatDuration;
-            //o.osc.start(nextBeatTime);
-            //o.osc.stop(nextBeatTime + getDuration())
+            o.osc.start(nextBeatTime);
+            o.osc.stop(nextBeatTime + getDuration())
           }
 
           //highlight and unhighlight selected column
@@ -137,7 +137,7 @@ function clear(){
 function randomize(){
   clear();
   d3.selectAll('.note').each(function(d){
-    if (Math.random() > .3){
+    if (Math.random() > .7){
       d3.select(this).on('click').call(this, d);
     }
   });
