@@ -1,6 +1,6 @@
-var width = 900,
-    height = 600,
-    radius = 21,
+var width = 750,
+    height = 470,
+    radius = 17,
     rRed = 9;
     rYellow = 9;
     x = Math.sin(2 * Math.PI / 3),
@@ -20,7 +20,7 @@ var width = 900,
       .attr("width", width)
       .attr("height", height)
     .append("g")
-      .attr("transform", "translate(" + (width / 2 + radius*12) + "," + (height / 2 + 80) + ")")
+      .attr("transform", "translate(" + (width / 2 + radius*12) + "," + (height / 2 + 70) + ")")
     .append("g");
 
   svg.append("g")
