@@ -154,10 +154,10 @@ d3.select('#buttons').selectAll('.button')
 
 
 //set url to reflect state on note change or beat
-function updateURL(){
+var updateURL = _.debounce(function(){
   window.location.hash = totalBeats + '+' +encode(d3.selectAll('.note').data().map(function(d){
     return d.on ? '1' : '0'; }).join(''));
-}
+}, 100);
 
 //set state to url on load
 function loadState(){
