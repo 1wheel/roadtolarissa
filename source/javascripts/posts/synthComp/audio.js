@@ -26,7 +26,7 @@ d3.timer(function(){
       //extract update information
       var updateArray = pitches.map(function(d){ return false; });
 
-      beatsB.filter(function(d, i){ return i === (5 + totalBeats/offset) % numBeatsB; })
+      beatsB.filter(function(d, i){ return i === (4 + totalBeats/offset) % numBeatsB; })
         .selectAll('path')
           .each(function(d, i){
             updateArray[i] = d.on;
@@ -45,10 +45,18 @@ d3.timer(function(){
             if (updateArray[i]){
               d.on = +!d.on;
               d3.select(this)
-                  .style('fill', d.on ? '#6AC342' : '#CE3101')
+                  .style('fill', d.on ? '#FF69C8' : '#4A84CF')
                   .style('fill-opacity', 1)
                 .transition().duration(1000).delay(250)
                   .call(colorNote);
+            }
+            else if (!d.on){
+              d3.select(this)
+                  .style('fill', '#AEE0FF')
+                  .style('fill-opacity', 1)
+                .transition().duration(2000)
+                  .call(colorNote);
+
             }
           })
     }
@@ -70,8 +78,8 @@ d3.timer(function(){
           //easier to hear something off by a few ms
           var selection = d3.select(this);
           selection
-                .style('fill', 'black')
-                .style('fill-opacity', '.7')
+                .style('fill', 'FDE24E')
+                .style('fill-opacity', d.on ? .5 : 1)
               .transition().duration(beatDuration*1000*2)
                 .call(colorNote);
         });
@@ -154,10 +162,10 @@ d3.select('#buttons').selectAll('.button')
 
 
 //set url to reflect state on note change or beat
-var updateURL = _.debounce(function(){
+var updateURL = _.throttle(function(){
   window.location.hash = totalBeats + '+' +encode(d3.selectAll('.note').data().map(function(d){
     return d.on ? '1' : '0'; }).join(''));
-}, 100);
+}, 1000);
 
 //set state to url on load
 function loadState(){
