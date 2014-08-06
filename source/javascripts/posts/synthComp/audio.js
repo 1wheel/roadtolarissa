@@ -144,8 +144,8 @@ function clear(){
 
 function randomize(){
   clear();
-  d3.selectAll('.note').each(function(d){
-    if (Math.random() > .7){
+  d3.selectAll('.note').each(function(d, i){
+    if (Math.random() > (i < 9*7 ? .75 : .99)){
       d3.select(this).on('click').call(this, d);
     }
   });
@@ -153,8 +153,9 @@ function randomize(){
 
 d3.select('#buttons').selectAll('.button')
     .data(
-      [ {text: 'Play/Pause',  fun: togglePause},
-        {text: 'Clear',       fun: clear},
+      [ 
+        // {text: 'Play/Pause',  fun: togglePause},
+        // {text: 'Clear',       fun: clear},
         {text: 'Randomize',   fun: randomize}]).enter()
     .append('span')
       .text(f('text'))
@@ -177,8 +178,8 @@ function loadState(){
       d3.selectAll('.note')
           .each(function(d, i){ d.on = loadedNotes[i] === "1" ? true : false; })
           .call(colorNote);  
-    }
-  }
+    } else{ randomize(); }
+  } else{ randomize(); }
 }
 
 
