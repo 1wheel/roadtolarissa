@@ -16,11 +16,13 @@ var width = 750,
 (function(){
 
   //largely borrowed from http://bl.ocks.org/mbostock/1353700
-  var svg = d3.select("#synth").append("svg")
+  var svg = d3.select("#synth")
+      .style('height', height + 'px')
+    .append("svg")
       .attr("width", width)
       .attr("height", height)
     .append("g")
-      .attr("transform", "translate(" + (width / 2 + radius*12) + "," + (height / 2 + 70) + ")")
+      .attr("transform", "translate(" + (width / 2 + radius*10) + "," + (height / 2 + 70) + ")")
     .append("g");
 
   svg.append("g")
