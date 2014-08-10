@@ -69,7 +69,7 @@ d3.timer(function(){
           //if the note is selected, play pitch at scheduled nextBeat
           if (d.on){
             var nextBeatTime = ac.currentTime + (1 - beatFraction)*beatDuration;
-            playNote(d.pitch, nextBeatTime, nextBeatTime + duration)
+            playNote(d.pitch, nextBeatTime, duration)
           }
 
           //highlight and unhighlight selected column
@@ -183,29 +183,18 @@ function loadState(){
 
 
 
-//generate oscillator
-function osc(pitch, start, stop){
-  oscillator = ac.createOscillator(),
-  oscillator.type = 2;
-  oscillator.frequency.value = pitch*getPitch();
-  console.log(pitch);
-  gainNode = ac.createGain();
-  oscillator.connect(gainNode);
-  gainNode.connect(ac.destination);
-  gainNode.gain.value = .03;
-  return {osc: oscillator, gain: gainNode};
-};
-
-function playNote(pitch, start, stop){
+function playNote(pitch, start, duration){
   oscillator = ac.createOscillator(),
   oscillator.type = 1;
   oscillator.frequency.value = pitch*getPitch();
   
   gainNode = ac.createGain();
   gainNode.connect(ac.destination);
-  gainNode.gain.value = .03;
+  gainNode.gain.value = 0;
+  gainNode.gain.setTargetAtTime(.06, start + duration*1/4, duration/10)
+  gainNode.gain.setTargetAtTime(.001, start + duration*3/4, duration/10)
 
   oscillator.connect(gainNode);  
   oscillator.start(start);
-  oscillator.stop(stop)
+  oscillator.stop(start + duration);
 };
