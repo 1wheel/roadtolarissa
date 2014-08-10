@@ -154,8 +154,8 @@ function randomize(){
 d3.select('#buttons').selectAll('.button')
     .data(
       [ 
-        // {text: 'Play/Pause',  fun: togglePause},
-        // {text: 'Clear',       fun: clear},
+        {text: 'Pause',  fun: togglePause},
+        {text: 'Clear',       fun: clear},
         {text: 'Randomize',   fun: randomize}]).enter()
     .append('span')
       .text(f('text'))
@@ -187,11 +187,11 @@ function loadState(){
 //generate oscillator
 function osc(pitch, waveform){
   oscillator = ac.createOscillator(),
-  oscillator.type = 1;
+  oscillator.type = 2;
   oscillator.frequency.value = pitch*getPitch();
   gainNode = ac.createGain();
   oscillator.connect(gainNode);
   gainNode.connect(ac.destination);
-  gainNode.gain.value = .04;
+  gainNode.gain.value = .03;
   return {osc: oscillator, gain: gainNode};
 };
