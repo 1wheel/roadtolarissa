@@ -62,6 +62,7 @@ d3.timer(function(){
     }
 
     //grab the active beat column 
+    var duration = getDuration();
     beats.filter(function(d, i){ return i == (totalBeats + 5) % numBeats; })
       .selectAll('path')
         .each(function(d){
@@ -70,7 +71,7 @@ d3.timer(function(){
             var o = osc(d.pitch, d.on);
             var nextBeatTime = ac.currentTime + (1 - beatFraction)*beatDuration;
             o.osc.start(nextBeatTime);
-            o.osc.stop(nextBeatTime + getDuration())
+            o.osc.stop(nextBeatTime + duration)
           }
 
           //highlight and unhighlight selected column
@@ -194,4 +195,18 @@ function osc(pitch, waveform){
   gainNode.connect(ac.destination);
   gainNode.gain.value = .03;
   return {osc: oscillator, gain: gainNode};
+};
+
+function osc(start, stop){
+  oscillator = ac.createOscillator(),
+  oscillator.type = 1;
+  oscillator.frequency.value = 1*getPitch();
+  
+  gainNode = ac.createGain();
+  gainNode.connect(ac.destination);
+  gainNode.gain.value = .03;
+
+  oscillator.connect(gainNode);  
+  oscillator.start(start);
+  oscillator.stop(stop)
 };
