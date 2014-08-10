@@ -22,6 +22,7 @@ var arc = d3.svg.arc()
 var beatsB = d3.select('.blue .gearG').selectAll('g')
     .data(d3.range(numBeatsB)).enter()
   .append('g')
+    .classed('beat', true)
     .attr('transform', function(d){ return 'rotate(' + rotationScale(d) + ')'; })
 
 //add array of notes to each beat

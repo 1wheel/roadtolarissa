@@ -30,6 +30,7 @@ var color = d3.scale.ordinal()
 var beats = d3.select('.yellow .gearG').selectAll('g')
     .data(d3.range(numBeats)).enter()
   .append('g')
+    .classed('beat', true)
     .attr('transform', function(d){ return 'rotate(' + rotationScale(d) + ')'; })
 
 //add array of notes to each beat
