@@ -12,7 +12,7 @@ var nSvg = d3.select('#drawDownNaive')
 var data = [1, 0];
 for (var i = 1; i < 100; i++){
   var rand = Math.random();
-  data[i+1] = data[i] + (rand < .5 ? rand - 1.5 : rand + 1.5)
+  data[i+1] = data[i] + (rand < .5 ? rand - 2.3 : rand + 1.5)
 }
 
 var x = d3.scale.linear()
@@ -37,10 +37,10 @@ var circles = nSvg.append('g').selectAll('circle')
     .attr('cy', y)
     .attr('r', 5)
 
-var connectionLine = nSvg.append('line')
-    .style('stroke', 'green')
-    .style('stroke-width', 2)
-var bestLine = nSvg.append('line');
+var bestLine = nSvg.append('line').classed('best', true);
+var bestHeightLine = nSvg.append('line').classed('best', true);
+var connectionLine = nSvg.append('line').classed('connection', true)
+var heightLine = nSvg.append('line').classed('connection', true)
 
 for (var j = 0; j < data.length; j++){
   for (var k = j + 1; k < data.length; k++){
@@ -50,33 +50,49 @@ for (var j = 0; j < data.length; j++){
 
   }
 }
-var duration = 10;
+var duration = 25;
 var j = 0;
 var k = 1;
+var best = 0;
 animateStep();
 
 function animateStep(){
   connectionLine
-      .attr({
-        x1: x(j),
-        y1: y(data[j]),
-        x2: x(j),
-        y2: y(data[j]) })
+      .attr({ x1: x(j),
+              y1: y(data[j]),
+              x2: x(j),
+              y2: y(data[j]) })
     //.transition().duration(duration - 50)
-      .attr({
-        x2: x(k),
-        y2: y(data[k]) })
+      .attr({ x2: x(k),
+              y2: y(data[k]) })
+
+  heightLine
+      .attr({ x1: x(j),
+              y1: y(data[j]),
+              x2: x(j),
+              y2: y(data[k]) })
+
+  if (best < data[k] - data[j]){
+    best = data[k] - data[j]
+    d3.selectAll('.best')
+      .attr({ x1: x(j),
+              y1: y(data[j]),
+              x2: x(k),
+              y2: y(data[k]) });
+    bestHeightLine.attr('x2', x(j))
+  }
 
   if (j === k - 1){
     circles.attr('r', function(d, i){ return i === j ? 10 : 5; })
   }
   circles.filter(function(d, i){ return i === k; })
-      .attr('r', 6)
+      .attr('r', 7)
     .transition().duration(duration + 200)
       .attr('r', 5)
 
   if (k < data.length - 1){ k++; }
   else if (j < data.length - 2){ j++; k = j + 1; }
   else { return; }
+  duration = duration*.99;
   setTimeout(animateStep, duration);
 }
