@@ -191,7 +191,7 @@ function playNote(pitch, start, duration){
   gainNode = ac.createGain();
   gainNode.connect(ac.destination);
   gainNode.gain.value = 0;
-  gainNode.gain.setTargetAtTime(.06, start + duration*1/4, duration/10)
+  gainNode.gain.setTargetAtTime(.6/Math.max(0.1, duration), start + duration*1/4, duration/10)
   gainNode.gain.setTargetAtTime(.001, start + duration*3/4, duration/10)
 
   oscillator.connect(gainNode);  
