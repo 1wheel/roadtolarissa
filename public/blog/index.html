@@ -113,7 +113,7 @@
   <h1>Posts</h1>
     
       <li class="post">
-        <a href="/blog/2014/08/05/215-teeth/">215 Teeth / 1008 Beats</a>
+        <a href="/215-teeth">215 Teeth / 1008 Beats</a>
       </li>
     
       <li class="post">
@@ -203,7 +203,7 @@
   	
   	<article>
   	  
-<h1><a href="/blog/2014/08/05/215-teeth/">215 Teeth / 1008 Beats</a></h1>
+<h1><a href="/215-teeth">215 Teeth / 1008 Beats</a></h1>
 <time datetime="2014-08-05T00:00:00-04:00" pubdate><span class='month'>Aug</span> <span class='day'>05</span> <span class='year'>2014</span></time>
 
 
@@ -480,7 +480,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/08/05/215-teeth/">215 Teeth / 1008 Beats</a></h1>
+      <h1 class="entry-title"><a href="/215-teeth">215 Teeth / 1008 Beats</a></h1>
     
     
       <p class="meta">
@@ -509,7 +509,7 @@
 <div id='synthSliders'></div>
 
 
-<p>Finishing up the circular synth, I got a little frustrated by its inability to save more than 4 measures of music. While there was a clear connection between the interface and the music, there wasn&rsquo;t any way to communicate its most enjoyable aspect &ndash; changing a few notes every cycle, creating a composition.</p>
+<p>Finishing up the <a href="http://roadtolarissa.com/synth/">circular synth</a>, I got a little frustrated by its inability to save more than 4 measures of music. While there was a clear connection between the interface and the music, there wasn&rsquo;t any way to communicate its most enjoyable aspect &ndash; changing a few notes every cycle, creating a composition.</p>
 
 <p>With these gears, I&rsquo;ve tried to visually represent this process of change. The orange gear functions like the first circular synth. Each arc is a note &mdash; the distance from the center corresponds to its pitch; the column to one of eight beats. When the beat passes the left-hand side of the circle, it&rsquo;s highlighted yellow and the filled in notes are played.</p>
 
@@ -517,9 +517,11 @@
 
 <p>Every 63 (7×9) orange beats, the pink gear completes one rotation while the orange gear rotates 7 and 7/8th times. After 8 rotations of the pink gear or 504 (7×8×9) beats, each gear returns to its original orientation. Many of the notes on the orange gear have had their fill-states changed several times; during the next 504 beats, the same pink notes that flipped the orange beats&#8217; fill-state will flip it again till everything returns to exactly how it started, 1008 beats earlier.</p>
 
-<p>While (I think) this is nicely elegant exploitation of 7, 8 and 9&rsquo;s relative primalitity and does visualize an entire composition at once, there are a number of limitations. The graphic isn&rsquo;t self explanatory &mdash;  the accompanying text should be adding context; not a requirement for understanding. Watching at a slow speed shows off the aesthetically pleasing gear animation, but the inversion of notes occurs too slowly to hear. Speeding up makes the inversions more audible, but the gears start to blur and turn backwards like a fan. Adding another gear or two in the chain of updating notes a la (MIT GEAR THINGER) would provide a good variety of speeds but at the cost of adding more complexity. The biggest limitation is that it&rsquo;s difficult to make something that sounds good throughout the cycle of 1008 beats. Since the filled-in notes constantly invert and uninvert, there are lots of dissonant chords, making it difficult to predict how changing one note will effect the entire song.</p>
+<p>While (I think) this is nicely elegant exploitation of 7, 8 and 9&rsquo;s relative primality and does visualize an entire composition at once, there are a number of limitations. The graphic isn&rsquo;t self explanatory &mdash; the accompanying text should be adding context; not a requirement for understanding. Watching at a slow speed shows off the aesthetically pleasing gear animation, but the inversion of notes occurs too slowly to hear. Speeding up makes the inversions more audible, but the gears start to blur and turn backwards like a fan. Adding another gear or two in the chain of updating notes like Ganson&rsquo;s <a href="https://www.youtube.com/watch?v=5q-BH-tvxEg">Machine with Concrete </a> would provide a good variety of speeds but at the cost of adding more complexity. The biggest limitation is that it&rsquo;s difficult to make something that sounds good throughout the cycle of 1008 beats. Since the filled-in notes constantly invert and uninvert, most sets of 7 pitches will result in lots of dissonant chords (I ended up going with 2 octaves of a major scale paired with cheery, cartoony colors).</p>
 
-<p>LINK TO PIOANO thing impressed me.</p>
+<p>I&rsquo;m getting to work on more straightforward visualizations of data at <a href="http://www.bloomberg.com/visual-data">work</a> now; hoping to post experiments with <a href="http://bost.ocks.org/mike/algorithms/">algorithms</a> and/or <a href="http://www.pianophase.com/">rhythm</a> here soon.</p>
+
+<p>code for <a href="https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/synthComp/gears.js">gears</a>(based on <a href="http://bl.ocks.org/mbostock/1353700">Bostock’s Epicyclic Gearing bl.ocks</a> and <a href="https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/synthComp/audio.js">audio</a> on github.</p>
 
 <script src="/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
 
@@ -547,6 +549,8 @@
 
 <script src="/javascripts/posts/synthComp/audio.js" type="text/javascript"></script>
 
+
+<p><meta property="og:image" content="/images/thumbnails/215-teeth.png" /></p>
 </div>
   
   

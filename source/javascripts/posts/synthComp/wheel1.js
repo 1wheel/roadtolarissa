@@ -2,8 +2,10 @@ var height = rYellow*radius*2 - 5,
     root = 130.81;
     // pitches = [130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94, 261.63, 146.83*2, 164.81*2, 174.61*2, 196.00*2, 220.00*2, 246.94*2, 261.63*2].reverse();
     // pitches = d3.range(5).map(function(d){ return 130.81*Math.pow(3/2, d); })
-    pitches = [1, 5/4, 3/2, 2, 2*5/4, 2*3/2, 4].map(function(d){ return d*root; }).reverse()
-    pitches = pitches.filter(function(d, i){ return i < 8; });
+    
+    pitches = [1, 5/4, 3/2, 2, 2*5/4, 2*3/2, 4]
+    pitches = [1, 567/512, 9/8, 21/16, 189/128, 3/2, 63/32]
+    pitches = pitches.filter(function(d, i){ return i < 8; }).map(function(d){ return d*root; }).reverse();
 
 //beat number to angle
 var rotationScale = d3.scale.linear()
