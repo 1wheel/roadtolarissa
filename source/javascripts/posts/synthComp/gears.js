@@ -22,7 +22,7 @@ var width = 750,
       .attr("width", width)
       .attr("height", height)
     .append("g")
-      .attr("transform", "translate(" + (width / 2 + radius*10) + "," + (height / 2 + 70) + ")")
+      .attr("transform", "translate(" + (width / 2 + radius*9.3) + "," + (height / 2 + 70) + ")")
     .append("g");
 
   svg.append("g")

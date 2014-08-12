@@ -131,7 +131,10 @@ var Hz = (function(){
 
 
 var isPaused = false;
-function togglePause(){ isPaused = !isPaused; }
+function togglePause(el){ 
+  isPaused = !isPaused; 
+  d3.select(el).text(isPaused ? 'Play' : 'Pause'); 
+}
 
 function clear(){
   d3.selectAll('.note').each(function(d){
@@ -144,21 +147,26 @@ function clear(){
 function randomize(){
   clear();
   d3.selectAll('.note').each(function(d, i){
-    if (Math.random() > (i < 9*7 ? .75 : .99)){
+    if (Math.random() > (i < 9*7 ? .75 : .99999)){
       d3.select(this).on('click').call(this, d);
     }
   });
 }
 
-d3.select('#buttons').selectAll('.button')
+d3.select('svg').selectAll('.button')
     .data(
       [ 
-        {text: 'Pause',  fun: togglePause},
-        {text: 'Clear',       fun: clear},
-        {text: 'Randomize',   fun: randomize}]).enter()
-    .append('span')
+        {text: 'Randomize',   fun: randomize},
+        {text: 'Pause',       fun: togglePause},
+        {text: 'Reset',       fun: clear},
+      ]).enter()
+    .append('text')
+      .classed('button', true)
+      .attr('y', function(d, i){ return 50 + 25*i; })
+      .attr('x', 0)
+      .style('font-size', '16px')
       .text(f('text'))
-      .on('click', function(d){ d.fun(); });
+      .on('click', function(d){ d.fun(this); });
 
 
 //set url to reflect state on note change or beat

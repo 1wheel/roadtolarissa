@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="I&rsquo;ve spent the last few days working on a visualizer for reddit comments.  Using reddit&rsquo;s API, the program downloads a user&rsquo;s &hellip;">
+  <meta name="description" content="It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/blog/2014/08/05/215-teeth/">215 Teeth / 1008 Beats</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/23/even-fewer-lamdas-with-d3/">Even Fewer Lambdas in D3</a>
       </li>
     
@@ -196,6 +200,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/blog/2014/08/05/215-teeth/">215 Teeth / 1008 Beats</a></h1>
+<time datetime="2014-08-05T00:00:00-04:00" pubdate><span class='month'>Aug</span> <span class='day'>05</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -466,7 +480,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/reddit-comment-visualizer">Reddit Comment Visualizer</a></h1>
+      <h1 class="entry-title"><a href="/redditgraphs-retrospective">Redditgraphs Retrospective</a></h1>
     
     
       <p class="meta">
@@ -482,78 +496,67 @@
   
 
 
-<time datetime="2012-10-19T00:00:00-04:00" pubdate data-updated="true"></time>
+<time datetime="2012-11-17T00:00:00-05:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&rsquo;ve spent the last few days working on a <a href="http://www.roadtolarissa.com/javascript/reddit-comment-visualizer/">visualizer for reddit comments</a>.  Using reddit&rsquo;s API, the program downloads a user&rsquo;s comments and graphs them with <a href="http://www.flotcharts.org/">flot</a>.</p>
+  <div class="entry-content"><p>It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the application and trying to share it with people. After posting the basic demo on /r/javascript, I was encouraged make improvements and host the project on its own domain. Registering &#8220;<a href="www.redditgraphs.com">redditgraphs.com</a>&#8221; for a year only cost $5 and it seemed more memorable and easier to access than &#8220;roadtolarissa.com/javascript/reddit-comment-visualizer&#8220;. I spent another week adding functionality &#8211; hourly trends, weekly trends, direct linking to user names &#8211; and making the UI prettier.</p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/scatter-plot-screen-shot.png"><img class="aligncenter size-full wp-image-85" title="Scatter Plot Screen Shot" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/scatter-plot-screen-shot.png" alt="" width="734" height="497" /></a></p>
+<p>Improving the UI was harder than adding functionality. I don&rsquo;t think I&rsquo;ve ever created anything particularly visually beautiful before in my life. The previous UI was definitely not pretty but since I was using the default radio button and drop down menus, it didn&rsquo;t feel like I was exposing part of myself or actively making something bad or mockable. Still, several changes were necessary to improve usability. Most importantly, the previous graph picker was too small and did not attract enough attention:</p>
 
-<p>The most obvious way to graph a set of data points is with a scatter plot. Since reddit&rsquo;s <a href="http://www.reddit.com/user/1wheel/comments/">user page</a> only displays 20 comments at a time, it is very difficult to get a sense about how time has been spent on the site. On this scatter plot, every one of my comments is represented by a small circle plotted so its length position along the y-axis represents its number of (non-quotation) characters. Mousing over a circle displays the comment it represents on the right panel. I can see that I&rsquo;ve spent most of my time talking about League of Legends, that I commented a lot in last July, and that I&rsquo;m posting less frequently now.</p>
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview3.png"><img class="aligncenter size-full wp-image-114" title="Old Graph Type" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview3.png" alt="" width="180" height="130" /></a></p>
 
-<p>Unfortunately, while it is easy to see that most of my comments are not very long, it isn&rsquo;t very clear exactly how many shorter comments there are since the points cluster together closely at the bottom of the graph. Adding a heat map or <a href="http://bost.ocks.org/mike/fisheye/">fisheye zoom</a> to the scatter plot could fix this problem, but neither are implemented in flot. Instead, I use a totally different graph type to display the data:</p>
+<p>One of the biggest difficulties in creating this type of interactive display is leading the user to interesting interactions. After posting this version, I received several requests to add histograms and karma plotting &#8211; features already included, but buried in ambigously titled drop down menus. I had thought putting the options in the upper left hand corner would make them impossible to miss. Since that wasn&rsquo;t the case, I used large, tile-like icons to draw even more attention to the different graph types in the redesign:</p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Histogram-of-Length.png"><img class="aligncenter size-full wp-image-81" title="Histogram of Length" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Histogram-of-Length.png" alt="" width="719" height="665" /></a></p>
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview4.png"><img class="aligncenter size-full wp-image-115" title="New Graph Types" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview4.png" alt="" width="221" height="410" /></a></p>
 
-<p>flot also does not include histograms, but sorting and grouping the comments then displaying them with the <a href="http://people.iola.dk/olau/flot/examples/stacking.html">stacking plugin</a> is simpler than creating a fisheye zoom effect within flot. By removing the time component of the graph, the distribution of comment length becomes much easier to see &#8211; the vast majority of comments I&rsquo;ve made are quite short, even more so than the scatter plot shows.</p>
+<p>By making the icons the largest, most colorful non graph item on the page, it is much clearer that they are supposed to be clicked on and played with. Additionally, convanying the opitions in a less textual manner allowed me to move away from the confusing &#8220;Graph Settings: Graph Type: Type&#8221; formulation. I think there is still a lot of room for improvement, especially on the data icons, but I&rsquo;m not sure how to do it without learning a lot more or paying something. The pile of books and the ruler look like clip art because that&rsquo;s what they are.</p>
 
-<p>Still, while the distribution of comment&rsquo;s length is apparent in the histogram, the distribution of comment length in each subreddit is difficult to discern. Like with the scatter plot, it is clear that the most commonly element &#8211; this time the League of Legends subreddit instead of short posts &#8211; occurs quite often and others less frequently, but the actual ratio between them is not clear.</p>
+<p>The rest of the redesign followed a similar pattern. All the radios and spinboxes were replaced by more clickable and colorful buttons and sliders. I added a banner and logo at the top, which took much longer than I excepted to get just right.</p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/pie-chart.png"><img class="aligncenter size-full wp-image-83" title="pie chart" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/pie-chart.png" alt="" width="651" height="662" /></a></p>
+<p>This was the result:</p>
 
-<p>Pie charts <a href="http://andrewgelman.com/2010/09/thinking_outsid/">generally don&rsquo;t get a lot of love</a>, but I use one to display total karma (and total comment length, and number of comments) by subreddit because it does a decent job of displaying the ratios and is simpler, more immediately understandable graph than the others. The second point is particularly important with the pie chart because mousing over a wedge shows a quantitative breakdown of the comments on a particular subreddit:</p>
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview.png"><img class="aligncenter size-large wp-image-109" title="Changes to redditgraphs" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview-1024x717.png" alt="" width="640" height="448" /></a></p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/pie-details.png"><img class="aligncenter size-full wp-image-84" title="pie details" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/pie-details.png" alt="" width="207" height="207" /></a>The mouse over detail for all the other, more complicated charts is mostly composed of the text of the comment which is easier to process than sums and averages. The simpler  display of the pie graph allows for comparatively more complicated details.</p>
+<p>&nbsp;</p>
 
-<p>While removing time from the graph allows for a closer examination of different properties of commenting patterns, it also (obviously) masks how those patterns change over time. One of my initial motivations in undertaking this project was to see if my own habits on Reddit have changed over time, particularly how my commenting on the League of Legends subreddit had changed after I had stopped playing. For that, a sort of  pie chart on a timeline graph was needed, like the histograph from Civilization 3:</p>
+<p>Satisfied with both the look and functionality, I posted a link and a description to /r/dataisbeautiful. The surprising amount of the feedback was almost entirely positive and several thousand people visited the site. This was very exciting &#8211; I&rsquo;m don&rsquo;t think anything else I&rsquo;ve done has ever been used by so many people in so short a time. I also tweeted links  to several tech journalists and one ended up writing a short article.</p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Civ-Histograph.png"><img class="aligncenter size-full wp-image-88" title="Civ Histograph" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Civ-Histograph.png" alt="" width="902" height="690" /></a></p>
+<p>Afterwords, I spent a few days making some of the suggested improvements &#8211; viewing submissions as well as comments, adding the option to log scale some of the axes, and direct linking to different graph types. Around this time, working with the code started to become much more unpleasant. The main culprit was (and is) the function that takes raw data download from reddit and transforms it into a graph. Since I hadn&#8217;t anticipated having so many options, features were added one at a time until the thing started to resemble a huge knot.</p>
 
-<p>When I tried to find a histograph plugin for though, I ran into a problem:</p>
+<p>Encouraged by the suggestions to share the site with more people, I posted links on some of the default subreddits. Unfortunately, the reception wasn&rsquo;t nearly as positive. Some of the time, my posts were basically ignored (/r/WTF, /r/YouShouldKnow) without many people seeing them. More often, they would would start doing well and than get removed by a moderator for being off topic (/r/askreddit, /r/technology, /r/LifeProTips, /r/offbeat).</p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Google-Search-for-histograph.png"><img class="aligncenter size-full wp-image-93" title="Google Search for histograph" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Google-Search-for-histograph.png" alt="" width="197" height="32" /></a>Apparently, by &#8216;histograph&#8217; Firaxis meant &#8216;history graph&#8217;, not &#8216;histograph, a term of art describing a type of graph&#8217; like I have been assuming they meant for the last 11 years. I&rsquo;ve tried finding the actual name for this type of graph, but so haven&rsquo;t been able to unearth one. Undeterred, I implemented a histograph in flot:</p>
+<p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Histograph-of-Reddit-Comments2.png"><img class="aligncenter size-full wp-image-94" title="Histograph of Reddit Comments" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Histograph-of-Reddit-Comments2.png" alt="" width="634" height="743" /></a></p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#116;&#105;&#112;&#115;&#64;&#119;&#101;&#x62;&#115;&#105;&#116;&#101;&#x2e;&#x63;&#x6f;&#109;">&#x74;&#105;&#x70;&#x73;&#x40;&#119;&#x65;&#x62;&#x73;&#x69;&#x74;&#101;&#46;&#99;&#111;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
-<p>This graph shows, in a way none of the others would be able to clearly, how rrenaud initially spent most of his time commenting on r/programming but then transitioned to r/gaming, r/MachineLearning, and r/dominion. (Since reddit shows everyone&rsquo;s comments to everyone else, this app can be used to view other user&rsquo;s comment history. Doing so seems a little stalkerish. At the same time, the scatter plot view provides the best, quickest overview of a reddit profile that I&rsquo;ve ever seen. By mousing over outliers and fiddling with the plot settings, it is possible to see someone else&rsquo;s most and least popular comments, the posts that they&rsquo;ve spent the most time writing and what they wrote when they first started using reddit in seconds. If rrenaud ever comes across this post, hopefully he isn&rsquo;t too weirded out &#8211; the graphs on his excellent <a href="http://rftgstats.com/">Race to the Galaxy stats page</a> inspired some of my work here and his site preservers <a href="http://rftgstats.com/player_1wheel.html">my mediocre rating</a> at the game (In my defense, I lost 10 of my last 11 games; there is probably some sort of connection between the win/loss record and my decision to stop playing))</p>
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 
-<p>While the graph is valuable, it need more work. By showing the accumulated number of comments at each time interval instead of the rate of commenting, the start of the graph is extremely sensitive to small changes in commenting patterns while the end doesn’t move near enough. rrenurd essentially doesn’t comment in r/programming anymore but since the graph shows a stock instead of a flow, the graph doesn’t clearly show that information. I’d like a graph of the commenting rate instead, but I’m having trouble creating one which both displays the flow of comments in different subreddits and easily communicates its meaning. Even the current form of the histograph struggles on the communication front – the title of the graph and scale of the y axis need to be changed to better convey the concept of proportions changing over time.</p>
+<p>During most of the this time, I wasn&rsquo;t really doing anything productive. It was super easy to write up a post or an email and then sit around writing responses and browsing reddit for a few too many hours. To avoid this problem without giving up hope on getting more users, I spent a few days learning python and <a href="https://github.com/1wheel/reddit-comment-visualizer/blob/master/commentbot.py">wrote a bot</a> to scan recent comments for mentions of &#8216;your comment history&#8217; or &#8216;my comment history&#8217; and reply with a link to the mentioned person&rsquo;s redditgraph. Initially, I manually copied/pasted the comments and only posted a few per day. Seeing that 75% of the replies to the &#8216;bot&#8217; were positive, I decided to totally automate its posting and expand the number of terms it searched for. The maker of the the <a href="http://stattit.com/">statit</a> contacted me on gtalk, telling me that I should throttle or turn off the bot or the admins would ban it. I knew he was probably right, I couldn&rsquo;t bring myself to disable to continuous stream of comments I was creating. The thrill I got from redditgraphs came primarily from the idea that thousands of people around the world were using their computers to simultaneously automate a process that I had shared with them; with the commenting bot the sharing itself was automated.</p>
 
-<p>I’ve come a little closer to these goals graphing something similar:<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Average-Comments-per-Day.png"><img class="aligncenter size-full wp-image-103" title="Average Comments per Day" src="http://www.roadtolarissa.com/wp-content/uploads/2012/10/Average-Comments-per-Day.png" alt="" width="898" height="638" /></a></p>
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof2.png"><img class="aligncenter size-full wp-image-123" title="redditbot comment" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof2.png" alt="" width="852" height="88" /></a></p>
 
-<p>This graph needs less explanation because “Comments per Day” is an easier idea to communicate than what the histograph is trying to show even though both are reconstructing a flow from discrete points.</p>
+<p>The next morning, the bot was banned.</p>
 
-<p>I’d still like to improve this graph. In particular, the smoothing algorithm needs more work. Ideally, the leftmost part of the smoother would not have a large gap.  I’ve tried different kernel smoothers and radii but haven’t found anything that is responsive enough to small change in the data without leaving gaps.</p>
+<p>Getting responses and posting wasn&rsquo;t fun anymore, so I&rsquo;ve decided to stop posting on reddit. While I did learn more about reddit and communicated with admins, moderators, and bloggers more than I had before, I don&rsquo;t think it is the most useful topic to learn about and I didn&rsquo;t need to spend weeks on it. I definitely don&rsquo;t need to need more time making the greenlines on this graph go up higher:</p>
 
-<p>Other things to improve:</p>
-
-<ol start="1">
-  <li>
-    Splitting the graphing code into separate functions based on graph type. I was planning on doing this originally, but as I added more graph types it because less clear which parts of the program were unique to a graph type and which needed to be shared. The code was fairly concise and well organized when the page only showed a scatter plot; now it is a huge mess.
-  </li>
-  <li>
-    I’m really not sure how manage errors that occur when connecting to Reddit’s servers. The console displays a 404 message when the user name doesn’t exist and another message if no connection is made, but I have no idea how to make those events trigger things in my program. Currently, if a valid response isn’t received within 4 seconds an error message is displayed. This isn’t that great of a solution since sometimes Reddit’s servers take more than 4 seconds to reply with a valid response and sometimes they respond with a 404 message is less than 4 seconds. jQuery’s .ajax() has settings to fix this problem, but those callbacks don’t work with JSONP (something else I don’t understand – how does using prevent cross scripting?).
-  </li>
-  <li>
-    The page only uses CSS to position and hide elements. I think everything lines up ok in chrome, but in other browsers it looks pretty bad. Defining the appearance of the buttons and forms so different browsers use the same defined appearance instead of their different defaults would help. I’m hoping I can find a way of making pages look ‘nice’ without having to spend too much time on it; looking into different frameworks is probably a good idea.
-  </li>
-  <li>
-    Watching the graph change as older comments load (Reddit will send a maximum of 100 comments at a time) or slowly increasing the minimum comment length by holding down the button results in a nifty animation. Drawing the graph takes only a few milliseconds, so drawing the graph over and over again with slightly different parameter creates the appearance of motion. All of the graphs could be improved with optional animation. For example, an animated pie chart could show the same information as the histograph while being easier to understand and more engaging to look at. UI issues are preventing me from adding animation to the live version - the page is already getting close to being cluttered and there are huge number of ways to add motion to a graph. I need to figure which animated graphs are best along with a concise way of displaying to option to view them.
-  </li>
-  <li>
-    Allowing users to login with their Reddit information could also improve usability. The Reddit API only exposes friends and voting patterns of the currently logged in user. Displaying a drop down list of those friends would remove the need to copy/paste their strangely spelled names. More interestingly, the same analysis that is performed by the comments could be performed on upvoted content. I think I vote more often and in more places than I comment; that information might provide a better sense of time spent on the site. I suspect that number of votes that Reddit exposes might limit the value of this information. Only the 1000 most recent comments and submissions can be viewed and they same rule probably applies to votes. Since everyone automatically upvotes every comment they make, many of the votes would have to be thrown out. Additionally, votes on comments and submissions should probably be treated separately for everything other than subreddit analysis  which would further reduce number of available data points.
-  </li>
-  <li>
-    There are also comment analytics which are not directly exposed by Reddit. It would be neat to see who replies to you the most and vice versa. Keep track of different commenters on Reddit isn&#8217;t easy &#8211; I&#8217;ve had several conversations with people I know in person on Reddit and not realized it until they brought it up in real life. Reddit Enhancement Suite helps with this, but I&#8217;m still curious  to see how often I actually communicate back and forth with different people. Unfortunately, loading information about each comment&#8217;s parent and children might take too long to run in a webpage. Assuming 1000 comments each with an average of 1.5 combined parents and children, 1500 requests would take 3000 rate limited seconds to process &#8211; nearly an hour.
-  </li>
-</ol>
+<p style="text-align: center;">
+  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/bwgraph.png"><img class="aligncenter  wp-image-127" title="Traffic graph for redditgraphs" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/bwgraph.png" alt="" width="800" height="400" /></a>
+</p>
 
 
-<p>Even considering the above reservations, I&rsquo;m pretty happy about the current state of this app so I&rsquo;m going to post it to reddit to get some feedback. I&rsquo;ve also been pleasantly surprised about how long this took me to make &#8211; 40 hours of not especially difficult work over a week is still a longish amount of time but it&#8217;s significantly less than I would have spent a few months ago.</p>
+<p>One more generally applicable thing I found out: feedback isn&rsquo;t helpful in terms of adding features. Before the redesign no one was asking for large icons instead of drop down menu, but from all the comments asking about different graph types I inferred that they needed to be added. One of the more useful features I came up with allowed for searching for specific phrases in the comment history. This didn&rsquo;t get added to the live version mainly because I wasn&rsquo;t sure how to add it to the UI &#8211; should there be a user name text box and a search text box right on top of each other? Requiring people to typing in a regex didn&rsquo;t seem feasible, but where would the rules of a simpler syntax be communicated? I assumed that someone would ask for searching and I would have a reason to add it, but no one did and I never got around to it.</p>
+
+<p>A small proportion of the comments were useful, maybe 10 or 20 out out of the ~250 that I received. That number is even more miniscule compared to the total number number of people who have viewed the site:</p>
+
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof3.png"><img class="aligncenter size-full wp-image-129" title="makeusof" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof3.png" alt="" width="508" height="123" /></a></p>
+
+<p>It makes sense that most people wouldn&rsquo;t send feedback &#8211; I look at lots of things people have made on the internet and I write something back to the creator far less than 1% of the time. This highlights the importance of having a clear idea of what you&rsquo;d like to make and generating and refining your own work towards that idea. Getting feedback in the form of a conversation with someone you actually know before sharing widely is also extremely valuable. Unlike your actual friends, internet commenters don&rsquo;t have any incentive to engage deeply with your idea and most don&rsquo;t end up doing so.</p>
+
+<p>I&rsquo;ve been working on a few smaller projects since. Nothing is super finished, but I should have a post about the works in progress up later today.</p>
 </div>
   
   
