@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-07-06T17:30:34-04:00</updated>
+  <updated>2014-08-11T23:04:17-04:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[215 Teeth / 1008 Beats]]></title>
+    <link href="http://roadtolarissa.com/blog/2014/08/05/215-teeth/"/>
+    <updated>2014-08-05T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/blog/2014/08/05/215-teeth</id>
+    <content type="html"><![CDATA[<p><link rel="stylesheet" type="text/css" href="http://roadtolarissa.com/javascripts/posts/synthComp/style.css">
+<svg id='synth' style='width: 100%'></svg></p>
+
+<div id='synthSliders'></div>
+
+
+<p>Finishing up the circular synth, I got a little frustrated by its inability to save more than 4 measures of music. While there was a clear connection between the interface and the music, there wasn&rsquo;t any way to communicate its most enjoyable aspect &ndash; changing a few notes every cycle, creating a composition.</p>
+
+<p>With these gears, I&rsquo;ve tried to visually represent this process of change. The orange gear functions like the first circular synth. Each arc is a note &mdash; the distance from the center corresponds to its pitch; the column to one of eight beats. When the beat passes the left-hand side of the circle, it&rsquo;s highlighted yellow and the filled in notes are played.</p>
+
+<p>The large orange and green gears each have 72 teeth, the small green gear has 8 and the pink gear has 63. Every 7 beats the orange and green gears make 7/8ths of one revolution. This turns the small green gear 7 teeth ahead, while also turning the pink gear 7 teeth or 1/9th of a revolution (7/63 teeth). Since the pink gear has 9 beats, this progression of 7 orange beats advances the pink gear exactly one beat. When a pink beat passes the left side of the circle, it flashes blue and any of its filled in notes invert the fill-state of the orange notes across from them.</p>
+
+<p>Every 63 (7×9) orange beats, the pink gear completes one rotation while the orange gear rotates 7 and 7/8th times. After 8 rotations of the pink gear or 504 (7×8×9) beats, each gear returns to its original orientation. Many of the notes on the orange gear have had their fill-states changed several times; during the next 504 beats, the same pink notes that flipped the orange beats&#8217; fill-state will flip it again till everything returns to exactly how it started, 1008 beats earlier.</p>
+
+<p>While (I think) this is nicely elegant exploitation of 7, 8 and 9&rsquo;s relative primalitity and does visualize an entire composition at once, there are a number of limitations. The graphic isn&rsquo;t self explanatory &mdash;  the accompanying text should be adding context; not a requirement for understanding. Watching at a slow speed shows off the aesthetically pleasing gear animation, but the inversion of notes occurs too slowly to hear. Speeding up makes the inversions more audible, but the gears start to blur and turn backwards like a fan. Adding another gear or two in the chain of updating notes a la (MIT GEAR THINGER) would provide a good variety of speeds but at the cost of adding more complexity. The biggest limitation is that it&rsquo;s difficult to make something that sounds good throughout the cycle of 1008 beats. Since the filled-in notes constantly invert and uninvert, there are lots of dissonant chords, making it difficult to predict how changing one note will effect the entire song.</p>
+
+<p>LINK TO PIOANO thing impressed me.</p>
+
+<script src="http://roadtolarissa.com/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
+
+
+<script src="http://roadtolarissa.com/javascripts/libs/lodash.js" type="text/javascript"></script>
+
+
+
+
+<script src="http://roadtolarissa.com/javascripts/posts/negBarTransition/lib.js" type="text/javascript"></script>
+
+
+
+
+<script src="http://roadtolarissa.com/javascripts/posts/synthComp/gears.js" type="text/javascript"></script>
+
+
+<script src="http://roadtolarissa.com/javascripts/posts/synthComp/wheel1.js" type="text/javascript"></script>
+
+
+<script src="http://roadtolarissa.com/javascripts/posts/synthComp/wheel2.js" type="text/javascript"></script>
+
+
+
+
+<script src="http://roadtolarissa.com/javascripts/posts/synthComp/audio.js" type="text/javascript"></script>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Even Fewer Lambdas in D3]]></title>
@@ -676,7 +728,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#x74;&#x69;&#x70;&#x73;&#64;&#119;&#x65;&#x62;&#115;&#x69;&#116;&#101;&#x2e;&#99;&#111;&#x6d;">&#x74;&#105;&#112;&#x73;&#x40;&#119;&#101;&#98;&#x73;&#x69;&#116;&#101;&#x2e;&#x63;&#111;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#116;&#105;&#112;&#115;&#64;&#119;&#101;&#x62;&#115;&#105;&#116;&#101;&#x2e;&#x63;&#x6f;&#109;">&#x74;&#105;&#x70;&#x73;&#x40;&#119;&#x65;&#x62;&#x73;&#x69;&#x74;&#101;&#46;&#99;&#111;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 
