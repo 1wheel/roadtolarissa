@@ -1,0 +1,28 @@
+
+path {
+  fill-rule: evenodd;
+  stroke: #333;
+  stroke-width: 2px;
+}
+
+.blue path {
+  fill: #FF69C8;
+}
+
+.red path {
+  fill: #50E359;
+}
+
+.yellow path {
+  fill: #FF8A00;
+}
+
+
+svg{
+	height: 600px
+}
+
+.beat, .button{
+	stroke-opacity: .28;
+	cursor: pointer;
+}
