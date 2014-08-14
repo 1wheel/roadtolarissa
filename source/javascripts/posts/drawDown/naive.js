@@ -1,31 +1,9 @@
-var margin = {top: 10, right: 20, bottom: 10, left: 20};
-var height = 250;
-var width = 600;
-
 var nSvg = d3.select('#drawDownNaive')
 	.append('svg')
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-
-var data = [1, 0];
-for (var i = 1; i < 100; i++){
-  var rand = Math.random();
-  data[i+1] = data[i] + (rand < .5 ? rand - 2.3 : rand + 1.5)
-}
-
-var x = d3.scale.linear()
-    .domain([0, data.length])
-    .range([0, width])
-
-var y = d3.scale.linear()
-    .domain(d3.extent(data))
-    .range([height, 0])
-
-var line = d3.svg.line()
-    .x(function(d, i){ return x(i); })
-    .y(y);
 
 nSvg.append('path')
     .attr('d', line(data))
@@ -42,21 +20,13 @@ var bestHeightLine = nSvg.append('line').classed('best', true);
 var connectionLine = nSvg.append('line').classed('connection', true)
 var heightLine = nSvg.append('line').classed('connection', true)
 
-for (var j = 0; j < data.length; j++){
-  for (var k = j + 1; k < data.length; k++){
-    // circles
-    //     .attr('r', function(d, i){ return i == j ? 10 : 5 })
-
-
-  }
-}
-var duration = 25;
-var j = 0;
-var k = 1;
-var best = 0;
+var j = 0,
+    k = 1,
+    best = Infinity;
 animateStep();
 
 function animateStep(){
+  var colorStr = color(data[k] - data[j]);
   connectionLine
       .attr({ x1: x(j),
               y1: y(data[j]),
@@ -65,20 +35,23 @@ function animateStep(){
     //.transition().duration(duration - 50)
       .attr({ x2: x(k),
               y2: y(data[k]) })
+      .style('stroke', colorStr)
 
   heightLine
       .attr({ x1: x(j),
               y1: y(data[j]),
               x2: x(j),
               y2: y(data[k]) })
+      .style('stroke', colorStr)
 
-  if (best < data[k] - data[j]){
+  if (best > data[k] - data[j]){
     best = data[k] - data[j]
-    d3.selectAll('.best')
-      .attr({ x1: x(j),
-              y1: y(data[j]),
-              x2: x(k),
-              y2: y(data[k]) });
+    nSvg.selectAll('.best')
+        .attr({ x1: x(j),
+                y1: y(data[j]),
+                x2: x(k),
+                y2: y(data[k]) })
+        .style('stroke', colorStr)
     bestHeightLine.attr('x2', x(j))
   }
 
@@ -93,6 +66,8 @@ function animateStep(){
   if (k < data.length - 1){ k++; }
   else if (j < data.length - 2){ j++; k = j + 1; }
   else { return; }
-  duration = duration*.99;
+
+  //speed up when second animation ends
+  if (j !== 0){ duration = duration*.995; }
   setTimeout(animateStep, duration);
 }
