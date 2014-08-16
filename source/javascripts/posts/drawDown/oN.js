@@ -15,10 +15,10 @@ var oCircles = oSvg.append('g').selectAll('circle')
     .attr('cy', y)
     .attr('r', 5)
 
-var oBestLine = oSvg.append('line').classed('best', true);
-var oBestHeightLine = oSvg.append('line').classed('best', true);
 var oConnectionLine = oSvg.append('line').classed('connection', true)
 var oHeightLine = oSvg.append('line').classed('connection', true)
+var oBestLine = oSvg.append('line').classed('best', true);
+var oBestHeightLine = oSvg.append('line').classed('best', true);
 
 var peak = -1,
     l = 0,
@@ -26,44 +26,58 @@ var peak = -1,
 oAnimateStep();
 
 function oAnimateStep(){
+  oConnectionLine
+      .attr({ x1: x(l),
+              y1: y(data[l]),
+              x2: x(peak),
+              y2: y(data[peak]) })
+
+  oHeightLine
+      .attr({ x1: x(l),
+              y1: y(data[l]),
+              x2: x(l),
+              y2: y(data[peak]) })
+
+  oSvg.selectAll('.connection')
+      .style('stroke', color(data[peak] - data[l]))
+
+  if (oBest > data[l] - data[peak]){
+    oBest = data[l] - data[peak];
+    oSvg.selectAll('.best')
+      .attr({ x1: x(peak),
+              y1: y(data[peak]),
+              x2: x(l),
+              y2: y(data[l]) });
+    oBestHeightLine.attr('x1', x(l))
+
+    oSvg.selectAll('.best')
+        .style('stroke', color(data[peak] - data[l]))
+  }
+
+  oCircles.filter(function(d, i){ return i === l; })
+      .attr('r', 7)
+    .transition().duration(duration + 200)
+      .attr('r', 5)
+
+
   if (data[l] > data[peak] || !data[peak]){
-    oCircles.attr('r', function(d, i){ return i === l ? 10 : 5; })
+    oCircles.attr('r', function(d, i){ return i === l ? 10 : 5; });
+
+    var animationDuration = l - peak < 5 ? 400 : 800;
+    oConnectionLine.transition().duration(animationDuration)
+        .attr({x2: x(l), y2: y(data[l])})
+
     peak = l;
-  } 
-  else{
-    oConnectionLine
-        .attr({ x1: x(l),
-                y1: y(data[l]),
-                x2: x(l),
-                y2: y(data[l]) })
-      //.transition().duration(duration - 50)
-        .attr({ x2: x(peak),
-                y2: y(data[peak]) })
-
-    oHeightLine
-        .attr({ x1: x(l),
-                y1: y(data[l]),
-                x2: x(l),
-                y2: y(data[peak]) })
-
-    if (oBest > data[l] - data[peak]){
-      oBest = data[l] - data[peak];
-      oSvg.selectAll('.best')
-        .attr({ x1: x(peak),
-                y1: y(data[peak]),
-                x2: x(l),
-                y2: y(data[l]) });
-      oBestHeightLine.attr('x2', x(peak))
+    if (l < data.length - 1){
+      l++; 
+      setTimeout(oAnimateStep, animationDuration);
     }
-
-    oCircles.filter(function(d, i){ return i === l; })
-        .attr('r', 7)
-      .transition().duration(duration + 200)
-        .attr('r', 5)
+  } else{
+    if (l < data.length - 1){
+      l++; 
+      setTimeout(oAnimateStep, duration);
+    }    
+  }
+  
   }
 
-  if (l < data.length - 1){
-    l++; 
-  setTimeout(oAnimateStep, duration);
-  }
-}
