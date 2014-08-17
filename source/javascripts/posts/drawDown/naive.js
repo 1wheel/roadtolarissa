@@ -26,6 +26,8 @@ var j = 0,
 animateStep();
 
 function animateStep(){
+  if (!playing){ return; }
+
   var colorStr = color(data[k] - data[j]);
   connectionLine
       .attr({ x1: x(j),

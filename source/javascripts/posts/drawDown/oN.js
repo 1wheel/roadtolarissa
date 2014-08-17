@@ -20,12 +20,14 @@ var oHeightLine = oSvg.append('line').classed('connection', true)
 var oBestLine = oSvg.append('line').classed('best', true);
 var oBestHeightLine = oSvg.append('line').classed('best', true);
 
-var peak = -1,
-    l = 0,
+var peak = 0,
+    l = 1,
     oBest = Infinity;
 oAnimateStep();
 
 function oAnimateStep(){
+  if (!playing){ return; }
+
   oConnectionLine
       .attr({ x1: x(l),
               y1: y(data[l]),
@@ -39,7 +41,7 @@ function oAnimateStep(){
               y2: y(data[peak]) })
 
   oSvg.selectAll('.connection')
-      .style('stroke', color(data[peak] - data[l]))
+      .style('stroke', color(data[l] - data[peak]))
 
   if (oBest > data[l] - data[peak]){
     oBest = data[l] - data[peak];
@@ -51,7 +53,7 @@ function oAnimateStep(){
     oBestHeightLine.attr('x1', x(l))
 
     oSvg.selectAll('.best')
-        .style('stroke', color(data[peak] - data[l]))
+        .style('stroke', color(data[l] - data[peak]))
   }
 
   oCircles.filter(function(d, i){ return i === l; })
