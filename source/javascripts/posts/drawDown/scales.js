@@ -1,4 +1,4 @@
-var margin = {top: 10, right: 20, bottom: 10, left: 20};
+var margin = {top: 10, right: 50, bottom: 30, left: 20};
 var height = 250;
 var width = 600;
 var duration = 50; 
@@ -38,7 +38,7 @@ function reset(){
 	y.domain(d3.extent(data));
 	var scaledData = data.map(y);
 
-	d3.selectAll('.best, .connection').style('opacity', 0);
+	d3.selectAll('.best, .connection, text, .text-line').style('opacity', 0);
 
 	oCircles.call(moveCircles);
 	circles.call(moveCircles);
@@ -65,7 +65,7 @@ function reset(){
 
 	setTimeout(function(){
 		playing = true; 
-		d3.selectAll('.best, .connection').style('opacity', '');
+		d3.selectAll('.best, .connection, text, .text-line').style('opacity', '');
 
 		duration = 50;
 
@@ -82,7 +82,7 @@ var resetEachDuration = .5;
 
 d3.selectAll('.random').on('click', reset);
 
-setTimeout(reset, 100)
+//setTimeout(reset, 100)
 
 function arrayTransition(length, delayToDur){
 	var width = delayToDur*length;
@@ -101,5 +101,5 @@ function makeData(){
 	  var rand = Math.random();
 	  data[i+1] = data[i] + (rand < .5 ? -1 - rand : .5 + rand)
 	}
-	return data; 
+	return d3.max(data) === data[0] ? makeData() : data; 
 }
