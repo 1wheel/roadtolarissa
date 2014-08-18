@@ -19,6 +19,7 @@ var bestLine = nSvg.append('line').classed('best', true);
 var bestHeightLine = nSvg.append('line').classed('best', true);
 var connectionLine = nSvg.append('line').classed('connection', true)
 var heightLine = nSvg.append('line').classed('connection', true)
+var bestText = nSvg.append('text').style('filter', 'url(#dropshadow)')
 
 var j = 0,
     k = 1,
@@ -40,9 +41,9 @@ function animateStep(){
       .style('stroke', colorStr)
 
   heightLine
-      .attr({ x1: x(j),
+      .attr({ x1: x(k),
               y1: y(data[j]),
-              x2: x(j),
+              x2: x(k),
               y2: y(data[k]) })
       .style('stroke', colorStr)
 
@@ -54,7 +55,11 @@ function animateStep(){
                 x2: x(k),
                 y2: y(data[k]) })
         .style('stroke', colorStr)
-    bestHeightLine.attr('x2', x(j))
+    bestHeightLine.attr('x1', x(k))
+
+    bestText.text('Biggest Drop')
+        .attr('x', x(k))
+        .attr('y', y(data[j]))
   }
 
   if (j === k - 1){

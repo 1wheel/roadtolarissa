@@ -29,7 +29,7 @@
 		.connection{
 			stroke: black;
 			stroke-linecap: round;
-			stroke-opacity: .7;
+			stroke-opacity: .5;
 			stroke-width: 5;
 		}
 		.best{
@@ -39,7 +39,27 @@
 			stroke-opacity: 1;
 		}
 
+		text{
+			-webkit-98filter: drop-shadow( -5px -5px 5px #000);
+		}
+
 	</style>
+
+	<svg style='height: 0px'>
+		<filter id='dropshadow' height='130%'>
+			<feGaussianBlue in='SourceAlpha' stdDeviation='.1' fill='white'/>
+			<feOffset dx='1' dy='1' result='offsetblur'/>
+			<feMerge>
+				<feMergeNode/>
+				<feMergeNode in='SourceGraphic'/>
+			</feMerge>
+		</filter>
+		<filter id='light'>
+			<feSpecularLighting specularExponent='25' lighting-color='white'>
+				<fePointLight x='400' y='100' z='100'>
+				</fePointLight>
+			</filter>
+	</svg>
 
   <svg id='drawDownNaive' style='width: 100%; height: 300px'></svg>
   <div class='random'>Reset</div>

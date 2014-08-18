@@ -20,7 +20,7 @@ var line = d3.svg.line()
 var dataExtent = d3.extent(data);
 var dif = dataExtent[0] - dataExtent[1];
 var color = d3.scale.linear()
-		.domain([-dif, 0, dif])
+		.domain([.0001, 0, -.0001])
 		.range(['green', 'brown', 'red'])
 
 
@@ -66,6 +66,8 @@ function reset(){
 	setTimeout(function(){
 		playing = true; 
 		d3.selectAll('.best, .connection').style('opacity', '');
+
+		duration = 50;
 
 		peak = 0; l = 1; oBest = Infinity;
 		oAnimateStep();
