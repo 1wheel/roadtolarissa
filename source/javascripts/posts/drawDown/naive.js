@@ -5,6 +5,11 @@ var nSvg = d3.select('#drawDownNaive')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+var bestLine = nSvg.append('line').classed('best', true);
+var bestHeightLine = nSvg.append('line').classed('best', true);
+var connectionLine = nSvg.append('line').classed('connection', true)
+var heightLine = nSvg.append('line').classed('connection', true)
+
 nSvg.append('path')
     .attr('d', line(data))
 
@@ -14,11 +19,6 @@ var circles = nSvg.append('g').selectAll('circle')
     .attr('cx', function(d, i){ return x(i); })
     .attr('cy', y)
     .attr('r', 3)
-
-var bestLine = nSvg.append('line').classed('best', true);
-var bestHeightLine = nSvg.append('line').classed('best', true);
-var connectionLine = nSvg.append('line').classed('connection', true)
-var heightLine = nSvg.append('line').classed('connection', true)
 
 var jGroup = nSvg.append('g')
 var jLine = jGroup.append('line').classed('text-line', true).attr({y1: height + margin.bottom - 20})
@@ -64,11 +64,11 @@ function animateStep(){
 
   jGroup.attr('transform', 'translate(' + x(j) + ',0)')
   jLine.attr('y2', y(data[j]))
-  jText.text('j: ' + j);
+  jText.text('i: ' + j);
   
   kGroup.attr('transform', 'translate(' + x(k) + ',0)')
   kLine.attr('y2', y(Math.min(data[k], data[j])))
-  kText.text('k: ' + k);
+  kText.text('j: ' + k);
 
 
   if (best > data[k] - data[j]){

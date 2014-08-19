@@ -5,6 +5,11 @@ var oSvg = d3.select('#oN')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+var oConnectionLine = oSvg.append('line').classed('connection', true)
+var oHeightLine = oSvg.append('line').classed('connection', true)
+var oBestLine = oSvg.append('line').classed('best', true);
+var oBestHeightLine = oSvg.append('line').classed('best', true);
+
 oSvg.append('path')
     .attr('d', line(data))
 
@@ -13,12 +18,7 @@ var oCircles = oSvg.append('g').selectAll('circle')
   .append('circle')
     .attr('cx', function(d, i){ return x(i); })
     .attr('cy', y)
-    .attr('r', 5)
-
-var oConnectionLine = oSvg.append('line').classed('connection', true)
-var oHeightLine = oSvg.append('line').classed('connection', true)
-var oBestLine = oSvg.append('line').classed('best', true);
-var oBestHeightLine = oSvg.append('line').classed('best', true);
+    .attr('r', 3)
 
 var pGroup = oSvg.append('g')
 var pLine = pGroup.append('line').classed('text-line', true).attr({y1: height + margin.bottom - 20})
@@ -65,7 +65,7 @@ function oAnimateStep(){
 
   lGroup.attr('transform', 'translate(' + x(l) + ',0)')
   lLine.attr('y2', y(Math.min(data[l], data[peak])))
-  lText.text('l: ' + l);
+  lText.text('i: ' + l);
 
 
   if (oBest > data[l] - data[peak]){
@@ -86,13 +86,13 @@ function oAnimateStep(){
   oCircles.filter(function(d, i){ return i === l; })
       .attr('r', 7)
     .transition().duration(duration + 200)
-      .attr('r', 5)
+      .attr('r', 3)
 
 
   if (data[l] > data[peak] || !peak){
-    oCircles.attr('r', function(d, i){ return i === l ? 10 : 5; });
+    oCircles.attr('r', function(d, i){ return i === l ? 10 : 3; });
 
-    var animationDuration = peak < 1 ? 0 : l - peak < 5 ? 300 : 1000;
+    var animationDuration = peak < 1 ? 0 : l - peak < 3 ? 300 : 1000;
     oConnectionLine.transition().ease('linear').duration(animationDuration)
         .attr({x2: x(l), y2: y(data[l])})
 
