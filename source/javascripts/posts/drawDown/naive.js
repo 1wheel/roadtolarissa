@@ -81,7 +81,7 @@ function animateStep(){
         .style('stroke', colorStr)
     bestHeightLine.attr('x1', x(k))
 
-    bestTextG.attr('transform', ['translate(', x(k) - 3, ',', y((data[k] + data[j])/2), ')'].join(''));
+    bestTextG.attr('transform', ['translate(', x(k) - 3, ',', Math.min(height - 15, y((data[k] + data[j])/2)), ')'].join(''));
   }
 
   if (j === k - 1){
@@ -94,7 +94,7 @@ function animateStep(){
 
   if (k < data.length - 1){ k++; }
   else if (j < data.length - 2){ j++; k = j + 1; }
-  else { return; }
+  else { return  nSvg.select('.reset-button').style('opacity', 1) }
 
   //speed up when second animation ends
   if (j !== 0){ duration = duration*.995; }

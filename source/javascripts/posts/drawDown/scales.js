@@ -26,7 +26,7 @@ var color = d3.scale.linear()
 
 function reset(){
 	playing = false; 
-
+	d3.selectAll('.reset-button').style('opacity', 0)
 
 	var oldData = data.slice();
 	var scaledOldData = data.map(y);
@@ -66,6 +66,7 @@ function reset(){
 	setTimeout(function(){
 		playing = true; 
 		d3.selectAll('.best, .connection, text, .text-line').style('opacity', '');
+		d3.selectAll('.reset-button').style('opacity', 0)
 
 		duration = 50;
 
@@ -80,9 +81,9 @@ var playing = true;
 var resetDuration = 2000;
 var resetEachDuration = .5;
 
-d3.selectAll('.random').on('click', reset);
 
-//setTimeout(reset, 100)
+
+
 
 function arrayTransition(length, delayToDur){
 	var width = delayToDur*length;
@@ -97,7 +98,7 @@ function arrayTransition(length, delayToDur){
 
 function makeData(){ 
 	var data = [1, 0];
-	for (var i = 1; i < 100; i++){
+	for (var i = 1; i < 10; i++){
 	  var rand = Math.random();
 	  data[i+1] = data[i] + (rand < .5 ? -1 - rand : .5 + rand)
 	}

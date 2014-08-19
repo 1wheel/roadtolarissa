@@ -77,7 +77,7 @@ function oAnimateStep(){
               y2: y(data[l]) });
     oBestHeightLine.attr('x1', x(l))
 
-    bestTextGoN.attr('transform', ['translate(', x(l) - 3, ',', y((data[l] + data[peak])/2), ')'].join(''));
+    bestTextGoN.attr('transform', ['translate(', x(l) - 3, ',', Math.min(height - 15, y((data[l] + data[peak])/2)), ')'].join(''));
 
     oSvg.selectAll('.best')
         .style('stroke', color(data[l] - data[peak]))
@@ -96,15 +96,22 @@ function oAnimateStep(){
     oConnectionLine.transition().ease('linear').duration(animationDuration)
         .attr({x2: x(l), y2: y(data[l])})
 
+    var oldPeak = peak;
     peak = l;
 
     pGroup.transition().ease('linear').duration(animationDuration).attr('transform', 'translate(' + x(peak) + ',0)')
-    pLine.transition().ease('linear').duration(animationDuration).attr('y2', y(data[peak]))
-    pText.transition().ease('linear').duration(animationDuration).text('peak: ' + peak);
+      .each(function(){
+        pLine.transition().attr('y2', y(data[peak]))
+        pText.transition().tween('text', function(){
+          i = d3.interpolateRound(oldPeak, peak); 
+          return function(t){ this.textContent = 'peak: ' + i(t); }    
+        })   
+      })
+
 
     if (l < data.length - 1){
       l++; 
-      setTimeout(oAnimateStep, animationDuration);
+      setTimeout(oAnimateStep, animationDuration + duration);
     }
   } else{
     if (l < data.length - 1){
@@ -112,6 +119,20 @@ function oAnimateStep(){
       setTimeout(oAnimateStep, duration);
     }    
   }
-  
-  }
+  if (l === data.length - 1){ oSvg.select('.reset-button').style('opacity', 1); }
+}
 
+
+
+
+d3.selectAll([nSvg.node(), oSvg.node()]).append('text')
+    .classed('reset-button', true)
+    .attr({x: 0, y: 0, dy: '1em'})
+    .style({'font-size': '30px', 'opacity': 0})
+    .text('↻')
+
+
+d3.selectAll([nSvg.node(), oSvg.node()]).append('rect')
+    .attr({height: height + margin.bottom , width: width + margin.right, 'fill-opacity': 0})
+    .style('cursor', 'pointer')
+    .on('click', reset)
