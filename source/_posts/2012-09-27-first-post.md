@@ -22,3 +22,16 @@ I'd like to learn more about creating computer programs able to play board games
 4.  Have the programs play each other (with similar run times) and post the results.
 
  [1]: http://en.wikipedia.org/wiki/Monte_Carlo_method#Games
+
+
+
+
+
+
+
+
+
+
+
+State population flow
+http://ilya.boyandin.me/assets/thesis.pdf Pupyrev et al. parallel flow diagrams look very promising. 
