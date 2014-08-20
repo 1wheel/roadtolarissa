@@ -33,5 +33,9 @@ I'd like to learn more about creating computer programs able to play board games
 
 
 
-State population flow
+### State population flow
 http://ilya.boyandin.me/assets/thesis.pdf Pupyrev et al. parallel flow diagrams look very promising. 
+
+
+### Project Gutenberg
+Whale words, by chapter 
