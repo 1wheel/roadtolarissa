@@ -31,12 +31,12 @@ var lText = lGroup.append('text').style('text-anchor', 'start').attr('y', height
 var bestTextGoN = oSvg.append('g')
 bestTextGoN.append('text')
     .attr("transform", "rotate(-90)")
-    .text('Biggest Drop')
+    .text('Max Drawdown')
     .style('text-anchor', 'middle')
-    .style({'stroke': 'rgba(255, 255, 255, .8)', 'stroke-width': '5'})
+    .style({'stroke': 'rgba(255, 255, 255, .8)', 'stroke-width': '3'})
 bestTextGoN.append('text')
     .attr("transform", "rotate(-90)")
-    .text('Biggest Drop')
+    .text('Max Drawdown')
     .style('text-anchor', 'middle')
 
 
@@ -77,7 +77,7 @@ function oAnimateStep(){
               y2: y(data[l]) });
     oBestHeightLine.attr('x1', x(l))
 
-    bestTextGoN.attr('transform', ['translate(', x(l) - 3, ',', Math.min(height - 15, y((data[l] + data[peak])/2)), ')'].join(''));
+    bestTextGoN.attr('transform', ['translate(', x(l) - 3, ',', Math.min(height - 25, y((data[l] + data[peak])/2)), ')'].join(''));
 
     oSvg.selectAll('.best')
         .style('stroke', color(data[l] - data[peak]))

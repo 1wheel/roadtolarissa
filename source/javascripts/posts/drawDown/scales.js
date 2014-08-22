@@ -25,6 +25,7 @@ var color = d3.scale.linear()
 
 
 function reset(){
+	if (!playing){ return; }
 	playing = false; 
 	d3.selectAll('.reset-button').style('opacity', 0)
 
@@ -98,7 +99,7 @@ function arrayTransition(length, delayToDur){
 
 function makeData(){ 
 	var data = [1, 0];
-	for (var i = 1; i < 10; i++){
+	for (var i = 1; i < 100; i++){
 	  var rand = Math.random();
 	  data[i+1] = data[i] + (rand < .5 ? -1 - rand : .5 + rand)
 	}

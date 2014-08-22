@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content=" Drawdown ">
+  <meta name="description" content="The drawdown of a series refers to largest decrease in value between two points. If you were to purchase and sell a stock, the start and end of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,8 +26,6 @@
   <link href="/atom.xml" rel="alternate" title="Road to Larissa" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
 
-  <script src="/javascripts/libs/jquery.min.js" type="text/javascript"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -519,9 +517,47 @@
 
   <div class="entry-content"><p><link rel="stylesheet" type="text/css" href="/javascripts/posts/drawDown/style.css"></p>
 
-<p>Drawdown</p>
+<p>The drawdown of a series refers to largest decrease in value between two points. If you were to purchase and sell a stock, the start and end of stock&rsquo;s drawdown would be the worst time to do so. Conversely, if you had perfect knowledge of stock&rsquo;s price and the ability to buy and sell a short once, you&rsquo;d want to identify the drawdown period in order to maximize profits.</p>
+
+<p>Since order matters, calculating drawdown isn&rsquo;t as simple as finding the maximum and minimum values of the series &ndash; if the minimum occurs before the maximum, such an approach will identify a period of application. To avoid this case, we could iterate over each index of the series <code>i</code>, then compare the price at time <code>i</code> to the price at all subsequent times <code>j</code>. Max drawdown is equal to the largest difference between prices at <code>i</code> and <code>j</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">prices</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">prices</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">dif</span> <span class="o">=</span> <span class="nx">prices</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">-</span> <span class="nx">prices</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+</span><span class='line'>        <span class="nx">maxDrawdown</span> <span class="o">=</span> <span class="nx">maxDrawdown</span> <span class="o">&gt;</span> <span class="nx">dif</span> <span class="o">?</span> <span class="nx">maxDrawdown</span> <span class="o">:</span> <span class="nx">dif</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While accurate, this algorithm require many value comparisons:</p>
 
 <div id='drawDownNaive' style='width: 100%; height: 300px'></div>
+
+
+<p>If the series has <code>n</code> prices, <code>n*(n - 1)/2</code> comparisons are needed (the number of comparisons done during <code>i</code>th pass through of the inner loop is n &ndash; i &ndash; 1; the <a href="http://en.wikipedia.org/wiki/Triangular_number">sum</a> of all those comparisons is <code>1 + 2 + 3 + ... + n - 1</code>). The number of comparisons increases faster than <code>n</code> &ndash; if there are 100 values, 4950 comparisons are needed, while 200 values requires 19900 comparisons. For series covering a long period of time or with a great deal of granularity, this algorithm might be too slow even for a fast computer.</p>
+
+<p>Instead of comparing every value with every other value, we can exploit the sequential requirement to only make <code>n - 1</code> comparisons. While</p>
+
+<p>If the point we&rsquo;re at is higher than all previous points, if it is a <code>peak</code>, any subsequent drawdown periods must start at the <code>peak</code> or another <code>p</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">prices</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">dif</span> <span class="o">=</span> <span class="nx">prices</span><span class="p">[</span><span class="nx">peak</span><span class="p">]</span> <span class="o">-</span> <span class="nx">prices</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span><span class='line'>    <span class="nx">peak</span> <span class="o">=</span> <span class="nx">dif</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">i</span> <span class="o">:</span> <span class="nx">j</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">maxDrawdown</span> <span class="o">=</span> <span class="nx">maxDrawdown</span> <span class="o">&gt;</span> <span class="nx">dif</span> <span class="o">?</span> <span class="nx">maxDrawdown</span> <span class="o">:</span> <span class="nx">dif</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 
@@ -531,19 +567,24 @@
 
 
 
-<script src="javascripts/libs/d3.4.11.js" type="text/javascript"></script>
+<script src="/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
 
 
-<script src="javascripts/libs/lodash.js" type="text/javascript"></script>
+<script src="/javascripts/libs/lodash.js" type="text/javascript"></script>
 
 
-<script src="javascripts/posts/drawDown/scales.js" type="text/javascript"></script>
+<script src="/javascripts/posts/negBarTransition/lib.js" type="text/javascript"></script>
 
 
-<script src="javascripts/posts/drawDown/naive.js" type="text/javascript"></script>
 
 
-<script src="javascripts/posts/drawDown/oN.js" type="text/javascript"></script>
+<script src="/javascripts/posts/drawDown/scales.js" type="text/javascript"></script>
+
+
+<script src="/javascripts/posts/drawDown/naive.js" type="text/javascript"></script>
+
+
+<script src="/javascripts/posts/drawDown/oN.js" type="text/javascript"></script>
 
 
 <p><meta property="og:image" content="/images/thumbnails/215-teeth.png" /></p>

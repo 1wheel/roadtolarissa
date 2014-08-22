@@ -31,12 +31,12 @@ var kText = kGroup.append('text').style('text-anchor', 'start').attr('y', height
 var bestTextG = nSvg.append('g')
 bestTextG.append('text')
     .attr("transform", "rotate(-90)")
-    .text('Biggest Drop')
+    .text('Max Drawdown')
     .style('text-anchor', 'middle')
-    .style({'stroke': 'rgba(255, 255, 255, .8)', 'stroke-width': '5'})
+    .style({'stroke': 'rgba(255, 255, 255, .8)', 'stroke-width': '3'})
 bestTextG.append('text')
     .attr("transform", "rotate(-90)")
-    .text('Biggest Drop')
+    .text('Max Drawdown')
     .style('text-anchor', 'middle')
 
 var j = 0,
@@ -81,7 +81,7 @@ function animateStep(){
         .style('stroke', colorStr)
     bestHeightLine.attr('x1', x(k))
 
-    bestTextG.attr('transform', ['translate(', x(k) - 3, ',', Math.min(height - 15, y((data[k] + data[j])/2)), ')'].join(''));
+    bestTextG.attr('transform', ['translate(', x(k) - 3, ',', Math.min(height - 25, y((data[k] + data[j])/2)), ')'].join(''));
   }
 
   if (j === k - 1){
