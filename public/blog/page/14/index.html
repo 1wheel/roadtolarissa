@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the &hellip;">
+  <meta name="description" content="Finished with redditgraphs, I have a couple of ideas about what I&rsquo;d like to work on next; I&rsquo;m posting them to clarify my own thoughts and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/drawdown">Drawdown</a>
+      </li>
+    
+      <li class="post">
         <a href="/215-teeth">215 Teeth / 1008 Beats</a>
       </li>
     
@@ -200,6 +204,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/drawdown">Drawdown</a></h1>
+<time datetime="2014-08-19T00:00:00-04:00" pubdate><span class='month'>Aug</span> <span class='day'>19</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -480,7 +494,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/redditgraphs-retrospective">Redditgraphs Retrospective</a></h1>
+      <h1 class="entry-title"><a href="/next-project">Next Project</a></h1>
     
     
       <p class="meta">
@@ -496,67 +510,41 @@
   
 
 
-<time datetime="2012-11-17T00:00:00-05:00" pubdate data-updated="true"></time>
+<time datetime="2012-11-20T00:00:00-05:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>It&rsquo;s been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I&rsquo;ve mostly been polishing the application and trying to share it with people. After posting the basic demo on /r/javascript, I was encouraged make improvements and host the project on its own domain. Registering &#8220;<a href="www.redditgraphs.com">redditgraphs.com</a>&#8221; for a year only cost $5 and it seemed more memorable and easier to access than &#8220;roadtolarissa.com/javascript/reddit-comment-visualizer&#8220;. I spent another week adding functionality &#8211; hourly trends, weekly trends, direct linking to user names &#8211; and making the UI prettier.</p>
+  <div class="entry-content"><p>Finished with redditgraphs, I have a couple of ideas about what I&rsquo;d like to work on next; I&rsquo;m posting them to clarify my own thoughts and to get feedback.</p>
 
-<p>Improving the UI was harder than adding functionality. I don&rsquo;t think I&rsquo;ve ever created anything particularly visually beautiful before in my life. The previous UI was definitely not pretty but since I was using the default radio button and drop down menus, it didn&rsquo;t feel like I was exposing part of myself or actively making something bad or mockable. Still, several changes were necessary to improve usability. Most importantly, the previous graph picker was too small and did not attract enough attention:</p>
+<p><strong>Games<br/>
+</strong></p>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview3.png"><img class="aligncenter size-full wp-image-114" title="Old Graph Type" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview3.png" alt="" width="180" height="130" /></a></p>
-
-<p>One of the biggest difficulties in creating this type of interactive display is leading the user to interesting interactions. After posting this version, I received several requests to add histograms and karma plotting &#8211; features already included, but buried in ambigously titled drop down menus. I had thought putting the options in the upper left hand corner would make them impossible to miss. Since that wasn&rsquo;t the case, I used large, tile-like icons to draw even more attention to the different graph types in the redesign:</p>
-
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview4.png"><img class="aligncenter size-full wp-image-115" title="New Graph Types" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview4.png" alt="" width="221" height="410" /></a></p>
-
-<p>By making the icons the largest, most colorful non graph item on the page, it is much clearer that they are supposed to be clicked on and played with. Additionally, convanying the opitions in a less textual manner allowed me to move away from the confusing &#8220;Graph Settings: Graph Type: Type&#8221; formulation. I think there is still a lot of room for improvement, especially on the data icons, but I&rsquo;m not sure how to do it without learning a lot more or paying something. The pile of books and the ruler look like clip art because that&rsquo;s what they are.</p>
-
-<p>The rest of the redesign followed a similar pattern. All the radios and spinboxes were replaced by more clickable and colorful buttons and sliders. I added a banner and logo at the top, which took much longer than I excepted to get just right.</p>
-
-<p>This was the result:</p>
-
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview.png"><img class="aligncenter size-large wp-image-109" title="Changes to redditgraphs" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/overview-1024x717.png" alt="" width="640" height="448" /></a></p>
-
-<p>&nbsp;</p>
-
-<p>Satisfied with both the look and functionality, I posted a link and a description to /r/dataisbeautiful. The surprising amount of the feedback was almost entirely positive and several thousand people visited the site. This was very exciting &#8211; I&rsquo;m don&rsquo;t think anything else I&rsquo;ve done has ever been used by so many people in so short a time. I also tweeted links  to several tech journalists and one ended up writing a short article.</p>
-
-<p>Afterwords, I spent a few days making some of the suggested improvements &#8211; viewing submissions as well as comments, adding the option to log scale some of the axes, and direct linking to different graph types. Around this time, working with the code started to become much more unpleasant. The main culprit was (and is) the function that takes raw data download from reddit and transforms it into a graph. Since I hadn&#8217;t anticipated having so many options, features were added one at a time until the thing started to resemble a huge knot.</p>
-
-<p>Encouraged by the suggestions to share the site with more people, I posted links on some of the default subreddits. Unfortunately, the reception wasn&rsquo;t nearly as positive. Some of the time, my posts were basically ignored (/r/WTF, /r/YouShouldKnow) without many people seeing them. More often, they would would start doing well and than get removed by a moderator for being off topic (/r/askreddit, /r/technology, /r/LifeProTips, /r/offbeat).</p>
-
-<p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
-
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x74;&#x69;&#x70;&#115;&#x40;&#119;&#x65;&#98;&#115;&#x69;&#116;&#101;&#x2e;&#x63;&#x6f;&#109;">&#x74;&#x69;&#112;&#x73;&#x40;&#119;&#x65;&#x62;&#115;&#105;&#x74;&#x65;&#x2e;&#99;&#111;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
-
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
-
-<p>During most of the this time, I wasn&rsquo;t really doing anything productive. It was super easy to write up a post or an email and then sit around writing responses and browsing reddit for a few too many hours. To avoid this problem without giving up hope on getting more users, I spent a few days learning python and <a href="https://github.com/1wheel/reddit-comment-visualizer/blob/master/commentbot.py">wrote a bot</a> to scan recent comments for mentions of &#8216;your comment history&#8217; or &#8216;my comment history&#8217; and reply with a link to the mentioned person&rsquo;s redditgraph. Initially, I manually copied/pasted the comments and only posted a few per day. Seeing that 75% of the replies to the &#8216;bot&#8217; were positive, I decided to totally automate its posting and expand the number of terms it searched for. The maker of the the <a href="http://stattit.com/">statit</a> contacted me on gtalk, telling me that I should throttle or turn off the bot or the admins would ban it. I knew he was probably right, I couldn&rsquo;t bring myself to disable to continuous stream of comments I was creating. The thrill I got from redditgraphs came primarily from the idea that thousands of people around the world were using their computers to simultaneously automate a process that I had shared with them; with the commenting bot the sharing itself was automated.</p>
-
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof2.png"><img class="aligncenter size-full wp-image-123" title="redditbot comment" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof2.png" alt="" width="852" height="88" /></a></p>
-
-<p>The next morning, the bot was banned.</p>
-
-<p>Getting responses and posting wasn&rsquo;t fun anymore, so I&rsquo;ve decided to stop posting on reddit. While I did learn more about reddit and communicated with admins, moderators, and bloggers more than I had before, I don&rsquo;t think it is the most useful topic to learn about and I didn&rsquo;t need to spend weeks on it. I definitely don&rsquo;t need to need more time making the greenlines on this graph go up higher:</p>
-
-<p style="text-align: center;">
-  <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/bwgraph.png"><img class="aligncenter  wp-image-127" title="Traffic graph for redditgraphs" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/bwgraph.png" alt="" width="800" height="400" /></a>
-</p>
+<ul>
+<li> <em>Hangout Boardgames</em><br/>
+I hadn&rsquo;t touched this project in about a month until two days when I started working on it again. I added <a href="http://www.roadtolarissa.com/javascript/hangout-boardgames/">backgammon</a>, fixed some bugs, and made it publicly accessible on <a href="https://plus.google.com/hangouts/_?gid=687984412875">Google+</a> (I think). Before sharing it with more people, the UI common to each game needs some more work. I think the concept is better than all the other hangout apps I&rsquo;ve seen &#8211; instead of having the game board take up the entire screen, the game takes place entirely on a small (on most screens) 400&#215;400 tile and the video feed from your opponent fills the rest of the space. The UI to switch teams and change the game is very spartan. I&rsquo;d to make it better but I&rsquo;m having trouble finding a solution that doesn&rsquo;t clash individual games differing art styles:<br/>
+<a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/Board-Game-UI.png"><img class="aligncenter size-full wp-image-140" title="Board Game UI" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/Board-Game-UI.png" alt="" width="434" height="482" /><br/>
+</a>Rejoining a hangout also causes a mysterious crash about 20% of the time, which needs to be fixed before release.</li>
+<li> <em>Lyric Typing Game</em><br/>
+Over the summer, I made a rudimentary typing game for Spotify. Pulling lyrics from tunewiki, it displays the word as they are being sung and the user tries to type them before they finish playing. It&rsquo;d be really cool to make this app available on spotify, unfortunately licencing lyrics is super expensive (minimum <a href="https://developer.musixmatch.com/">$20,000</a>). I might try to contact providers of tunewiki to see if they want to include the game in their own spotify application or at the very least make a post about the app and record a video of it working.</li>
+<li><em>Neocolonialism</em><br/>
+Over the summer, I exchanged several lengthy emails with Seth Alter, the creator of <a href="http://subalterngames.com/">Neocolonialism</a>. Playing  the game with my friends was great, but we ran into several nasty bugs. I sent him an email with game play suggestions and an offer to help debug the game. After corresponding for a few days, he took me up on the offer but I got nervous and didn&rsquo;t respond for two weeks. He didn&rsquo;t reply (understandably) and I haven&rsquo;t talked with him since, but I&rsquo;d still really to help out. I don&rsquo;t think it would be super hard for me to make a demo version of the game for google hangouts. Playing on hangouts would automatically integrate voice and video while avoiding many of the hangups that make it difficult to get the game up and running &#8211;  currently, everyone has to separately install the game, type in the correct IP address, and fix router issues. Before contacting Seth again, I should finish up the the board game app in order to have a solid proof of concept. I&rsquo;m not sure I&rsquo;ll get a response &#8211; we&rsquo;re still on each other&rsquo;s gtalk friends list, but I&rsquo;ve been removed from the &#8216;Thnx&#8217; section of the rulebook &#8211; still, trying probably won&rsquo;t hurt anything.</li>
+</ul>
 
 
-<p>One more generally applicable thing I found out: feedback isn&rsquo;t helpful in terms of adding features. Before the redesign no one was asking for large icons instead of drop down menu, but from all the comments asking about different graph types I inferred that they needed to be added. One of the more useful features I came up with allowed for searching for specific phrases in the comment history. This didn&rsquo;t get added to the live version mainly because I wasn&rsquo;t sure how to add it to the UI &#8211; should there be a user name text box and a search text box right on top of each other? Requiring people to typing in a regex didn&rsquo;t seem feasible, but where would the rules of a simpler syntax be communicated? I assumed that someone would ask for searching and I would have a reason to add it, but no one did and I never got around to it.</p>
+<p><strong>Visualizations</strong></p>
 
-<p>A small proportion of the comments were useful, maybe 10 or 20 out out of the ~250 that I received. That number is even more miniscule compared to the total number number of people who have viewed the site:</p>
+<ul>
+<li><em>Whitehouse Petitions<br/>
+</em>In response to Obama&rsquo;s reelection, secessionists posted a <a href="https://petitions.whitehouse.gov/petition/peacefully-grant-state-texas-withdraw-united-states-america-and-create-its-own-new-government/BmdWCP8B">petition </a>requesting &#8220;Peacefully grant the State of Texas to withdraw from the United States of America and create its own NEW government [sic].&#8221; By scraping the page for the locations of all the signers, this <a href="http://www.reddit.com/r/dataisbeautiful/comments/13853n/texas_secession_petition/">graph</a> was generated: <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/T1NYT1.png"><img class="aligncenter size-large wp-image-151" title="T1NYT" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/T1NYT1-1024x675.png" alt="" width="640" height="421" /></a>While there are a number of problems with the graph -the locations should be exaggerated by county instead of city and it needs to show density instead of logged total numbers &#8211; the idea is very good. I would like expand both the types of graphs shown &#8211; the rate of signing, the gender of signers, the predicted partisanship of the signers &#8211; and the number of petitions. There are dozens of active petitions and if everything was automated, it would not be hard to rescrape and update the graphs once a day.</li>
+<li><em>More redditgraphs</em><br/>
+I&rsquo;d like to generate more user specific statistics using comment history text pulled from the reddit API. I&rsquo;ve read several papers which used text corpora from blogger, twitter,  and youtube to predict user age and gender. Doing the same with reddit comments is feasible, but the lack of a training set (reddit has no user profile page) and structural limitations with the reddit API make the task much more more difficult than it should be. Since I&rsquo;m taking a break from reddit, I&rsquo;m putting this idea on hold for a while.</li>
+<li><em>Pitchfork Statistics </em><br/>
+Scrape the text, date, score, author and band information from every published review on pitchfork to see the score distribution, what words correlate with better scores, and how word usage has changed during the site&rsquo;s history.</li>
+</ul>
 
-<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof3.png"><img class="aligncenter size-full wp-image-129" title="makeusof" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof3.png" alt="" width="508" height="123" /></a></p>
-
-<p>It makes sense that most people wouldn&rsquo;t send feedback &#8211; I look at lots of things people have made on the internet and I write something back to the creator far less than 1% of the time. This highlights the importance of having a clear idea of what you&rsquo;d like to make and generating and refining your own work towards that idea. Getting feedback in the form of a conversation with someone you actually know before sharing widely is also extremely valuable. Unlike your actual friends, internet commenters don&rsquo;t have any incentive to engage deeply with your idea and most don&rsquo;t end up doing so.</p>
-
-<p>I&rsquo;ve been working on a few smaller projects since. Nothing is super finished, but I should have a post about the works in progress up later today.</p>
 </div>
   
   

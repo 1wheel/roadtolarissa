@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-08-14T00:03:09-04:00</updated>
+  <updated>2014-08-21T23:18:11-04:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -12,6 +12,44 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Drawdown]]></title>
+    <link href="http://roadtolarissa.com/drawdown"/>
+    <updated>2014-08-19T00:00:00-04:00</updated>
+    <id>http://roadtolarissa.com/drawdown</id>
+    <content type="html"><![CDATA[<p><link rel="stylesheet" type="text/css" href="http://roadtolarissa.com/javascripts/posts/drawDown/style.css"></p>
+
+<p>Drawdown</p>
+
+<div id='drawDownNaive' style='width: 100%; height: 300px'></div>
+
+
+
+
+<div id='oN' style='width: 100%; height: 300px'></div>
+
+
+
+
+<script src="javascripts/libs/d3.4.11.js" type="text/javascript"></script>
+
+
+<script src="javascripts/libs/lodash.js" type="text/javascript"></script>
+
+
+<script src="javascripts/posts/drawDown/scales.js" type="text/javascript"></script>
+
+
+<script src="javascripts/posts/drawDown/naive.js" type="text/javascript"></script>
+
+
+<script src="javascripts/posts/drawDown/oN.js" type="text/javascript"></script>
+
+
+<p><meta property="og:image" content="/images/thumbnails/215-teeth.png" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[215 Teeth / 1008 Beats]]></title>
@@ -732,7 +770,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x74;&#x69;&#x70;&#115;&#x40;&#119;&#x65;&#98;&#115;&#x69;&#116;&#101;&#x2e;&#x63;&#x6f;&#109;">&#x74;&#x69;&#112;&#x73;&#x40;&#119;&#x65;&#x62;&#115;&#105;&#x74;&#x65;&#x2e;&#99;&#111;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x74;&#x69;&#x70;&#x73;&#x40;&#119;&#101;&#x62;&#115;&#105;&#116;&#x65;&#x2e;&#99;&#111;&#x6d;">&#x74;&#x69;&#112;&#115;&#x40;&#119;&#x65;&#x62;&#115;&#x69;&#116;&#x65;&#x2e;&#99;&#x6f;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 
@@ -994,25 +1032,6 @@ On goko, (18+15+11) / 2.7 games = 16.3 minutes per game.</p>
 <li>Implementing a working version of the psuedo code required over 20 times as many lines of code. <a href="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile1.png"><img class="aligncenter size-full wp-image-29" title="profile" src="http://www.roadtolarissa.com/wp-content/uploads/2012/09/profile1.png" alt="" width="550" height="319" /></a>In my defense, my code also includes the negamax algorithm; still actually writing the eval function and hooks for the rest of the Connect 4 program to use requires more verbosity then I was expecting. Looking over the code, there is some duplicated functionality that would be nice to remove, particularly the similarities between the negamax and alphabeta code.</li>
 <li>I&rsquo;m never sure how general to make things ahead of time. Working on my reversi game, I initially created a version that worked locally in one browser window. After playing around with the hangout API, I slowly added functionality to the handout version &#8211; syncing board state between all participants  computers, only allowing the active player make move, buttons to start a new game, ect. Once I finished reversi, I wanted to add more games, but the prospect of getting a new game working only though testing on hangouts was daunting because loading new version of code takes over a minute and I&rsquo;m used to iterating much faster then that. Additionally, if I found problems with code that interacted with the hangout API, I&rsquo;d have to also correct the issue in the other games code. While this isn&rsquo;t a huge deal with only two games, it&rsquo;d become a big time suck once six or seven games were made. To get around these difficulties, I wrote a wrapper for the reversi program that generalized board updates and game endings away from the specific logic of reversi. While I was working on the wrappered reversi which worked locally, I felt fairly silly since I had already created a copy of reversi that worked locally! I think the extra effort was worthwhile &#8211; it only took me a few hours to write a checkers game with the local wrapper and it didn&rsquo;t require too much more work to make checkers also work with hangouts.</li>
 </ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[First Post]]></title>
-    <link href="http://roadtolarissa.com/first-post"/>
-    <updated>2012-09-27T00:00:00-04:00</updated>
-    <id>http://roadtolarissa.com/first-post</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve found that writing todo lists enormously increases my productivity while programming. Programming is all about breaking larger problems into smaller problems over and over until the problems are small enough to solve easily. Lists provide a map of the problems that need solving and make it possible to work on a smaller subset of them without having to simultaneously worry about the global structure of the program.</p>
-
-<p>I&rsquo;d like to learn more about creating computer programs able to play board games; to that end, over the next day or two I&rsquo;m going to be working on an AI for 8&#215;8 Connect 4 and try to accomplish the following:</p>
-
-<ol>
-<li>Implement a Minimax algorithm using javascript since game logic and GUI are already written. The heuristic evaluation function will probably count the number of winning moves available to both players.</li>
-<li>Add alpha-beta punning to the Minimax algorithm.</li>
-<li>Create a Monte-Carlo Tree Search algorithm for Connect 4. I&rsquo;m not currently very familiar with this technique, but based on what I&rsquo;ve read so far, it looks like it is <a href="http://en.wikipedia.org/wiki/Monte_Carlo_method#Games">state of the art</a>.</li>
-<li>Have the programs play each other (with similar run times) and post the results.</li>
-</ol>
 
 ]]></content>
   </entry>

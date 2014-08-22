@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="James Cheshire&rsquo;s Population Lines redone with d3. Data from NASA. Fullscreen and code. Originally I wanted to use the population map as a &hellip;">
+  <meta name="description" content="Writing d3 typically involves writing lots of anonymous functions. The scatter plot example illustrates two typical use cases: scales and attributes &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/drawdown">Drawdown</a>
+      </li>
+    
+      <li class="post">
         <a href="/215-teeth">215 Teeth / 1008 Beats</a>
       </li>
     
@@ -200,6 +204,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/drawdown">Drawdown</a></h1>
+<time datetime="2014-08-19T00:00:00-04:00" pubdate><span class='month'>Aug</span> <span class='day'>19</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -480,7 +494,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/population-division">Population Division</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/06/23/even-fewer-lamdas-with-d3/">Even Fewer Lambdas in D3</a></h1>
     
     
       <p class="meta">
@@ -496,46 +510,220 @@
   
 
 
-<time datetime="2014-03-06T00:00:00-05:00" pubdate data-updated="true"></time>
+<time datetime="2014-06-23T00:00:00-04:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div id='joymap'></div>
+  <div class="entry-content"><p>Writing d3 typically involves writing lots of anonymous functions. The <a href="http://bl.ocks.org/mbostock/3887118">scatter plot</a> example illustrates two typical use cases: scales and attributes.</p>
+
+<h4>Scale computations</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">linear</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">range</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="p">])</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalWidth</span><span class="p">;</span> <span class="p">})))</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">linear</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">range</span><span class="p">([</span><span class="nx">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalLength</span><span class="p">;</span> <span class="p">})))</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p></br>
-<em>James Cheshire&rsquo;s <a href="http://spatial.ly/2013/09/population-lines/">Population Lines</a> redone with d3. <a href="http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-count">Data</a> from NASA. <a href="/population-division-fullscreen.html">Fullscreen</a> and <a href="https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/joymap/drawMap.js">code</a>.</em></p>
+<p><code>data</code> is an array of objects, each with a <code>sepalWidth</code> and a <code>sepalLength</code> property. <code>data.map</code> is a function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">built into</a> every javascript array. It takes a function (in this case, <code>function(d){ return d.sepalWidth; }</code>), calls it on each element of the original array, and returns a new array consisting of the returned values.</p>
 
-<p>Originally I wanted to use the population map as a template for exploring different ways of transitioning data with d3. With delays and durations, a variety of vertical and horizontal sweeping effects can be created. Unfortunately, it isn&rsquo;t possible to simultaneously animate hundreds of line elements smoothly. <a href="http://4c.ucc.ie/~larsko/#other">Lars Kotthoff&rsquo;s</a> <a href="https://github.com/mbostock/d3/pull/448">variable width</a> line generator did help cut down on the thousands of elements I started with &ndash; at first, the darker lines representing higher populations were formed by separating each longitude into a series of low and high segments &ndash; and with staggering, only a few dozen at a time are animated in the finished version.</p>
+<p>Since <code>sepalWidth</code> is always a number, <code>map</code> returns an array of numbers. This array is immediately passed to <code>d3.extent</code>, which returns the min and max sepalWidths and is used to set the domain of the <code>x</code> scale.</p>
 
-<p>Aesthetically, I was really drawn towards Cheshire&rsquo;s use of light and dark lines. A simple coloring rule makes China look like the cover of <a href="http://www.youtube.com/watch?v=wVvoQIdD80U">Unknown Pleasures</a> and parts of South America like a map of Mordor.</p>
+<h4>Data driven attributes</h4>
 
-<p>Functionally, having two colors representing high and low density makes it easy to compare different areas. Outside of the Sahara, for example, most of Africa is more populated than the western interior of the US. If I had more time, I would have made the density dividing point adjustable so the map could show where/how many people lived at various densities.</p>
-
-<p>Using a polylinear scale to convert population to line height, I created another threshold effect:</p>
-
-<pre><code>  populationToHeight = d3.scale.linear()
-      .domain([0, 1, d3.max(d3.merge(longitudes))])
-      .range([0, -1, -180])
-</code></pre>
-
-<p>Segments with a population of 0 have a height of 0. Segments with a population of 1 or more have a height between 1 and 180, with each additional person adding significantly less than 1 pixel of height. Since essentially all land is inhabited, even sparsely populated coasts get a nice bevel differentiating them from the ocean. Greenland&rsquo;s ice sheet is also clearly shown.</p>
-
-<p>I&rsquo;m not totally satisfied with the tooltip. Making the size of the highlighted area adjustable would make insights like the popular <a href="http://www.washingtonpost.com/blogs/worldviews/wp/2013/05/07/map-more-than-half-of-humanity-lives-within-this-circle/">&lsquo;half of humanity lives in this circle&rsquo;</a> map discoverable. I also wish the size of the bars corresponded to the absolute number of people highlighted to make comparison between areas easier. Using a log scale common to all regions made at a glance comparisons between regions easier but obscured change over time. Plotting percentage change as a line on top of log scaled bars would achieve both goals; however that would require multiple axes which would significantly detract from the simplicity of the rest of the display.</p>
-
-<script src="/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.dot&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">sepalWidth</span><span class="p">);</span> <span class="p">})</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">y</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">sepalLength</span><span class="p">);</span> <span class="p">})</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">color</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">species</span><span class="p">);</span> <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<script src="/javascripts/posts/joymap/line-variable.js" type="text/javascript"></script>
+<p><code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> iterates over every element in the current selection, calling the anonymous function on the data bound to the element (here, a member of the data array), and setting the element&rsquo;s &ldquo;cx&rdquo; property equal to the return value of the function. By also setting the &ldquo;cy&rdquo; property of each circle to be proportional to <code>sepalLenght</code>, a scatter plot showing <code>sepalWidth</code> v. <code>sepalLength</code> is created.</p>
+
+<p>This process is at the core of d3. Elements of a data array are associated with elements on the page, functions transform each data point into a pixel value, color, or something else which is used to alter the appearance of the elements on the page.</p>
+
+<p>In addition to attributes, text and interaction can also be controlled with functions operating on data:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">legend</span> <span class="o">=</span> <span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.legend&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">data</span><span class="p">([</span><span class="s1">&#39;flowerName1&#39;</span><span class="p">,</span> <span class="s1">&#39;flowerName2&#39;</span><span class="p">,</span> <span class="s1">&#39;flowerName3&#39;</span><span class="p">])</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">d</span><span class="p">;</span> <span class="p">})</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">d</span> <span class="o">+</span> <span class="s1">&#39; Clicked!&#39;</span><span class="p">);</span> <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<script src="/javascripts/posts/joymap/drawMap.js" type="text/javascript"></script>
+<p>Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like <code>.attr</code>, <code>.text(function(d){ return d; })</code> calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, <code>.text</code> (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we&rsquo;re only trying to print each of them out, our function just returns what it was passed.</p>
+
+<h4>Generalizations</h4>
+
+<p>Needing a function that returns what it is passed turns out to be surprisingly common. We can skip a bit of typing by saving a reference to the identify function:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">idFn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">;</span> <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p><meta property="og:image" content="/images/thumbnails/joymap.png" /></p>
+<p>and instead of typing out all the syntactical noise of <code>function</code>, <code>return</code>, <code>(</code> and <code>:</code>  every time we need it, we can say exactly what we mean everything time an identity function is used:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">idFn</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Admittedly, this isn&rsquo;t a huge improvement. We could try to extend this idea by creating more named functions to access field properties:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">getSepalWidth</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalWidth</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">getSepalLength</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">sepalLength</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">datum</span> <span class="o">=</span> <span class="p">{</span><span class="nx">sepalWidth</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">sepalWidth</span><span class="o">:</span> <span class="mi">34</span><span class="p">};</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getSepalWidth</span><span class="p">(</span><span class="nx">datum</span><span class="p">));</span>    <span class="c1">//10</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getSepalLength</span><span class="p">(</span><span class="nx">datum</span><span class="p">));</span>   <span class="c1">//34</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">getSepalWidth</span><span class="p">)));</span>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">extent</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">getSepalLength</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This makes the meat of our code more concise, but requires repetitive boilerplate code and mentally keeping track of the names of each of the field accessors. If we need to access another field, we have to create another accessor function first. Instead of manually making each accessor function, we can create a function that creates accessor functions:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="err">ƒ</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">field</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">object</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">object</span><span class="p">[</span><span class="nx">field</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">ƒ</span><span class="p">(</span><span class="s1">&#39;sepalWidth&#39;</span><span class="p">)(</span><span class="nx">datum</span><span class="p">));</span>    <span class="c1">//10</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">ƒ</span><span class="p">(</span><span class="s1">&#39;sepalLength&#39;</span><span class="p">)(</span><span class="nx">datum</span><span class="p">));</span>   <span class="c1">//34</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Calling <code>ƒ('fieldName')</code> returns a function that takes an object and returns its <code>fieldName</code> property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to tip &ndash; option-f. I like that it evokes its purpose &lsquo;ƒield accessor&rsquo; without being verbose.</p>
+
+<p>However, for the most common pattern of anonymous functions &ndash; getting a property from an object and transforming it with a scale function <code>.attr("cx", function(d) { return x(d.sepalWidth); })</code> &ndash; we&rsquo;re still stuck typing out the entirety of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead of manually spelling it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">compose</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">g</span><span class="p">(</span><span class="nx">h</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">addOne</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">timesFive</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="o">*</span><span class="mi">10</span> <span class="p">}</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">divideByTwo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">d</span><span class="o">/</span><span class="mi">2</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">compose</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">timesFive</span><span class="p">)(</span><span class="mi">2</span><span class="p">)</span>     <span class="c1">//(2*5) + 1 = 11</span>
+</span><span class='line'><span class="nx">compose</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">timesFive</span><span class="p">)(</span><span class="mi">10</span><span class="p">)</span>    <span class="c1">//(10*5) + 1 = 51</span>
+</span><span class='line'><span class="nx">compose</span><span class="p">(</span><span class="nx">timesFive</span><span class="p">,</span> <span class="nx">addOne</span><span class="p">)(</span><span class="mi">10</span><span class="p">)</span>    <span class="c1">//(10 + 1)*5 =  55</span>
+</span><span class='line'><span class="nx">compose</span><span class="p">(</span><span class="nx">divideByTwo</span><span class="p">,</span> <span class="nx">addOne</span><span class="p">)(</span><span class="mi">14</span><span class="p">)</span>  <span class="c1">//(14 + 1)*5 =  7.5</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>compose</code> takes two functions and returns one function representing the composition of those functions. Using <code>compose</code> with <code>ƒ</code> allows us to eliminate almost all of the noise of inline lambdas from our d3 code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="nx">compose</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="err">ƒ</span><span class="p">(</span><span class="s1">&#39;sepalWidth&#39;</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="nx">compose</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span> <span class="err">ƒ</span><span class="p">(</span><span class="s1">&#39;sepalLength&#39;</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>More modifications</h4>
+
+<p>Since we&rsquo;re making our helper functions, we can modify them to be even more useful. <code>ƒ</code>, for example, can replace <code>idFn</code> if we add a check for an <code>undefined</code> field:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="err">ƒ</span><span class="p">(</span><span class="nx">field</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">object</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">field</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">?</span> <span class="nx">object</span> <span class="o">:</span> <span class="nx">object</span><span class="p">[</span><span class="nx">field</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">datum</span> <span class="o">===</span> <span class="err">ƒ</span><span class="p">()(</span><span class="nx">datum</span><span class="p">)</span> <span class="c1">//true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;ve tried having <code>ƒ</code> accept arrays to access nested properties (not convinced that its that useful since it <code>ƒ(['prop1', 'prop2', 'prop3'])</code> is equivalent to <code>compose(ƒ('prop1'), ƒ('prop2'), ƒ('prop3'))</code>). Another variation: a &lsquo;safe&rsquo; version of `ƒ&#8220; that doesn&rsquo;t throw an error when the passed object is undefined.</p>
+
+<p>The <a href="http://underscorejs.org/docs/underscore.html">annotated source</a> of underscore shows how <code>compose</code> can be extend to take any number of functions.</p>
+
+<h4>Further reading</h4>
+
+<p>These helpers for d3 and d3 itself makes heavy use of function&rsquo;s first class status in Javascript. More cool things that functions can do:</p>
+
+<ul>
+<li><a href="https://leanpub.com/javascript-allonge/read">Javascript Allongé</a></li>
+<li><a href="https://www.youtube.com/watch?v=m3svKOdZijA">Hey Underscore, You&rsquo;re Doing It Wrong!</a></li>
+<li><a href="http://blog.fogus.me/2013/05/29/fun-js-pt-1-functional-javascript/">Functional Javascript</a></li>
+<li><a href="https://gist.github.com/mbostock/3934356">Underscore equivalents in native js and d3</a></li>
+</ul>
+
 </div>
   
   

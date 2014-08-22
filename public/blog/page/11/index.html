@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="http://roadtolarissa.com/triangles/ After finishing up the petition project, I wanted to use what I learned about d3.js to create something a little &hellip;">
+  <meta name="description" content="Three years ago, the New York Times published a nifty interactive graphic showing how the recession had impacted the unemployment rate of different &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/drawdown">Drawdown</a>
+      </li>
+    
+      <li class="post">
         <a href="/215-teeth">215 Teeth / 1008 Beats</a>
       </li>
     
@@ -200,6 +204,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/drawdown">Drawdown</a></h1>
+<time datetime="2014-08-19T00:00:00-04:00" pubdate><span class='month'>Aug</span> <span class='day'>19</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -480,7 +494,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/zoomable-sierpinski-triangle-with-d3-js">Zoomable Sierpinski Triangle With d3.js</a></h1>
+      <h1 class="entry-title"><a href="/unemployment-rates">Unemployment Rates</a></h1>
     
     
       <p class="meta">
@@ -496,53 +510,28 @@
   
 
 
-<time datetime="2012-12-21T00:00:00-05:00" pubdate data-updated="true"></time>
+<time datetime="2013-01-21T00:00:00-05:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p style="text-align: center;">
-  <a href="http://roadtolarissa.com/triangles/"><img class="aligncenter size-large wp-image-168" title="triangle" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/triangle-1024x815.png" alt="" width="640" height="509" /></a>http://roadtolarissa.com/triangles/
-</p>
+  <div class="entry-content"><p><a href="http://www.roadtolarissa.com/unemployment"><img class="aligncenter size-large wp-image-185" title="unemployment rates" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate1-1024x705.png" alt="" width="640" height="440" /></a></p>
 
+<p>Three years ago, the New York Times published a <a href="http://www.nytimes.com/interactive/2009/11/06/business/economy/unemployment-lines.html">nifty interactive graphic</a> showing how the recession had impacted the unemployment rate of different demographic groups. Wanting show a broader range of dates, add features, and get more practice with d3.js, I started working on a remake.</p>
 
-<p>After finishing up the <a href="http://www.roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures/">petition project</a>, I wanted to use what I learned about d3.js to create something a little more fun. After a few hours<sup>1</sup> of work,  I had this:</p>
+<p>During my job at Goody Goody, I got some practice getting time series from Bureau of Labor Statistics. Since I was only interested in a few types of data like the CPI and unemployment rate in Texas, I used their <a href="http://data.bls.gov/pdq/querytool.jsp?survey=ln">clunky java app</a> to get the data I needed.</p>
 
-<pre class="brush: jscript; title: ; notranslate" title="">//triangle centered at (cx, cy) with circumradius r
-function addTriangle(cx, cy, r){
-  svg.append('polygon')
-    .on(mobile ? "click" : "mouseover", function(d){
-      addTriangle(  cx,             cy - r/2,       r/2);     
-      addTriangle(  cx - r*sin30/2, cy + r*cos30/2, r/2);     
-      addTriangle(  cx + r*sin30/2, cy + r*cos30/2, r/2);
-      
-      d3.select(this).on('mouseover', function(){});
-      d3.select(this).on('click', function(){
-        addTriangle(cx, cy, r);});
-    })
-    .attr('fill', 'white')
-    .attr('points', (cx)  +','+   (cy)  +' '+ 
-                    (cx)  +','+   (cy)  +' '+
-                    (cx)  +','+   (cy))
-    .transition()
-    .duration(600)
-    .delay(10)
-      .attr('fill', randomColor())
-      .attr('points', (cx)  +','+   (cy-r)          +' '+ 
-              (cx-r*sin30)  +','+   (cy + r*cos30)  +' '+
-              (cx+r*sin30)  +','+   (cy + r*cos30))
-}
-</pre>
+<p><a href="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate2.png"><img class="aligncenter size-full wp-image-186" title="BLS java app" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate2.png" alt="" width="784" height="459" /></a></p>
 
+<p>I briefly contemplated manually selecting all the series that I wanted to use for downloading but decided not to because of the amount of time and errors that would be involved in doing that. Poking around the BLS website more, I found their <a href="ftp://ftp.bls.gov/pub/time.series/ln">FTP site</a> which contained huge text files with unemployment time series. This wasn&#8217;t particularly user friendly, but all the data was machine readable and I wrote a <a href="https://github.com/1wheel/unemployment/blob/master/parseBLS.py">small python program</a> to extract and repackage the time series I wanted to show.</p>
 
-<p>which is currently live at the above link. There are a lot of things I&rsquo;d like to add &#8211; proper mobile support, more fractal patterns, deeper zooming, and more interesting coloring &#8211; but I&rsquo;ve just been clicking and scrolling around the triangles instead. It&#8217;s incredible to me that such a small snipping of code could create something so visually engaging. Even though the internet already has dozens of Sierpinski Triangles, I haven&rsquo;t found any as interactive and eloquent as this one (which is because of d3.js, not anything I&rsquo;ve done) so I feel ok posting it.</p>
+<p>Even at this relatively early stage, I made a couple of decisions to limit the project&rsquo;s scope. The BLS collects a huge amount of demographic data &#8211; martial status, occupation, disabilities, veteran, reasons for not working more, ect. &#8211; and I omitted most of them because only a limited number of groupings have <a href="http://en.wikipedia.org/wiki/Cross_tabulation">crosstabs</a>. I also picked the semi arbitrary start year of 2001 to keep amount of data the page requires down. Many of the series go back to the 1950s and including them would have required either long page load times or a tricker system of only downloading requested time frames.</p>
 
-<ol>
-<li>The most frustrating part of making this: tricking myself into think that I had forgotten everything about geometry. From about 2 AM to 3.30 AM, I was trying to find the vertices of an equilateral triangle given the circumradius and center. This is pretty easy to do with trigonometry (see lines 21-23) , but I kept getting lopsided triangles no matter how I calculated the vertices. I even ended up pulling a geometry textbook off the shelf to check that I was doing the math correctly. Eventually (and I can&rsquo;t remember what lead me to this realization or why it didn&rsquo;t come earlier) it dawned on me that Math.sin(x) thought x was in radians and I was entering degrees.</li>
-</ol>
+<p>Implementing the page in d3.js wasn&rsquo;t too difficult. I&rsquo;m getting more familiar with the library and the style of coding that works well with it. The biggest issue with the library  right now is its inability to do smooth transitions in none webkit browsers. The NYT&#8217;s version of the graphic was written in flash and doesn&rsquo;t lag in firefox. Beta builds of firefox with the right experimental settings enabled display the page fine, but I&rsquo;m not sure how long it will be before those improvements are widely installed.</p>
 
+<p>In terms of new features, I added another set of buttons to allow for easy comparisons between two different demographic groups and a brush on the bottom graph for selecting time. These additions take some of the focus away from the recession, but also historically contextualize the unemployment rate and draw the viewer to explore the data.</p>
 </div>
   
   

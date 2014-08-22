@@ -9,7 +9,7 @@
   <meta name="author" content="Adam Pearce">
 
   
-  <meta name="description" content="Finishing up the circular synth, I got a little frustrated by its inability to save more than 4 measures of music. While there was a clear &hellip;">
+  <meta name="description" content=" Drawdown ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +113,10 @@
   <h1>Posts</h1>
     
       <li class="post">
+        <a href="/drawdown">Drawdown</a>
+      </li>
+    
+      <li class="post">
         <a href="/215-teeth">215 Teeth / 1008 Beats</a>
       </li>
     
@@ -200,6 +204,16 @@
   	
   	  
   	  <h2>2014</h2>
+  	
+  	<article>
+  	  
+<h1><a href="/drawdown">Drawdown</a></h1>
+<time datetime="2014-08-19T00:00:00-04:00" pubdate><span class='month'>Aug</span> <span class='day'>19</span> <span class='year'>2014</span></time>
+
+
+  	</article>
+  	
+  	
   	
   	<article>
   	  
@@ -480,7 +494,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/215-teeth">215 Teeth / 1008 Beats</a></h1>
+      <h1 class="entry-title"><a href="/drawdown">Drawdown</a></h1>
     
     
       <p class="meta">
@@ -496,58 +510,40 @@
   
 
 
-<time datetime="2014-08-05T00:00:00-04:00" pubdate data-updated="true"></time>
+<time datetime="2014-08-19T00:00:00-04:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><link rel="stylesheet" type="text/css" href="/javascripts/posts/synthComp/style.css">
-<svg id='synth' style='width: 100%'></svg></p>
+  <div class="entry-content"><p><link rel="stylesheet" type="text/css" href="/javascripts/posts/drawDown/style.css"></p>
 
-<div id='synthSliders'></div>
+<p>Drawdown</p>
 
-
-<p>Finishing up the <a href="http://roadtolarissa.com/synth/">circular synth</a>, I got a little frustrated by its inability to save more than 4 measures of music. While there was a clear connection between the interface and the music, there wasn&rsquo;t any way to communicate its most enjoyable aspect &ndash; changing a few notes every cycle, creating a composition.</p>
-
-<p>With these gears, I&rsquo;ve tried to visually represent this process of change. The orange gear functions like the first circular synth. Each arc is a note &mdash; the distance from the center corresponds to its pitch; the column to one of eight beats. When the beat passes the left-hand side of the circle, it&rsquo;s highlighted yellow and the filled in notes are played.</p>
-
-<p>The large orange and green gears each have 72 teeth, the small green gear has 8 and the pink gear has 63. Every 7 beats the orange and green gears make 7/8ths of one revolution. This turns the small green gear 7 teeth ahead, while also turning the pink gear 7 teeth or 1/9th of a revolution (7/63 teeth). Since the pink gear has 9 beats, this progression of 7 orange beats advances the pink gear exactly one beat. When a pink beat passes the left side of the circle, it flashes blue and any of its filled in notes invert the fill-state of the orange notes across from them.</p>
-
-<p>Every 63 (7×9) orange beats, the pink gear completes one rotation while the orange gear rotates 7 and 7/8th times. After 8 rotations of the pink gear or 504 (7×8×9) beats, each gear returns to its original orientation. Many of the notes on the orange gear have had their fill-states changed several times; during the next 504 beats, the same pink notes that flipped the orange beats&#8217; fill-state will flip it again till everything returns to exactly how it started, 1008 beats earlier.</p>
-
-<p>While (I think) this is nicely elegant exploitation of 7, 8 and 9&rsquo;s relative primality and does visualize an entire composition at once, there are a number of limitations. The graphic isn&rsquo;t self explanatory &mdash; the accompanying text should be adding context; not a requirement for understanding. Watching at a slow speed shows off the aesthetically pleasing gear animation, but the inversion of notes occurs too slowly to hear. Speeding up makes the inversions more audible, but the gears start to blur and turn backwards like a fan. Adding another gear or two in the chain of updating notes like Ganson&rsquo;s <a href="https://www.youtube.com/watch?v=5q-BH-tvxEg">Machine with Concrete </a> would provide a good variety of speeds but at the cost of adding more complexity. The biggest limitation is that it&rsquo;s difficult to make something that sounds good throughout the cycle of 1008 beats. Since the filled-in notes constantly invert and uninvert, most sets of 7 pitches will result in lots of dissonant chords (I ended up going with 2 octaves of a major scale paired with cheery, cartoony colors).</p>
-
-<p>I&rsquo;m getting to work on more straightforward visualizations of data at <a href="http://www.bloomberg.com/visual-data">my job</a> now; hoping to post more experimental work with <a href="http://bost.ocks.org/mike/algorithms/">algorithms</a> and/or <a href="http://www.pianophase.com/">rhythm</a> here soon.</p>
-
-<p>Code for <a href="https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/synthComp/gears.js">gears</a> (drawing heavily from <a href="http://bl.ocks.org/mbostock/1353700">Bostock’s Epicyclic Gearing bl.ocks</a> and <a href="https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/synthComp/audio.js">audio</a>) is on github.</p>
-
-<script src="/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
-
-
-<script src="/javascripts/libs/lodash.js" type="text/javascript"></script>
+<div id='drawDownNaive' style='width: 100%; height: 300px'></div>
 
 
 
 
-<script src="/javascripts/posts/negBarTransition/lib.js" type="text/javascript"></script>
+<div id='oN' style='width: 100%; height: 300px'></div>
 
 
 
 
-<script src="/javascripts/posts/synthComp/gears.js" type="text/javascript"></script>
+<script src="javascripts/libs/d3.4.11.js" type="text/javascript"></script>
 
 
-<script src="/javascripts/posts/synthComp/wheel1.js" type="text/javascript"></script>
+<script src="javascripts/libs/lodash.js" type="text/javascript"></script>
 
 
-<script src="/javascripts/posts/synthComp/wheel2.js" type="text/javascript"></script>
+<script src="javascripts/posts/drawDown/scales.js" type="text/javascript"></script>
 
 
+<script src="javascripts/posts/drawDown/naive.js" type="text/javascript"></script>
 
 
-<script src="/javascripts/posts/synthComp/audio.js" type="text/javascript"></script>
+<script src="javascripts/posts/drawDown/oN.js" type="text/javascript"></script>
 
 
 <p><meta property="og:image" content="/images/thumbnails/215-teeth.png" /></p>
