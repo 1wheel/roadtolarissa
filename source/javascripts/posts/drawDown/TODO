@@ -1,12 +1,19 @@
-TODO
-	//fix direction of line
-	//label peak, l, j, k, max
-	
-	add play button ↻
-	write up
-	better colors
+todo hover
+
+color text
+	i purple
+	j orange
+	n blue
+
+	set n equal to prices.length
+
+	remove default coloring
+
+	add span syle
+
+	also update graphs
 
 
-	better code colors
-
-	put drawdown.html in right folder
+add example html to folder
+better file names
+readme in folder with files

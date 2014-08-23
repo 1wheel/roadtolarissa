@@ -20,11 +20,11 @@ var oCircles = oSvg.append('g').selectAll('circle')
     .attr('cy', y)
     .attr('r', 3)
 
-var pGroup = oSvg.append('g')
+var pGroup = oSvg.append('g').classed('peak-group', true)
 var pLine = pGroup.append('line').classed('text-line', true).attr({y1: height + margin.bottom - 20})
 var pText = pGroup.append('text').style('text-anchor', 'end').attr('y', height + margin.bottom - 5)
 
-var lGroup = oSvg.append('g')
+var lGroup = oSvg.append('g').classed('i-group', true)
 var lLine = lGroup.append('line').classed('text-line', true).attr({y1: height + margin.bottom - 20})
 var lText = lGroup.append('text').style('text-anchor', 'start').attr('y', height + margin.bottom - 5)
 
@@ -128,7 +128,7 @@ function oAnimateStep(){
 d3.selectAll([nSvg.node(), oSvg.node()]).append('text')
     .classed('reset-button', true)
     .attr({x: 0, y: 0, dy: '1em'})
-    .style({'font-size': '30px', 'opacity': 0})
+    .style({'font-size': '30px', 'opacity': 0, 'fill': 'grey'})
     .text('↻')
 
 
@@ -136,3 +136,7 @@ d3.selectAll([nSvg.node(), oSvg.node()]).append('rect')
     .attr({height: height + margin.bottom , width: width + margin.right, 'fill-opacity': 0})
     .style('cursor', 'pointer')
     .on('click', reset)
+    .on('mouseover', function(){
+      d3.selectAll('.reset-button').style('fill', 'black') })
+    .on('mouseout', function(){
+      d3.selectAll('.reset-button').style('fill', 'darkgrey') })

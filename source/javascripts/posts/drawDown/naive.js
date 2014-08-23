@@ -20,11 +20,11 @@ var circles = nSvg.append('g').selectAll('circle')
     .attr('cy', y)
     .attr('r', 3)
 
-var jGroup = nSvg.append('g')
+var jGroup = nSvg.append('g').classed('i-group', true)
 var jLine = jGroup.append('line').classed('text-line', true).attr({y1: height + margin.bottom - 20})
 var jText = jGroup.append('text').style('text-anchor', 'end').attr('y', height + margin.bottom - 5)
 
-var kGroup = nSvg.append('g')
+var kGroup = nSvg.append('g').classed('j-group', true)
 var kLine = kGroup.append('line').classed('text-line', true).attr({y1: height + margin.bottom - 20})
 var kText = kGroup.append('text').style('text-anchor', 'start').attr('y', height + margin.bottom - 5)
 

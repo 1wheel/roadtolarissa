@@ -4,7 +4,7 @@
   <title><![CDATA[Road to Larissa]]></title>
   <link href="http://roadtolarissa.com/atom.xml" rel="self"/>
   <link href="http://roadtolarissa.com/"/>
-  <updated>2014-08-22T02:23:32-04:00</updated>
+  <updated>2014-08-23T11:02:07-04:00</updated>
   <id>http://roadtolarissa.com/</id>
   <author>
     <name><![CDATA[Adam Pearce]]></name>
@@ -20,9 +20,9 @@
     <id>http://roadtolarissa.com/drawdown</id>
     <content type="html"><![CDATA[<p><link rel="stylesheet" type="text/css" href="http://roadtolarissa.com/javascripts/posts/drawDown/style.css"></p>
 
-<p>The drawdown of a series refers to largest decrease in value between two points. If you were to purchase and sell a stock, the start and end of stock&rsquo;s drawdown would be the worst time to do so. Conversely, if you had perfect knowledge of stock&rsquo;s price and the ability to buy and sell a short once, you&rsquo;d want to identify the drawdown period in order to maximize profits.</p>
+<p>The <a href="http://en.wikipedia.org/wiki/Drawdown_(economics)">drawdown</a> of a series is the largest decrease in value between two points. If you were to purchase and sell a stock, the start and end of its drawdown would be the worst time to do so.</p>
 
-<p>Since order matters, calculating drawdown isn&rsquo;t as simple as finding the maximum and minimum values of the series &ndash; if the minimum occurs before the maximum, such an approach will identify a period of application. To avoid this case, we could iterate over each index of the series <code>i</code>, then compare the price at time <code>i</code> to the price at all subsequent times <code>j</code>. Max drawdown is equal to the largest difference between prices at <code>i</code> and <code>j</code>:</p>
+<p>Since order matters, calculating drawdown isn&rsquo;t as simple as finding the maximum and minimum values of the series &ndash; if the minimum occurs before the maximum, such an approach will identify a period of appreciation. To avoid this case, we can iterate over each index <span class='i-text'><code>i</code></span> of the series, then compare the price at time <span class='i-text'><code>i</code></span> to the price at all subsequent indices <span class='j-text'><code>j</code></span>. <span class='maxDrawdown-text'><code>maxDrawdown</code></span> is equal to the largest difference between prices at <span class='i-text'><code>i</code></span> and <span class='j-text'><code>j</code></span>:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -30,8 +30,10 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">prices</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">prices</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">prices</span><span class="p">.</span><span class="nx">length</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
 </span><span class='line'>        <span class="nx">dif</span> <span class="o">=</span> <span class="nx">prices</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">-</span> <span class="nx">prices</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
 </span><span class='line'>        <span class="nx">maxDrawdown</span> <span class="o">=</span> <span class="nx">maxDrawdown</span> <span class="o">&gt;</span> <span class="nx">dif</span> <span class="o">?</span> <span class="nx">maxDrawdown</span> <span class="o">:</span> <span class="nx">dif</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
@@ -44,18 +46,20 @@
 <div id='drawDownNaive' style='width: 100%; height: 300px'></div>
 
 
-<p>If the series has <code>n</code> prices, <code>n*(n - 1)/2</code> comparisons are needed (the number of comparisons done during <code>i</code>th pass through of the inner loop is n &ndash; i &ndash; 1; the <a href="http://en.wikipedia.org/wiki/Triangular_number">sum</a> of all those comparisons is <code>1 + 2 + 3 + ... + n - 1</code>). The number of comparisons increases faster than <code>n</code> &ndash; if there are 100 values, 4950 comparisons are needed, while 200 values requires 19900 comparisons. For series covering a long period of time or with a great deal of granularity, this algorithm might be too slow even for a fast computer.</p>
+<p>If the series has <span class='n-text'><code>n</code></span> prices, <code>n*(n - 1)/2</code> comparisons are needed (the number of comparisons done during the <span class='i-text'><code>i</code></span>th pass through the inner loop is <code>n - i - 1</code>; the <a href="http://en.wikipedia.org/wiki/Triangular_number">sum</a> of all those comparisons is <code>1 + 2 + 3 + ... + n - 1</code>). The number of comparisons increases faster than <code>n</code> &ndash; if there are <code>100</code> values, <code>4950</code> comparisons are needed, while <code>200</code> values requires <code>19900</code> comparisons. For series covering a long period of time or with a great deal of granularity, this algorithm might be too slow even for a fast computer.</p>
 
-<p>Instead of comparing every value with every other value, we can exploit the sequential requirement to only make <code>n - 1</code> comparisons. While</p>
-
-<p>If the point we&rsquo;re at is higher than all previous points, if it is a <code>peak</code>, any subsequent drawdown periods must start at the <code>peak</code> or another <code>p</code></p>
+<p>Instead of comparing every value with every other value, we can exploit the sequential requirement and make only <code>n - 1</code> comparisons:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">prices</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">peak</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">prices</span><span class="p">.</span><span class="nx">length</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
 </span><span class='line'>    <span class="nx">dif</span> <span class="o">=</span> <span class="nx">prices</span><span class="p">[</span><span class="nx">peak</span><span class="p">]</span> <span class="o">-</span> <span class="nx">prices</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 </span><span class='line'>    <span class="nx">peak</span> <span class="o">=</span> <span class="nx">dif</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">i</span> <span class="o">:</span> <span class="nx">j</span><span class="p">;</span>
 </span><span class='line'>    <span class="nx">maxDrawdown</span> <span class="o">=</span> <span class="nx">maxDrawdown</span> <span class="o">&gt;</span> <span class="nx">dif</span> <span class="o">?</span> <span class="nx">maxDrawdown</span> <span class="o">:</span> <span class="nx">dif</span><span class="p">;</span>
@@ -63,12 +67,12 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>Iterating over each index <span class='i-text'><code>i</code></span> of the series in order, the maximum decline ending at point <span class='i-text'><code>i</code></span> will start at the highest point of the series so far. While passing over the series we keep track of two numbers &ndash; the <span class='peak-text'><code>peak</code></span> of the series and the <span class='maxDrawdown-text'><code>maxDrawdown</code></span> in price between <span class='peak-text'><code>peak</code></span> and <span class='i-text'><code>i</code></span>.</p>
 
 <div id='oN' style='width: 100%; height: 300px'></div>
 
 
-
+<p>The speed difference between the two algorithms is proportional to the number of prices. Calculating drawdown with the second approach on a series with <code>100</code> values takes <code>99</code> comparisons instead of <code>4950</code>, which is <code>50</code> (<code>100/2</code>) times faster. A series with <code>200</code> values requires <code>199</code> comparisons instead of <code>19900</code>, which is <code>100</code> (<code>200/2</code>) times faster. In general, since the first approach requires <code>n*(n - 1)/2</code> comparisons for a series with <span class='n-text'><code>n</code></span> values and the second <code>n - 1</code> comparisons, the second approach will be <code>n/2</code> times faster.</p>
 
 <script src="http://roadtolarissa.com/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
 
@@ -88,6 +92,9 @@
 
 
 <script src="http://roadtolarissa.com/javascripts/posts/drawDown/oN.js" type="text/javascript"></script>
+
+
+<script src="http://roadtolarissa.com/javascripts/posts/drawDown/stylePost.js" type="text/javascript"></script>
 
 
 <p><meta property="og:image" content="/images/thumbnails/215-teeth.png" /></p>
@@ -813,7 +820,7 @@ Scrape the text, date, score, author and band information from every published r
 
 <p>When a post or a comment did do moderately well and directed thousands of more people to the site, it wasn&rsquo;t nearly as exciting as it was the first time &#8211; it had already happened before  and since it seemed almost achievable to get 100,000+ or 1,000,000 people to the site, I was always disappointed when that didn&rsquo;t happen. Additionally, while the feedback was still positive, it became more and more inane. After getting over a dozen of comments about the lack of axis labels (including three people who sent <a href="http://xkcd.com/833/">the same xkcd</a>), I added them against my better judgement (they take up valuable space and don&rsquo;t add any valuable information &#8211; the graph title and selected image very clearly shows what is being graph; is it really necessary to clarify that a series of dates along the bottom of a graph refer to &#8216;time&#8217;?).  I tried using more playful, <a href="http://www.cracked.com/">Cracked</a> like titles: &#8220;Your Reddit Comments Show When You Sleep&#8221; and the majority of the comments made the same joke about how the comments really showed when they were at work.</p>
 
-<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#116;&#105;&#x70;&#115;&#64;&#119;&#x65;&#98;&#115;&#105;&#116;&#101;&#x2e;&#99;&#111;&#x6d;">&#x74;&#x69;&#112;&#115;&#64;&#x77;&#x65;&#98;&#115;&#x69;&#x74;&#x65;&#46;&#x63;&#x6f;&#x6d;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
+<p>I also tried sending the site to more journalists and bloggers. Reddit adds a nofollow attribute to all links submitted, so getting more organic traffic from people searching for &#8216;reddit comment history&#8217; required posts on separate sites. Aside from the first success, I didn&rsquo;t have any success. After reading <a href="http://www.onthemedia.org/2012/jul/27/trust-me-im-lying/transcript/">Trust Me, I&rsquo;m Lying</a>, I thought it would be, if not easy, at least doable to get story starved bloggers to write a post about redditgraphs. Based on the limited experience I had, I&rsquo;d recommend anyone trying the same to find an actual person&rsquo;s email address rather than using a contact form or <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x74;&#105;&#x70;&#115;&#64;&#119;&#x65;&#x62;&#115;&#105;&#116;&#101;&#46;&#99;&#111;&#x6d;">&#116;&#105;&#112;&#115;&#64;&#x77;&#101;&#98;&#x73;&#105;&#x74;&#101;&#x2e;&#x63;&#x6f;&#109;</a> email Some of the <a href="http://www.makeuseof.com/contact/">sites I tried submitting to</a> seemed kind of &#8230; sleezy:</p>
 
 <p><a href="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png"><img class="aligncenter size-full wp-image-121" title="MakeUseOf" src="http://www.roadtolarissa.com/wp-content/uploads/2012/11/makeusof.png" alt="" width="599" height="155" /></a></p>
 

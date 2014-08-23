@@ -1,7 +1,7 @@
 var margin = {top: 10, right: 50, bottom: 30, left: 50};
 var height = 250;
 var width = 600;
-var duration = 50; 
+var duration = 70; 
 
 var data = makeData();
 
@@ -21,7 +21,7 @@ var dataExtent = d3.extent(data);
 var dif = dataExtent[0] - dataExtent[1];
 var color = d3.scale.linear()
 		.domain([.0001, 0, -.0001])
-		.range(['#1e8e00', 'brown', '#be2625'])
+		.range(['#5FE808', 'brown', '#FF0000'])
 
 
 function reset(){
