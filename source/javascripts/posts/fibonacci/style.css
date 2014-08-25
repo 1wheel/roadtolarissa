@@ -1,0 +1,107 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+}
+
+path{
+	fill: none;
+	stroke-width: 1px;
+	stroke: black;
+	stroke-opacity: .7;
+}
+
+circle{
+	fill-opacity: .1;
+	stroke: grey;
+}
+
+.connection{
+	stroke: black;
+	stroke-linecap: round;
+	stroke-opacity: .5;
+	stroke-width: 5;
+}
+.best{
+	stroke: green;
+	stroke-linecap: round;
+	stroke-width: 5;
+	stroke-opacity: 1;
+}
+
+.text-line{
+	stroke: black;
+	stroke-dasharray: 3 0 1;
+	stroke-linejoin: round;
+	stroke-width: 2;
+}
+
+.i-text code{
+	color: #6C0DFF;
+	font-weight: bold;
+}
+.highlight code .i-code{
+	color: #6C0DFF !important;
+	font-weight: bold !important;
+}
+.i-group text{
+	fill: #6C0DFF;
+}
+.i-group line{
+	stroke: #6C0DFF;
+}
+p code .i-text{
+	color: #6C0DFF !important;
+}
+
+
+.maxDrawdown-text code{
+	color: #FF0000;
+	font-weight: bold;
+}
+.highlight code .maxDrawdown-code{
+	color: #FF0000 !important;
+	font-weight: bold !important;
+}
+
+.peak-text code{
+	color: #E826DF;
+	font-weight: bold;
+}
+.highlight code .peak-code{
+	color: #E826DF !important;
+	font-weight: bold !important;
+}
+.peak-group text{
+	fill: #E826DF;
+}
+.peak-group line{
+	stroke: #E826DF;
+}
+
+
+.n-text code{
+	color: #FFC01C;
+	font-weight: bold;
+}
+.highlight code .n-code{
+	color: #FFC01C !important;
+	font-weight: bold !important;
+}
+p code .n-text{
+	color: #FFC01C !important;
+}
+
+.j-text code{
+	color: purple;
+	font-weight: bold;
+}
+.highlight code .j-code{
+	color: purple !important;
+	font-weight: bold !important;
+}
+.j-group text{
+	fill: purple;
+}
+.j-group line{
+	stroke: purple;
+}
