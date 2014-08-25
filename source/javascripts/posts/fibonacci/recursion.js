@@ -1,6 +1,6 @@
 var height = 500;
 var width = 750;
-var margin = {left: 0, right: 0, top: 10, bottom: 0};
+var margin = {left: 0, right: 0, top: 10, bottom: 10};
 var topLevel = 10;
 
 var svg = d3.select('#recursion')
