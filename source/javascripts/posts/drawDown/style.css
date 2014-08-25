@@ -49,6 +49,10 @@ circle{
 .i-group line{
 	stroke: #6C0DFF;
 }
+p code .i-text{
+	color: #6C0DFF !important;
+}
+
 
 .maxDrawdown-text code{
 	color: #FF0000;
