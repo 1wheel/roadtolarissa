@@ -83,6 +83,9 @@ circle{
 	color: #FFC01C !important;
 	font-weight: bold !important;
 }
+p code .n-text{
+	color: #FFC01C !important;
+}
 
 .j-text code{
 	color: purple;

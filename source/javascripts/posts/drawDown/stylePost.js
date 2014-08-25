@@ -11,5 +11,9 @@ d3.selectAll('code')
 d3.selectAll('p').selectAll('code')
     .html(function(){
       var str = d3.select(this).text();
-      return str.replace('n', "<span class='n-text'>n</span>")
+      if (str === 'maxDrawdown') return str;
+      //return "<span class='n-text'>BEEP</span>" 
+      str = str.replace(/n/g, "<span class='n-text'>n</span>")
+      str = str.replace(/i/g, "<span class='i-text'>i</span>")
+      return str;
     })
