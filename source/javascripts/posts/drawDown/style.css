@@ -37,11 +37,11 @@ circle{
 
 .i-text code{
 	color: #6C0DFF;
-	font-weight: bold;
+	font-weight: 600;
 }
 .highlight code .i-code{
 	color: #6C0DFF !important;
-	font-weight: bold !important;
+	font-weight: 600 !important;
 }
 .i-group text{
 	fill: #6C0DFF;
@@ -56,20 +56,20 @@ p code .i-text{
 
 .maxDrawdown-text code{
 	color: #FF0000;
-	font-weight: bold;
+	font-weight: 600;
 }
 .highlight code .maxDrawdown-code{
 	color: #FF0000 !important;
-	font-weight: bold !important;
+	font-weight: 600 !important;
 }
 
 .peak-text code{
 	color: #E826DF;
-	font-weight: bold;
+	font-weight: 600;
 }
 .highlight code .peak-code{
 	color: #E826DF !important;
-	font-weight: bold !important;
+	font-weight: 600 !important;
 }
 .peak-group text{
 	fill: #E826DF;
@@ -81,11 +81,11 @@ p code .i-text{
 
 .n-text code{
 	color: #FFC01C;
-	font-weight: bold;
+	font-weight: 600;
 }
 .highlight code .n-code{
 	color: #FFC01C !important;
-	font-weight: bold !important;
+	font-weight: 600 !important;
 }
 p code .n-text{
 	color: #FFC01C !important;
@@ -93,11 +93,11 @@ p code .n-text{
 
 .j-text code{
 	color: purple;
-	font-weight: bold;
+	font-weight: 600;
 }
 .highlight code .j-code{
 	color: purple !important;
-	font-weight: bold !important;
+	font-weight: 600 !important;
 }
 .j-group text{
 	fill: purple;

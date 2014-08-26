@@ -571,6 +571,8 @@
 
 <p>The speed difference between the two algorithms is proportional to the number of prices. Calculating drawdown with the second approach on a series with <code>100</code> values takes <code>99</code> comparisons instead of <code>4950</code>, which is <code>50</code> (<code>100/2</code>) times faster. A series with <code>200</code> values requires <code>199</code> comparisons instead of <code>19900</code>, which is <code>100</code> (<code>200/2</code>) times faster. In general, since the first approach requires <code>n*(n - 1)/2</code> comparisons for a series with <span class='n-text'><code>n</code></span> values and the second <code>n - 1</code> comparisons, the second approach will be <code>n/2</code> times faster.</p>
 
+<p><a href="https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/drawDown">Code for animations on github</a></p>
+
 <script src="/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
 
 
