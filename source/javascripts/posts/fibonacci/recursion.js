@@ -45,10 +45,12 @@ function drawCircle(obj){
         childDrawn = true;
         drawCircle(obj.children[0])
         drawCircle(obj.children[1])
+        d3.select(this).style('fill', 'lightgrey')
       })
       .attr('cx', objToX(obj.parent))
       .attr('cy', objToY(obj.parent))
       .style('pointer-events', 'none')
+      .style('fill', 'steelblue')
     .transition()
       .attr('cx', objToX(obj))
       .attr('cy', objToY(obj))
@@ -57,6 +59,16 @@ function drawCircle(obj){
       })
 
   svg.append('line')
+      .attr(
+        { x1: objToX(obj.parent),
+          y1: objToY(obj.parent),
+          x2: objToX(obj.parent),
+          y2: objToY(obj.parent) })
+    .transition()
+      .attr(
+        { x2: objToX(obj),
+          y2: objToY(obj) })
+      .style({stroke: 'black', "stroke-width": 3});
 
 
 
