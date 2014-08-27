@@ -38,4 +38,23 @@ http://ilya.boyandin.me/assets/thesis.pdf Pupyrev et al. parallel flow diagrams 
 
 
 ### Project Gutenberg
-Whale words, by chapter 
+Whale words and other text visualizaitons, both work specific and aggregate 
+
+### Dragon curve
+Unfold with mouseover
+
+### Submarine cables
+Animate history of them being laid
+
+Style like an old map
+
+Use canvas or webGL to show flow of information
+
+#Fibonic numbers
+Show computation with recursion, memorization and newtons method 
+
+
+#Twitter -> RSS
+Turn twitter follow list into a rss feed, export OXML
+
+Make front end to browse
