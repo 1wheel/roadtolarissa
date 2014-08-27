@@ -60,9 +60,9 @@ function drawCircle(obj){
           d3.select(this).style('fill', color(obj));
 
           svg.append('path')
-              .attr('d', arc([obj.x, obj.y], [obj.x, obj.y]))
+              .attr('d', arc([obj.x, obj.y], [obj.x, obj.y], obj.leftSide))
             .transition().duration(duration)
-              .attr('d', arc([obj.parent.x, obj.parent.y], [obj.x, obj.y]))
+              .attr('d', arc([obj.parent.x, obj.parent.y], [obj.x, obj.y], obj.leftSide))
               .each('end', function(){ updateParentState(obj); })
         }
       })
@@ -80,10 +80,10 @@ function drawCircle(obj){
       })
 
   svg.append('path')
-      .attr('d', arc([obj.parent.x, obj.parent.y], [obj.parent.x, obj.parent.y]))
+      .attr('d', arc([obj.parent.x, obj.parent.y], [obj.parent.x, obj.parent.y], obj.leftSide))
       .style({stroke: 'black', "stroke-width": 2})
     .transition().duration(duration)
-      .attr('d', arc([obj.x, obj.y], [obj.parent.x, obj.parent.y]))
+      .attr('d', arc([obj.x, obj.y], [obj.parent.x, obj.parent.y], obj.leftSide))
 
 
 }
@@ -96,9 +96,18 @@ function color(obj){
   return !obj.childDrawn ? 'steelblue' : obj.calculated ? 'white' : obj.children.every(f('calculated')) ? 'red' : 'lightgrey';
 }
 
-function arc(a, b) {
+function arc(a, b, flip) {
   var dx = a[0] - b[0],
       dy = a[1] - b[1],
       dr = Math.sqrt(dx * dx + dy * dy);
-  return "M" + b[0] + "," + b[1] + "A" + dr + "," + dr + " 0 0,1 " + a[0] + "," + a[1];
+  flip = true;
+  return flip ? 
+    "M" + b[0] + "," + b[1] + "A" + dr + "," + dr + " 0 0,1 " + a[0] + "," + a[1] :
+    "M" + a[0] + "," + a[1] + "A" + dr + "," + dr + " 0 0,1 " + b[0] + "," + b[1];
+}
+
+function reset(){
+  svg.selectAll('circle')
+    .transition().duration(function(d){ return d.i*500; }).ease('bounce')
+      .attr('cy', height)
 }
