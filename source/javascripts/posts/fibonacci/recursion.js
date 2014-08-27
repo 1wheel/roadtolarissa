@@ -20,6 +20,9 @@ tree.parent = tree;
 addChildren(tree);
 
 function addChildren(obj){
+  obj.x = (obj.left + obj.right)/2;
+  obj.y = levelToHeight(obj.i);
+
   if (obj.i === 0 || obj.i === 1){
     obj.val = obj.i;
     return obj;
@@ -47,27 +50,27 @@ function drawCircle(obj){
         drawCircle(obj.children[1])
         d3.select(this).style('fill', 'lightgrey')
       })
-      .attr('cx', objToX(obj.parent))
-      .attr('cy', objToY(obj.parent))
+      .attr('cx', obj.parent.x)
+      .attr('cy', obj.parent.y)
       .style('pointer-events', 'none')
       .style('fill', 'steelblue')
     .transition()
-      .attr('cx', objToX(obj))
-      .attr('cy', objToY(obj))
+      .attr('cx', obj.x)
+      .attr('cy', obj.y)
       .each('end', function(){
         d3.select(this).style('pointer-events', 'all')
       })
 
   svg.append('line')
       .attr(
-        { x1: objToX(obj.parent),
-          y1: objToY(obj.parent),
-          x2: objToX(obj.parent),
-          y2: objToY(obj.parent) })
+        { x1: obj.parent.x,
+          y1: obj.parent.y,
+          x2: obj.parent.x,
+          y2: obj.parent.y })
     .transition()
       .attr(
-        { x2: objToX(obj),
-          y2: objToY(obj) })
+        { x2: obj.x,
+          y2: obj.y })
       .style({stroke: 'black', "stroke-width": 3});
 
 
