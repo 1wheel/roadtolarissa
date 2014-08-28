@@ -20,7 +20,9 @@ tree.parent = tree;
 addChildren(tree);
 drawCircle(tree);
 
+
 function addChildren(obj){
+
   obj.x = (obj.left + obj.right)/2;
   obj.y = levelToHeight(obj.i);
   obj.childDrawn = false;
