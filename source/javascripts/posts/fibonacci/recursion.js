@@ -11,6 +11,9 @@ var svg = d3.select('#recursion')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+var pathG = svg.append('g');
+var circlesG = svg.append('g');
+
 var levelToHeight = d3.scale.linear()
     .domain([topLevel, 0])
     .range([0, height]);
@@ -28,16 +31,16 @@ function addChildren(obj){
   obj.childDrawn = false;
   obj.calculated = false;
 
-  if (obj.i === 0 || obj.i === 1){
+  if (obj.i <= 1){
     obj.childDrawn = true;
-    obj.val = obj.i;
+    obj.val = 1;
     obj.children = [];
     return obj;
   }
 
   var mid = (obj.left + obj.right)/2;
   var cIndex = [obj.i - 1, obj.i - 2];
-  if (Math.random() < .5){ cIndex.reverse(); }
+  if (obj.i % 2){ cIndex.reverse(); }
   obj.children = [
       addChildren({i: cIndex[0], parent: obj, leftSide: true,  left: obj.left, right: mid}), 
       addChildren({i: cIndex[1], parent: obj, leftSide: false, left: mid,       right: obj.right}), 
@@ -48,8 +51,7 @@ function addChildren(obj){
 }
 
 function drawCircle(obj){
-  obj.circle = svg.append('circle')
-      .attr('r', 10)
+  obj.circleG = circlesG.append('g')
       .on('mouseover', function(){
         if (!obj.childDrawn){
           obj.childDrawn = true;
@@ -61,7 +63,7 @@ function drawCircle(obj){
           obj.calculated = true;
           d3.select(this).style('fill', color(obj));
 
-          svg.append('path')
+          pathG.append('path')
               .attr('d', arc([obj.parent.x, obj.parent.y], [obj.x, obj.y], obj.leftSide))
               .each(function(){
                 var pathLength = this.getTotalLength();
@@ -74,14 +76,16 @@ function drawCircle(obj){
               .each('end', function(){ updateParentState(obj); })
         }
       })
-      .attr('cx', obj.parent.x)
-      .attr('cy', obj.parent.y)
       .style('pointer-events', 'none')
-      .style('fill', color(obj))
-      .datum(obj);
+      .attr('transform', ['translate(', obj.parent.x, ',', obj.parent.y, ')'].join(''))
+      .datum(obj)
+      .style('fill', color)
+
+  obj.circleG.append('circle')
+      .attr('r', 5)
 
 
-  var path = svg.append('path')
+  var path = pathG.append('path')
       //.attr('d', arc([obj.parent.x, obj.parent.y], [obj.parent.x, obj.parent.y], obj.leftSide))
       .style({stroke: 'black', "stroke-width": 2})
       .attr('d', arc([obj.x, obj.y], [obj.parent.x, obj.parent.y], obj.leftSide))
@@ -97,12 +101,13 @@ function drawCircle(obj){
       .each('end', function(){ updateParentState(obj); })
 
 
-  obj.circle.transition().duration(duration)
+  obj.circleG.transition().duration(duration)
       .tween('position', function(){
         var pathLength = path.node().getTotalLength();
         return function(t){
           var pos = path.node().getPointAtLength(t*pathLength);
-          d3.select(this).attr({cx: pos.x, cy: pos.y});
+          d3.select(this)
+              .attr('transform', ['translate(', pos.x, ',', pos.y, ')'].join(''))
         } 
       })
       .each('end', function(){
@@ -112,7 +117,7 @@ function drawCircle(obj){
 }
 
 function updateParentState(obj){
-  obj.parent.circle.style('fill', color(obj.parent));
+  obj.parent.circleG.transition().style('fill', color);
 }
 
 function color(obj){
@@ -138,5 +143,5 @@ function reset(){
 
 d3.timer(function(t){
   d3.selectAll('circle')
-      .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*2.5 + 4 : 1; })
+      .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*5 + 5 : 1; })
 })

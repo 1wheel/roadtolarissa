@@ -11,7 +11,8 @@ path{
 }
 
 circle{
-	stroke: pink;
+	stroke: steelblue;
+	stroke-opacity: .4;
 }
 
 .connection{
