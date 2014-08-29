@@ -34,6 +34,7 @@ function addChildren(obj){
   obj.y = levelToHeight(obj.i);
   obj.childDrawn = false;
   obj.calculated = false;
+  obj.children = [];
 
   if (obj.i === 0 || obj.i === 1){
     obj.childDrawn = true;
@@ -41,14 +42,6 @@ function addChildren(obj){
     obj.children = [];
     return obj;
   }
-
-  var mid = (obj.left + obj.right)/2;
-  var cIndex = [obj.i - 1, obj.i - 2];
-  if (Math.random() < .5){ cIndex.reverse(); }
-  obj.children = [
-      addChildren({i: cIndex[0], parents: [obj], leftSide: true,  left: obj.left, right: mid}), 
-      addChildren({i: cIndex[1], parents: [obj], leftSide: false, left: mid,       right: obj.right}), 
-    ];
 
   obj.val = d3.sum(obj.children, ƒ('val'))
   return obj;
@@ -60,6 +53,14 @@ function drawCircle(obj, from){
       .on('mouseover', function(){
         if (!obj.childDrawn){
           obj.childDrawn = true;
+
+          var mid = (obj.left + obj.right)/2;
+          var cIndex = [obj.i - 1, obj.i - 2];
+          obj.children = [
+              addChildren({i: cIndex[0], parents: [obj], leftSide: true,  left: obj.left, right: mid}), 
+              addChildren({i: cIndex[1], parents: [obj], leftSide: false, left: mid,       right: obj.right}), 
+            ];
+
           drawCircle(obj.children[0], obj)
           drawCircle(obj.children[1], obj)
           d3.select(this).style('fill', color(obj))
