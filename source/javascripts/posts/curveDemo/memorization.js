@@ -12,27 +12,53 @@ var svg = d3.select('body')
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
 
-var points = 20,
-    lineStart = 150,
-    squareSize = 50;
+var numPoints = 20,
+    squareSize = 50,
+    radius = 5;
 
 var circleY = d3.scale.linear()
-    .domain([0, points - 1])
-    .range([0, height])
-var lineY = circleY.copy()
-    .range([lineStart, lineStart + squareSize])
+      .domain([0, numPoints - 1])
+      .range([0, height]),
+    rect1Y = circleY.copy()
+      .range([height*1/3 + 1, height*1/3 + squareSize - 1]),
+    rect2Y = circleY.copy()
+      .range([height*2/3 + 1, height*2/3 + squareSize - 1]);
 
 svg.append('rect')
-    .attr({x: width, y: lineStart, width: squareSize, height: squareSize})
+    .attr({x: width, y: height*1/3, width: squareSize, height: squareSize})
+svg.append('rect')
+    .attr({x: width, y: height*2/3, width: squareSize, height: squareSize})
 
+var rect1Points = d3.range(numPoints).filter(function(d){
+  return Math.random()*numPoints > d; });
+rect1Y.domain([0, rect1Points.length - 1])
 svg.selectAll('path')
-    .data(d3.range(points)).enter()
+    .data(rect1Points).enter()
   .append('path')
-    .attr('d', function(d){
-      var p1 = [0,      circleY(d)],    //start [x, y] cord
-          p2 = [width,  lineY(d)],      //end   [x, y] cord
-          c1 = p1.slice(),              //control point cord
-          c2 = p2.slice();              //control point cord
+    .attr('d', function(d, i){
+      var p1 = [0,      circleY(d) - radius],    //start [x, y] cord
+          p2 = [width,  rect1Y(i)],              //end   [x, y] cord
+          c1 = p1.slice(),                       //control point cord
+          c2 = p2.slice();                       //control point cord
+
+      //move both control points towards the middle
+      c1[0] += width/3;             
+      c2[0] -= width/3;
+      return ['M', p1, 'C', c1, ' ', c2, ' ', p2].join('');
+    })
+
+
+var rect2Points = d3.range(numPoints).filter(function(d){
+  return Math.random()*numPoints < d || !_.contains(rect1Points, d); });
+rect2Y.domain([0, rect2Points.length - 1])
+svg.selectAll('.rect2Path')
+    .data(rect2Points).enter()
+  .append('path')
+    .attr('d', function(d, i){
+      var p1 = [0,      circleY(d) + radius],        //start [x, y] cord
+          p2 = [width,  rect2Y(i)],                  //end   [x, y] cord
+          c1 = p1.slice(),                           //control point cord
+          c2 = p2.slice();                           //control point cord
 
       //move both control point 
       c1[0] += width/3;             
@@ -41,10 +67,13 @@ svg.selectAll('path')
       return ['M', p1, 'C', c1, ' ', c2, ' ', p2].join('');
     })
 
+
+
+
 svg.selectAll('circle')
-    .data(d3.range(points)).enter()
+    .data(d3.range(numPoints)).enter()
   .append('circle')
-    .attr('r', 5)
+    .attr('r', radius)
     .attr('cy', circleY)
 
 
