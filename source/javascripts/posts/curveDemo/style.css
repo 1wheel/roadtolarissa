@@ -11,25 +11,6 @@ path{
 }
 
 circle{
-	stroke: pink;
-}
-
-.connection{
+	fill: white;
 	stroke: black;
-	stroke-linecap: round;
-	stroke-opacity: .5;
-	stroke-width: 5;
-}
-.best{
-	stroke: green;
-	stroke-linecap: round;
-	stroke-width: 5;
-	stroke-opacity: 1;
-}
-
-.text-line{
-	stroke: black;
-	stroke-dasharray: 3 0 1;
-	stroke-linejoin: round;
-	stroke-width: 2;
 }
