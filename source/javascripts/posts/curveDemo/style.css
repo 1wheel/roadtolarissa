@@ -1,0 +1,35 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+}
+
+path{
+	fill: none;
+	stroke-width: 1px;
+	stroke: black;
+	stroke-opacity: .7;
+}
+
+circle{
+	stroke: pink;
+}
+
+.connection{
+	stroke: black;
+	stroke-linecap: round;
+	stroke-opacity: .5;
+	stroke-width: 5;
+}
+.best{
+	stroke: green;
+	stroke-linecap: round;
+	stroke-width: 5;
+	stroke-opacity: 1;
+}
+
+.text-line{
+	stroke: black;
+	stroke-dasharray: 3 0 1;
+	stroke-linejoin: round;
+	stroke-width: 2;
+}
