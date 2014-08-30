@@ -75,8 +75,32 @@ svg.selectAll('circle')
   .append('circle')
     .attr('r', radius)
     .attr('cy', circleY)
+    .on('mousemove', function(d){
+      d3.selectAll('path').filter(function(e){ return d === e; })
+          .each(function(){
+            var path = this;
+            svg.append('text')
+                .text('$')
+                .attr('dy', '.33em')
+                .attr('text-align', 'end')
+              .transition().duration(2000)
+                .tween('position', function(){
+                  var pathLength = path.getTotalLength();
+                  return function(t){
+                    var pos = path.getPointAtLength(t*pathLength);
+                    d3.select(this)
+                      .attr({x: pos.x, y: pos.y})
+                  } 
+                })
+              .transition()
+                .style('opacity', 0)
+                .remove();
+          })
+    })
 
 
+
+//Simple quadratic bezier from p1 to p2
 // var p1 = [30, 30],
 //     p2 = [400, 250]
 //     c1 = p1.slice(),
@@ -96,7 +120,7 @@ svg.selectAll('circle')
 
 
 
-
+//Cubic bezier 
 //"M" + p1.x + ' ' p1.y + "C" + p[1] + " " + p[2] + " " + p[3]
 // var pathStr = ['M', p1.x, ',', p1.y, ' C', p2.x, ',', p2.y, ' ', 12, ',', 34, ' S400,300 400,200']
 // .join('')

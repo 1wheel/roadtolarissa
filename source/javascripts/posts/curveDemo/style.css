@@ -14,3 +14,9 @@ circle{
 	fill: white;
 	stroke: black;
 }
+
+text{
+	fill: green;
+	cursor: default;
+	font-weight: 700;
+}
