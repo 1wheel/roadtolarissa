@@ -93,11 +93,13 @@ svg.selectAll('circle')
       d3.selectAll('path').filter(function(e){ return d === e; })
           .each(function(){
             var path = this;
+            var pos = path.getPointAtLength(0);
             svg.append('text')
                 .text('$')
                 .attr('dy', '.33em')
                 .attr('text-align', 'end')
-              .transition().duration(2000)
+                .attr({x: pos.x, y: pos.y})
+              .transition().duration(2000).ease('linear')
                 .tween('position', function(){
                   var pathLength = path.getTotalLength();
                   return function(t){
@@ -106,13 +108,22 @@ svg.selectAll('circle')
                       .attr({x: pos.x, y: pos.y})
                   } 
                 })
-              .transition()
+              .transition().duration(1000)
+                .attr('x', width + squareSize)
                 .style('opacity', 0)
                 .remove();
           })
     })
 
+var lastT = 4000;
+d3.timer(function(t){
+  if (t < lastT ){ return; }
+  lastT += 100;
+  var selected = Math.floor(Math.random()*numPoints);
+  var circle = svg.selectAll('circle').filter(function(d){ return d === selected; })
 
+  circle.on('mousemove').call(circle.node(), selected)
+})
 
 //Simple quadratic bezier from p1 to p2
 // var p1 = [30, 30],
