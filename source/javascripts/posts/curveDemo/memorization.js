@@ -1,8 +1,6 @@
 var height = 300,
     width = 300,
-    margin = {left: 10, right: 50, top: 15, bottom: 15},
-    topLevel = 8,
-    duration = 1000;
+    margin = {left: 10, right: 50, top: 15, bottom: 15};
 
 var svg = d3.select('body')
   .append('svg')
@@ -46,6 +44,14 @@ svg.selectAll('path')
       c2[0] -= width/3;
       return ['M', p1, 'C', c1, ' ', c2, ' ', p2].join('');
     })
+    .each(function(){ 
+      var pathLength = this.getTotalLength();
+      d3.select(this)
+          .attr('stroke-dasharray', pathLength + ' ' + pathLength)
+          .attr('stroke-dashoffset', pathLength)
+    })
+  .transition().duration(2000).delay(function(d){ return d/numPoints*2000; })
+    .attr('stroke-dashoffset', 0);
 
 
 var rect2Points = d3.range(numPoints).filter(function(d){
@@ -66,6 +72,14 @@ svg.selectAll('.rect2Path')
 
       return ['M', p1, 'C', c1, ' ', c2, ' ', p2].join('');
     })
+    .each(function(){ 
+      var pathLength = this.getTotalLength();
+      d3.select(this)
+          .attr('stroke-dasharray', pathLength + ' ' + pathLength)
+          .attr('stroke-dashoffset', pathLength)
+    })
+  .transition().duration(2000).delay(function(d){ return d/numPoints*2000; })
+    .attr('stroke-dashoffset', 0);
 
 
 
