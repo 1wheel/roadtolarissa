@@ -125,6 +125,7 @@ d3.timer(function(t){
   circle.on('mousemove').call(circle.node(), selected)
 })
 
+
 //Simple quadratic bezier from p1 to p2
 // var p1 = [30, 30],
 //     p2 = [400, 250]
@@ -151,3 +152,33 @@ d3.timer(function(t){
 // .join('')
 
 // pathStr = ['M', p1, 'C100,100 250,100 250,200 S400,300 ', p2].join('');
+
+
+
+
+var shellg = svg.append('g')
+    .attr('transform', 'translate(' + (width - 30) + ', 25)')
+
+shellg.append('rect')
+    .attr({height: 40, width: 40})
+    .style('opacity', .1)
+
+var shellLineNum = 10;
+var angleScale = d3.scale.linear()
+    .domain([0, shellLineNum - 1])
+    .range([0, Math.PI/2])
+
+shellg.selectAll('.shellLine')
+    .data(d3.range(shellLineNum)).enter()
+  .append('path')
+    .attr('d', function(d){
+      var a = angleScale(d);
+      var mags = [Math.sin(a), Math.cos(a)]
+      var r1 = 10;
+      var r2 = 50;
+      return ['M', mags.map(multBy(r1)), 'L', mags.map(multBy(r2))].join('');
+    })
+
+function multBy(factor){ 
+  return function(d){ return d*factor; };
+}
