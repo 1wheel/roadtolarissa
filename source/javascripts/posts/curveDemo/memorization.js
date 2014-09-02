@@ -156,29 +156,40 @@ d3.timer(function(t){
 
 
 
-var shellg = svg.append('g')
-    .attr('transform', 'translate(' + (width - 30) + ', 25)')
+// var shellg = svg.append('g')
+//     .attr('transform', 'translate(' + (width - 30) + ', 45) rotate(225)')
 
-shellg.append('rect')
-    .attr({height: 40, width: 40})
-    .style('opacity', .1)
+// shellg.append('rect')
+//     .attr({height: 40, width: 40})
+//     .style('opacity', .1)
 
-var shellLineNum = 10;
-var angleScale = d3.scale.linear()
-    .domain([0, shellLineNum - 1])
-    .range([0, Math.PI/2])
+// var r1 = 10;
+// var r2 = 50;
+// var shellLineNum = 10;
+// var angleScale = d3.scale.linear()
+//     .domain([0, shellLineNum - 1])
+//     .range([0, Math.PI/2])
 
-shellg.selectAll('.shellLine')
-    .data(d3.range(shellLineNum)).enter()
-  .append('path')
-    .attr('d', function(d){
-      var a = angleScale(d);
-      var mags = [Math.sin(a), Math.cos(a)]
-      var r1 = 10;
-      var r2 = 50;
-      return ['M', mags.map(multBy(r1)), 'L', mags.map(multBy(r2))].join('');
-    })
+// shellg.selectAll('.shellLine')
+//     .data(d3.range(shellLineNum)).enter()
+//   .append('path')
+//     .classed('.shellLine', true)
+//     .attr('d', function(d){
+//       var a = angleScale(d);
+//       var mags = [Math.sin(a), Math.cos(a)]
+//       return ['M', mags.map(multBy(r1)), 'L', mags.map(multBy(r2))].join('');
+//     })
+//   .transition().duration(2000)
+//     .attr('d', function(d){
+//       var a = angleScale(d);
+//       var mags = [Math.sin(a), Math.cos(a)]
+//       return ['M', [mags[0]*r2, mags[1]*r2 mags.map(multBy(r2)).map(addBy(5)), 
+//               'L', mags.map(multBy(r1)).map(addBy(-5))].join('');
+//     })
 
-function multBy(factor){ 
-  return function(d){ return d*factor; };
-}
+// function multBy(factor){ 
+//   return function(d){ return d*factor; };
+// }
+// function addBy(factor){ 
+//   return function(d){ return d + factor; };
+// }
