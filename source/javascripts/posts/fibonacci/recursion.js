@@ -54,9 +54,23 @@ function addChildren(obj){
 }
 
 function drawCircle(obj){
-  obj.circleG = circlesG.append('g')
-      .classed('circleG', true)
+  obj.circle = circlesG.append('circle')
+      .classed('circle', true)
       .on('mouseover', function(){
+        //set title text
+        var str = 'F(' + obj.i + ') = ';
+        if (obj.i <= 1){ str += '1'; }
+        else {
+          str += obj.children.map(function(d){
+            return 'F(' + d.i + ')'; }).join(' + ');
+          if (obj.children.some(f('calculated'))){
+            str += ' = ' + obj.children.map(function(d){
+              return d.calculated ? d.val : 'F(' + d.i + ')'; }).join(' + ');
+          }
+          if (obj.children.every(f('calculated'))){ str += ' = ' + obj.val; }
+        }
+        d3.select(this).select('title').text(str)
+
         if (!obj.childDrawn){
           obj.childDrawn = true;
           drawCircle(obj.children[0])
@@ -83,28 +97,12 @@ function drawCircle(obj){
               })
         }
       })
-      .style('pointer-events', 'none')
-      .attr('transform', ['translate(', obj.parent.x, ',', obj.parent.y, ')'].join(''))
+      //.style('pointer-events', 'none')
+      .attr({cx: obj.parent.x, cy: obj.parent.y})
       .datum(obj)
       .style('fill', color)
-
-  obj.circleG.append('circle')
       .attr('r', 5)
-      .on('mouseover', function(){
-        var str = 'F(' + obj.i + ') = ';
-        if (obj.i <= 1){ str += '1'; }
-        else {
-          str += obj.children.map(function(d){
-            return 'F(' + d.i + ')'; }).join(' + ');
-          if (obj.children.some(f('calculated'))){
-            str += ' = ' + obj.children.map(function(d){
-              return d.calculated ? d.val : 'F(' + d.i + ')'; }).join(' + ');
-          }
-          if (obj.children.every(f('calculated'))){ str += ' = ' + obj.val; }
-        }
-        d3.select(this).select('title').text(str)
-      })
-    .append('title')
+      .append('title')
 
   var path = pathG.append('path')
       //.attr('d', arc([obj.parent.x, obj.parent.y], [obj.parent.x, obj.parent.y], obj.leftSide))
@@ -122,13 +120,13 @@ function drawCircle(obj){
       .each('end', function(){ updateParentState(obj); })
 
 
-  obj.circleG.transition().duration(duration)
+  obj.circle.transition().duration(duration)
       .tween('position', function(){
         var pathLength = path.node().getTotalLength();
         return function(t){
           var pos = path.node().getPointAtLength(t*pathLength);
           d3.select(this)
-              .attr('transform', ['translate(', pos.x, ',', pos.y, ')'].join(''))
+              .attr({cx: pos.x, cy: pos.y})
         } 
       })
       .each('end', function(){
@@ -138,7 +136,7 @@ function drawCircle(obj){
 }
 
 function updateParentState(obj){
-  obj.parent.circleG.transition().style('fill', color);
+  obj.parent.circle.transition().style('fill', color);
 }
 
 function color(obj){
@@ -165,7 +163,7 @@ function arc(a, b, flip) {
 
 
 function reset(){
-  svg.selectAll('.circleG')
+  svg.selectAll('.circle')
     .transition().duration(function(d){ return Math.sqrt(d.i + 1)*1000; }).ease('bounce')
       .attr('transform', function(d){
         return ['translate(', d.x, ',', height, ')'].join(''); })
