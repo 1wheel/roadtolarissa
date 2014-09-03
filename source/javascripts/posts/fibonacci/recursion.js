@@ -97,12 +97,12 @@ function drawCircle(obj){
               })
         }
       })
-      //.style('pointer-events', 'none')
-      .attr({cx: obj.parent.x, cy: obj.parent.y})
-      .datum(obj)
+      .style('pointer-events', 'none')
+      .attr({cx: obj.parent.x, cy: obj.parent.y, r: 5})
       .style('fill', color)
-      .attr('r', 5)
-      .append('title')
+      .datum(obj)
+
+  obj.circle.append('title')
 
   var path = pathG.append('path')
       //.attr('d', arc([obj.parent.x, obj.parent.y], [obj.parent.x, obj.parent.y], obj.leftSide))
@@ -130,7 +130,7 @@ function drawCircle(obj){
         } 
       })
       .each('end', function(){
-        d3.select(this).style('pointer-events', 'all')
+        d3.select(this).style('pointer-events', '')
       })
 
 }
@@ -184,6 +184,7 @@ function reset(){
 }
 
 d3.timer(function(t){
+  return false
   d3.selectAll('circle')
       .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*5 + 5 : 1; })
 })
