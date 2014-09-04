@@ -18,11 +18,14 @@ var levelToHeight = d3.scale.linear()
     .domain([topLevel, 0])
     .range([0, height]);
 
-var tree = {i: topLevel, left: 0, right: width};
-tree.parent = tree;
-addChildren(tree);
-drawCircle(tree);
+function start(){
+  var tree = {i: topLevel, left: 0, right: width};
+  tree.parent = tree;
+  addChildren(tree);
+  drawCircle(tree);  
+}
 
+start();
 
 function addChildren(obj){
 
@@ -73,17 +76,35 @@ function drawCircle(obj){
               })
             .transition().duration(duration)
               .attr('stroke-dashoffset', 0)
-              .each('end', function(){ updateParentState(obj); })
+              .each('end', function(){
+                updateParentState(obj); 
+                if (obj.i === topLevel){ reset(); }
+              })
         }
       })
       .style('pointer-events', 'none')
       .attr('transform', ['translate(', obj.parent.x, ',', obj.parent.y, ')'].join(''))
       .datum(obj)
       .style('fill', color)
+      .attr('title', 'adsf');
 
   obj.circleG.append('circle')
       .attr('r', 5)
-
+      .on('mouseover', function(){
+        var str = 'F(' + obj.i + ') = ';
+        if (obj.i <= 1){ str += '1'; }
+        else {
+          str += obj.children.map(function(d){
+            return 'F(' + d.i + ')'; }).join(' + ');
+          if (obj.children.some(f('calculated'))){
+            str += ' = ' + obj.children.map(function(d){
+              return d.calculated ? d.val : 'F(' + d.i + ')'; }).join(' + ');
+          }
+          if (obj.children.every(f('calculated'))){ str += ' = ' + obj.val; }
+        }
+        d3.select(this).select('title').text(str)
+      })
+    .append('title')
 
   var path = pathG.append('path')
       //.attr('d', arc([obj.parent.x, obj.parent.y], [obj.parent.x, obj.parent.y], obj.leftSide))
@@ -126,19 +147,40 @@ function color(obj){
 }
 
 function arc(a, b, flip) {
+  var ac = a.slice();
+  var bc = b.slice();
+
+  ac[1] = b[1];
+
+  return ['M', b, 'C', bc, ' ', ac, ' ', a].join('');  
+
   var dx = a[0] - b[0],
       dy = a[1] - b[1],
       dr = Math.sqrt(dx * dx + dy * dy);
   flip = true;
-  return flip ? 
-    "M" + b[0] + "," + b[1] + "A" + dr + "," + dr + " 0 0,1 " + a[0] + "," + a[1] :
-    "M" + a[0] + "," + a[1] + "A" + dr + "," + dr + " 0 0,1 " + b[0] + "," + b[1];
+  return flip ?
+    "M" + b + "A" + dr + "," + dr + " 0 0,1 " + a :
+    "M" + a + "A" + dr + "," + dr + " 0 0,1 " + b;
 }
+
 
 function reset(){
   svg.selectAll('circle')
-    .transition().duration(function(d){ return d.i*500; }).ease('bounce')
-      .attr('cy', height)
+    .transition()//.duration(function(d){ return d.i*500; }).ease('bounce')
+      .attr('cy', 100)
+      .each('end', function(){
+        return
+        d3.select(this).transition()
+            .style('opacity', 0)
+            .remove();
+      })
+
+  svg.selectAll('path')
+      .transition().duration(1500)
+    .style('opacity', 0)
+      .remove();
+
+  start();
 }
 
 d3.timer(function(t){

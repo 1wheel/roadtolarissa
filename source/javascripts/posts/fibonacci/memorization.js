@@ -82,7 +82,10 @@ function drawCircle(obj, from){
               })
             .transition().duration(duration)
               .attr('stroke-dashoffset', 0)
-              .each('end', function(){ updateParentState(obj); })
+              .each('end', function(){
+                updateParentState(obj); 
+                if (obj.i === topLevel){ reset(); }
+              })
         }
       })
       .attr('cx', from.x)
@@ -146,9 +149,17 @@ function reset(){
   svg.selectAll('circle')
     .transition().duration(function(d){ return d.i*500; }).ease('bounce')
       .attr('cy', height)
+    .transition()
+      .style('opacity', 0)
+      .remove()
+
+  svg.selectAll('path')
+      .transition().duration(1500)
+    .style('opacity', 0)
+      .remove();
 }
 
 d3.timer(function(t){
   d3.selectAll('circle')
-      .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*2.5 + 4 : 1; })
+      .style('stroke-width', function(d){ return d.active ? Math.sin(t/400)*2.5 + 4 : 1; })
 })
