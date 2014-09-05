@@ -55,6 +55,7 @@ function addChildren(obj){
 
 function drawCircle(obj){
   obj.circleG = circlesG.append('g')
+      .classed('circleG', true)
       .on('mouseover', function(){
         if (!obj.childDrawn){
           obj.childDrawn = true;
@@ -86,7 +87,6 @@ function drawCircle(obj){
       .attr('transform', ['translate(', obj.parent.x, ',', obj.parent.y, ')'].join(''))
       .datum(obj)
       .style('fill', color)
-      .attr('title', 'adsf');
 
   obj.circleG.append('circle')
       .attr('r', 5)
@@ -165,19 +165,21 @@ function arc(a, b, flip) {
 
 
 function reset(){
-  svg.selectAll('circle')
-    .transition()//.duration(function(d){ return d.i*500; }).ease('bounce')
-      .attr('cy', 100)
-      .each('end', function(){
-        return
-        d3.select(this).transition()
-            .style('opacity', 0)
-            .remove();
+  svg.selectAll('.circleG')
+    .transition().duration(function(d){ return Math.sqrt(d.i + 1)*1000; }).ease('bounce')
+      .attr('transform', function(d){
+        return ['translate(', d.x, ',', height, ')'].join(''); })
+    .transition().ease('cubic').duration(500)
+      .style('opacity', 0)
+      .each('start', function(){
+        d3.select(this).select('circle').transition()
+            .attr('r', 10)
       })
+      .remove();
 
   svg.selectAll('path')
-      .transition().duration(1500)
-    .style('opacity', 0)
+    .transition().duration(1500)
+      .style('opacity', 0)
       .remove();
 
   start();
