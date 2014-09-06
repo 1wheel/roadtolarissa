@@ -1,9 +1,3 @@
-var height = 500,
-    width = 750,
-    margin = {left: 0, right: 0, top: 15, bottom: 15},
-    topLevel = 8,
-    duration = 1000;
-
 var svg = d3.select('#recursion')
   .append('svg')
     .attr("width", width + margin.left + margin.right)
@@ -11,16 +5,16 @@ var svg = d3.select('#recursion')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-var levelToHeight = d3.scale.linear()
-    .domain([topLevel, 0])
-    .range([0, height]);
 
-var tree = {i: topLevel, left: 0, right: width, parents: [tree]};
-var memObj = {topLevel: tree};
-tree.parent = tree;
-addChildren(tree);
-drawCircle(tree, tree);
 
+function start(){
+  var tree = {i: topLevel, left: 0, right: width, parents: [tree]};
+  var memObj = {topLevel: tree};
+  tree.parent = tree;
+  addChildren(tree);
+  drawCircle(tree, tree);  
+}
+start();
 
 function addChildren(obj){
   if (memObj[obj.i]){
@@ -84,7 +78,7 @@ function drawCircle(obj, from){
               .attr('stroke-dashoffset', 0)
               .each('end', function(){
                 updateParentState(obj); 
-                if (obj.i === topLevel){ reset(); }
+                if (obj.i === topLevel){ reset(svg); }
               })
         }
       })
@@ -124,42 +118,3 @@ function drawCircle(obj, from){
       })
 
 }
-
-function updateParentState(obj){
-  if (!obj.parents[0]) return
-  obj.parents[0].circle.style('fill', color(obj.parents[0]));
-}
-
-function color(obj){
-  obj.active = !obj.childDrawn || (!obj.calculated && obj.children.every(f('calculated')))
-  return !obj.childDrawn ? 'steelblue' : obj.calculated ? 'white' : obj.children.every(f('calculated')) ? 'red' : 'lightgrey';
-}
-
-function arc(a, b, flip) {
-  var dx = a[0] - b[0],
-      dy = a[1] - b[1],
-      dr = Math.sqrt(dx * dx + dy * dy);
-  flip = true;
-  return flip ? 
-    "M" + b[0] + "," + b[1] + "A" + dr + "," + dr + " 0 0,1 " + a[0] + "," + a[1] :
-    "M" + a[0] + "," + a[1] + "A" + dr + "," + dr + " 0 0,1 " + b[0] + "," + b[1];
-}
-
-function reset(){
-  svg.selectAll('circle')
-    .transition().duration(function(d){ return d.i*500; }).ease('bounce')
-      .attr('cy', height)
-    .transition()
-      .style('opacity', 0)
-      .remove()
-
-  svg.selectAll('path')
-      .transition().duration(1500)
-    .style('opacity', 0)
-      .remove();
-}
-
-d3.timer(function(t){
-  d3.selectAll('circle')
-      .style('stroke-width', function(d){ return d.active ? Math.sin(t/400)*2.5 + 4 : 1; })
-})

@@ -1,9 +1,3 @@
-var height = 500,
-    width = 750,
-    margin = {left: 0, right: 0, top: 15, bottom: 15},
-    topLevel = 8,
-    duration = 1000;
-
 var svg = d3.select('#recursion')
   .append('svg')
     .attr("width", width + margin.left + margin.right)
@@ -93,7 +87,7 @@ function drawCircle(obj){
               .attr('stroke-dashoffset', 0)
               .each('end', function(){
                 updateParentState(obj); 
-                if (obj.i === topLevel){ reset(); }
+                if (obj.i === topLevel){ reset(svg); }
               })
         }
       })
@@ -148,19 +142,10 @@ function arc(a, b, flip) {
   var ac = a.slice();
   var bc = b.slice();
 
-  ac[1] = b[1];
-  bc[0] = a[0];
+  ac[1] = (b[1]*2 + a[1])/3;
+  bc[0] = (a[0]*2 + b[0])/3;
 
   return ['M', b, 'C', bc, ' ', ac, ' ', a].join('');  
-
-  var dx = a[0] - b[0],
-      dy = a[1] - b[1],
-      dr = Math.sqrt(dx * dx + dy * dy);
-  flip = true;
-  return flip ?
-    "M" + b + "A" + dr + "," + dr + " 0 0,1 " + a :
-    "M" + a + "A" + dr + "," + dr + " 0 0,1 " + b;
-
 }
 
 
