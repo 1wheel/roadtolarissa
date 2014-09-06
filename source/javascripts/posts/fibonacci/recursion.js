@@ -99,8 +99,8 @@ function drawCircle(obj){
       })
       .style('pointer-events', 'none')
       .attr({cx: obj.parent.x, cy: obj.parent.y, r: 5})
-      .style('fill', color)
       .datum(obj)
+      .style('fill', color)
 
   obj.circle.append('title')
 
@@ -149,6 +149,7 @@ function arc(a, b, flip) {
   var bc = b.slice();
 
   ac[1] = b[1];
+  bc[0] = a[0];
 
   return ['M', b, 'C', bc, ' ', ac, ' ', a].join('');  
 
@@ -159,20 +160,17 @@ function arc(a, b, flip) {
   return flip ?
     "M" + b + "A" + dr + "," + dr + " 0 0,1 " + a :
     "M" + a + "A" + dr + "," + dr + " 0 0,1 " + b;
+
 }
 
 
 function reset(){
   svg.selectAll('.circle')
     .transition().duration(function(d){ return Math.sqrt(d.i + 1)*1000; }).ease('bounce')
-      .attr('transform', function(d){
-        return ['translate(', d.x, ',', height, ')'].join(''); })
-    .transition().ease('cubic').duration(500)
+      .attr('cy', height)
+    .transition().ease('linear')
       .style('opacity', 0)
-      .each('start', function(){
-        d3.select(this).select('circle').transition()
-            .attr('r', 10)
-      })
+      .attr('r', 10)
       .remove();
 
   svg.selectAll('path')
@@ -184,7 +182,6 @@ function reset(){
 }
 
 d3.timer(function(t){
-  return false
   d3.selectAll('circle')
       .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*5 + 5 : 1; })
 })
