@@ -60,22 +60,17 @@ function drawCircle(obj, from){
   var pathLength = path.node().getTotalLength();
   path.attr('stroke-dasharray', pathLength + ' ' + pathLength)
       .attr('stroke-dashoffset', pathLength);
-      
+
   path
     .transition().duration(duration)
       .attr('stroke-dashoffset', 0)
       .each('end', function(){
-        //obj.circle.call(setClass);
-        updateParentState(obj); 
+        obj.circle.call(setClass);
+        //updateParentState(obj); 
       })
 
-  if (obj.circle){
-    //reset calc and fill state if circle already exists
-    obj.circle.call(setClass);
-
-    //don't create a circle if it doesn't already exist
-    return;
-  }
+  //don't create a circle if it doesn't already exist
+  if (obj.circle) return
   
 
   obj.circle = circleG.append('circle')
@@ -97,8 +92,6 @@ function drawCircle(obj, from){
           obj.circle.call(setClass);
         }
         if (obj.unsolvedParents.length && obj.solved()){
-          obj.circle.classed('done', true)
-
           lineG.selectAll('new-path')
               .data(obj.unsolvedParents).enter()
             .append('path')
@@ -114,10 +107,12 @@ function drawCircle(obj, from){
             .transition().duration(duration)
               .attr('stroke-dashoffset', 0)
               .each('end', function(){
-                obj.solveAll();
                 updateParentState(obj); 
                 if (obj.i === topLevel){ reset(svg); }
               })
+              
+          obj.solveAll();
+          obj.circle.classed('done', true)
         }
       })
       .attr({cx: from.x, cy: from.y})
