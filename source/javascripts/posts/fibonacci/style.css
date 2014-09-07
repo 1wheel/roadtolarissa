@@ -5,9 +5,17 @@ body {
 
 path{
 	fill: none;
-	stroke-width: 1px;
 	stroke: black;
-	stroke-opacity: .7;
+}
+
+.down-path{
+	stroke-width: 2px;
+	stroke-opacity: 1;
+}
+
+.up-path{
+	stroke-opacity: .4;
+	stroke-width: 1.5px;
 }
 
 circle{

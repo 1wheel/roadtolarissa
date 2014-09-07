@@ -1,9 +1,9 @@
 //Variables and helper functions shared by recursion.js and memorization.js
 
-var height = 500,
+var height = 200,
     width = 750,
     margin = {left: 25, right: 0, top: 20, bottom: 20},
-    topLevel = 8,
+    topLevel = 4,
     duration = 1000;
 
 var levelToHeight = d3.scale.linear()

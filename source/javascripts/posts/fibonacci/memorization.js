@@ -54,8 +54,7 @@ function addChildren(obj){
 
 function drawCircle(obj, from){
   var path = lineG.append('path')
-      //.attr('d', arc([from.x, from.y], [from.x, from.y], obj.leftSide))
-      .style({stroke: 'black', "stroke-width": 2})
+      .classed('down-path', true)
       .attr('d', arc([obj.x, obj.y], [from.x, from.y], obj.leftSide))
       .each(function(){
         var pathLength = this.getTotalLength();
@@ -67,7 +66,7 @@ function drawCircle(obj, from){
     .transition().duration(duration)
       .attr('stroke-dashoffset', 0)
       .each('end', function(){
-        obj.circle
+        obj.circle.call(setClass);
         updateParentState(obj); 
       })
 
@@ -75,7 +74,7 @@ function drawCircle(obj, from){
     //reset calc and fill state if circle already exists
     obj.circle.call(setClass);
 
-    //don't create circles that already exist
+    //don't create a circle if it doesn't already exist
     return;
   }
   
@@ -104,6 +103,7 @@ function drawCircle(obj, from){
           lineG.selectAll('new-path')
               .data(obj.unsolvedParents).enter()
             .append('path')
+              .classed('up-path', true)
               .attr('d', function(d){
                 return arc([d.x, d.y], [obj.x, obj.y], obj.leftSide); })
               .each(function(){
@@ -126,8 +126,6 @@ function drawCircle(obj, from){
       .style('pointer-events', 'none')
       .datum(obj)
       .call(setClass)
-
-
 
   obj.circle.transition().duration(duration)
       .tween('position', function(){
@@ -153,10 +151,8 @@ function updateParentState(obj){
 function setClass(selection){
   selection.attr('class', function(d){
     if (!d.childDrawn) return 'down'
-    if (d.solved()){
-      if (d.unsolvedParents.length) return 'up'
-      return 'down'
-    } 
+    if (d.solved())    return d.unsolvedParents.length ? 'up' : 'down'
+    
     return 'waiting'    
   })
 
