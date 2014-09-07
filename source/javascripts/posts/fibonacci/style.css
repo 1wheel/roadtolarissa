@@ -15,12 +15,29 @@ circle{
 	stroke-opacity: .4;
 }
 
+.down{
+	fill: steelblue;
+}
+
+.up{
+	fill: red;
+}
+
+.done{
+	fill: green;
+}
+
+.waiting{
+	fill: lightgrey;
+}
+
 .connection{
 	stroke: black;
 	stroke-linecap: round;
 	stroke-opacity: .5;
 	stroke-width: 5;
 }
+
 .best{
 	stroke: green;
 	stroke-linecap: round;

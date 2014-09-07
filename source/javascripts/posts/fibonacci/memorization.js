@@ -70,7 +70,7 @@ function drawCircle(obj, from, previousCircle){
 
   if (previousCircle){
     //reset calc and fill state if circle already exists
-    obj.circle.style('fill', color(obj));
+    obj.circle.call(setClass);
 
     //don't create circles that already exist
     return;
@@ -93,11 +93,10 @@ function drawCircle(obj, from, previousCircle){
 
           drawCircle(obj.children[0], obj, alreadyExists[0])
           drawCircle(obj.children[1], obj, alreadyExists[1])
-          d3.select(this).style('fill', color(obj))
+          obj.circle.call(setClass);
         }
         if (obj.unsolvedParents.length && obj.solved()){
           obj.circle.style('fill', 'white');
-          obj.active = false;
 
           lineG.selectAll('new-path')
               .data(obj.unsolvedParents).enter()
@@ -122,8 +121,8 @@ function drawCircle(obj, from, previousCircle){
       .attr('cx', from.x)
       .attr('cy', from.y)
       .style('pointer-events', 'none')
-      .style('fill', color(obj))
-      .datum(obj);
+      .datum(obj)
+      .call(setClass)
 
 
 
@@ -143,10 +142,21 @@ function drawCircle(obj, from, previousCircle){
 
 
 function updateParentState(obj){
-  obj.parents[0].circle.transition().style('fill', color);
+  obj.parents.forEach(function(d){
+    d.circle.call(setClass);
+  })
 }
 
-function color(obj){
-  obj.active = !obj.childDrawn || (!obj.calculated && obj.children.every(f('calculated')))
-  return !obj.childDrawn ? 'steelblue' : obj.calculated ? 'black' : obj.children.every(f('calculated')) ? 'red' : 'lightgrey';
+function setClass(selection){
+  selection.attr('class', function(d){
+    if (d.childDrawn) return 'down'
+    if (d.solved()){
+      if (d.unsolvedParents.length) return 'up'
+      return 'down'
+    } 
+    return 'lightgrey'    
+  })
+
+  // obj.active = !obj.childDrawn || (!obj.calculated && obj.children.every(f('calculated')))
+  // return !obj.childDrawn ? 'steelblue' : obj.calculated ? 'black' : obj.children.every(f('calculated')) ? 'red' : 'lightgrey';
 }
