@@ -6,9 +6,6 @@ var svg = d3.select('#memorization')
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .call(addYAxis)
 
-
-
-
 var memObj;
 function start(){
   var tree = {i: topLevel, left: 0, right: width, parents: [tree]};
@@ -44,7 +41,24 @@ function addChildren(obj){
   return obj;
 }
 
-function drawCircle(obj, from){
+function drawCircle(obj, from, previousCircle){
+  var path = svg.append('path')
+      //.attr('d', arc([from.x, from.y], [from.x, from.y], obj.leftSide))
+      .style({stroke: 'black', "stroke-width": 2})
+      .attr('d', arc([obj.x, obj.y], [from.x, from.y], obj.leftSide))
+      .each(function(){
+        var pathLength = this.getTotalLength();
+        d3.select(this)
+            .attr('stroke-dasharray', pathLength + ' ' + pathLength)
+            .attr('stroke-dashoffset', pathLength);
+      });
+  path
+    .transition().duration(duration)
+      .attr('stroke-dashoffset', 0)
+      .each('end', function(){ updateParentState(obj); })
+
+  //don't create circles that already exist
+  if (previousCircle) return
   obj.circle = svg.append('circle')
       .attr('r', 10)
       .on('mouseover', function(){
@@ -53,18 +67,19 @@ function drawCircle(obj, from){
 
           var mid = (obj.left + obj.right)/2;
           var cIndex = [obj.i - 1, obj.i - 2];
+          var alreadyExists = cIndex.map(function(d){ return memObj[d]; })
           obj.children = [
               addChildren({i: cIndex[0], parents: [obj], leftSide: true,  left: obj.left, right: mid}), 
               addChildren({i: cIndex[1], parents: [obj], leftSide: false, left: mid,       right: obj.right}), 
             ];
 
-          drawCircle(obj.children[0], obj)
-          drawCircle(obj.children[1], obj)
+          drawCircle(obj.children[0], obj, alreadyExists[0])
+          drawCircle(obj.children[1], obj, alreadyExists[1])
           d3.select(this).style('fill', color(obj))
         }
         if (!obj.calculated && obj.children.every(f('calculated'))){
-          obj.calculated = true;
-          d3.select(this).style('fill', color(obj));
+          obj.circle.style('fill', 'white');
+          obj.active = false;
 
           svg.selectAll('new-path')
               .data(obj.parents).enter()
@@ -80,6 +95,7 @@ function drawCircle(obj, from){
             .transition().duration(duration)
               .attr('stroke-dashoffset', 0)
               .each('end', function(){
+                obj.calculated = true;
                 updateParentState(obj); 
                 if (obj.i === topLevel){ reset(svg); }
               })
@@ -91,21 +107,6 @@ function drawCircle(obj, from){
       .style('fill', color(obj))
       .datum(obj);
 
-
-  var path = svg.append('path')
-      //.attr('d', arc([from.x, from.y], [from.x, from.y], obj.leftSide))
-      .style({stroke: 'black', "stroke-width": 2})
-      .attr('d', arc([obj.x, obj.y], [from.x, from.y], obj.leftSide))
-      .each(function(){
-        var pathLength = this.getTotalLength();
-        d3.select(this)
-            .attr('stroke-dasharray', pathLength + ' ' + pathLength)
-            .attr('stroke-dashoffset', pathLength);
-      });
-  path
-    .transition().duration(duration)
-      .attr('stroke-dashoffset', 0)
-      .each('end', function(){ updateParentState(obj); })
 
 
   obj.circle.transition().duration(duration)

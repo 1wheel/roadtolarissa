@@ -34,7 +34,7 @@ function addYAxis(svg){
 
 function updateParentState(obj){
   obj.parents.forEach(function(d){
-    d.circle.transition().style('fill', color); });
+    d.circle.style('fill', color); });
 }
 
 function color(obj){
