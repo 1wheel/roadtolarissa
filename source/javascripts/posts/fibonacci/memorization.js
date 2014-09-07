@@ -56,17 +56,16 @@ function drawCircle(obj, from){
   var path = lineG.append('path')
       .classed('down-path', true)
       .attr('d', arc([obj.x, obj.y], [from.x, from.y], obj.leftSide))
-      .each(function(){
-        var pathLength = this.getTotalLength();
-        d3.select(this)
-            .attr('stroke-dasharray', pathLength + ' ' + pathLength)
-            .attr('stroke-dashoffset', pathLength);
-      });
+
+  var pathLength = path.node().getTotalLength();
+  path.attr('stroke-dasharray', pathLength + ' ' + pathLength)
+      .attr('stroke-dashoffset', pathLength);
+      
   path
     .transition().duration(duration)
       .attr('stroke-dashoffset', 0)
       .each('end', function(){
-        obj.circle.call(setClass);
+        //obj.circle.call(setClass);
         updateParentState(obj); 
       })
 
@@ -121,8 +120,7 @@ function drawCircle(obj, from){
               })
         }
       })
-      .attr('cx', from.x)
-      .attr('cy', from.y)
+      .attr({cx: from.x, cy: from.y})
       .style('pointer-events', 'none')
       .datum(obj)
       .call(setClass)
