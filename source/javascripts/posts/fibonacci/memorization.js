@@ -52,7 +52,7 @@ function addChildren(obj){
   return obj;
 }
 
-function drawCircle(obj, from, previousCircle){
+function drawCircle(obj, from){
   var path = lineG.append('path')
       //.attr('d', arc([from.x, from.y], [from.x, from.y], obj.leftSide))
       .style({stroke: 'black', "stroke-width": 2})
@@ -66,9 +66,12 @@ function drawCircle(obj, from, previousCircle){
   path
     .transition().duration(duration)
       .attr('stroke-dashoffset', 0)
-      .each('end', function(){ updateParentState(obj); })
+      .each('end', function(){
+        obj.circle
+        updateParentState(obj); 
+      })
 
-  if (previousCircle){
+  if (obj.circle){
     //reset calc and fill state if circle already exists
     obj.circle.call(setClass);
 
@@ -85,14 +88,14 @@ function drawCircle(obj, from, previousCircle){
 
           var mid = (obj.left + obj.right)/2;
           var cIndex = [obj.i - 1, obj.i - 2];
-          var alreadyExists = cIndex.map(function(d){ return memObj[d]; })
+
           obj.children = [
               addChildren({i: cIndex[0], parents: [obj], leftSide: true,  left: obj.left, right: mid}), 
               addChildren({i: cIndex[1], parents: [obj], leftSide: false, left: mid,       right: obj.right}), 
             ];
 
-          drawCircle(obj.children[0], obj, alreadyExists[0])
-          drawCircle(obj.children[1], obj, alreadyExists[1])
+          drawCircle(obj.children[0], obj)
+          drawCircle(obj.children[1], obj)
           obj.circle.call(setClass);
         }
         if (obj.unsolvedParents.length && obj.solved()){
@@ -149,12 +152,12 @@ function updateParentState(obj){
 
 function setClass(selection){
   selection.attr('class', function(d){
-    if (d.childDrawn) return 'down'
+    if (!d.childDrawn) return 'down'
     if (d.solved()){
       if (d.unsolvedParents.length) return 'up'
       return 'down'
     } 
-    return 'lightgrey'    
+    return 'waiting'    
   })
 
   // obj.active = !obj.childDrawn || (!obj.calculated && obj.children.every(f('calculated')))
