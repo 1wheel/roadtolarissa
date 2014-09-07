@@ -4,9 +4,11 @@ var svg = d3.select('#recursion')
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .call(addYAxis)
 
 var pathG = svg.append('g');
 var circlesG = svg.append('g');
+
 
 var levelToHeight = d3.scale.linear()
     .domain([topLevel, 0])
@@ -93,7 +95,7 @@ function drawCircle(obj){
         }
       })
       .style('pointer-events', 'none')
-      .attr({cx: obj.parents[0].x, cy: obj.parents[0].y, r: 5})
+      .attr({cx: obj.parents[0].x, cy: obj.parents[0].y, r: 10})
       .datum(obj)
       .style('fill', color)
 
