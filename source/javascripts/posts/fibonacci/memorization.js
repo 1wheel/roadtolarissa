@@ -98,7 +98,7 @@ function drawCircle(obj, from){
           obj.circle.call(setClass);
         }
         if (obj.unsolvedParents.length && obj.solved()){
-          obj.circle.style('fill', 'white');
+          obj.circle.classed('done', true)
 
           lineG.selectAll('new-path')
               .data(obj.unsolvedParents).enter()
@@ -151,7 +151,7 @@ function updateParentState(obj){
 function setClass(selection){
   selection.attr('class', function(d){
     if (!d.childDrawn) return 'down'
-    if (d.solved())    return d.unsolvedParents.length ? 'up' : 'down'
+    if (d.solved())    return d.unsolvedParents.length ? 'up' : 'done'
     
     return 'waiting'    
   })
