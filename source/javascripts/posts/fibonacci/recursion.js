@@ -14,7 +14,7 @@ var levelToHeight = d3.scale.linear()
 
 function start(){
   var tree = {i: topLevel, left: 0, right: width};
-  tree.parent = tree;
+  tree.parents = [tree];
   addChildren(tree);
   drawCircle(tree);  
 }
@@ -38,9 +38,10 @@ function addChildren(obj){
   var mid = (obj.left + obj.right)/2;
   var cIndex = [obj.i - 1, obj.i - 2];
   if (obj.i % 2){ cIndex.reverse(); }
+  if (Math.random() < .5){ cIndex.reverse(); }
   obj.children = [
-      addChildren({i: cIndex[0], parent: obj, leftSide: true,  left: obj.left, right: mid}), 
-      addChildren({i: cIndex[1], parent: obj, leftSide: false, left: mid,       right: obj.right}), 
+      addChildren({i: cIndex[0], parents: [obj], leftSide: true,  left: obj.left, right: mid}), 
+      addChildren({i: cIndex[1], parents: [obj], leftSide: false, left: mid,       right: obj.right}), 
     ];
 
   obj.val = d3.sum(obj.children, ƒ('val'))
@@ -76,7 +77,7 @@ function drawCircle(obj){
           d3.select(this).style('fill', color(obj));
 
           pathG.append('path')
-              .attr('d', arc([obj.parent.x, obj.parent.y], [obj.x, obj.y], obj.leftSide))
+              .attr('d', arc([obj.parents[0].x, obj.parents[0].y], [obj.x, obj.y], obj.leftSide))
               .each(function(){
                 var pathLength = this.getTotalLength();
                 d3.select(this)
@@ -92,16 +93,16 @@ function drawCircle(obj){
         }
       })
       .style('pointer-events', 'none')
-      .attr({cx: obj.parent.x, cy: obj.parent.y, r: 5})
+      .attr({cx: obj.parents[0].x, cy: obj.parents[0].y, r: 5})
       .datum(obj)
       .style('fill', color)
 
   obj.circle.append('title')
 
   var path = pathG.append('path')
-      //.attr('d', arc([obj.parent.x, obj.parent.y], [obj.parent.x, obj.parent.y], obj.leftSide))
+      //.attr('d', arc([obj.parents[0].x, obj.parents[0].y], [obj.parents[0].x, obj.parents[0].y], obj.leftSide))
       .style({stroke: 'black', "stroke-width": 2})
-      .attr('d', arc([obj.x, obj.y], [obj.parent.x, obj.parent.y], obj.leftSide))
+      .attr('d', arc([obj.x, obj.y], [obj.parents[0].x, obj.parents[0].y], obj.leftSide))
       .each(function(){
         var pathLength = this.getTotalLength();
         d3.select(this)
@@ -130,7 +131,7 @@ function drawCircle(obj){
 }
 
 function updateParentState(obj){
-  obj.parent.circle.transition().style('fill', color);
+  obj.parents[0].circle.transition().style('fill', color);
 }
 
 function color(obj){

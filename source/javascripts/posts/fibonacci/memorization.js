@@ -1,4 +1,4 @@
-var svg = d3.select('#recursion')
+var svg = d3.select('#memorization')
   .append('svg')
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -11,7 +11,7 @@ var memObj;
 function start(){
   var tree = {i: topLevel, left: 0, right: width, parents: [tree]};
   memObj = {topLevel: tree};
-  tree.parent = tree;
+  tree.parents = [tree];
   addChildren(tree);
   drawCircle(tree, tree);  
 }

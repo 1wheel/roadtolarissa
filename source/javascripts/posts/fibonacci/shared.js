@@ -12,7 +12,8 @@ var levelToHeight = d3.scale.linear()
 
 
 function updateParentState(obj){
-  obj.parent.circle.transition().style('fill', color);
+  obj.parents.forEach(function(d){
+    d.circle.transition().style('fill', color); });
 }
 
 function color(obj){
@@ -33,7 +34,7 @@ function arc(a, b, flip) {
 
 
 function reset(svg){
-  svg.selectAll('.circle')
+  svg.selectAll('circle')
     .transition().duration(function(d){ return Math.sqrt(d.i + 1)*1000; }).ease('bounce')
       .attr('cy', height)
     .transition().ease('linear')
@@ -50,6 +51,8 @@ function reset(svg){
 }
 
 d3.timer(function(t){
+  return
+
   d3.selectAll('circle')
       .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*5 + 5 : 1; })
 })
