@@ -138,5 +138,5 @@ function updateParentState(obj){
 
 function color(obj){
   obj.active = !obj.childDrawn || (!obj.calculated && obj.children.every(f('calculated')))
-  return !obj.childDrawn ? 'steelblue' : obj.calculated ? 'white' : obj.children.every(f('calculated')) ? 'red' : 'lightgrey';
+  return !obj.childDrawn ? 'steelblue' : obj.calculated ? 'black' : obj.children.every(f('calculated')) ? 'red' : 'lightgrey';
 }

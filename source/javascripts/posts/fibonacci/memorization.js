@@ -6,6 +6,9 @@ var svg = d3.select('#memorization')
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .call(addYAxis)
 
+var lineG = svg.append('g')
+var circleG = svg.append('g')
+
 var memObj;
 function start(){
   var tree = {i: topLevel, left: 0, right: width, parents: [tree]};
@@ -50,7 +53,7 @@ function addChildren(obj){
 }
 
 function drawCircle(obj, from, previousCircle){
-  var path = svg.append('path')
+  var path = lineG.append('path')
       //.attr('d', arc([from.x, from.y], [from.x, from.y], obj.leftSide))
       .style({stroke: 'black', "stroke-width": 2})
       .attr('d', arc([obj.x, obj.y], [from.x, from.y], obj.leftSide))
@@ -74,7 +77,7 @@ function drawCircle(obj, from, previousCircle){
   }
   
 
-  obj.circle = svg.append('circle')
+  obj.circle = circleG.append('circle')
       .attr('r', 10)
       .on('mouseover', function(){
         if (!obj.childDrawn){
@@ -96,7 +99,7 @@ function drawCircle(obj, from, previousCircle){
           obj.circle.style('fill', 'white');
           obj.active = false;
 
-          svg.selectAll('new-path')
+          lineG.selectAll('new-path')
               .data(obj.unsolvedParents).enter()
             .append('path')
               .attr('d', function(d){
@@ -136,4 +139,14 @@ function drawCircle(obj, from, previousCircle){
         d3.select(this).style('pointer-events', 'all')
       })
 
+}
+
+
+function updateParentState(obj){
+  obj.parents[0].circle.transition().style('fill', color);
+}
+
+function color(obj){
+  obj.active = !obj.childDrawn || (!obj.calculated && obj.children.every(f('calculated')))
+  return !obj.childDrawn ? 'steelblue' : obj.calculated ? 'black' : obj.children.every(f('calculated')) ? 'red' : 'lightgrey';
 }
