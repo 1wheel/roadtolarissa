@@ -32,16 +32,6 @@ function addYAxis(svg){
       .on('mouseout', function(){ svg.selectAll('circle').attr('r', 10); })
 }
 
-function updateParentState(obj){
-  obj.parents.forEach(function(d){
-    d.circle.style('fill', color); });
-}
-
-function color(obj){
-  obj.active = !obj.childDrawn || (!obj.calculated && obj.children.every(f('calculated')))
-  return !obj.childDrawn ? 'steelblue' : obj.calculated ? 'white' : obj.children.every(f('calculated')) ? 'red' : 'lightgrey';
-}
-
 
 function arc(a, b, flip) {
   var ac = a.slice();

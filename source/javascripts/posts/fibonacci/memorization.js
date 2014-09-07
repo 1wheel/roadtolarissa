@@ -28,7 +28,6 @@ function addChildren(obj){
   obj.x = (obj.left + obj.right)/2;
   obj.y = levelToHeight(obj.i);
   obj.childDrawn = false;
-  obj.calculated = false;
   obj.children = [];
 
   obj.unsolvedParents = obj.parents.slice();
@@ -111,7 +110,6 @@ function drawCircle(obj, from, previousCircle){
             .transition().duration(duration)
               .attr('stroke-dashoffset', 0)
               .each('end', function(){
-                obj.calculated = true;
                 obj.solveAll();
                 updateParentState(obj); 
                 if (obj.i === topLevel){ reset(svg); }
