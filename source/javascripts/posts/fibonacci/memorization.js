@@ -19,6 +19,7 @@ start();
 function addChildren(obj){
   if (memObj[obj.i]){
     memObj[obj.i].parents.push(obj.parents[0]);
+    memObj[obj.i].unsolvedParents.push(obj.parents[0]);
     return memObj[obj.i];
   }
   memObj[obj.i] = obj;
@@ -29,6 +30,14 @@ function addChildren(obj){
   obj.childDrawn = false;
   obj.calculated = false;
   obj.children = [];
+
+  obj.unsolvedParents = obj.parents.slice();
+  obj.solveAll = function(){ obj.unsolvedParents = []; }
+  obj.solved = function(){
+    return obj.childDrawn && obj.children.every(function(d){
+      return !_.contains(d.unsolvedParents, obj);
+    });
+  }
 
   if (obj.i === 0 || obj.i === 1){
     obj.childDrawn = true;
@@ -57,8 +66,15 @@ function drawCircle(obj, from, previousCircle){
       .attr('stroke-dashoffset', 0)
       .each('end', function(){ updateParentState(obj); })
 
-  //don't create circles that already exist
-  if (previousCircle) return
+  if (previousCircle){
+    //reset calc and fill state if circle already exists
+    obj.circle.style('fill', color(obj));
+
+    //don't create circles that already exist
+    return;
+  }
+  
+
   obj.circle = svg.append('circle')
       .attr('r', 10)
       .on('mouseover', function(){
@@ -77,12 +93,12 @@ function drawCircle(obj, from, previousCircle){
           drawCircle(obj.children[1], obj, alreadyExists[1])
           d3.select(this).style('fill', color(obj))
         }
-        if (!obj.calculated && obj.children.every(f('calculated'))){
+        if (obj.unsolvedParents.length && obj.solved()){
           obj.circle.style('fill', 'white');
           obj.active = false;
 
           svg.selectAll('new-path')
-              .data(obj.parents).enter()
+              .data(obj.unsolvedParents).enter()
             .append('path')
               .attr('d', function(d){
                 return arc([d.x, d.y], [obj.x, obj.y], obj.leftSide); })
@@ -96,6 +112,7 @@ function drawCircle(obj, from, previousCircle){
               .attr('stroke-dashoffset', 0)
               .each('end', function(){
                 obj.calculated = true;
+                obj.solveAll();
                 updateParentState(obj); 
                 if (obj.i === topLevel){ reset(svg); }
               })
