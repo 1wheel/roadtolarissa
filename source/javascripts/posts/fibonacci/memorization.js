@@ -52,18 +52,10 @@ function drawCircle(obj, from){
   var path = lineG.append('path')
       .classed('down-path', true)
       .attr('d', arc([obj.x, obj.y], [from.x, from.y], obj.leftSide))
-
-  var pathLength = path.node().getTotalLength()
-  path.attr('stroke-dasharray', pathLength + ' ' + pathLength)
-      .attr('stroke-dashoffset', pathLength)
-
-  path
-    .transition().duration(duration)
+      .call(hidePath)
+  path.transition().duration(duration)
       .attr('stroke-dashoffset', 0)
-      .each('end', function(){
-        obj.circle.call(setClass)
-        //updateParentState(obj) 
-      })
+      .each('end', function(){ obj.circle.call(setClass) })
 
   //don't create a circle if it doesn't already exist
   if (obj.circle) return
@@ -94,12 +86,7 @@ function drawCircle(obj, from){
               .classed('up-path', true)
               .attr('d', function(d){
                 return arc([d.x, d.y], [obj.x, obj.y], obj.leftSide) })
-              .each(function(){
-                var pathLength = this.getTotalLength()
-                d3.select(this)
-                    .attr('stroke-dasharray', pathLength + ' ' + pathLength)
-                    .attr('stroke-dashoffset', pathLength)
-              })
+              .call(hidePath)
             .transition().duration(duration)
               .attr('stroke-dashoffset', 0)
               .each('end', function(){
@@ -126,10 +113,7 @@ function drawCircle(obj, from){
           d3.select(this).attr({cx: pos.x, cy: pos.y})
         } 
       })
-      .each('end', function(){
-        d3.select(this).style('pointer-events', 'all')
-      })
-
+      .each('end', function(){ d3.select(this).style('pointer-events', '') })
 }
 
 

@@ -10,6 +10,7 @@ var levelToHeight = d3.scale.linear()
     .domain([topLevel, 0])
     .range([0, height])
 
+
 function addYAxis(svg){
   var textG = svg.append('g')
   textG.selectAll('text')
@@ -31,6 +32,7 @@ function addYAxis(svg){
       })
       .on('mouseout', function(){ svg.selectAll('circle').attr('r', 10) })
 }
+
 
 function setTitleText(el, obj){
   //set title text
@@ -60,6 +62,12 @@ function arc(a, b, flip) {
   return ['M', b, 'C', bc, ' ', ac, ' ', a].join('')  
 }
 
+function hidePath(selection){
+  var pathLength = selection.node().getTotalLength()
+  selection
+      .attr('stroke-dasharray', pathLength + ' ' + pathLength)
+      .attr('stroke-dashoffset', pathLength)
+}
 
 function reset(svg){
   svg.selectAll('circle')
@@ -78,6 +86,7 @@ function reset(svg){
   start()
 }
 
+//todo replace with css animation
 d3.timer(function(t){
   d3.selectAll('circle')
       .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*5 + 5 : 1 })

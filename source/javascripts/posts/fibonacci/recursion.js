@@ -72,12 +72,7 @@ function drawCircle(obj){
 
           pathG.append('path')
               .attr('d', arc([obj.parents[0].x, obj.parents[0].y], [obj.x, obj.y], obj.leftSide))
-              .each(function(){
-                var pathLength = this.getTotalLength()
-                d3.select(this)
-                    .attr('stroke-dasharray', pathLength + ' ' + pathLength)
-                    .attr('stroke-dashoffset', pathLength)
-              })
+              .call(hidePath)
             .transition().duration(duration)
               .attr('stroke-dashoffset', 0)
               .each('end', function(){
@@ -100,31 +95,20 @@ function drawCircle(obj){
       //.attr('d', arc([obj.parents[0].x, obj.parents[0].y], [obj.parents[0].x, obj.parents[0].y], obj.leftSide))
       .style({stroke: 'black', "stroke-width": 2})
       .attr('d', arc([obj.x, obj.y], [obj.parents[0].x, obj.parents[0].y], obj.leftSide))
-      .each(function(){
-        var pathLength = this.getTotalLength()
-        d3.select(this)
-            .attr('stroke-dasharray', pathLength + ' ' + pathLength)
-            .attr('stroke-dashoffset', pathLength)
-      })
-  path
-    .transition().duration(duration)
+      .call(hidePath)
+  path.transition().duration(duration)
       .attr('stroke-dashoffset', 0)
       .each('end', function(){ updateParentState(obj) })
-
 
   obj.circle.transition().duration(duration)
       .tween('position', function(){
         var pathLength = path.node().getTotalLength()
         return function(t){
           var pos = path.node().getPointAtLength(t*pathLength)
-          d3.select(this)
-              .attr({cx: pos.x, cy: pos.y})
+          d3.select(this).attr({cx: pos.x, cy: pos.y})
         } 
       })
-      .each('end', function(){
-        d3.select(this).style('pointer-events', '')
-      })
-
+      .each('end', function(){ d3.select(this).style('pointer-events', '') })
 }
 
 function updateParentState(obj){
