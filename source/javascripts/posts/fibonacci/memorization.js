@@ -134,15 +134,13 @@ function drawCircle(obj, from){
 
 
 function updateParentState(obj){
-  obj.parents.forEach(function(d){
-    d.circle.call(setClass)
-  })
+  obj.parents.forEach(function(d){ d.circle.call(setClass) })
 }
 
 function setClass(selection){
   selection.attr('class', function(d){
     if (!d.childDrawn) return 'down'
-    if (d.solved)    return d.unsolvedParents.length ? 'up' : 'done'
+    if (d.solved)      return d.unsolvedParents.length ? 'up' : 'done'
     
     return 'waiting'    
   })

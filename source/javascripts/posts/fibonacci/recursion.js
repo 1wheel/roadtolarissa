@@ -30,6 +30,13 @@ function addChildren(obj){
   obj.childDrawn = false
   obj.solved = false
 
+  obj.unsolvedParents = obj.parents.slice();
+  Object.defineProperty(obj, 'solved', {get: function(){
+    return obj.childDrawn && obj.children.every(function(d){
+      return !_.contains(d.unsolvedParents, obj)
+    })
+  }})
+
   if (obj.i <= 1){
     obj.childDrawn = true
     obj.val = 1
@@ -60,8 +67,7 @@ function drawCircle(obj){
           drawCircle(obj.children[1])
           d3.select(this).style('fill', color(obj))
         }
-        if (!obj.solved && obj.children.every(f('solved'))){
-          obj.solved = true
+        if (obj.unsolvedParents.length && obj.solved){
           d3.select(this).style('fill', color(obj))
 
           pathG.append('path')
@@ -78,6 +84,9 @@ function drawCircle(obj){
                 updateParentState(obj) 
                 if (obj.i === topLevel){ reset(svg) }
               })
+
+          obj.unsolvedParents = [];
+          obj.circle.classed('done', true)
         }
 
         setTitleText(this, obj)
@@ -123,6 +132,14 @@ function updateParentState(obj){
 }
 
 function color(obj){
-  obj.active = !obj.childDrawn || (!obj.solved && obj.children.every(f('solved')))
   return !obj.childDrawn ? 'steelblue' : obj.solved ? 'black' : obj.children.every(f('solved')) ? 'red' : 'lightgrey'
+}
+
+function setClass(selection){
+  selection.attr('class', function(d){
+    if (!d.childDrawn) return 'down'
+    if (d.solved) return d.unsolvedParents.length ? 'up' : 'done'
+    
+    return 'waiting'    
+  })
 }
