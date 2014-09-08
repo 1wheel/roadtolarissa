@@ -24,18 +24,22 @@ circle{
 }
 
 .down{
+	transition: fill .4s ease-in;
 	fill: steelblue;
 }
 
 .up{
+	transition: fill .4s ease-in;
 	fill: red;
 }
 
 .done{
+	transition: fill 0s ease-in;
 	fill: green;
 }
 
 .waiting{
+	transition: fill .1s ease-in;
 	fill: lightgrey;
 }
 
