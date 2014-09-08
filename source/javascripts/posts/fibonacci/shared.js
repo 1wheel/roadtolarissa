@@ -69,6 +69,20 @@ function hidePath(selection){
       .attr('stroke-dashoffset', pathLength)
 }
 
+
+function updateParentState(obj){
+  obj.parents.forEach(function(d){ d.circle.call(setCircleClass) })
+}
+
+function setCircleClass(selection){
+  selection.attr('class', function(d){
+    if (!d.childDrawn) return 'down'
+    if (d.solved)      return d.unsolvedParents.length ? 'up' : 'done'
+    
+    return 'waiting'    
+  })
+}
+
 function reset(svg){
   svg.selectAll('circle')
     .transition().duration(function(d){ return Math.sqrt(d.i + 1)*1000 }).ease('bounce')
@@ -91,3 +105,4 @@ d3.timer(function(t){
   d3.selectAll('circle')
       .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*5 + 5 : 1 })
 })
+

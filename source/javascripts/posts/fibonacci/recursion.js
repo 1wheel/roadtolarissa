@@ -65,11 +65,9 @@ function drawCircle(obj){
           obj.childDrawn = true
           drawCircle(obj.children[0])
           drawCircle(obj.children[1])
-          d3.select(this).style('fill', color(obj))
+          obj.circle.call(setCircleClass)
         }
         if (obj.unsolvedParents.length && obj.solved){
-          d3.select(this).style('fill', color(obj))
-
           pathG.append('path')
               .attr('d', arc([obj.parents[0].x, obj.parents[0].y], [obj.x, obj.y], obj.leftSide))
               .call(hidePath)
@@ -89,7 +87,7 @@ function drawCircle(obj){
       .style('pointer-events', 'none')
       .attr({cx: obj.parents[0].x, cy: obj.parents[0].y, r: 10})
       .datum(obj)
-      .style('fill', color)
+      .call(setCircleClass)
 
   var path = pathG.append('path')
       //.attr('d', arc([obj.parents[0].x, obj.parents[0].y], [obj.parents[0].x, obj.parents[0].y], obj.leftSide))
@@ -109,21 +107,4 @@ function drawCircle(obj){
         } 
       })
       .each('end', function(){ d3.select(this).style('pointer-events', '') })
-}
-
-function updateParentState(obj){
-  obj.parents[0].circle.transition().style('fill', color)
-}
-
-function color(obj){
-  return !obj.childDrawn ? 'steelblue' : obj.solved ? 'black' : obj.children.every(f('solved')) ? 'red' : 'lightgrey'
-}
-
-function setClass(selection){
-  selection.attr('class', function(d){
-    if (!d.childDrawn) return 'down'
-    if (d.solved) return d.unsolvedParents.length ? 'up' : 'done'
-    
-    return 'waiting'    
-  })
 }

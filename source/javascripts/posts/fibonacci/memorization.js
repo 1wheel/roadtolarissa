@@ -55,7 +55,7 @@ function drawCircle(obj, from){
       .call(hidePath)
   path.transition().duration(duration)
       .attr('stroke-dashoffset', 0)
-      .each('end', function(){ obj.circle.call(setClass) })
+      .each('end', function(){ obj.circle.call(setCircleClass) })
 
   //don't create a circle if it doesn't already exist
   if (obj.circle) return
@@ -77,7 +77,7 @@ function drawCircle(obj, from){
 
           drawCircle(obj.children[0], obj)
           drawCircle(obj.children[1], obj)
-          obj.circle.call(setClass)
+          obj.circle.call(setCircleClass)
         }
         if (obj.unsolvedParents.length && obj.solved){
           lineG.selectAll('new-path')
@@ -103,7 +103,7 @@ function drawCircle(obj, from){
       .attr({cx: from.x, cy: from.y})
       .style('pointer-events', 'none')
       .datum(obj)
-      .call(setClass)
+      .call(setCircleClass)
 
   obj.circle.transition().duration(duration)
       .tween('position', function(){
@@ -114,18 +114,4 @@ function drawCircle(obj, from){
         } 
       })
       .each('end', function(){ d3.select(this).style('pointer-events', '') })
-}
-
-
-function updateParentState(obj){
-  obj.parents.forEach(function(d){ d.circle.call(setClass) })
-}
-
-function setClass(selection){
-  selection.attr('class', function(d){
-    if (!d.childDrawn) return 'down'
-    if (d.solved)      return d.unsolvedParents.length ? 'up' : 'done'
-    
-    return 'waiting'    
-  })
 }
