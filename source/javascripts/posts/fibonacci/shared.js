@@ -63,10 +63,12 @@ function arc(a, b, flip) {
 }
 
 function hidePath(selection){
-  var pathLength = selection.node().getTotalLength()
-  selection
-      .attr('stroke-dasharray', pathLength + ' ' + pathLength)
-      .attr('stroke-dashoffset', pathLength)
+  selection.each(function(){
+    var pathLength = this.getTotalLength()
+    selection
+        .attr('stroke-dasharray', pathLength + ' ' + pathLength)
+        .attr('stroke-dashoffset', pathLength)
+  })
 }
 
 
