@@ -26,7 +26,9 @@ circle{
 .down{
 	transition: fill .4s ease-in;
 	fill: steelblue;
+
 }
+
 
 .up{
 	transition: fill .4s ease-in;
@@ -43,23 +45,19 @@ circle{
 	fill: lightgrey;
 }
 
-.connection{
-	stroke: black;
-	stroke-linecap: round;
-	stroke-opacity: .5;
-	stroke-width: 5;
+.up,.down{	
+	-webkit-animation-name: throb;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-iteration-count: infinite;
 }
 
-.best{
-	stroke: green;
-	stroke-linecap: round;
-	stroke-width: 5;
-	stroke-opacity: 1;
-}
+@-webkit-keyframes throb{
+	from{
+		stroke-width: 2px;
+	}
 
-.text-line{
-	stroke: black;
-	stroke-dasharray: 3 0 1;
-	stroke-linejoin: round;
-	stroke-width: 2;
+	to{
+		stroke-width: 10px;
+	}
 }
