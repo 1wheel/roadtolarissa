@@ -43,9 +43,7 @@ function addChildren(obj){
   if (obj.i <= 1){
     obj.childDrawn = true
     obj.val = 1
-  } else{
-    obj.val = d3.sum(obj.children, ƒ('val'))  
-  }
+  } 
 
   return obj
 }
@@ -82,8 +80,8 @@ function drawCircle(obj, from){
 
           obj.children = [
               addChildren({i: cIndex[0], parents: [obj], leftSide: true,  left: obj.left, right: mid}), 
-              addChildren({i: cIndex[1], parents: [obj], leftSide: false, left: mid,       right: obj.right}), 
-            ]
+              addChildren({i: cIndex[1], parents: [obj], leftSide: false, left: mid,       right: obj.right})]
+          obj.val = d3.sum(obj.children, ƒ('val'))
 
           drawCircle(obj.children[0], obj)
           drawCircle(obj.children[1], obj)
