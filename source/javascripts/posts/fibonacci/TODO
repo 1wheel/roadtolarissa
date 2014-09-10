@@ -1,3 +1,6 @@
+Base
+	Visual of 
+
 recurison
 	space horizontally
 
@@ -40,4 +43,9 @@ faster newtons?
 
 
 write up
+	recursion
+		formula
+		what it is used for
+		wasteful! number of nodes actually fib number
+		(check starting to make sure; maybe start with F0 to make it nicer)
 
