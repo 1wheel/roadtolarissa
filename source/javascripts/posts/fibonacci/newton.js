@@ -1,5 +1,5 @@
 
-var height = 500;
+var height = 300;
 
 var svg = d3.select('#newton')
   .append('svg')
@@ -8,19 +8,32 @@ var svg = d3.select('#newton')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-var points = d3.range(0, 10, .05)
+var points = d3.range(0, 3, .05)
+
+function phi(x){ return x*x - 5; }
 
 var x = d3.scale.linear()
-		.domain(d3.extent(points))
-		.range([0, width])
+    .domain(d3.extent(points))
+    .range([0, width])
 
 var y = d3.scale.linear()
-		.domain(d3.extent(points, Math.sqrt))
-		.range([height, 0])
+    .domain(d3.extent(points, phi))
+    .range([height, 0])
 
-var line = d3.svg.line()
-		.x(x)
-		.y(_.compose(y, Math.sqrt))
+var sqrtLine = d3.svg.line()
+    .x(x)
+    .y(_.compose(y, Math.sqrt))
+
+var quadLine = d3.svg.line()
+    .x(x)
+    //.y(_.compose(y, _.partialRight(Math.pow, 2)))
+    .y(_.compose(y, phi))
 
 var path = svg.append('path')
-		.attr('d', line(points))
+    .attr('d', sqrtLine(points))
+
+var path2 = svg.append('path')
+    .attr('d', quadLine(points))
+
+svg.append('path')
+    .attr('d', ['M', [0, y(0)], 'L', [width, y(0)]].join(''))
