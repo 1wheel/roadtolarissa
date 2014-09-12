@@ -89,7 +89,7 @@ function reset(svg){
   svg.selectAll('circle')
     .transition().duration(function(d){ return Math.sqrt(d.i + 1)*1000 }).ease('bounce')
       .attr('cy', height)
-    .transition().ease('cubic')
+    .transition().ease('cubic').duration(500)
       .style('opacity', 0)
       .attr('r', 15)
       .remove()

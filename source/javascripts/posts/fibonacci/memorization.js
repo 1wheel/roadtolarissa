@@ -95,7 +95,7 @@ function drawCircle(obj, from){
               })
 
           obj.unsolvedParents = []
-          obj.circle.classed('done', true)
+          obj.circle.attr('class', 'done')
         }
 
         setTitleText(this, obj)
