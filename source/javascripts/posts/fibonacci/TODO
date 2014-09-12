@@ -37,6 +37,7 @@ newton
 	x y animate
 	how to keep line position correc
 
+	floating point precision
 
 faster newtons?
 
@@ -49,3 +50,9 @@ write up
 		wasteful! number of nodes actually fib number
 		(check starting to make sure; maybe start with F0 to make it nicer)
 
+
+
+	newton
+		fractuals
+
+		

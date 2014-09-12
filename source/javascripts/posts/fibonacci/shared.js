@@ -103,8 +103,8 @@ function reset(svg){
 }
 
 //todo replace with css animation
-d3.timer(function(t){
-  d3.selectAll('circle')
-      .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*5 + 5 : 1 })
-})
+// d3.timer(function(t){
+//   d3.selectAll('circle')
+//       .style('stroke-width', function(d){ return d.active ? Math.sin(t/200)*5 + 5 : 1 })
+// })
 
