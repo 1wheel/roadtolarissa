@@ -8,7 +8,7 @@ var svg = d3.select('#newton')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-var points = d3.range(-1, 25.5, .05)
+var points = d3.range(-1, 25, .05)
 
 function phi(x){ return x*x - 5; }
 function toCord(point){ return [x(point[0]), y(point[1])]; }
@@ -16,6 +16,13 @@ function xPosToCord(x){ return toCord([x, phi(x)]); }
 
 function positionCircle(selection){
   selection.attr({cx: x(xPos), cy: y(phi(xPos))})
+}
+
+var xCur = .1;
+var xVals = [xCur];
+while (_.last(xVals) != xCur || xVals.length === 1){
+  xCur = _.last(xVals);
+  xVals.push(-phi(xCur)/(2*xCur) + xCur);
 }
 
 var x = d3.scale.linear()
@@ -46,7 +53,7 @@ svg.append('path')
 svg.append('path')
     .attr('d', ['M', [x(0), 0], 'L', [x(0), height]].join(''))
 
-var xPos = .1;
+var xPos = xVals[0];
 var activeCircle = svg.append('circle')
     .attr('r', 10)
     .call(positionCircle)
@@ -54,16 +61,16 @@ var activeCircle = svg.append('circle')
       update();
     })
 
+var n = 0;
+var xNew;
 function update(){
-  var m = 2*xPos
-  xNew = -phi(xPos)/m + xPos;
+  if (n < xVals.length){ n++; }
+  xPos = xVals[n];
 
   svg.append('path')
-      .attr('d', ['M', xPosToCord(xPos), 'L', xPosToCord(xNew)].join(''))
+      .attr('d', ['M', xPosToCord(xVals[n - 1]), 'L', toCord([xVals[n], 0])].join(''))
 
-  xPos = xNew;
-  console.log(xPos);
-  activeCircle.transition()
+  activeCircle.transition().duration(1500)
       .call(positionCircle)
 }
 
