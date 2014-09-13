@@ -12,9 +12,10 @@ var points = d3.range(-1, 25, .05)
 
 function phi(x){ return x*x - 5; }
 function toCord(point){ return [x(point[0]), y(point[1])]; }
-function xPosToCord(x){ return toCord([x, phi(x)]); }
+function xToPoint(x){ return [x, phi(x)]; }
+var xPosToCord = _.compose(toCord, xToPoint);
 
-function positionCircle(selection){
+function positionCircle(selection, xPos){
   selection.attr({cx: x(xPos), cy: y(phi(xPos))})
 }
 
@@ -53,7 +54,6 @@ svg.append('path')
 svg.append('path')
     .attr('d', ['M', [x(0), 0], 'L', [x(0), height]].join(''))
 
-var xPos = xVals[0];
 var activeCircle = svg.append('circle')
     .attr('r', 10)
     .call(positionCircle)
@@ -62,16 +62,16 @@ var activeCircle = svg.append('circle')
     })
 
 var n = 0;
-var xNew;
 function update(){
   if (n < xVals.length){ n++; }
-  xPos = xVals[n];
+  var prev = xToPoint(xVals[n - 1]);
+  var cur = xToPoint(xVals[n]);
 
   svg.append('path')
-      .attr('d', ['M', xPosToCord(xVals[n - 1]), 'L', toCord([xVals[n], 0])].join(''))
+      .attr('d', ['M', toCord(prev), 'L', toCord(cur)].join(''))
 
   activeCircle.transition().duration(1500)
-      .call(positionCircle)
+      .call(positionCircle, cur[0])
 }
 
 //todo add shawdo circle
