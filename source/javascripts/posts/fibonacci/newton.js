@@ -8,7 +8,7 @@ var svg = d3.select('#newton')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-var points = d3.range(-1, 25, .05)
+var points = d3.range(-1, 26, .05)
 
 function phi(x){ return x*x - 5; }
 function toCord(point){ return [x(point[0]), y(point[1])]; }
@@ -56,10 +56,9 @@ svg.append('path')
 
 var activeCircle = svg.append('circle')
     .attr('r', 10)
-    .call(positionCircle)
-    .on('mouseenter', function(){
-      update();
-    })
+    .call(positionCircle, xVals[0])
+    .classed('down', true)
+    .on('mouseenter',update)
 
 var n = 0;
 function update(){
@@ -67,13 +66,40 @@ function update(){
   var prev = xToPoint(xVals[n - 1]);
   var cur = xToPoint(xVals[n]);
 
-  svg.append('path')
-      .attr('d', ['M', toCord(prev), 'L', toCord(cur)].join(''))
 
-  activeCircle.transition().duration(1500)
-      .call(positionCircle, cur[0])
+  svg.transition().duration(1000)
+      .each(function(){
+        svg.append('path').classed('tangent', true)
+            .attr('d', ['M', toCord(prev), 'L', toCord(prev)].join(''))
+          .transition()
+            .attr('d', ['M', toCord(prev), 'L', toCord([cur[0], 0])].join(''))
+      })
+    .transition()
+      .each(function(){
+        svg.append('path').classed('vertical', true)
+            .attr('d', ['M', toCord([cur[0], 0]), 'L', toCord([cur[0], 0])].join(''))        
+          .transition()    
+            .attr('d', ['M', toCord([cur[0], 0]), 'L', toCord(cur)].join(''))        
+      })
+    .transition()
+      .each(function(){
+        activeCircle.transition().tween('position', function(){
+          var i = d3.interpolate(prev[0], cur[0]);
+          return function(t){
+            activeCircle.call(positionCircle, i(t));
+          }
+        })
+      })
 }
 
 //todo add shawdo circle
-//keep list of previous poinsts
+//keep list of previous poinstsn
 //adjust function
+
+      // .tween('position', function(){
+      //   var pathLength = path.node().getTotalLength()
+      //   return function(t){
+      //     var pos = path.node().getPointAtLength(t*pathLength)
+      //     d3.select(this).attr({cx: pos.x, cy: pos.y})
+      //   } 
+      // })
