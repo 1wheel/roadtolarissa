@@ -7,6 +7,7 @@ var svg = d3.select('#newton')
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  .append('g')
 
 var points = d3.range(-1, 26, .05)
 
@@ -62,10 +63,13 @@ var activeCircle = svg.append('circle')
 
 var n = 0;
 function update(){
-  if (n < xVals.length){ n++; }
+  if (n < xVals.length - 1){ n++; }
   var prev = xToPoint(xVals[n - 1]);
   var cur = xToPoint(xVals[n]);
 
+  var xInView = xVals.slice(n, 2).concat(_.last(xVals)),
+      xRange = d3.extent(xInView, x),
+      yRange = d3.extent(xInView, _.compose(y, phi));
 
   svg.transition().duration(1000)
       .each(function(){
@@ -92,6 +96,11 @@ function update(){
             }
           })
             .attr('class', 'down')
+      })
+    .transition().ease('cubic-in-out')
+      .each(function(){
+        svg.transition()
+            .attr('transform', ['translate(', -xRange[0], ',', yRange[0], ')'].join(''))
       })
 }
 
