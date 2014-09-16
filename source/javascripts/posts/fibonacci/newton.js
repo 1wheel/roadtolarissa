@@ -81,14 +81,17 @@ function update(){
           .transition()    
             .attr('d', ['M', toCord([cur[0], 0]), 'L', toCord(cur)].join(''))        
       })
-    .transition()
+    .transition().ease('linear')
       .each(function(){
-        activeCircle.transition().tween('position', function(){
-          var i = d3.interpolate(prev[0], cur[0]);
-          return function(t){
-            activeCircle.call(positionCircle, i(t));
-          }
-        })
+        activeCircle
+            .attr('class', 'inactive')
+          .transition().tween('position', function(){
+            var i = d3.interpolate(prev[0], cur[0]);
+            return function(t){
+              activeCircle.call(positionCircle, i(t));
+            }
+          })
+            .attr('class', 'down')
       })
 }
 
