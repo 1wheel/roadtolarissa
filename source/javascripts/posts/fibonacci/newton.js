@@ -62,25 +62,26 @@ var activeCircle = svg.append('circle')
     .on('mouseenter',update)
 
 var n = 0;
+var zoom = 1;
 function update(){
-  if (n < xVals.length - 1){ n++; }
+  if (n < xVals.length - 3){ n++; }
   var prev = xToPoint(xVals[n - 1]);
   var cur = xToPoint(xVals[n]);
 
-  var xInView = xVals.slice(n, 2).concat(_.last(xVals)),
+  var xInView = xVals.slice(n, n + 3).concat(_.last(xVals)),
       xRange = d3.extent(xInView, x),
       yRange = d3.extent(xInView, _.compose(y, phi));
 
   svg.transition().duration(1000)
       .each(function(){
-        svg.append('path').classed('tangent', true)
+        svg.append('path').classed('tangent', true).style('stroke-width', 1/zoom)
             .attr('d', ['M', toCord(prev), 'L', toCord(prev)].join(''))
           .transition()
             .attr('d', ['M', toCord(prev), 'L', toCord([cur[0], 0])].join(''))
       })
     .transition()
       .each(function(){
-        svg.append('path').classed('vertical', true)
+        svg.append('path').classed('vertical', true).style('stroke-width', 1/zoom)
             .attr('d', ['M', toCord([cur[0], 0]), 'L', toCord([cur[0], 0])].join(''))        
           .transition()    
             .attr('d', ['M', toCord([cur[0], 0]), 'L', toCord(cur)].join(''))        
@@ -99,8 +100,23 @@ function update(){
       })
     .transition().ease('cubic-in-out')
       .each(function(){
+        console.log(n);
+        var xInView = xVals.slice(n, n + 3).concat(_.last(xVals)),
+            xRange = d3.extent(xInView, x),
+            yRange = d3.extent(xInView, _.compose(y, phi)),
+            zWidth  = Math.abs(xRange[1] - xRange[0]),
+            zHeight = Math.abs(yRange[1] - yRange[0]);
+
+            zoom = Math.min(width/zWidth, height/zHeight);
+
         svg.transition()
-            .attr('transform', ['translate(', -xRange[0], ',', yRange[0], ')'].join(''))
+            .attr('transform', ['translate(', -xRange[0]*zoom, ',', -yRange[0]*zoom, ')scale(', zoom, ')'].join(''))
+     
+        activeCircle.transition()
+            .attr('r', 10/zoom)
+
+        svg.selectAll('path').transition()
+            .style('stroke-width', 1/zoom)
       })
 }
 

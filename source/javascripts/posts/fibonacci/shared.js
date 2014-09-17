@@ -2,7 +2,7 @@
 
 var height = 200,
     width = 750,
-    margin = {left: 25, right: 0, top: 20, bottom: 20},
+    margin = {left: 25, right: 20, top: 20, bottom: 20},
     topLevel = 6,
     duration = 1000
 
