@@ -84,7 +84,13 @@ function update(){
         svg.append('path').classed('vertical', true).style('stroke-width', 1/zoom)
             .attr('d', ['M', toCord([cur[0], 0]), 'L', toCord([cur[0], 0])].join(''))        
           .transition()    
-            .attr('d', ['M', toCord([cur[0], 0]), 'L', toCord(cur)].join(''))        
+            .attr('d', ['M', toCord([cur[0], 0]), 'L', toCord(cur)].join('')) 
+
+        svg.append('g')
+            .attr('transform', 'translate(' + toCord([cur[0], 0]) + ')')
+          .append('text')
+            .text(cur[0])   
+            .attr('transform', 'scale(' + 1/zoom + ')')    
       })
     .transition().ease('linear')
       .each(function(){
@@ -117,6 +123,9 @@ function update(){
 
         svg.selectAll('path').transition()
             .style('stroke-width', 1/zoom)
+
+        svg.selectAll('text').transition()
+            .attr('transform', 'scale(' + 1/zoom + ')')
       })
 }
 
