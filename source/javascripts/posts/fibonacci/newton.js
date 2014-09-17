@@ -41,11 +41,7 @@ var sqrtLine = d3.svg.line()
 
 var quadLine = d3.svg.line()
     .x(x)
-    //.y(_.compose(y, _.partialRight(Math.pow, 2)))
     .y(_.compose(y, phi))
-
-var path = svg.append('path')
-   // .attr('d', sqrtLine(points))
 
 var path2 = svg.append('path')
     .attr('d', quadLine(points))
@@ -110,13 +106,17 @@ function update(){
         var xInView = xVals.slice(n, n + 3).concat(_.last(xVals)),
             xRange = d3.extent(xInView, x),
             yRange = d3.extent(xInView, _.compose(y, phi)),
-            zWidth  = Math.abs(xRange[1] - xRange[0]),
-            zHeight = Math.abs(yRange[1] - yRange[0]);
+            zWidth  = xRange[1] - xRange[0],
+            zHeight = yRange[1] - yRange[0];
 
-            zoom = Math.min(width/zWidth, height/zHeight);
+        zoom = Math.min(width/zWidth, height/zHeight);
+
+        //center ranges
+        var x0 = xRange[0] - (width/zoom - zWidth)/2,
+            y0 = yRange[0] - (height/zoom - zHeight)/2;
 
         svg.transition()
-            .attr('transform', ['translate(', -xRange[0]*zoom, ',', -yRange[0]*zoom, ')scale(', zoom, ')'].join(''))
+            .attr('transform', ['translate(', -x0*zoom, ',', -y0*zoom, ')scale(', zoom, ')'].join(''))
      
         activeCircle.transition()
             .attr('r', 10/zoom)
