@@ -36,14 +36,6 @@ var y = d3.scale.linear()
     .domain(d3.extent(points, phi))
     .range([height, 0])
 
-var quadLine = d3.svg.line()
-    .x(x)
-    .y(_.compose(y, phi))
-
-var path2 = svg.append('path')
-    .attr('d', d3.svg.line().x(x)
-    .y(_.compose(y, phi))(points))
-
 svg.append('path')
     .attr('d', ['M', [0, y(0)], 'L', [width, y(0)]].join(''))
 svg.append('path')
@@ -53,11 +45,16 @@ var activeCircle = svg.append('circle')
     .attr('r', 10)
     .call(positionCircle, xVals[0])
     .classed('down', true)
-    .on('mouseenter',update)
+    .on('mouseenter', update)
 
 var n = 0;
 var zoom = 1;
+var resetNext = false;
 function update(){
+  if (!activeCircle.classed('down')) return  //exit if animation in progress
+  if (resetNext){
+    svg.selectAll('*').remove();
+  }
   if (n < xVals.length - 3){ 
     n++; 
   } else{
