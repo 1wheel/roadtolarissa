@@ -41,7 +41,8 @@ var quadLine = d3.svg.line()
     .y(_.compose(y, phi))
 
 var path2 = svg.append('path')
-    .attr('d', quadLine(points))
+    .attr('d', d3.svg.line().x(x)
+    .y(_.compose(y, phi))(points))
 
 svg.append('path')
     .attr('d', ['M', [0, y(0)], 'L', [width, y(0)]].join(''))
@@ -57,7 +58,16 @@ var activeCircle = svg.append('circle')
 var n = 0;
 var zoom = 1;
 function update(){
-  if (n < xVals.length - 3){ n++; }
+  if (n < xVals.length - 3){ 
+    n++; 
+  } else{
+    n = 0;
+    zoom = 1;
+    svg.transition().duration(1000)
+        .each(scaleToZoom)
+        .attr('transform', 'translate(0,0) scale(1)')
+    return;
+  }
   var prev = xToPoint(xVals[n - 1]),
       cur = xToPoint(xVals[n]),
       next = xToPoint(xVals[n + 1]);
@@ -115,10 +125,10 @@ function update(){
         //center ranges
         var x0 = xRange[0] - (width/zoom - zWidth)/2,
             y0 = yRange[0] - (height/zoom - zHeight)/2;
-
+  
         svg.transition()
             .attr('transform', ['translate(', -x0*zoom, ',', -y0*zoom, ')scale(', zoom, ')'].join(''))
-     
+
         activeCircle.transition()
             .attr('r', 10/zoom)
 
@@ -128,7 +138,20 @@ function update(){
         svg.selectAll('text').transition()
             .attr('transform', 'scale(' + 1/zoom + ')')
       })
+
 }
+
+function scaleToZoom(){
+  activeCircle.transition()
+      .attr('r', 10/zoom)
+
+  svg.selectAll('path').transition()
+      .style('stroke-width', 1/zoom)
+
+  svg.selectAll('text').transition()
+      .attr('transform', 'scale(' + 1/zoom + ')')
+}
+
 
 //todo add shawdo circle
 //keep list of previous poinstsn
