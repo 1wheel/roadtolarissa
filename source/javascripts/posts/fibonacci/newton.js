@@ -53,7 +53,9 @@ var resetNext = false;
 function update(){
   if (!activeCircle.classed('down')) return  //exit if animation in progress
   if (resetNext){
-    svg.selectAll('*').remove();
+    //TODO add animation
+    //wrap everything in a function and recall
+    return svg.selectAll('*').remove();
   }
   if (n < xVals.length - 3){ 
     n++; 
@@ -63,7 +65,7 @@ function update(){
     svg.transition().duration(1000)
         .each(scaleToZoom)
         .attr('transform', 'translate(0,0) scale(1)')
-    return;
+    return resetNext = true;
   }
   var prev = xToPoint(xVals[n - 1]),
       cur = xToPoint(xVals[n]),
