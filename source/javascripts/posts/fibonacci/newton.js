@@ -20,9 +20,10 @@ function positionCircle(selection, xPos){
   selection.attr({cx: x(xPos), cy: y(phi(xPos))})
 }
 
-var xCur = .1;
-var xVals = [xCur];
-while (_.last(xVals) != xCur || xVals.length === 1){
+var xCur = .1,
+    xVals = [xCur],
+    e = .0001;
+while (Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
   xCur = _.last(xVals);
   xVals.push(-phi(xCur)/(2*xCur) + xCur);
 }
@@ -34,10 +35,6 @@ var x = d3.scale.linear()
 var y = d3.scale.linear()
     .domain(d3.extent(points, phi))
     .range([height, 0])
-
-var sqrtLine = d3.svg.line()
-    .x(x)
-    .y(_.compose(y, Math.sqrt))
 
 var quadLine = d3.svg.line()
     .x(x)
@@ -61,8 +58,9 @@ var n = 0;
 var zoom = 1;
 function update(){
   if (n < xVals.length - 3){ n++; }
-  var prev = xToPoint(xVals[n - 1]);
-  var cur = xToPoint(xVals[n]);
+  var prev = xToPoint(xVals[n - 1]),
+      cur = xToPoint(xVals[n]),
+      next = xToPoint(xVals[n + 1]);
 
   var xInView = xVals.slice(n, n + 3).concat(_.last(xVals)),
       xRange = d3.extent(xInView, x),
@@ -85,8 +83,9 @@ function update(){
         svg.append('g')
             .attr('transform', 'translate(' + toCord([cur[0], 0]) + ')')
           .append('text')
-            .text(cur[0])   
+            .text(Math.round(cur[0]/e)*e)   
             .attr('transform', 'scale(' + 1/zoom + ')')    
+            .style('text-anchor', cur[0] < next[0] ? 'start' : 'end')
       })
     .transition().ease('linear')
       .each(function(){
@@ -98,7 +97,9 @@ function update(){
               activeCircle.call(positionCircle, i(t));
             }
           })
-            .attr('class', 'down')
+          .each('end', function(){
+            d3.select(this).attr('class', 'down')
+          })
       })
     .transition().ease('cubic-in-out')
       .each(function(){
@@ -132,11 +133,3 @@ function update(){
 //todo add shawdo circle
 //keep list of previous poinstsn
 //adjust function
-
-      // .tween('position', function(){
-      //   var pathLength = path.node().getTotalLength()
-      //   return function(t){
-      //     var pos = path.node().getPointAtLength(t*pathLength)
-      //     d3.select(this).attr({cx: pos.x, cy: pos.y})
-      //   } 
-      // })
