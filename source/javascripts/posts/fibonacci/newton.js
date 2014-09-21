@@ -10,9 +10,9 @@ var svg = d3.select('#newton')
   .append('g')
     .attr("transform", "scale(" + 1/rZ + ")")
 
-var points = d3.range(-3, 6, .005)
 
-function phi(x){ return x*x - 5; }
+var eqStr = d3.select('#newton-eq').attr('value');
+function phi(x){ return eval(eqStr); }
 function toCord(point){ return [x(point[0]), y(point[1])]; }
 function xToPoint(x){ return [x, phi(x)]; }
 var xPosToCord = _.compose(toCord, xToPoint);
@@ -21,13 +21,14 @@ function positionCircle(selection, xPos){
   selection.attr({cx: x(xPos), cy: y(phi(xPos))})
 }
 
-var xCur = .5
+var xCur = +d3.select('#newton-x0').attr('value');
     xVals = [xCur],
     e = .000000000001;
 while (Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
   xCur = _.last(xVals);
   xVals.push(-phi(xCur)/(2*xCur) + xCur);
 }
+var points = d3.range(-3, 6, .005)
 
 var rows = d3.select('table').style('margin-top', -height + 'px')
     .select('tbody').selectAll('tr').remove()
