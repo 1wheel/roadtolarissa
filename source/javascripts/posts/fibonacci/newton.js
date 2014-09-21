@@ -9,7 +9,7 @@ var svg = d3.select('#newton')
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
   .append('g')
 
-var points = d3.range(-1, 26, .05)
+var points = d3.range(-10, 26, .05)
 
 function phi(x){ return x*x - 5; }
 function toCord(point){ return [x(point[0]), y(point[1])]; }
@@ -35,6 +35,9 @@ var x = d3.scale.linear()
 var y = d3.scale.linear()
     .domain(d3.extent(points, phi))
     .range([height, 0])
+
+svg.append('path')
+    .attr('d', d3.svg.line().x(x).y(_.compose(y, phi))(points))
 
 svg.append('path')
     .attr('d', ['M', [0, y(0)], 'L', [width, y(0)]].join(''))
@@ -64,7 +67,7 @@ function update(){
     zoom = 1;
     svg.transition().duration(1000)
         .each(scaleToZoom)
-        .attr('transform', 'translate(0,0) scale(1)')
+        .attr('transform', 'scale(1)')
     return resetNext = true;
   }
   var prev = xToPoint(xVals[n - 1]),
@@ -77,6 +80,8 @@ function update(){
 
   svg.transition().duration(1000)
       .each(function(){
+        activeCircle.attr('class', 'inactive')
+
         svg.append('path').classed('tangent', true).style('stroke-width', 1/zoom)
             .attr('d', ['M', toCord(prev), 'L', toCord(prev)].join(''))
           .transition()
@@ -98,19 +103,17 @@ function update(){
       })
     .transition().ease('linear')
       .each(function(){
-        activeCircle
-            .attr('class', 'inactive')
+        activeCircle.attr('class', 'inactive')
           .transition().tween('position', function(){
             var i = d3.interpolate(prev[0], cur[0]);
             return function(t){
               activeCircle.call(positionCircle, i(t));
             }
           })
-          .each('end', function(){
-            d3.select(this).attr('class', 'down')
-          })
+
+          .attr('class', 'down')
+
       })
-    .transition().ease('cubic-in-out')
       .each(function(){
         console.log(n);
         var xInView = xVals.slice(n, n + 3).concat(_.last(xVals)),
@@ -125,7 +128,7 @@ function update(){
         var x0 = xRange[0] - (width/zoom - zWidth)/2,
             y0 = yRange[0] - (height/zoom - zHeight)/2;
   
-        svg.transition()
+        svg.transition().delay(2000)
             .attr('transform', ['translate(', -x0*zoom, ',', -y0*zoom, ')scale(', zoom, ')'].join(''))
 
         activeCircle.transition()
@@ -136,6 +139,8 @@ function update(){
 
         svg.selectAll('text').transition()
             .attr('transform', 'scale(' + 1/zoom + ')')
+
+        activeCircle.transition().attr('class', 'inactive').transition().attr('class', 'down');
       })
 
 }
