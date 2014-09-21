@@ -1,4 +1,4 @@
-var rZ = 1;
+var rZ = 200;
 var height = 300;
 
 var svg = d3.select('#newton')
@@ -23,7 +23,7 @@ function positionCircle(selection, xPos){
 
 var xCur = .5
     xVals = [xCur],
-    e = .001;
+    e = .000000000001;
 while (Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
   xCur = _.last(xVals);
   xVals.push(-phi(xCur)/(2*xCur) + xCur);
@@ -34,8 +34,8 @@ var rows = d3.select('table').style('margin-top', -height + 'px')
     .data(xVals).enter()
   .append('tr')
 rows.append('td').text(function(d, i){ return i; })
-rows.append('td').text(d3.format('.4f'))
-rows.append('td').text(_.compose(d3.format('.4f'), phi))
+rows.append('td').text(d3.format('.10f'))
+rows.append('td').text(_.compose(d3.format('.10f'), phi))
 
 var x = d3.scale.linear()
     .domain(d3.extent(points))
@@ -49,9 +49,9 @@ svg.append('path')
     .attr('d', d3.svg.line().x(x).y(_.compose(y, phi))(points))
 
 svg.append('path')
-    .attr('d', ['M', [0, y(0)], 'L', [width, y(0)]].join(''))
+    .attr('d', ['M', [0, y(0)], 'L', [width*rZ, y(0)]].join(''))
 svg.append('path')
-    .attr('d', ['M', [x(0), 0], 'L', [x(0), height]].join(''))
+    .attr('d', ['M', [x(0), 0], 'L', [x(0), height*rZ]].join(''))
 
 var activeCircle = svg.append('circle')
     .attr('r', 10)
@@ -108,7 +108,7 @@ function update(){
         svg.append('g')
             .attr('transform', 'translate(' + toCord([cur[0], 0]) + ')')
           .append('text')
-            .text(d3.format('.4f')(cur[0]))
+            .text(d3.format('.10f')(cur[0]))
             .attr('transform', 'scale(' + 1/zoom + ')')    
             .style('text-anchor', cur[0] < next[0] ? 'start' : 'end')
       })
@@ -132,7 +132,7 @@ function update(){
             zHeight = yRange[1] - yRange[0];
 
         var oldZoom = zoom;
-        zoom = Math.min(width/zWidth, height/zHeight)/rZ;
+        zoom = Math.min(width/zWidth, height/zHeight);
         console.log(zoom);
         //center ranges
         var x0 = xRange[0] - (width/zoom - zWidth)/2,
@@ -152,7 +152,7 @@ function update(){
               var i = d3.interpolate(1/oldZoom, 1/zoom);
               return function(t){
                 var z = 1/i(t);
-                console.log(z);
+                //console.log(z);
                 return ['translate(', -x0*z, ',', -y0*z, ')scale(', z, ')'].join('')
               }
             })
