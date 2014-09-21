@@ -10,7 +10,7 @@ var svg = d3.select('#newton')
   .append('g')
     .attr("transform", "scale(" + 1/rZ + ")")
 
-var points = d3.range(-3, 10, .05)
+var points = d3.range(-3, 6, .05)
 
 function phi(x){ return x*x - 5; }
 function toCord(point){ return [x(point[0]), y(point[1])]; }
@@ -28,6 +28,14 @@ while (Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
   xCur = _.last(xVals);
   xVals.push(-phi(xCur)/(2*xCur) + xCur);
 }
+
+var table = d3.select('#newton-table');
+var rows = table.selectAll('tr').remove()
+    .data(xVals).enter()
+  .append('tr')
+rows.append('td').text(function(d, i){ return i; })
+rows.append('td').text(f())
+rows.append('td').text(phi)
 
 var x = d3.scale.linear()
     .domain(d3.extent(points))
@@ -117,14 +125,15 @@ function update(){
     .transition()
       .each(function(){
         console.log(n);
-        var xInView = xVals.slice(n, n + 3).concat(_.last(xVals)),
+        var xInView = xVals.slice(n - 1, n + 3).concat(_.last(xVals)),
             xRange = d3.extent(xInView, x),
             yRange = d3.extent(xInView, _.compose(y, phi)),
             zWidth  = xRange[1] - xRange[0],
             zHeight = yRange[1] - yRange[0];
 
+        var oldZoom = zoom;
         zoom = Math.min(width/zWidth, height/zHeight)/rZ;
-console.log(zoom)
+        console.log(zoom);
         //center ranges
         var x0 = xRange[0] - (width/zoom - zWidth)/2,
             y0 = yRange[0] - (height/zoom - zHeight)/2;
@@ -139,7 +148,14 @@ console.log(zoom)
             .attr('transform', 'scale(' + 1/zoom + ')')
 
         svg.transition()
-            .attr('transform', ['translate(', -x0*zoom, ',', -y0*zoom, ')scale(', zoom, ')'].join(''))
+            .tween('transform', function(){
+              var i = d3.interpolate(1/oldZoom, 1/zoom);
+              return function(t){
+                var z = 1/i(t);
+                console.log(z);
+                return ['translate(', -x0*z, ',', -y0*z, ')scale(', z, ')'].join('')
+              }
+            })
 
 
         activeCircle.transition().attr('class', 'inactive').transition().attr('class', 'down');
