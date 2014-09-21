@@ -1,4 +1,4 @@
-
+var rZ = 1;
 var height = 300;
 
 var svg = d3.select('#newton')
@@ -8,8 +8,9 @@ var svg = d3.select('#newton')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
   .append('g')
+    .attr("transform", "scale(" + 1/rZ + ")")
 
-var points = d3.range(-10, 26, .05)
+var points = d3.range(-3, 10, .05)
 
 function phi(x){ return x*x - 5; }
 function toCord(point){ return [x(point[0]), y(point[1])]; }
@@ -20,9 +21,9 @@ function positionCircle(selection, xPos){
   selection.attr({cx: x(xPos), cy: y(phi(xPos))})
 }
 
-var xCur = .1,
+var xCur = .5
     xVals = [xCur],
-    e = .0001;
+    e = .001;
 while (Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
   xCur = _.last(xVals);
   xVals.push(-phi(xCur)/(2*xCur) + xCur);
@@ -30,11 +31,11 @@ while (Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
 
 var x = d3.scale.linear()
     .domain(d3.extent(points))
-    .range([0, width])
+    .range([0, width*rZ])
 
 var y = d3.scale.linear()
     .domain(d3.extent(points, phi))
-    .range([height, 0])
+    .range([height*rZ, 0])
 
 svg.append('path')
     .attr('d', d3.svg.line().x(x).y(_.compose(y, phi))(points))
@@ -51,8 +52,10 @@ var activeCircle = svg.append('circle')
     .on('mouseenter', update)
 
 var n = 0;
-var zoom = 1;
+var zoom = 1/rZ;
 var resetNext = false;
+
+scaleToZoom();
 function update(){
   if (!activeCircle.classed('down')) return  //exit if animation in progress
   if (resetNext){
@@ -101,7 +104,7 @@ function update(){
             .attr('transform', 'scale(' + 1/zoom + ')')    
             .style('text-anchor', cur[0] < next[0] ? 'start' : 'end')
       })
-    .transition().ease('linear')
+    .transition()//.ease('linear')
       .each(function(){
         activeCircle.attr('class', 'inactive')
           .transition().tween('position', function(){
@@ -110,10 +113,8 @@ function update(){
               activeCircle.call(positionCircle, i(t));
             }
           })
-
-          .attr('class', 'down')
-
       })
+    .transition()
       .each(function(){
         console.log(n);
         var xInView = xVals.slice(n, n + 3).concat(_.last(xVals)),
@@ -122,15 +123,12 @@ function update(){
             zWidth  = xRange[1] - xRange[0],
             zHeight = yRange[1] - yRange[0];
 
-        zoom = Math.min(width/zWidth, height/zHeight);
-
+        zoom = Math.min(width/zWidth, height/zHeight)/rZ;
+console.log(zoom)
         //center ranges
         var x0 = xRange[0] - (width/zoom - zWidth)/2,
             y0 = yRange[0] - (height/zoom - zHeight)/2;
   
-        svg.transition().delay(2000)
-            .attr('transform', ['translate(', -x0*zoom, ',', -y0*zoom, ')scale(', zoom, ')'].join(''))
-
         activeCircle.transition()
             .attr('r', 10/zoom)
 
@@ -139,6 +137,10 @@ function update(){
 
         svg.selectAll('text').transition()
             .attr('transform', 'scale(' + 1/zoom + ')')
+
+        svg.transition()
+            .attr('transform', ['translate(', -x0*zoom, ',', -y0*zoom, ')scale(', zoom, ')'].join(''))
+
 
         activeCircle.transition().attr('class', 'inactive').transition().attr('class', 'down');
       })
