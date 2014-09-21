@@ -10,7 +10,7 @@ var svg = d3.select('#newton')
   .append('g')
     .attr("transform", "scale(" + 1/rZ + ")")
 
-var points = d3.range(-3, 6, .05)
+var points = d3.range(-3, 6, .005)
 
 function phi(x){ return x*x - 5; }
 function toCord(point){ return [x(point[0]), y(point[1])]; }
@@ -29,8 +29,8 @@ while (Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
   xVals.push(-phi(xCur)/(2*xCur) + xCur);
 }
 
-var table = d3.select('#newton-table');
-var rows = table.selectAll('tr').remove()
+var rows = d3.select('table').style('margin-top', -height + 'px')
+    .select('tbody').selectAll('tr').remove()
     .data(xVals).enter()
   .append('tr')
 rows.append('td').text(function(d, i){ return i; })
@@ -156,6 +156,7 @@ function update(){
                 return ['translate(', -x0*z, ',', -y0*z, ')scale(', z, ')'].join('')
               }
             })
+            .attr('transform', ['translate(', -x0*zoom, ',', -y0*zoom, ')scale(', zoom, ')'].join(''))
 
 
         activeCircle.transition().attr('class', 'inactive').transition().attr('class', 'down');
