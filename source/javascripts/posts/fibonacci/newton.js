@@ -180,21 +180,22 @@ function updateNewton(){
 
   function scaleToZoom(){
     var oldZoom = 10/activeCircle.attr('r');
-
+    var i = d3.interpolate(oldZoom, zoom);
 
     activeCircle.transition()
         .attrTween('r', function(){
-          var i = d3.interpolate(10/d3.select(this).attr('r'), zoom);
-          return function(t){
-            return 10/i(t);
-          }
+          return function(t){ return 10/i(t); }
         })
 
     svg.selectAll('path').transition()
-        .style('stroke-width', 1/zoom)
+        .attrTween('stroke-width', function(){
+          return function(t){ return 1/i(t); }
+        })
 
     svg.selectAll('text').transition()
-        .attr('transform', 'scale(' + 1/zoom + ')')
+        .attrTween('transform', function(){
+          return function(t){ return 'scale(' + 1/i(t) + ')'; }
+        })
   }
 }
 
