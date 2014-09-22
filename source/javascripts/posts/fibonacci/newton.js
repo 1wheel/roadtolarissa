@@ -13,7 +13,9 @@ var svg = d3.select('#newton')
 updateNewton()
 d3.selectAll('input').on('change', updateNewton)
 function updateNewton(){
-  svg.selectAll('*').remove();
+  console.log('updating newton');
+  svg.attr("transform", "scale(" + 1/rZ + ")")
+    .selectAll('*').remove();
   d3.select('table').selectAll('tr').remove();
 
   var eqStr = d3.select('#newton-eq').node().value;
@@ -29,13 +31,18 @@ function updateNewton(){
 
   var xCur = +d3.select('#newton-x0').attr('value');
       xVals = [xCur],
-      e = .000000000001;
+      e = .00001;
   while (xVals.length < 10 && Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
     xCur = _.last(xVals);
-    var dx = (phi(xCur) - phi(xCur - e))/e;
+    var dx = (phi(xCur) - phi(xCur - (e/10000)))/(e/10000);
     xVals.push(-phi(xCur)/(dx) + xCur);
   }
-  var points = d3.range(-3, 6, .1)
+  var points = [];
+  for (var i = 1; i < xVals.length; i++){
+    var x1 = xVals[i - 1];
+    var x2 = xVals[i];
+    points = points.concat(d3.range(x1, x2, (x2 - x1)/50))
+  }
 
   var rows = d3.select('table').style('margin-top', -height + 'px')
     .select('tbody').selectAll('tr')
