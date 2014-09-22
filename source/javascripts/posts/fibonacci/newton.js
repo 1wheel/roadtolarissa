@@ -83,7 +83,7 @@ function updateNewton(){
   var zoom = 1/rZ;
   var resetNext = false;
 
-  scaleToZoom();
+  svg.transition().duration(0).each(scaleToZoom);
   function update(){
     if (resetNext){
       //TODO add animation
@@ -179,6 +179,9 @@ function updateNewton(){
   }
 
   function scaleToZoom(){
+    var oldZoom = 10/activeCircle.attr('r');
+
+
     activeCircle.transition()
         .attrTween('r', function(){
           var i = d3.interpolate(10/d3.select(this).attr('r'), zoom);
