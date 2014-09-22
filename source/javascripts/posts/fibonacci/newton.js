@@ -41,16 +41,17 @@ function updateNewton(){
   for (var i = 1; i < xVals.length; i++){
     var x1 = xVals[i - 1];
     var x2 = xVals[i];
-    points = points.concat(d3.range(x1, x2, (x2 - x1)/50))
+    points = points.concat(d3.range(x1, x2, (x2 - x1)/200))
   }
+  points = points.sort(d3.ascending);
 
   var rows = d3.select('table').style('margin-top', -height + 'px')
     .select('tbody').selectAll('tr')
       .data(xVals).enter()
     .append('tr')
   rows.append('td').text(function(d, i){ return i; })
-  rows.append('td').text(d3.format('.10f'))
-  rows.append('td').text(_.compose(d3.format('.10f'), phi))
+  rows.append('td').text(d3.format('.4f'))
+  rows.append('td').text(_.compose(d3.format('.4f'), phi))
 
   var x = d3.scale.linear()
       .domain(d3.extent(points))
@@ -64,7 +65,7 @@ function updateNewton(){
       .attr('d', d3.svg.line().x(x).y(_.compose(y, phi))(points))
 
   svg.append('path')
-      .attr('d', ['M', [0, y(0)], 'L', [width*rZ, y(0)]].join(''))
+      .attr('d', ['M', [-margin.left*rZ, y(0)], 'L', [(margin.left + width)*rZ, y(0)]].join(''))
   svg.append('path')
       .attr('d', ['M', [x(0), 0], 'L', [x(0), height*rZ]].join(''))
 
@@ -72,7 +73,11 @@ function updateNewton(){
       .attr('r', 10)
       .call(positionCircle, xVals[0])
       .classed('down', true)
-      .on('mouseenter', update)
+      .on('mouseenter', function(){
+        if (!activeCircle.classed('down')) return  //exit if animation is in progress
+        activeCircle.classed('down', false);
+        update()
+      })
 
   var n = 0;
   var zoom = 1/rZ;
@@ -80,8 +85,6 @@ function updateNewton(){
 
   scaleToZoom();
   function update(){
-    if (!activeCircle.classed('down')) return  //exit if animation in progress
-    activeCircle.classed('down');
     if (resetNext){
       //TODO add animation
       //wrap everything in a function and recall
@@ -126,7 +129,7 @@ function updateNewton(){
           svg.append('g')
               .attr('transform', 'translate(' + toCord([cur[0], 0]) + ')')
             .append('text')
-              .text(d3.format('.10f')(cur[0]))
+              .text(d3.format('.4f')(cur[0]))
               .attr('transform', 'scale(' + 1/zoom + ')')    
               .style('text-anchor', cur[0] < next[0] ? 'start' : 'end')
         })

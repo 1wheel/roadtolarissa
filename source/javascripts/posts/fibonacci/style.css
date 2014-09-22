@@ -79,3 +79,17 @@ tr.selected{
 .selected{
 	fill: black;
 }
+
+.axis{
+	stroke-opacity: .5;
+}
+.tangent{
+	stroke: green;
+}
+.vertical{
+	stroke: red;
+}
+
+table{
+	pointer-events: none;
+}
