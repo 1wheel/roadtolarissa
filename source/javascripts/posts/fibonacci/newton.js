@@ -14,6 +14,7 @@ updateNewton()
 d3.selectAll('input').on('change', updateNewton)
 function updateNewton(){
   svg.selectAll('*').remove();
+  d3.select('table').selectAll('tr').remove();
 
   var eqStr = d3.select('#newton-eq').node().value;
   function phi(x){ //console.log(x, eval(eqStr)); 
@@ -37,7 +38,7 @@ function updateNewton(){
   var points = d3.range(-3, 6, .1)
 
   var rows = d3.select('table').style('margin-top', -height + 'px')
-      .select('tbody').selectAll('tr').remove()
+    .select('tbody').selectAll('tr')
       .data(xVals).enter()
     .append('tr')
   rows.append('td').text(function(d, i){ return i; })
