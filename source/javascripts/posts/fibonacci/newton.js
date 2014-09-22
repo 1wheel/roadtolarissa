@@ -81,19 +81,21 @@ function updateNewton(){
   scaleToZoom();
   function update(){
     if (!activeCircle.classed('down')) return  //exit if animation in progress
+    activeCircle.classed('down');
     if (resetNext){
       //TODO add animation
       //wrap everything in a function and recall
+      setTimeout(updateNewton, 10);
       return updateNewton();      
     }
     if (n < xVals.length - 3){ 
       n++; 
     } else{
       n = 0;
-      zoom = 1;
+      zoom = 1/rZ;
       svg.transition().duration(1000)
           .each(scaleToZoom)
-          .attr('transform', 'scale(1)')
+          .attr("transform", "scale(" + 1/rZ + ")")
       return resetNext = true;
     }
     var prev = xToPoint(xVals[n - 1]),
