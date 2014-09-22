@@ -159,14 +159,7 @@ function updateNewton(){
           var x0 = xRange[0] - (width/zoom - zWidth)/2,
               y0 = yRange[0] - (height/zoom - zHeight)/2;
     
-          activeCircle.transition()
-              .attr('r', 10/zoom)
-
-          svg.selectAll('path').transition()
-              .style('stroke-width', 1/zoom)
-
-          svg.selectAll('text').transition()
-              .attr('transform', 'scale(' + 1/zoom + ')')
+          scaleToZoom();
 
           svg.transition()
               .tween('transform', function(){
@@ -187,7 +180,12 @@ function updateNewton(){
 
   function scaleToZoom(){
     activeCircle.transition()
-        .attr('r', 10/zoom)
+        .attrTween('r', function(){
+          var i = d3.interpolate(10/d3.select(this).attr('r'), zoom);
+          return function(t){
+            return 10/i(t);
+          }
+        })
 
     svg.selectAll('path').transition()
         .style('stroke-width', 1/zoom)
