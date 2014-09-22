@@ -16,6 +16,7 @@ function addYAxis(svg){
   textG.selectAll('text')
       .data(d3.range(topLevel + 1)).enter()
     .append('text')
+      .classed('fib-axis', true)
       .attr('x', -margin.left)
       .attr('y', levelToHeight)
       .text(function(d){ return 'F(' + d + ')' })
@@ -29,6 +30,7 @@ function addYAxis(svg){
         var selectedNum = Math.round(levelToHeight.invert(pos[1]))
         svg.selectAll('circle')
             .attr('r', function(d){ return d.i === selectedNum ? 15 : 10 })
+        textG.selectAll('text').classed('selected', function(d, i){ return i === selectedNum});
       })
       .on('mouseout', function(){ svg.selectAll('circle').attr('r', 10) })
 }

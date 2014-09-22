@@ -72,3 +72,10 @@ tr{
 tr.selected{
 	color: black;
 }
+
+.fib-axis{
+	fill: grey;
+}
+.selected{
+	fill: black;
+}
