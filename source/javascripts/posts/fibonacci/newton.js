@@ -29,7 +29,7 @@ function updateNewton(){
     selection.attr({cx: x(xPos), cy: y(phi(xPos))})
   }
 
-  var xCur = +d3.select('#newton-x0').attr('value');
+  var xCur = +d3.select('#newton-x0').node().value;
       xVals = [xCur],
       e = .00001;
   while (xVals.length < 10 && Math.abs(_.last(xVals) - xCur) > e || xVals.length === 1){
@@ -90,6 +90,7 @@ function updateNewton(){
     }
     if (n < xVals.length - 3){ 
       n++; 
+      rows.classed('selected', function(d, i){ return i === n; });
     } else{
       n = 0;
       zoom = 1/rZ;

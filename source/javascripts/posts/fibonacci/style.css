@@ -64,3 +64,11 @@ circle{
 		stroke-width: 10px;
 	}
 }
+
+tr{
+	color: grey;
+}
+
+tr.selected{
+	color: black;
+}
