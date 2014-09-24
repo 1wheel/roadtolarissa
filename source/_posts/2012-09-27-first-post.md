@@ -25,14 +25,6 @@ I'd like to learn more about creating computer programs able to play board games
 
 
 
-
-
-
-
-
-
-
-
 ### State population flow
 http://ilya.boyandin.me/assets/thesis.pdf Pupyrev et al. parallel flow diagrams look very promising. 
 
@@ -58,3 +50,8 @@ Show computation with recursion, memorization and newtons method
 Turn twitter follow list into a rss feed, export OXML
 
 Make front end to browse
+
+###Server side code
+- Boardgame
+- Working git server (16)
+
