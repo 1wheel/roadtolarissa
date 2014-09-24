@@ -24,13 +24,14 @@ I'd like to learn more about creating computer programs able to play board games
  [1]: http://en.wikipedia.org/wiki/Monte_Carlo_method#Games
 
 
+##Other assorted ideas I'm thinking of trying (updated occasionally): 
 
 ### State population flow
 http://ilya.boyandin.me/assets/thesis.pdf Pupyrev et al. parallel flow diagrams look very promising. 
 
 
 ### Project Gutenberg
-Whale words and other text visualizaitons, both work specific and aggregate 
+Whale words and other text visualizations, both work specific and aggregate 
 
 ### Dragon curve
 Unfold with mouseover
@@ -42,16 +43,16 @@ Style like an old map
 
 Use canvas or webGL to show flow of information
 
-#Fibonic numbers
+###Fibonacci numbers
 Show computation with recursion, memorization and newtons method 
 
 
-#Twitter -> RSS
+###Twitter -> RSS
 Turn twitter follow list into a rss feed, export OXML
 
 Make front end to browse
 
 ###Server side code
-- Boardgame
-- Working git server (16)
+- Boardgames
+- Working git server
 
