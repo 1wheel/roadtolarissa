@@ -22,6 +22,8 @@ var radiusScale = d3.scale.sqrt()
 var lineWidthScale = d3.scale.linear()
 		.range([0, 1, 8])
 
+var color = d3.scale.category10();
+
 var svg = d3.select('#golf-wl')
   .append('svg')
     .attr("width", width + margin.left + margin.right)
@@ -29,7 +31,7 @@ var svg = d3.select('#golf-wl')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-var holeConstrains = {},
+var holeConstrains = {"4":[1],"8":[-1, 3]},
 		rounds = [],
 		directions = ['down', 'same', 'up']
 
@@ -41,11 +43,20 @@ d3.range(0, 19).forEach(function(hole){
 	})
 })
 
+var roundGs = svg.selectAll('.roundG')
+		.data(rounds).enter()
+	.append('g')
+		.attr('transform', function(d){
+			return ['translate(', x(d.hole), ',', y(d.spread), ')'].join(''); })
+
+
 
 d3.json('flat-data.json', function(err, matches){
 	function updateData(){
 		rounds.forEach(function(d){
 			directions.concat('count').forEach(function(str){ d[str] = 0 }) })
+
+		var holeConstrainsArray = d3.entries(holeConstrains);
 
 		matches.forEach(function(match){
 			//winner of the first match always on top
@@ -57,6 +68,13 @@ d3.json('flat-data.json', function(err, matches){
 			if (flip){ 
 				match.scores = match.scores.map(function(d){ return -1*d; })
 			}
+
+			//don't count matches that don't meet constraints
+			var meetsConstraints = holeConstrainsArray.every(function(d){
+				//debugger;
+				return _.contains(d.value, match.scores[d.key])
+			})	
+			if (!meetsConstraints) return
 
 			match.scores.forEach(function(spread, hole){
 				var round = _.findWhere(rounds, {hole: hole, spread: spread});
@@ -70,18 +88,12 @@ d3.json('flat-data.json', function(err, matches){
 	}
 	updateData();
 
-	var color = d3.scale.category10();
-	var maxLineVals = directions.map(function(str){ return d3.max(rounds, ƒ(str)) })
-
-	radiusScale.domain(d3.extent(rounds, f('count')))
-	lineWidthScale.domain([0, 1, d3.max(maxLineVals)])
-	
-	var roundGs = svg.selectAll('.roundG')
-			.data(rounds).enter()
-		.append('g')
-			.attr('transform', function(d){
-				return ['translate(', x(d.hole), ',', y(d.spread), ')'].join(''); })
-
+	function updateScales(){
+		radiusScale.domain(d3.extent(rounds, f('count')))
+		var maxLineVals = directions.map(function(str){ return d3.max(rounds, ƒ(str)) })
+		lineWidthScale.domain([0, 1, d3.max(maxLineVals)])
+	}
+	updateScales();
 
 	roundGs.selectAll('line')
 			.data(function(d){
