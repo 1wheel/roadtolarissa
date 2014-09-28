@@ -29,40 +29,47 @@ var svg = d3.select('#golf-wl')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-var holeConstrains = {};
+var holeConstrains = {},
+		rounds = [],
+		directions = ['down', 'same', 'up']
+
+d3.range(0, 19).forEach(function(hole){
+	d3.range(-9, 10).forEach(function(spread){
+		if (9 - Math.abs(9 - hole) >= Math.abs(spread)){
+			rounds.push({hole: hole, spread: spread})
+		}
+	})
+})
+
 
 d3.json('flat-data.json', function(err, matches){
-	var rounds = [];
-	d3.range(0, 19).forEach(function(hole){
-		d3.range(-9, 10).forEach(function(spread){
-			if (9 - Math.abs(9 - hole) >= Math.abs(spread)){
-				rounds.push({hole: hole, spread: spread, count: 0, up: 0, same: 0, down: 0})
+	function updateData(){
+		rounds.forEach(function(d){
+			directions.concat('count').forEach(function(str){ d[str] = 0 }) })
+
+		matches.forEach(function(match){
+			//winner of the first match always on top
+			var flip = false;
+			match.scores.some(function(d){
+				if (d < 0){ flip = true}
+				return d != 0;
+			})
+			if (flip){ 
+				match.scores = match.scores.map(function(d){ return -1*d; })
 			}
-		})
-	})
-	
-	matches.forEach(function(match){
-		//winner of the first match always on top
-		var flip = false;
-		match.scores.some(function(d){
-			if (d < 0){ flip = true}
-			return d != 0;
-		})
-		if (flip){ 
-			match.scores = match.scores.map(function(d){ return -1*d; })
-		}
 
-		match.scores.forEach(function(spread, hole){
-			var round = _.findWhere(rounds, {hole: hole, spread: spread});
-			if (!round) return;
-			round.count++;
-			var nextSpread = match.scores[hole+1];
-			if (isNaN(nextSpread)) return
-			round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++;
+			match.scores.forEach(function(spread, hole){
+				var round = _.findWhere(rounds, {hole: hole, spread: spread});
+				if (!round) return;
+				round.count++;
+				var nextSpread = match.scores[hole+1];
+				if (isNaN(nextSpread)) return
+				round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++;
+			})
 		})
-	})
+	}
+	updateData();
 
-	var directions = ['down', 'same', 'up']
 	var color = d3.scale.category10();
 	var maxLineVals = directions.map(function(str){ return d3.max(rounds, ƒ(str)) })
 
