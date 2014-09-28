@@ -49,8 +49,6 @@ var roundGs = svg.selectAll('.roundG')
 		.attr('transform', function(d){
 			return ['translate(', x(d.hole), ',', y(d.spread), ')'].join(''); })
 
-
-
 d3.json('flat-data.json', function(err, matches){
 	function updateData(){
 		rounds.forEach(function(d){
@@ -95,45 +93,63 @@ d3.json('flat-data.json', function(err, matches){
 	}
 	updateScales();
 
-	roundGs.selectAll('line')
-			.data(function(d){
-				return directions.map(function(str, i){
-					return {type: str, count: d[str], direction: i - 1}
-				}) })
-			.enter()
-		.append('line')
-			.attr({x2: xTick})
-			.attr('y2', function(d){ return d.direction*(-yTick)})
-			.style('stroke-width', _.compose(lineWidthScale, f('count')))
-			.style('stroke', _.compose(color, f('type')))
+	function firstDraw(){
+		roundGs.selectAll('line')
+				.data(function(d){
+					return directions.map(function(str, i){
+						return {type: str, direction: i - 1}
+					}) })
+				.enter()
+			.append('line')
+				.attr({x2: xTick})
+				.attr('y2', function(d){ return d.direction*(-yTick)})
 
-	roundGs.append('circle')
-			.attr('r', _.compose(radiusScale, f('count')))
+		roundGs.append('circle')
 
-	roundGs.append('rect')
-			.attr({x: -xTick/2, y: -yTick/2, width: xTick, height: yTick})
-			.on('mouseover', function(d){
-				d3.select(this).classed('hovered', true)
-			})
-			.on('mouseout', function(d){
-				d3.select(this).classed('hovered', false)
-			})
-			.on('click', function(d){
-				var selected = !d3.select(this).classed('selected')
-				d3.select(this).classed('selected', selected)
-				if (selected){
-					if (holeConstrains[d.hole]){
-						holeConstrains[d.hole].push(d.spread);
+		roundGs.append('rect')
+				.attr({x: -xTick/2, y: -yTick/2, width: xTick, height: yTick})
+				.on('mouseover', function(d){
+					d3.select(this).classed('hovered', true)
+				})
+				.on('mouseout', function(d){
+					d3.select(this).classed('hovered', false)
+				})
+				.on('click', function(d){
+					var selected = !d3.select(this).classed('selected')
+					d3.select(this).classed('selected', selected)
+					if (selected){
+						if (holeConstrains[d.hole]){
+							holeConstrains[d.hole].push(d.spread);
+						} else{
+							holeConstrains[d.hole] = [d.spread];
+						}
 					} else{
-						holeConstrains[d.hole] = [d.spread];
-					}
-				} else{
-					holeConstrains[d.hole] = holeConstrains[d.hole]
-						.filter(function(spread){ return spread != d.spread; })
+						holeConstrains[d.hole] = holeConstrains[d.hole]
+							.filter(function(spread){ return spread != d.spread; })
 
-					if (!holeConstrains[d.hole].length){
-						delete holeConstrains[d.hole];
+						if (!holeConstrains[d.hole].length){
+							delete holeConstrains[d.hole];
+						}
 					}
-				}
-			})
+
+					updateData();
+					updateScales();
+					updateDOM();
+				})
+	}
+	firstDraw();
+
+	function updateDOM(){
+		roundGs.selectAll('line')
+				.data(function(d){
+					return directions.map(function(str, i){
+						return {type: str, count: d[str], direction: i - 1}
+					}) })
+				.style('stroke-width', _.compose(lineWidthScale, f('count')))
+				.style('stroke', _.compose(color, f('type')))
+
+		roundGs.select('circle')
+				.attr('r', _.compose(radiusScale, f('count')))
+	}
+	updateDOM();
 })
