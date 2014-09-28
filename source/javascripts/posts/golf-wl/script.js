@@ -68,7 +68,7 @@ d3.json('flat-data.json', function(err, matches){
 			return d != 0;
 		})
 		if (flip){ 
-			match.scores = match.scores.map(function(d){ return -1*d; })
+			match.scores = match.scores.map(function(d){ return isNaN(d) ? null : -1*d; })
 		}
 	})
 
@@ -81,13 +81,11 @@ d3.json('flat-data.json', function(err, matches){
 		matches.forEach(function(match){
 			//don't count matches that don't meet constraints
 			var meetsConstraints = holeConstrainsArray.every(function(d){
-				//debugger;
 				return _.contains(d.value, match.scores[d.key])
 			})	
 			if (!meetsConstraints) return
 
 			match.scores.forEach(function(spread, hole){
-				//var round = _.findWhere(rounds, {hole: hole, spread: spread});
 				var round = roundHash[hole + ':' + spread]
 				if (!round) return;
 				round.count++;
@@ -156,7 +154,7 @@ d3.json('flat-data.json', function(err, matches){
 
 					updateData();
 					updateScales();
-					updateDOM(d.hole, 50, 300);
+					updateDOM(d.hole, d.spread, 50, 300);
 				})
 				.classed('selected', function(d){
 					return holeConstrains[d.hole] && _.contains(holeConstrains[d.hole], d.spread);
@@ -164,11 +162,11 @@ d3.json('flat-data.json', function(err, matches){
 	}
 	firstDraw();
 
-	function updateDOM(hole, delayTime, duration){
+	function updateDOM(hole, spread, delayTime, duration){
 		roundGs.selectAll('line')
 				.data(function(d){
 					return directions.map(function(str, i){
-						return {type: str, count: d[str], direction: i - 1, hole: d.hole}
+						return {type: str, count: d[str], direction: i - 1, hole: d.hole, spread: d.spread}
 					}) 
 				})
 			.transition().delay(delayFn).duration(duration)
@@ -179,8 +177,8 @@ d3.json('flat-data.json', function(err, matches){
 				.attr('r', _.compose(radiusScale, f('count')))
 
 		function delayFn(d){
-			return Math.abs(hole - d.hole)*delayTime;
+			return (Math.abs(hole - d.hole) + Math.abs(spread - d.spread))*delayTime ;
 		}
 	}
-	updateDOM(0, 0, 0);
+	updateDOM(0, 0, 0, 0);
 })
