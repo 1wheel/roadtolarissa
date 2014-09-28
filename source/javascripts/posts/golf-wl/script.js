@@ -29,12 +29,14 @@ var svg = d3.select('#golf-wl')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+var holeConstrains = {};
+
 d3.json('flat-data.json', function(err, matches){
 	var rounds = [];
-	d3.range(0, 19).forEach(function(hold){
+	d3.range(0, 19).forEach(function(hole){
 		d3.range(-9, 10).forEach(function(spread){
-			if (9 - Math.abs(9 - hold) >= Math.abs(spread)){
-				rounds.push({hold: hold, spread: spread, count: 0, up: 0, same: 0, down: 0})
+			if (9 - Math.abs(9 - hole) >= Math.abs(spread)){
+				rounds.push({hole: hole, spread: spread, count: 0, up: 0, same: 0, down: 0})
 			}
 		})
 	})
@@ -50,11 +52,11 @@ d3.json('flat-data.json', function(err, matches){
 			match.scores = match.scores.map(function(d){ return -1*d; })
 		}
 
-		match.scores.forEach(function(spread, hold){
-			var round = _.findWhere(rounds, {hold: hold, spread: spread});
+		match.scores.forEach(function(spread, hole){
+			var round = _.findWhere(rounds, {hole: hole, spread: spread});
 			if (!round) return;
 			round.count++;
-			var nextSpread = match.scores[hold+1];
+			var nextSpread = match.scores[hole+1];
 			if (isNaN(nextSpread)) return
 			round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++;
 		})
@@ -71,7 +73,7 @@ d3.json('flat-data.json', function(err, matches){
 			.data(rounds).enter()
 		.append('g')
 			.attr('transform', function(d){
-				return ['translate(', x(d.hold), ',', y(d.spread), ')'].join(''); })
+				return ['translate(', x(d.hole), ',', y(d.spread), ')'].join(''); })
 
 
 	roundGs.selectAll('line')
@@ -98,6 +100,21 @@ d3.json('flat-data.json', function(err, matches){
 				d3.select(this).classed('hovered', false)
 			})
 			.on('click', function(d){
+				var selected = !d3.select(this).classed('selected')
+				d3.select(this).classed('selected', selected)
+				if (selected){
+					if (holeConstrains[d.hole]){
+						holeConstrains[d.hole].push(d.spread);
+					} else{
+						holeConstrains[d.hole] = [d.spread];
+					}
+				} else{
+					holeConstrains[d.hole] = holeConstrains[d.hole]
+						.filter(function(spread){ return spread != d.spread; })
 
+					if (!holeConstrains[d.hole].length){
+						delete holeConstrains[d.hole];
+					}
+				}
 			})
 })

@@ -10,3 +10,6 @@ rect.hovered{
 	stroke: gray;
 	fill-opacity: .1;
 }
+rect.selected{
+	stroke: red;
+}
