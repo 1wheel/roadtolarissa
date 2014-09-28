@@ -31,10 +31,17 @@ var svg = d3.select('#golf-wl')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-var holeConstrains = {"4":[1],"8":[-1, 3]},
+var holeConstrains = {},
 		rounds = [],
 		directions = ['down', 'same', 'up'],
 		roundHash = {};
+
+//load state from url
+window.location.hash.substr(1).split(',').forEach(function(d){
+		if (!d) return
+    holeConstrains[d.split(':')[0]] = d.split(':')[1].split('_')
+  		.map(function(d){ return +d; }) 
+})
 
 d3.range(0, 19).forEach(function(hole){
 	d3.range(-9, 10).forEach(function(spread){
@@ -109,6 +116,8 @@ d3.json('flat-data.json', function(err, matches){
 			.append('line')
 				.attr({x2: xTick})
 				.attr('y2', function(d){ return d.direction*(-yTick)})
+				.style('stroke', _.compose(color, f('type')))
+
 
 		roundGs.append('circle')
 
@@ -138,24 +147,40 @@ d3.json('flat-data.json', function(err, matches){
 						}
 					}
 
+					//update url
+					var hash = '';
+					d3.entries(holeConstrains).forEach(function(d){
+						hash += [d.key, ':', d.value.join('_'), ','].join('');
+					})
+					window.location.hash = hash.substr(0, hash.length - 1);
+
 					updateData();
 					updateScales();
-					updateDOM();
+					updateDOM(d.hole, 50, 300);
+				})
+				.classed('selected', function(d){
+					return holeConstrains[d.hole] && _.contains(holeConstrains[d.hole], d.spread);
 				})
 	}
 	firstDraw();
 
-	function updateDOM(){
+	function updateDOM(hole, delayTime, duration){
 		roundGs.selectAll('line')
 				.data(function(d){
 					return directions.map(function(str, i){
-						return {type: str, count: d[str], direction: i - 1}
-					}) })
+						return {type: str, count: d[str], direction: i - 1, hole: d.hole}
+					}) 
+				})
+			.transition().delay(delayFn).duration(duration)
 				.style('stroke-width', _.compose(lineWidthScale, f('count')))
-				.style('stroke', _.compose(color, f('type')))
 
 		roundGs.select('circle')
+			.transition().delay(delayFn).duration(duration)
 				.attr('r', _.compose(radiusScale, f('count')))
+
+		function delayFn(d){
+			return Math.abs(hole - d.hole)*delayTime;
+		}
 	}
-	updateDOM();
+	updateDOM(0, 0, 0);
 })
