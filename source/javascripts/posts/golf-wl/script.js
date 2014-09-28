@@ -33,12 +33,15 @@ var svg = d3.select('#golf-wl')
 
 var holeConstrains = {"4":[1],"8":[-1, 3]},
 		rounds = [],
-		directions = ['down', 'same', 'up']
+		directions = ['down', 'same', 'up'],
+		roundHash = {};
 
 d3.range(0, 19).forEach(function(hole){
 	d3.range(-9, 10).forEach(function(spread){
 		if (9 - Math.abs(9 - hole) >= Math.abs(spread)){
-			rounds.push({hole: hole, spread: spread})
+			var round = {hole: hole, spread: spread};
+			rounds.push(round);
+			roundHash[hole + ':' + spread] = round;
 		}
 	})
 })
@@ -50,6 +53,18 @@ var roundGs = svg.selectAll('.roundG')
 			return ['translate(', x(d.hole), ',', y(d.spread), ')'].join(''); })
 
 d3.json('flat-data.json', function(err, matches){
+	//winner of the first match always on top -  do server side
+	matches.forEach(function(match){
+		var flip = false;
+		match.scores.some(function(d){
+			if (d < 0){ flip = true}
+			return d != 0;
+		})
+		if (flip){ 
+			match.scores = match.scores.map(function(d){ return -1*d; })
+		}
+	})
+
 	function updateData(){
 		rounds.forEach(function(d){
 			directions.concat('count').forEach(function(str){ d[str] = 0 }) })
@@ -57,16 +72,6 @@ d3.json('flat-data.json', function(err, matches){
 		var holeConstrainsArray = d3.entries(holeConstrains);
 
 		matches.forEach(function(match){
-			//winner of the first match always on top
-			var flip = false;
-			match.scores.some(function(d){
-				if (d < 0){ flip = true}
-				return d != 0;
-			})
-			if (flip){ 
-				match.scores = match.scores.map(function(d){ return -1*d; })
-			}
-
 			//don't count matches that don't meet constraints
 			var meetsConstraints = holeConstrainsArray.every(function(d){
 				//debugger;
@@ -75,7 +80,8 @@ d3.json('flat-data.json', function(err, matches){
 			if (!meetsConstraints) return
 
 			match.scores.forEach(function(spread, hole){
-				var round = _.findWhere(rounds, {hole: hole, spread: spread});
+				//var round = _.findWhere(rounds, {hole: hole, spread: spread});
+				var round = roundHash[hole + ':' + spread]
 				if (!round) return;
 				round.count++;
 				var nextSpread = match.scores[hole+1];
