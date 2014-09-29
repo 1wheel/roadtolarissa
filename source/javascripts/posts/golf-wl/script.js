@@ -129,7 +129,7 @@ d3.json('flat-data.json', function(err, data){
 				.attr({x: -xTick/2, y: -yTick/2, width: xTick, height: yTick})
 				.on('mouseover', function(d){
 					d3.select(this).classed('hovered', true)
-					console.log(d.hole, d.spread)
+					console.log(d.hole, d.spread, d.count)
 				})
 				.on('mouseout', function(d){
 					d3.select(this).classed('hovered', false)
