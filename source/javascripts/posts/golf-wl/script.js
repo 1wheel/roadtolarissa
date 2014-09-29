@@ -34,7 +34,9 @@ var svg = d3.select('#golf-wl')
 var holeConstrains = {},
 		rounds = [],
 		directions = ['down', 'same', 'up'],
-		roundHash = {};
+		roundHash = {},
+		matches,
+		selectedMatches = [];
 
 //load state from url
 window.location.hash.substr(1).split(',').forEach(function(d){
@@ -45,7 +47,7 @@ window.location.hash.substr(1).split(',').forEach(function(d){
 
 d3.range(0, 19).forEach(function(hole){
 	d3.range(-9, 10).forEach(function(spread){
-		if (9 - Math.abs(9 - hole) >= Math.abs(spread)){
+		if (10 - Math.abs(10 - hole) >= Math.abs(spread)){
 			var round = {hole: hole, spread: spread};
 			rounds.push(round);
 			roundHash[hole + ':' + spread] = round;
@@ -59,7 +61,8 @@ var roundGs = svg.selectAll('.roundG')
 		.attr('transform', function(d){
 			return ['translate(', x(d.hole), ',', y(d.spread), ')'].join(''); })
 
-d3.json('flat-data.json', function(err, matches){
+d3.json('flat-data.json', function(err, data){
+	matches = data;
 	//winner of the first match always on top -  do server side
 	matches.forEach(function(match){
 		var flip = false;
@@ -68,13 +71,15 @@ d3.json('flat-data.json', function(err, matches){
 			return d != 0;
 		})
 		if (flip){ 
-			match.scores = match.scores.map(function(d){ return isNaN(d) ? null : -1*d; })
+			match.oldScore = match.scores.slice();
+			match.scores = match.scores.map(function(d){ return d === null ? null : -1*d; })
 		}
 	})
 
 	function updateData(){
 		rounds.forEach(function(d){
 			directions.concat('count').forEach(function(str){ d[str] = 0 }) })
+		selectedMatches = [];
 
 		var holeConstrainsArray = d3.entries(holeConstrains);
 
@@ -84,6 +89,7 @@ d3.json('flat-data.json', function(err, matches){
 				return _.contains(d.value, match.scores[d.key])
 			})	
 			if (!meetsConstraints) return
+			selectedMatches.push(match)
 
 			match.scores.forEach(function(spread, hole){
 				var round = roundHash[hole + ':' + spread]
@@ -123,6 +129,7 @@ d3.json('flat-data.json', function(err, matches){
 				.attr({x: -xTick/2, y: -yTick/2, width: xTick, height: yTick})
 				.on('mouseover', function(d){
 					d3.select(this).classed('hovered', true)
+					console.log(d.hole, d.spread)
 				})
 				.on('mouseout', function(d){
 					d3.select(this).classed('hovered', false)
