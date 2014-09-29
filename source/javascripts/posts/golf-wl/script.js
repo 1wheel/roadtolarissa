@@ -96,7 +96,7 @@ d3.json('flat-data.json', function(err, data){
 				if (!round) return;
 				round.count++;
 				var nextSpread = match.scores[hole+1];
-				if (isNaN(nextSpread)) return
+				if (nextSpread === null) return
 				round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++;
 			})
 		})
