@@ -3,7 +3,7 @@
 
 var height = 500,
 		width = 750,
-		margin = {left: 40, right: 20, top: 20, bottom: 20};
+		margin = {left: 40, right: 45, top: 15, bottom: 20};
 
 var x = d3.scale.linear()
 		.domain([0, 18])
@@ -59,6 +59,10 @@ yAxisG.append('text')
 		.attr('transform', 'translate(' + 4 + ',' + (height*6/7) + ') rotate(90)')
 		.text("First Scorer's Score")
 		.style('text-anchor', 'end')
+
+svg.append('line')
+		.attr({x1: x(11.5), y1: y(9), x2: x(18.5), y2: y(2)})
+		.classed('endline', true)
 
 
 var hoveredLines = svg.append('g').selectAll('line')

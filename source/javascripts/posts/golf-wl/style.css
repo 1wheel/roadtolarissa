@@ -1,13 +1,3 @@
-.hoverline{
-	stroke: gray;
-	stroke-width: 3px;
-	stroke-dasharray: 6, 6, 2, 6
-}
-
-.axis text.hovered{
-	font-size: 150%;
-	fill: darkgray;
-}
 
 rect{
 	fill-opacity: 0;
@@ -19,6 +9,11 @@ rect.hovered{
 }
 rect.selected{
 	stroke: #8f0bc6;
+}
+.hoverline{
+	stroke: gray;
+	stroke-width: 3px;
+	stroke-dasharray: 6, 6, 2, 6
 }
 
 circle{
@@ -33,6 +28,17 @@ circle{
 .axis line{
 	display: none;
 }
+
 .axis text{
 	fill: #bdbcb7;
+}
+.axis text.hovered{
+	font-size: 150%;
+	fill: darkgray;
+}
+
+.endline{
+	stroke: black;
+	stroke-width: 4px;
+	stroke-linecap:round;
 }
