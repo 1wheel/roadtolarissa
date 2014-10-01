@@ -64,7 +64,7 @@ window.location.hash.substr(1).split(',').forEach(function(d){
 d3.range(0, 19).forEach(function(hole){
 	d3.range(-9, 10).forEach(function(spread){
 		if (10 - Math.abs(10 - hole) >= Math.abs(spread)){
-			if (hole + spread < 2) return
+			if (hole + spread < 2 && spread != 0) return
 			var round = {hole: hole, spread: spread};
 			rounds.push(round);
 			roundHash[hole + ':' + spread] = round;
