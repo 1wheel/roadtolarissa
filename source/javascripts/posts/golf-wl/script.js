@@ -66,7 +66,7 @@ svg.append('path')
 		.classed('endline', true)
 		.style('stroke', color('up'))
 
-svg.append('text').append('textPath')
+var winnerText = svg.append('text').append('textPath')
 		.attr('xlink:href', '#winningline')
 		.attr('startOffset', '35%')
 	.append('tspan')
@@ -80,7 +80,7 @@ svg.append('path')
 		.classed('endline', true)
 		.style('stroke', color('down'))
 
-svg.append('text').append('textPath')
+var loserText = svg.append('text').append('textPath')
 		.attr('xlink:href', '#losingline')
 		.attr('startOffset', '35%')
 	.append('tspan')
@@ -271,6 +271,15 @@ d3.json('flat-data.json', function(err, data){
 		function delayFn(d){
 			return (Math.abs(hole - d.hole) + Math.abs(spread - d.spread))*delayTime ;
 		}
+
+		var results = {'up': 0, 'same': 0, 'down': 0};
+		rounds.forEach(function(d){
+			if (!d.type) return
+			results[d.type] += d.count;
+		})
+		var total = results.up + results.same + results.down
+		winnerText.text(d3.format(".1%")(results.up/total)   + ' First Scorer Wins')
+		loserText .text(d3.format(".1%")(results.down/total) + ' First Scorer Losses')
 	}
 	updateDOM(0, 0, 0, 0);
 })
