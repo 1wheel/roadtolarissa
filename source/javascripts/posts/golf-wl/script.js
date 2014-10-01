@@ -57,7 +57,7 @@ var yAxisG = svg.append('g')
 yAxisG.selectAll('text').style('text-anchor', 'middle')
 yAxisG.append('text')
 		.attr('transform', 'translate(' + 4 + ',' + (height*6/7) + ') rotate(90)')
-		.text('First Scorer Score')
+		.text("First Scorer's Score")
 		.style('text-anchor', 'end')
 
 
@@ -84,7 +84,11 @@ d3.range(0, 19).forEach(function(hole){
 	d3.range(-9, 10).forEach(function(spread){
 		if (10 - Math.abs(10 - hole) >= Math.abs(spread)){
 			if (hole + spread < 2 && spread != 0) return
-			var round = {hole: hole, spread: spread};
+			var round = {hole: hole, spread: spread, color: ''};
+			if (Math.abs(spread) > 18 - hole || hole === 18){
+				round.type = spread < 0 ? 'down' : spread == 0 ? 'same' : 'up';
+				round.color = color(round.type);
+			}
 			rounds.push(round);
 			roundHash[hole + ':' + spread] = round;
 		}
@@ -158,8 +162,9 @@ d3.json('flat-data.json', function(err, data){
 				.attr('y2', function(d){ return d.direction*(-yTick)})
 				.style('stroke', _.compose(color, f('type')))
 
-
 		roundGs.append('circle')
+				.style('stroke', f('color'))
+				.style('fill', f('color'))
 
 		roundGs.append('rect')
 				.attr({x: -xTick/2, y: -yTick/2, width: xTick, height: yTick})

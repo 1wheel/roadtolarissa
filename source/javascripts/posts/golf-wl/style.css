@@ -18,7 +18,7 @@ rect.hovered{
 	fill-opacity: .1;
 }
 rect.selected{
-	stroke: red;
+	stroke: #8f0bc6;
 }
 
 circle{
