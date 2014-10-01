@@ -14,7 +14,7 @@ rect.selected{
 }
 .hoverline{
 	stroke: gray;
-	stroke-width: 3px;
+	stroke-width: 1.5px;
 	stroke-linecap:round;
 	stroke-dasharray: 6, 6, 1;
 }

@@ -295,7 +295,7 @@ d3.json('flat-data.json', function(err, data){
 			if (!d.type) return
 			results[d.type] += d.count;
 		})
-		var total = results.up + results.same + results.down
+		var total = Math.max(1, results.up + results.same + results.down)
 		winnerText.text(d3.format(".1%")(results.up/total)   + ' First Scorer Wins')
 		loserText .text(d3.format(".1%")(results.down/total) + ' First Scorer Losses')
 		tieText   .text(d3.format(".1%")(results.same/total))
