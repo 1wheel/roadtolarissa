@@ -26,8 +26,9 @@ var radiusScale = d3.scale.sqrt()
 var lineWidthScale = d3.scale.linear()
 		.range([0, 1, 8])
 
-var color = d3.scale.category10()
-		.range(['#ec3221', '#01863e', '#1c4695'])
+var color = d3.scale.ordinal()
+		.domain(['up', 'same', 'down'])
+		.range(['#01863e', '#1c4695', '#ec3221'])
 
 var svg = d3.select('#golf-wl')
   .append('svg')
@@ -63,6 +64,7 @@ window.location.hash.substr(1).split(',').forEach(function(d){
 d3.range(0, 19).forEach(function(hole){
 	d3.range(-9, 10).forEach(function(spread){
 		if (10 - Math.abs(10 - hole) >= Math.abs(spread)){
+			if (hole + spread < 2) return
 			var round = {hole: hole, spread: spread};
 			rounds.push(round);
 			roundHash[hole + ':' + spread] = round;
