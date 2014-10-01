@@ -202,10 +202,10 @@ d3.json('flat-data.json', function(err, data){
 					d3.select(this).classed('hovered', true)
 
 					hoveredLines.interrupt()
-							.attr({x1: x(d.hole), y1: y(d.spread), x2: x(d.hole), y2: y(d.spread)})
+							.attr({x2: x(d.hole), y2: y(d.spread), x2: x(d.hole), y2: y(d.spread)})
 						//.transition().duration(500).ease('linear')
-							.attr('x2', function(i){ return i ? x(d.hole) : 0 })
-							.attr('y2', function(i){ return i ? height : y(d.spread) })
+							.attr('x1', function(i){ return i ? x(d.hole) : 0 })
+							.attr('y1', function(i){ return i ? height : y(d.spread) })
 
 					xAxisG.selectAll('text').classed('hovered', function(i){ return i === d.hole })
 					yAxisG.selectAll('text').classed('hovered', function(i){ return i === d.spread })
