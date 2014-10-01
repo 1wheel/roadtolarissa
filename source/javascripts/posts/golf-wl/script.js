@@ -60,9 +60,34 @@ yAxisG.append('text')
 		.text("First Scorer's Score")
 		.style('text-anchor', 'end')
 
-svg.append('line')
-		.attr({x1: x(11.5), y1: y(9), x2: x(18.5), y2: y(2)})
+svg.append('path')
+		.attr('id', 'winningline')
+		.attr('d', ['M', x(11.5), y(9), 'L', x(18.5), y(2)].join(' '))
 		.classed('endline', true)
+		.style('stroke', color('up'))
+
+svg.append('text').append('textPath')
+		.attr('xlink:href', '#winningline')
+		.attr('startOffset', '35%')
+	.append('tspan')
+		.attr('dy', -5)
+		.text('Winner line')
+		.style('fill', color('up'))
+
+svg.append('path')
+		.attr('id', 'losingline')
+		.attr('d', ['M', x(12.5), y(-8), 'L', x(18.5), y(-2)].join(' '))
+		.classed('endline', true)
+		.style('stroke', color('down'))
+
+svg.append('text').append('textPath')
+		.attr('xlink:href', '#losingline')
+		.attr('startOffset', '35%')
+	.append('tspan')
+		.attr('dy', 15)
+		.text('Loser line')
+		.style('fill', color('down'))
+
 
 
 var hoveredLines = svg.append('g').selectAll('line')
@@ -173,19 +198,17 @@ d3.json('flat-data.json', function(err, data){
 		roundGs.append('rect')
 				.attr({x: -xTick/2, y: -yTick/2, width: xTick, height: yTick})
 				.on('mouseover', function(d){
+					roundGs.selectAll('rect').classed('hovered', false)
 					d3.select(this).classed('hovered', true)
 
 					hoveredLines.interrupt()
 							.attr({x1: x(d.hole), y1: y(d.spread), x2: x(d.hole), y2: y(d.spread)})
-						.transition().duration(500).ease('linear')
+						//.transition().duration(500).ease('linear')
 							.attr('x2', function(i){ return i ? x(d.hole) : 0 })
 							.attr('y2', function(i){ return i ? height : y(d.spread) })
 
 					xAxisG.selectAll('text').classed('hovered', function(i){ return i === d.hole })
 					yAxisG.selectAll('text').classed('hovered', function(i){ return i === d.spread })
-				})
-				.on('mouseout', function(d){
-					d3.select(this).classed('hovered', false)
 				})
 				.on('click', function(d){
 					var selected = !d3.select(this).classed('selected')
@@ -235,6 +258,15 @@ d3.json('flat-data.json', function(err, data){
 		roundGs.select('circle')
 			.transition().delay(delayFn).duration(duration)
 				.attr('r', _.compose(radiusScale, f('count')))
+				//Fix circle stroke flicker
+				.styleTween('', function(){
+					var selection = d3.select(this);
+					return function(){
+						selection.style('stroke-width', 2*Math.min(1, +selection.attr('r'))) } 
+				})
+				.each('end', function(){
+					d3.select(this).style('stroke-width', 2*Math.min(1, +d3.select(this).attr('r')))
+				})
 
 		function delayFn(d){
 			return (Math.abs(hole - d.hole) + Math.abs(spread - d.spread))*delayTime ;

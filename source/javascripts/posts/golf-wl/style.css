@@ -1,6 +1,8 @@
 
 rect{
 	fill-opacity: 0;
+	cursor: pointer;
+	stroke-width: 1.5px;
 }
 
 rect.hovered{
@@ -8,12 +10,13 @@ rect.hovered{
 	fill-opacity: .1;
 }
 rect.selected{
-	stroke: #8f0bc6;
+	stroke: #ba21aa;
 }
 .hoverline{
 	stroke: gray;
 	stroke-width: 3px;
-	stroke-dasharray: 6, 6, 2, 6
+	stroke-linecap:round;
+	stroke-dasharray: 6, 6, 1;
 }
 
 circle{
@@ -39,6 +42,7 @@ circle{
 
 .endline{
 	stroke: black;
-	stroke-width: 4px;
+	stroke-width: 2px;
 	stroke-linecap:round;
+	stroke-dasharray: 6, 6, 1;
 }
