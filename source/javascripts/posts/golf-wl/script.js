@@ -28,7 +28,7 @@ var radiusScale = d3.scale.sqrt()
 		.range([0, 10])
 
 var lineWidthScale = d3.scale.linear()
-		.range([0, 1, 8])
+		.range([0, 1, 9])
 
 var color = d3.scale.ordinal()
 		.domain(['up', 'same', 'down'])
@@ -142,7 +142,7 @@ d3.json('flat-data.json', function(err, data){
 	function updateScales(){
 		radiusScale.domain(d3.extent(rounds, f('count')))
 		var maxLineVals = directions.map(function(str){ return d3.max(rounds, ƒ(str)) })
-		lineWidthScale.domain([0, 1, d3.max(maxLineVals)])
+		lineWidthScale.domain([0, .999, d3.max(maxLineVals)])
 	}
 	updateScales();
 
