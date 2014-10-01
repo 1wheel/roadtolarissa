@@ -41,24 +41,30 @@ var svg = d3.select('#golf-wl')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-svg.append('g')
+var xAxisG = svg.append('g')
 		.attr('transform', 'translate(0,' + height + ')')
 		.attr('class', 'x axis')
 		.call(xAxis)
-	.append('text')
+xAxisG.append('text')
 		.attr('transform', 'translate(' + width/9 + ',0)')
 		.text('Hole')
 		.style('text-anchor', 'middle')
 
-svg.append('g')
-		.attr('transform', 'translate(-7,0)')
+var yAxisG = svg.append('g')
+		.attr('transform', 'translate(-12,0)')
 		.attr('class', 'y axis')
 		.call(yAxis)
-	.append('text')
+yAxisG.selectAll('text').style('text-anchor', 'middle')
+yAxisG.append('text')
 		.attr('transform', 'translate(' + 4 + ',' + (height*6/7) + ') rotate(90)')
 		.text('First Scorer Score')
 		.style('text-anchor', 'end')
 
+
+var hoveredLines = svg.append('g').selectAll('line')
+		.data([0, 1]).enter()
+	.append('line')
+		.classed('hoverline', true)
 
 var holeConstrains = {},
 		rounds = [],
@@ -159,7 +165,15 @@ d3.json('flat-data.json', function(err, data){
 				.attr({x: -xTick/2, y: -yTick/2, width: xTick, height: yTick})
 				.on('mouseover', function(d){
 					d3.select(this).classed('hovered', true)
-					console.log(d.hole, d.spread, d.count)
+
+					hoveredLines.interrupt()
+							.attr({x1: x(d.hole), y1: y(d.spread), x2: x(d.hole), y2: y(d.spread)})
+						.transition().duration(500).ease('linear')
+							.attr('x2', function(i){ return i ? x(d.hole) : 0 })
+							.attr('y2', function(i){ return i ? height : y(d.spread) })
+
+					xAxisG.selectAll('text').classed('hovered', function(i){ return i === d.hole })
+					yAxisG.selectAll('text').classed('hovered', function(i){ return i === d.spread })
 				})
 				.on('mouseout', function(d){
 					d3.select(this).classed('hovered', false)

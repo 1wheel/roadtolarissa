@@ -1,5 +1,12 @@
-line{
-	stroke: red;
+.hoverline{
+	stroke: gray;
+	stroke-width: 3px;
+	stroke-dasharray: 6, 6, 2, 6
+}
+
+.axis text.hovered{
+	font-size: 150%;
+	fill: darkgray;
 }
 
 rect{
