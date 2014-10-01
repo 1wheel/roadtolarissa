@@ -3,7 +3,7 @@
 
 var height = 500,
 		width = 750,
-		margin = {left: 40, right: 45, top: 15, bottom: 20};
+		margin = {left: 40, right: 47, top: 15, bottom: 20};
 
 var x = d3.scale.linear()
 		.domain([0, 18])
@@ -94,15 +94,17 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines
 
 
 	var tieG = svg.append('g')
-			.attr('transform', ['translate(', x(18.8), ',', y(0), ')'].join(''))
+			.attr('transform', ['translate(', x(18.6), ',', y(0), ')'].join(''))
 
 	tieG.append('text')
-			.text('Tie')
+			.text('Ties')
 			.style('text-anchor', 'middle')
 			.style('fill', color('same'))
+			.attr('dy', '.7em')
 
-	tieText =tieG.append('text')
+	tieText = tieG.append('text')
 			.style('text-anchor', 'middle')
+			.attr('dy', '-.3em')
 			.style('fill', color('same'))
 
 	hoveredLines = svg.append('g').selectAll('line')
@@ -296,6 +298,7 @@ d3.json('flat-data.json', function(err, data){
 		var total = results.up + results.same + results.down
 		winnerText.text(d3.format(".1%")(results.up/total)   + ' First Scorer Wins')
 		loserText .text(d3.format(".1%")(results.down/total) + ' First Scorer Losses')
+		tieText   .text(d3.format(".1%")(results.same/total))
 	}
 	updateDOM(0, 0, 0, 0);
 })
