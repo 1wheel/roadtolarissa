@@ -13,3 +13,16 @@ rect.hovered{
 rect.selected{
 	stroke: red;
 }
+
+circle{
+	stroke: black;
+	stroke-width: 2px;
+	fill: white;
+}
+
+.axis path{
+	display: none;
+}
+.x.axis line{
+	display: none;
+}

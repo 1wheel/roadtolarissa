@@ -13,6 +13,10 @@ var y = d3.scale.linear()
 		.domain([-9, 9])
 		.range([height, 0])
 
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .ticks(18)
+
 var xTick = x(1),
 		yTick = y(8);
 
@@ -22,7 +26,8 @@ var radiusScale = d3.scale.sqrt()
 var lineWidthScale = d3.scale.linear()
 		.range([0, 1, 8])
 
-var color = d3.scale.category10();
+var color = d3.scale.category10()
+		.range(['#ec3221', '#01863e', '#1c4695'])
 
 var svg = d3.select('#golf-wl')
   .append('svg')
@@ -30,6 +35,16 @@ var svg = d3.select('#golf-wl')
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+svg.append('g')
+		.attr('transform', 'translate(0,' + height + ')')
+		.attr('class', 'x axis')
+		.call(xAxis)
+	.append('text')
+		.attr('transform', 'translate(' + width/2 + ',0)')
+		.text('Hole')
+		.style('text-anchor', 'middle')
+
 
 var holeConstrains = {},
 		rounds = [],
