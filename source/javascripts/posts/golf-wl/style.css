@@ -23,6 +23,9 @@ circle{
 .axis path{
 	display: none;
 }
-.x.axis line{
+.axis line{
 	display: none;
+}
+.axis text{
+	fill: #bdbcb7;
 }

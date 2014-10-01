@@ -3,7 +3,7 @@
 
 var height = 500,
 		width = 750,
-		margin = {left: 20, right: 20, top: 20, bottom: 20};
+		margin = {left: 40, right: 20, top: 20, bottom: 20};
 
 var x = d3.scale.linear()
 		.domain([0, 18])
@@ -16,6 +16,10 @@ var y = d3.scale.linear()
 var xAxis = d3.svg.axis()
     .scale(x)
     .ticks(18)
+
+var yAxis = d3.svg.axis()
+		.scale(y)
+		.ticks(18).orient("left");    
 
 var xTick = x(1),
 		yTick = y(8);
@@ -42,9 +46,18 @@ svg.append('g')
 		.attr('class', 'x axis')
 		.call(xAxis)
 	.append('text')
-		.attr('transform', 'translate(' + width/2 + ',0)')
+		.attr('transform', 'translate(' + width/9 + ',0)')
 		.text('Hole')
 		.style('text-anchor', 'middle')
+
+svg.append('g')
+		.attr('transform', 'translate(-7,0)')
+		.attr('class', 'y axis')
+		.call(yAxis)
+	.append('text')
+		.attr('transform', 'translate(' + 4 + ',' + (height*6/7) + ') rotate(90)')
+		.text('First Scorer Score')
+		.style('text-anchor', 'end')
 
 
 var holeConstrains = {},
@@ -71,7 +84,7 @@ d3.range(0, 19).forEach(function(hole){
 		}
 	})
 })
-
+	
 var roundGs = svg.selectAll('.roundG')
 		.data(rounds).enter()
 	.append('g')
