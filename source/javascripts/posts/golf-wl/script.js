@@ -28,7 +28,7 @@ var color = d3.scale.ordinal()
 		.range(['#01863e', '#1c4695', '#ec3221'])
 
 //append and position static svg, axis, hoverlines, 
-var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines
+var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedText, hoveredText
 (function(){
 	svg = d3.select('#golf-wl')
 	  .append('svg')
@@ -63,6 +63,11 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines
 			.attr('transform', 'translate(' + 4 + ',' + (height*6/7) + ') rotate(90)')
 			.text("First Scorer's Score")
 			.style('text-anchor', 'end')
+
+	selectedText = svg.append('text')
+
+	hoveredText = svg.append('text')
+			.attr('dy', '2em')
 
 	svg.append('path')
 			.attr('id', 'winningline')
@@ -299,6 +304,8 @@ d3.json('flat-data.json', function(err, data){
 		winnerText.text(d3.format(".1%")(results.up/total)   + ' First Scorer Wins')
 		loserText .text(d3.format(".1%")(results.down/total) + ' First Scorer Losses')
 		tieText   .text(d3.format(".1%")(results.same/total))
+
+		selectedText.text(results.up + results.same + results.down + ' matches selected')
 	}
 	updateDOM(0, 0, 0, 0);
 })
