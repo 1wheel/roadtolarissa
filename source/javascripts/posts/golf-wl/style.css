@@ -46,3 +46,7 @@ circle{
 	stroke-linecap:round;
 	stroke-dasharray: 6, 6, 1;
 }
+
+.hoveredText{
+	fill: gray;
+}
