@@ -27,8 +27,15 @@ var color = d3.scale.ordinal()
 		.domain(['up', 'same', 'down'])
 		.range(['#01863e', '#1c4695', '#ec3221'])
 
+var holeConstrains = {},
+		rounds = [],
+		directions = ['down', 'same', 'up'],
+		roundHash = {},
+		matches,
+		selectedMatches = [];
+
 //append and position static svg, axis, hoverlines, 
-var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedText, hoveredText
+var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedText, hoveredText, hoverTextResults
 (function(){
 	svg = d3.select('#golf-wl')
 	  .append('svg')
@@ -69,6 +76,13 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedT
 	hoveredText = svg.append('text')
 			.attr('dy', '2em')
 			.classed('hoveredText', true)
+
+	hoverTextResults = svg.append('text')
+			.attr('dy', '3em')
+		.selectAll('tspan')
+			.data(directions).enter()
+		.append('tspan')
+			.attr('class', f())
 
 	svg.append('path')
 			.attr('id', 'winningline')
@@ -118,13 +132,6 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedT
 		.append('line')
 			.classed('hoverline', true)
 })()
-
-var holeConstrains = {},
-		rounds = [],
-		directions = ['down', 'same', 'up'],
-		roundHash = {},
-		matches,
-		selectedMatches = [];
 
 //load state from url
 window.location.hash.substr(1).split(',').forEach(function(d){
@@ -242,6 +249,17 @@ d3.json('flat-data.json', function(err, data){
 							'point' + (Math.abs(d.spread) != 1 ? 's' : ''),
 							'at hole ', d.hole + ',', 
 							].join(' '))
+
+					var directionToStr = {'down': 'loss',
+																'same': 'tie',
+																'up'  :  'win'}
+					hoverTextResults
+							.text(function(direction, i){
+								var num = d[direction];
+
+								return comma(num) + ' ' 
+										+ directionToStr[direction] 
+										+ (Math.abs(num) == 0 ? '' : i == 0 ? 'es' : 's') + ' '  })
 				})
 				.on('click', function(d){
 					var selected = !d3.select(this).classed('selected')
