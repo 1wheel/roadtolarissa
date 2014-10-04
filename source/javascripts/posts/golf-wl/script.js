@@ -84,7 +84,7 @@ var svg, winnerText, tieText, loserText
 			.attr('dy', function(d){ return d + 'em'; })
 
 	svg.append('g')
-			.attr('transform', 'translate(0, 60)')
+			.attr('transform', 'translate(0, 55)')
 		.selectAll('text')
 			.data(['up', 'same', 'down']).enter()
 		.append('text')
@@ -254,10 +254,11 @@ d3.json('flat-data.json', function(err, data){
 							.classed('hovered', function(i){ return i === d.spread })
 
 					var aheadText = d.spread >= 0 ? ' led by ' + d.spread  : ' trailed by ' + -d.spread ;
-					var hoveredText = [	'In ', comma(d.count), 'of the selected matches, ---', 
-															'going into hole ', d.hole + 1 + '',
+					var hoveredText = [	
+															'Going into hole ', d.hole + 1 + ',',
 															'the first scorer', aheadText, 
-															'point' + (Math.abs(d.spread) != 1 ? 's.' : '.'),
+															'point' + (Math.abs(d.spread) != 1 ? 's' : ''), '---',
+															'in ', comma(d.count), 'of the selected matches', 
 														].join(' ')
 					d3.selectAll('.hoveredText')
 							.data(hoveredText.split('---'))
