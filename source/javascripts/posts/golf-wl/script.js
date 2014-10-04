@@ -35,7 +35,7 @@ var holeConstrains = {},
 		results = [];
 
 //append and position static svg, axis, hoverlines, 
-var svg, winnerText, tieText, loserText, hoverTextResults
+var svg, winnerText, tieText, loserText
 (function(){
 	svg = d3.select('#golf-wl')
 	  .append('svg')
@@ -47,6 +47,7 @@ var svg, winnerText, tieText, loserText, hoverTextResults
 	var xAxis = d3.svg.axis()
 	    .scale(x)
 	    .ticks(18)
+	    .tickFormat(function(d){ return d < 18 ? d + 1 : 'end'; })
 
 	var xAxisG = svg.append('g')
 			.attr('transform', 'translate(0,' + height + ')')
@@ -75,19 +76,21 @@ var svg, winnerText, tieText, loserText, hoverTextResults
 			.classed('selectedText', true)
 
 	svg.append('g')
-			.attr('transform', 'translate(20, 0)')
+			.attr('transform', 'translate(0, 20)')
 		.selectAll('text')
 			.data([0, 1]).enter()
 		.append('text')
 			.classed('hoveredText', true)
 			.attr('dy', function(d){ return d + 'em'; })
 
-	hoverTextResults = svg.append('text')
-			.attr('dy', '3em')
-		.selectAll('tspan')
-			.data(directions).enter()
-		.append('tspan')
-			.attr('class', f())
+	svg.append('g')
+			.attr('transform', 'translate(0, 60)')
+		.selectAll('text')
+			.data(['up', 'same', 'down']).enter()
+		.append('text')
+			.classed('hoverTextResults', true)
+			.attr('fill', _.compose(color, f()))
+			.attr('dy', function(d, i){ return i + 'em' })
 
 	svg.append('path')
 			.attr('id', 'winningline')
@@ -250,25 +253,25 @@ d3.json('flat-data.json', function(err, data){
 					d3.selectAll('g.y').selectAll('text')
 							.classed('hovered', function(i){ return i === d.spread })
 
-					var aheadText = d.spread >= 0 ? ' lead by ' + d.spread  : ' trailed by ' + -d.spread ;
-					var hoveredText = [	'In ', comma(d.count), 'of the selected matches ---', 
+					var aheadText = d.spread >= 0 ? ' led by ' + d.spread  : ' trailed by ' + -d.spread ;
+					var hoveredText = [	'In ', comma(d.count), 'of the selected matches, ---', 
+															'going into hole ', d.hole + 1 + '',
 															'the first scorer', aheadText, 
-															'point' + (Math.abs(d.spread) != 1 ? 's' : ''),
-															'at hole ', d.hole + ','].join(' ')
+															'point' + (Math.abs(d.spread) != 1 ? 's.' : '.'),
+														].join(' ')
 					d3.selectAll('.hoveredText')
 							.data(hoveredText.split('---'))
 							.text(f())
 
-					var directionToStr = {'down': 'loss',
-																'same': 'tie',
-																'up'  :  'win'}
-					hoverTextResults
+					var directionToStr = {'down': ' they lost ',
+																'same': ' they halved ',
+																'up'  :  'they won '}
+					d3.selectAll('.hoverTextResults')
 							.text(function(direction, i){
 								var num = d[direction];
-
-								return comma(num) + ' ' 
-										+ directionToStr[direction] 
-										+ (Math.abs(num) == 0 ? '' : i == 0 ? 'es' : 's') + ' '  })
+								return d3.format(".1%")(num/d.count) + ' of the time ' 
+										+ directionToStr[direction] + 'hole ' + (d.hole + 1) })
+										
 				})
 				.on('click', function(d){
 					var selected = !d3.select(this).classed('selected')
