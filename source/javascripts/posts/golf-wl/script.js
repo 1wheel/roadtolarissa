@@ -78,9 +78,10 @@ var svg, winnerText, tieText, loserText
 	svg.append('g')
 			.attr('transform', 'translate(0, 20)')
 		.selectAll('text')
-			.data([0, 1]).enter()
+			.data([0, 1, 2]).enter()
 		.append('text')
 			.classed('hoveredText', true)
+			.classed('hoveredTextEnd', function(d){ return d === 2 })
 			.attr('dy', function(d){ return d + 'em'; })
 
 	svg.append('g')
@@ -255,11 +256,13 @@ d3.json('flat-data.json', function(err, data){
 
 					var aheadText = d.spread >= 0 ? ' led by ' + d.spread  : ' trailed by ' + -d.spread ;
 					var hoveredText = [	
-															'Going into hole ', d.hole + 1 + ',',
+															'Going into hole', d.hole + 1 + ',',
 															'the first scorer', aheadText, 
 															'point' + (Math.abs(d.spread) != 1 ? 's' : ''), '---',
 															'in ', comma(d.count), 'of the selected matches', 
 														].join(' ')
+														.replace('Going into hole 19', 'After hole 18')
+														
 					d3.selectAll('.hoveredText')
 							.data(hoveredText.split('---'))
 							.text(f())
@@ -269,11 +272,15 @@ d3.json('flat-data.json', function(err, data){
 																'same': ' they halved ',
 																'up'  :  'they won '}
 					d3.selectAll('.hoverTextResults')
+							.style('opacity', directionSum ? 1 : 0)
 							.text(function(direction, i){
 								var num = d[direction];
 								return d3.format(".1%")(num/d.count) + ' of the time ' 
 										+ directionToStr[direction] + 'hole ' + (d.hole + 1) })
-							.style('opacity', directionSum ? 1 : 0)
+
+					d3.selectAll('.hoveredTextEnd')
+							.style('opacity', d.type ? 1 : 0)
+							.text('resulting in them ' + (d.type === 'up' ? 'winning' : d.type === 'same' ? 'tying' : 'losing') + ' the round' );
 										
 				})
 				.on('click', function(d){
