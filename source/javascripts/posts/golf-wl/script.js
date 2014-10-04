@@ -264,6 +264,7 @@ d3.json('flat-data.json', function(err, data){
 							.data(hoveredText.split('---'))
 							.text(f())
 
+					var directionSum = d3.sum(directions, function(direction){ return d[direction]});
 					var directionToStr = {'down': ' they lost ',
 																'same': ' they halved ',
 																'up'  :  'they won '}
@@ -272,6 +273,7 @@ d3.json('flat-data.json', function(err, data){
 								var num = d[direction];
 								return d3.format(".1%")(num/d.count) + ' of the time ' 
 										+ directionToStr[direction] + 'hole ' + (d.hole + 1) })
+							.style('opacity', directionSum ? 1 : 0)
 										
 				})
 				.on('click', function(d){
