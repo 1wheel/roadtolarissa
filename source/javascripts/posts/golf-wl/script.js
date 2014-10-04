@@ -32,7 +32,7 @@ var holeConstrains = {},
 		directions = ['down', 'same', 'up'],
 		roundHash = {},
 		matches,
-		selectedMatches = [];
+		results = [];
 
 //append and position static svg, axis, hoverlines, 
 var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedText, hoveredText, hoverTextResults
@@ -72,6 +72,7 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedT
 			.style('text-anchor', 'end')
 
 	selectedText = svg.append('text')
+			.classed('selectedText', true)
 
 	hoveredText = svg.append('text')
 			.attr('dy', '2em')
@@ -179,7 +180,7 @@ d3.json('flat-data.json', function(err, data){
 	function updateData(){
 		rounds.forEach(function(d){
 			directions.concat('count').forEach(function(str){ d[str] = 0 }) })
-		selectedMatches = [];
+		results = {'up': 0, 'same': 0, 'down': 0};
 
 		var holeConstrainsArray = d3.entries(holeConstrains);
 
@@ -189,15 +190,18 @@ d3.json('flat-data.json', function(err, data){
 				return _.contains(d.value, match.scores[d.key])
 			})	
 			if (!meetsConstraints) return
-			selectedMatches.push(match)
+			//selectedMatches.push(match)
 
 			match.scores.forEach(function(spread, hole){
 				var round = roundHash[hole + ':' + spread]
 				if (!round) return;
 				round.count++;
 				var nextSpread = match.scores[hole+1];
-				if (nextSpread == null) return
-				round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++;
+				if (nextSpread == null){
+					results[spread < 0 ? 'down' : spread == 0 ? 'same' : 'up']++;
+				} else{
+					round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++;
+				}
 			})
 		})
 	}
@@ -323,11 +327,6 @@ d3.json('flat-data.json', function(err, data){
 			return (Math.abs(hole - d.hole) + Math.abs(spread - d.spread))*delayTime ;
 		}
 
-		var results = {'up': 0, 'same': 0, 'down': 0};
-		rounds.forEach(function(d){
-			if (!d.type) return
-			results[d.type] += d.count;
-		})
 		var total = Math.max(1, results.up + results.same + results.down)
 		winnerText.text(d3.format(".1%")(results.up/total)   + ' First Scorer Wins')
 		loserText .text(d3.format(".1%")(results.down/total) + ' First Scorer Losses')

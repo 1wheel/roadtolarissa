@@ -50,3 +50,7 @@ circle{
 .hoveredText{
 	fill: gray;
 }
+
+.selectedText{
+	fill:  #ba21aa;
+}
