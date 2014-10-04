@@ -35,7 +35,7 @@ var holeConstrains = {},
 		results = [];
 
 //append and position static svg, axis, hoverlines, 
-var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedText, hoveredText, hoverTextResults
+var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoverTextResults
 (function(){
 	svg = d3.select('#golf-wl')
 	  .append('svg')
@@ -71,12 +71,16 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedT
 			.text("First Scorer's Score")
 			.style('text-anchor', 'end')
 
-	selectedText = svg.append('text')
+	svg.append('text')
 			.classed('selectedText', true)
 
-	hoveredText = svg.append('text')
-			.attr('dy', '2em')
+	svg.append('g')
+			.attr('transform', 'translate(20, 0)')
+		.selectAll('text')
+			.data([0, 1]).enter()
+		.append('text')
 			.classed('hoveredText', true)
+			.attr('dy', function(d){ return d + 'em'; })
 
 	hoverTextResults = svg.append('text')
 			.attr('dy', '3em')
@@ -128,7 +132,7 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoveredLines, selectedT
 			.attr('dy', '-.3em')
 			.style('fill', color('same'))
 
-	hoveredLines = svg.append('g').selectAll('line')
+	svg.append('g').selectAll('line')
 			.data([0, 1]).enter()
 		.append('line')
 			.classed('hoverline', true)
@@ -236,7 +240,7 @@ d3.json('flat-data.json', function(err, data){
 					roundGs.selectAll('rect').classed('hovered', false)
 					d3.select(this).classed('hovered', true)
 
-					hoveredLines.interrupt()
+					d3.select('.hoverline').interrupt()
 							.attr({x2: x(d.hole), y2: y(d.spread), x2: x(d.hole), y2: y(d.spread)})
 						//.transition().duration(500).ease('linear')
 							.attr('x1', function(i){ return i ? x(d.hole) : 0 })
@@ -246,13 +250,13 @@ d3.json('flat-data.json', function(err, data){
 					yAxisG.selectAll('text').classed('hovered', function(i){ return i === d.spread })
 
 					var aheadText = d.spread >= 0 ? ' lead by ' + d.spread  : ' trailed by ' + -d.spread ;
-					hoveredText.text(
-						[	
-							'In ', comma(d.count), 'of these ', 
-							'the first scorer', aheadText, 
-							'point' + (Math.abs(d.spread) != 1 ? 's' : ''),
-							'at hole ', d.hole + ',', 
-							].join(' '))
+					var hoveredText = [	'In ', comma(d.count), 'of the selected matches ---', 
+															'the first scorer', aheadText, 
+															'point' + (Math.abs(d.spread) != 1 ? 's' : ''),
+															'at hole ', d.hole + ','].join(' ')
+					d3.selectAll('.hoveredText')
+							.data(hoveredText.split('---'))
+							.text(f())
 
 					var directionToStr = {'down': 'loss',
 																'same': 'tie',
@@ -332,7 +336,8 @@ d3.json('flat-data.json', function(err, data){
 		loserText .text(d3.format(".1%")(results.down/total) + ' First Scorer Losses')
 		tieText   .text(d3.format(".1%")(results.same/total))
 
-		selectedText.text(comma(results.up + results.same + results.down) + ' matches selected')
+		d3.select('.selectedText')
+				.text(comma(results.up + results.same + results.down) + ' matches selected')
 	}
 	updateDOM(0, 0, 0, 0);
 })
