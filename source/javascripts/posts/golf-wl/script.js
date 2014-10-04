@@ -35,7 +35,7 @@ var holeConstrains = {},
 		results = [];
 
 //append and position static svg, axis, hoverlines, 
-var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoverTextResults
+var svg, winnerText, tieText, loserText, hoverTextResults
 (function(){
 	svg = d3.select('#golf-wl')
 	  .append('svg')
@@ -48,7 +48,7 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoverTextResults
 	    .scale(x)
 	    .ticks(18)
 
-	xAxisG = svg.append('g')
+	var xAxisG = svg.append('g')
 			.attr('transform', 'translate(0,' + height + ')')
 			.attr('class', 'x axis')
 			.call(xAxis)
@@ -61,7 +61,7 @@ var svg, xAxisG, yAxisG, winnerText, tieText, loserText, hoverTextResults
 			.scale(y)
 			.ticks(18).orient("left");    
 
-	yAxisG = svg.append('g')
+	var yAxisG = svg.append('g')
 			.attr('transform', 'translate(-12,0)')
 			.attr('class', 'y axis')
 			.call(yAxis)
@@ -240,14 +240,15 @@ d3.json('flat-data.json', function(err, data){
 					roundGs.selectAll('rect').classed('hovered', false)
 					d3.select(this).classed('hovered', true)
 
-					d3.select('.hoverline').interrupt()
-							.attr({x2: x(d.hole), y2: y(d.spread), x2: x(d.hole), y2: y(d.spread)})
-						//.transition().duration(500).ease('linear')
+					d3.selectAll('.hoverline')
+							.attr({x2: x(d.hole), y2: y(d.spread)})
 							.attr('x1', function(i){ return i ? x(d.hole) : 0 })
 							.attr('y1', function(i){ return i ? height : y(d.spread) })
 
-					xAxisG.selectAll('text').classed('hovered', function(i){ return i === d.hole })
-					yAxisG.selectAll('text').classed('hovered', function(i){ return i === d.spread })
+					d3.selectAll('g.x').selectAll('text')
+							.classed('hovered', function(i){ return i === d.hole })
+					d3.selectAll('g.y').selectAll('text')
+							.classed('hovered', function(i){ return i === d.spread })
 
 					var aheadText = d.spread >= 0 ? ' lead by ' + d.spread  : ' trailed by ' + -d.spread ;
 					var hoveredText = [	'In ', comma(d.count), 'of the selected matches ---', 
