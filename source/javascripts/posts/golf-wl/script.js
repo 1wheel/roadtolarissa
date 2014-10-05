@@ -7,10 +7,11 @@ var height = 500,
     x = d3.scale.linear().domain([0, 18]),
     y = d3.scale.linear().domain([-9, 9]),
     xTickSize,
-    yTickSize
+    yTickSize,
+    fullscreen = typeof(fullscreen) != "undefined"
 
 function calcPageSize(){
-  if (typeof(fullscreen) != "undefined"){
+  if (fullscreen){
     width = Math.max(500, window.innerWidth - margin.left - margin.right - 30)
     height = Math.max(663, window.innerHeight - margin.top - margin.bottom - 20)
     height = Math.min(height, width*7/5)
@@ -390,7 +391,7 @@ d3.json('/javascripts/posts/golf-wl/flat-data.json', function(err, data){
   updateDOM(0, 0, 0, 0)
 
   window.onresize = _.debounce(function(){
-    if (typeof(fullscreen) == "undefined") return
+    if (!fullscreen) return
     d3.select('#golf-wl').selectAll('*').remove()
     
     calcPageSize()
@@ -400,3 +401,12 @@ d3.json('/javascripts/posts/golf-wl/flat-data.json', function(err, data){
     updateDOM(0, 0, 0, 0)
   }, 300)
 })
+
+
+//add about link
+if (fullscreen){
+  d3.select('body').append('div')
+      .style({position: 'absolute', right: '12px', top: '12px', 'font-size': '10pt', cursor: 'pointer'})
+      .text('About')
+      .on('click', function(){ window.location = '/golf-paths/' })
+}
