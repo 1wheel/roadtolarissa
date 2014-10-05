@@ -266,7 +266,7 @@ d3.json('flat-data.json', function(err, data){
               .classed('hovered', function(i){ return i === d.spread })
 
           //update text
-          var aheadText = d.spread >= 0 ? ' led by ' + d.spread  : ' trailed by ' + -d.spread 
+          var aheadText = d.spread >= 0 ? 'led by ' + d.spread  : 'trailed by ' + -d.spread 
           var hoveredText = [ 
                               'Going into hole', d.hole + 1 + ',',
                               'the first scorer', aheadText, 
@@ -280,9 +280,9 @@ d3.json('flat-data.json', function(err, data){
               .text(f())
 
           var directionSum = d3.sum(directions, function(direction){ return d[direction]})
-          var directionToStr = {'down': ' they lost ',
-                                'same': ' they halved ',
-                                'up'  :  'they won '}
+          var directionToStr = {down: ' they lost ',
+                                same: ' they halved ',
+                                up  :  'they won '}
           d3.selectAll('.hoverTextResults')
               .style('opacity', directionSum ? 1 : 0)
               .text(function(direction, i){
@@ -290,9 +290,10 @@ d3.json('flat-data.json', function(err, data){
                 return d3.format(".1%")(num/d.count) + ' of the time ' 
                     + directionToStr[direction] + 'hole ' + (d.hole + 1) })
 
+          var winningStr = {up:'winning', same:'tying', down:'losing'}[d.type]
           d3.selectAll('.hoveredTextEnd')
               .style('opacity', d.type ? 1 : 0)
-              .text('resulting in them ' + (d.type === 'up' ? 'winning' : d.type === 'same' ? 'tying' : 'losing') + ' the round' )
+              .text('resulting in them ' + winningStr + ' the round' )
                     
         })
         .on('click', function(d){
@@ -369,8 +370,9 @@ d3.json('flat-data.json', function(err, data){
     loserText .text(d3.format(".1%")(results.down/total) + ' First Scorer Losses')
     tieText   .text(d3.format(".1%")(results.same/total))
 
+    var selectedStr = comma(results.up + results.same + results.down);
     d3.select('.selectedText')
-        .text(comma(results.up + results.same + results.down) + ' matches selected (click to toggle)')
+        .text(selectedStr + ' matches selected (click to toggle)')
   }
   //on load, don't transition
   updateDOM(0, 0, 0, 0)
