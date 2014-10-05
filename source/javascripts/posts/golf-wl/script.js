@@ -1,9 +1,9 @@
 // creates array of matches 
-// _.flatten(d3.values(data).map(function(d){ return d3.values(d); }))
+// _.flatten(d3.values(data).map(function(d){ return d3.values(d) }))
 
 var height = 500,
     width = 750,
-    margin = {left: 40, right: 47, top: 15, bottom: 20};
+    margin = {left: 40, right: 47, top: 15, bottom: 20}
 
 var x = d3.scale.linear()
     .domain([0, 18])
@@ -14,7 +14,7 @@ var y = d3.scale.linear()
     .range([height, 0])
 
 var xTickSize = x(1),
-    yTickSize = y(8);
+    yTickSize = y(8)
 
 var radiusScale = d3.scale.sqrt()
     .range([0, 10])
@@ -27,14 +27,16 @@ var color = d3.scale.ordinal()
     .range(['#01863e', '#1c4695', '#ec3221'])
 
 
-var rounds = [],                          //
-    roundHash = {},
-    holeConstraints = {},                  //
-    directions = ['down', 'same', 'up'],
-    matches,
-    results = [];                         
+var rounds = [],                          //each spread/hole pair (needs better name...)
+    roundHash = {},                       //hash of the above - faster when updating the data
+    holeConstraints = {},                 //each round that displayed matches must pass through
+    directions = ['down', 'same', 'up'],  //result of a hole - could also be loss, tie, win
+    matches,   
+    results = []                         
 
-//append and position static svg, axis, hoverlines, 
+//append and position static svg, axis, hoverlines and text. 
+//mostly uninteresting, probably should have been done directly as a svg,
+//instead of js generated svg, especially since the graph isn't responsive
 var svg, winnerText, tieText, loserText
 (function(){
   svg = d3.select('#golf-wl')
@@ -47,7 +49,7 @@ var svg, winnerText, tieText, loserText
   var xAxis = d3.svg.axis()
       .scale(x)
       .ticks(18)
-      .tickFormat(function(d){ return d < 18 ? d + 1 : 'end'; })
+      .tickFormat(function(d){ return d < 18 ? d + 1 : 'end' })
 
   var xAxisG = svg.append('g')
       .attr('transform', 'translate(0,' + height + ')')
@@ -60,7 +62,7 @@ var svg, winnerText, tieText, loserText
 
   var yAxis = d3.svg.axis()
       .scale(y)
-      .ticks(18).orient("left");    
+      .ticks(18).orient("left")    
 
   var yAxisG = svg.append('g')
       .attr('transform', 'translate(-12,0)')
@@ -82,7 +84,7 @@ var svg, winnerText, tieText, loserText
     .append('text')
       .classed('hoveredText', true)
       .classed('hoveredTextEnd', function(d){ return d === 2 })
-      .attr('dy', function(d){ return d + 'em'; })
+      .attr('dy', function(d){ return d + 'em' })
 
   svg.append('g')
       .attr('transform', 'translate(0, 55)')
@@ -121,7 +123,6 @@ var svg, winnerText, tieText, loserText
       .text('Loser line')
       .style('fill', color('down'))
 
-
   var tieG = svg.append('g')
       .attr('transform', ['translate(', x(18.6), ',', y(0), ')'].join(''))
 
@@ -146,37 +147,40 @@ var svg, winnerText, tieText, loserText
 window.location.hash.substr(1).split(',').forEach(function(d){
     if (!d) return
     holeConstraints[d.split(':')[0]] = d.split(':')[1].split('_')
-      .map(function(d){ return +d; }) 
+      .map(function(d){ return +d }) 
 })
 
 //construct array of rounds
 d3.range(0, 19).forEach(function(hole){
   d3.range(-9, 10).forEach(function(spread){
     if (10 - Math.abs(10 - hole) >= Math.abs(spread)){
+      //through out invalid rounds
       if (hole + spread < 2 && spread != 0) return
-      var round = {hole: hole, spread: spread, color: ''};
+      var round = {hole: hole, spread: spread, color: ''}
+      //find game enders
       if (Math.abs(spread) > 18 - hole || hole === 18){
-        round.type = spread < 0 ? 'down' : spread == 0 ? 'same' : 'up';
-        round.color = color(round.type);
+        round.type = spread < 0 ? 'down' : spread == 0 ? 'same' : 'up'
+        round.color = color(round.type)
       }
-      rounds.push(round);
-      roundHash[hole + ':' + spread] = round;
+      //both array and hash point at same object so we can mutate either
+      rounds.push(round)
+      roundHash[hole + ':' + spread] = round
     }
   })
 })
   
 //load data
 d3.json('flat-data.json', function(err, data){
-  matches = data;
+  matches = data
   //winner of the first match always on top - todo: do this server side once
   matches.forEach(function(match){
-    var flip = false;
+    var flip = false
     match.scores.some(function(d){
       if (d < 0){ flip = true}
-      return d != 0;
+      return d != 0
     })
     if (flip){ 
-      match.scores = match.scores.map(function(d){ return d === null ? null : -1*d; })
+      match.scores = match.scores.map(function(d){ return d === null ? null : -1*d })
     }
   })
 
@@ -184,9 +188,9 @@ d3.json('flat-data.json', function(err, data){
   function updateData(){
     rounds.forEach(function(d){
       directions.concat('count').forEach(function(str){ d[str] = 0 }) })
-    results = {'up': 0, 'same': 0, 'down': 0};
+    results = {'up': 0, 'same': 0, 'down': 0}
 
-    var holeConstraintsArray = d3.entries(holeConstraints);
+    var holeConstraintsArray = d3.entries(holeConstraints)
 
     matches.forEach(function(match){
       //don't count matches that don't meet constraints
@@ -197,19 +201,19 @@ d3.json('flat-data.json', function(err, data){
 
       match.scores.some(function(spread, hole){
         var round = roundHash[hole + ':' + spread]
-        round.count++;
-        var nextSpread = match.scores[hole+1];
+        round.count++
+        var nextSpread = match.scores[hole+1]
         if (nextSpread == null || round.type){
-          results[spread < 0 ? 'down' : spread == 0 ? 'same' : 'up']++;
-          return true;
+          results[spread < 0 ? 'down' : spread == 0 ? 'same' : 'up']++
+          return true
         } else{
-          round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++;
-          return false;
+          round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++
+          return false
         }
       })
     })
   }
-  updateData();
+  updateData()
 
   //calculate line thickness and circle radius
   function updateScales(){
@@ -217,7 +221,7 @@ d3.json('flat-data.json', function(err, data){
     var maxLineVals = directions.map(function(str){ return d3.max(rounds, ƒ(str)) })
     lineWidthScale.domain([0, .999, d3.max(maxLineVals)])
   }
-  updateScales();
+  updateScales()
 
   //append circles and lines to the page, attach events
   function firstDraw(){
@@ -226,7 +230,7 @@ d3.json('flat-data.json', function(err, data){
       .append('g')
         .classed('roundG', true)
         .attr('transform', function(d){
-          return ['translate(', x(d.hole), ',', y(d.spread), ')'].join(''); })
+          return ['translate(', x(d.hole), ',', y(d.spread), ')'].join('') })
 
     roundGs.selectAll('line')
         .data(function(d){
@@ -262,7 +266,7 @@ d3.json('flat-data.json', function(err, data){
               .classed('hovered', function(i){ return i === d.spread })
 
           //update text
-          var aheadText = d.spread >= 0 ? ' led by ' + d.spread  : ' trailed by ' + -d.spread ;
+          var aheadText = d.spread >= 0 ? ' led by ' + d.spread  : ' trailed by ' + -d.spread 
           var hoveredText = [ 
                               'Going into hole', d.hole + 1 + ',',
                               'the first scorer', aheadText, 
@@ -275,20 +279,20 @@ d3.json('flat-data.json', function(err, data){
               .data(hoveredText.split('---'))
               .text(f())
 
-          var directionSum = d3.sum(directions, function(direction){ return d[direction]});
+          var directionSum = d3.sum(directions, function(direction){ return d[direction]})
           var directionToStr = {'down': ' they lost ',
                                 'same': ' they halved ',
                                 'up'  :  'they won '}
           d3.selectAll('.hoverTextResults')
               .style('opacity', directionSum ? 1 : 0)
               .text(function(direction, i){
-                var num = d[direction];
+                var num = d[direction]
                 return d3.format(".1%")(num/d.count) + ' of the time ' 
                     + directionToStr[direction] + 'hole ' + (d.hole + 1) })
 
           d3.selectAll('.hoveredTextEnd')
               .style('opacity', d.type ? 1 : 0)
-              .text('resulting in them ' + (d.type === 'up' ? 'winning' : d.type === 'same' ? 'tying' : 'losing') + ' the round' );
+              .text('resulting in them ' + (d.type === 'up' ? 'winning' : d.type === 'same' ? 'tying' : 'losing') + ' the round' )
                     
         })
         .on('click', function(d){
@@ -299,35 +303,35 @@ d3.json('flat-data.json', function(err, data){
           //update holeConstraints
           if (selected){
             if (holeConstraints[d.hole]){
-              holeConstraints[d.hole].push(d.spread);
+              holeConstraints[d.hole].push(d.spread)
             } else{
-              holeConstraints[d.hole] = [d.spread];
+              holeConstraints[d.hole] = [d.spread]
             }
           } else{
             holeConstraints[d.hole] = holeConstraints[d.hole]
-              .filter(function(spread){ return spread != d.spread; })
+              .filter(function(spread){ return spread != d.spread })
 
             if (!holeConstraints[d.hole].length){
-              delete holeConstraints[d.hole];
+              delete holeConstraints[d.hole]
             }
           }
 
           //update url
-          var hash = '';
+          var hash = ''
           d3.entries(holeConstraints).forEach(function(d){
-            hash += [d.key, ':', d.value.join('_'), ','].join('');
+            hash += [d.key, ':', d.value.join('_'), ','].join('')
           })
-          window.location.hash = hash.substr(0, hash.length - 1);
+          window.location.hash = hash.substr(0, hash.length - 1)
 
-          updateData();
-          updateScales();
-          updateDOM(d.hole, d.spread, 50, 300);
+          updateData()
+          updateScales()
+          updateDOM(d.hole, d.spread, 50, 300)
         })
         .classed('selected', function(d){
-          return holeConstraints[d.hole] && _.contains(holeConstraints[d.hole], d.spread);
+          return holeConstraints[d.hole] && _.contains(holeConstraints[d.hole], d.spread)
         })
   }
-  firstDraw();
+  firstDraw()
 
   //transition circles and lines to new layout
   function updateDOM(hole, spread, delayTime, duration){
@@ -346,7 +350,7 @@ d3.json('flat-data.json', function(err, data){
         .attr('r', _.compose(radiusScale, f('count')))
         //Fixes entering/exiting circle stroke flicker
         .styleTween('', function(){
-          var selection = d3.select(this);
+          var selection = d3.select(this)
           return function(){
             selection.style('stroke-width', 2*Math.min(1, +selection.attr('r'))) } 
         })
@@ -356,7 +360,7 @@ d3.json('flat-data.json', function(err, data){
 
     //fun transition timing
     function delayFn(d){
-      return (Math.abs(hole - d.hole) + Math.abs(spread - d.spread))*delayTime ;
+      return (Math.abs(hole - d.hole) + Math.abs(spread - d.spread))*delayTime 
     }
 
     //update text
@@ -369,5 +373,5 @@ d3.json('flat-data.json', function(err, data){
         .text(comma(results.up + results.same + results.down) + ' matches selected (click to toggle)')
   }
   //on load, don't transition
-  updateDOM(0, 0, 0, 0);
+  updateDOM(0, 0, 0, 0)
 })
