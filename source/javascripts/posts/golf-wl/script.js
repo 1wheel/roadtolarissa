@@ -84,7 +84,7 @@ function addStaticSVG(){
       .style('text-anchor', 'end')
 
   var textG = svg.append('g')
-      .attr('transform', 'translate(-10,-4)')
+      .attr('transform', 'translate(-10,-2)')
 
   textG.append('text')
       .classed('selectedText', true)
@@ -168,7 +168,7 @@ d3.range(0, 19).forEach(function(hole){
   d3.range(-9, 10).forEach(function(spread){
     if (10 - Math.abs(10 - hole) >= Math.abs(spread)){
       //through out invalid rounds
-      if (hole + spread < 2 && spread != 0) return
+      //if (hole + spread < 2 && spread != 0) return
       var round = {hole: hole, spread: spread, color: ''}
       //find game enders
       if (Math.abs(spread) > 18 - hole || hole === 18){
@@ -189,8 +189,9 @@ d3.json('/javascripts/posts/golf-wl/flat-data.json', function(err, data){
   matches.forEach(function(match){
     var flip = false
     match.scores.some(function(d){
-      if (d < 0){ flip = true}
-      return d != 0
+      if (d !== null) flip = d < 0;
+      //if (d < 0){ flip = true}
+      return d === null
     })
     if (flip){ 
       match.scores = match.scores.map(function(d){ return d === null ? null : -1*d })
