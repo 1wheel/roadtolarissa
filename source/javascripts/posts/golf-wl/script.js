@@ -2,7 +2,7 @@
 // _.flatten(d3.values(data).map(function(d){ return d3.values(d) }))
 
 var height = 500,
-    width = 750,
+    width = 663,
     margin = {left: 40, right: 47, top: 15, bottom: 20}
 
 var x = d3.scale.linear()
@@ -74,10 +74,13 @@ var svg, winnerText, tieText, loserText
       .text("First Scorer's Score")
       .style('text-anchor', 'end')
 
-  svg.append('text')
+  var textG = svg.append('g')
+      .attr('transform', 'translate(-8,0)')
+
+  textG.append('text')
       .classed('selectedText', true)
 
-  svg.append('g')
+  textG.append('g')
       .attr('transform', 'translate(0, 20)')
     .selectAll('text')
       .data([0, 1, 2]).enter()
@@ -86,7 +89,7 @@ var svg, winnerText, tieText, loserText
       .classed('hoveredTextEnd', function(d){ return d === 2 })
       .attr('dy', function(d){ return d + 'em' })
 
-  svg.append('g')
+  textG.append('g')
       .attr('transform', 'translate(0, 55)')
     .selectAll('text')
       .data(['up', 'same', 'down']).enter()
@@ -170,7 +173,7 @@ d3.range(0, 19).forEach(function(hole){
 })
   
 //load data
-d3.json('flat-data.json', function(err, data){
+d3.json('/javascripts/posts/golf-wl/flat-data.json', function(err, data){
   matches = data
   //winner of the first match always on top - todo: do this server side once
   matches.forEach(function(match){
@@ -279,7 +282,7 @@ d3.json('flat-data.json', function(err, data){
               .data(hoveredText.split('---'))
               .text(f())
 
-          var directionSum = d3.sum(directions, function(direction){ return d[direction]})
+          var directionSum = d3.sum(directions, function(direction){ return d[direction] })
           var directionToStr = {down: ' they lost ',
                                 same: ' they halved ',
                                 up  :  'they won '}
