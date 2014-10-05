@@ -3,18 +3,26 @@
 
 var height = 500,
     width = 663,
-    margin = {left: 40, right: 47, top: 15, bottom: 20}
+    margin = {left: 40, right: 47, top: 15, bottom: 20},
+    x = d3.scale.linear().domain([0, 18]),
+    y = d3.scale.linear().domain([-9, 9]),
+    xTickSize,
+    yTickSize
 
-var x = d3.scale.linear()
-    .domain([0, 18])
-    .range([0, width])
-
-var y = d3.scale.linear()
-    .domain([-9, 9])
-    .range([height, 0])
-
-var xTickSize = x(1),
-    yTickSize = y(8)
+function calcPageSize(){
+  if (typeof(fullscreen) != "undefined"){
+    width = Math.max(500, window.innerWidth - margin.left - margin.right - 30)
+    height = Math.max(663, window.innerHeight - margin.top - margin.bottom - 20)
+    height = Math.min(height, width*7/5)
+  }  
+  
+  x.range([0, width])
+  y.range([height, 0])
+  
+  xTickSize = x(1)
+  yTickSize = y(8)
+}
+calcPageSize();
 
 var radiusScale = d3.scale.sqrt()
     .range([0, 10])
@@ -38,7 +46,7 @@ var rounds = [],                          //each spread/hole pair (needs better 
 //mostly uninteresting, probably should have been done directly as a svg,
 //instead of js generated svg, especially since the graph isn't responsive
 var svg, winnerText, tieText, loserText
-(function(){
+function addStaticSVG(){
   svg = d3.select('#golf-wl')
     .append('svg')
       .attr("width", width + margin.left + margin.right)
@@ -75,7 +83,7 @@ var svg, winnerText, tieText, loserText
       .style('text-anchor', 'end')
 
   var textG = svg.append('g')
-      .attr('transform', 'translate(-8,0)')
+      .attr('transform', 'translate(-10,-4)')
 
   textG.append('text')
       .classed('selectedText', true)
@@ -144,7 +152,8 @@ var svg, winnerText, tieText, loserText
       .data([0, 1]).enter()
     .append('line')
       .classed('hoverline', true)
-})()
+}
+addStaticSVG()
 
 //load state from url
 window.location.hash.substr(1).split(',').forEach(function(d){
@@ -379,4 +388,15 @@ d3.json('/javascripts/posts/golf-wl/flat-data.json', function(err, data){
   }
   //on load, don't transition
   updateDOM(0, 0, 0, 0)
+
+  window.onresize = _.debounce(function(){
+    if (typeof(fullscreen) == "undefined") return
+    d3.select('#golf-wl').selectAll('*').remove()
+    
+    calcPageSize()
+    addStaticSVG()
+    updateScales()
+    firstDraw()
+    updateDOM(0, 0, 0, 0)
+  }, 300)
 })
