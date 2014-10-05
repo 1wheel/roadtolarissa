@@ -198,17 +198,17 @@ d3.json('flat-data.json', function(err, data){
 				return _.contains(d.value, match.scores[d.key])
 			})	
 			if (!meetsConstraints) return
-			//selectedMatches.push(match)
 
-			match.scores.forEach(function(spread, hole){
+			match.scores.some(function(spread, hole){
 				var round = roundHash[hole + ':' + spread]
-				if (!round) return;
 				round.count++;
 				var nextSpread = match.scores[hole+1];
-				if (nextSpread == null){
+				if (nextSpread == null || round.type){
 					results[spread < 0 ? 'down' : spread == 0 ? 'same' : 'up']++;
+					return true;
 				} else{
 					round[nextSpread < spread ? 'down' : nextSpread == spread ? 'same' : 'up']++;
+					return false;
 				}
 			})
 		})
