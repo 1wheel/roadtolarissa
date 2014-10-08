@@ -157,7 +157,7 @@ function addStaticSVG(){
 addStaticSVG()
 
 //load state from url
-window.location.hash.substr(1).split(',').forEach(function(d){
+window.location.hash.replace('q', '').substr(1).split(',').forEach(function(d){
     if (!d) return
     holeConstraints[d.split(':')[0]] = d.split(':')[1].split('_')
       .map(function(d){ return +d }) 
@@ -331,11 +331,11 @@ d3.json('/javascripts/posts/golf-wl/flat-data.json', function(err, data){
           }
 
           //update url
-          var hash = ''
+          var hash = '';
           d3.entries(holeConstraints).forEach(function(d){
             hash += [d.key, ':', d.value.join('_'), ','].join('')
           })
-          window.location.hash = hash.substr(0, hash.length - 1)
+          window.location.hash = hash === '' ? 'q' : hash.substr(0, hash.length - 1)
 
           updateData()
           updateScales()
