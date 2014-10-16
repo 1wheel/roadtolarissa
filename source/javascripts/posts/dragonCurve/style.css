@@ -1,9 +1,11 @@
 path{
 	stroke: black;
+	stroke-width: 3px;
 }
 
 rect{
 	fill-opacity: .2;
 	fill: steelblue;
 	stroke: blue;
+	opacity: .3
 }
