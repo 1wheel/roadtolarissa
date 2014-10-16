@@ -3,7 +3,7 @@ var π = Math.PI
 
 var width = 400,
     height = 400,
-    margin = {left: 100, right: 100, top: 100, bottom: 100}
+    margin = {left: 200, right: 200, top: 200, bottom: 200}
 
 var svg = d3.select('#dragon-curve')
     .append('svg')
