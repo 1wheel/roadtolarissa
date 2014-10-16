@@ -9,3 +9,13 @@ rect{
 	stroke: blue;
 	opacity: .3
 }
+
+.left{
+	fill: steelblue;
+	stroke: steelblue;
+}
+
+.right{
+	fill: red;
+	stroke: red;
+}
