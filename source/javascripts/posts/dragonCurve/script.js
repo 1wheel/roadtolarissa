@@ -13,13 +13,13 @@ var svg = d3.select('#dragon-curve')
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
 function addLine(a, b, ℓ, θ){
-  svg.append('path')
+  var line = svg.append('path')
       .attr('d', ['M', a, 'L', b].join(''))
 
   var done;
-  svg.append('rect')
+  var rect = svg.append('rect')
       .attr({x: a[0], y: a[1], height: ℓ/sqrt2, width: ℓ/sqrt2})
-      .attr('transform', 'rotate(-45,' + a + ')')
+      .attr('transform', ['rotate(', θ - 135 ,',', a, ')'].join(''))
       .on('mouseover', function(){
         if (done) return
 
@@ -27,13 +27,14 @@ function addLine(a, b, ℓ, θ){
 
         var θ1 = (θ - 45) % 360
         var b1 = extendLine(a, ℓ1, θ1)
-        addLine(a, b1, ℓ1, θ + 45)
-
+        addLine(a, b1, ℓ1, θ1)
 
         var θ2 = (θ + 45) % 360
         var a1 = extendLine(b, ℓ1, θ2 - 180)
-        addLine(a1, b, ℓ1, θ - 45)
+        addLine(a1, b, ℓ1, θ2)
 
+        line.style('opacity', .2)
+        rect.style('opacity', .05)
         done = true
       })
 }
@@ -43,6 +44,5 @@ addLine([0, height/2], [length, height/2], length, 90)
 
 
 function extendLine(a, ℓ, θ){
-  // debugger
   return [a[0] + ℓ*Math.sin(θ*π/180), a[1] + ℓ*Math.cos(θ*π/180)]
 }
