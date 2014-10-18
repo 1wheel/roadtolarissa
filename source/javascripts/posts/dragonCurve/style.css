@@ -4,10 +4,10 @@ path{
 }
 
 rect{
-	fill-opacity: .2;
+	fill-opacity: .8;
 	fill: steelblue;
 	stroke: blue;
-	opacity: .3
+	opacity: .5
 }
 
 .left{
