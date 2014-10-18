@@ -1,9 +1,12 @@
 var sqrt2 = Math.sqrt(2)
 var π = Math.PI
+var lines
 
 var width = 400,
     height = 400,
     margin = {left: 150, right: 80, top: 0, bottom: 100}
+
+var zoom = d3.behavior.zoom()
 
 var svg = d3.select('#dragon-curve')
     .append('svg')
@@ -11,6 +14,8 @@ var svg = d3.select('#dragon-curve')
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(zoom)
+      .on('zoom', function(){ console.log("zo")})
 
 function addLine(a, b, m, θ, isLeft, level){
   var ℓ = length(a, b)
@@ -60,8 +65,6 @@ function addLine(a, b, m, θ, isLeft, level){
   }
 }
 
-var lines = [];
-
 function extendLine(a, ℓ, θ){
   return [a[0] + ℓ*Math.sin(θ*π/180), a[1] + ℓ*Math.cos(θ*π/180)]
 }
@@ -84,6 +87,7 @@ d3.select('#step').on('click', function(){
 d3.select('#reset')
     .on('click', function(){
       svg.selectAll('*').remove()
+      lines = []
       addLine([0, height/2], [width, height/2], [0, height/2], 90, true, 0)
       lines[0].addRect(0)
     })
