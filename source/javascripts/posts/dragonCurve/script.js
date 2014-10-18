@@ -12,7 +12,7 @@ var svg = d3.select('#dragon-curve')
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-function addLine(a, b, m, θ, isLeft){
+function addLine(a, b, m, θ, isLeft, level){
   var ℓ = length(a, b)
   var line = svg.append('path')
 
@@ -20,35 +20,47 @@ function addLine(a, b, m, θ, isLeft){
     .transition().duration(1000)
       .attr('d', ['M', a, 'L', b].join(''))
       .each('end', function(){
-      var done;
-      var rect = svg.append('rect')
-      rect.attr({x: b[0], y: b[1], height: 0, width: 0})
-          .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
-          .attr('class', isLeft ? 'left' : 'right')
-        .transition().duration(1000)
-          .attr({height: ℓ/sqrt2, width: ℓ/sqrt2})
-      rect
-          .on('mouseover', function(){
-            if (done) return
-            var ℓ1 = ℓ/2*sqrt2
-            //calc midpoint to animate from
-            var m1 = [(a[0] + b[0])/2, (a[1] + b[1])/2]
-
-            var θ1 = (360 + θ - 45) % 360
-            var b1 = extendLine(a, ℓ1, θ1)
-            addLine(a, b1, m1, θ1, true)
-
-            var θ2 = (360 + θ - 135) % 360
-            var b2 = extendLine(b, ℓ1, θ2)
-            addLine(b, b2, m1, θ2, false  )
-
-            line.style('opacity', .2)
-            rect.style('opacity', .05).remove()
-            done = true
-      })        
       })
+  var datum = {line: line, level: level, addRect: addRect, done: false}
+  lines.push(datum)
 
+  function addRect(){
+    var rect = svg.append('rect')
+    rect.attr({x: b[0], y: b[1], height: 0, width: 0})
+        .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
+        .attr('class', isLeft ? 'left' : 'right')
+      .transition().duration(1000)
+        .attr({height: ℓ/sqrt2, width: ℓ/sqrt2})
+    rect
+        .on('mouseover', function(){
+          if (datum.done) return
+          var ℓ1 = ℓ/2*sqrt2
+          //calc midpoint to animate from
+          var m1 = [(a[0] + b[0])/2, (a[1] + b[1])/2]
+
+          var θ1 = (360 + θ - 45) % 360
+          var b1 = extendLine(a, ℓ1, θ1)
+          addLine(a, b1, m1, θ1, true, level + 1)
+
+          var θ2 = (360 + θ - 135) % 360
+          var b2 = extendLine(b, ℓ1, θ2)
+          addLine(b, b2, m1, θ2, false, level + 1)
+
+          line.style('opacity', .2)
+          rect.style('opacity', .05).remove()
+          datum.done = true
+
+          var levelCompleted = lines.every(function(d){ return d.level != level || d.done })
+          //debugger
+          if (levelCompleted){
+            console.log('levelCompleted')
+            _.where(lines, {level: level + 1}).forEach(function(d){ d.addRect() })
+          }
+    })        
+  }
 }
+
+var lines = [];
 
 function extendLine(a, ℓ, θ){
   return [a[0] + ℓ*Math.sin(θ*π/180), a[1] + ℓ*Math.cos(θ*π/180)]
@@ -72,6 +84,7 @@ d3.select('#step').on('click', function(){
 d3.select('#reset')
     .on('click', function(){
       svg.selectAll('*').remove()
-      addLine([0, height/2], [width, height/2], [0, height/2], 90, 1)
+      addLine([0, height/2], [width, height/2], [0, height/2], 90, true, 0)
+      lines[0].addRect()
     })
     .on('click')()
