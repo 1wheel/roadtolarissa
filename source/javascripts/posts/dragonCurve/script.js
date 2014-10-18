@@ -24,12 +24,12 @@ function addLine(a, b, m, θ, isLeft, level){
   var datum = {line: line, level: level, addRect: addRect, done: false}
   lines.push(datum)
 
-  function addRect(){
+  function addRect(delay){
     var rect = svg.append('rect')
     rect.attr({x: b[0], y: b[1], height: 0, width: 0})
         .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
         .attr('class', isLeft ? 'left' : 'right')
-      .transition().duration(1000)
+      .transition().duration(1000).delay(delay*1000)
         .attr({height: ℓ/sqrt2, width: ℓ/sqrt2})
     rect
         .on('mouseover', function(){
@@ -51,10 +51,10 @@ function addLine(a, b, m, θ, isLeft, level){
           datum.done = true
 
           var levelCompleted = lines.every(function(d){ return d.level != level || d.done })
-          //debugger
           if (levelCompleted){
             console.log('levelCompleted')
-            _.where(lines, {level: level + 1}).forEach(function(d){ d.addRect() })
+            var nextLevel = lines.filter(function(d){ return d.level == level + 1 })
+            nextLevel.forEach(function(d, i){  d.addRect(i/nextLevel.length) })
           }
     })        
   }
@@ -85,6 +85,6 @@ d3.select('#reset')
     .on('click', function(){
       svg.selectAll('*').remove()
       addLine([0, height/2], [width, height/2], [0, height/2], 90, true, 0)
-      lines[0].addRect()
+      lines[0].addRect(0)
     })
     .on('click')()
