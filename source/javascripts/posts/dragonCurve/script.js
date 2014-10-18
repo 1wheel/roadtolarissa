@@ -12,19 +12,21 @@ var svg = d3.select('#dragon-curve')
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-function addLine(a, b, m, θ){
+function addLine(a, b, m, θ, isLeft){
   var ℓ = length(a, b)
   var line = svg.append('path')
-    //   .attr('d', ['M', a, 'L', m].join(''))
-    // .transition().duration(1000)
+
+  line.attr('d', ['M', a, 'L', m].join(''))
+    .transition().duration(1000)
       .attr('d', ['M', a, 'L', b].join(''))
-      // .each('end', function(){
-      // })        
+      .each('end', function(){
       var done;
       var rect = svg.append('rect')
-          .attr({x: a[0], y: a[1], height: ℓ/sqrt2, width: ℓ/sqrt2})
-          .attr('transform', ['rotate(', -θ + 45,',', a, ')'].join(''))
-          .attr('class', θ < 180 ? 'left' : 'right')
+      rect.attr({x: b[0], y: b[1], height: 0, width: 0})
+          .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
+          .attr('class', isLeft ? 'left' : 'right')
+        .transition().duration(1000)
+          .attr({height: ℓ/sqrt2, width: ℓ/sqrt2})
       rect
           .on('mouseover', function(){
             if (done) return
@@ -34,15 +36,16 @@ function addLine(a, b, m, θ){
 
             var θ1 = (360 + θ - 45) % 360
             var b1 = extendLine(a, ℓ1, θ1)
-            addLine(a, b1, m1, θ1, 1)
+            addLine(a, b1, m1, θ1, true)
 
             var θ2 = (360 + θ - 135) % 360
             var b2 = extendLine(b, ℓ1, θ2)
-            addLine(b, b2, m1, θ2, 1)
+            addLine(b, b2, m1, θ2, false  )
 
             line.style('opacity', .2)
             rect.style('opacity', .05).remove()
             done = true
+      })        
       })
 
 }
