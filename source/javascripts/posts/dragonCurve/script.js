@@ -33,6 +33,7 @@ function addLine(a, b, m, θ, isLeft, level){
     rect.attr({x: b[0], y: b[1], height: 0, width: 0})
         .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
         .attr('class', isLeft ? 'left' : 'right')
+        .classed('hoverrect', true)
       .transition().duration(1000).delay(delay*1000)
         .attr({height: ℓ/sqrt2, width: ℓ/sqrt2})
     rect
@@ -88,7 +89,7 @@ function midPoint(a, b){
 }
 
 d3.select('#step').on('click', function(){
-  d3.selectAll('rect').filter(function(d, i){ return i < 4000 })
+  d3.selectAll('.hoverrect').filter(function(d, i){ return i < 4000 })
       .each(function(){ d3.select(this).on('mouseover')() })
 })
 
