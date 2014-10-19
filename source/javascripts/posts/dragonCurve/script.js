@@ -6,7 +6,10 @@ var width = 400,
     height = 400,
     margin = {left: 150, right: 80, top: 0, bottom: 100}
 
-var zoom = d3.behavior.zoom()
+var zoom = d3.behavior.zoom().on('zoom', function(){
+  svg.attr('transform', 
+    ['translate(', d3.event.translate, ') scale(', d3.event.scale, ')'].join(''))
+})
 
 var svg = d3.select('#dragon-curve')
     .append('svg')
@@ -14,15 +17,16 @@ var svg = d3.select('#dragon-curve')
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .append('g')
       .call(zoom)
-      .on('zoom', function(){ console.log("zo")})
+
 
 function addLine(a, b, m, θ, isLeft, level){
   var ℓ = length(a, b)
   var line = svg.append('path')
-
-  line.attr('d', ['M', a, 'L', m].join(''))
-    .transition().duration(1000)
+      .attr('d', ['M', a, 'L', m].join(''))
+      .attr('vector-effect', 'non-scaling-stroke')
+  line.transition().duration(1000)
       .attr('d', ['M', a, 'L', b].join(''))
       .each('end', function(){
       })
@@ -87,6 +91,14 @@ d3.select('#step').on('click', function(){
 d3.select('#reset')
     .on('click', function(){
       svg.selectAll('*').remove()
+      
+      svg.append('rect')
+          .attr({x: -margin.left, y: -margin.top})
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .style('fill-opacity', 0)
+
+
       lines = []
       addLine([0, height/2], [width, height/2], [0, height/2], 90, true, 0)
       lines[0].addRect(0)

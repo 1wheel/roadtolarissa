@@ -7,7 +7,8 @@ rect{
 	fill-opacity: .8;
 	fill: steelblue;
 	stroke: blue;
-	opacity: .5
+	opacity: .5;
+	stroke-width: 0px;
 }
 
 .left{
