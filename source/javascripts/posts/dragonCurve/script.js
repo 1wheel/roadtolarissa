@@ -2,8 +2,8 @@ var sqrt2 = Math.sqrt(2),
     π = Math.PI,
     lines
 
-var width = 400,
-    height = 750
+var width = 750,
+    height = 500
 
 var zoom = d3.behavior.zoom().on('zoom', function(){
   svg.attr('transform', 
@@ -15,7 +15,6 @@ var svg = d3.select('#dragon-curve')
       .attr({width: width, height: height})
     .append('g')
       .call(zoom)
-
 
 function addLine(a, b, m, θ, isLeft, level){
   var ℓ = length(a, b)
@@ -99,6 +98,9 @@ d3.select('#reset')
       svg.append('rect')
           .attr({width: width, height: height})
           .style('fill-opacity', 0)
+
+      svg.attr('transform', 'translate(0, 0) scale(1)')
+      zoom.scale(1).translate([0, 0])
 
       lines = []
       addLine([150, height/3], [width - 230, height/3], [0, height/2], 90, true, 0)
