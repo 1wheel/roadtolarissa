@@ -1,10 +1,9 @@
-var sqrt2 = Math.sqrt(2)
-var π = Math.PI
-var lines
+var sqrt2 = Math.sqrt(2),
+    π = Math.PI,
+    lines
 
 var width = 400,
-    height = 400,
-    margin = {left: 150, right: 80, top: 0, bottom: 100}
+    height = 750
 
 var zoom = d3.behavior.zoom().on('zoom', function(){
   svg.attr('transform', 
@@ -13,10 +12,7 @@ var zoom = d3.behavior.zoom().on('zoom', function(){
 
 var svg = d3.select('#dragon-curve')
     .append('svg')
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .attr({width: width, height: height})
     .append('g')
       .call(zoom)
 
@@ -59,7 +55,15 @@ function addLine(a, b, m, θ, isLeft, level){
           rect.style('opacity', .05).remove()
           datum.done = true
 
-          var levelCompleted = lines.every(function(d){ return d.level != level || d.done })
+          var scale = zoom.scale()
+          //center
+          var center = zoom.translate().map(function(d){ return -d })
+
+          var levelCompleted = lines.every(function(d){
+            if (d.level != level || d.done) return true
+            // check to that all of the same level that aren't completed are off screen
+
+          })
           if (levelCompleted){
             console.log('levelCompleted')
             var nextLevel = lines.filter(function(d){ return d.level == level + 1 })
@@ -93,14 +97,11 @@ d3.select('#reset')
       svg.selectAll('*').remove()
       
       svg.append('rect')
-          .attr({x: -margin.left, y: -margin.top})
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
+          .attr({width: width, height: height})
           .style('fill-opacity', 0)
 
-
       lines = []
-      addLine([0, height/2], [width, height/2], [0, height/2], 90, true, 0)
+      addLine([150, height/3], [width - 230, height/3], [0, height/2], 90, true, 0)
       lines[0].addRect(0)
     })
     .on('click')()
