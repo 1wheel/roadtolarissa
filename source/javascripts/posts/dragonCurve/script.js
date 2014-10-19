@@ -28,7 +28,10 @@ function addLine(a, b, m, θ, isLeft, level){
   var datum = {line: line, level: level, addRect: addRect, done: false, a: a}
   lines.push(datum)
 
+  var rectAdded = false
   function addRect(delay){
+    if (rectAdded) return
+    rectAdded = true
     var rect = svg.append('rect')
     rect.attr({x: b[0], y: b[1], height: 0, width: 0})
         .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
@@ -38,7 +41,7 @@ function addLine(a, b, m, θ, isLeft, level){
         .attr({height: ℓ/sqrt2, width: ℓ/sqrt2})
     rect
         .on('mouseover', function(){
-          if (datum.done) return
+          if (datum.done) return rect.remove()
           var ℓ1 = ℓ/2*sqrt2
           //calc midpoint to animate from
           var m1 = [(a[0] + b[0])/2, (a[1] + b[1])/2]
