@@ -25,7 +25,7 @@ function addLine(a, b, m, θ, isLeft, level){
       .attr('d', ['M', a, 'L', b].join(''))
       .each('end', function(){
       })
-  var datum = {line: line, level: level, addRect: addRect, done: false}
+  var datum = {line: line, level: level, addRect: addRect, done: false, a: a}
   lines.push(datum)
 
   function addRect(delay){
@@ -55,13 +55,14 @@ function addLine(a, b, m, θ, isLeft, level){
           datum.done = true
 
           var scale = zoom.scale()
-          //center
           var center = zoom.translate().map(function(d){ return -d })
-
+          var halfWidth  = width/ (2*scale)
+          var halfHeight = height/(2*scale)
           var levelCompleted = lines.every(function(d){
             if (d.level != level || d.done) return true
             // check to that all of the same level that aren't completed are off screen
-
+            return Math.abs(d.a[0] - center[0]) > halfWidth && 
+                   Math.abs(d.a[1] - center[1]) > halfHeight 
           })
           if (levelCompleted){
             console.log('levelCompleted')
