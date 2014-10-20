@@ -5,10 +5,12 @@ var sqrt2 = Math.sqrt(2),
 var width = 750,
     height = 500
 
-var zoom = d3.behavior.zoom().on('zoom', function(){
-  svg.attr('transform', 
-    ['translate(', d3.event.translate, ') scale(', d3.event.scale, ')'].join(''))
-})
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 1 << 16])
+    .on('zoom', function(){
+      svg.attr('transform', 
+        ['translate(', d3.event.translate, ') scale(', d3.event.scale, ')'].join(''))
+    })
 
 var svg = d3.select('#dragon-curve')
     .append('svg')
@@ -59,13 +61,14 @@ function addLine(a, b, m, θ, isLeft, level){
           datum.done = true
 
           var scale = zoom.scale()
-          var center = zoom.translate().map(function(d){ return -d })
           var halfWidth  = width/ (2*scale)
           var halfHeight = height/(2*scale)
+          var center = zoom.translate()
+              .map(function(d, i){ return -d + (i ? halfHeight : halfWidth) })
           var levelCompleted = lines.every(function(d){
             if (d.level != level || d.done) return true
             // check to that all of the same level that aren't completed are off screen
-            return Math.abs(d.a[0] - center[0]) > halfWidth && 
+            return Math.abs(d.a[0] - center[0]) > halfWidth || 
                    Math.abs(d.a[1] - center[1]) > halfHeight 
           })
           if (levelCompleted){
@@ -112,3 +115,22 @@ d3.select('#reset')
       lines[0].addRect(0)
     })
     .on('click')()
+
+
+function centerDebug(){
+  var scale = zoom.scale()
+  var halfWidth  = width/ (2*scale)
+  var halfHeight = height/(2*scale)
+  var center = zoom.translate()
+      .map(function(d, i){ return -d/scale + (i ? halfHeight : halfWidth) })
+  console.log(center)
+  svg.append('circle')
+      .attr({r: 10, cx: center[0], cy: center[1]})
+  var level = 0
+  var levelCompleted = lines.every(function(d){
+    if (d.level != level || d.done) return true
+    // check to that all of the same level that aren't completed are off screen
+    return Math.abs(d.a[0] - center[0]) > halfWidth || 
+           Math.abs(d.a[1] - center[1]) > halfHeight 
+  })
+}
