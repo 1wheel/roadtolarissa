@@ -1,6 +1,7 @@
 path{
 	stroke: rgb(241, 229, 6);
 	stroke-width: 5px;
+	pointer-events: none;
 }
 
 rect{

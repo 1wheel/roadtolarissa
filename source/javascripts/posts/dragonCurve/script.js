@@ -6,7 +6,7 @@ var sqrt2 = Math.sqrt(2),
     gold = 'rgb(241, 229, 6)'
 
 var width = 750,
-    height = 500
+    height = 600
 
 var zoom = d3.behavior.zoom()
     .scaleExtent([1, 1 << 16])
@@ -110,13 +110,13 @@ d3.select('#reset')
       
       svg.append('rect')
           .attr({width: width, height: height})
-          .style('fill-opacity', 0)
+          .style('fill-opacity', .001)
 
       svg.attr('transform', 'translate(0, 0) scale(1)')
       zoom.scale(1).translate([0, 0])
 
       lines = []
-      addLine([150, height/3], [width - 230, height/3], [0, height/2], 90, true, 0)
+      addLine([170, height/2.61], [width - 120, height/2.61], [0, height/2], 90, true, 0)
       lines[0].addRect(0)
     })
     .on('click')()
