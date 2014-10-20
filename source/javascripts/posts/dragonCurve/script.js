@@ -37,7 +37,7 @@ function drawLine(a, b, m, θ, level){
   var line = svg.append('path')
       .attr('d', ['M', a, 'L', m].join(''))
       .attr('vector-effect', 'non-scaling-stroke')
-      .attr('stroke-linecap', 'round')
+      .attr('stroke-linecap', 'square')
   line.transition().duration(1000)
       .attr('d', ['M', a, 'L', b].join(''))
   var datum = {line: line, level: level, addRect: addRect, done: false, a: a}

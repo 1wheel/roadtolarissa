@@ -5,6 +5,12 @@ path{
 }
 
 rect{
-	opacity: 1
+	opacity: .1
 }
 
+#reset{
+	cursor: pointer;
+}
+#step{
+	cursor: pointer;
+}

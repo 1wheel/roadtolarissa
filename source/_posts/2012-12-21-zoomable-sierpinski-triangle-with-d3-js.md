@@ -12,7 +12,8 @@ categories:
 
 After finishing up the <a href="http://www.roadtolarissa.com/interactive-visualization-of-white-house-petition-signatures/">petition project</a>, I wanted to use what I learned about d3.js to create something a little more fun. After a few hours<sup>1</sup> of work,  I had this:
 
-<pre class="brush: jscript; title: ; notranslate" title="">//triangle centered at (cx, cy) with circumradius r
+```javascript
+//triangle centered at (cx, cy) with circumradius r
 function addTriangle(cx, cy, r){
   svg.append('polygon')
     .on(mobile ? "click" : "mouseover", function(d){
@@ -36,7 +37,7 @@ function addTriangle(cx, cy, r){
               (cx-r*sin30)  +','+   (cy + r*cos30)  +' '+
               (cx+r*sin30)  +','+   (cy + r*cos30))
 }
-</pre>
+```
 
 which is currently live at the above link. There are a lot of things I'd like to add &#8211; proper mobile support, more fractal patterns, deeper zooming, and more interesting coloring &#8211; but I've just been clicking and scrolling around the triangles instead. It's incredible to me that such a small snipping of code could create something so visually engaging. Even though the internet already has dozens of Sierpinski Triangles, I haven't found any as interactive and eloquent as this one (which is because of d3.js, not anything I've done) so I feel ok posting it.
 
