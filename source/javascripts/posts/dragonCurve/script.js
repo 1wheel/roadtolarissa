@@ -8,8 +8,10 @@ var width = 750,
 var zoom = d3.behavior.zoom()
     .scaleExtent([1, 1 << 16])
     .on('zoom', function(){
+      var scale = d3.event.scale
+      var translate = d3.event.translate//.map(function(d){ return d/scale })
       svg.attr('transform', 
-        ['translate(', d3.event.translate, ') scale(', d3.event.scale, ')'].join(''))
+        ['translate(', translate, ') scale(', scale, ')'].join(''))
     })
 
 var svg = d3.select('#dragon-curve')
@@ -56,7 +58,7 @@ function addLine(a, b, m, θ, isLeft, level){
           var b2 = extendLine(b, ℓ1, θ2)
           addLine(b, b2, m1, θ2, false, level + 1)
 
-          line.style('opacity', .2)
+          line.style('opacity', .2).style('stroke-width', 1)
           rect.style('opacity', .05).remove()
           datum.done = true
 
@@ -64,7 +66,7 @@ function addLine(a, b, m, θ, isLeft, level){
           var halfWidth  = width/ (2*scale)
           var halfHeight = height/(2*scale)
           var center = zoom.translate()
-              .map(function(d, i){ return -d + (i ? halfHeight : halfWidth) })
+              .map(function(d, i){ return -d/scale + (i ? halfHeight : halfWidth) })
           var levelCompleted = lines.every(function(d){
             if (d.level != level || d.done) return true
             // check to that all of the same level that aren't completed are off screen
