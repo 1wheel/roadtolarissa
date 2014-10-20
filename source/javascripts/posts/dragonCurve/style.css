@@ -1,19 +1,10 @@
 path{
-	stroke: rgb(241, 229, 6);
+	stroke: black;
 	stroke-width: 5px;
 	pointer-events: none;
 }
 
 rect{
-	opacity: .6
+	opacity: .3
 }
 
-.left{
-	fill: rgb(255, 253, 0);
-	fill: rgb(164, 66, 126);
-	fill: rgb(255, 193, 245);
-}
-
-.right{
-	fill: rgb(255, 0, 215);
-}

@@ -3,7 +3,9 @@ var sqrt2 = Math.sqrt(2),
     lines,
     purple = 'rgb(164, 66, 126)',
     pink = 'rgb(255, 0, 215)',
-    gold = 'rgb(241, 229, 6)'
+    gold = 'rgb(241, 229, 6)',
+    orange = 'rgb(255, 173, 22)',
+    blue = 'rgb(69, 30, 245)'
 
 var width = 750,
     height = 600
@@ -17,11 +19,17 @@ var zoom = d3.behavior.zoom()
         ['translate(', translate, ') scale(', scale, ')'].join(''))
     })
 
-var svg = d3.select('#dragon-curve')
-    .append('svg')
+var rootSVG = d3.select('#dragon-curve').append('svg')
       .attr({width: width, height: height})
-    .append('g')
-      .call(zoom)
+
+var gradient = rootSVG.append('defs').append('linearGradient')
+    .attr({id:  'color', x1: 1, y1: 0, x2: 0, y2: 1})
+gradient.append('stop').attr({offset: '0%',   'stop-color': orange})
+gradient.append('stop').attr({offset: '48%',   'stop-color': orange})
+gradient.append('stop').attr({offset: '52%', 'stop-color': blue})
+gradient.append('stop').attr({offset: '100%', 'stop-color': blue})
+
+var svg = rootSVG.append('g').call(zoom)
 
 function addLine(a, b, m, θ, isLeft, level){
   var ℓ = length(a, b)
@@ -29,7 +37,7 @@ function addLine(a, b, m, θ, isLeft, level){
   var line = svg.append('path')
       .attr('d', ['M', a, 'L', m].join(''))
       .attr('vector-effect', 'non-scaling-stroke')
-      .style('stroke', gold)
+      .attr('stroke-linecap', 'round')
   line.transition().duration(1000)
       .attr('d', ['M', a, 'L', b].join(''))
       .each('end', function(){
@@ -43,7 +51,8 @@ function addLine(a, b, m, θ, isLeft, level){
     rectAdded = true
     rect.attr({x: b[0], y: b[1], height: 0, width: 0})
         .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
-        .attr('class', isLeft ? 'left' : 'right')
+        // .attr('class', isLeft ? 'left' : 'right')
+        .attr('fill', 'url(#color)')
         .classed('hoverrect', true)
       .transition().duration(1000).delay(delay*1000)
         .attr({height: ℓ/sqrt2, width: ℓ/sqrt2})
@@ -63,7 +72,7 @@ function addLine(a, b, m, θ, isLeft, level){
           addLine(b, b2, m1, θ2, false, level + 1)
 
           line.style('opacity', .2).style('stroke-width', 1)
-          rect.style('opacity', .05).remove()
+          rect.transition().duration(500).style('opacity', .05).remove()
           datum.done = true
 
           var scale = zoom.scale()
@@ -100,7 +109,7 @@ function midPoint(a, b){
 }
 
 d3.select('#step').on('click', function(){
-  d3.selectAll('.hoverrect').filter(function(d, i){ return i < 4000 })
+  d3.selectAll('.hoverrect').filter(function(d, i){ return i < 400 })
       .each(function(){ d3.select(this).on('mouseover')() })
 })
 
