@@ -11,7 +11,7 @@ categories:
 
 Another fractal with d3. Since the lines aren't space filling after a finite number of iterations, I've added squares to capture mouse events and colored them to hint at the direction the line will turn. This fractal also looks quite messy if different parts of it exist at different iterations. To handle this, squares to create the next level only appear once all the visible squares on the current level have been touched. 
 
-Using canvas instead of SVG would be have allowed this to handle many more points before getting slowing the page down. I'm not sure how to do that and preserve the  simplicity at the heart of the current [code](https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/dragonCurve/script.js): 
+Using canvas instead of SVG would be have allowed this to handle many more points before slowing the page down. I'm not sure how to do that and preserve the  simplicity at the heart of the current [code](https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/dragonCurve/script.js): 
 
 ```javascript
 function drawLine(a, b, θ){
