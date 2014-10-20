@@ -1,6 +1,9 @@
 var sqrt2 = Math.sqrt(2),
     π = Math.PI,
-    lines
+    lines,
+    purple = 'rgb(164, 66, 126)',
+    pink = 'rgb(255, 0, 215)',
+    gold = 'rgb(241, 229, 6)'
 
 var width = 750,
     height = 500
@@ -26,6 +29,7 @@ function addLine(a, b, m, θ, isLeft, level){
   var line = svg.append('path')
       .attr('d', ['M', a, 'L', m].join(''))
       .attr('vector-effect', 'non-scaling-stroke')
+      .style('stroke', gold)
   line.transition().duration(1000)
       .attr('d', ['M', a, 'L', b].join(''))
       .each('end', function(){
@@ -74,7 +78,6 @@ function addLine(a, b, m, θ, isLeft, level){
                    Math.abs(d.a[1] - center[1]) > halfHeight 
           })
           if (levelCompleted){
-            console.log('levelCompleted')
             var nextLevel = lines.filter(function(d){ return d.level == level + 1 })
             nextLevel.forEach(function(d, i){  d.addRect(i/nextLevel.length) })
           }
@@ -117,22 +120,3 @@ d3.select('#reset')
       lines[0].addRect(0)
     })
     .on('click')()
-
-
-function centerDebug(){
-  var scale = zoom.scale()
-  var halfWidth  = width/ (2*scale)
-  var halfHeight = height/(2*scale)
-  var center = zoom.translate()
-      .map(function(d, i){ return -d/scale + (i ? halfHeight : halfWidth) })
-  console.log(center)
-  svg.append('circle')
-      .attr({r: 10, cx: center[0], cy: center[1]})
-  var level = 0
-  var levelCompleted = lines.every(function(d){
-    if (d.level != level || d.done) return true
-    // check to that all of the same level that aren't completed are off screen
-    return Math.abs(d.a[0] - center[0]) > halfWidth || 
-           Math.abs(d.a[1] - center[1]) > halfHeight 
-  })
-}
