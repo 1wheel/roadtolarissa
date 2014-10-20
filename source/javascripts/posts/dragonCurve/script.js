@@ -29,11 +29,6 @@ rectColor.append('stop').attr({offset: '49%',   'stop-color': orange})
 rectColor.append('stop').attr({offset: '51%', 'stop-color': blue})
 rectColor.append('stop').attr({offset: '100%', 'stop-color': blue})
 
-var lineColor = rootSVG.append('defs').append('linearGradient')
-    .attr({id: 'lineColor'})
-lineColor.append('stop').attr({offset: '0%',   'stop-color': 'lightgray'})
-lineColor.append('stop').attr({offset: '100%', 'stop-color': 'black'})
-
 var svg = rootSVG.append('g').call(zoom)
 
 function addLine(a, b, m, θ, isLeft, level){
@@ -43,7 +38,6 @@ function addLine(a, b, m, θ, isLeft, level){
       .attr('d', ['M', a, 'L', m].join(''))
       .attr('vector-effect', 'non-scaling-stroke')
       .attr('stroke-linecap', 'round')
-      .attr('stroke', 'url(#lineColor)')
   line.transition().duration(1000)
       .attr('d', ['M', a, 'L', b].join(''))
   var datum = {line: line, level: level, addRect: addRect, done: false, a: a}
@@ -55,7 +49,6 @@ function addLine(a, b, m, θ, isLeft, level){
     rectAdded = true
     rect.attr({x: b[0], y: b[1], height: 0, width: 0})
         .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
-        // .attr('class', isLeft ? 'left' : 'right')
         .attr('fill', 'url(#rectColor)')
         .classed('hoverrect', true)
       .transition().duration(1000).delay(delay*1000)
