@@ -7,7 +7,7 @@ categories:
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/dragonCurve/style.css">
 
 <div id='dragon-curve'></div>
-*Dragon curve. Mouse over to iterate; click to <a id='step'>iterate all</a> and <a id='reset'>reset</a>; scroll to zoom.*
+*[Dragon curve](http://en.wikipedia.org/wiki/Dragon_curve). Mouse over to iterate; click to <a id='step'>iterate all</a> and <a id='reset'>reset</a>; scroll to zoom.*
 
 Another fractal with d3. Since the lines aren't space filling after a finite number of iterations, I've added squares to capture mouse events and colored them to hint at the direction the line will turn. This fractal also looks quite messy if different parts of it exist at different iterations. To handle this, squares to create the next level only appear once all the visible squares on the current level have been touched. 
 
