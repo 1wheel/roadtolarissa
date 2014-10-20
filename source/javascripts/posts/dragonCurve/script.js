@@ -31,7 +31,7 @@ rectColor.append('stop').attr({offset: '100%', 'stop-color': blue})
 
 var svg = rootSVG.append('g').call(zoom)
 
-function addLine(a, b, m, θ, isLeft, level){
+function drawLine(a, b, m, θ, level){
   var ℓ = length(a, b)
   var rect = svg.append('rect')
   var line = svg.append('path')
@@ -60,13 +60,13 @@ function addLine(a, b, m, θ, isLeft, level){
           //calc midpoint to animate from
           var m1 = [(a[0] + b[0])/2, (a[1] + b[1])/2]
 
-          var θ1 = (360 + θ - 45) % 360
+          var θ1 = (θ - 45) % 360
           var b1 = extendLine(a, ℓ1, θ1)
-          addLine(a, b1, m1, θ1, true, level + 1)
+          drawLine(a, b1, m1, θ1, level + 1)
 
-          var θ2 = (360 + θ - 135) % 360
+          var θ2 = (θ - 135) % 360
           var b2 = extendLine(b, ℓ1, θ2)
-          addLine(b, b2, m1, θ2, false, level + 1)
+          drawLine(b, b2, m1, θ2, level + 1)
 
           line.style('opacity', .2).style('stroke-width', 1)
           rect.transition().duration(500).style('opacity', .05).remove()
@@ -122,7 +122,7 @@ d3.select('#reset')
       zoom.scale(1).translate([0, 0])
 
       lines = []
-      addLine([170, height/2.61], [width - 120, height/2.61], [0, height/2], 90, true, 0)
+      drawLine([170, height/2.61], [width - 120, height/2.61], [width - 120, height/2.61], 90, 0)
       lines[0].addRect(0)
     })
     .on('click')()
