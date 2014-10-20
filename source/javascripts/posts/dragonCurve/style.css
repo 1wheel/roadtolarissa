@@ -1,22 +1,18 @@
 path{
-	stroke: black;
-	stroke-width: 3px;
+	stroke: rgb(241, 229, 6);
+	stroke-width: 4px;
 }
 
 rect{
-	fill-opacity: .8;
-	fill: steelblue;
-	stroke: blue;
-	opacity: .5;
-	stroke-width: 0px;
+
 }
 
 .left{
-	fill: steelblue;
-	stroke: steelblue;
+	fill: rgb(255, 253, 0);
+	fill: rgb(164, 66, 126);
 }
 
 .right{
-	fill: red;
-	stroke: red;
+	fill: rgb(255, 0, 215);
+
 }

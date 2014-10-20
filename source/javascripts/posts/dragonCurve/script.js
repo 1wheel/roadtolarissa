@@ -22,6 +22,7 @@ var svg = d3.select('#dragon-curve')
 
 function addLine(a, b, m, θ, isLeft, level){
   var ℓ = length(a, b)
+  var rect = svg.append('rect')
   var line = svg.append('path')
       .attr('d', ['M', a, 'L', m].join(''))
       .attr('vector-effect', 'non-scaling-stroke')
@@ -36,7 +37,6 @@ function addLine(a, b, m, θ, isLeft, level){
   function addRect(delay){
     if (rectAdded) return
     rectAdded = true
-    var rect = svg.append('rect')
     rect.attr({x: b[0], y: b[1], height: 0, width: 0})
         .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
         .attr('class', isLeft ? 'left' : 'right')
