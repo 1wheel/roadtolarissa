@@ -22,12 +22,17 @@ var zoom = d3.behavior.zoom()
 var rootSVG = d3.select('#dragon-curve').append('svg')
       .attr({width: width, height: height})
 
-var gradient = rootSVG.append('defs').append('linearGradient')
-    .attr({id:  'color', x1: 1, y1: 0, x2: 0, y2: 1})
-gradient.append('stop').attr({offset: '0%',   'stop-color': orange})
-gradient.append('stop').attr({offset: '48%',   'stop-color': orange})
-gradient.append('stop').attr({offset: '52%', 'stop-color': blue})
-gradient.append('stop').attr({offset: '100%', 'stop-color': blue})
+var rectColor = rootSVG.append('defs').append('linearGradient')
+    .attr({id: 'rectColor', x1: 1, y1: 0, x2: 0, y2: 1})
+rectColor.append('stop').attr({offset: '0%',   'stop-color': orange})
+rectColor.append('stop').attr({offset: '49%',   'stop-color': orange})
+rectColor.append('stop').attr({offset: '51%', 'stop-color': blue})
+rectColor.append('stop').attr({offset: '100%', 'stop-color': blue})
+
+var lineColor = rootSVG.append('defs').append('linearGradient')
+    .attr({id: 'lineColor'})
+lineColor.append('stop').attr({offset: '0%',   'stop-color': 'lightgray'})
+lineColor.append('stop').attr({offset: '100%', 'stop-color': 'black'})
 
 var svg = rootSVG.append('g').call(zoom)
 
@@ -38,10 +43,9 @@ function addLine(a, b, m, θ, isLeft, level){
       .attr('d', ['M', a, 'L', m].join(''))
       .attr('vector-effect', 'non-scaling-stroke')
       .attr('stroke-linecap', 'round')
+      .attr('stroke', 'url(#lineColor)')
   line.transition().duration(1000)
       .attr('d', ['M', a, 'L', b].join(''))
-      .each('end', function(){
-      })
   var datum = {line: line, level: level, addRect: addRect, done: false, a: a}
   lines.push(datum)
 
@@ -52,7 +56,7 @@ function addLine(a, b, m, θ, isLeft, level){
     rect.attr({x: b[0], y: b[1], height: 0, width: 0})
         .attr('transform', ['rotate(', -θ + 225,',', b, ')'].join(''))
         // .attr('class', isLeft ? 'left' : 'right')
-        .attr('fill', 'url(#color)')
+        .attr('fill', 'url(#rectColor)')
         .classed('hoverrect', true)
       .transition().duration(1000).delay(delay*1000)
         .attr({height: ℓ/sqrt2, width: ℓ/sqrt2})

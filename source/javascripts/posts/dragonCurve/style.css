@@ -1,10 +1,9 @@
 path{
-	stroke: black;
 	stroke-width: 5px;
 	pointer-events: none;
 }
 
 rect{
-	opacity: .3
+	opacity: .2
 }
 
