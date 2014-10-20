@@ -1,5 +1,6 @@
 ---
 layout: post
+permalink: /dragon-curve
 title: "Dragon Curve"
 categories: 
 ---
