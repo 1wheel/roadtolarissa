@@ -44,10 +44,12 @@ pairNums.forEach(function(pair){
 	var a = points[pair.i]
 	var b = points[pair.j]
 	
-	circles
+	var otherCircles = circles
 			.classed('left', false)
 			.classed('right', false)
 			.attr('r', 5)
+			.filter(function(d, i){ return i != pair.i && i != pair.j })
+
 	a .circle.attr('r', 10).classed('left',  true)
 	b.circle.attr('r', 10).classed('right', true)
 	d3.select('.pairLine')
@@ -55,8 +57,19 @@ pairNums.forEach(function(pair){
 
 	var m = (a.y - b.y)/(a.x - b.x)
 	var B = a.y - m*a.x
-	circles.style('fill', function(d){
-		return d.x*m + B < d.y ? 'yellow' : 'blue'
+	var dir = a.x + a.y > b.x + b.y 
+
+	var allLeft = true
+	otherCircles.style('fill', function(d){
+		var isLeft = dir ^ d.x*m + B > d.y
+		allLeft = allLeft && isLeft
+		return isLeft ? 'yellow' : 'blue'
 	})
+	if (allLeft){
+		svg.append('path')
+				.classed('convex', true)
+				.attr('marker-end', 'url(#head)')
+				.attr('d', ['M', a.x, ',', a.y, ' L', b.x, ',', b.y].join(''))
+	}
 
 })
