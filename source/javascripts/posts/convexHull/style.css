@@ -1,4 +1,19 @@
 .point{
 	stroke: black;
-	fill-opacity: .3;
+	fill-opacity: .4;
+}
+
+.left{
+	fill: green;
+	stroke-width: 3px;
+}
+
+.right{
+	fill: red;
+	stroke-width: 3px;
+}
+
+.pairLine{
+	stroke: pink;
+	stroke-width: 10px;
 }
