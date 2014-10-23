@@ -22,3 +22,7 @@
 	stroke: black;
 	stroke-width: 5px;
 }
+
+.trialLine{
+	stroke: lightgray;
+}
