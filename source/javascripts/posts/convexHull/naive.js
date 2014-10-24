@@ -59,7 +59,7 @@ trialLineG.selectAll('trialLine')
 			d3.select(this).transition().duration(1000)
 					.attr('d', ['M', d.b.x, ',', d.b.y, ' L', d.b.x, ',', d.b.y].join(''))
 					.remove()
-					
+
 			// circles.transition().duration(1000)
 			// 		.attr('r', 5).style('fill', 'black')
 			// divideLine.attr('d', 'M0,0')
@@ -117,7 +117,7 @@ function drawPairLine(pair){
   var allSame = true
   var lastLeft
   otherCircles.style('fill', function(d, i){
-    var isLeft = dir ^ (d.x*m + B > d.y)
+    var isLeft =  (d.x*m + B > d.y)
   	if (i && isLeft ^ lastLeft){
   		allSame = false
   	}
