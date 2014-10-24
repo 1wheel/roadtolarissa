@@ -3,13 +3,14 @@ var green = '#01863e',
 		red = '#ec3221'
 
 
-var margin = {top: 10, right: 10, bottom: 10, left: 10},
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
     width = 750 - margin.left - margin.right
     height = 500 - margin.top - margin.bottom
 
 var numPoints = 20,
     points = d3.range(numPoints).map(function(i){
-      var p = [Math.random()*width, Math.random()*height]
+      var p = [	Math.random()*width* .9 + width *(1 - .9)/2, 
+      					Math.random()*height*.9 + height*(1 - .9)/2]
       return {x: p[0], y: p[1], p: p, i: i}
     })
 
@@ -20,6 +21,8 @@ var svg = d3.select('#naive')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+var bArea = svg.append('path').style({fill: blue, opacity: .05})
+var rArea = svg.append('path').style({fill: red,  opacity: .05})
 var divideLine = svg.append('path').classed('divideLine', true)
 var pairLineG = svg.append('g')
 var trialLineG = svg.append('g')
@@ -111,7 +114,18 @@ function drawPairLine(pair){
   var x0 = 0
   var x1 = width
 	divideLine.attr('d', ['M', x0, ',', B + m*x0, ' L', x1, ',', B + m*x1].join(''))
-  
+  bArea.attr('d',  ['M', x0, 		',', 	B + m*x0, 
+										'L', 0, 		',', 	0,
+										'L', width, ',', 	0,
+										'L', x1, 	',', 	B + m*x1,
+										].join(''))
+  rArea.attr('d',  ['M', x0, 		',', 	B + m*x0, 
+										'L', 0, 		',', 	height,
+										'L', width, ',', 	height,
+										'L', x1, 	',', 	B + m*x1,
+										].join(''))
+
+
   var dir = a.x  > b.x 
 
   var allSame = true
