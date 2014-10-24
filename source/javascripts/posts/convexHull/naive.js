@@ -20,6 +20,7 @@ var svg = d3.select('#naive')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+var divideLine = svg.append('path').classed('divideLine', true)
 var pairLineG = svg.append('g')
 var trialLineG = svg.append('g')
 
@@ -58,8 +59,13 @@ trialLineG.selectAll('trialLine')
 			d3.select(this).transition().duration(1000)
 					.attr('d', ['M', d.b.x, ',', d.b.y, ' L', d.b.x, ',', d.b.y].join(''))
 					.remove()
+					
+			// circles.transition().duration(1000)
+			// 		.attr('r', 5).style('fill', 'black')
+			// divideLine.attr('d', 'M0,0')
     })
     .style({opacity: '1', 'stroke-width': 4})
+    .attr('stroke-linecap', 'round')
     .attr('d', function(d){
       return ['M', d.a.p, 'L', d.a.p].join('') })
   .transition().delay(function(d){ return d.i*800 }).duration(800)
@@ -88,8 +94,6 @@ function drawPairLine(pair){
   var otherCircles = circles
       .classed('left', false)
       .classed('right', false)
-    .transition()
-      .attr('r', 5)
       .filter(function(d, i){ return i != a.i && i != b.i })
 
   a.circle.classed('left',  true)
@@ -100,10 +104,14 @@ function drawPairLine(pair){
   		.style('fill', green)
   	.transition()
   		.attr('r', 10)
-  //pairLine.attr('d', ['M', a.x, ',', a.y, ' L', b.x, ',', b.y].join(''))
 
+  
   var m = (a.y - b.y)/(a.x - b.x)
   var B = a.y - m*a.x
+  var x0 = 0
+  var x1 = width
+	divideLine.attr('d', ['M', x0, ',', B + m*x0, ' L', x1, ',', B + m*x1].join(''))
+  
   var dir = a.x  > b.x 
 
   var allSame = true

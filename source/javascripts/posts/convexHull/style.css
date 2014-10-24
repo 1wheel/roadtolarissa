@@ -18,7 +18,7 @@ body{
 }
 
 .pairLine{
-	stroke: steelblue;
+	stroke: #01863e;
 	stroke-width: 5px;
 }
 
@@ -32,3 +32,6 @@ body{
 	opacity: .7;
 }
 
+.divideLine{
+	stroke: #01863e;
+}
