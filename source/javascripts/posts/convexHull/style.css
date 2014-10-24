@@ -1,6 +1,10 @@
+body{
+	background-color: #F5F5F5;
+}
+
 .point{
 	stroke: black;
-	fill-opacity: 1;
+	fill-opacity: .9;
 }
 
 .left{
@@ -14,15 +18,17 @@
 }
 
 .pairLine{
-	stroke: pink;
-	stroke-width: 10px;
+	stroke: steelblue;
+	stroke-width: 5px;
 }
 
 .convex{
 	stroke: black;
-	stroke-width: 5px;
+	stroke-width: 3px;
 }
 
 .trialLine{
 	stroke: lightgray;
+	opacity: .7;
 }
+
