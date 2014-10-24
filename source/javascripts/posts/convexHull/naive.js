@@ -20,16 +20,13 @@ var svg = d3.select('#naive')
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-var pairLine = svg.append('path')
-    .classed('pairLine', true)
-    .attr('marker-end', 'url(#head)')
 var pairLineG = svg.append('g')
 var trialLineG = svg.append('g')
 
-svg.append('defs').append('marker')
-    .attr({id: 'head', orient: 'auto', markerWidth: 2, markerHeight: 4, refX: .1, refY: 2})
-  .append('path')
-    .attr({d: 'M0,0 V4 L2,2 Z', fill: 'red'})
+// svg.append('defs').append('marker')
+//     .attr({id: 'head', orient: 'auto', markerWidth: 2, markerHeight: 4, refX: .1, refY: 2})
+//   .append('path')
+//     .attr({d: 'M0,0 V4 L2,2 Z', fill: 'red'})
 
 circles = svg.selectAll('circle')
     .data(points).enter()
@@ -43,8 +40,7 @@ circles = svg.selectAll('circle')
 
 var pairs = []
 d3.range(numPoints).forEach(function(i){
-  d3.range(numPoints).forEach(function(j){
-    if (i === j) return 
+  d3.range(i + 1, numPoints).forEach(function(j){
     pairs.push({i: i, j: j, a: points[i], b: points[j]})
   })
 })
@@ -97,9 +93,11 @@ function drawPairLine(pair){
       .filter(function(d, i){ return i != a.i && i != b.i })
 
   a.circle.classed('left',  true)
+  		.style('fill', green)
   	.transition()
 		  .attr('r', 10)
   b.circle.classed('right', true)
+  		.style('fill', green)
   	.transition()
   		.attr('r', 10)
   //pairLine.attr('d', ['M', a.x, ',', a.y, ' L', b.x, ',', b.y].join(''))
@@ -108,13 +106,17 @@ function drawPairLine(pair){
   var B = a.y - m*a.x
   var dir = a.x  > b.x 
 
-  var allLeft = true
-  otherCircles.style('fill', function(d){
+  var allSame = true
+  var lastLeft
+  otherCircles.style('fill', function(d, i){
     var isLeft = dir ^ (d.x*m + B > d.y)
-    allLeft = allLeft && isLeft
+  	if (i && isLeft ^ lastLeft){
+  		allSame = false
+  	}
+  	lastLeft = isLeft
     return isLeft ? blue : red
   })
-  if (allLeft){
+  if (allSame){
     pairLineG.append('path')
         .classed('convex', true)
         .attr('marker-end', 'url(#head)')
