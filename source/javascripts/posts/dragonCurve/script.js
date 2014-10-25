@@ -101,10 +101,6 @@ function length(a, b){
   return Math.sqrt(x2 + y2)
 }
 
-function midPoint(a, b){
-  return [(a[0] + b[0])/2, (a[1] + b[1])/2]
-}
-
 d3.select('#step').on('click', function(){
   d3.selectAll('.hoverrect').filter(function(d, i){ return i < 400 })
       .each(function(){ d3.select(this).on('mouseover')() })

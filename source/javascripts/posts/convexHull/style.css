@@ -3,18 +3,17 @@ body{
 }
 
 .point{
-	stroke: white;
+	stroke: lightgray;
 	fill-opacity: .5;
+	opacity: .7;
+	stroke-width: 2px;
 }
 
-.left{
-	fill: white;
+.selectedPoint{
+	fill-opacity: 0;
+	stroke: white;
 	stroke-width: 3px;
-}
-
-.right{
-	fill: white;
-	stroke-width: 3px;
+	opacity: 1;
 }
 
 .pairLine{

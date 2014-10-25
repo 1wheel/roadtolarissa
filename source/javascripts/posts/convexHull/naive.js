@@ -54,15 +54,16 @@ function drawNaive(){
       })
       .on('mouseout', function(d){
       	if (this.__transition__) return
+        var m = [(d.a.x + d.b.x)/2, (d.a.y + d.b.y)/2]
   			d3.select(this).transition().duration(1000)
-  					.attr('d', ['M', d.b.x, ',', d.b.y, ' L', d.b.x, ',', d.b.y].join(''))
+  					.attr('d', ['M', m, 'L', m].join(''))
   					.remove()
 
   			// circles.transition().duration(1000)
   			// 		.attr('r', 5).style('fill', 'black')
   			// divideLine.attr('d', 'M0,0')
       })
-      .style({opacity: '1', 'stroke-width': 4})
+      .style({opacity: '1', 'stroke-width': 5})
       .attr('stroke-linecap', 'round')
       .attr('d', function(d){
         return ['M', d.a.p, 'L', d.a.p].join('') })
@@ -73,7 +74,7 @@ function drawNaive(){
       .attr('d', function(d){
         return ['M', d.a.p, 'L', d.b.p].join('') })
     .transition()
-      .style({'stroke-width': 1, opacity: .8})
+      .style({'stroke-width': 2, opacity: .8})
 
 
   function drawPairLine(pair){
@@ -81,19 +82,8 @@ function drawNaive(){
     var b = pair.b
     
     var otherCircles = circles
-        .classed('left', false)
-        .classed('right', false)
+        .attr('class', function(d, i){ return i != a.i && i != b.i ? 'point' : 'selectedPoint' })
         .filter(function(d, i){ return i != a.i && i != b.i })
-
-    a.circle.classed('left',  true)
-    		.style('fill', white)
-    	.transition()
-  		  .attr('r', 10)
-    b.circle.classed('right', true)
-    		.style('fill', white)
-    	.transition()
-    		.attr('r', 10)
-
     
     var m = (a.y - b.y)/(a.x - b.x)
     var B = a.y - m*a.x
@@ -127,11 +117,14 @@ function drawNaive(){
           .classed('convex', true)
           .attr('marker-end', 'url(#head)')
           .attr('d', ['M', a.x, ',', a.y, ' L', b.x, ',', b.y].join(''))
+
+      a.circle.style('stroke', 'black')
+      b.circle.style('stroke', 'black')
     }
   }
 
   svg.append('text').classed('reset-button', true)
-      .attr('dy', '1em')
+      .attr({dy: '1em', dx: '.2em'})
       .on('click', drawNaive)
       .text('↻')
 }
