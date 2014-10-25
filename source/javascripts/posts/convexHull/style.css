@@ -18,8 +18,9 @@ body{
 }
 
 .pairLine{
-	stroke: #fff;
+	stroke: white;
 	stroke-width: 5px;
+	opacity: 1;
 }
 
 .convex{
@@ -32,12 +33,9 @@ body{
 	opacity: .7;
 }
 
-.divideLine{
-	stroke: #01863e;
-}
 
 .reset-button{
 	font-size: 30px;
-	fill: grey;
+	fill: lightgray;
 	cursor: pointer;
 }

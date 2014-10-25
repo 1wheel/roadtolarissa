@@ -25,7 +25,7 @@ function drawNaive(){
 
   var bArea = svg.append('path').style({fill: blue, opacity: .99})
   var rArea = svg.append('path').style({fill: red,  opacity: .99})
-  var divideLine = svg.append('path').classed('divideLine', true)
+
   var pairLineG = svg.append('g')
   var trialLineG = svg.append('g')
 
@@ -50,7 +50,7 @@ function drawNaive(){
       .on('mouseover', function(d){
       	if (this.__transition__) return
       	drawPairLine(d)
-      	d3.select(this).attr({class: 'pairLine'}).style('stroke-width', 4)
+      	d3.select(this).attr({class: 'pairLine'}).style({'stroke-width': 4, opacity: 1})
       })
       .on('mouseout', function(d){
       	if (this.__transition__) return
@@ -99,7 +99,7 @@ function drawNaive(){
     var B = a.y - m*a.x
     var x0 = 0
     var x1 = width
-  	divideLine.attr('d', ['M', x0, ',', B + m*x0, ' L', x1, ',', B + m*x1].join(''))
+
     bArea.attr('d',  ['M', x0, 		',', 	B + m*x0, 
   										'L', 0, 		',', 	0,
   										'L', width, ',', 	0,
