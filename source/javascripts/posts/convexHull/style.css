@@ -3,8 +3,8 @@ body{
 }
 
 .point{
-	stroke: lightgray;
-	fill-opacity: .5;
+	stroke: white;
+	fill-opacity: 1;
 	opacity: .7;
 	stroke-width: 2px;
 }
