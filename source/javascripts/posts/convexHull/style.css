@@ -3,22 +3,22 @@ body{
 }
 
 .point{
-	stroke: black;
-	fill-opacity: .9;
+	stroke: white;
+	fill-opacity: .5;
 }
 
 .left{
-	fill: green;
+	fill: white;
 	stroke-width: 3px;
 }
 
 .right{
-	fill: red;
+	fill: white;
 	stroke-width: 3px;
 }
 
 .pairLine{
-	stroke: #01863e;
+	stroke: #fff;
 	stroke-width: 5px;
 }
 
@@ -34,4 +34,10 @@ body{
 
 .divideLine{
 	stroke: #01863e;
+}
+
+.reset-button{
+	font-size: 30px;
+	fill: grey;
+	cursor: pointer;
 }
