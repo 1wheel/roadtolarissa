@@ -9,6 +9,8 @@ function drawNlogN(){
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+  var lineG = svg.append('g')
+
   circles = svg.selectAll('circle')
       .data(points).enter()
     .append('circle').classed('point', true)
@@ -17,6 +19,10 @@ function drawNlogN(){
       .attr('cy', f('y'))
       .each(function(d){ d.circle = d3.select(this) })
 
+  points = _.sortBy(points, f('x'))
+
+  lineG.append('path').classed('xorder', true)
+      .attr('d', 'M' + points.map(f('p')).join('L'))
 
   svg.append('text').classed('reset-button', true)
       .attr({dy: '1em', dx: '.2em'})

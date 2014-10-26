@@ -36,3 +36,12 @@ body{
 	fill: lightgray;
 	cursor: pointer;
 }
+
+
+
+
+
+.xorder{
+	fill: none;
+	stroke: red;
+}
