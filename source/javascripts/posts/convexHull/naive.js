@@ -1,20 +1,6 @@
-var green = '#01863e',
-		blue = '#1c4695',
-		red = '#ec3221',
-    white = '#fff'
-
-
-var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width = 750 - margin.left - margin.right
-    height = 500 - margin.top - margin.bottom
-
 function drawNaive(){
   var numPoints = 20,
-      points = d3.range(numPoints).map(function(i){
-        var p = [	Math.random()*width* .9 + width *(1 - .9)/2, 
-        					Math.random()*height*.9 + height*(1 - .9)/2]
-        return {x: p[0], y: p[1], p: p, i: i}
-      })
+      points = uniformRandom(numPoints)
 
   var svg = d3.select('#naive').html('')
     .append('svg')
@@ -120,9 +106,6 @@ function drawNaive(){
           .classed('convex', true)
           .attr('marker-end', 'url(#head)')
           .attr('d', ['M', a.x, ',', a.y, ' L', b.x, ',', b.y].join(''))
-
-      a.circle.style('stroke', 'black')
-      b.circle.style('stroke', 'black')
     }
   }
 
