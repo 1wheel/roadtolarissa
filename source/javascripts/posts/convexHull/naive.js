@@ -71,6 +71,9 @@ function drawNaive(){
     	.each('start', function(d){
     		d.a.circle.transition().attr('r', 10)
     	})
+      .each('end', function(d){
+        d.a.circle.transition().attr('r', 5)
+      })
       .attr('d', function(d){
         return ['M', d.a.p, 'L', d.b.p].join('') })
     .transition()
@@ -110,7 +113,7 @@ function drawNaive(){
     		allSame = false
     	}
     	lastLeft = isLeft
-      return isLeft ? blue : red
+      // return isLeft ? blue : red
     })
     if (allSame){
       pairLineG.append('path')

@@ -3,16 +3,14 @@ body{
 }
 
 .point{
-	stroke: white;
 	fill-opacity: 1;
-	opacity: .7;
-	stroke-width: 2px;
+	fill: black;
 }
 
 .selectedPoint{
-	fill-opacity: 0;
 	stroke: white;
-	stroke-width: 3px;
+	fill: white;
+	stroke-width: 5px;
 	opacity: 1;
 }
 
