@@ -72,7 +72,7 @@ function norm(v){
 }
 
 function calcAngle(a, b, c){
-  var v1 = [a.x - b.x, a.y - b.y]
+  var v1 = [b.x - a.x, b.y - a.y]
   var v2 = [c.x - b.x, c.y - b.y]
   
   var dot = v1[0]*v2[0] + v1[1]*v2[1]
