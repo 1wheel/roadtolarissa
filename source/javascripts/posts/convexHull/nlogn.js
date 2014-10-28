@@ -38,10 +38,25 @@ function drawNlogN(){
 
     b.circle.attr('r', 10)
     b.circle.style('fill', ang < 45 ? 'green' : 'red')
-    console.log(ang)
+    //console.log(ang)
   }
 
   setInterval(iteratePoint, 500)
+
+  svg.append('rect')
+      .attr({width: width, height: height})
+      .on('mousemove', function(){
+        var p3 = d3.mouse(this)
+        var p3 = {x: p3[0], y: p3[1]}
+        mPath.attr('d', ['M', p1.x, ',', p1.y, 'L', p3.x, ',', p3.y].join(''))
+        console.log(calcAngle(p1, p2, p3))
+      })
+  var p1 = {x: 200, y: 200}
+  var p2 = {x: 300, y: 200}
+  svg.append('path').classed('mline', true)
+      .attr('d', ['M', p1.x, ',', p1.y, 'L', p2.x, ',', p2.y].join(''))
+
+  var mPath = svg.append('path').classed('mline', true)
 
   svg.append('text').classed('reset-button', true)
       .attr({dy: '1em', dx: '.2em'})
