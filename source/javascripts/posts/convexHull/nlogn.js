@@ -29,6 +29,7 @@ function drawNlogN(){
   var curI = 1
 
   function iteratePoint(){
+    return
     curI++
     if (curI > points.length  - 1) return
     topPoints.push(points[curI])
@@ -50,6 +51,7 @@ function drawNlogN(){
         var p3 = {x: p3[0], y: p3[1]}
         mPath.attr('d', ['M', p1.x, ',', p1.y, 'L', p3.x, ',', p3.y].join(''))
         console.log(calcAngle(p1, p2, p3))
+        calcAngle(p1, p2, p3)
       })
   var p1 = {x: 200, y: 200}
   var p2 = {x: 300, y: 200}
@@ -70,10 +72,11 @@ function norm(v){
 }
 
 function calcAngle(a, b, c){
-  var v1 = [b.x - a.x, b.y - a.y]
-  var v2 = [b.x - c.x, b.y - c.y]
+  var v1 = [a.x - b.x, a.y - b.y]
+  var v2 = [c.x - b.x, c.y - b.y]
   
-  var l = v1[0]*v2[0] + v1[1]*v2[1]
+  var dot = v1[0]*v2[0] + v1[1]*v2[1]
+  // console.log(dot)
 
-  return Math.acos(l/(norm(v1)*norm(v2)))
+  return Math.acos(dot/(norm(v1)*norm(v2)))*180/Math.PI
 }
