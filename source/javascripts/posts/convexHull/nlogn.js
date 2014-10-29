@@ -49,9 +49,9 @@ function drawNlogN(){
       .on('mousemove', function(){
         var p3 = d3.mouse(this)
         var p3 = {x: p3[0], y: p3[1]}
-        mPath.attr('d', ['M', p1.x, ',', p1.y, 'L', p3.x, ',', p3.y].join(''))
+        mPath.attr('d', ['M', p2.x, ',', p2.y, 'L', p3.x, ',', p3.y].join(''))
         //console.log(calcAngle(p1, p2, p3))
-        ang = calcAngle(p1, p2, p3)
+        ang = isLessThan180(p1, p2, p3)
         aText.text(ang)
       })
   var p1 = {x: 200, y: 200}
@@ -82,12 +82,19 @@ function calcAngle(a, b, c){
   var ab = dist(a, b)
   var bc = dist(b, c)
   var ca = dist(c, a)
+  console.log(v1[0]*v2[1] - v2[0]*v1[1])
 
-  console.log(ab, bc, ca)
-  return Math.acos((bc*bc + ab*ab - ca*ca)/(2*bc*ab))*180/Math.PI
+  // return Math.acos((bc*bc + ab*ab - ca*ca)/(2*bc*ab))*180/Math.PI
   return Math.acos(dot/(norm(v1)*norm(v2)))*180/Math.PI
 }
 
 function dist(a, b){
   return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2))
+}
+
+function isLessThan180(a, b, c){
+  var v1 = [b.x - a.x, b.y - a.y]
+  var v2 = [c.x - b.x, c.y - b.y]
+  
+  return v1[0]*v2[1] - v2[0]*v1[1] < 0
 }
