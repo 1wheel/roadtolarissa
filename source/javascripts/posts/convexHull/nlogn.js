@@ -50,8 +50,9 @@ function drawNlogN(){
         var p3 = d3.mouse(this)
         var p3 = {x: p3[0], y: p3[1]}
         mPath.attr('d', ['M', p1.x, ',', p1.y, 'L', p3.x, ',', p3.y].join(''))
-        console.log(calcAngle(p1, p2, p3))
-        calcAngle(p1, p2, p3)
+        //console.log(calcAngle(p1, p2, p3))
+        ang = calcAngle(p1, p2, p3)
+        aText.text(ang)
       })
   var p1 = {x: 200, y: 200}
   var p2 = {x: 300, y: 200}
@@ -59,7 +60,8 @@ function drawNlogN(){
       .attr('d', ['M', p1.x, ',', p1.y, 'L', p2.x, ',', p2.y].join(''))
 
   var mPath = svg.append('path').classed('mline', true)
-
+  var aText = svg.append('text').style('fill', 'white')
+      .attr({dy: '3em', dx: '3em'})
   svg.append('text').classed('reset-button', true)
       .attr({dy: '1em', dx: '.2em'})
       .on('click', drawNlogN)
@@ -76,7 +78,16 @@ function calcAngle(a, b, c){
   var v2 = [c.x - b.x, c.y - b.y]
   
   var dot = v1[0]*v2[0] + v1[1]*v2[1]
-  // console.log(dot)
 
+  var ab = dist(a, b)
+  var bc = dist(b, c)
+  var ca = dist(c, a)
+
+  console.log(ab, bc, ca)
+  return Math.acos((bc*bc + ab*ab - ca*ca)/(2*bc*ab))*180/Math.PI
   return Math.acos(dot/(norm(v1)*norm(v2)))*180/Math.PI
+}
+
+function dist(a, b){
+  return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2))
 }
