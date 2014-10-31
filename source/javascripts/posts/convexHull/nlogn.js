@@ -20,11 +20,12 @@ function drawNlogN(){
       .each(function(d){ d.circle = d3.select(this) })
 
   points = _.sortBy(points, f('x'))
+  points.forEach(function(d, i){ d.i = i })
 
   lineG.append('path').classed('xorder', true)
       .attr('d', 'M' + points.map(f('p')).join('L'))
 
-  var activePoints = lineG.append('path')
+  var activePoints = lineG.append('path').style('opacity', .3)
 
   var topPoints = [points[0], points[1]]
   var curI = 1
@@ -34,6 +35,7 @@ function drawNlogN(){
     if (curI > points.length  - 1) return
 
     var curPoint = points[curI]
+    var b
 
     topPoints.push(null)
     var lastIsTop = false
@@ -41,7 +43,8 @@ function drawNlogN(){
       topPoints.pop()
 
       var b = _.last(topPoints)
-      var keep = !lessThan180(topPoints[curI - 2], b, curPoint)
+      var keep = !lessThan180(topPoints[topPoints.length - 2], b, curPoint)
+
       lastIsTop = keep || topPoints.length < 3
   
       b.circle.transition()
@@ -49,7 +52,7 @@ function drawNlogN(){
           .style('fill-opacity', .7)
           .attr('r', 10)
     }
-
+    console.log(topPoints.map(f('i')))
     topPoints.push(curPoint)
     activePoints.attr('d', 'M' + topPoints.map(f('p')).join('L'))
 
