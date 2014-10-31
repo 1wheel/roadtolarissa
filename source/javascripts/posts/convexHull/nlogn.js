@@ -24,6 +24,7 @@ function drawNlogN(){
   lineG.append('path').classed('xorder', true)
       .attr('d', 'M' + points.map(f('p')).join('L'))
 
+  var activePoints = lineG.append('path')
 
   var topPoints = [points[0], points[1]]
   var curI = 1
@@ -31,16 +32,26 @@ function drawNlogN(){
   function iteratePoint(){
     curI++
     if (curI > points.length  - 1) return
-    topPoints.push(points[curI])
-    var b = points[curI - 1]
 
-    var keep = !lessThan180(points[curI - 2], b, points[curI])
+    var curPoint = points[curI]
 
-    b.circle
-    b.circle.transition()
-        .style('fill', keep ? 'green' : 'steelblue')
-        .style('fill-opacity', .7)
-        .attr('r', 10)
+    topPoints.push(null)
+    var lastIsTop = false
+    while (!lastIsTop){
+      topPoints.pop()
+
+      var b = _.last(topPoints)
+      var keep = !lessThan180(topPoints[curI - 2], b, curPoint)
+      lastIsTop = keep || topPoints.length < 3
+  
+      b.circle.transition()
+          .style('fill', keep ? 'green' : 'steelblue')
+          .style('fill-opacity', .7)
+          .attr('r', 10)
+    }
+
+    topPoints.push(curPoint)
+    activePoints.attr('d', 'M' + topPoints.map(f('p')).join('L'))
 
   }
 
