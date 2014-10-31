@@ -35,17 +35,17 @@ function drawNlogN(){
     if (curI > points.length  - 1) return
 
     var curPoint = points[curI]
-    var b
 
     topPoints.push(null)
     var lastIsTop = false
     while (!lastIsTop){
       topPoints.pop()
 
-      var b = _.last(topPoints)
-      var keep = !lessThan180(topPoints[topPoints.length - 2], b, curPoint)
+      var a = topPoints[topPoints.length - 2]
+      var b = topPoints[topPoints.length - 1]
+      var keep = a ? !lessThan180(a, b, curPoint) : true
 
-      lastIsTop = keep || topPoints.length < 3
+      lastIsTop = keep
   
       b.circle.transition()
           .style('fill', keep ? 'green' : 'steelblue')
