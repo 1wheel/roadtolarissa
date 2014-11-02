@@ -15,7 +15,7 @@ function drawNaive(){
   var pairLineG = svg.append('g')
   var trialLineG = svg.append('g')
 
-  circles = svg.selectAll('circle')
+  var circles = svg.selectAll('circle')
       .data(points).enter()
     .append('circle').classed('point', true)
       .attr('r', 3)
