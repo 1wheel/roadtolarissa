@@ -21,7 +21,7 @@ function drawNlogN(){
       .attr('cy', f('y'))
       .each(function(d){ d.circle = d3.select(this) })
       .on('mouseover', function(d, i){
-        if (i == curI) iteratePoint()
+        if (i == activeI) iteratePoint()
       })
 
 
@@ -32,6 +32,7 @@ function drawNlogN(){
 
   var topPoints = [points[0], points[1]]
   var curI = 2
+  var lookingBack = false
   var activeI = curI
 
   function iteratePoint(){
@@ -39,31 +40,40 @@ function drawNlogN(){
 
     var curPoint = points[curI]
 
-    topPoints.push(null)
-    var lastIsTop = false
-    while (!lastIsTop){
-      topPoints.pop()
+    if (!lookingBack){
+      lookingBack = true
+      activeI = _.last(topPoints).i
+    } else{
+      var lastIsTop = false
+      while (!lastIsTop){
+        topPoints.pop()
 
-      var a = topPoints[topPoints.length - 2]
-      var b = topPoints[topPoints.length - 1]
-      var keep = a ? !lessThan180(a, b, curPoint) : true
+        var a = topPoints[topPoints.length - 2]
+        var b = topPoints[topPoints.length - 1]
+        var keep = a ? !lessThan180(a, b, curPoint) : true
 
-      lastIsTop = keep
-  
-      b.circle.transition()
-          .style('fill', keep ? 'green' : 'steelblue')
-          .style('fill-opacity', .7)
-          .attr('r', 10)
+        lastIsTop = keep
+    
+        b.circle.transition()
+            .style('fill', keep ? 'green' : 'steelblue')
+            .style('fill-opacity', .7)
+            .attr('r', 10)
+      }
+      console.log(topPoints.map(f('i')))
+      topPoints.push(curPoint)
+      activePoints.attr('d', 'M' + topPoints.map(f('p')).join('L'))
+      curI++
     }
-    console.log(topPoints.map(f('i')))
-    topPoints.push(curPoint)
-    activePoints.attr('d', 'M' + topPoints.map(f('p')).join('L'))
 
-    curI++
     circles.classed('next-point', function(d, i){
-      return i === curI
+      return i === activeI
     })
   }
+
+  circles.classed('next-point', function(d, i){
+    return i === curI
+  })
+
 
   // svg.append('rect')
   //     .attr({width: width, height: height})
