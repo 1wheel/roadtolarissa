@@ -20,15 +20,19 @@ function drawNlogN(){
       .attr('cx', f('x'))
       .attr('cy', f('y'))
       .each(function(d){ d.circle = d3.select(this) })
+      .on('mouseover', function(d, i){
+        if (i == curI) iteratePoint()
+      })
 
 
   lineG.append('path').classed('xorder', true)
       .attr('d', 'M' + points.map(f('p')).join('L'))
 
-  var activePoints = lineG.append('path').style('opacity', .3)
+  var activePoints = lineG.append('path').classed('cur-hull', true)
 
   var topPoints = [points[0], points[1]]
   var curI = 2
+  var activeI = curI
 
   function iteratePoint(){
     if (curI > points.length  - 1) return
@@ -60,8 +64,6 @@ function drawNlogN(){
       return i === curI
     })
   }
-
-  setInterval(iteratePoint, 500)
 
   // svg.append('rect')
   //     .attr({width: width, height: height})

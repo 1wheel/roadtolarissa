@@ -55,3 +55,8 @@ body{
 	stroke-width: 3px;
 	stroke: red;
 }
+
+.cur-hull{
+	fill-opacity: .3;
+	stroke: black;
+}
