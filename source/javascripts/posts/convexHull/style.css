@@ -50,3 +50,8 @@ body{
 	stroke: pink;
 	fill: none;
 }
+
+.next-point{
+	stroke-width: 3px;
+	stroke: red;
+}

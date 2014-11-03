@@ -1,7 +1,9 @@
 function drawNlogN(){
   var numPoints = 20,
-      points = uniformRandom(numPoints)
+      points = _.sortBy(uniformRandom(numPoints), f('x'))
 
+  points.forEach(function(d, i){ d.i = i })
+  
   var svg = d3.select('#nlogn').html('')
     .append('svg')
       .attr("width", width + margin.left + margin.right)
@@ -11,7 +13,7 @@ function drawNlogN(){
 
   var lineG = svg.append('g')
 
-  circles = svg.selectAll('circle')
+  var circles = svg.selectAll('circle')
       .data(points).enter()
     .append('circle').classed('point', true)
       .attr('r', 3)
@@ -19,8 +21,6 @@ function drawNlogN(){
       .attr('cy', f('y'))
       .each(function(d){ d.circle = d3.select(this) })
 
-  points = _.sortBy(points, f('x'))
-  points.forEach(function(d, i){ d.i = i })
 
   lineG.append('path').classed('xorder', true)
       .attr('d', 'M' + points.map(f('p')).join('L'))
@@ -28,10 +28,9 @@ function drawNlogN(){
   var activePoints = lineG.append('path').style('opacity', .3)
 
   var topPoints = [points[0], points[1]]
-  var curI = 1
+  var curI = 2
 
   function iteratePoint(){
-    curI++
     if (curI > points.length  - 1) return
 
     var curPoint = points[curI]
@@ -56,6 +55,10 @@ function drawNlogN(){
     topPoints.push(curPoint)
     activePoints.attr('d', 'M' + topPoints.map(f('p')).join('L'))
 
+    curI++
+    circles.classed('next-point', function(d, i){
+      return i === curI
+    })
   }
 
   setInterval(iteratePoint, 500)
