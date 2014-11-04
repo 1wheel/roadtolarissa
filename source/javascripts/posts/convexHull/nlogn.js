@@ -44,21 +44,23 @@ function drawNlogN(){
       lookingBack = true
       activeI = _.last(topPoints).i
     } else{
-      var lastIsTop = false
-      while (!lastIsTop){
+
+      var a = topPoints[topPoints.length - 2]
+      var b = topPoints[topPoints.length - 1]
+      var keep = a ? !lessThan180(a, b, curPoint) : true
+
+      if (!keep){
         topPoints.pop()
-
-        var a = topPoints[topPoints.length - 2]
-        var b = topPoints[topPoints.length - 1]
-        var keep = a ? !lessThan180(a, b, curPoint) : true
-
-        lastIsTop = keep
-    
-        b.circle.transition()
-            .style('fill', keep ? 'green' : 'steelblue')
-            .style('fill-opacity', .7)
-            .attr('r', 10)
+        activeI = _.last(topPoints).i        
+      } else{
+        activeI = curI + 1
       }
+
+      b.circle.transition()
+          .style('fill', keep ? 'green' : 'steelblue')
+          .style('fill-opacity', .7)
+          .attr('r', 10)
+
       console.log(topPoints.map(f('i')))
       topPoints.push(curPoint)
       activePoints.attr('d', 'M' + topPoints.map(f('p')).join('L'))
