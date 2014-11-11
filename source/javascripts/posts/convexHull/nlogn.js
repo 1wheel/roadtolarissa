@@ -61,11 +61,12 @@ function drawNlogN(){
           .style('fill-opacity', .7)
           .attr('r', 10)
 
-      console.log(topPoints.map(f('i')))
+      console.log(topPoints.map(f('i')).join())
       topPoints.push(curPoint)
       activePoints.attr('d', 'M' + topPoints.map(f('p')).join('L'))
       curI++
     }
+    console.log(activeI)
 
     circles.classed('next-point', function(d, i){
       return i === activeI
