@@ -252,11 +252,12 @@ function drawNlogN(){
       var b = topPoints[topPoints.length - 1]
       var keep = a ? !lessThan180(a, b, curPoint) : true
 
+      console.log(keep)
       if (!keep){
         topPoints.pop()
         activeI = _.last(topPoints).i        
       } else{
-        activeI = curI + 1
+        activeI = curI
         lookingBack = false
         topPoints.push(curPoint)
       }
@@ -266,14 +267,13 @@ function drawNlogN(){
           .style('fill-opacity', .7)
           .attr('r', 10)
 
-      console.log(topPoints.map(f('i')).join())
-      
-
       activePoints.attr('d', 'M' + topPoints.concat(curPoint).map(f('p')).join('L'))
       curI++
     }
     circles.attr('r', function(d, i){ return i < curI ? 5 : 10 })
     topPoints.forEach(function(d){ d.circle.attr('r', 15) })
+    
+    console.log(topPoints.map(f('i')).join())
     console.log(activeI)
 
     circles.classed('next-point', function(d, i){
@@ -281,10 +281,12 @@ function drawNlogN(){
     })
   }
 
+
   circles.classed('next-point', function(d, i){
     return i === curI
   })
 
+  iteratePoint()
 
   // svg.append('rect')
   //     .attr({width: width, height: height})
