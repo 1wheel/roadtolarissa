@@ -242,6 +242,7 @@ function drawNlogN(){
     if (curI > points.length  - 1) return
 
     var curPoint = points[curI]
+    console.log(curPoint)
 
     if (!lookingBack){
       activeI = _.last(topPoints).i
@@ -253,13 +254,14 @@ function drawNlogN(){
       var keep = a ? !lessThan180(a, b, curPoint) : true
 
       console.log(keep)
-      if (!keep){
+      if (!keep && topPoints.length > 1){
         topPoints.pop()
         activeI = _.last(topPoints).i        
       } else{
         activeI = curI
         lookingBack = false
         topPoints.push(curPoint)
+        curI++
       }
 
       b.circle.transition()
@@ -268,7 +270,6 @@ function drawNlogN(){
           .attr('r', 10)
 
       activePoints.attr('d', 'M' + topPoints.concat(curPoint).map(f('p')).join('L'))
-      curI++
     }
     circles.attr('r', function(d, i){ return i < curI ? 5 : 10 })
     topPoints.forEach(function(d){ d.circle.attr('r', 15) })
