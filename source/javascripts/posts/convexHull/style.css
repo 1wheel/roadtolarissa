@@ -43,7 +43,9 @@ body{
 
 .xorder{
 	fill: none;
-	stroke: red;
+	stroke: grey;
+	stroke-width: 2;
+	stroke-dasharray: 2 4;
 }
 
 .mline{
@@ -59,4 +61,5 @@ body{
 .cur-hull{
 	fill-opacity: .3;
 	stroke: black;
+	fill: green;
 }
