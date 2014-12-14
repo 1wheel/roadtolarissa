@@ -274,6 +274,11 @@ function drawNlogN(){
     circles.classed('next-point', function(d, i){
       return i === activeI
     })
+
+
+    if (lookingBack){
+      drawAngle(curPoint, topPoints[topPoints.length - 1], topPoints[topPoints.length - 2])
+    }
   }
 
 

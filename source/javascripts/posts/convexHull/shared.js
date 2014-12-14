@@ -46,3 +46,25 @@ function lessThan180(a, b, c){
   
   return v1[0]*v2[1] - v2[0]*v1[1] < 0
 }
+
+function drawAngle(a, b, c){
+  if (!c) return
+    
+  var v1 = [b.x - a.x, b.y - a.y]
+  var norm1 = norm(v1)
+  var p1 = [b.x - v1[0]/norm1*30, b.y - v1[1]/norm1*30]
+
+  d3.select('svg').append('circle')
+      .attr('cx', p1[0])
+      .attr('cy', p1[1])
+      .attr('r', 3)  
+
+  var v2 = [b.x - c.x, b.y - c.y]
+  var norm2 = norm(v2)
+  var p2 = [b.x - v2[0]/norm2*30, b.y - v2[1]/norm2*30]
+
+  d3.select('svg').append('circle')
+      .attr('cx', p2[0])
+      .attr('cy', p2[1])
+      .attr('r', 3)
+}
