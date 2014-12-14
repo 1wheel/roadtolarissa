@@ -49,7 +49,7 @@ function lessThan180(a, b, c){
 
 function drawAngle(a, b, c){
   if (!c) return
-    
+
   var v1 = [b.x - a.x, b.y - a.y]
   var norm1 = norm(v1)
   var p1 = [b.x - v1[0]/norm1*30, b.y - v1[1]/norm1*30]
@@ -67,4 +67,8 @@ function drawAngle(a, b, c){
       .attr('cx', p2[0])
       .attr('cy', p2[1])
       .attr('r', 3)
+
+  d3.select('svg').append('path').classed('arc', true)
+      .attr('d', ['M', p1[0], p1[1], 'A', 30, 30, 0, 0, 1, p2[0], p2[1]].join(' '))
+
 }

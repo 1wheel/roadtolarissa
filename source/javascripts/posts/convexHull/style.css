@@ -79,3 +79,10 @@ body{
 	stroke-width: 3;
 	fill: green;
 }
+
+
+.arc{
+	fill: none;
+	stroke: red;
+	stroke-width: 2;
+}
