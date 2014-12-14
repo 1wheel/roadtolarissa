@@ -255,15 +255,27 @@ function drawNlogN(){
         topPoints.pop()
         b.circle.classed('passed-point', true)        
         activeI = _.last(topPoints).i
+
+        activePoints.transition().duration(1500).attr('d', 'M' + topPoints
+          .concat({p: midPoint(a, curPoint)})
+          // .concat(a)
+          .concat(curPoint).map(f('p')).join('L'))
+
       } else{
         lookingBack = false
         topPoints.push(curPoint)
         curI++
         activeI = curI
         curPoint = points[curI]
+
+        activePoints.attr('d',  'M' + topPoints
+            .concat(_.last(topPoints))
+          .map(f('p')).join('L'))
+        .transition().duration(1500).attr('d', 'M' + topPoints
+            .concat(curPoint)
+          .map(f('p')).join('L'))
       }
 
-      activePoints.attr('d', 'M' + topPoints.concat(curPoint).map(f('p')).join('L'))
     }
 
     circles.attr('r', function(d, i){ return i < curI ? 5 : 5 })

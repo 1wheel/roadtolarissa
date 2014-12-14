@@ -16,6 +16,9 @@ function uniformRandom(n){
 }
 
 
+function midPoint(a, b){
+  return [(a.x + b.x)/2, (a.y + b.y)/2]
+}
 
 function norm(v){
   return Math.sqrt(v[0]*v[0] + v[1]*v[1])
