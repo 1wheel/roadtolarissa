@@ -53,13 +53,29 @@ body{
 	fill: none;
 }
 
+.point{
+	fill-opacity: .5;
+	fill: steelblue;
+}
+
+.top-point{
+	fill: green;
+	stroke: green;
+}
+
 .next-point{
 	stroke-width: 3px;
-	stroke: red;
+	stroke: purple;
+}
+
+.passed-point{
+	fill: grey;
+	stroke: none;
 }
 
 .cur-hull{
 	fill-opacity: .3;
-	stroke: black;
+	stroke: green;
+	stroke-width: 3;
 	fill: green;
 }

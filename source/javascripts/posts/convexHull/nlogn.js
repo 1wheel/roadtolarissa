@@ -227,8 +227,6 @@ function drawNlogN(){
       .on('mouseover', function(d, i){
         if (i == activeI) iteratePoint()
       })
-      .style('fill', 'steelblue')
-
 
   lineG.append('path').classed('xorder', true)
       .attr('d', 'M' + points.map(f('p')).join('L'))
@@ -255,23 +253,23 @@ function drawNlogN(){
 
       if (!keep && topPoints.length > 1){
         topPoints.pop()
-        activeI = _.last(topPoints).i        
+        b.circle.classed('passed-point', true)        
+        activeI = _.last(topPoints).i
       } else{
-        activeI = curI
         lookingBack = false
         topPoints.push(curPoint)
         curI++
+        activeI = curI
+        curPoint = points[curI]
       }
-
-      b.circle.transition()
-          .style('fill', keep ? 'green' : 'grey')
-          .style('fill-opacity', .5)
 
       activePoints.attr('d', 'M' + topPoints.concat(curPoint).map(f('p')).join('L'))
     }
 
     circles.attr('r', function(d, i){ return i < curI ? 5 : 5 })
-    topPoints.concat(curPoint).forEach(function(d){ d.circle.attr('r', 15) })
+    topPoints.concat(curPoint).forEach(function(d){
+      d.circle.attr('r', 10).classed('top-point', true) 
+    })
     
     circles.classed('next-point', function(d, i){
       return i === activeI
