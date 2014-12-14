@@ -49,12 +49,13 @@ function lessThan180(a, b, c){
 
 function drawAngle(a, b, c){
   if (!c) return
+  b.g = d3.select(b.circle.node().parentNode).append('g')
 
   var v1 = [b.x - a.x, b.y - a.y]
   var norm1 = norm(v1)
   var p1 = [b.x - v1[0]/norm1*30, b.y - v1[1]/norm1*30]
 
-  d3.select('svg').append('circle').style({'fill-opacity': .5, stroke: 'black'})
+  b.g.append('circle').style({'fill-opacity': .5, stroke: 'black'})
       .attr('cx', p1[0])
       .attr('cy', p1[1])
       .attr('r', 2)  
@@ -63,7 +64,7 @@ function drawAngle(a, b, c){
   var norm2 = norm(v2)
   var p2 = [b.x - v2[0]/norm2*30, b.y - v2[1]/norm2*30]
 
-  d3.select('svg').append('circle').style({'fill-opacity': .5, stroke: 'black'})
+  b.g.append('circle').style({'fill-opacity': .5, stroke: 'black'})
       .attr('cx', p2[0])
       .attr('cy', p2[1])
       .attr('r', 2)
@@ -72,13 +73,12 @@ function drawAngle(a, b, c){
   var angle = calcAngle(a, b, c)
   angle = sweep ? 360 - angle : angle
 
-  var path = d3.select('svg').append('path').classed('arc', true)
+  var arc = b.g.append('path').classed('arc', true)
       .attr('d', ['M', p1[0], p1[1], 'A', 30, 30, 0, +sweep, 1, p2[0], p2[1]].join(' '))
-      .style('stroke', sweep ? 'red' : 'green')
 
-  var length = path.node().getTotalLength()
+  var length = arc.node().getTotalLength()
 
-  path.attr({'stroke-dasharray': length + ' ' + length, 'stroke-dashoffset': length})
+  arc.attr({'stroke-dasharray': length + ' ' + length, 'stroke-dashoffset': length})
     .transition().duration(length*5).ease('linear')
       .attr('stroke-dashoffset', 0)
       .styleTween('stroke', function(){

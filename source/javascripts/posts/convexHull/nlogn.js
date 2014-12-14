@@ -246,11 +246,11 @@ function drawNlogN(){
       activeI = _.last(topPoints).i
       lookingBack = true
     } else{
-
       var a = topPoints[topPoints.length - 2]
       var b = topPoints[topPoints.length - 1]
       var keep = a ? !lessThan180(a, b, curPoint) : true
 
+      b.g ? b.g.remove() : ''
       if (!keep && topPoints.length > 1){
         topPoints.pop()
         b.circle.classed('passed-point', true)        
