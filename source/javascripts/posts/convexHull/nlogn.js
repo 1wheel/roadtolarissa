@@ -213,11 +213,10 @@ function drawNlogN(){
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
   
+
   var lineG = svg.append('g')
   
-  var activePoints = lineG.append('path').classed('cur-hull', true)
-
-  var circles = svg.selectAll('circle')
+  var circles = svg.append('g').selectAll('circle')
       .data(points).enter()
     .append('circle').classed('point', true)
       .attr('r', 3)
@@ -228,9 +227,20 @@ function drawNlogN(){
         if (i == activeI) iteratePoint()
       })
 
+  svg.append('defs').append('clipPath').attr('id', 'xoclip').append('rect')
+      .attr({height: height, width: 0, 'fill-opacity': 0})
+    .transition().duration(3000).ease('linear')
+      .attr({width: width})
+    .each('end', iteratePoint)
+
   lineG.append('path').classed('xorder', true)
       .attr('d', 'M' + points.map(f('p')).join('L'))
+      .attr('clip-path', 'url(#xoclip)')
 
+  var rect = lineG.append('rect')
+      .attr({height: height, width: 0})
+
+  var activePoints = lineG.append('path').classed('cur-hull', true)
 
   var topPoints = [points[0], points[1]]
   var curI = 2
@@ -253,6 +263,8 @@ function drawNlogN(){
           .concat(curPoint)
         .map(f('p')).join('L'))
       .each('end', checkForAngleDraw)
+
+      rect.transition().duration(1500).attr('width', curPoint.x)
 
     } else{
       var a = topPoints[topPoints.length - 2]
@@ -303,8 +315,6 @@ function drawNlogN(){
   circles.classed('next-point', function(d, i){
     return i === curI
   })
-
-  iteratePoint()
 
   // svg.append('rect')
   //     .attr({width: width, height: height})

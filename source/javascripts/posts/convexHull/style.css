@@ -36,6 +36,9 @@ body{
 	fill: lightgray;
 	cursor: pointer;
 }
+.reset-button:hover{
+	fill: darkgray;
+}
 
 
 
@@ -56,6 +59,7 @@ body{
 .point{
 	fill-opacity: .5;
 	fill: steelblue;
+	stroke: blue;
 }
 
 .top-point{
@@ -70,7 +74,8 @@ body{
 
 .passed-point{
 	fill: grey;
-	stroke: none;
+	opacity: .5;
+	stroke: steelblue;
 }
 
 .cur-hull{

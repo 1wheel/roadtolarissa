@@ -58,7 +58,7 @@ function drawAngle(a, b, c){
   var norm1 = norm(v1)
   var p1 = [b.x - v1[0]/norm1*30, b.y - v1[1]/norm1*30]
 
-  b.g.append('circle').style({'fill-opacity': .5, stroke: 'black'})
+  b.g.append('circle').style({'fill-opacity': .5, stroke: 'white'})
       .attr('cx', p1[0])
       .attr('cy', p1[1])
       .attr('r', 2)  
@@ -67,7 +67,7 @@ function drawAngle(a, b, c){
   var norm2 = norm(v2)
   var p2 = [b.x - v2[0]/norm2*30, b.y - v2[1]/norm2*30]
 
-  b.g.append('circle').style({'fill-opacity': .5, stroke: 'black'})
+  b.g.append('circle').style({'fill-opacity': .5, stroke: 'white'})
       .attr('cx', p2[0])
       .attr('cy', p2[1])
       .attr('r', 2)
