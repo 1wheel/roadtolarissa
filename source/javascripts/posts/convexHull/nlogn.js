@@ -219,7 +219,7 @@ function drawNlogN(){
   var circles = svg.append('g').selectAll('circle')
       .data(points).enter()
     .append('circle').classed('point', true)
-      .attr('r', 3)
+      .attr('r', 5)
       .attr('cx', f('x'))
       .attr('cy', f('y'))
       .each(function(d){ d.circle = d3.select(this) })
@@ -229,7 +229,7 @@ function drawNlogN(){
 
   svg.append('defs').append('clipPath').attr('id', 'xoclip').append('rect')
       .attr({height: height, width: 0, 'fill-opacity': 0})
-    .transition().duration(3000).ease('linear')
+    .transition().duration(3).ease('linear')
       .attr({width: width})
     .each('end', iteratePoint)
 

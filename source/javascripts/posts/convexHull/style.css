@@ -42,6 +42,23 @@ body{
 
 
 
+.next-point{	
+	-webkit-animation-name: throb;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes throb{
+	from{
+		stroke-width: 2px;
+	}
+
+	to{
+		stroke-width: 6px;
+	}
+}
+
 
 
 .xorder{
@@ -68,8 +85,8 @@ body{
 }
 
 .next-point{
-	stroke-width: 3px;
-	stroke: purple;
+	stroke: orange;
+	stroke-opacity: .8;
 }
 
 .passed-point{
