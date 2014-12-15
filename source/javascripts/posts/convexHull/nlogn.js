@@ -245,6 +245,15 @@ function drawNlogN(){
     if (!lookingBack){
       activeI = _.last(topPoints).i
       lookingBack = true
+
+      activePoints.attr('d',  'M' + topPoints
+          .concat(_.last(topPoints))
+        .map(f('p')).join('L'))
+      .transition().duration(1500).attr('d', 'M' + topPoints
+          .concat(curPoint)
+        .map(f('p')).join('L'))
+      .each('end', checkForAngleDraw)
+
     } else{
       var a = topPoints[topPoints.length - 2]
       var b = topPoints[topPoints.length - 1]
@@ -264,6 +273,7 @@ function drawNlogN(){
             .concat({p: midPoint(a, curPoint)})
             .concat(curPoint)
           .map(f('p')).join('L'))
+        .each('end', checkForAngleDraw)
 
       } else{
         lookingBack = false
@@ -271,13 +281,6 @@ function drawNlogN(){
         curI++
         activeI = curI
         curPoint = points[curI]
-
-        activePoints.attr('d',  'M' + topPoints
-            .concat(_.last(topPoints))
-          .map(f('p')).join('L'))
-        .transition().duration(1500).attr('d', 'M' + topPoints
-            .concat(curPoint)
-          .map(f('p')).join('L'))
       }
 
     }
@@ -291,8 +294,7 @@ function drawNlogN(){
       return i === activeI
     })
 
-
-    if (lookingBack){
+    function checkForAngleDraw(){
       drawAngle(curPoint, topPoints[topPoints.length - 1], topPoints[topPoints.length - 2])
     }
   }
