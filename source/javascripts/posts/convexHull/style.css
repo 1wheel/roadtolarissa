@@ -36,14 +36,36 @@ body{
 	fill: lightgray;
 	cursor: pointer;
 }
+.reset-button:hover{
+	fill: darkgray;
+}
 
 
+
+.next-point{	
+	-webkit-animation-name: throb;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes throb{
+	from{
+		stroke-width: 2px;
+	}
+
+	to{
+		stroke-width: 6px;
+	}
+}
 
 
 
 .xorder{
 	fill: none;
-	stroke: red;
+	stroke: grey;
+	stroke-width: 2;
+	stroke-dasharray: 2 4;
 }
 
 .mline{
@@ -51,12 +73,38 @@ body{
 	fill: none;
 }
 
+.point{
+	fill-opacity: .5;
+	fill: steelblue;
+	stroke: blue;
+}
+
+.top-point{
+	fill: green;
+	stroke: green;
+}
+
 .next-point{
-	stroke-width: 3px;
-	stroke: red;
+	stroke: orange;
+	stroke-opacity: .8;
+}
+
+.passed-point{
+	fill: grey;
+	opacity: .5;
+	stroke: steelblue;
 }
 
 .cur-hull{
 	fill-opacity: .3;
-	stroke: black;
+	stroke: green;
+	stroke-width: 3;
+	fill: green;
+}
+
+
+.arc{
+	fill: none;
+	stroke: red;
+	stroke-width: 2;
 }
