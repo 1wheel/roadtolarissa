@@ -20,15 +20,20 @@ function drawHN(){
   var mLine = svg.append('line').classed('mline', true)
       .attr({x1: points[0].x, y1: points[0].y})
 
+
   svg.append('path')
       .attr('d', ['M', points[0].x, '0L', points[0].x, height].join(' '))
       .style('stroke', 'red')
 
+  var curPoint = points[0]
+  var maxAngle = 0
   points.forEach(function(d){
-    d.angle = calcAngle({x: points[0].x, y:height}, points[0], d)
+    d.angle = calcAngle({x: curPoint.x, y: height}, curPoint, d)
     svg.append('text')
         .attr({x: d.x, y: d.y, dy: '.33em'})
         .text(Math.round(d.angle))
+    d.active = d != curPoint
+    d.circle.classed('next-point', d.active)
   })
 
   svg.append('rect')
@@ -37,6 +42,34 @@ function drawHN(){
       .on('mousemove', function(){
         var pos = d3.mouse(this)
         mLine.attr({x2: pos[0], y2: pos[1]})
+
+        var angle = calcAngle({x: curPoint.x, y:height}, curPoint, {x: pos[0], y: pos[1]})
+        var oldMaxAngle = maxAngle
+
+        points.filter(ƒ('active')).forEach(function(d){
+          if (Math.abs(angle - d.angle) < 1){
+            d.active = false
+            d.circle.classed('next-point', false)
+            if (angle > maxAngle){
+              maxAngle = d.angle
+              svg.append('line').datum(d).attr('class', 'possible-max growing')
+                  .attr({x1: curPoint.x, y1: curPoint.y, x2: curPoint.x, y2: curPoint.y})
+                .transition('drawInit').duration(1500)
+                  .attr({x2: d.x, y2: d.y})
+            }
+          }
+        })
+
+        if (oldMaxAngle !=  maxAngle){
+          svg.selectAll('.growing').filter(function(d){ return d.angle != maxAngle })
+              .classed('growing', false)
+            .transition('shrinking').duration(1500)
+              .attr('x1', ƒ('x'))
+              .attr('y1', ƒ('y'))
+              .remove()
+        }
+
+        //todo move to next point
       })
 
 
