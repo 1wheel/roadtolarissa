@@ -20,6 +20,17 @@ function drawHN(){
   var mLine = svg.append('line').classed('mline', true)
       .attr({x1: points[0].x, y1: points[0].y})
 
+  svg.append('path')
+      .attr('d', ['M', points[0].x, '0L', points[0].x, height].join(' '))
+      .style('stroke', 'red')
+
+  points.forEach(function(d){
+    d.angle = calcAngle({x: points[0].x, y:height}, points[0], d)
+    svg.append('text')
+        .attr({x: d.x, y: d.y, dy: '.33em'})
+        .text(Math.round(d.angle))
+  })
+
   svg.append('rect')
       .style('fill-opacity', 0)
       .attr({width: width, height: height})
