@@ -20,10 +20,6 @@ function drawHN(){
   var mLine = svg.append('line').classed('mline', true)
 
 
-  svg.append('path')
-      .attr('d', ['M', points[0].x, '0L', points[0].x, height].join(' '))
-      .style('stroke', 'red')
-
   var curPoint,prevPoint, maxAngle;
   function updateCurPoint(cur, prev){
     curPoint = cur
@@ -31,6 +27,10 @@ function drawHN(){
     maxAngle = 0
 
     mLine.attr({x1: curPoint.x, y1: curPoint.y})
+
+    svg.append('path')
+        .attr('d', ['M', prevPoint.x, prevPoint.y, 'L', curPoint.p].join(' '))
+        .style('stroke', 'red')
 
     points.forEach(function(d){
       d.angle = calcAngle(prevPoint, curPoint, d)
