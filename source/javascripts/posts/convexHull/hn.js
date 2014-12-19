@@ -22,6 +22,7 @@ function drawHN(){
   var hullPoints = []
   var curPoint,prevPoint, maxAngle;
   function updateCurPoint(cur, prev){
+    if (cur.outline) return
     curPoint = cur
     prevPoint = prev
     maxAngle = 0
@@ -31,7 +32,7 @@ function drawHN(){
 
     points.forEach(function(d){
       d.angle = calcAngle(prevPoint, curPoint, d)
-      d.active = d != curPoint && !d.outline
+      d.active = d != curPoint
       d.circle.classed('next-point', d.active)
     })    
 
