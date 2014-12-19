@@ -43,7 +43,7 @@ function drawHN(){
         .attr('d', ['M', prevPoint.x, prevPoint.y, 'L', curPoint.p].join(' '))
 
     if (hullPoints.length == 2){
-      d3.select('.outline').remove()
+      d3.select('.outline').remove()  
     }
 
   }

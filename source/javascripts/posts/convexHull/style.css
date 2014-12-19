@@ -73,23 +73,23 @@ body{
 	fill: none;
 }
 
-.point{
+#nlogn .point{
 	fill-opacity: .5;
 	fill: steelblue;
 	stroke: blue;
 }
 
-.top-point{
+#nlogn .top-point{
 	fill: green;
 	stroke: green;
 }
 
-.next-point{
+#nlogn .next-point{
 	stroke: orange;
 	stroke-opacity: .8;
 }
 
-.passed-point{
+#nlogn .passed-point{
 	fill: grey;
 	opacity: .5;
 	stroke: steelblue;
