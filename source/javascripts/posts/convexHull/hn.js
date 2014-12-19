@@ -18,23 +18,27 @@ function drawHN(){
       .each(function(d){ d.circle = d3.select(this) })
 
   var mLine = svg.append('line').classed('mline', true)
-      .attr({x1: points[0].x, y1: points[0].y})
 
 
   svg.append('path')
       .attr('d', ['M', points[0].x, '0L', points[0].x, height].join(' '))
       .style('stroke', 'red')
 
-  var curPoint = points[0]
-  var maxAngle = 0
-  points.forEach(function(d){
-    d.angle = calcAngle({x: curPoint.x, y: height}, curPoint, d)
-    svg.append('text')
-        .attr({x: d.x, y: d.y, dy: '.33em'})
-        .text(Math.round(d.angle))
-    d.active = d != curPoint
-    d.circle.classed('next-point', d.active)
-  })
+  var curPoint,prevPoint, maxAngle;
+  function updateCurPoint(cur, prev){
+    curPoint = cur
+    prevPoint = prev
+    maxAngle = 0
+
+    mLine.attr({x1: curPoint.x, y1: curPoint.y})
+
+    points.forEach(function(d){
+      d.angle = calcAngle(prevPoint, curPoint, d)
+      d.active = d != curPoint
+      d.circle.classed('next-point', d.active)
+    })    
+  }
+  updateCurPoint(points[0], {x: points[0].x, y: height})
 
   svg.append('rect')
       .style('fill-opacity', 0)
@@ -43,7 +47,7 @@ function drawHN(){
         var pos = d3.mouse(this)
         mLine.attr({x2: pos[0], y2: pos[1]})
 
-        var angle = calcAngle({x: curPoint.x, y:height}, curPoint, {x: pos[0], y: pos[1]})
+        var angle = calcAngle(prevPoint, curPoint, {x: pos[0], y: pos[1]})
         var oldMaxAngle = maxAngle
 
         points.filter(ƒ('active')).forEach(function(d){
@@ -69,7 +73,9 @@ function drawHN(){
               .remove()
         }
 
-        //todo move to next point
+        if (!points.filter(f('active')).length){
+          updateCurPoint(svg.select('.growing').datum(), curPoint)
+        }
       })
 
 
