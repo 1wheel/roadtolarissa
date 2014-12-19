@@ -115,5 +115,7 @@ body{
 	stroke: green;
 }
 
-
+.outline{
+	stroke: red;
+}
 

@@ -19,24 +19,32 @@ function drawHN(){
 
   var mLine = svg.append('line').classed('mline', true)
 
-
+  var hullPoints = []
   var curPoint,prevPoint, maxAngle;
   function updateCurPoint(cur, prev){
     curPoint = cur
     prevPoint = prev
     maxAngle = 0
 
-    mLine.attr({x1: curPoint.x, y1: curPoint.y})
-
-    svg.append('path')
-        .attr('d', ['M', prevPoint.x, prevPoint.y, 'L', curPoint.p].join(' '))
-        .style('stroke', 'red')
+    hullPoints.push(curPoint)
+    curPoint.outline = true
 
     points.forEach(function(d){
       d.angle = calcAngle(prevPoint, curPoint, d)
-      d.active = d != curPoint
+      d.active = d != curPoint && !d.outline
       d.circle.classed('next-point', d.active)
     })    
+
+    mLine.attr({x1: curPoint.x, y1: curPoint.y})
+
+    svg.append('path').classed('outline', true)
+        .datum({prev: prevPoint, cur: curPoint})
+        .attr('d', ['M', prevPoint.x, prevPoint.y, 'L', curPoint.p].join(' '))
+
+    if (hullPoints.length == 2){
+      d3.select('.outline').remove()
+    }
+
   }
   updateCurPoint(points[0], {x: points[0].x, y: height})
 
