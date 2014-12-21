@@ -119,10 +119,9 @@ body{
 
 
 .possible-max{
-	stroke: lightgray;
+	stroke-width: 2;
+
 }
 
 .max-angle{
-	stroke-width: 3;
-	stroke: green;
 }

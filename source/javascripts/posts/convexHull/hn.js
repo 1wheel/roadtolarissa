@@ -17,6 +17,10 @@ function drawHN(){
       .attr('cy', f('y'))
       .each(function(d){ d.circle = d3.select(this) })
 
+  var color = d3.scale.linear()
+      .domain([0, 1, points.length - 1])
+      .range(['green', '#FF00C0', '#BABABA'])
+
   var hullPoints = []
   var curPoint,prevPoint, maxAngle, updating;
   function updateCurPoint(cur, prev){
@@ -34,6 +38,9 @@ function drawHN(){
       d.circle.classed('next-point', d.active)
     })    
 
+    points = _.sortBy(points, f('angle')).reverse()
+    points.forEach(function(d, i){ d.index = i })
+
     svg.append('path').classed('outline', true)
         .datum({prev: prevPoint, cur: curPoint})
         .attr('d', ['M', prevPoint.x, prevPoint.y, 'L', curPoint.p].join(' '))
@@ -44,7 +51,7 @@ function drawHN(){
 
     updating = true
     circles.transition().duration(1000)
-        .attr('r', 10)
+        .attr('r', 5)
         .style('fill', 'black')
 
     d3.selectAll('.possible-max')
@@ -75,6 +82,7 @@ function drawHN(){
             d.active = false
             d.circle.classed('next-point', false)
             svg.append('line').datum(d).attr('class', 'possible-max max-angle')
+                .style('stroke', _.compose(color, f('index')))
                 //.classed('max-angle', maxAngle == d.angle)
                 .attr({x1: curPoint.x, y1: curPoint.y, x2: curPoint.x, y2: curPoint.y})
               .transition('drawInit').duration(1000)
