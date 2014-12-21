@@ -111,11 +111,18 @@ body{
 
 
 
-.possible-max{
-	stroke: green;
-}
 
 .outline{
-	stroke: red;
+	stroke: black;
+	stroke-width: 3;
 }
 
+
+.possible-max{
+	stroke: lightgray;
+}
+
+.max-angle{
+	stroke-width: 3;
+	stroke: green;
+}
