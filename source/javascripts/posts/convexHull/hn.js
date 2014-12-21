@@ -43,7 +43,7 @@ function drawHN(){
     }
 
     updating = true
-    circles.transition()
+    circles.transition().duration(1000)
         .attr('r', 10)
         .style('fill', 'black')
 
