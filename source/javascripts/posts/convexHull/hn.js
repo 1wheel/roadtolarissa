@@ -34,6 +34,23 @@ function drawHN(){
     hullPoints.push(curPoint)
     curPoint.outline = true
 
+    lineG.append('line').classed('outline', true)
+        .datum({prev: prevPoint, cur: curPoint})
+        .attr({x1: prevPoint.x, x2: prevPoint.x, y1: prevPoint.y, y2: prevPoint.y})
+      .transition().duration(700).delay(3000)
+        .attr({x2: curPoint.x, y2: curPoint.y})
+
+
+    updating = true
+    circles.transition().duration(1000).delay(3500)
+        .attr('r', 8)
+
+    d3.selectAll('.possible-max')
+      .transition().duration(1000).delay(function(d){ return 200 + points.length*50 -d.index*50 })
+        .attr('x1', ƒ('x')) 
+        .attr('y1', ƒ('y'))
+        .remove()
+
     points.forEach(function(d){
       d.angle = calcAngle(prevPoint, curPoint, d)
       d.active = d != curPoint
@@ -43,27 +60,9 @@ function drawHN(){
     points = _.sortBy(points, f('angle')).reverse()
     points.forEach(function(d, i){ d.index = i })
 
-    lineG.append('path').classed('outline', true)
-        .datum({prev: prevPoint, cur: curPoint})
-        .attr('d', ['M', prevPoint.x, prevPoint.y, 'L', curPoint.p].join(' '))
-
-    if (hullPoints.length == 2){
-      d3.select('.outline').remove()  
-    }
-
-    updating = true
-    circles.transition().duration(1000)
-        .attr('r', 8)
-
-    d3.selectAll('.possible-max')
-      .transition().duration(1000)
-        .attr('x1', ƒ('x'))
-        .attr('y1', ƒ('y'))
-        .remove()
-
-    window.setTimeout(function(){ updating = false }, 1000)
+    window.setTimeout(function(){ updating = false }, 3500)
   }
-  updateCurPoint(points[0], {x: points[0].x, y: height})
+  updateCurPoint(points[0], {x: points[0].x, y: points[0].y + 1})
 
   svg.append('rect')
       .style('fill-opacity', 0)
