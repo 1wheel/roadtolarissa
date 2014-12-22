@@ -115,6 +115,7 @@ body{
 	stroke: black;
 	fill: white;
 }
+
 .outline{
 	stroke: black;
 	stroke-width: 2;
@@ -123,8 +124,4 @@ body{
 
 .possible-max{
 	stroke-width: 3;
-
-}
-
-.max-angle{
 }

@@ -23,21 +23,17 @@ function drawHN(){
       .domain([0, points.length/2, points.length - 1])
       .range([d3.lab('#FF00C0'), d3.lab('#8B84D8'), d3.lab('#00FF01')])
 
-  var hullPoints = []
-  var curPoint,prevPoint, maxAngle, updating;
+  var curPoint, prevPoint, updating
   function updateCurPoint(cur, prev){
     if (cur.outline) return
     curPoint = cur
     prevPoint = prev
-    maxAngle = 0
 
-    hullPoints.push(curPoint)
     curPoint.outline = true
 
     points.forEach(function(d){
       d.angle = calcAngle(prevPoint, curPoint, d)
       d.active = d != curPoint
-      d.circle.classed('hoverable', d.active)
     })    
 
     updating = true
@@ -56,6 +52,7 @@ function drawHN(){
 
     circles.transition().duration(1000).delay(points.length*20+1500)
         .attr('r', 8)
+        .style('fill', function(d){ return d == curPoint ? 'black' : 'white' })
 
     points = _.sortBy(points, f('angle')).reverse()
     points.forEach(function(d, i){ d.index = i })
@@ -71,21 +68,14 @@ function drawHN(){
       .on('mousemove', function(){
         if (updating) return
 
-        var pos = d3.mouse(this)
-
-        var angle = calcAngle(prevPoint, curPoint, {x: pos[0], y: pos[1]})
-        var oldMaxAngle = maxAngle
-
+        var angle = calcAngle(prevPoint, curPoint, {x: d3.mouse(this)[0], y: d3.mouse(this)[1]})
         points.filter(ƒ('active')).forEach(function(d){
           if (Math.abs(angle - d.angle) < 1){
-            if (angle > maxAngle) maxAngle = d.angle
-
             d.active = false
-            d.circle.classed('hoverable', false)
             lineG.append('line').datum(d).attr('class', 'possible-max')
                 .style('stroke', _.compose(color, f('index')))
                 .attr({x1: curPoint.x, y1: curPoint.y, x2: curPoint.x, y2: curPoint.y})
-              .transition('drawInit').duration(1000)
+              .transition().duration(1000)
                 .attr({x2: d.x, y2: d.y})
 
             d.circle.transition().delay(700).duration(500)
@@ -95,7 +85,7 @@ function drawHN(){
         })
 
         if (!points.filter(f('active')).length){
-          updateCurPoint(_.findWhere(points, {angle: maxAngle}), curPoint)
+          updateCurPoint(_.findWhere(points, {index: 0}), curPoint)
         }
       })
 

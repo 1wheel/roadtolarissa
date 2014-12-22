@@ -17,15 +17,15 @@ hn
 	make var names consitent
 
 
-	circles on top
+	//circles on top
 
-	pause after finishing to draw black line
+	//pause after finishing to draw black line
 
-	undraw w/ nice transitions
+	//undraw w/ nice transitions
 
-	change start circle color
+	// change start circle color
 
-	reset button
+	//reset button
 
 
 
