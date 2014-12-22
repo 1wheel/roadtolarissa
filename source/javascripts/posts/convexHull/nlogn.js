@@ -95,15 +95,19 @@ function drawNlogN(){
 
     }
 
-    circles.attr('r', function(d, i){ return i < curI ? 5 : 5 })
+    circles
+        .classed('next-point', function(d, i){ return i === activeI })
+        .attr('r', function(d, i){ return i < curI ? 5 : 5 })
+
+    if (!curPoint){
+      rect.transition().duration(1000).attr('width', width)
+      return  //exit early if we're done
+    }
+
     topPoints.concat(curPoint).forEach(function(d){
       d.circle.attr('r', 10).classed('top-point', true) 
     })
     
-    circles.classed('next-point', function(d, i){
-      return i === activeI
-    })
-
     function checkForAngleDraw(){
       drawAngle(curPoint, topPoints[topPoints.length - 1], topPoints[topPoints.length - 2])
     }
