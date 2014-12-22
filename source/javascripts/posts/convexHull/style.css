@@ -111,15 +111,18 @@ body{
 
 
 
-
+#hn .point{
+	stroke: black;
+	fill: white;
+}
 .outline{
 	stroke: black;
-	stroke-width: 3;
+	stroke-width: 2;
 }
 
 
 .possible-max{
-	stroke-width: 2;
+	stroke-width: 3;
 
 }
 

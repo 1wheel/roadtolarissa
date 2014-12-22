@@ -18,8 +18,8 @@ function drawHN(){
       .each(function(d){ d.circle = d3.select(this) })
 
   var color = d3.scale.linear()
-      .domain([0, 1, points.length - 1])
-      .range(['green', '#FF00C0', '#BABABA'])
+      .domain([0, points.length/2, points.length - 1])
+      .range([d3.lab('#FF00C0'), d3.lab('#8B84D8'), d3.lab('#00FF01')])
 
   var hullPoints = []
   var curPoint,prevPoint, maxAngle, updating;
@@ -35,7 +35,7 @@ function drawHN(){
     points.forEach(function(d){
       d.angle = calcAngle(prevPoint, curPoint, d)
       d.active = d != curPoint
-      d.circle.classed('next-point', d.active)
+      d.circle.classed('hoverable', d.active)
     })    
 
     points = _.sortBy(points, f('angle')).reverse()
@@ -51,8 +51,7 @@ function drawHN(){
 
     updating = true
     circles.transition().duration(1000)
-        .attr('r', 5)
-        .style('fill', 'black')
+        .attr('r', 8)
 
     d3.selectAll('.possible-max')
       .transition().duration(1000)
@@ -80,10 +79,9 @@ function drawHN(){
             if (angle > maxAngle) maxAngle = d.angle
 
             d.active = false
-            d.circle.classed('next-point', false)
+            d.circle.classed('hoverable', false)
             svg.append('line').datum(d).attr('class', 'possible-max max-angle')
                 .style('stroke', _.compose(color, f('index')))
-                //.classed('max-angle', maxAngle == d.angle)
                 .attr({x1: curPoint.x, y1: curPoint.y, x2: curPoint.x, y2: curPoint.y})
               .transition('drawInit').duration(1000)
                 .attr({x2: d.x, y2: d.y})
@@ -95,8 +93,7 @@ function drawHN(){
             .classed('max-angle', false)
           .transition('shrinking').delay(800).duration(0)
             .each('end', function(d){
-              d.circle.transition()
-                  .style('fill', 'grey')
+              d.circle.transition().duration(500)
                   .attr('r', 3)
             })
 
