@@ -84,7 +84,7 @@ function drawAngle(a, b, c){
   var length = arc.node().getTotalLength()
 
   arc.attr({'stroke-dasharray': length + ' ' + length, 'stroke-dashoffset': length})
-    .transition().duration(length*5).ease('linear')
+    .transition().duration(300).ease('linear')
       .attr('stroke-dashoffset', 0)
       .styleTween('stroke', function(){
         return function(t){

@@ -57,12 +57,12 @@ function drawNlogN(){
       activePoints.attr('d',  'M' + topPoints
           .concat(_.last(topPoints))
         .map(f('p')).join('L'))
-      .transition().duration(1500).attr('d', 'M' + topPoints
+      .transition().duration(1000).attr('d', 'M' + topPoints
           .concat(curPoint)
         .map(f('p')).join('L'))
       .each('end', checkForAngleDraw)
 
-      rect.transition().duration(1500).attr('width', curPoint.x)
+      rect.transition().duration(1000).attr('width', curPoint.x)
 
     } else{
       var a = topPoints[topPoints.length - 2]
@@ -79,7 +79,7 @@ function drawNlogN(){
             .concat(b)
             .concat(curPoint)
           .map(f('p')).join('L'))
-        .transition().duration(1500).attr('d', 'M' + topPoints
+        .transition().duration(1000).attr('d', 'M' + topPoints
             .concat({p: midPoint(a, curPoint)})
             .concat(curPoint)
           .map(f('p')).join('L'))
