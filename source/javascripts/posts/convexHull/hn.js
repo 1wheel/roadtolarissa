@@ -1,5 +1,5 @@
 function drawHN(){
-  var numPoints = 20,
+  var numPoints = 50,
       points = _.sortBy(uniformRandom(numPoints), f('x'))
 
   var svg = d3.select('#hn').html('')
@@ -8,6 +8,8 @@ function drawHN(){
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+  var lineG = svg.append('g')
 
   var circles = svg.append('g').selectAll('circle')
       .data(points).enter()
@@ -41,7 +43,7 @@ function drawHN(){
     points = _.sortBy(points, f('angle')).reverse()
     points.forEach(function(d, i){ d.index = i })
 
-    svg.append('path').classed('outline', true)
+    lineG.append('path').classed('outline', true)
         .datum({prev: prevPoint, cur: curPoint})
         .attr('d', ['M', prevPoint.x, prevPoint.y, 'L', curPoint.p].join(' '))
 
@@ -80,22 +82,17 @@ function drawHN(){
 
             d.active = false
             d.circle.classed('hoverable', false)
-            svg.append('line').datum(d).attr('class', 'possible-max max-angle')
+            lineG.append('line').datum(d).attr('class', 'possible-max')
                 .style('stroke', _.compose(color, f('index')))
                 .attr({x1: curPoint.x, y1: curPoint.y, x2: curPoint.x, y2: curPoint.y})
               .transition('drawInit').duration(1000)
                 .attr({x2: d.x, y2: d.y})
 
+            d.circle.transition().delay(700).duration(500)
+                .attr('r', 3)
+
           }
         })
-
-        svg.selectAll('.max-angle').filter(function(d){ return d.angle != maxAngle })
-            .classed('max-angle', false)
-          .transition('shrinking').delay(800).duration(0)
-            .each('end', function(d){
-              d.circle.transition().duration(500)
-                  .attr('r', 3)
-            })
 
         if (!points.filter(f('active')).length){
           updateCurPoint(_.findWhere(points, {angle: maxAngle}), curPoint)
