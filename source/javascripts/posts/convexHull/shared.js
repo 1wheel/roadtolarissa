@@ -93,3 +93,11 @@ function drawAngle(a, b, c){
       })
 
 }
+
+
+function addResetButton(svg, fn){
+  svg.append('text').classed('reset-button', true)
+    .attr({dy: '1em', dx: '.2em'})
+    .on('click', fn)
+    .text('↻')
+}

@@ -108,10 +108,7 @@ function drawNaive(){
           .attr('d', ['M', a.x, ',', a.y, ' L', b.x, ',', b.y].join(''))
     }
   }
-
-  svg.append('text').classed('reset-button', true)
-      .attr({dy: '1em', dx: '.2em'})
-      .on('click', drawNaive)
-      .text('↻')
+  
+  addResetButton(svg, drawNaive)
 }
 drawNaive()

@@ -134,9 +134,6 @@ function drawNlogN(){
   //     .attr({dy: '3em', dx: '3em'})
 
 
-  svg.append('text').classed('reset-button', true)
-      .attr({dy: '1em', dx: '.2em'})
-      .on('click', drawNlogN)
-      .text('↻')
+  addResetButton(svg, drawNlogN)
 }
 drawNlogN()

@@ -80,7 +80,6 @@ function drawHN(){
 
             d.circle.transition().delay(700).duration(500)
                 .attr('r', 3)
-
           }
         })
 
@@ -90,9 +89,6 @@ function drawHN(){
       })
 
 
-  svg.append('text').classed('reset-button', true)
-      .attr({dy: '1em', dx: '.2em'})
-      .on('click', drawHN)
-      .text('↻')
+  addResetButton(svg, drawHN)
 }
 drawHN()
