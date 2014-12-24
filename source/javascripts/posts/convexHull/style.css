@@ -52,12 +52,12 @@ body{
 @-webkit-keyframes throb{
 	from{
 		stroke-width: 3px;
-		stroke-opacity: .8;
+		stroke-opacity: .95;
 	}
 
 	to{
 		stroke-width: 8px;
-		stroke-opacity: .6;
+		stroke-opacity: .7;
 	}
 }
 
@@ -88,8 +88,8 @@ body{
 }
 
 #nlogn .next-point{
-	stroke: #FF00C0;
-	fill-opacity: 0;
+	stroke: #FFB200;
+	/*fill-opacity: 0;*/
 	stroke-opacity: .8;
 }
 
