@@ -99,7 +99,6 @@ function drawNaive(){
     		allSame = false
     	}
     	lastLeft = isLeft
-      // return isLeft ? blue : red
     })
     if (allSame){
       pairLineG.append('path')
