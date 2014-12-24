@@ -51,11 +51,13 @@ body{
 
 @-webkit-keyframes throb{
 	from{
-		stroke-width: 2px;
+		stroke-width: 3px;
+		stroke-opacity: .8;
 	}
 
 	to{
-		stroke-width: 6px;
+		stroke-width: 8px;
+		stroke-opacity: .6;
 	}
 }
 
@@ -74,32 +76,35 @@ body{
 }
 
 #nlogn .point{
-	fill-opacity: .5;
-	fill: steelblue;
-	stroke: blue;
+	fill-opacity: 1;
+	fill: white;
+	stroke: black;
 }
 
 #nlogn .top-point{
-	fill: green;
-	stroke: green;
+	fill: #2C931F;
+	stroke: #2C931F;
+	fill-opacity: .5;
 }
 
 #nlogn .next-point{
-	stroke: orange;
+	stroke: #FF00C0;
+	fill-opacity: 0;
 	stroke-opacity: .8;
 }
 
 #nlogn .passed-point{
-	fill: grey;
 	opacity: .5;
-	stroke: steelblue;
+	fill: black;
+	stroke: white;
+
 }
 
 .cur-hull{
 	fill-opacity: .3;
-	stroke: green;
+	stroke: #2C931F;
 	stroke-width: 3;
-	fill: green;
+	fill: #2C931F;
 }
 
 
