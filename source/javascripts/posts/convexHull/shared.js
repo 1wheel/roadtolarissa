@@ -7,12 +7,27 @@ var margin = {top: 0, right: 0, bottom: 0, left: 0},
     width = 750 - margin.left - margin.right
     height = 500 - margin.top - margin.bottom
 
+function minDistPoint(n){
+  var rv = [], p;
+  while (rv.length < n){
+    p = [ Math.random()*width* .9 + width *(1 - .9)/2, 
+          Math.random()*height*.9 + height*(1 - .9)/2]
+    p = {x: p[0], y: p[1], p: p}
+
+    if (rv.every(function(q){ return dist(p, q) > 40 })) rv.push(p)
+  }
+
+  rv.forEach(function(p, i){ p.i = i })
+  return rv
+}
+
+
 function uniformRandom(n){
-	return d3.range(n).map(function(i){
-	  var p = [	Math.random()*width* .9 + width *(1 - .9)/2, 
-	  					Math.random()*height*.9 + height*(1 - .9)/2]
-	  return {x: p[0], y: p[1], p: p, i: i}
-	})
+  return d3.range(n).map(function(i){
+    var p = [ Math.random()*width* .9 + width *(1 - .9)/2, 
+              Math.random()*height*.9 + height*(1 - .9)/2]
+    return {x: p[0], y: p[1], p: p, i: i}
+  })
 }
 
 
@@ -88,7 +103,7 @@ function drawAngle(a, b, c){
       .attr('stroke-dashoffset', 0)
       .styleTween('stroke', function(){
         return function(t){
-          return t*angle < 180 ? 'green' : 'red'
+          return t*angle < 180 ? green : red
         }
       })
 

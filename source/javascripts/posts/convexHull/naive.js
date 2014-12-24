@@ -1,6 +1,6 @@
 function drawNaive(){
   var numPoints = 20,
-      points = uniformRandom(numPoints)
+      points = minDistPoint(numPoints)
 
   var svg = d3.select('#naive').html('')
     .append('svg')

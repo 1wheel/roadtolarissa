@@ -1,6 +1,6 @@
 function drawNlogN(){
   var numPoints = 20,
-      points = _.sortBy(uniformRandom(numPoints), f('x'))
+      points = _.sortBy(minDistPoint(numPoints), f('x'))
 
   points.forEach(function(d, i){ d.i = i })
   

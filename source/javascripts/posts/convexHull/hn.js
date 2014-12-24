@@ -1,6 +1,6 @@
 function drawHN(){
   var numPoints = 50,
-      points = _.sortBy(uniformRandom(numPoints), f('x'))
+      points = _.sortBy(minDistPoint(numPoints), f('x'))
 
   var svg = d3.select('#hn').html('')
     .append('svg')
