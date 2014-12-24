@@ -1,0 +1,65 @@
+---
+layout: post
+title: "Convex Hulls"
+permalink: /convex-hulls
+comments: true
+categories: 
+---
+
+<link rel="stylesheet" type="text/css" href="/javascripts/posts/convexHull/style.css">
+
+The [drawdown][1] of a series is the largest decrease in value between two points. If you were to purchase and sell a stock, the start and end of its drawdown would be the worst time to do so. 
+
+<div id='naive' style='width: 100%'></div>
+
+Since order matters, calculating drawdown isn't as simple as finding the maximum and minimum values of the series - if the minimum occurs before the maximum, such an approach will identify a period of appreciation. To avoid this case, we can iterate over each index <span class='i-text'>`i`</span> of the series, then compare the price at time <span class='i-text'>`i`</span> to the price at all subsequent indices <span class='j-text'>`j`</span>. <span class='maxDrawdown-text'>`maxDrawdown`</span> is equal to the largest difference between prices at <span class='i-text'>`i`</span> and <span class='j-text'>`j`</span>:
+
+```javascript
+var n = prices.length
+for (var i = 0; i < n; i++){
+    for (var j = i + 1; j < n; j++){
+        dif = prices[i] - prices[j];
+        maxDrawdown = maxDrawdown > dif ? maxDrawdown : dif; 
+    }
+}
+```
+
+
+<div id='nlogn' style='width: 100%'></div>
+
+While accurate, this algorithm require many value comparisons:
+
+<div id='hn' style='width: 100%'></div>
+
+If the series has <span class='n-text'>`n`</span> prices, `n*(n - 1)/2` comparisons are needed (the number of comparisons done during the <span class='i-text'>`i`</span>th pass through the inner loop is `n - i - 1`; the [sum](http://en.wikipedia.org/wiki/Triangular_number) of all those comparisons is `1 + 2 + 3 + ... + n - 1`). The number of comparisons increases faster than `n` - if there are `100` values, `4950` comparisons are needed, while `200` values requires `19900` comparisons. For series covering a long period of time or with a great deal of granularity, this algorithm might be too slow even for a fast computer.
+
+Instead of comparing every value with every other value, we can exploit the sequential requirement and make only `n - 1` comparisons: 
+
+```javascript
+var peak = 0;
+var n = prices.length
+for (var i = 1; i < n; i++){
+    dif = prices[peak] - prices[i];
+    peak = dif < 0 ? i : j; 
+    maxDrawdown = maxDrawdown > dif ? maxDrawdown : dif; 
+}
+```
+
+Iterating over each index <span class='i-text'>`i`</span> of the series in order, the maximum decline ending at point <span class='i-text'>`i`</span> will start at the highest point of the series so far. While passing over the series we keep track of two numbers - the <span class='peak-text'>`peak`</span> of the series and the <span class='maxDrawdown-text'>`maxDrawdown`</span> in price between <span class='peak-text'>`peak`</span> and <span class='i-text'>`i`</span>. 
+
+<div id='oN' style='width: 100%; height: 300px'></div>
+
+The speed difference between the two algorithms is proportional to the number of prices. Calculating drawdown with the second approach on a series with `100` values takes `99` comparisons instead of `4950`, which is `50` (`100/2`) times faster. A series with `200` values requires `199` comparisons instead of `19900`, which is `100` (`200/2`) times faster. In general, since the first approach requires `n*(n - 1)/2` comparisons for a series with <span class='n-text'>`n`</span> values and the second `n - 1` comparisons, the second approach will be `n/2` times faster.
+
+[Code for animations on github](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/convexHull)
+
+
+
+
+<script src="/javascripts/libs/d3-3.5.2.js" type="text/javascript"></script>
+<script src="/javascripts/libs/lodash.js" type="text/javascript"></script>
+<script src="/javascripts/posts/negBarTransition/lib.js" type="text/javascript"></script>
+<script src="/javascripts/posts/convexHull/shared.js" type="text/javascript"></script>
+<script src="/javascripts/posts/convexHull/naive.js" type="text/javascript"></script>
+<script src="/javascripts/posts/convexHull/nlogn.js" type="text/javascript"></script>
+<script src="/javascripts/posts/convexHull/hn.js" type="text/javascript"></script>
