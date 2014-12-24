@@ -63,3 +63,23 @@ aside.sidebar img:hover{
        0px 1px 0 white,
        1px 1px 0 white;
   }
+
+
+
+//style code box
+.code{
+  figcaption{
+    display: none;
+  }
+  .gutter{
+    display: none;
+  }
+  .javascript{
+    background: white url('') !important;
+  }
+  .highlight{
+    background-color: white !important;
+    border-color: #EDEDED !important;
+  }
+  box-shadow: none;
+}
