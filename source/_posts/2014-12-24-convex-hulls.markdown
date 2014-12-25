@@ -12,9 +12,11 @@ A set of points' [convex hull](http://www.cs.uu.nl/geobook/introduction.pdf) is 
 
 Unforentently, computures don't typically come with rubber bands and peg boards so to we'll need a different approach to programtically find a set of points convex hull.
 
-Since each edge of the convex hull lies between two points from our set of points, we can find the convex hull by iterating over each each pair of points and checking to see if it lies on the hull. Checking is relativly simple - if some of the points are left of the line connecting the pair and some other are right, the pair can't possiblely be an edge of a [convex](http://mathworld.wolfram.com/Convex.html) shape. 
+Since each edge of the convex hull lies between two points from our set of points, we can find the convex hull by iterating over each each pair of points and checking to see if it lies on the hull. To check the number of points to the left and right (blue and red) of the line formed by they pair are counted. If all the points aren't on the same side, pair can't be an edge of a [convex](http://mathworld.wolfram.com/Convex.html) shape. 
 
 <div id='naive' style='width: 100%'></div>
+
+While simple, this approch is quite slow:
 
 ```javascript
 //construct array with all the pairs of points
@@ -35,10 +37,12 @@ var convexHullEdges = pairs.filter(function(pair){
     //only keep pairs with all left or all right points
     return leftPoints == 0 || leftPoints == points.length - 2
 })
-
 ```
 
-[Graham scan](http://en.wikipedia.org/wiki/Graham_scan)
+With `n` points, there are  `n(n-1)/2` pairs of points. Checking to see if every point is to the left of every pair make this algorithm `O(n³)`.
+
+For a slightly trickier implementation, [Graham scan](http://en.wikipedia.org/wiki/Graham_scan) has a running time of `n log n`. Starting from the leftmost point and moving right, the top of the convex hull for the left points (those in the black area) is computed. Every time a new point is added, points from the previous convex hull are removed right to left until there are no angles greater than 180°.
+
 <div id='nlogn' style='width: 100%'></div>
 
 
