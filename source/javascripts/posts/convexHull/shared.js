@@ -48,7 +48,6 @@ function calcAngle(a, b, c){
   var ab = dist(a, b)
   var bc = dist(b, c)
   var ca = dist(c, a)
-  // console.log(v1[0]*v2[1] - v2[0]*v1[1])
 
   return Math.acos((bc*bc + ab*ab - ca*ca)/(2*bc*ab))*180/Math.PI
   // return Math.acos(dot/(norm(v1)*norm(v2)))*180/Math.PI
@@ -112,7 +111,8 @@ function drawAngle(a, b, c){
 
 function addResetButton(svg, fn){
   svg.append('text').classed('reset-button', true)
-    .attr({dy: '1em', dx: '.2em'})
+    .attr({x: width, y: height})
+    .attr({dy: '-1em', dx: '-1em'})
     .on('click', fn)
     .text('↻')
 }

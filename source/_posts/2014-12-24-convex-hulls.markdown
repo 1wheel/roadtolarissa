@@ -66,7 +66,7 @@ _.sortBy(points, 'x').forEach(function(p){
 While this approach initially looks like it could have a worst case runtime of `O(n2)` - for every point we could iterate over the `topPoints` array - each point can only be removed the `topPoints` array once. Asymptotically most of the execution time will be spent sorting the array, making the algorithm `n log n`.
 
 Depending on the number of points on the convex hull, this runtime can be  further improved.
-[Jarvis' march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm) moves along the convex hull by checking all of the points to find the largest angle formed by two last points on the hull and one of the other points.
+[Jarvis' march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm) moves along the convex hull by checking all of the points to find the largest angle formed by two last points on the hull and one of the other points. Larger and smaller angles are purple and green respectivly.
 <div id='hn' style='width: 100%'></div>
 ```javascript
 //array of points on hull - initalize with leftmost point. 

@@ -2,6 +2,10 @@ body{
 	background-color: #F5F5F5;
 }
 
+back-rect{
+	fill: white;
+}
+
 .point{
 	fill-opacity: 1;
 	fill: black;

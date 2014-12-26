@@ -9,6 +9,12 @@ function drawHN(){
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+  svg.append('rect').attr({ x: -margin.top, 
+                            y: -margin.left, 
+                            width: width + margin.left + margin.right, 
+                            height: height + margin.top + margin.bottom, 
+                            fill: 'white'})
+  
   var lineG = svg.append('g')
 
   var circles = svg.append('g').selectAll('circle')
