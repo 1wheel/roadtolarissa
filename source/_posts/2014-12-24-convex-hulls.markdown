@@ -8,9 +8,9 @@ categories:
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/convexHull/style.css">
 
-A set of points' [convex hull](http://www.cs.uu.nl/geobook/introduction.pdf) is the smallest convex polygon that covers every points. If we picture each point as a peg in a board, we could approximate the convex hull by streching a rubber band around all of the points and then letting it pull itself taut against the outer points.
+A set of points' [convex hull](http://www.cs.uu.nl/geobook/introduction.pdf) is the smallest convex polygon that covers every points. If we picture each point as a peg in a board, we could approximate the convex hull by stretching a rubber band around all of the points and then letting it pull itself taut against the outer points.
 
-Unforentently, computures don't typically come with rubber bands and peg boards so to we'll need a different approach to programtically find a set of points convex hull.
+Unfortunately, computers don't typically come with rubber bands and peg boards so to we'll need a different approach to programmatically find a set of points convex hull.
 
 Since each edge of the convex hull lies between two points from our set of points, we can find the convex hull by iterating over each each pair of points and checking to see if it lies on the hull. To check the number of points to the left and right (blue and red) of the line formed by they pair are counted. If all the points aren't on the same side, pair can't be an edge of a [convex](http://mathworld.wolfram.com/Convex.html) shape. 
 
@@ -37,7 +37,7 @@ var convexHullEdges = pairs.filter(function(pair){
 })
 ```
 
-While simple, this approch is quite slow. With `n` points, there are  `n(n-1)/2` pairs of points. Checking to see if every point is to the left of every pair make this algorithm `O(n³)`.
+While simple, this approach is quite slow. With `n` points, there are  `n(n-1)/2` pairs of points. Checking to see if every point is to the left of every pair make this algorithm `O(n³)`.
 
 For a slightly trickier implementation, [Graham's scan](http://en.wikipedia.org/wiki/Graham_scan) has a running time of `n log n`. Starting from the leftmost point and moving right, the top of the convex hull for the left points (those in the black area) is computed. Every time a new point is added, points from the previous convex hull are removed right to left until there are no angles greater than 180°.
 
@@ -61,13 +61,13 @@ _.sortBy(points, 'x').forEach(function(p){
   topPoints.push(p)
 })
 ```
-While this approach initially looks like it could have a worst case runtime of `O(n²)` - for every point we could iterate over the `topPoints` array - each point can only be removed the `topPoints` array once. Asymptotically most of the execution time will be spent sorting the array, making the algorithm `n log n`.
+While this approach initially looks like it could have a worst case runtime of `O(n²)` - for every point we could end up iterating over the whole `topPoints` array - each point can only be removed the `topPoints` array once. Asymptotically most of the execution time will be spent sorting the array, making the algorithm `n log n`.
 
 Depending on the number of points on the convex hull, this runtime can be  further improved.
-[Jarvis' march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm) moves along the convex hull by checking all of the points to find the largest angle formed by two last points on the hull and one of the other points. Larger and smaller angles are purple and green respectivly.
+[Jarvis' march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm) moves along the convex hull by checking all of the points to find the largest angle formed by two last points on the hull and one of the other points. Larger and smaller angles are purple and green respectively.
 <div id='hn' style='width: 100%'></div>
 ```javascript
-//array of points on hull - initalize with leftmost point. 
+//array of points on hull - initialize with leftmost point. 
 var hull = [leftMostPoint], a, b
 
 //keep adding points to hull until it makes a circle
@@ -91,7 +91,7 @@ With `h` points on the hull and `n` total points, each point will have its angle
 
 [Computational Geometry: Algorithms and Applications, chapter 1](http://www.cs.uu.nl/geobook/)
 
-[Chen's alorithm](http://en.wikipedia.org/wiki/Chan%27s_algorithm) combines the Jarviss march and Graham's scan with a runtime of `n log h`.  
+[Chen's algorithmm](http://en.wikipedia.org/wiki/Chan%27s_algorithm) combines the Jarviss march and Graham's scan with a runtime of `n log h`.  
 
 
 <script src="/javascripts/libs/d3-3.5.2.js" type="text/javascript"></script>
