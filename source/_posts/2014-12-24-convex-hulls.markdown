@@ -8,11 +8,11 @@ categories:
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/convexHull/style.css">
 
-A set of points' [convex hull](http://www.cs.uu.nl/geobook/introduction.pdf) is the smallest convex polygon that covers every points. If we picture each point as a peg in a board, we could approximate the convex hull by stretching a rubber band around all of the points and then letting it pull itself taut against the outer points.
+A set of points' [convex hull](http://www.cs.uu.nl/geobook/introduction.pdf) is the smallest convex polygon that covers every point. If we picture each point as a peg in a board, we could approximate the convex hull by stretching a rubber band around all of the points and then letting it pull itself taut against the outer ones.
 
-Unfortunately, computers don't typically come with rubber bands and peg boards so to we'll need a different approach to programmatically find a set of points convex hull.
+Unfortunately, computers don't typically come with rubber bands and peg boards so we'll need a different approach to programmatically find a set of points' convex hull.
 
-Since each edge of the convex hull lies between two points from our set of points, we can find the convex hull by iterating over each each pair of points and checking to see if it lies on the hull. To check the number of points to the left and right (blue and red) of the line formed by they pair are counted. If all the points aren't on the same side, pair can't be an edge of a [convex](http://mathworld.wolfram.com/Convex.html) shape. 
+Since each edge of the convex hull lies between two points from our set, we can find the convex hull by iterating over each pair of points and checking to see if it lies on the hull. To check, the number of points to the left and right (blue and red) of the line formed by the pair are counted. If all the points aren't on the same side, that pair can't be an edge of a [convex](http://mathworld.wolfram.com/Convex.html) shape. 
 
 <div id='naive' style='width: 100%'></div>
 
@@ -37,7 +37,7 @@ var convexHullEdges = pairs.filter(function(pair){
 })
 ```
 
-While simple, this approach is quite slow. With `n` points, there are  `n(n-1)/2` pairs of points. Checking to see if every point is to the left of every pair make this algorithm `O(n³)`.
+While simple, this approach is quite slow. With `n` points, there are  `n(n-1)/2` pairs of points. Checking if every point is to the left of every pair has a asymptotic `O(n³)` runtime.
 
 For a slightly trickier implementation, [Graham's scan](http://en.wikipedia.org/wiki/Graham_scan) has a running time of `n log n`. Starting from the leftmost point and moving right, the top of the convex hull for the left points (those in the black area) is computed. Every time a new point is added, points from the previous convex hull are removed right to left until there are no angles greater than 180°.
 
@@ -57,7 +57,6 @@ _.sortBy(points, 'x').forEach(function(p){
     topPoints.pop()
   }
 
-  //add the current right most point to the 
   topPoints.push(p)
 })
 ```
