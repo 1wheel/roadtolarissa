@@ -91,7 +91,7 @@ With `h` points on the hull and `n` total points, each point will have its angle
 
 [Computational Geometry: Algorithms and Applications, chapter 1](http://www.cs.uu.nl/geobook/)
 
-[Chen's algorithmm](http://en.wikipedia.org/wiki/Chan%27s_algorithm) combines the Jarvis' march and Graham's scan with a runtime of `n log h`.  
+[Chen's algorithmm](http://en.wikipedia.org/wiki/Chan%27s_algorithm) combines the Jarvis' march and Graham's scan with a runtime of `n log h`  
 
 
 <script src="/javascripts/libs/d3-3.5.2.js" type="text/javascript"></script>

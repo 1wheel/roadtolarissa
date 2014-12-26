@@ -1,6 +1,6 @@
 http://roadtolarissa.com/convex-hulls
 
-'naive.js' - code for first, naive approch
+`naive.js` - first n³ approch
 
 `nlogn.js` - Graham's scan
 
