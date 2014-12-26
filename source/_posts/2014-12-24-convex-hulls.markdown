@@ -22,20 +22,20 @@ While simple, this approch is quite slow:
 //construct array with all the pairs of points
 var pairs = []
 for (var i = 0; i < points.length; i++){
-    for (var i = i + 1; j < points.length; j++){
-        pairs.push({a:points[i], b:points[j]})
-    }
+  for (var i = i + 1; j < points.length; j++){
+    pairs.push({a:points[i], b:points[j]})
+  }
 }
 
 //remove pairs of points that aren't on the convex hull
 var convexHullEdges = pairs.filter(function(pair){
-    //count how many points are to the left of each pair of points
-    var leftPoints = points.reduce(function(count point){
-        return count + isLeftofPair(pair, point)
-    }, 0)
+  //count how many points are to the left of each pair of points
+  var leftPoints = points.reduce(function(count point){
+    return count + isLeftofPair(pair, point)
+  }, 0)
 
-    //only keep pairs with all left or all right points
-    return leftPoints == 0 || leftPoints == points.length - 2
+  //only keep pairs with all left or all right points
+  return leftPoints == 0 || leftPoints == points.length - 2
 })
 ```
 
@@ -45,9 +45,23 @@ For a slightly trickier implementation, [Graham scan](http://en.wikipedia.org/wi
 
 <div id='nlogn' style='width: 100%'></div>
 
-
 ```javascript
-var peak = 0;
+//array of points on top of the convex hull
+var topPoints = []
+
+//order points by x cord and iterate over them
+_.sortBy(points, 'x').forEach(function(p){
+  //right to left, trim topPoints until
+  //   the last two topPoints and the next point p form an angle less than 180°
+  //or topPoints only contains the left most point
+  while(topPoints.length > 1
+  && isConcave(p, topPoints[topPoints.length - 2], _.last(topPoints)_)){
+    topPoints.pop()
+  }
+
+  //add the current right most point to the 
+  topPoints.push(p)
+})
 ```
 
 [Jarvis march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm)
