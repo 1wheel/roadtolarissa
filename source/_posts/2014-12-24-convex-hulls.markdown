@@ -16,8 +16,6 @@ Since each edge of the convex hull lies between two points from our set of point
 
 <div id='naive' style='width: 100%'></div>
 
-While simple, this approch is quite slow:
-
 ```javascript
 //construct array with all the pairs of points
 var pairs = []
@@ -39,7 +37,7 @@ var convexHullEdges = pairs.filter(function(pair){
 })
 ```
 
-With `n` points, there are  `n(n-1)/2` pairs of points. Checking to see if every point is to the left of every pair make this algorithm `O(n³)`.
+While simple, this approch is quite slow. With `n` points, there are  `n(n-1)/2` pairs of points. Checking to see if every point is to the left of every pair make this algorithm `O(n³)`.
 
 For a slightly trickier implementation, [Graham's scan](http://en.wikipedia.org/wiki/Graham_scan) has a running time of `n log n`. Starting from the leftmost point and moving right, the top of the convex hull for the left points (those in the black area) is computed. Every time a new point is added, points from the previous convex hull are removed right to left until there are no angles greater than 180°.
 
@@ -63,7 +61,7 @@ _.sortBy(points, 'x').forEach(function(p){
   topPoints.push(p)
 })
 ```
-While this approach initially looks like it could have a worst case runtime of `O(n2)` - for every point we could iterate over the `topPoints` array - each point can only be removed the `topPoints` array once. Asymptotically most of the execution time will be spent sorting the array, making the algorithm `n log n`.
+While this approach initially looks like it could have a worst case runtime of `O(n²)` - for every point we could iterate over the `topPoints` array - each point can only be removed the `topPoints` array once. Asymptotically most of the execution time will be spent sorting the array, making the algorithm `n log n`.
 
 Depending on the number of points on the convex hull, this runtime can be  further improved.
 [Jarvis' march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm) moves along the convex hull by checking all of the points to find the largest angle formed by two last points on the hull and one of the other points. Larger and smaller angles are purple and green respectivly.
