@@ -9,6 +9,12 @@ function drawNaive(){
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+  svg.append('rect').attr({ x: -margin.top, 
+                            y: -margin.left, 
+                            width: width + margin.left + margin.right, 
+                            height: height + margin.top + margin.bottom, 
+                            fill: 'white'})
+
   var bArea = svg.append('path').style({fill: blue, opacity: .99})
   var rArea = svg.append('path').style({fill: red,  opacity: .99})
 

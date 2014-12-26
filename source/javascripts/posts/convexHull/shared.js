@@ -112,7 +112,7 @@ function drawAngle(a, b, c){
 function addResetButton(svg, fn){
   svg.append('text').classed('reset-button', true)
     .attr({x: width, y: height})
-    .attr({dy: '-1em', dx: '-1em'})
+    .attr({dy: '-.33em', dx: '-1em'})
     .on('click', fn)
     .text('↻')
 }
