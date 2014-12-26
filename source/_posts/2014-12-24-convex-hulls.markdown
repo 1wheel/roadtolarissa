@@ -41,7 +41,7 @@ var convexHullEdges = pairs.filter(function(pair){
 
 With `n` points, there are  `n(n-1)/2` pairs of points. Checking to see if every point is to the left of every pair make this algorithm `O(n³)`.
 
-For a slightly trickier implementation, [Graham scan](http://en.wikipedia.org/wiki/Graham_scan) has a running time of `n log n`. Starting from the leftmost point and moving right, the top of the convex hull for the left points (those in the black area) is computed. Every time a new point is added, points from the previous convex hull are removed right to left until there are no angles greater than 180°.
+For a slightly trickier implementation, [Graham's scan](http://en.wikipedia.org/wiki/Graham_scan) has a running time of `n log n`. Starting from the leftmost point and moving right, the top of the convex hull for the left points (those in the black area) is computed. Every time a new point is added, points from the previous convex hull are removed right to left until there are no angles greater than 180°.
 
 <div id='nlogn' style='width: 100%'></div>
 
@@ -49,7 +49,7 @@ For a slightly trickier implementation, [Graham scan](http://en.wikipedia.org/wi
 //array of points on top of the convex hull
 var topPoints = []
 
-//order points by x cord and iterate over them
+//order points by x cord
 _.sortBy(points, 'x').forEach(function(p){
   //right to left, trim topPoints until
   //   the last two topPoints and the next point p form an angle less than 180°
@@ -63,13 +63,37 @@ _.sortBy(points, 'x').forEach(function(p){
   topPoints.push(p)
 })
 ```
+While this approach initially looks like it could have a worst case runtime of `O(n2)` - for every point we could iterate over the `topPoints` array - each point can only be removed the `topPoints` array once. Asymptotically most of the execution time will be spent sorting the array, making the algorithm `n log n`.
 
-[Jarvis march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm)
+Depending on the number of points on the convex hull, this runtime can be  further improved.
+[Jarvis' march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm) moves along the convex hull by checking all of the points to find the largest angle formed by two last points on the hull and one of the other points.
 <div id='hn' style='width: 100%'></div>
+```javascript
+//array of points on hull - initalize with leftmost point. 
+var hull = [leftMostPoint], a, b
+
+//keep adding points to hull until it makes a circle
+while (hull[0] != _.last(hull)){
+  //get last two points along hull
+  a = hull[hull.length - 2]
+  a = a ? a : origin //if hull only has one point, use the origin
+  b = _.last(hull)
+  //find the point that makes the largest angle with a and b
+  var max = {angle: 0, p: null}
+  points.forEach(function(p){
+    var angle = calcAngle(a, b, p)
+    if (angle > max.angle) max = {angle: angle, p: p}
+  })
+  hull.push(max.p)
+}
+```
+With `h` points on the hull and `n` total points, each point will have its angle calculated `n*h` times. If there are less than `log n` points on the hull, Jarvis's march will be faster than Graham's scan.  
 
 [Code for animations on github](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/convexHull)
 
 [Computational Geometry: Algorithms and Applications, chapter 1](http://www.cs.uu.nl/geobook/)
+
+[Chen's alorithm](http://en.wikipedia.org/wiki/Chan%27s_algorithm) combines the Jarviss march and Graham's scan with a runtime of `n log h`.  
 
 
 <script src="/javascripts/libs/d3-3.5.2.js" type="text/javascript"></script>
