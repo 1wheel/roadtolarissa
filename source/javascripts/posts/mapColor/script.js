@@ -19,7 +19,7 @@ var steps = [
   {scale: 'quantize', values: 'quantizeFlaw'},
   {scale: 'quantile', values: 'quantizeFlaw'},
   {scale: 'quantile', values: 'quantileFlaw'},
-  {scale: 'jenks',     values: 'quantileFlaw'}
+  {scale: 'jenks',    values: 'quantileFlaw'}
 ]
 
 var values = {}
@@ -28,7 +28,7 @@ values.start = d3.range(n).map(function(){
 values.quantizeFlaw = d3.range(n).map(function(d){
   return Math.random()*.2 + (d/n >= 4/5 ? .8 : 0) }).sort()
 values.quantileFlaw = d3.range(n).map(function(d){
-  return Math.random() }).sort()
+  return Math.random()*.09 + Math.max(Math.floor(d/n*5 - .5), 0)*.22 }).sort()
 
 var jBreaks = ss.jenks(values.quantileFlaw, 5)
 jBreaks[jBreaks.length - 1] = 1
@@ -122,7 +122,7 @@ scatterG.append('text')
 
 scatterG.append('text')
     .text('rank →')
-    .attr({x: sWidth, y: sHeight, 'text-anchor': 'end', dy: '.66em'})
+    .attr({x: sWidth, y: sHeight, 'text-anchor': 'end', dy: '.75em'})
 
 
 //map
