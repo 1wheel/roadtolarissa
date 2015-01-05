@@ -22,7 +22,7 @@ body{
   position: relative;
   vertical-align: top;
   height: 150px;
-  border-bottom: lightgray 1px solid;
+  border: lightgray 1px solid;
   z-index: 1;
   background-color: white;
 }
@@ -46,7 +46,7 @@ body{
 pre {
   background: white;
   border: 0px;
-  line-height: 1em;
+  line-height: 1.7em;
   font-size: 12px;
   margin-bottom: 0em;
   padding: 0em 0em;

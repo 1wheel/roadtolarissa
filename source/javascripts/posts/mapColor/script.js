@@ -19,7 +19,7 @@ var steps = [
   {scale: 'quantize', values: 'quantizeFlaw'},
   {scale: 'quantile', values: 'quantizeFlaw'},
   {scale: 'quantile', values: 'quantileFlaw'},
-  {scale: 'janx',     values: 'quantileFlaw'}
+  {scale: 'jenks',     values: 'quantileFlaw'}
 ]
 
 var values = {}
@@ -29,6 +29,9 @@ values.quantizeFlaw = d3.range(n).map(function(d){
   return Math.random() }).sort()
 values.quantileFlaw = d3.range(n).map(function(d){
   return Math.random() }).sort()
+
+var jBreaks = ss.jenks(values.quantileFlaw, 5)
+jBreaks[jBreaks.length - 1] = 1
 
 var rectAttrs = {}
 rectAttrs.gradient = function(selection){
@@ -52,19 +55,20 @@ rectAttrs.quantile = function(selection){
     .attr('y', 0)
     .attr('height', sHeight)
 }
-rectAttrs.janx = function(selection){
+rectAttrs.jenks = function(selection){
   selection
-    .attr('x', function(d, i){ return i*sWidth/colors.length })
-    .attr('width', sWidth/colors.length)
-    .attr('y', 0)
-    .attr('height', sHeight)
+    .attr('x', 0)
+    .attr('width', sWidth)
+    .attr('y', function(d, i){ return circleY(jBreaks[i + 1]) })
+    .attr('height', function(d, i){
+      return circleY(jBreaks[i]) - circleY(jBreaks[i + 1]) })
 }
 
 var scales = {}
 scales.gradient = d3.scale.linear().range([colors[0], colors[colors.length - 1]])
 scales.quantize = d3.scale.quantize().range(colors)
 scales.quantile = d3.scale.quantile().range(colors)
-scales.janx = d3.scale.quantize().range(colors)
+scales.jenks = d3.scale.threshold().domain(jBreaks.slice(1)).range(colors)
 
 d3.select('#bot-padding')
     .style('height', window.innerHeight - oHeight - sHeight - 100 + 'px')
@@ -150,7 +154,6 @@ scroll.on('active', function(i){
   curScale = scales[curScaleStr]
 
   if (curScaleStr === 'quantile') curScale.domain(curValues)
-  if (curScaleStr === 'janx')     curScale.domain(curValues)
 
   circles.data(curValues)
     .transition().duration(1000)
