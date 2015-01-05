@@ -107,7 +107,6 @@ var rects = scatterG.selectAll('rect')
     .data(colors).enter()
   .append('rect')
     .attr('fill', function(d, i){ return 'url(#lg' + i + ')' })
-    .call(rectAttrs.gradient)
 
 var circles = scatterG.selectAll('circle')
     .data(values.start).enter()
@@ -146,7 +145,7 @@ mapG.selectAll('area')
       return 'M' + d.join('L') + 'Z' })
     .on('mouseover', function(d){ updateHover(d.i) })
 
-var curValues, curRect, curScaleStr, curScale
+var curValues, curRect, curScaleStr, curScale, isFirst = true
 scroll.on('active', function(i){
   curValues = values[steps[i].values]
   curScaleStr = steps[i].scale
@@ -156,22 +155,22 @@ scroll.on('active', function(i){
   if (curScaleStr === 'quantile') curScale.domain(curValues)
 
   circles.data(curValues)
-    .transition().duration(1000)
+    .transition().duration(isFirst ? 0 : 1000)
       .attr('cy', circleY)
 
   rects
-    .transition().duration(1000)
+    .transition().duration(isFirst ? 0 : 1000)
       .call(curRect)
 
   d3.selectAll('.area')
-    .transition().duration(1000)
+    .transition().duration(isFirst ? 0 : 1000)
       .attr('fill', function(d, i){ return curScale(curValues[d.i]) })
 
   svg.selectAll('stop')
-    .transition().duration(1000)
+    .transition().duration(isFirst ? 0 : 1000)
       .attr('stop-color', ƒ(i ? 'discColor' : 'gradColor'))
 
-
+  isFirst = false;
   d3.selectAll('#color-code div')
       .style('display', function(){ 
         return d3.select(this).attr('id') == curScaleStr ? 'block' : 'none' })
