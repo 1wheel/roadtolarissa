@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<div id='container'>
+  <div id='overlay'>
+    <svg></svg>
+    <div id='color-code'>
+      <div id='gradient'>
+        var colorScale = d3.scale.linear()
+            .domain(d3.extent(points, ƒ('value')))
+            .range(['#f2f0f7', '#54278f'])
+      </div>
+      <div id='quantize'>
+        var colorScale = d3.scale.quantize()
+            .domain(d3.extent(points, ƒ('value')))
+            .range(["#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"]])
+      </div>
+      <div id='quantile'>
+        var colorScale = d3.scale.quantile()
+            .domain(_.sortBy(points, ƒ('value')))
+            .range(["#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"]])
+      </div>
+      <div id='janx'>
+        var colorScale = d3.scale.quantile()
+            .domain(_.sortBy(points, ƒ('value')))
+            .range(["#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"]])
+      </div>
+    </div>
+  </div>
+</div>
+<div id='overlay-space'></div>
+
+<section style="text-align:center;">
+  
+  intro about maps?
+
+  <h1>Linear Scale</h1>
+  Coloring maps can be tricky! Here is some advice on it. We start with an array of places, coloring them based on their locations:
+
+      `placePaths.style('fill', function(d){ return color(x.value) })`
+
+  `d3.scale.linear` uses linear interpolation to transform a value the domain into the range. This isn't a method
+</section>
+
+<section style="text-align:center;">
+  <h1>Quantize</h1>
+  some text about the top right
+</section>
+
+<section style="text-align:center;">
+  <h1>Doesn't work great with outliers</h1>
+  some text about the top right
+</section>
+
+<section style="text-align:center;">
+  <h1>Quantile</h1>
+  some text about the top right
+</section>
+
+<section style="text-align:center;">
+  <h1>Might distort underlying date</h1>
+  some text about the top right
+</section>
+
+<section style="text-align:center;">
+  <h1>Janx natural breaks</h1>
+  some text about the top right
+</section>
+
+<div id='bot-padding'></div>
+
+<script src="../../libs/d3.4.11.js" type="text/javascript"></script>
+<script src="../../libs/lodash.js" type="text/javascript"></script>
+<script src="../../libs/gscroll-0.1.js" type="text/javascript"></script>
+<script src="../../libs/simple-statistics.js" type="text/javascript"></script>
+
+<script src="../../posts/negBarTransition/lib.js" type="text/javascript"></script>
+<script src="script.js"></script>

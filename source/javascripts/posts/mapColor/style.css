@@ -1,0 +1,68 @@
+body{
+  max-width: 750px;
+  margin: 0px auto;
+  background-color: rgb(250, 248, 248);
+}
+
+section {
+  font-family: monospace;
+  height: 150px;
+  opacity: .1;
+}
+
+section.active{
+  opacity: 1;
+}
+
+#container{
+  position: relative;
+}
+
+#overlay{
+  position: relative;
+  vertical-align: top;
+  height: 150px;
+  border-bottom: lightgray 1px solid;
+  z-index: 1;
+  background-color: white;
+}
+#overlay.fixed{
+  position: fixed;
+  top: 0px;
+}
+#overlay-space{
+  height: 0px;
+}
+#overlay-space.fixed{
+  height: 150px;;
+}
+
+#color-code{
+  width: 300px;
+  position: fixed;
+  top: 20px;
+  left: 225px;
+}
+
+#color-code div{
+  display: none;
+}
+
+circle{
+  fill: rgb(255, 217, 159);
+  stroke: black;
+  stroke-width: 1px;
+}
+circle.selected{
+  stroke-width: 3px;
+  stroke: red;
+}
+
+.area{
+  stroke: black;
+  stroke-width: 1px;
+}
+.area.selected{
+  stroke: red;
+  stroke-width: 3px;
+}
