@@ -26,7 +26,7 @@ var values = {}
 values.start = d3.range(n).map(function(){
   return Math.random() }).sort()
 values.quantizeFlaw = d3.range(n).map(function(d){
-  return Math.random() }).sort()
+  return Math.random()*.2 + (d/n >= 4/5 ? .8 : 0) }).sort()
 values.quantileFlaw = d3.range(n).map(function(d){
   return Math.random() }).sort()
 
