@@ -71,7 +71,7 @@ d3.select('#bot-padding')
 
 
 var svg = d3.select('#overlay').select('svg')
-    .attr({width: 800, height: oHeight})
+    .attr({width: 750, height: oHeight})
 
 var gradScale = d3.scale.linear()
     .domain([0, colors.length])
@@ -172,10 +172,11 @@ scroll.on('active', function(i){
   d3.selectAll('#color-code div')
       .style('display', function(){ 
         return d3.select(this).attr('id') == curScaleStr ? 'block' : 'none' })
-})(d3.selectAll('section'))
+})(d3.selectAll('.scroll-section'))
 
 
 function updateHover(i){
+  i = Math.max(i, 0)
   scatterG.selectAll('circle')
       .classed('selected', function(d, j){ return i == j })
   

@@ -1,21 +1,21 @@
 body{
-  max-width: 750px;
   margin: 0px auto;
   background-color: rgb(250, 248, 248);
 }
 
-section {
+.scroll-section {
   font-family: monospace;
-  height: 150px;
+  margin-bottom: 50px;
   opacity: .1;
 }
 
-section.active{
+.scroll-section.active{
   opacity: 1;
 }
 
 #container{
   position: relative;
+  width: 750px;
 }
 
 #overlay{
@@ -39,10 +39,21 @@ section.active{
 
 #color-code{
   width: 300px;
-  position: fixed;
-  top: 20px;
+  position: relative;
+  top: -135px;
   left: 225px;
 }
+pre {
+  background: white;
+  border: 0px;
+  line-height: 1em;
+  font-size: 12px;
+  margin-bottom: 0em;
+  padding: 0em 0em;
+  color: black;
+  overflow: visible;
+}
+
 
 #color-code div{
   display: none;
