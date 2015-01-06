@@ -6,6 +6,11 @@ categories:
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/mapColor/style.css">
 
+Tranforming numbers into colors is tricky. Unlike positional encodings where our visual system automatically quantifies (this line is twice as long as that one), color isn't the 
+
+This post walks through several ways The scatter plot on the left shows the distrubution of values and the 
+Other bits of code 
+
 <div id='container'>
   <div id='overlay'>
     <svg></svg>
