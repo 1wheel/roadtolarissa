@@ -10,7 +10,31 @@ Transforming numbers into colors is tricky. Unlike positional encodings which ou
 
 This post describes several [d3 quantitative scales](d3 wiki) - linear, quantize, quantile and threshold - walking through how they work and the tradeoffs involved when using them to display colors. 
 
-We start with an array of objects - `var places` - representing the filled in areas on the right choropleth map. Each has a `value` property equal to a number that we'll encode as a color using the `colorScale` defined in the center. The scatter plot on the left shows the distribution of values - each place has been sorted and  
+We start with an array of objects - `places` - representing the filled in areas on the right choropleth map. Each has a `value` property equal to a number that we'll encode as a color using the `colorScale` defined in the center code snippet. The scatter plot on the left shows the distribution of values. 
+
+The code in the center uses a couple of helpers: `purples` an array of 5 colorbrewer purple shades, `_` library of helper functions, `ss` simple-statics and `ƒ` a field accessor. 
+
+
+####Linear
+`d3.scale.linear()` returns a function that uses linear interpolation to transform a value the domain into the range. `d3.extent` finds the minimum and maximum number the value property takes on which is then used to set the domain. The range is set to the lightest and darkest shade of purple. Internally, `d3.interpolate` [detects](link to docs) that the range is a color and has `colorScale` return lighter shades of purple when passed lower numbers and darker shades when passed higher numbers. By default the colors are interpolated through a RGB color space; d3 also supports the more [perceptually accuratee](simmons?) [HSL](docs) and LAB(docs). 
+
+Even with a good color space, linear interpolation isn't great for choropleths. Our perception of an objects darkness [depends](optical illiusion) on how dark its neighbors are which makes it difficult to compare areas that aren't adjacent. We could avoid this problem by using just a few easily discernible colors instead of many slightly different ones for every possible value. Using discrete comes at a cost of not being able to see small differences between values, but since color conveys those differences so poorly the trade off is usually worth it. 
+
+####Quantize
+some text about the top right
+
+####Outliers outsized impact
+some text about the top right
+
+####Quantile
+some text about the top right
+
+####Hides Distribution
+some text about the top right
+
+####jenks natural breaks
+some text about the top right
+
 
 <div id='container'>
   <div id='overlay'>
@@ -51,40 +75,35 @@ colorScale = d3.scale.quantile()
 </div>
 <div id='overlay-space'></div>
 
-<div class='scroll-section'>
-  <h1>Linear Scale</h1>
-  [al line](asdf.com)
-  Coloring maps can be tricky! Here is some advice on it. We start with an array of places, coloring them based on their locations:
-
-      `placePaths.style('fill', function(d){ return color(x.value) })`
-
-  `d3.scale.linear` uses linear interpolation to transform a value the domain into the range. This isn't a method
-</div>
-
-<div class='scroll-section'>
-  <h1>Quantize</h1>
+<span class='scroll-section'>
+  ####Linear</h1>
   some text about the top right
-</div>
+</span>
 
-<div class='scroll-section'>
-  <h1>Doesn't work great with outliers</h1>
+<span class='scroll-section'>
+  ####Quantize</h1>
   some text about the top right
-</div>
+</span>
 
-<div class='scroll-section'>
-  <h1>Quantile</h1>
+<span class='scroll-section'>
+  ####Doesn't work great with outliers</h1>
   some text about the top right
-</div>
+</span>
 
-<div class='scroll-section'>
-  <h1>Might distort underlying date</h1>
+<span class='scroll-section'>
+  ####Quantile</h1>
   some text about the top right
-</div>
+</span>
 
-<div class='scroll-section'>
-  <h1>jenks natural breaks</h1>
+<span class='scroll-section'>
+  ####Might distort underlying date</h1>
   some text about the top right
-</div>
+</span>
+
+<span class='scroll-section'>
+  ####jenks natural breaks</h1>
+  some text about the top right
+</span>
 
 <div id='bot-padding'></div>
 

@@ -1,4 +1,3 @@
-
 var width = 750,
     oHeight = 150,
     sHeight = 100,
