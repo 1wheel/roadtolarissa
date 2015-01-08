@@ -1,13 +1,13 @@
 var width = 750,
     oHeight = 150,
     sHeight = 100,
-    sWidth = 150,
+    sWidth = 170,
 
     colors = ["#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"],
     scroll = gscroll()
         .container(d3.select('#container'))
         .fixed(d3.selectAll('#overlay, #overlay-space')),
-    n = 50,
+    n = 70,
     circleX = d3.scale.linear().domain([0, n - 1]).range([0, sWidth]),
     circleY = d3.scale.linear().range([sHeight, 0]),
     ƒ = function(s){ return function(o){ return o[s] } }
@@ -96,7 +96,7 @@ svg.append('defs').selectAll('linearGradient')
 
 //scatter plot
 var scatterG = svg.append('g')
-    .attr('transform', 'translate(' + 50 + ',' + (oHeight - sHeight)/2 + ')')
+    .attr('transform', 'translate(' + 25 + ',' + (oHeight - sHeight)/2 + ')')
     .on('mousemove', function(){
 
       updateHover(Math.round(circleX.invert(d3.mouse(this)[0])))
@@ -126,7 +126,7 @@ scatterG.append('text')
 
 //map
 var mapG = svg.append('g')
-    .attr('transform', 'translate(' + (width - 50 - sWidth) + ',' + (oHeight - sHeight)/2 + ')')
+    .attr('transform', 'translate(' + (width - 25 - sWidth) + ',' + (oHeight - sHeight)/2 + ')')
     .attr('clip-path', 'url(#mapclip)')
 
 d3.select('defs').append('clipPath').attr('id', 'mapclip')
