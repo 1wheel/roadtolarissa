@@ -21,7 +21,7 @@ The code in the center uses a couple of helpers: `purples` an array of 5 colorbr
 Even with a good color space, linear interpolation isn't great for choropleths. Our perception of an objects darkness [depends](optical illiusion) on how dark its neighbors are which makes it difficult to compare areas that aren't adjacent. We could avoid this problem by using just a few easily discernible colors instead of many slightly different ones for every possible value. Using discrete comes at a cost of not being able to see small differences between values, but since color conveys those differences so poorly the trade off is usually worth it. 
 
 ####Quantize
-some text about the top right
+The simplest way to convert to create a 
 
 ####Outliers outsized impact
 some text about the top right
