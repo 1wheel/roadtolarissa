@@ -21,13 +21,15 @@ The code in the center uses a couple of helpers: `purples` an array of 5 colorbr
 Even with a good color space, linear interpolation isn't great for choropleths. Our perception of an objects darkness [depends](optical illiusion) on how dark its neighbors are which makes it difficult to compare areas that aren't adjacent. We could avoid this problem by using just a few easily discernible colors instead of many slightly different ones for every possible value. Using discrete comes at a cost of not being able to see small differences between values, but since color conveys those differences so poorly the trade off is usually worth it. 
 
 ####Quantize
-The simplest way to convert to create a 
+A quantize scale divides the values into several discrete buckets, assigning a color to each value based on which bucket they fall into. As with the linear scale, the domain of the scale is set to the minimum and maximum values. Instead of passing two colors to the range however, an array of colors are passed. The scale function then creates a bucket for each color, shown by the 5 vertical bars on the left scatter plot. 
+
+The quantize scale divides the range of values evenly so that values in the bottom 5th - those between `minValue` and `minValue + 1/5*(maxValue +`minValue)` - are put in the first bucket with the lightest color while values in the the top 5th are put in the darkest bucket. More formally values in the nth bucket will be between `minValue + n/purples.length*(maxValue - minValue)` and `minValue + (n + 1)/purples.length*(maxValue - minValue)`.
 
 ####Outliers outsized impact
-some text about the top right
+While the quantize scale makes intuitive sense and is easy to implement, skewed data or outliers can totally alter the color scale. Here a few very large values stretch out the scale, compressing the rest of the values into one color bucket which results in a map with just two colors. Visual differences between lower values are erased and the two colors that remain don't intrinsically communicate anything about the proportions between the values the represent.
 
 ####Quantile
-some text about the top right
+
 
 ####Hides Distribution
 some text about the top right
