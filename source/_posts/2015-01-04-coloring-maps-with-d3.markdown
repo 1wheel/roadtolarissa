@@ -6,17 +6,17 @@ categories:
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/mapColor/style.css">
 
-Transforming numbers into colors is tricky. Unlike positional encodings which our visual system automatically quantifies (this dot is twice as far from the baseline as the other), we don't have any notion of a particular shade of red being more twice as red as another. Since maps typically use position to display geometry though, we're stuck using the less effective color channel (some exceptions [population lines, bubble map]).
+Transforming numbers into colors is tricky. Unlike positional encodings which our visual system automatically quantifies (this dot is twice as far from the baseline as the other), we don't have any notion of a particular shade of red being more twice as red as another. Since maps typically use position to display geometry though, we're stuck using the less effective color channel to communicate numbers(some exceptions [population lines, bubble map]).
 
 This post describes several [d3 quantitative scales](d3 wiki) - linear, quantize, quantile and threshold - walking through how they work and the tradeoffs involved when using them to display colors. 
 
 We start with an array of objects - `places` - representing the filled in areas on the right choropleth map. Each has a `value` property equal to a number that we'll encode as a color using the `colorScale` defined in the center code snippet. The scatter plot on the left shows the distribution of values. 
 
-The code in the center uses a couple of helpers: `purples` an array of 5 colorbrewer purple shades, `_` library of helper functions, `ss` simple-statics and `ƒ` a field accessor. 
+The code in the center uses a couple of helpers: `purples` an array of 5 [colorbrewer](link) purple shades, `_` [library](link) of helper functions, `ss` [simple-statics](link) and `ƒ` a [field accessor](link). 
 
 
 ####Linear
-`d3.scale.linear()` returns a function that uses linear interpolation to transform a value the domain into the range. `d3.extent` finds the minimum and maximum number the value property takes on which is then used to set the domain. The range is set to the lightest and darkest shade of purple. Internally, `d3.interpolate` [detects](link to docs) that the range is a color and has `colorScale` return lighter shades of purple when passed lower numbers and darker shades when passed higher numbers. By default the colors are interpolated through a RGB color space; d3 also supports the more [perceptually accuratee](simmons?) [HSL](docs) and LAB(docs). 
+`d3.scale.linear()` returns a function s has `colorScale` return lighter shades of purple when passed lower numbers and darker shades when passed higher numbers. By default the colors are interpolated through a RGB color space; d3 also supports the more [perceptually accuratee](simmons?) [HSL](docs) and LAB(docs). 
 
 Even with a good color space, linear interpolation isn't great for choropleths. Our perception of an objects darkness [depends](optical illiusion) on how dark its neighbors are which makes it difficult to compare areas that aren't adjacent. We could avoid this problem by using just a few easily discernible colors instead of many slightly different ones for every possible value. Using discrete comes at a cost of not being able to see small differences between values, but since color conveys those differences so poorly the trade off is usually worth it. 
 
@@ -34,13 +34,24 @@ A quantile scale ensures that every color in the range will be used by placing v
 Here, there are 70 values and 5 colors so each bucket has 14 values in it. The first bucket has 14 lowest values which are colored the lightest shade of purple, the second contains the 15th through 29th lowest values and so one. On the scatter plot, the previously horizontal bars are now vertical as the colors of each point is being determined by its rank, not value.  
 
 ####Distorts Distribution
-Because the quantile scale always puts the same number of values into each bucket, every distribution of values will be colored the same way. Here there are 5 distinct groups of values and 5 colors, but some values in different groups share a color - potentially an interesting pattern.
+Because the quantile scale always puts the same number of values into each bucket, every distribution of values will be colored the same way. Here there are 5 distinct groups of values and 5 colors, but some values in different groups share a color - potentially obscuring an interesting pattern.
 
 ####Jenks Natural Breaks
 The Jenks natural breaks algorithm uses dynamic programing to find groupings of value so that the difference of values within a group in minimized. The breaks for our population of values are calculated and, after light manipulation, passed to domain of a threshold scale. Each break in the domain is matched with a color in the range; values are colored based on the largest break which they are small than. Like the quantize scale, the horizontal rectangles show where the breaks occur. 
 
-While much of data visualization is about encoding data with marks and colors, doing good data visualization requires careful thinking about what to obscure and _not_ show. All of the above nonlinear scale hide information about values within a scale to 
+While much of data visualization is about encoding data with marks and colors, doing good data visualization requires careful thinking about what to obscure and _not_ show. All of the above nonlinear scale hide information about the distribution of values within a color shade to compensate for our eyes' inability to decode color gradients. Grouping values in different ways can also mask or highlight different aspects of the data. Since there isn't a perfect method of showing data all of the time, 
+
+####More reading
+
+Robert Simons 'TALK NAME' and  'OPENVISCONF VID' on using color.
+
+Georgo ashet has 'choropleth spefic' advice and 'visual demonstration' of the HSL color space
+
+With a more achemic take, Carlos Sasdfas has a demo showing how some of these map coloring issues fit into his algebraic vis framework. 
+
+Chapter 5, "Marks and Channels", of Tamara Munzner's "Visualization Analysis & Design" introduces the accemic literature on different ways of encoding information and lays the groundwork for thinking carefully about these issues.  
  
+`code for animations on this page on github`
 
 <div id='container'>
   <div id='overlay'>
@@ -82,33 +93,27 @@ colorScale = d3.scale.quantile()
 <div id='overlay-space'></div>
 
 <span class='scroll-section'>
-  ####Linear</h1>
-  some text about the top right
+  <h1>Linear</h1>
 </span>
 
 <span class='scroll-section'>
-  ####Quantize</h1>
-  some text about the top right
+  <h1>Quantize</h1>
 </span>
 
 <span class='scroll-section'>
-  ####Doesn't work great with outliers</h1>
-  some text about the top right
+  <h1>Doesn't work great with outliers</h1>
 </span>
 
 <span class='scroll-section'>
-  ####Quantile</h1>
-  some text about the top right
+  <h1>Quantile</h1>
 </span>
 
 <span class='scroll-section'>
-  ####Might distort underlying date</h1>
-  some text about the top right
+  <h1>Might distort underlying date</h1>
 </span>
 
 <span class='scroll-section'>
-  ####jenks natural breaks</h1>
-  some text about the top right
+  <h1>jenks natural breaks</h1>
 </span>
 
 <div id='bot-padding'></div>
