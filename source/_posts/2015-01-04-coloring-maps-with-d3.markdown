@@ -25,7 +25,7 @@ A quantize scale divides the values into several discrete buckets, assigning a c
 
 The quantize scale divides the range of values evenly so that values in the bottom 5th - those between `minValue` and `minValue + 1/5*(maxValue +minValue)` - are put in the first bucket with the lightest color while values in the the top 5th are put in the darkest bucket. More formally values in the nth bucket will be between `minValue + n/purples.length*(maxValue - minValue)` and `minValue + (n + 1)/purples.length*(maxValue - minValue)`.  
 
-####Outliers compress
+####Outliers compressed
 While the quantize scale makes intuitive sense and is easy to implement, skewed data or outliers can totally alter the color scale. Here a few very large values stretch out the scale, compressing the rest of the values into one color bucket which results in a map with just two colors. Visual differences between lower values are erased and the two colors that remain don't intrinsically communicate anything about the proportions between the values the represent.
 
 ####Quantile
@@ -33,12 +33,14 @@ A quantile scale ensures that every color in the range will be used by placing v
 
 Here, there are 70 values and 5 colors so each bucket has 14 values in it. The first bucket has 14 lowest values which are colored the lightest shade of purple, the second contains the 15th through 29th lowest values and so one. On the scatter plot, the previously horizontal bars are now vertical as the colors of each point is being determined by its rank, not value.  
 
-####Hides Distribution
-
+####Distorts Distribution
+Because the quantile scale always puts the same number of values into each bucket, every distribution of values will be colored the same way. Here there are 5 distinct groups of values and 5 colors, but some values in different groups share a color - potentially an interesting pattern.
 
 ####Jenks Natural Breaks
-some text about the top right
+The Jenks natural breaks algorithm uses dynamic programing to find groupings of value so that the difference of values within a group in minimized. The breaks for our population of values are calculated and, after light manipulation, passed to domain of a threshold scale. Each break in the domain is matched with a color in the range; values are colored based on the largest break which they are small than. Like the quantize scale, the horizontal rectangles show where the breaks occur. 
 
+While much of data visualization is about encoding data with marks and colors, doing good data visualization requires careful thinking about what to obscure and _not_ show. All of the above nonlinear scale hide information about values within a scale to 
+ 
 
 <div id='container'>
   <div id='overlay'>
