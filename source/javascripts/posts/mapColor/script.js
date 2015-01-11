@@ -70,7 +70,7 @@ scales.quantile = d3.scale.quantile().range(colors)
 scales.jenks = d3.scale.threshold().domain(jBreaks.slice(1)).range(colors)
 
 d3.select('#bot-padding')
-    .style('height', window.innerHeight - oHeight - sHeight - 100 + 'px')
+    .style('height', window.innerHeight - 900 + 'px')
 
 
 var svg = d3.select('#overlay').select('svg')
