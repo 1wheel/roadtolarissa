@@ -85,7 +85,7 @@ var ƒ = function(field){
 console.log(ƒ('sepalWidth')(datum));    //10
 console.log(ƒ('sepalLength')(datum));   //34
 ```
-Calling `ƒ('fieldName')` returns a function that takes an object and returns its `fieldName` property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to tip - option-f. I like that it evokes its purpose 'ƒield accessor' without being verbose. 
+Calling `ƒ('fieldName')` returns a function that takes an object and returns its `fieldName` property. A single expressive (if slightly more complicated) idea replaces many repetitive ones.  Pz suggests using ƒ for this function since it is short and easy to type - option-f. I like that it evokes its purpose 'ƒield accessor' without being verbose. 
 
 However, for the most common pattern of anonymous functions - getting a property from an object and transforming it with a scale function `.attr("cx", function(d) { return x(d.sepalWidth); })` - we're still stuck typing out the entirety of the function syntax. We can tell the computer how to automatically combine the accessor and scale functions instead of manually spelling it:
 ```javascript

@@ -8,17 +8,17 @@ categories:
 
 Transforming numbers into colors is tricky. Unlike positional encodings, which our visual system automatically quantifies (this dot is twice as far from the baseline as the other), we don't have any notion of a particular shade of red being twice as red as another. Since maps typically use position to display geometry, we're stuck using the less effective color channel to communicate numbers(with some exceptions, e.g.: [population lines, bubble map]).
 
-This post describes several [d3 quantitative scales](d3 wiki) - linear, quantize, quantile and threshold - and walks through how they work and the trade offs involved when using them to display colors. 
+This post describes several [d3 quantitative scales](https://github.com/mbostock/d3/wiki/Quantitative-Scales) - linear, quantize, quantile and threshold - and walks through how they work and the trade offs involved when using them to display colors. 
 
 We start with an array of objects - `places` - representing the filled in areas on the right choropleth. Each has a `value` property equal to a number that we'll encode as a color using the `colorScale` defined in the center code snippet. The scatter plot on the left shows the distribution of values. 
 
-The code in the center uses a couple of helpers: `purples` an array of 5 [colorbrewer](link) purple shades, `_` [library](link) of helper functions, `ss` [simple-statics](link) and `ƒ` a [field accessor](link). 
+The code in the center uses a couple of helpers: `purples` an array of 5 [colorbrewer](http://bl.ocks.org/mbostock/5577023) purple shades, `_` [library](https://lodash.com/) of helper functions, `ss` [simple-statics](http://www.macwright.org/simple-statistics/) and `ƒ` a [field accessor](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/). 
 
 
 ####Linear
-`d3.scale.linear()` returns a function that uses linear interpolation to transform a value in the domain into one in the range. `d3.extent` finds the minimum and maximum numbers the value property takes on, which is then used to set the domain. The range is set to the lightest and darkest shades of purple. Internally, `d3.interpolate` [detects](link to docs) that the range is a color and has `colorScale` return lighter shades of purple when passed lower numbers and darker shades when passed higher numbers. By default the colors are interpolated through an RGB color space; d3 also supports the more [perceptually accuratee](simmons?) [HSL](docs) and LAB(docs). 
+`d3.scale.linear()` returns a function that uses linear interpolation to transform a value in the domain into one in the range. `d3.extent` finds the minimum and maximum numbers the value property takes on, which is then used to set the domain. The range is set to the lightest and darkest shades of purple. Internally, `d3.interpolate` [detects](https://github.com/mbostock/d3/wiki/Transitions#d3_interpolate) that the range is a color and has `colorScale` return lighter shades of purple when passed lower numbers and darker shades when passed higher numbers. By default the colors are interpolated through an RGB color space; d3 also [supports](https://github.com/mbostock/d3/wiki/Colors#hsl) other color spaces with better [perceptually propertiess](http://www.research.ibm.com/people/l/lloydt/color/color.HTM). 
 
-Even when using a good color space, linear interpolation isn't great for choropleths. Our perception of an object's darkness [depends](optical illiusion) on how dark its neighbors are, which makes it difficult to compare areas that aren't adjacent. We can avoid this problem by using just a few easily discernible colors that are comparable across the graphic instead of a slightly different color for every value. Using discrete colors comes at a cost of not being able to see small differences between values, but since color conveys those differences poorly the trade off is usually worth it. 
+Even when using a good color space, linear interpolation isn't great for choropleths. Our perception of an object's darkness [depends](http://en.wikipedia.org/wiki/Checker_shadow_illusion) on how dark its neighbors are, which makes it difficult to compare areas that aren't adjacent. We can avoid this problem by using just a few easily discernible colors that are comparable across the graphic instead of a slightly different color for every value. Using discrete colors comes at a cost of not being able to see small differences between values, but since color conveys those differences poorly the trade off is usually worth it. 
 
 ####Quantize
 A quantize scale divides values into several discrete buckets, assigning a color to each based on which bucket it falls into. As with the linear scale, the domain is set to the minimum and maximum values. Instead of passing two colors to the range however, an array of colors is passed. The scale function then creates a bucket for each color, shown by the 5 horizontal bars on the left scatter plot. 
@@ -43,7 +43,7 @@ While much of data visualization involves encoding data with marks and colors, g
 
 ####More reading
 
-Robert Simons 'TALK NAME' and  'OPENVISCONF VID' on using color.
+Robert Simmons' "Subleties of Color" [articles](http://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/05/subtleties-of-color-part-1-of-6/) and [talk](https://www.youtube.com/watch?v=DjJr8D4Bxjw) is a great introduction to difficulties of using color. 
 
 Georgo ashet has 'choropleth spefic' advice and 'visual demonstration' of the HSL color space
 
