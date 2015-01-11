@@ -45,13 +45,13 @@ While much of data visualization involves encoding data with marks and colors, g
 
 Robert Simmons' "Subleties of Color" [articles](http://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/05/subtleties-of-color-part-1-of-6/) and [talk](https://www.youtube.com/watch?v=DjJr8D4Bxjw) is a great introduction to difficulties of using color. 
 
-Georgo ashet has 'choropleth spefic' advice and 'visual demonstration' of the HSL color space
+Gregor Aisch's [critique](https://vis4.net/blog/posts/mastering-multi-hued-color-scales/) of a Guardian choropleth shows how color scale decisions (or lack thereof) can change the story a map tells (his [posts](https://vis4.net/blog/posts/mastering-multi-hued-color-scales/) on chroma.js are also excellent).
 
-With a more achemic take, Carlos Sasdfas has a demo showing how some of these map coloring issues fit into his algebraic vis framework. 
+From a more academic perspective, Carlos Scheidegger has a [demo](http://algebraicvis.net/2014/11/11/a_primer.html) showing how some of these map coloring issues fit into his algebraic vis framework. 
 
-Chapter 5, "Marks and Channels", of Tamara Munzner's "Visualization Analysis & Design" introduces the accemic literature on different ways of encoding information and lays the groundwork for thinking carefully about these issues.  
+Chapter 5, "Marks and Channels", of Tamara Munzner's ["Visualization Analysis & Design"](http://www.crcpress.com/product/isbn/9781466508910) introduces the accemic literature on different ways of encoding information and lays the groundwork for thinking carefully about these issues.  
  
-`code for animations on this page on github`
+`code for animations on this page on [github](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/mapColor)`
 
 <div id='container'>
   <div id='overlay'>
