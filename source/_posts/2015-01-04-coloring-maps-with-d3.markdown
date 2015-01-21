@@ -142,7 +142,7 @@ colorScale = d3.scale.quantile()
 
   <p>From a more academic perspective, Carlos Scheidegger has a <a href="http://algebraicvis.net/2014/11/11/a_primer.html">demo</a> showing how some of these map coloring issues fit into his algebraic vis framework.</p>
 
-  <p>Chapter 5, &ldquo;Marks and Channels&rdquo;, of Tamara Munzner&rsquo;s <a href="http://www.crcpress.com/product/isbn/9781466508910">&ldquo;Visualization Analysis &amp; Design&rdquo;</a> introduces the accemic literature on different ways of encoding information and lays the groundwork for thinking carefully about these issues.</p>
+  <p>Chapter 5, &ldquo;Marks and Channels&rdquo;, of Tamara Munzner&rsquo;s <a href="http://www.crcpress.com/product/isbn/9781466508910">&ldquo;Visualization Analysis &amp; Design&rdquo;</a> introduces the literature on encoding information and lays the groundwork for thinking carefully about these issues.</p>
 
   <p><a href="https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/mapColor">code for these animations on github</a></p>
 </div>
