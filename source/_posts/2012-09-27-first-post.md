@@ -52,6 +52,22 @@ Turn twitter follow list into a rss feed, export OXML
 
 Make front end to browse
 
+###D3 attr and style with auto compose
+
+###graph-scroll lib
+
+###Analysing data with d3 
+Oscars, temp over time
+- scrape
+- nest
+- group
+
+###Click and drag exploration of svg paths
+
+###python v r data analysis 
+
+###clojurescript/om demo
+
 ###Server side code
 - Boardgames
 - Working git server
