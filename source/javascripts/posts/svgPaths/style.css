@@ -5,11 +5,24 @@
   fill-opacity: .1;
 }
 
+
+
 .draggable{
   fill-opacity: 1;
   stroke-width: 1px;
   cursor: pointer;
 }
+.highlight{
+  stroke-width: 8px;
+}
+circle.ctrl{
+  fill-opacity: 0;
+  stroke-width: 1px;
+}
+.ctrl.highlight{
+  stroke-width: 4px;
+}
+
 
 .ctrl-connect{
   stroke-dasharray: 5 5;
@@ -28,12 +41,15 @@ svg{
   display: inline-block;
 }
 
-.cord{
+span.cord{
   width: 75px;
   text-align: center;
   font-weight: bold;
 }
-.ctrl{
+span.ctrl{
   width: 75;
   text-align: center;
+}
+.cord.highlight, .ctrl.highlight{
+ text-decoration: underline;
 }
