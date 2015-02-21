@@ -2,7 +2,7 @@ var margin = 10,
     width = 750 - margin*2,
     height = 500 - margin*2;
 
-var colors = ['steelblue', 'red', 'green', 'purple']
+var colors = ['steelblue', 'red', 'green', 'purple', 'orange', 'gold']
 colors = colors.concat(colors).concat(colors)
 colors = colors.concat(colors).concat(colors)
 
@@ -76,12 +76,6 @@ colors = colors.concat(colors).concat(colors)
 
   function update(){
     svg.selectAll('circle').translate(f())
-    path.attr('d',  [ 'M', circlePos[0], 
-                      'C', circlePos.slice(1, 4).join(' '),
-                      d3.range(4, circlePos.length/2).map(function(i){
-                        return ['S', circlePos[2*i], circlePos[2*i + 1]].join(' ')
-                      })
-                    ].join(' '))
 
     ctrlG.selectAll('.ctrl-connect').remove()
     ctrlG.selectAll('.ctrl-connect')
@@ -91,13 +85,31 @@ colors = colors.concat(colors).concat(colors)
         .style('stroke', f('color'))
 
 
+
+    var sIndexes = d3.range(2, circlePos.length/2)
+    path.attr('d',  [ 'M', circlePos[0], 
+                      'C', circlePos.slice(1, 4).join(' '),
+                      sIndexes.map(function(i){
+                        console.log(i)
+                        return ['S', circlePos[2*i], circlePos[2*i + 1]].join(' ')
+                      })
+                    ].join(' '))
+
+
+
+
     text.html('')
     text.append('span').text('M ')
     text.append('span.cord').text(circlePos[0]).style('color', colors[0])
     text.append('span').text(' C ')
-    text.append('span.ctrl').text(circlePos[0]).style('color', colors[0])
-    text.append('span.cord').text(circlePos[1]).style('color', colors[1])
-    text.append('span.cord').text(circlePos[1]).style('color', colors[1])
+    text.append('span.ctrl').text(circlePos[1]).style('color', colors[0])
+    text.append('span.ctrl').text(circlePos[2]).style('color', colors[1])
+    text.append('span.cord').text(circlePos[3]).style('color', colors[1])
+
+    sIndexes.forEach(function(i){
+      text.append('span.ctrl').text(circlePos[2*i])    .style('color', colors[i])
+      text.append('span.cord').text(circlePos[2*i + 1]).style('color', colors[i])
+    })
   }
 
   var text = d3.select('#bez1').append('div.pathstr')
@@ -110,8 +122,8 @@ colors = colors.concat(colors).concat(colors)
       .attr({width: width, height: height})
       .style('opacity', 0)
       .on('click', function(){
-        circlePos.push(d3.mouse(this).map(Math.round))
         circlePos.push(d3.mouse(this).map(function(d){ return Math.round(d*.8) }))
+        circlePos.push(d3.mouse(this).map(Math.round))
         drawCircles()
         update()
       })
@@ -122,8 +134,10 @@ colors = colors.concat(colors).concat(colors)
   var circlePos = [[100, 200], [400, 300], [123, 44], [10, 44]]
   
   function drawCircles(){
-    svg.selectAll('circle')
-        .data(circlePos).enter()
+    var circle = svg.selectAll('circle')
+        .data(circlePos)
+
+    circle.enter()
       .append('circle.draggable')
         .each(function(d, i){
           d.isCtrl = !(i % 2) == !(i < 2)
@@ -131,8 +145,23 @@ colors = colors.concat(colors).concat(colors)
         })
         .style('fill',   function(d, i){ return d.isCtrl ? 'rgba(255,255,255,.99)' : d.color })
         .style('stroke', function(d, i){ return d.isCtrl ? d.color : '' })
+        .call(drag)
+        .on('dblclick', function(d){
+          if (circlePos.length == 4) return
+
+          var i = Math.floor(_.indexOf(circlePos, d)/2)
+          circlePos.splice(i*2, 2)
+          drawCircles()
+          update()
+        })   
+        .attr('r', 0)
+      .transition()
         .attr('r', margin)
-        .call(drag)    
+
+    circle.exit()
+      .transition()
+        .attr('r', 0)
+        .remove()
   }
 
   drawCircles()

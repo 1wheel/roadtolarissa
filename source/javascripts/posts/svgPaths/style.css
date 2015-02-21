@@ -31,4 +31,9 @@ svg{
 .cord{
   width: 75px;
   text-align: center;
+  font-weight: bold;
+}
+.ctrl{
+  width: 75;
+  text-align: center;
 }
