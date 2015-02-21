@@ -12,14 +12,14 @@
   stroke-width: 1px;
   cursor: pointer;
 }
-.highlight{
+circle.highlight{
   stroke-width: 8px;
 }
 circle.ctrl{
   fill-opacity: 0;
   stroke-width: 1px;
 }
-.ctrl.highlight{
+circle.ctrl.highlight{
   stroke-width: 4px;
 }
 

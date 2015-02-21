@@ -11,13 +11,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
 //move to
 !(function(){
-  var drag = d3.behavior.drag()
-      .on('drag', function(d){
-        d[0] = Math.round(Math.max(0, Math.min(width,  d3.event.x)))
-        d[1] = Math.round(Math.max(0, Math.min(height, d3.event.y)))
-        update()
-      })
-      .origin(function(d){ return {x: d[0], y: d[1]} })
+  var drag = dragConstructor(update)
 
   function update(){
     svg.selectAll('circle').translate(f())
@@ -26,7 +20,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
     text.html('')
     circlePos.forEach(function(d, i){
       text.append('span').text(i ? ' L ' : 'M ')
-      text.append('span.cord').text(d).style('color', colors[i])
+      text.append('span.cord').datum(d).call(fmtLabel)
     })
   }
 
@@ -40,20 +34,46 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .attr({width: width, height: height})
       .style('opacity', 0)
       .on('click', function(){
-        circlePos.push(d3.mouse(this).map(Math.round))
+        var usedColors = circlePos.map(f('color'))
+        var color = colors.filter(function(d){ return !_.contains(usedColors, d) })[0] 
+
+        var point = d3.mouse(this).map(Math.round)
+        point.color = color
+
+        circlePos.push(point)
         drawCircles()
         update()
       })
 
 
   var circlePos = [[100, 200], [400, 300], [123, 44]]
+  circlePos.forEach(function(d, i){ d.color = colors[i] })
+
   function drawCircles(){
-    svg.selectAll('circle')
-        .data(circlePos).enter()
+    var circles = svg.selectAll('circle')
+        .data(circlePos, f('color'))
+
+    circles.enter()
       .append('circle.draggable')
-        .style('fill', function(d, i){ return colors[i] })
-        .attr('r', margin)
+        .style('fill', f('color'))
+        .style('stroke', f('color'))
         .call(drag)
+        .on('mouseover', highlight)
+        .on('dblclick', function(d){
+          if (circlePos.length == 1) return
+          circlePos = circlePos.filter(function(e){ return d != e })
+
+          drawCircles()
+          update()
+        })
+          .attr('r', 0)
+        .transition()
+          .attr('r', margin)
+
+    circles.exit()
+      .transition()
+        .attr('r', 0)
+        .remove(0)
   }
 
   var path = svg.append('path.editable')
@@ -68,17 +88,11 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
 
 !(function(){
-  var drag = d3.behavior.drag()
-      .on('drag', function(d){
-        d[0] = Math.round(Math.max(0, Math.min(width,  d3.event.x)))
-        d[1] = Math.round(Math.max(0, Math.min(height, d3.event.y)))
-        update()
-      })
-      .origin(function(d){ return {x: d[0], y: d[1]} })
+  var drag = dragConstructor(update)
 
-  var text = d3.select('#bez1').append('div.pathstr')
+  var text = d3.select('#bez').append('div.pathstr')
 
-  var svg = d3.select('#bez1').append('svg')
+  var svg = d3.select('#bez').append('svg')
       .attr({width: width + margin*2, height: height + margin*2})
     .append('g')
       .translate([margin, margin])
@@ -188,6 +202,27 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
 })()
 
+
+
+
+
+
+
+
+
+
+
+
+
+function dragConstructor(updateFn){
+  return d3.behavior.drag()
+        .on('drag', function(d){
+          d[0] = Math.round(Math.max(0, Math.min(width,  d3.event.x)))
+          d[1] = Math.round(Math.max(0, Math.min(height, d3.event.y)))
+          updateFn()
+        })
+        .origin(function(d){ return {x: d[0], y: d[1]} })
+      } 
 
 function fmtLabel(sel){
   sel
