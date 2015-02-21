@@ -80,7 +80,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
   drawCircles()
   update()
-
 })()
 
 
@@ -204,6 +203,83 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
 
 
+
+
+
+
+//move to
+!(function(){
+  var drag = dragConstructor(update)
+
+  function update(){
+    svg.selectAll('circle').translate(f())
+    
+
+    paths
+        .attr('d', function(d){ 
+          return ['M', circlePos[0], 'A', 120, 80, 0, d, circlePos[1]].join(' ') })
+        .classed('editable', function(d){ return d == curFlag })
+
+    text.html('')
+    circlePos.forEach(function(d, i){
+      text.append('span').text(i ? ' L ' : 'M ')
+      text.append('span.cord').datum(d).call(fmtLabel)
+    })
+  }
+
+  var text = d3.select('#arc').append('div.pathstr')
+
+  var svg = d3.select('#arc').append('svg')
+      .attr({width: width + margin*2, height: height + margin*2})
+    .append('g')
+      .translate([margin, margin])
+  svg.append('rect')
+      .attr({width: width, height: height})
+      .style('opacity', 0)
+
+
+  var circlePos = [[250, 100], [250,200]]
+  circlePos.forEach(function(d, i){ d.color = colors[i] })
+
+  var flagData = [[0, 0], [0, 1], [1, 1], [1, 0]]
+  curFlag = flagData[0]
+  var paths = svg.append('g').selectAll('path')
+      .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
+    .append('path.arc')
+
+
+
+  function drawCircles(){
+    var circles = svg.selectAll('circle')
+        .data(circlePos, f('color'))
+
+    circles.enter()
+      .append('circle.draggable')
+        .style('fill', f('color'))
+        .style('stroke', f('color'))
+        .call(drag)
+        .on('mouseover', highlight)
+        .on('dblclick', function(d){
+          if (circlePos.length == 1) return
+          circlePos = circlePos.filter(function(e){ return d != e })
+
+          drawCircles()
+          update()
+        })
+          .attr('r', 0)
+        .transition()
+          .attr('r', margin)
+
+    circles.exit()
+      .transition()
+        .attr('r', 0)
+        .remove(0)
+  }
+
+
+  drawCircles()
+  update()
+})()
 
 
 

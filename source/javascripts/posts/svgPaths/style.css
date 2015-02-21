@@ -1,4 +1,4 @@
-.editable{
+.editable, .arc.editable{
   stroke-width: 3px;
   stroke: black;
   pointer-events: none;
@@ -52,4 +52,11 @@ span.ctrl{
 }
 .cord.highlight, .ctrl.highlight{
  text-decoration: underline;
+}
+
+
+.arc{
+  stroke: black;
+  fill-opacity: .1;
+  stroke-dasharray: 5 5;
 }
