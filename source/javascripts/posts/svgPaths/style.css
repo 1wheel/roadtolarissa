@@ -11,7 +11,7 @@
   cursor: pointer;
 }
 
-.control-connect{
+.ctrl-connect{
   stroke-dasharray: 5 5;
   stroke-width: 1px;
 }
