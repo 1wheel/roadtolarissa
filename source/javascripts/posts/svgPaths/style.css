@@ -1,0 +1,29 @@
+.editable{
+  stroke-width: 3px;
+  stroke: black;
+  pointer-events: none;
+  fill-opacity: .1;
+}
+
+.draggable{
+  fill-opacity: .8;
+  stroke-width: 1px;
+  cursor: pointer;
+}
+
+svg{
+  border: solid 1px lightgrey;
+}
+
+.pathstr{
+  font-family: monospace;
+}
+
+.pathstr span{
+  display: inline-block;
+}
+
+.cord{
+  width: 75px;
+  text-align: center;
+}
