@@ -6,9 +6,14 @@
 }
 
 .draggable{
-  fill-opacity: .8;
+  fill-opacity: 1;
   stroke-width: 1px;
   cursor: pointer;
+}
+
+.control-connect{
+  stroke-dasharray: 5 5;
+  stroke-width: 1px;
 }
 
 svg{
