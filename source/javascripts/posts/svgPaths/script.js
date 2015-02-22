@@ -249,23 +249,21 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
     var dist = Math.sqrt((rx2*ry2 - rx2*y2 - ry2*x2)/(rx2*y2 + ry2*x2))
 
-    var c1xT =  dist*rx*y/ry
-    var c1yT = -dist*ry*x/rx
-    var c2xT = -dist*rx*y/ry
-    var c2yT =  dist*ry*x/rx
+    var cxT =  dist*rx*y/ry
+    var cyT = -dist*ry*x/rx
 
     //revese translation
     var nx = (c1[0] + c2[0])/2 
     var ny = (c1[1] + c2[1])/2 
 
-    var c1x =  cosθ*c1xT + sinθ*c1yT + nx
-    var c1y = -sinθ*c1xT + cosθ*c1yT + ny
+    var c1x =  cosθ*cxT + sinθ*cyT + nx
+    var c1y = -sinθ*cxT + cosθ*cyT + ny
 
-    var c2x =  cosθ*c2xT + sinθ*c2yT + nx
-    var c2y = -sinθ*c2xT + cosθ*c2yT + ny
+    var c2x = -cosθ*cxT - sinθ*cyT + nx
+    var c2y =  sinθ*cxT - cosθ*cyT + ny
 
     centers.data([[c1x, c1y], [c2x, c2y]])
-        //.translate(f())
+        .translate(f())
   }
 
   var text = d3.select('#arc').append('div.pathstr')
@@ -290,16 +288,15 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
   var θ = 0,
       rx = 120,
-      ry = 80
+      ry = 120
 
 
   var centers = svg.append('g')
-
-  // .selectAll('circle')
-  //     .data([[0,0], [0,0]]).enter()
-  //   .append('circle')
-  //     .attr('r', 10)
-  //     .translate(f())
+    .selectAll('circle')
+      .data([[0,0], [0,0]]).enter()
+    .append('circle')
+      .attr('r', 10)
+      .translate(f())
 
 
 
