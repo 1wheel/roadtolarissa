@@ -311,7 +311,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .style('opacity', 0)
 
 
-  var circlePos = [[250, 200], [250, 300]]
+  var circlePos = [[325,345], [335,175]]
   circlePos.forEach(function(d, i){ d.color = colors[i] })
 
   var flagData = [[0, 0], [0, 1], [1, 1], [1, 0]]
@@ -320,21 +320,22 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
     .append('path.arc')
 
-  var θ = Math.PI/4*0,
-      rx = 120,
-      ry = 140,
-      fa = 0,
+  var θ = Math.PI/4,
+      rx = 170,
+      ry = 175,
+      fa = 1,
       fs = 0
 
 
   var angleSize = 30,
-      aData = {},
+      aData = {color: colors[2]},
       angleG = svg.append('g')
           .datum(aData)
           .on('mouseover', highlight)
           .translate([width - angleSize, angleSize])
   
-  angleG.append('circle.angle-background').attr('r', angleSize)
+  angleG.append('circle.angle-background')
+      .attr({r: angleSize, stroke: f('color')})
 
   var angleDrag = d3.behavior.drag()
       .on('drag', function(){
@@ -342,7 +343,9 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
         θ = Math.atan2(pos[0], pos[1])
         update()
       })
-  angleG.append('circle.angle-picker').attr('r', 8).call(angleDrag)
+  angleG.append('circle.angle-picker')
+       .attr({r: 7, stroke: f('color'), fill: f('color')})
+       .call(angleDrag)
 
 
 
@@ -354,11 +357,11 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
   centers.append('circle.center')
       .attr('r', 3)
 
-  var rData = [{}, {}]
+  var rData = [{color: colors[3]}, {color: colors[4]}]
   centers.selectAll('path')
       .data(rData).enter()
     .append('path.center')
-      .style('stroke', function(d, i){ return i ? colors[3] : colors[5] })
+      .style('stroke', f('color'))
 
 
   var startRx, startRy, startPos
@@ -391,8 +394,8 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
     .append('circle.r-adjust')
       .attr('r', 10)
       .call(radiusDrag)
-      .style('stroke', function(d, i){ return i ? colors[3] : colors[5] })
-      .style('fill'  , function(d, i){ return i ? colors[3] : colors[5] })
+      .style('stroke', f('color'))
+      .style('fill'  , f('color'))
       .on('mouseover', highlight)
 
 

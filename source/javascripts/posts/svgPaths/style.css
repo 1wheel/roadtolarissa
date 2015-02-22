@@ -59,6 +59,7 @@ span.flag{
   width: 75px;
   text-align: center;
   display: inline-block;
+  font-weight: bold;
 }
 span.flag.highlight{
   color: rgb(0, 245, 255);
@@ -88,5 +89,16 @@ circle.center{
 
 .angle-background{
   fill: none;
-  stroke: gray;
+  stroke-width: 1px;
+}
+circle.angle-background.highlight{
+  stroke-width: 1px;
+}
+.angle-picker{
+  fill-opacity: .5;
+  cursor: pointer;
+}
+circle.angle-picker.highlight{
+  stroke-width: 3px;
+  fill-opacity: 1;
 }
