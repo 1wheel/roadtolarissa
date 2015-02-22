@@ -85,7 +85,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
 
 
-
+//beizer
 !(function(){
   var drag = dragConstructor(update)
 
@@ -207,17 +207,17 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
 
 
-//move to
+//arc
 !(function(){
   var drag = dragConstructor(update)
 
   function update(){
-    svg.selectAll('circle').translate(f())
+    svg.selectAll('.draggable').translate(f())
     
 
     paths
         .attr('d', function(d){ 
-          return ['M', circlePos[0], 'A', 120, 80, 0, d, circlePos[1]].join(' ') })
+          return ['M', circlePos[0], 'A', rx, ry, θ, d, circlePos[1]].join(' ') })
         .classed('editable', function(d){ return d == curFlag })
 
     text.html('')
@@ -225,6 +225,47 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       text.append('span').text(i ? ' L ' : 'M ')
       text.append('span.cord').datum(d).call(fmtLabel)
     })
+
+    //find the center of the ellipses 
+    //http://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
+    var c1 = circlePos[0]
+    var c2 = circlePos[1]
+    
+    //compute transform
+    var cosθ = Math.cos(θ)
+    var sinθ = Math.cos(θ)
+    
+    var mx = (c1[0] - c2[0])/2 
+    var my = (c1[1] - c2[1])/2 
+
+    var x =  cosθ*mx + sinθ*my
+    var y = -sinθ*mx + cosθ*my
+
+    //center points of transformed ellipse
+    var rx2 = Math.pow(rx, 2)
+    var ry2 = Math.pow(ry, 2)
+    var x2  = Math.pow(x, 2)
+    var y2  = Math.pow(y, 2)
+
+    var dist = Math.sqrt((rx2*ry2 - rx2*y2 - ry2*x2)/(rx2*y2 + ry2*x2))
+
+    var c1xT =  dist*rx*y/ry
+    var c1yT = -dist*ry*x/rx
+    var c2xT = -dist*rx*y/ry
+    var c2yT =  dist*ry*x/rx
+
+    //revese translation
+    var nx = (c1[0] + c2[0])/2 
+    var ny = (c1[1] + c2[1])/2 
+
+    var c1x =  cosθ*c1xT + sinθ*c1yT + nx
+    var c1y = -sinθ*c1xT + cosθ*c1yT + ny
+
+    var c2x =  cosθ*c2xT + sinθ*c2yT + nx
+    var c2y = -sinθ*c2xT + cosθ*c2yT + ny
+
+    centers.data([[c1x, c1y], [c2x, c2y]])
+        //.translate(f())
   }
 
   var text = d3.select('#arc').append('div.pathstr')
@@ -247,10 +288,24 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
     .append('path.arc')
 
+  var θ = 0,
+      rx = 120,
+      ry = 80
+
+
+  var centers = svg.append('g')
+
+  // .selectAll('circle')
+  //     .data([[0,0], [0,0]]).enter()
+  //   .append('circle')
+  //     .attr('r', 10)
+  //     .translate(f())
+
+
 
 
   function drawCircles(){
-    var circles = svg.selectAll('circle')
+    var circles = svg.selectAll('.draggable')
         .data(circlePos, f('color'))
 
     circles.enter()
@@ -259,13 +314,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
         .style('stroke', f('color'))
         .call(drag)
         .on('mouseover', highlight)
-        .on('dblclick', function(d){
-          if (circlePos.length == 1) return
-          circlePos = circlePos.filter(function(e){ return d != e })
-
-          drawCircles()
-          update()
-        })
           .attr('r', 0)
         .transition()
           .attr('r', margin)
