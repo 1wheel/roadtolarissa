@@ -214,7 +214,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
   function update(){
     svg.selectAll('.draggable').translate(f())
     
-
+    console.log(θ, θ*180/Math.PI)
     paths
         .attr('d', function(d){ 
           return ['M', circlePos[0], 'A', rx, ry, θ*180/Math.PI, d, circlePos[1]].join(' ') })
@@ -256,14 +256,14 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
     var nx = (c1[0] + c2[0])/2 
     var ny = (c1[1] + c2[1])/2 
 
-    var c1x =  cosθ*cxT + sinθ*cyT + nx
-    var c1y = -sinθ*cxT + cosθ*cyT + ny
+    var c1x =  cosθ*cxT - sinθ*cyT + nx
+    var c1y =  sinθ*cxT + cosθ*cyT + ny
 
-    var c2x = -cosθ*cxT - sinθ*cyT + nx
-    var c2y =  sinθ*cxT - cosθ*cyT + ny
+    var c2x = -cosθ*cxT + sinθ*cyT + nx
+    var c2y = -sinθ*cxT - cosθ*cyT + ny
 
     centers.data([[c1x, c1y], [c2x, c2y]])
-        .attr('transform', function(d){ return 'translate(' + d + ') rotate(' + -θ*180/Math.PI + ')' })
+        .attr('transform', function(d){ return 'translate(' + d + ') rotate(' + θ*180/Math.PI + ')' })
 
     centers.selectAll('path')
       .attr('d', function(d, i){ return 'M0,0' + (i ? 'V' + ry : 'H' + rx) })
@@ -345,6 +345,8 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .on('drag', function(d, i){
         var pos = d3.mouse(svg.node())
         i ? ry = startRy + pos[1] : rx = startRx + pos[0]
+        rx = Math.max(10, rx)
+        ry = Math.max(10, ry)
         update()
       })
   centers.selectAll('r-adjust')

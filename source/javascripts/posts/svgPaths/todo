@@ -3,15 +3,34 @@ TODO
 
   linked hightligh
 
-
   double click to remove
-
-  more colors
 
   print whole list of beziers
 
+
+  update 
+
   arcs
-    toggles for sweep?
+    toggles for sweep - click on actual number
+
+    print string
+
+    link mouseovers
+
+    adjust drag angle
+
+    style electron
+
+
+  pick colors    
+
+
+rx ry x-axis-rotation large-arc-flag sweep-flag x y)
+
+
+
+
+
 
 
   write post
