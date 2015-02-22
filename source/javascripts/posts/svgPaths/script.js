@@ -217,7 +217,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
     paths
         .attr('d', function(d){ 
-          return ['M', circlePos[0], 'A', rx, ry, θ, d, circlePos[1]].join(' ') })
+          return ['M', circlePos[0], 'A', rx, ry, θ*180/Math.PI, d, circlePos[1]].join(' ') })
         .classed('editable', function(d){ return d == curFlag })
 
     text.html('')
@@ -270,6 +270,10 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
     centers.selectAll('.r-adjust')
       .translate(function(d, i){ return i ? [0, ry] : [rx, 0] })
+
+
+    angleG.select('.angle-picker')
+        .translate([Math.sin(θ)*angleSize, Math.cos(θ)*angleSize])
   }
 
   var text = d3.select('#arc').append('div.pathstr')
@@ -292,9 +296,17 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
     .append('path.arc')
 
-  var θ = 0,
+  var θ = Math.PI,
       rx = 120,
       ry = 140
+
+
+  var angleSize = 30
+  var angleG = svg.append('g').translate([width - angleSize, angleSize])
+  angleG.append('circle.angle-background').attr('r', angleSize)
+
+  angleG.append('circle.angle-picker').attr('r', 8)
+
 
 
   var centers = svg.append('g').selectAll('g')

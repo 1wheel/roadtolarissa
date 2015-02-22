@@ -69,3 +69,9 @@ circle.center{
   fill: none;
   stroke: black;
 }
+
+
+.angle-background{
+  fill: none;
+  stroke: gray;
+}
