@@ -177,7 +177,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
     path.attr('d',  [ 'M', circlePos[0], 
                       'C', circlePos.slice(1, 4).join(' '),
                       sIndexes.map(function(i){
-                        console.log(i)
                         return ['S', circlePos[2*i], circlePos[2*i + 1]].join(' ')
                       })
                     ].join(' '))
@@ -214,7 +213,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
   function update(){
     svg.selectAll('.draggable').translate(f())
     
-    console.log(θ, θ*180/Math.PI)
     paths
         .attr('d', function(d){ 
           return ['M', circlePos[0], 'A', rx, ry, θ*180/Math.PI, d, circlePos[1]].join(' ') })
@@ -296,7 +294,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
     .append('path.arc')
 
-  var θ = Math.PI/4,
+  var θ = Math.PI/4*0,
       rx = 120,
       ry = 140
 
@@ -335,16 +333,27 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .style('stroke', function(d, i){ return i ? colors[3] : colors[5] })
 
 
-  var startRx, startRy
+  var startRx, startRy, startPos
   var radiusDrag = d3.behavior.drag()
       .on('dragstart', function(){
-        var pos = d3.mouse(svg.node())
-        startRx = rx - pos[0]
-        startRy = ry - pos[1]
+        startPos = d3.mouse(svg.node())
+        startRx = rx 
+        startRy = ry
       })
       .on('drag', function(d, i){
         var pos = d3.mouse(svg.node())
-        i ? ry = startRy + pos[1] : rx = startRx + pos[0]
+        var dx = pos[0] - startPos[0]
+        var dy = pos[1] - startPos[1]
+
+        var dist = Math.sqrt(dx*dx + dy*dy)
+        var φ = Math.atan2(dx, dy)
+
+        if (i){
+          ry = startRy + dist*Math.cos(φ + θ)
+        } else{
+          rx = startRx + dist*Math.sin(φ + θ)
+        }
+
         rx = Math.max(10, rx)
         ry = Math.max(10, ry)
         update()
