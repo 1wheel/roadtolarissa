@@ -263,7 +263,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
     var c2y =  sinθ*cxT - cosθ*cyT + ny
 
     centers.data([[c1x, c1y], [c2x, c2y]])
-        .translate(f())
+        .attr('transform', function(d){ return 'translate(' + d + ') rotate(' + -θ*180/Math.PI + ')' })
 
     centers.selectAll('path')
       .attr('d', function(d, i){ return 'M0,0' + (i ? 'V' + ry : 'H' + rx) })
@@ -296,16 +296,27 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
     .append('path.arc')
 
-  var θ = Math.PI,
+  var θ = Math.PI/4,
       rx = 120,
       ry = 140
 
 
-  var angleSize = 30
-  var angleG = svg.append('g').translate([width - angleSize, angleSize])
+  var angleSize = 30,
+      aData = {},
+      angleG = svg.append('g')
+          .datum(aData)
+          .call(highlight)
+          .translate([width - angleSize, angleSize])
+  
   angleG.append('circle.angle-background').attr('r', angleSize)
 
-  angleG.append('circle.angle-picker').attr('r', 8)
+  var angleDrag = d3.behavior.drag()
+      .on('drag', function(){
+        var pos = d3.mouse(angleG.node())
+        θ = Math.atan2(pos[0], pos[1])
+        update()
+      })
+  angleG.append('circle.angle-picker').attr('r', 8).call(angleDrag)
 
 
 
@@ -336,7 +347,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
         i ? ry = startRy + pos[1] : rx = startRx + pos[0]
         update()
       })
-
   centers.selectAll('r-adjust')
       .data(rData).enter()
     .append('circle.r-adjust')
