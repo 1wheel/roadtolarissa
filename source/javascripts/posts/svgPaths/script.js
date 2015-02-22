@@ -264,6 +264,12 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
     centers.data([[c1x, c1y], [c2x, c2y]])
         .translate(f())
+
+    centers.selectAll('path')
+      .attr('d', function(d, i){ return 'M0,0' + (i ? 'V' + ry : 'H' + rx) })
+
+    centers.selectAll('.r-adjust')
+      .translate(function(d, i){ return i ? [0, ry] : [rx, 0] })
   }
 
   var text = d3.select('#arc').append('div.pathstr')
@@ -277,7 +283,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .style('opacity', 0)
 
 
-  var circlePos = [[250, 100], [250,200]]
+  var circlePos = [[250, 200], [250, 300]]
   circlePos.forEach(function(d, i){ d.color = colors[i] })
 
   var flagData = [[0, 0], [0, 1], [1, 1], [1, 0]]
@@ -288,15 +294,47 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
   var θ = 0,
       rx = 120,
-      ry = 220
+      ry = 140
 
 
-  var centers = svg.append('g')
-    .selectAll('circle')
+  var centers = svg.append('g').selectAll('g')
       .data([[0,0], [0,0]]).enter()
-    .append('circle')
-      .attr('r', 10)
+    .append('g')
       .translate(f())
+
+  centers.append('circle.center')
+      .attr('r', 3)
+
+  var rData = [{}, {}]
+  centers.selectAll('path')
+      .data(rData).enter()
+    .append('path.center')
+      .style('stroke', function(d, i){ return i ? colors[3] : colors[5] })
+
+
+  var startRx, startRy
+  var radiusDrag = d3.behavior.drag()
+      .on('dragstart', function(){
+        var pos = d3.mouse(svg.node())
+        startRx = rx - pos[0]
+        startRy = ry - pos[1]
+      })
+      .on('drag', function(d, i){
+        var pos = d3.mouse(svg.node())
+        i ? ry = startRy + pos[1] : rx = startRx + pos[0]
+        update()
+      })
+
+  centers.selectAll('r-adjust')
+      .data(rData).enter()
+    .append('circle.r-adjust')
+      .attr('r', 10)
+      .call(radiusDrag)
+      .style('stroke', function(d, i){ return i ? colors[3] : colors[5] })
+      .style('fill'  , function(d, i){ return i ? colors[3] : colors[5] })
+      .on('mouseover', highlight)
+
+
 
 
 
@@ -340,6 +378,7 @@ function dragConstructor(updateFn){
         .on('drag', function(d){
           d[0] = Math.round(Math.max(0, Math.min(width,  d3.event.x)))
           d[1] = Math.round(Math.max(0, Math.min(height, d3.event.y)))
+
           updateFn()
         })
         .origin(function(d){ return {x: d[0], y: d[1]} })
@@ -357,6 +396,6 @@ function fmtLabel(sel){
 var curHighlight = null
 function highlight(d){
   curHighlight = d
-  d3.selectAll('.cord, .ctrl') .classed('highlight', function(e){ return d == e })
-  d3.selectAll('circle')       .classed('highlight', function(e){ return d == e })
+  d3.selectAll('.cord, .ctrl, path.center, circle')
+      .classed('highlight', function(e){ return d == e })
 }

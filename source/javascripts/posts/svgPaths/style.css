@@ -60,3 +60,12 @@ span.ctrl{
   fill-opacity: .1;
   stroke-dasharray: 5 5;
 }
+
+path.center.highlight{
+  stroke-width: 3px;
+}
+
+circle.center{
+  fill: none;
+  stroke: black;
+}
