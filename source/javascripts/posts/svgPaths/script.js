@@ -233,7 +233,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
     
     //compute transform
     var cosθ = Math.cos(θ)
-    var sinθ = Math.cos(θ)
+    var sinθ = Math.sin(θ)
     
     var mx = (c1[0] - c2[0])/2 
     var my = (c1[1] - c2[1])/2 
@@ -288,7 +288,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
   var θ = 0,
       rx = 120,
-      ry = 120
+      ry = 220
 
 
   var centers = svg.append('g')
