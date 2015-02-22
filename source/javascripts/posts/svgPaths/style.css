@@ -3,6 +3,7 @@
   stroke: black;
   pointer-events: none;
   fill-opacity: .1;
+  stroke-dasharray: 0 0;
 }
 
 
@@ -54,11 +55,25 @@ span.ctrl{
  text-decoration: underline;
 }
 
+span.flag{
+  width: 75px;
+  text-align: center;
+  display: inline-block;
+}
+span.flag.highlight{
+  color: rgb(0, 245, 255);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 
 .arc{
   stroke: black;
-  fill-opacity: .1;
+  fill-opacity: .0;
   stroke-dasharray: 5 5;
+}
+.arc.highlight{
+  stroke: rgb(0, 245, 255);
 }
 
 path.center.highlight{

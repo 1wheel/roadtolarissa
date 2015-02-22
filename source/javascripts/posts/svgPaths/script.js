@@ -216,13 +216,39 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
     paths
         .attr('d', function(d){ 
           return ['M', circlePos[0], 'A', rx, ry, θ*180/Math.PI, d, circlePos[1]].join(' ') })
-        .classed('editable', function(d){ return d == curFlag })
+        .classed('editable', function(d){ return d[0] == fs && d[1] == fa })
 
     text.html('')
-    circlePos.forEach(function(d, i){
-      text.append('span').text(i ? ' L ' : 'M ')
-      text.append('span.cord').datum(d).call(fmtLabel)
-    })
+    text.append('span').text('M ')
+    text.append('span.cord').datum(circlePos[0]).call(fmtLabel)
+    text.append('span').text(' A ')
+    text.append('span.cord').datum(rData[0]).call(fmtLabel).text(rx)
+    text.append('span.cord').datum(rData[1]).call(fmtLabel).text(ry)
+    text.append('span.cord').datum(aData)   .call(fmtLabel).text(Math.round((360 + θ*180/Math.PI)%360))
+    text.selectAll('.flag')
+        .data([1, 0]).enter()
+      .append('span.flag')
+        .text(function(d){ return d ? fs : fa })
+        .on('click', function(d){
+          d ? fs = +!fs : fa = +!fa; update() 
+          
+          d3.select(this).on('mousemove').call(this, d)
+        })
+        .on('mousemove', function(d){
+          d3.selectAll('.highlight').classed('highlight', false)
+
+          d3.select(this).classed('highlight', true)
+
+          paths.classed('highlight', function(e){
+            if (d){
+              return e[0] != fs && e[1] == fa
+            } else{
+              return e[0] == fs && e[1] != fa 
+            }
+          })
+        })
+    text.append('span.cord').datum(circlePos[1]).call(fmtLabel)
+
 
     //find the center of the ellipses 
     //http://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
@@ -296,14 +322,16 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
 
   var θ = Math.PI/4*0,
       rx = 120,
-      ry = 140
+      ry = 140,
+      fa = 0,
+      fs = 0
 
 
   var angleSize = 30,
       aData = {},
       angleG = svg.append('g')
           .datum(aData)
-          .call(highlight)
+          .on('mouseover', highlight)
           .translate([width - angleSize, angleSize])
   
   angleG.append('circle.angle-background').attr('r', angleSize)
@@ -354,8 +382,8 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
           rx = startRx + dist*Math.sin(φ + θ)
         }
 
-        rx = Math.max(10, rx)
-        ry = Math.max(10, ry)
+        rx = Math.round(Math.max(10, rx))
+        ry = Math.round(Math.max(10, ry))
         update()
       })
   centers.selectAll('r-adjust')
@@ -429,6 +457,8 @@ function fmtLabel(sel){
 var curHighlight = null
 function highlight(d){
   curHighlight = d
+
+  d3.selectAll('.highlight').classed('highlight', false)
   d3.selectAll('.cord, .ctrl, path.center, circle')
       .classed('highlight', function(e){ return d == e })
 }
