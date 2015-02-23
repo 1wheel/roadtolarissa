@@ -71,7 +71,7 @@ span.flag.highlight{
 .arc{
   stroke: black;
   fill-opacity: .0;
-  stroke-dasharray: 5 5;
+  stroke-dasharray: 5 8 3 8;
 }
 .arc.highlight{
   stroke: rgb(0, 245, 255);

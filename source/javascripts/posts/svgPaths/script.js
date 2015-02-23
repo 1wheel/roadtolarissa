@@ -2,11 +2,11 @@ var margin = 10,
     width = 750 - margin*2,
     height = 500 - margin*2;
 
-var colors = ['steelblue', 'red', 'green', 'purple', 'orange', 'gold']
-colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(1) }))
-colors = colors.concat(colors.map(function(d){ return d3.rgb(d).darker(1) }))
+var colors = ['#F44336', '#2196F3', '#4CAF50', '#9C27B0', '#FF9800', '#795548']
+colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.1) }))
 colors = colors.concat(colors.map(function(d){ return d3.rgb(d).darker(.01) }))
 colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) }))
+colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }))
 
 
 //move to
@@ -320,11 +320,11 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) })
       .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
     .append('path.arc')
 
-  var θ = Math.PI/4,
-      rx = 170,
+  var rx = 170,
       ry = 175,
-      fa = 1,
-      fs = 0
+      θ = Math.PI/4,
+      fs = 1,
+      fa = 0
 
 
   var angleSize = 30,
