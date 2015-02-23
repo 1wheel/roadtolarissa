@@ -186,9 +186,9 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.0001) 
     //not the best way of rendering template..
     text.html('')
     text.append('span').text('M ')
-    text.append('span.cord').datum(circlePos[0]).call(fmtLabel)
+    text.append('span.cord').datum(circlePos[1]).call(fmtLabel)
     text.append('span').text(' C ')
-    text.append('span.ctrl').datum(circlePos[1]).call(fmtLabel)
+    text.append('span.ctrl').datum(circlePos[0]).call(fmtLabel)
     text.append('span.ctrl').datum(circlePos[2]).call(fmtLabel)
     text.append('span.cord').datum(circlePos[3]).call(fmtLabel)
 
