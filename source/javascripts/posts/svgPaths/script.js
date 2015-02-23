@@ -225,7 +225,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.0001) 
       .attr({width: width, height: height})
 
 
-  var circlePos = [[330, 300], [380, 130]]
+  var circlePos = [[360, 330], [315, 160]]
   circlePos.forEach(function(d, i){ d.color = colors[i] })
 
   var flagData = [[0, 0], [0, 1], [1, 1], [1, 0]]
