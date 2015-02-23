@@ -3,10 +3,11 @@ var margin = 10,
     height = 500 - margin*2;
 
 var colors = ['#F44336', '#2196F3', '#4CAF50', '#9C27B0', '#FF9800', '#795548']
+//maybe using color as unique id wasn't the best idea? 
 colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.1) }))
-colors = colors.concat(colors.map(function(d){ return d3.rgb(d).darker(.01) }))
 colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.01) }))
 colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }))
+colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.0001) }))
 
 
 //move to
@@ -106,8 +107,8 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
   var path = svg.append('path.editable')
 
   var circlePos = []
-  addPoint([100, 200], [400, 300])
-  addPoint([123, 44], [10, 44])
+  addPoint([110, 50], [670, 60])
+  addPoint([530, 415], [250, 440])
   
 
 
@@ -214,6 +215,108 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
 !(function(){
   var drag = dragConstructor(update)
 
+  var text = d3.select('#arc').append('div.pathstr')
+
+  var svg = d3.select('#arc').append('svg')
+      .attr({width: width + margin*2, height: height + margin*2})
+    .append('g')
+      .translate([margin, margin])
+  svg.append('rect')
+      .attr({width: width, height: height})
+
+
+  var circlePos = [[330, 300], [380, 130]]
+  circlePos.forEach(function(d, i){ d.color = colors[i] })
+
+  var flagData = [[0, 0], [0, 1], [1, 1], [1, 0]]
+  curFlag = flagData[0]
+  var paths = svg.append('g').selectAll('path')
+      .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
+    .append('path.arc')
+
+  var rx = 120,
+      ry = 175,
+      θ = Math.PI/4,
+      fs = 1,
+      fa = 0
+
+
+  var angleSize = 30,
+      aData = {color: colors[2]},
+      angleG = svg.append('g')
+          .datum(aData)
+          .on('mouseover', highlight)
+          .translate([width - angleSize, angleSize])
+  
+  angleG.append('circle.angle-background')
+      .attr({r: angleSize, stroke: f('color')})
+
+  var angleDrag = d3.behavior.drag()
+      .on('drag', function(){
+        var pos = d3.mouse(angleG.node())
+        θ = Math.atan2(pos[0], pos[1])
+        update()
+      })
+  angleG.append('circle.angle-picker')
+       .attr({r: 7, stroke: f('color'), fill: f('color')})
+       .call(angleDrag)
+
+
+
+  var centers = svg.append('g').selectAll('g')
+      .data([[0,0], [0,0]]).enter()
+    .append('g')
+      .translate(f())
+
+  centers.append('circle.center')
+      .attr('r', 3)
+
+  var rData = [{color: colors[3]}, {color: colors[4]}]
+  centers.selectAll('path')
+      .data(rData).enter()
+    .append('path.center')
+      .style('stroke', f('color'))
+
+
+  var startRx, startRy, startPos
+  var radiusDrag = d3.behavior.drag()
+      .on('dragstart', function(){
+        startPos = d3.mouse(svg.node())
+        startRx = rx 
+        startRy = ry
+      })
+      .on('drag', function(d, i){
+        var pos = d3.mouse(svg.node())
+        var dx = pos[0] - startPos[0]
+        var dy = pos[1] - startPos[1]
+
+        var dist = Math.sqrt(dx*dx + dy*dy)
+        var φ = Math.atan2(dx, dy)
+
+        if (i){
+          ry = startRy + dist*Math.cos(φ + θ)
+        } else{
+          rx = startRx + dist*Math.sin(φ + θ)
+        }
+
+        rx = Math.round(Math.max(10, rx))
+        ry = Math.round(Math.max(10, ry))
+        update()
+      })
+  centers.selectAll('r-adjust')
+      .data(rData).enter()
+    .append('circle.r-adjust')
+      .attr('r', 10)
+      .call(radiusDrag)
+      .style('stroke', f('color'))
+      .style('fill'  , f('color'))
+      .on('mouseover', highlight)
+
+
+  drawCircles()
+  update()
+
+
   function update(){
     svg.selectAll('.draggable').translate(f())
     
@@ -304,107 +407,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
         .translate([Math.sin(θ)*angleSize, Math.cos(θ)*angleSize])
   }
 
-  var text = d3.select('#arc').append('div.pathstr')
-
-  var svg = d3.select('#arc').append('svg')
-      .attr({width: width + margin*2, height: height + margin*2})
-    .append('g')
-      .translate([margin, margin])
-  svg.append('rect')
-      .attr({width: width, height: height})
-
-
-  var circlePos = [[325,345], [335,175]]
-  circlePos.forEach(function(d, i){ d.color = colors[i] })
-
-  var flagData = [[0, 0], [0, 1], [1, 1], [1, 0]]
-  curFlag = flagData[0]
-  var paths = svg.append('g').selectAll('path')
-      .data([[0, 0], [0, 1], [1, 1], [1, 0]]).enter()
-    .append('path.arc')
-
-  var rx = 170,
-      ry = 175,
-      θ = Math.PI/4,
-      fs = 1,
-      fa = 0
-
-
-  var angleSize = 30,
-      aData = {color: colors[2]},
-      angleG = svg.append('g')
-          .datum(aData)
-          .on('mouseover', highlight)
-          .translate([width - angleSize, angleSize])
-  
-  angleG.append('circle.angle-background')
-      .attr({r: angleSize, stroke: f('color')})
-
-  var angleDrag = d3.behavior.drag()
-      .on('drag', function(){
-        var pos = d3.mouse(angleG.node())
-        θ = Math.atan2(pos[0], pos[1])
-        update()
-      })
-  angleG.append('circle.angle-picker')
-       .attr({r: 7, stroke: f('color'), fill: f('color')})
-       .call(angleDrag)
-
-
-
-  var centers = svg.append('g').selectAll('g')
-      .data([[0,0], [0,0]]).enter()
-    .append('g')
-      .translate(f())
-
-  centers.append('circle.center')
-      .attr('r', 3)
-
-  var rData = [{color: colors[3]}, {color: colors[4]}]
-  centers.selectAll('path')
-      .data(rData).enter()
-    .append('path.center')
-      .style('stroke', f('color'))
-
-
-  var startRx, startRy, startPos
-  var radiusDrag = d3.behavior.drag()
-      .on('dragstart', function(){
-        startPos = d3.mouse(svg.node())
-        startRx = rx 
-        startRy = ry
-      })
-      .on('drag', function(d, i){
-        var pos = d3.mouse(svg.node())
-        var dx = pos[0] - startPos[0]
-        var dy = pos[1] - startPos[1]
-
-        var dist = Math.sqrt(dx*dx + dy*dy)
-        var φ = Math.atan2(dx, dy)
-
-        if (i){
-          ry = startRy + dist*Math.cos(φ + θ)
-        } else{
-          rx = startRx + dist*Math.sin(φ + θ)
-        }
-
-        rx = Math.round(Math.max(10, rx))
-        ry = Math.round(Math.max(10, ry))
-        update()
-      })
-  centers.selectAll('r-adjust')
-      .data(rData).enter()
-    .append('circle.r-adjust')
-      .attr('r', 10)
-      .call(radiusDrag)
-      .style('stroke', f('color'))
-      .style('fill'  , f('color'))
-      .on('mouseover', highlight)
-
-
-
-
-
 
   function drawCircles(){
     var circles = svg.selectAll('.draggable')
@@ -426,12 +428,8 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
         .remove(0)
   }
 
-
-  drawCircles()
-  update()
-
   d3.select('#arc').append('div').style('margin', 0).append('i')
-      .text('Drag circles to move. Click flags to toggle state.')
+      .text('Drag circles to move. Click flags to toggle.')
 
 })()
 

@@ -19,11 +19,12 @@ TODO
 
 
 
+capitiaziation
 
 
 
-
-
+  interaction instructions
+    Drag circles to move, double click to remove. Click canvas to add new point. 
 
   rx ry x-axis-rotation large-arc-flag sweep-flag x y)
 
