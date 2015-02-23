@@ -13,14 +13,14 @@
   stroke-width: 1px;
   cursor: pointer;
 }
-circle.highlight{
+circle.selected{
   stroke-width: 8px;
 }
 circle.ctrl{
   fill-opacity: 0;
   stroke-width: 1px;
 }
-circle.ctrl.highlight{
+circle.ctrl.selected{
   stroke-width: 4px;
 }
 
@@ -51,7 +51,7 @@ span.ctrl{
   width: 75;
   text-align: center;
 }
-.cord.highlight, .ctrl.highlight{
+.cord.selected, .ctrl.selected{
  text-decoration: underline;
 }
 
@@ -61,7 +61,7 @@ span.flag{
   display: inline-block;
   font-weight: bold;
 }
-span.flag.highlight{
+span.flag.selected{
   color: rgb(0, 245, 255);
   text-decoration: underline;
   cursor: pointer;
@@ -73,11 +73,11 @@ span.flag.highlight{
   fill-opacity: .0;
   stroke-dasharray: 5 8 3 8;
 }
-.arc.highlight{
+.arc.selected{
   stroke: rgb(0, 245, 255);
 }
 
-path.center.highlight{
+path.center.selected{
   stroke-width: 3px;
 }
 
@@ -91,14 +91,23 @@ circle.center{
   fill: none;
   stroke-width: 1px;
 }
-circle.angle-background.highlight{
+circle.angle-background.selected{
   stroke-width: 1px;
 }
 .angle-picker{
   fill-opacity: .5;
   cursor: pointer;
 }
-circle.angle-picker.highlight{
+circle.angle-picker.selected{
   stroke-width: 3px;
   fill-opacity: 1;
+}
+
+
+#moveto > svg, #bez > svg, #arc > svg{
+  background-color: white
+}
+
+rect{
+  fill-opacity: 0;
 }

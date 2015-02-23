@@ -1,37 +1,31 @@
 TODO
   print out whole bz
-
   linked hightligh
-
   double click to remove
-
   print whole list of beziers
-
-
-  update 
-
-  arcs
-    toggles for sweep - click on actual number
-
-    print string
-
-    link mouseovers
-
-    adjust drag angle
-
-    style electron
-
-
+  update moveto
   pick colors    
 
 
-rx ry x-axis-rotation large-arc-flag sweep-flag x y)
+
+  arcs
+    toggles for sweep - click on actual number
+    print string
+    link mouseovers
+    adjust drag angle
+    style electron
+    add colors for all
 
 
 
 
 
 
+
+
+
+
+  rx ry x-axis-rotation large-arc-flag sweep-flag x y)
 
   write post
 
@@ -39,3 +33,8 @@ rx ry x-axis-rotation large-arc-flag sweep-flag x y)
 
   mb mathmatically unsettling
 
+
+
+  gif
+
+  post

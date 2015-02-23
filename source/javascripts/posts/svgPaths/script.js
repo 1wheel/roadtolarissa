@@ -32,7 +32,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
       .translate([margin, margin])
   svg.append('rect')
       .attr({width: width, height: height})
-      .style('opacity', 0)
       .on('click', function(){
         var usedColors = circlePos.map(f('color'))
         var color = colors.filter(function(d){ return !_.contains(usedColors, d) })[0] 
@@ -97,7 +96,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
       .translate([margin, margin])
   svg.append('rect')
       .attr({width: width, height: height})
-      .style('opacity', 0)
       .on('click', function(){ addPoint(d3.mouse(this)) })
 
 
@@ -235,11 +233,11 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
           d3.select(this).on('mousemove').call(this, d)
         })
         .on('mousemove', function(d){
-          d3.selectAll('.highlight').classed('highlight', false)
+          d3.selectAll('.selected').classed('selected', false)
 
-          d3.select(this).classed('highlight', true)
+          d3.select(this).classed('selected', true)
 
-          paths.classed('highlight', function(e){
+          paths.classed('selected', function(e){
             if (d){
               return e[0] != fs && e[1] == fa
             } else{
@@ -308,7 +306,6 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
       .translate([margin, margin])
   svg.append('rect')
       .attr({width: width, height: height})
-      .style('opacity', 0)
 
 
   var circlePos = [[325,345], [335,175]]
@@ -453,7 +450,7 @@ function fmtLabel(sel){
       .text(f())
       .style('color', f('color'))
       .on('mouseover', highlight)
-      .classed('highlight', function(d){ return d == curHighlight })
+      .classed('selected', function(d){ return d == curHighlight })
 }
 
 
@@ -461,7 +458,7 @@ var curHighlight = null
 function highlight(d){
   curHighlight = d
 
-  d3.selectAll('.highlight').classed('highlight', false)
+  d3.selectAll('.selected').classed('selected', false)
   d3.selectAll('.cord, .ctrl, path.center, circle')
-      .classed('highlight', function(e){ return d == e })
+      .classed('selected', function(e){ return d == e })
 }
