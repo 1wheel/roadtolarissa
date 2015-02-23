@@ -43,22 +43,15 @@ svg{
 }
 
 span.cord{
-  width: 75px;
-  text-align: center;
   font-weight: bold;
-}
-span.ctrl{
-  width: 75px;
-  text-align: center;
 }
 .cord.selected, .ctrl.selected{
  text-decoration: underline;
 }
 
+
+
 span.flag{
-  width: 75px;
-  text-align: center;
-  display: inline-block;
   font-weight: bold;
 }
 span.flag.selected{
@@ -110,4 +103,18 @@ circle.angle-picker.selected{
 
 rect{
   fill-opacity: 0;
+}
+
+h3{
+  margin-top: 1em;
+}
+i{
+  font-style: italic;
+  margin-bottom: 1.5em;
+}
+
+.pathstr span{
+  width: 70px;
+  display: inline-block;
+  text-align: center;
 }
