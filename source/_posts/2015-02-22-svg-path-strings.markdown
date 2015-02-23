@@ -7,15 +7,15 @@ categories:
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/svgPaths/style.css">
 
-SVG comes with a several shape elements - `rect`, `ellipse`, `line`, `polygon` - that can create basic forms. To create a map, steamgraph or other more complicated shapes, `path` elements are used. Instead of specifying the size and position of a path element with attributes like `height`, `radius` or `x` as we do with the basic shapes, the geometry of the path element is determined by a single `d` attribute.
+SVG comes with several shape elements - `rect`, `ellipse`, `line`, `polygon` - that can create basic forms. To create a map, steamgraph or other more complicated shapes, `path` elements are used. Instead of specifying the size and position of a path element with attributes like `height`, `radius` or `x` as we do with the basic shapes, the geometry of the path element is determined by a single `d` attribute.
 
-This `d` attribute processes a path string describing the movement of pen across a sheet of paper. [D3](https://github.com/mbostock/d3/wiki/SVG-Shapes#path-data-generators) has powerful path generators that are simple to use; this post describes how the path strings are interpreted so you can create your own.
+This `d` attribute processes a path string that describing the movement of a pen across a sheet of paper. [D3](https://github.com/mbostock/d3/wiki/SVG-Shapes#path-data-generators) has powerful path generators that are simple to use; this post describes how the path strings are interpreted so you can create your own.
 
 ###Straight Line
 
-Each path string starts with an `M` moveto command which moves the pen to a new coordinate defined by a pair of numbers after the `M`. For example, `M 100 200` moves the pen to a start position 100 pixels left and 200 pixels down from the origin (typically the upper left corner of the SVG). 
+Each path string starts with an `M` moveto command that moves the pen to a new coordinate defined by a pair of numbers after the `M`. For example, `M 100 200` moves the pen to a start position 100 pixels left and 200 pixels down from the origin (typically the upper left corner of the SVG). 
 
-The `L` lineto command moves the pen from its current position to a new coordinate, tracing a straight line alone the way. `M 100,200 L 400,300` traces a line from 100,200 to 400,300.
+The `L` lineto command moves the pen from its current position to a new coordinate, tracing a straight line along the way. `M 100,200 L 400,300` traces a line from 100,200 to 400,300.
 
 Multiple `L` and `M` commands can be combined to create complex shapes:
 
@@ -30,12 +30,12 @@ By default, SVG shapes are colored black with no stroke. Here the path has been 
 
 <div id='bez'></div>
 
-The smooth curveto `S` command allows for easy chaining of béziers. It takes a new control coordinate and a new position and draws a bézier using the previous current position and its control point. `L` and `M` commands can also follow `C` and `S` commands, so a single path can be both smoothed and curved.
+The smooth curveto `S` command allows for easy chaining of béziers. It takes a new control coordinate and a new position and draws a bézier using the previous current position and its control point. `L` and `M` commands can also follow `C` and `S` commands, so a single path can be both straight and curved.
 
 
 ###Elliptical Arc
 
-While Béziers are quite flexible, they aren't actually able to draw a [perfect circle](http://spencermortensen.com/articles/bezier-circle/). The arc `A` command draws an ellipse segment from the current position to a new posting. The first three parameters define the x radius ellipse, the y radius and rotation of the ellipse. The next two parameters are boolean flags that indicate if the larger or smaller ellipse segment should be used and left or right or ellipse should be used (unused segments have a dashed line). The final two parameters are the x and y values of the new position. 
+While béziers are quite flexible, they aren't actually able to draw a [perfect circle](http://spencermortensen.com/articles/bezier-circle/). The arc `A` command draws an ellipse segment from the current position to a new position. The first three parameters define the x radius, the y radius and the rotation of the ellipse. The next two parameters are boolean flags that indicate if the larger or smaller ellipse segment should be used and if the left or right ellipse should be used (unused segments denoted with a dashed line below). The final two parameters are the x and y values of the new position. 
 
 <div id='arc'></div>
 
