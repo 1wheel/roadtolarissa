@@ -7,13 +7,16 @@ categories:
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/svgPaths/style.css">
 
-<h2>Moveto and Mineto</h2>
+###moveto and lineto
+
 <div id='moveto'></div>
 
-<h2>Cubic Bézier</h2>
+###cubic bézier
+
 <div id='bez'></div>
 
-<h2>Elliptical Arc</h2>
+###elliptical arc
+
 <div id='arc'></div>
 
 

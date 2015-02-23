@@ -77,6 +77,9 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
 
   var path = svg.append('path.editable')
 
+  d3.select('#moveto').append('div').append('i')
+      .text('Drag circles to move, double click to remove. Click canvas to add a new point.')
+
   drawCircles()
   update()
 })()
@@ -194,6 +197,9 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
       text.append('span.cord').datum(circlePos[2*i + 1])  .call(fmtLabel)
     })
   }
+
+  d3.select('#bez').append('div').append('i')
+      .text('Drag circles to move, double click to remove. Click canvas to add a new point.')
 
 
 })()
@@ -423,6 +429,10 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.001) }
 
   drawCircles()
   update()
+
+  d3.select('#arc').append('div').append('i')
+      .text('Drag circles to move. Click flags to toggle state.')
+
 })()
 
 

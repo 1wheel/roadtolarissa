@@ -48,7 +48,7 @@ span.cord{
   font-weight: bold;
 }
 span.ctrl{
-  width: 75;
+  width: 75px;
   text-align: center;
 }
 .cord.selected, .ctrl.selected{
