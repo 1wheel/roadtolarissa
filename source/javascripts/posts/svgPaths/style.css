@@ -114,7 +114,11 @@ i{
 }
 
 .pathstr span{
-  width: 70px;
+  width: 80px;
   display: inline-block;
   text-align: center;
+}
+
+#moveto .pathstr{
+  margin-right: 80px;
 }
