@@ -78,7 +78,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.0001) 
 
   var path = svg.append('path.editable')
 
-  d3.select('#moveto').append('div').style('margin', 0).append('i')
+  d3.select('#moveto').append('div').style('margin-bottom', '20px').append('i')
       .text('Drag circles to move, double click to remove. Click canvas to add a new point.')
 
   drawCircles()
@@ -199,7 +199,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.0001) 
     })
   }
 
-  d3.select('#bez').append('div').style('margin', 0).append('i')
+  d3.select('#bez').append('div').style('margin-bottom', '20px').append('i')
       .text('Drag circles to move, double click to remove. Click canvas to add a new point.')
 
 
@@ -428,7 +428,7 @@ colors = colors.concat(colors.map(function(d){ return d3.rgb(d).brighter(.0001) 
         .remove(0)
   }
 
-  d3.select('#arc').append('div').style('margin', 0).append('i')
+  d3.select('#arc').append('div').style('margin-bottom', '20px').append('i')
       .text('Drag circles to move. Click flags to toggle.')
 
 })()

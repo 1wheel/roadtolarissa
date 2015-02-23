@@ -49,22 +49,15 @@ Each of the above commands has a lower case version that uses relative position 
 The closepath `Z` command draws a straight line from the current position to the start of the path, creating a closed shape.   
 
 
-###Further reading
+###More reading
   
 The W3C [documentation on paths](http://www.w3.org/TR/SVG/paths.html#Introduction) is terse but covers many cases and implementation details I've glossed over. 
 
 While starting to feel a bit dated (particularly on animation), [SVG Primer](http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#SVG_Basics) gently covers most of the SVG specification.
 
-http://chimera.labs.oreilly.com/books/1230000000345/ch03.html#_simple_shapes
+Scotty Murray's [book](http://chimera.labs.oreilly.com/books/1230000000345/ch03.html#_simple_shapes) does a great job of explaining how SVG and D3 fit together. 
 
-
-
-[code for animations on github]()
-
-
-  inkscape illistuation
-  http://www.w3.org/TR/SVG/paths.html#PathDataMovetoCommands
-  mdn
+[Code for animations on github](https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/svgPaths/script.js) - [Inkscape](https://inkscape.org/en/) and [Illustrator](http://www.adobe.com/products/illustrator.html) have much more robust SVG creation tools than what I've put together this weekend. 
 
 <script src="/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
 <script src="/javascripts/libs/lodash.js" type="text/javascript"></script>
