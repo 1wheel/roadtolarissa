@@ -64,6 +64,16 @@ Oscars, temp over time
 
 ###Click and drag exploration of svg paths
 
+###Software usage
+http://cran-logs.rstudio.com/
+
+https://www.npmjs.com/
+
+pip, ruby?
+
+github - commits v downloads
+
+
 ###python v r data analysis 
 
 ###clojurescript/om demo
