@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Even Fewer Lambdas In d3"
+title: "Even Fewer Lambdas"
 comments: true
 categories: 
 ---

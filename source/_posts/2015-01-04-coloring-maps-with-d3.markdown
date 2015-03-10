@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Coloring maps with d3"
+title: "Coloring Maps"
 categories: 
 ---
 
