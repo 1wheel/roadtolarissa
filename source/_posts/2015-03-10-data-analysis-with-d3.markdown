@@ -13,13 +13,41 @@ The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/Basi
 
 <gif></gif>
 
-All the awards are contained within a single `dl` element. Each years and award types are marked with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While jquery is already loaded and the 
+All the awards are contained within a single `dl` element. Each years and award types are marked with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While we could use `document.querySelectorAll` or the already loaded jquery to traverse the DOM, injecting onto the page allows us to use the same API for gathering and displaying data. Its also simple: 
 
 ```
-var script = document.createElement("script");
-script.src = 'http://d3js.org/d3.v3.min.js';
-document.body.appendChild(script);
+var script = document.createElement("script")
+script.src = 'http://d3js.org/d3.v3.min.js'
+document.body.appendChild(script)
+```
 
+Iterating over each child of the `dl` element, we build an array of nominations by tracking the current year and award type. Each time a `table` element is encountered, a new object is added to the nominations array with the year, award and name of the nominee parsed from the table text.
+
+```
+var nominations = [],
+    curYear,
+    curAward
+
+d3.selectAll('dl > *').each(function(){
+  var sel = d3.select(this)
+  if      (this.tagName == 'DT'){
+    curYear = sel.text().trim()
+  }
+  else if (this.tagName == 'DIV'){
+    curAward = sel.text().trim()
+  }
+  else{
+    nominations.push({year: curYear, award: curAward, name: sel.text().split(' -- ')[0]}
+  }
+})
+
+```
+
+Writing this code in the Source tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `table(nominations)` in the console 
+
+
+
+```
 var nominations = [],
     curYear,
     curAward
@@ -43,5 +71,6 @@ d3.selectAll('dl > *').each(function(){
   }
 })
 
-copy(d3.csv.format(nominations))
 ```
+
+copy(d3.csv.format(nominations))
