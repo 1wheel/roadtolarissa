@@ -73,6 +73,9 @@ pip, ruby?
 
 github - commits v downloads
 
+###The actual hardest shot in bowling
+https://news.ycombinator.com/item?id=9177469
+Maybe, the reason for the low success rate on the 4-6-7-9-10 split is because the really good pros rarely end up with it.
 
 ###python v r data analysis 
 
