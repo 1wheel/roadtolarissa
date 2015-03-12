@@ -43,27 +43,40 @@ d3.selectAll('dl > *').each(function(){
 
 ```
 
-Writing this code in the Source tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `table(nominations)` in the console creates a pleasantly short feedback loop. Getting more information from each nomination is simple - just set a breakpoint inside the `else` block and try looking for something else that can be programtically read from the text. 
+Writing this code in the Source tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `table(nominations)` in the console creates a pleasantly short feedback loop. To get more information from each nomination, set a breakpoint inside the `else` block and try looking for something else that can be programmatically read from the text (I also [get](asdf) the name of the movie, the winner and clean up the year field).
 
+Before graphing the data, we can do some quick to checks to 
+var actressNomintions = nominations.filter(function(d){ return d.award == 'Best Actress' })
+
+```
+var byActress = d3.nest().key(f('name')).entries(actressNomintions)
+
+
+For a larger project, setting up a [replicatable data pipeline](http://bost.ocks.org/mike/make/) is generally a best practice; in the interest of taking a quick look at the oscar, `copy(d3.csv.format(nominations))` converts array of objects to a string which is copied to the clipboard and can be saved as a csv by pasting into a text editor.  
+
+
+Nest to count previous nominations
 
 
 ```
 var nominations = [],
     curYear,
+    curNth,
     curAward
 
 d3.selectAll('dl > *').each(function(){
   var sel = d3.select(this)
   if      (this.tagName == 'DT'){
     curYear = sel.text().trim()
+    curNth = curYear.split('(')[1].split(')')[0].slice(0, str.length - 2)
   }
   else if (this.tagName == 'DIV'){
-    curAward = sel.text().trim()
+    curAward = sel.text().replace(' IN A LEADING ROLE', '').trim()
   }
   else{
-    var nom = {year: curYear, award: curAward}
+    var nom = {year: curYear, nth, curNth, award: curAward}
     var text = sel.text().split('[NOTE')[0].trim()
-    nom.won = !!~text.indexOf('*')
+    nom.won = ~text.indexOf('*') ? 1 : ''
     var nameMovie = text.replace('*', '').split(' -- ')
     nom.name = nameMovie[0]
     nom.movie = nameMovie[1] ? nameMovie[1].split(' {')[0].replace(/"/g, '') : ''
