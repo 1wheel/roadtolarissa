@@ -31,10 +31,10 @@ var nominations = [],
 d3.selectAll('dl > *').each(function(){
   var sel = d3.select(this)
   if      (this.tagName == 'DT'){
-    curYear = sel.text().trim()
+    curYear = sel.text()
   }
   else if (this.tagName == 'DIV'){
-    curAward = sel.text().trim()
+    curAward = sel.text()
   }
   else{
     nominations.push({year: curYear, award: curAward, name: sel.text().split(' -- ')[0]}
@@ -43,7 +43,7 @@ d3.selectAll('dl > *').each(function(){
 
 ```
 
-Writing this code in the Source tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `table(nominations)` in the console 
+Writing this code in the Source tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `table(nominations)` in the console creates a pleasantly short feedback loop. Getting more information from each nomination is simple - just set a breakpoint inside the `else` block and try looking for something else that can be programtically read from the text. 
 
 
 
