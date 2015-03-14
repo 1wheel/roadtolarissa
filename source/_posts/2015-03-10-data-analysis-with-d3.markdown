@@ -45,11 +45,16 @@ d3.selectAll('dl > *').each(function(){
 
 Writing this code in the Source tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `table(nominations)` in the console creates a pleasantly short feedback loop. To get more information from each nomination, set a breakpoint inside the `else` block and try looking for something else that can be programmatically read from the text (I also [get](asdf) the name of the movie, the winner and clean up the year field).
 
-Before graphing the data, we can do some quick to checks to 
-var actressNomintions = nominations.filter(function(d){ return d.award == 'Best Actress' })
+Calculating summary known summary statistics is a good way to double check that the data is close to being correct:
 
 ```
+var actressNomintions = nominations.filter(function(d){ return d.award == 'Best Actress' })
 var byActress = d3.nest().key(f('name')).entries(actressNomintions)
+byActress.length  //There have been 231 people nominated for Best Actress -  
+d3.max(byActress, f('key', 'length')) //merel has been nominated x times - 
+```
+`f` is a combination 
+
 
 
 For a larger project, setting up a [replicatable data pipeline](http://bost.ocks.org/mike/make/) is generally a best practice; in the interest of taking a quick look at the oscar, `copy(d3.csv.format(nominations))` converts array of objects to a string which is copied to the clipboard and can be saved as a csv by pasting into a text editor.  
