@@ -45,6 +45,16 @@ d3.selectAll('dl > *').each(function(){
 
 Writing this code in the Source tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `table(nominations)` in the console creates a pleasantly short feedback loop. To get more information from each nomination, set a breakpoint inside the `else` block and try looking for something else that can be programmatically read from the text (I also [get](asdf) the name of the movie, the winner and clean up the year field).
 
+For a larger project, setting up a [replicatable data pipeline](http://bost.ocks.org/mike/make/) is generally a best practice; in the interest of taking a quick look at the oscar, 
+
+
+`d3.csv.format` converts an array of objects to a csv string. With `copy(d3.csv.format(nominations))`, the nomination data copied to the clipboard and can be pasted into a csv file locally. Documenting what you've done so far or making the process [replicatable](http://bost.ocks.org/mike/make/) is generally a good idea to save yourself confusion in the future.
+
+
+#### Looking at data
+
+To get started quickly with minimal fuss, I typically grab a copy of my d3-starter-kit repo. It contains [d3](blah.com), [lodash](asdf), [d3-jetpack](asdj) 
+
 Calculating summary known summary statistics is a good way to double check that the data is close to being correct:
 
 ```
@@ -56,11 +66,19 @@ d3.max(byActress, f('key', 'length')) //merel has been nominated x times -
 `f` is a combination 
 
 
+#### Animating data
 
-For a larger project, setting up a [replicatable data pipeline](http://bost.ocks.org/mike/make/) is generally a best practice; in the interest of taking a quick look at the oscar, `copy(d3.csv.format(nominations))` converts array of objects to a string which is copied to the clipboard and can be saved as a csv by pasting into a text editor.  
+
+#### Interesting things to read
+
+Wickamh - tidy data + split apply combine
+
+tamera's book!
+
+jsdata
 
 
-Nest to count previous nominations
+
 
 
 ```
