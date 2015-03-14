@@ -37,7 +37,7 @@ d3.selectAll('dl > *').each(function(){
     curAward = sel.text()
   }
   else{
-    nominations.push({year: curYear, award: curAward, name: sel.text().split(' -- ')[0]}
+    nominations.push({year: curYear, award: curAward, name: sel.text().split(' -- ')[0]})
   }
 })
 
