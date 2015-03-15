@@ -1,10 +1,10 @@
 d3.conventions = function(c){
   c = c || {}
 
-  c.width  = c.width  || 900
+  c.width  = c.width  || 750
   c.height = c.height || 500
 
-  c.margin = c.margin || {top: 20, right: 20, bottom: 20, left: 25}
+  c.margin = c.margin || {top: 5, right: 5, bottom: 20, left: 20}
 
   c.parentSel = c.parentSel || d3.select('body')
 
@@ -45,9 +45,12 @@ d3.attachTooltip = function(sel, fieldFns){
       .on('mousemove', ttMove)
       .on('mouseout',  ttHide)
 
-
-  fieldFns = fieldFns || d3.keys(sel.datum()).map(function(str){
-    return function(d){ return str + ': <b>' + d[str] + '</b>'} })
+  var d = sel.datum()
+  fieldFns = fieldFns || d3.keys(d)
+    .filter(function(str){
+      return typeof(d[str]) === 'string' || typeof(d[str]) === 'number' })
+    .map(function(str){
+      return function(d){ return str + ': <b>' + d[str] + '</b>'} })
 
   function ttDisplay(d){
     d3.select('.tooltip')

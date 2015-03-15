@@ -1,9 +1,13 @@
 text {
-  font: 12px sans-serif;
+  font: 11px sans-serif;
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
 
+
+.axis{
+  opacity: .4;
+}
 .axis line,
 .axis path {
   fill: none;
@@ -22,4 +26,20 @@ div.tooltip {
 }
 .tooltip-hidden{
   opacity: 0;
+}
+
+svg{
+  background-color: white;
+}
+
+
+.nomination{
+  fill: rgb(187, 185, 185);
+  stroke: rgb(139, 139, 139);
+  stroke-width: 1px;
+}
+
+.winner{
+  fill: gold;
+  stroke: rgb(210, 177, 2);
 }

@@ -20,7 +20,7 @@ d3.selectAll('dl > *').each(function(){
     curAward = sel.text().replace(' IN A LEADING ROLE', '').trim()
   }
   else{
-    var nom = {year: curYear, nth: curNth, award: curAward}
+    var nom = {year: curYear, ceremonyNum: curNth, award: curAward}
     var text = sel.text().split('[NOTE')[0].trim()
     nom.won = ~text.indexOf('*') ? 1 : ''
     var nameMovie = text.replace('*', '').split(' -- ')

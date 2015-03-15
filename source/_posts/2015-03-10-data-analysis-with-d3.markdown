@@ -53,80 +53,102 @@ For a larger project, setting up a [replicatable data pipeline](http://bost.ocks
 
 #### Looking at data
 
-To get started quickly with minimal fuss, I typically grab a copy of my [d3-starter-kit repo](blah.com). It contains [d3](blah.com), [lodash](asdf), [d3-jetpack](asdj) and some  helper functions and for generating tooltips, scales, axiis and styling them.
+To get started quickly with minimal fuss, I usually grab a copy of my [d3-starter-kit repo](blah.com). It contains [d3](blah.com), [lodash](asdf), [d3-jetpack](asdj) and some helper functions and for generating tooltips, scales, axiis and styling them.
 
 Having saved the array of nomintions as `data.csv`, we can load it into the starter-kit [template](script.js) and check the integrity of our data: 
 
 ```javascript
 d3.csv('data.csv', function(nominations){
   //convert the award ceremony index to a number  
-  nominations.forEach(function(d){ d.nth = +d.nth })
+  nominations.forEach(function(d){ d.ceremonyNum = +d.ceremonyNum })
 
   //check that every ceremony has been loaded
-  d3.extent(nominations, f('nth')) //[1, 87]
+  d3.extent(nominations, f('ceremonyNum')) //[1, 87]
 ```
 
-Passed a single string, `f` [returns a function](link to old post) that takes an object and returns the object's string property. For the computer, `f('nth')` is equivalent to `function(d){ return d.nth; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
+Passed a single string, `f` [returns a function](link to old post) that takes an object and returns the object's string property. For the computer, `f('ceremonyNum')` is equivalent to `function(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
 
 Lets focus in on actress nominations:
 
 ```javascript
 //select only actress nominations
-var actressNomintions = nominations.filter(function(d){ 
+var actressNominations = nominations.filter(function(d){ 
   return d.award == 'ACTRESS' })
 
 //group by name
-var byActress = d3.nest().key(f('name')).entries(actressNomintions)
+var byActress = d3.nest().key(f('name')).entries(actressNominations)
 
 //sanity check - Merylr Strep has 15 nominations
 d3.max(byActress, f('values', 'length'))
 ```
 
-[d3.nest](docs) takes a key function and an entries array, grouping the members of the entires by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of values, here an array of each time they've been nominated. 
+[d3.nest](docs) takes a key function and an entries array, grouping the members of the entires by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
 
-The key function is applied to each member of the entries array and and an array of group objects is returned; one for each unique str
+When passed multiple string arguments, `f` converts each into field accessor functions and returns their composition. `f('values', 'length')` is equivalent to `function(d){ return d.values.length }); calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](wiki.com) - is a great way of double checking your data and calculations. 
+I'm curious about the relationship between number of previous nominations and actual winners. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nomminie had:
+
+```javascript
+//count previous nominations
+byActress.forEach(function(actress){
+  actress.values.forEach(function(nomination, i){
+    actress.prevNominations = i 
+    nomination.otherNominations = actress.values
+  })
+})
+```
+
+Since the nominations are already sorted by year, the index of each actresses' nomination in its nested values array is equal to the number of previous nominations the actress had at the time of the nomination. While looping over each of the nominations in the values array, I also attach a reference to the actresses' other nominations so it will be easy to find a nominees' other nominations easily later.   
+
+Time to graph the data! 
+
+```javascript
+var c = d3.conventions({parentSel: d3.select('#nominations-scatter')})
+
+//compute domain of scales
+c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
+c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+
+//draw x and y axis
+c.drawAxis()
+
+//draw a circle for each actress nomination
+c.svg.dataAppend(actressNominations, 'circle.nomination')
+    .attr('cx', f('ceremonyNum', c.x))
+    .attr('cy', f('prevNominations', c.y))
+    .classed('winner', f('won'))
+    .attr('r', 3)
+    .call(d3.attachTooltip)
+```
+
+There are a couple of simplifications that make the code shorter and more readable. `d3.conventions` returns an object with automatically configured margin, svg, scales and axis - saving the tedium of globbing together snippets from several bl.ocks over and over.
+
+`c.svg.dataAppend(actressNominations, 'circle.nomination')` is shorthand for
+
+```javascript
+c.svg.selectAll('circle.nomination')
+    .data(actressNominations).enter()
+  .append('circle')
+    .classed('nomination', true)
+```
+
+In addition to converting strings into accessor functions, `f` also composes functions. Typically the functions passed to `attr` or `style` select a single property from that data bound to an element and encode it as a visual property with a scale function. Instead of typing this same type of function over and over - `.attr('cx', function(d){ return c.x(d.ceremonyNum) })` - we can strip it down to its bare essentials with `.attr('cx', f('ceremonyNum', c.x))`.
+
+`d3.attachTooltip` adds a basic tooltip showing all the properties attached to an element, removing the need to `Inspect element` and run `d3.select($0).datum` to examine outliers.  
+
+The result:
+
+##### Number of previous nominations over time
+<div id='nominations-scatter'></div>
+
+
 
 #### Animating data
 
 
 #### Interesting things to read
-
+ggplot2 dplyr rstudio provide a lovely intergrated enviroment with tight feedback cycles
 Wickamh - tidy data + split apply combine
 
 tamera's book!
 
 jsdata
-
-
-
-
-
-```
-var nominations = [],
-    curYear,
-    curNth,
-    curAward
-
-d3.selectAll('dl > *').each(function(){
-  var sel = d3.select(this)
-  if      (this.tagName == 'DT'){
-    curYear = sel.text().trim()
-    curNth = curYear.split('(')[1].split(')')[0].slice(0, str.length - 2)
-  }
-  else if (this.tagName == 'DIV'){
-    curAward = sel.text().replace(' IN A LEADING ROLE', '').trim()
-  }
-  else{
-    var nom = {year: curYear, nth, curNth, award: curAward}
-    var text = sel.text().split('[NOTE')[0].trim()
-    nom.won = ~text.indexOf('*') ? 1 : ''
-    var nameMovie = text.replace('*', '').split(' -- ')
-    nom.name = nameMovie[0]
-    nom.movie = nameMovie[1] ? nameMovie[1].split(' {')[0].replace(/"/g, '') : ''
-    nominations.push(nom)
-  }
-})
-
-```
-
-copy(d3.csv.format(nominations))
