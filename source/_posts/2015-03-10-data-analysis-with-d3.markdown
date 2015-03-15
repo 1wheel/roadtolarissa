@@ -140,7 +140,49 @@ The result:
 ##### Number of previous nominations over time
 <div id='nominations-scatter'></div>
 
+Unfortunately nominations in the same year with the same number of previous nominations cover each other up. We can fix that by grouping on year and previous nominations, then offsetting nominations in the same group so they don't overlap:
 
+```javascript
+d3.nest()
+  .key(function(d){ return d.ceremonyNum + '-' + d.prevNominations })
+  .entries(actressNominations)
+.forEach(function(year){
+  //sort nominations so winners come first  
+  year.values.sort(d3.ascendingKey('won')).forEach(function(d, i){
+    d.offset = i
+    //save new position as a property for labels later
+    d.pos = [c.x(d.ceremonyNum) + i*1.5, c.y(d.prevNominations) - i*3]
+  })
+})
+
+var circles = c.svg.dataAppend(actressNominations), 'circle.nomination')
+    //position with transform translate instead
+    .translate(f('pos'))
+    .classed('winner', f('won'))
+    .attr('r', 3)
+```
+
+Just like with the calculation of previous nominations, we've grouped the data, sorted items in the same group, and saved their index. This pattern is useful in a wide range situations// and d3 makes it easy to use.  
+
+<div id='nominations-offset'></div>
+
+This graph is functional but it is difficult to see the arcs of different careers. We can start by highlight all of an actresses' nomtions on mouseover:    
+
+```javascript
+var mouseoverPath = c.svg.append('path.connection')
+
+circles.on('mouseover', function(d){
+  //make nominations with the same name larger
+  circles.attr('r', function(e){ return d.name == e.name ? 7 : 3 })
+
+  //connect them with a path
+  mouseoverPath.attr('d', 'M' + d.otherNominations.map(f('pos')).join('L'))
+})
+```
+
+Saving a reference to an actresses' other nominations and storing position as an `[x, y]` property makes [drawing a path](roadtolariss/as) connecting them simple.   
+
+Being able to see all of the top arc
 
 #### Animating data
 
@@ -150,5 +192,9 @@ ggplot2 dplyr rstudio provide a lovely intergrated enviroment with tight feedbac
 Wickamh - tidy data + split apply combine
 
 tamera's book!
+
+rotations of data, tuffte/heere
+
+iterating over the design space
 
 jsdata

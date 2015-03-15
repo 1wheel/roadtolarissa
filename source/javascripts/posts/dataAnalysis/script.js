@@ -24,7 +24,7 @@ d3.csv('data.csv', function(nominations){
     actress.values.forEach(function(nomination, i){
       nomination.prevNominations = i
       //attach a reference to the actress group
-      nomination.actress = actress
+      nomination.otherNominations = actress.values
     })
   })
 
@@ -47,59 +47,71 @@ d3.csv('data.csv', function(nominations){
         .call(d3.attachTooltip)
   })()
 
-})
-
-
-
-//grab a new copy of the data so we can add properties w/o adding fields to prev tooltip
-// d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(data){
-d3.csv('data.csv', function(nominations){
-  //convert the award ceremony index to a number  
-  nominations.forEach(function(d){ d.ceremonyNum = +d.ceremonyNum })
-
-  //select only actress nominations
-  var actressNominations = nominations.filter(function(d){ 
-    return d.award == 'ACTRESS' })
-
-  //group by actress
-  var byActress = d3.nest().key(f('name')).entries(actressNominations)
-
-  //count previous nominations
-  byActress.forEach(function(actress){
-    actress.values.forEach(function(nomination, i){
-      nomination.prevNominations = i
-      nomination.actress = actress
-    })
-  })
 
 
   !(function(){
     var c = d3.conventions({parentSel: d3.select('#nominations-offset')})
 
-    //compute domain of scales
     c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
     c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+    c.drawAxis()
     
     //calculate offset 
     d3.nest()
       .key(function(d){ return d.ceremonyNum + '-' + d.prevNominations })
       .entries(actressNominations)
     .forEach(function(year){
-      _.sortBy(year.values, f('won')).reverse().forEach(function(d, i){
+      //sort nominations so winners come first  
+      year.values.sort(d3.descendingKey('won')).forEach(function(d, i){
         d.offset = i
+        //save new position as a property for labels later
         d.pos = [c.x(d.ceremonyNum) + i*1.5, c.y(d.prevNominations) - i*3]
       })
     })
 
-    //draw x and y axis
-    c.drawAxis()
 
-    //draw circles
     c.svg.dataAppend(_.sortBy(actressNominations, f('offset')), 'circle.nomination')
+        //position with transform translate instead
         .translate(f('pos'))
         .classed('winner', f('won'))
         .attr('r', 3)
         .call(d3.attachTooltip)
   })()
 
+
+  !(function(){
+    var c = d3.conventions({parentSel: d3.select('#nominations-linked')})
+
+    c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
+    c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+    c.drawAxis()
+    
+    d3.nest()
+      .key(function(d){ return d.ceremonyNum + '-' + d.prevNominations })
+      .entries(actressNominations)
+    .forEach(function(year){
+      year.values.sort(d3.descendingKey('won')).forEach(function(d, i){
+        d.offset = i
+        d.pos = [c.x(d.ceremonyNum) + i*1.5, c.y(d.prevNominations) - i*3]
+      })
+    })
+
+    var mouseoverPath = c.svg.append('path.mouseconnection')
+
+    var circles = c.svg.dataAppend(_.sortBy(actressNominations, f('offset')), 'circle.nomination')
+        .translate(f('pos'))
+        .classed('winner', f('won'))
+        .attr('r', 3)
+        .call(d3.attachTooltip)
+
+    circles.on('mouseover', function(d){
+      //make nominations with the same actor larger
+      circles.attr('r', function(e){ return d.name == e.name ? 7 : 3 })
+      //connect lines with a path
+      mouseoverPath.attr('d', 'M' + d.otherNominations.map(f('pos')).join('L'))
+    })
+
+  })()
+
 })
+

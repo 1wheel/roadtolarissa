@@ -40,12 +40,14 @@ d3.conventions = function(c){
 }
 
 d3.attachTooltip = function(sel, fieldFns){
-  sel 
-      .on('mouseover', ttDisplay)
-      .on('mousemove', ttMove)
-      .on('mouseout',  ttHide)
+  if (!sel.node()) return
 
-  var d = sel.datum()
+  sel 
+      .on('mouseover.tooltip', ttDisplay)
+      .on('mousemove.tooltip', ttMove)
+      .on('mouseout.tooltip',  ttHide)
+
+  var d = sel.datum() || {}
   fieldFns = fieldFns || d3.keys(d)
     .filter(function(str){
       return typeof(d[str]) === 'string' || typeof(d[str]) === 'number' })

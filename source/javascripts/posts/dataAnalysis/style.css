@@ -28,9 +28,12 @@ div.tooltip {
   opacity: 0;
 }
 
+
 svg{
   background-color: white;
 }
+
+
 
 
 .nomination{
@@ -42,4 +45,16 @@ svg{
 .winner{
   fill: gold;
   stroke: rgb(210, 177, 2);
+}
+
+.mouseconnection{
+  fill: none;
+  stroke: lightgrey;
+  stroke-width: 2px;
+}
+
+.connection{
+  fill: none;
+  stroke: lightgrey;
+  stroke-width: 2px;
 }
