@@ -15,7 +15,7 @@ The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/Basi
 
 All the awards are contained within a single `dl` element. Each years and award types are marked with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While we could use `document.querySelectorAll` or the already loaded jquery to traverse the DOM, injecting onto the page allows us to use the same API for gathering and displaying data. Its also simple: 
 
-```
+```javascript
 var script = document.createElement("script")
 script.src = 'http://d3js.org/d3.v3.min.js'
 document.body.appendChild(script)
@@ -23,7 +23,7 @@ document.body.appendChild(script)
 
 Iterating over each child of the `dl` element, we build an array of nominations by tracking the current year and award type. Each time a `table` element is encountered, a new object is added to the nominations array with the year, award and name of the nominee parsed from the table text.
 
-```
+```javascript
 var nominations = [],
     curYear,
     curAward
@@ -53,18 +53,38 @@ For a larger project, setting up a [replicatable data pipeline](http://bost.ocks
 
 #### Looking at data
 
-To get started quickly with minimal fuss, I typically grab a copy of my d3-starter-kit repo. It contains [d3](blah.com), [lodash](asdf), [d3-jetpack](asdj) 
+To get started quickly with minimal fuss, I typically grab a copy of my [d3-starter-kit repo](blah.com). It contains [d3](blah.com), [lodash](asdf), [d3-jetpack](asdj) and some  helper functions and for generating tooltips, scales, axiis and styling them.
 
-Calculating summary known summary statistics is a good way to double check that the data is close to being correct:
+Having saved the array of nomintions as `data.csv`, we can load it into the starter-kit [template](script.js) and check the integrity of our data: 
 
+```javascript
+d3.csv('data.csv', function(nominations){
+  //convert the award ceremony index to a number  
+  nominations.forEach(function(d){ d.nth = +d.nth })
+
+  //check that every ceremony has been loaded
+  d3.extent(nominations, f('nth')) //[1, 87]
 ```
-var actressNomintions = nominations.filter(function(d){ return d.award == 'Best Actress' })
+
+Passed a single string, `f` [returns a function](link to old post) that takes an object and returns the object's string property. For the computer, `f('nth')` is equivalent to `function(d){ return d.nth; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
+
+Lets focus in on actress nominations:
+
+```javascript
+//select only actress nominations
+var actressNomintions = nominations.filter(function(d){ 
+  return d.award == 'ACTRESS' })
+
+//group by name
 var byActress = d3.nest().key(f('name')).entries(actressNomintions)
-byActress.length  //There have been 231 people nominated for Best Actress -  
-d3.max(byActress, f('key', 'length')) //merel has been nominated x times - 
-```
-`f` is a combination 
 
+//sanity check - Merylr Strep has 15 nominations
+d3.max(byActress, f('values', 'length'))
+```
+
+[d3.nest](docs) takes a key function and an entries array, grouping the members of the entires by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of values, here an array of each time they've been nominated. 
+
+The key function is applied to each member of the entries array and and an array of group objects is returned; one for each unique str
 
 #### Animating data
 
