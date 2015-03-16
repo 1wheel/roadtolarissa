@@ -98,6 +98,17 @@ d3.csv('data.csv', function(nominations){
 
     var mouseoverPath = c.svg.append('path.mouseconnection')
 
+    var topActresses = byActress.filter(function(d){ return d.values.length > 5 })
+
+    c.svg.dataAppend(topActresses, 'path.connection')
+        .attr('d', function(d){ return 'M' + d.values.map(f('pos')).join('L') })
+
+    c.svg.dataAppend(topActresses, 'text')
+        //values are sorted by time - most recent nomination is always last 
+        .translate(function(d){ return _.last(d.values).pos })
+        .text(f('key'))
+        .attr({dy: -4, 'text-anchor': 'middle'})
+
     var circles = c.svg.dataAppend(_.sortBy(actressNominations, f('offset')), 'circle.nomination')
         .translate(f('pos'))
         .classed('winner', f('won'))
@@ -106,12 +117,78 @@ d3.csv('data.csv', function(nominations){
 
     circles.on('mouseover', function(d){
       //make nominations with the same actor larger
-      circles.attr('r', function(e){ return d.name == e.name ? 7 : 3 })
+      circles.attr('r', function(e){ return d.name == e.name ? 5 : 3 })
       //connect lines with a path
       mouseoverPath.attr('d', 'M' + d.otherNominations.map(f('pos')).join('L'))
     })
-
   })()
+
+
+
+  !(function(){
+    var c = d3.conventions({parentSel: d3.select('#nominations-average')})
+
+    c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
+    c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+    c.drawAxis()
+    
+    d3.nest()
+      .key(function(d){ return d.ceremonyNum + '-' + d.prevNominations })
+      .entries(actressNominations)
+    .forEach(function(year){
+      year.values.sort(d3.descendingKey('won')).forEach(function(d, i){
+        d.offset = i
+        d.pos = [c.x(d.ceremonyNum) + i*1.5, c.y(d.prevNominations) - i*3]
+      })
+    })
+
+    //group by year
+    var byYear = d3.nest().key(f('ceremonyNum')).entries(actressNominations)
+    byYear.forEach(function(d, i){
+      //for each year, select previous 15 years
+      var prevYears = byYear.slice(Math.max(0, i - 15), i + 1)
+      //create array of all nominations over previous 15 years
+      var prevNoms = _.flatten(prevYears.map(f('values')))
+
+      //calculate average number of previous nominations for nominees and winners 
+      d.nomAvgPrev = d3.mean(prevNoms,                  f('prevNominations'))
+      d.wonAvgPrev = d3.mean(prevNoms.filter(f('won')), f('prevNominations'))
+    })
+
+    var line = d3.svg.line()
+        .x(f('key', c.x))
+        .y(f('nomAvgPrev', c.y))
+
+    c.svg.append('path.nomAvg').attr('d', line(byYear))
+    c.svg.append('path.winAvg').attr('d', line.y(f('wonAvgPrev', c.y))(byYear))
+
+    var mouseoverPath = c.svg.append('path.mouseconnection')
+
+    var topActresses = byActress.filter(function(d){ return d.values.length > 5 })
+
+    c.svg.dataAppend(topActresses, 'path.connection')
+        .attr('d', function(d){ return 'M' + d.values.map(f('pos')).join('L') })
+
+    c.svg.dataAppend(topActresses, 'text')
+        //values are sorted by time - most recent nomination is always last 
+        .translate(function(d){ return _.last(d.values).pos })
+        .text(f('key'))
+        .attr({dy: -4, 'text-anchor': 'middle'})
+
+    var circles = c.svg.dataAppend(_.sortBy(actressNominations, f('offset')), 'circle.nomination')
+        .translate(f('pos'))
+        .classed('winner', f('won'))
+        .attr('r', 3)
+        .call(d3.attachTooltip)
+
+    circles.on('mouseover', function(d){
+      //make nominations with the same actor larger
+      circles.attr('r', function(e){ return d.name == e.name ? 5 : 3 })
+      //connect lines with a path
+      mouseoverPath.attr('d', 'M' + d.otherNominations.map(f('pos')).join('L'))
+    })
+  })()
+
 
 })
 

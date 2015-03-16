@@ -31,9 +31,13 @@ div.tooltip {
 
 svg{
   background-color: white;
+  overflow: visible;
 }
 
-
+path{
+  fill: none;
+  stroke-width: 1px;
+}
 
 
 .nomination{
@@ -48,13 +52,20 @@ svg{
 }
 
 .mouseconnection{
-  fill: none;
   stroke: lightgrey;
   stroke-width: 2px;
 }
 
 .connection{
-  fill: none;
   stroke: lightgrey;
-  stroke-width: 2px;
+  stroke-width: 1px;
+}
+
+.nomAvg{
+  stroke: rgb(187, 185, 185);
+  stroke-width: 3px;
+}
+.winAvg{
+  stroke: gold;
+  stroke-width: 3px;
 }

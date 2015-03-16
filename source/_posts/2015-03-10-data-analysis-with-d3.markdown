@@ -166,7 +166,7 @@ Just like with the calculation of previous nominations, we've grouped the data, 
 
 <div id='nominations-offset'></div>
 
-This graph is functional but it is difficult to see the arcs of different careers. We can start by highlight all of an actresses' nomtions on mouseover:    
+This graph is functional but it is difficult to see the arcs of different careers. We can start by highlight all of an actresses' nominations on mouseover:    
 
 ```javascript
 var mouseoverPath = c.svg.append('path.connection')
@@ -182,7 +182,56 @@ circles.on('mouseover', function(d){
 
 Saving a reference to an actresses' other nominations and storing position as an `[x, y]` property makes [drawing a path](roadtolariss/as) connecting them simple.   
 
-Being able to see all of the top arc
+Connecting and labeling the nominations of very successful actresses helps provide context while examining other careers. Oscar nominations aren't nearly as sparse as home runs; only the actresses with more than 5 nominations are connected so the bottom of the graph doesn't turn to spaghetti.
+
+```javascript
+var topActresses = byActress.filter(function(d){ return d.values.length > 5 })
+
+c.svg.dataAppend(topActresses, 'path.connection')
+    .attr('d', function(d){ return 'M' + d.values.map(f('pos')).join('L') })
+
+c.svg.dataAppend(topActresses, 'text')
+    //values are sorted by time - most recent nomination is always last 
+    .translate(function(d){ return _.last(d.values).pos })
+    .text(f('key'))
+    .attr({dy: -4, 'text-anchor': 'middle'})
+```
+
+<div id='nominations-linked'></div>
+
+While javascript doesn't have an abundance of stats packages like R or python, `d3.nest` and `d3.mean` make rudimentary trend analysis possible:
+
+```javascript
+//group by year
+var byYear = d3.nest().key(f('ceremonyNum')).entries(actressNominations)
+byYear.forEach(function(d){
+  //for each year, select previous 15 years
+  var prevYears = byYear.slice(Math.max(0, i - 15), i + 1)
+  //create array of all nominations over previous 15 years
+  var prevNoms = _.flatten(prevYears.map(f('values')))
+
+  //average previous nominations for nominees and winners 
+  d.nomAvgPrev = d3.mean(prevNoms,                  f('prevNominations'))
+  d.wonAvgPrev = d3.mean(prevNoms.filter(f('won')), f('prevNominations'))
+})
+```
+Looping over each year, the average number of previous nominations over the past 15 is computed and attached to each year group. This isn't a particularity efficient way of calculating a rolling average - see [science.js](https://github.com/jasondavies/science.js) or [simple-statistics](https://github.com/tmcw/simple-statistics) for that - but our data set is small and it gets the job done.
+
+
+```javascript
+var line = d3.svg.line()
+    .x(f('key', c.x))
+    .y(f('nomAvgPrev', c.y))
+
+c.svg.append('path.nomAvg').attr('d', line(byYear))
+c.svg.append('path.winAvg').attr('d', line.y(f('wonAvgPrev', c.y))(byYear))
+```
+
+Again, `f` provides a susscient way of grabbing a property from an object and transforming it with a scale. 
+
+<div id='nominations-average'></div>
+
+Over the last 20 years, the 
 
 #### Animating data
 
