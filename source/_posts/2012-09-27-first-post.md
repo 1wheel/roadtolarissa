@@ -77,11 +77,25 @@ github - commits v downloads
 https://news.ycombinator.com/item?id=9177469
 Maybe, the reason for the low success rate on the 4-6-7-9-10 split is because the really good pros rarely end up with it.
 
+Are strikes streaky?
+
+Do some players player better when ahead or behind?
+
+Most lead changes?
+
+The 'best' bowler
+
+###Degrees of Duncan
+Every player that's played with another player
+
+Convex box score points - every player that's played 20 min+ and scored less than 10
+
+
 ###python v r data analysis 
 
 ###clojurescript/om demo
 
 ###Server side code
 - Boardgames
-- Working git server
+- Working git server with preview
 
