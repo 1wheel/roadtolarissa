@@ -231,7 +231,7 @@ Again, `f` provides a susscient way of grabbing a property from an object and tr
 
 <div id='nominations-average'></div>
 
-Over the last 20 years, the 
+Over the last 20 years, the accemdy has prefered picked best actresses with fewer previous nominations than their other nommines. 
 
 #### Animating data
 
