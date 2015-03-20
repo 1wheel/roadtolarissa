@@ -190,5 +190,18 @@ d3.csv('data.csv', function(nominations){
   })()
 
 
+  !(function(){
+    var c = d3.conventions({parentSel: d3.select('#overtime')})
+
+    c.x.domain(d3.extent(actressNominations, f('nth')))
+    c.y.domain([0, byActress.length - 1])
+
+    c.svg.append('g')
+        .translate(function(d, i){ return [0, i] })
+      .dataAppend(f('values'), circle)
+        .attr('cx', f('nth'), x)
+  })
+
+
 })
 
