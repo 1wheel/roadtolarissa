@@ -235,6 +235,7 @@ Over the last 20 years, the accemdy has prefered picked best actresses with fewe
 
 #### Animating data
 
+Encoding data differently can awnser different questions about it. If we use 
 
 #### Interesting things to read
 ggplot2 dplyr rstudio provide a lovely intergrated enviroment with tight feedback cycles

@@ -191,16 +191,39 @@ d3.csv('data.csv', function(nominations){
 
 
   !(function(){
-    var c = d3.conventions({parentSel: d3.select('#overtime')})
+    var c = d3.conventions({
+      parentSel: d3.select('#overtime'),
+      height: 800,
+      width: 450,
+      margin: {left: 200, top: 0, bottom: 0, right: 100}
+    })
 
-    c.x.domain(d3.extent(actressNominations, f('nth')))
-    c.y.domain([0, byActress.length - 1])
+    var recogizedActresses = byActress.filter(function(d){
+      return d.values.length > 2 || d.values.some(f('won'))
+    })
 
-    c.svg.append('g')
-        .translate(function(d, i){ return [0, i] })
-      .dataAppend(f('values'), circle)
-        .attr('cx', f('nth'), x)
-  })
+    recogizedActresses = recogizedActresses.sort(d3.ascendingKey(f('values', 'length')))
+
+    c.y.domain([0, recogizedActresses.length - 1])
+    c.x.domain([0, d3.max(recogizedActresses, f('values', 'length'))])
+
+
+
+    console.log(c.x.domain())
+    console.log(c.x.range())
+
+    var rows = c.svg.dataAppend(recogizedActresses, 'g')
+        .translate(function(d, i){ return [0, c.y(i)] })
+
+    rows.append('text.name').text(f('key'))
+        .attr({'text-anchor': 'end', dy: '.33em', x: - 8})
+
+    rows.dataAppend(f('values'), 'circle.nomination')
+        .classed('winner', f('won'))
+        .attr('cx', function(d, i){ return c.x(i) })
+        .attr('r', 4)
+        .call(d3.attachTooltip)
+  })()
 
 
 })
