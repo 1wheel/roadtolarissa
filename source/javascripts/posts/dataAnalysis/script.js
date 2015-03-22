@@ -221,5 +221,64 @@ d3.csv('data.csv', function(nominations){
   })()
 
 
+  !(function(){
+    var buttons = []
+
+    d3.select('#buttons').dataAppend(buttons, 'span.button')
+        .text(f('label'))
+        .on('click', renderPositioning)
+
+    var c = d3.conventions({
+      parentSel: d3.select('#buttons'),
+      height: 800,
+      width: 450,
+      margin: {left: 200, top: 0, bottom: 0, right: 100}
+    })
+
+
+
+    var topActresses = byActress
+      .filter(function(d){
+        return d.values.length > 2 || d.values.some(f('won')) })
+      .sort(d3.ascendingKey(f('values', 'length')))
+
+    c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+
+    c.y.domain([0, topActresses.length - 1])
+    topActresses = topActresses.sort(d3.ascendingKey(f('values', 'length')))
+    var actressG = c.svg.dataAppend(topActresses, 'g')
+        .translate(function(d, i){ return [0, c.y(i)] })
+
+    actressG.append('text.name').text(f('key'))
+        .attr({'text-anchor': 'end', dy: '.33em', x: -8})
+
+    actressG.dataAppend(f('values'), 'circle.nomination')
+        .classed('winner', f('won'))
+        .attr('cx', function(d, i){ return c.x(i) })
+        .attr('r', 4)
+        .call(d3.attachTooltip)
+
+
+
+
+
+    function renderPositioning(d){
+      //position circles by updating their x proprety
+      d.setX()
+      actressG.transition()
+        .selectAll('circle')
+          .attr('x', f('x'))
+
+      //save order to actress object
+      topActresses
+        .sort(d3.ascendingKey(d.sortBy)
+        .forEach(function(d, i){ d.i = i })
+
+      actressG.transition()
+          .translate(function(d, i){ return [0, c.y(i)] })
+    }
+  })()
+
+
 })
 

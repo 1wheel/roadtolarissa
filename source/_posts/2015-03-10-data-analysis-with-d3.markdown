@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Data Analysis With D3"
+title: "Data Exploration With D3"
 comments: true
 categories: 
 ---
 
-D3 is best known for the polished interactive visualizations it powers. Because of the richness of its API, it is also an excellent tool for acquiring and, with a bit of work, analyzing, data. Using the history of the Oscars as an example, this post will walk through this process.
+D3 is best known for the polished interactive visualizations it powers. Because of the richness of its API, it is also an excellent tool for acquiring and, with a bit of work, exploring, data. Using the history of the Oscars as an example, this post will walk through this process.
 
 #### Scraping data
 
@@ -231,7 +231,11 @@ Again, `f` provides a susscient way of grabbing a property from an object and tr
 
 <div id='nominations-average'></div>
 
-Over the last 20 years, the accemdy has prefered picked best actresses with fewer previous nominations than their other nommines. First, create a `g` element for each actress and arrange vertically by number of nominations: 
+#### Animating data
+
+Encoding the data differently shows different patterns. While it is clear Strep has the most nominations, by deemphasizing time we can see the distrubution of nomintions across actress. Fir 
+
+Over the last 20 years, the accemdy has prefered picked best actresses with fewer previous nominations than their other nommines. First, create a `g` element for each actress and sort vertically by number of nominations: 
 
 ```javascript
 c.y.domain([0, topActresses.length - 1])
@@ -257,11 +261,94 @@ actressG.dataAppend(f('values'), 'circle.nomination')
 
 <div id='distribution'></div>
 
+Just like we've abstracted the process of creating functions to transform properties of objects into visual attributes, we can abstract the sorting of actress rows and positioning of nomintions into functions:
 
-#### Animating data
+```javascript
+var positionByNomintions = { 
+  label:  'Most Nominations',
+  //position circles
+  setX: function(){
+    c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
 
-Encoding the data differently shows different patterns. While it is clear Strep has the most nominations, by deemphasizing time we can see the distrubution of nomintions across actress. Fir 
+    topActresses.forEach(function(actress){
+      actress.values.forEach(function(d, i){ d.xPos = x(i) })
+    })
+  },
+  //order for rows
+  sortBy: f('values', 'length')
+}
 
+function renderPositioning(d){
+  //position circles by updating their x proprety
+  d.setX()
+  actressG.transition()
+    .selectAll('circle')
+      .attr('x', f('x'))
+
+  //save order to actress object
+  topActresses
+    .sort(d3.ascendingKey(d.sortBy)
+    .forEach(function(d, i){ d.i = i })
+
+  actressG.transition()
+      .translate(function(d, i){ return [0, c.y(i)] })
+
+}
+
+renderPosition(positionByNomintions)
+```
+
+By creating more objects with `setX` and `sortBy` functions, we can quickly investigate other arrgements of the data like the distrubtion of wins or the longest career:
+
+```javascript
+{ label:  'Most Wins',
+  setX: function(){
+    c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+
+    topActresses.forEach(function(actress){
+      actress.values
+        .sortBy(d3.ascendingKey(f('won')))
+        .forEach(function(d, i){ d.x = x(i) })
+    })
+  },
+  //lexicographic sort
+  sortBy: function(d){ return d.wins*100 + d.noms }
+}
+
+{
+  setX: function(){
+    x.domain([0, d3.max(topActresses, careerLength)])
+
+    topActresses.forEach(function(actress){
+      actress.values.forEach(function(d){
+        d.x = x(d.cermonyNum - actress.values[0].cermonyNum)
+      })
+    })
+  },
+  //lexicographic sort
+  sortBy: careerLength
+}
+
+//number of years between first and last nomination
+function careerLength(d){
+  return _.last(d.values).cermonyNum - d.values[0].cermonyNum
+}
+```
+
+Store the created `positionings` objects in an array makes creating a toggle to switch between them simple:
+
+```javascript
+d3.select('#buttons').dataAppend(positionings, 'span.button')
+    .text(f('label'))
+    .on('click', renderPositioning)
+```
+
+
+
+<div id='buttons'></div>
+
+
+Since we've stored 
 
 #### Interesting things to read
 ggplot2 dplyr rstudio provide a lovely intergrated enviroment with tight feedback cycles
