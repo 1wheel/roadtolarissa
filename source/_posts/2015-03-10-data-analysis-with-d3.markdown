@@ -231,11 +231,37 @@ Again, `f` provides a susscient way of grabbing a property from an object and tr
 
 <div id='nominations-average'></div>
 
-Over the last 20 years, the accemdy has prefered picked best actresses with fewer previous nominations than their other nommines. 
+Over the last 20 years, the accemdy has prefered picked best actresses with fewer previous nominations than their other nommines. First, create a `g` element for each actress and arrange vertically by number of nominations: 
+
+```javascript
+c.y.domain([0, topActresses.length - 1])
+
+topActresses = topActresses.sort(d3.ascendingKey(f('values', 'length')))
+var actressG = c.svg.dataAppend(topActresses, 'g')
+    .translate(function(d, i){ return [0, c.y(i)] })
+    
+actressG.append('text.name').text(f('key'))
+    .attr({'text-anchor': 'end', dy: '.33em', x: -8})
+```
+
+Then append a circle for each nomintation: 
+
+```javacript
+c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+actressG.dataAppend(f('values'), 'circle.nomination')
+    .classed('winner', f('won'))
+    .attr('cx', function(d, i){ return c.x(i) })
+    .attr('r', 4)
+    .call(d3.attachTooltip)
+```
+
+<div id='distribution'></div>
+
 
 #### Animating data
 
-Encoding data differently can awnser different questions about it. If we use 
+Encoding the data differently shows different patterns. While it is clear Strep has the most nominations, by deemphasizing time we can see the distrubution of nomintions across actress. Fir 
+
 
 #### Interesting things to read
 ggplot2 dplyr rstudio provide a lovely intergrated enviroment with tight feedback cycles
