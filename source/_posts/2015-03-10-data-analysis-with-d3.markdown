@@ -271,7 +271,7 @@ var positionByNomintions = {
     c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
 
     topActresses.forEach(function(actress){
-      actress.values.forEach(function(d, i){ d.xPos = x(i) })
+      actress.values.forEach(function(d, i){ d.xPos = c.x(i) })
     })
   },
   //order for rows
@@ -301,27 +301,29 @@ renderPosition(positionByNomintions)
 By creating more objects with `setX` and `sortBy` functions, we can quickly investigate other arrgements of the data like the distrubtion of wins or the longest career:
 
 ```javascript
-{ label:  'Most Wins',
+var positionByWins = { 
+  label:  'Most Wins',
   setX: function(){
     c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
 
     topActresses.forEach(function(actress){
       actress.values
-        .sortBy(d3.ascendingKey(f('won')))
-        .forEach(function(d, i){ d.x = x(i) })
+        .sort(d3.ascendingKey(f('won')))
+        .forEach(function(d, i){ d.x = c.x(i) })
     })
   },
   //lexicographic sort
   sortBy: function(d){ return d.wins*100 + d.noms }
 }
 
-{
+var positionByCareerLength = {
+  label: 'Longest Career',
   setX: function(){
-    x.domain([0, d3.max(topActresses, careerLength)])
+    c.x.domain([0, d3.max(topActresses, careerLength)])
 
     topActresses.forEach(function(actress){
       actress.values.forEach(function(d){
-        d.x = x(d.cermonyNum - actress.values[0].cermonyNum)
+        d.x = c.x(d.cermonyNum - actress.values[0].cermonyNum)
       })
     })
   },
@@ -331,19 +333,18 @@ By creating more objects with `setX` and `sortBy` functions, we can quickly inve
 
 //number of years between first and last nomination
 function careerLength(d){
-  return _.last(d.values).cermonyNum - d.values[0].cermonyNum
+  return _.last(d.values).cermonyNum - d.values[0].cermonyNum 
 }
 ```
 
-Store the created `positionings` objects in an array makes creating a toggle to switch between them simple:
+Store the created positionBy objects in an array makes creating a toggle to switch between them simple:
 
 ```javascript
+
 d3.select('#buttons').dataAppend(positionings, 'span.button')
     .text(f('label'))
     .on('click', renderPositioning)
 ```
-
-
 
 <div id='buttons'></div>
 

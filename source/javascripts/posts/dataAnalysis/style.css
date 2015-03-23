@@ -77,3 +77,9 @@ text.name{
   font-size: 10px;
   font
 }
+
+.button{
+  display: inline-block;
+  width: 150px;
+  cursor: pointer;
+}

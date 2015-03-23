@@ -222,9 +222,49 @@ d3.csv('data.csv', function(nominations){
 
 
   !(function(){
-    var buttons = []
+    var positionings = [
+      { label:  'Most Nominations',
+        //position circles
+        setX: function(){
+          c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
 
-    d3.select('#buttons').dataAppend(buttons, 'span.button')
+          topActresses.forEach(function(actress){
+            actress.values.forEach(function(d, i){ d.xPos = c.x(i) })
+          })
+        },
+        //order for rows
+        sortBy: f('values', 'length')
+      },
+      { label:  'Most Wins',
+        setX: function(){
+          c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+
+          topActresses.forEach(function(actress){
+            actress.values
+              .sort(d3.ascendingKey(f('won')))
+              .forEach(function(d, i){ d.x = c.x(i) })
+          })
+        },
+        //lexicographic sort
+        sortBy: function(d){ return d.wins*100 + d.noms }
+      },
+      { label: 'Longest Career',
+        setX: function(){
+          console.log('career')
+          c.x.domain([0, d3.max(topActresses, careerLength)])
+
+          topActresses.forEach(function(actress){
+            actress.values.forEach(function(d){
+              d.x = c.x(d.cermonyNum - actress.values[0].cermonyNum)
+            })
+          })
+        },
+        //lexicographic sort
+        sortBy: careerLength
+      }
+    ]
+
+    d3.select('#buttons').dataAppend(positionings, 'span.button')
         .text(f('label'))
         .on('click', renderPositioning)
 
@@ -232,10 +272,8 @@ d3.csv('data.csv', function(nominations){
       parentSel: d3.select('#buttons'),
       height: 800,
       width: 450,
-      margin: {left: 200, top: 0, bottom: 0, right: 100}
+      margin: {left: 200, top: 10, bottom: 0, right: 100}
     })
-
-
 
     var topActresses = byActress
       .filter(function(d){
@@ -259,9 +297,6 @@ d3.csv('data.csv', function(nominations){
         .call(d3.attachTooltip)
 
 
-
-
-
     function renderPositioning(d){
       //position circles by updating their x proprety
       d.setX()
@@ -271,14 +306,18 @@ d3.csv('data.csv', function(nominations){
 
       //save order to actress object
       topActresses
-        .sort(d3.ascendingKey(d.sortBy)
+        .sort(d3.ascendingKey(d.sortBy))
         .forEach(function(d, i){ d.i = i })
 
       actressG.transition()
           .translate(function(d, i){ return [0, c.y(i)] })
     }
-  })()
+  
+    function careerLength(d){
+      return _.last(d.values).cermonyNum - d.values[0].cermonyNum 
+    }
 
+  })()
 
 })
 
