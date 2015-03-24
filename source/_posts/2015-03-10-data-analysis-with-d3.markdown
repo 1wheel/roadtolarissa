@@ -283,7 +283,7 @@ function renderPositioning(d){
   d.setX()
   actressG.transition()
     .selectAll('circle')
-      .attr('x', f('x'))
+      .attr('cx', f('x'))
 
   //save order to actress object
   topActresses
@@ -309,7 +309,7 @@ var positionByWins = {
     topActresses.forEach(function(actress){
       actress.values
         .sort(d3.ascendingKey(f('won')))
-        .forEach(function(d, i){ d.x = c.x(i) })
+        .forEach(function(d, i){ d.x = c.x(d.i) })
     })
   },
   //lexicographic sort
@@ -323,7 +323,7 @@ var positionByCareerLength = {
 
     topActresses.forEach(function(actress){
       actress.values.forEach(function(d){
-        d.x = c.x(d.cermonyNum - actress.values[0].cermonyNum)
+        d.x = c.x(d.ceremonyNum - actress.values[0].ceremonyNum)
       })
     })
   },
@@ -333,7 +333,7 @@ var positionByCareerLength = {
 
 //number of years between first and last nomination
 function careerLength(d){
-  return _.last(d.values).cermonyNum - d.values[0].cermonyNum 
+  return _.last(d.values).ceremonyNum - d.values[0].ceremonyNum 
 }
 ```
 

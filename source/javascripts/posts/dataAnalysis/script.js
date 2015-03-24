@@ -246,7 +246,8 @@ d3.csv('data.csv', function(nominations){
           })
         },
         //lexicographic sort
-        sortBy: function(d){ return d.wins*100 + d.noms }
+        sortBy: function(d){
+          return d.values.filter(f('won')).length*100 + d.values.length }
       },
       { label: 'Longest Career',
         setX: function(){
@@ -255,7 +256,7 @@ d3.csv('data.csv', function(nominations){
 
           topActresses.forEach(function(actress){
             actress.values.forEach(function(d){
-              d.x = c.x(d.cermonyNum - actress.values[0].cermonyNum)
+              d.x = c.x(d.ceremonyNum - actress.values[0].ceremonyNum)
             })
           })
         },
@@ -300,21 +301,23 @@ d3.csv('data.csv', function(nominations){
     function renderPositioning(d){
       //position circles by updating their x proprety
       d.setX()
-      actressG.transition()
+      actressG.transition('circles')
         .selectAll('circle')
-          .attr('x', f('x'))
+          .attr('cx', f('x'))
 
       //save order to actress object
-      topActresses
-        .sort(d3.ascendingKey(d.sortBy))
+      _.sortBy(topActresses, d.sortBy)
+        // .sort(d3.ascendingKey(d.sortBy))
         .forEach(function(d, i){ d.i = i })
 
       actressG.transition()
-          .translate(function(d, i){ return [0, c.y(i)] })
+          .translate(function(d){ return [0, c.y(d.i)] })
+  
+      ta = topActresses
     }
   
     function careerLength(d){
-      return _.last(d.values).cermonyNum - d.values[0].cermonyNum 
+      return _.last(d.values).ceremonyNum - d.values[0].ceremonyNum 
     }
 
   })()
