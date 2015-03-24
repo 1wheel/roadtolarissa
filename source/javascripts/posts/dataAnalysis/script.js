@@ -250,9 +250,28 @@ d3.csv('data.csv', function(nominations){
         sortBy: function(d){
           return d.values.filter(f('won')).length*100 + d.values.length }
       },
+      { label:  'Most Without',
+        setX: function(){
+          topActresses.forEach(function(d){
+            d.firstWin = 0
+            while (d.firstWin < d.values.length && !d.values[d.firstWin].won){
+              d.firstWin++
+            }
+            d.afterFirst = d.values.length - d.firstWin 
+          })
+          c.x.domain([-d3.max(topActresses, f('firstWin')), 
+                     d3.max(topActresses, f('afterFirst'))])
+
+          topActresses.forEach(function(actress){
+            _.sortBy(actress.values, 'ceremonyNum')
+              .forEach(function(d, i){ d.x = c.x(i - actress.firstWin) })
+          })
+        },
+        //lexicographic sort
+        sortBy: function(d){ return d.firstWin*100 + d.values.length }
+      },
       { label: 'Longest Career',
         setX: function(){
-          console.log('career')
           c.x.domain([0, d3.max(topActresses, careerLength)])
 
           topActresses.forEach(function(actress){
@@ -263,7 +282,15 @@ d3.csv('data.csv', function(nominations){
         },
         //lexicographic sort
         sortBy: careerLength
-      }
+      },
+      { label:  'Over Time',
+        setX: function(){
+          c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
+          actressNominations.forEach(function(d){ d.x = c.x(d.ceremonyNum) })
+        },
+        sortBy: function(d){ return -d.values[0].ceremonyNum }
+      }, 
+
     ]
 
     d3.select('#buttons').dataAppend(positionings, 'span.button')
@@ -274,7 +301,7 @@ d3.csv('data.csv', function(nominations){
       parentSel: d3.select('#buttons'),
       height: 800,
       width: 450,
-      margin: {left: 200, top: 10, bottom: 0, right: 100}
+      margin: {left: 100, top: 10, bottom: 0, right: 100}
     })
 
     var topActresses = byActress
@@ -300,11 +327,9 @@ d3.csv('data.csv', function(nominations){
 
 
     function renderPositioning(d){
-      topActresses.forEach(function(d, i){ d.i = i })
-      
       //position circles by updating their x proprety
       d.setX()
-      actressG.transition('circles').delay(function(d){ return (86 - d.i)*20 }).duration(500)
+      actressG.transition('circles').delay(function(d){ return (86 - (d.i || 86))*20 }).duration(500)
         .selectAll('circle')
           .attr('cx', f('x'))
 
