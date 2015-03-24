@@ -6,7 +6,7 @@ permalink: data-exploration
 categories: 
 ---
 
-D3 is best known for the polished interactive visualizations it powers. Because of the richness of its API, it is also an excellent tool for acquiring and, with a bit of work, exploring, data. Using the history of the Oscars as an example, this post will walk through this process.
+D3 is best known for the polished interactive visualizations it powers. With its rich API however, it is also an excellent tool for acquiring and, with a bit of work, exploring, data. Using the history of the Oscars as an example, this post will walk through scraping and plo.
 
 #### Scraping data
 
