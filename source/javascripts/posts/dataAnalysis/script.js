@@ -229,8 +229,10 @@ d3.csv('data.csv', function(nominations){
           c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
 
           topActresses.forEach(function(actress){
-            actress.values.forEach(function(d, i){ d.xPos = c.x(i) })
+            _.sortBy(actress.values, 'ceremonyNum')
+              .forEach(function(d, i){ d.x = c.x(i) })
           })
+
         },
         //order for rows
         sortBy: f('values', 'length')
@@ -240,8 +242,7 @@ d3.csv('data.csv', function(nominations){
           c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
 
           topActresses.forEach(function(actress){
-            actress.values
-              .sort(d3.ascendingKey(f('won')))
+            _.sortBy(actress.values, function(d){ return -d.won*100 + d.ceremonyNum })
               .forEach(function(d, i){ d.x = c.x(i) })
           })
         },
@@ -299,19 +300,20 @@ d3.csv('data.csv', function(nominations){
 
 
     function renderPositioning(d){
+      topActresses.forEach(function(d, i){ d.i = i })
+      
       //position circles by updating their x proprety
       d.setX()
-      actressG.transition('circles')
+      actressG.transition('circles').delay(function(d){ return (86 - d.i)*20 }).duration(500)
         .selectAll('circle')
           .attr('cx', f('x'))
 
       //save order to actress object
-      _.sortBy(topActresses, d.sortBy)
-        // .sort(d3.ascendingKey(d.sortBy))
-        .forEach(function(d, i){ d.i = i })
+      _.sortBy(topActresses, d.sortBy).forEach(function(d, i){ d.i = i })
 
-      actressG.transition()
+      actressG.transition().delay(function(d){ return (86 - d.i)*20 + 1900 }).duration(650)
           .translate(function(d){ return [0, c.y(d.i)] })
+
   
       ta = topActresses
     }
