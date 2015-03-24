@@ -2,6 +2,7 @@
 layout: post
 title: "Data Exploration With D3"
 comments: true
+permalink: data-exploration
 categories: 
 ---
 
@@ -250,7 +251,7 @@ actressG.append('text.name').text(f('key'))
 
 Then append a circle for each nomintation: 
 
-```javacript
+```javascript
 c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
 actressG.dataAppend(f('values'), 'circle.nomination')
     .classed('winner', f('won'))
@@ -362,3 +363,21 @@ rotations of data, tuffte/heere
 iterating over the design space
 
 jsdata
+
+
+
+
+<div class='tooltip'></div>
+
+
+
+<link rel="stylesheet" type="text/css" href="/javascripts/posts/dataAnalysis/style.css">
+
+
+<script src="/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
+<script src="/javascripts/libs/lodash.js" type="text/javascript"></script>
+<script src="/javascripts/libs/d3-jetpack-v1.js" type="text/javascript"></script>
+<script src="/javascripts/libs/d3-starterkit-v0.js" type="text/javascript"></script>
+
+
+<script src="/javascripts/posts/dataAnalysis/script.js"></script>

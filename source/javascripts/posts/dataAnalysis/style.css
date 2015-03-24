@@ -32,6 +32,7 @@ div.tooltip {
 svg{
   background-color: white;
   overflow: visible;
+  margin-left: -25px;
 }
 
 path{

@@ -1,7 +1,7 @@
 var f = d3.f
 
 // d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(data){
-d3.csv('data.csv', function(nominations){
+d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
   //convert the award ceremony index to a number  
   nominations.forEach(function(d){ d.ceremonyNum = +d.ceremonyNum })
 
