@@ -67,6 +67,7 @@ d3.csv('data.csv', function(nominations){
   d3.extent(nominations, f('ceremonyNum')) //[1, 87]
 ```
 
+
 Passed a single string, `f` [returns a function](link to old post) that takes an object and returns the object's string property. For the computer, `f('ceremonyNum')` is equivalent to `function(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
 
 Lets focus in on actress nominations:
