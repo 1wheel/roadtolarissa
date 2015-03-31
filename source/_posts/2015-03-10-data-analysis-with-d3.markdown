@@ -3,8 +3,6 @@ layout: post
 title: "Data Exploration With D3"
 permalink: data-exploration
 categories: 
-preview: true
-published: false
 ---
 
 D3 is best known for [polished interactive visualizations](http://d3js.org/). With its rich API however, it is also an excellent tool for acquiring and, with a bit of work, exploring, data. This post will walk through scraping and plotting different dimensions of the history of the Oscars as an instructive example.
