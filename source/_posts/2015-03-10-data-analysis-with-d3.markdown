@@ -15,7 +15,7 @@ The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/Basi
 
 <gif></gif>
 
-All the awards are contained within a single `dl` element. Each years and award types are marked with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While we could use `document.querySelectorAll` or the already loaded jquery to traverse the DOM, injecting onto the page allows us to use the same API for gathering and displaying data. Its also simple: 
+All the awards are contained within a single `dl` element. Each year and award type are denotated with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While we could use `document.querySelectorAll` or the already loaded jquery to traverse the DOM, injecting onto the page allows us to use the same API for gathering and displaying data. Its also simple: 
 
 ```javascript
 var script = document.createElement("script")
