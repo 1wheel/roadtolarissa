@@ -54,7 +54,7 @@ For a larger project, setting up a [replicatable data pipeline](http://bost.ocks
 
 #### Looking at data
 
-To get started quickly with minimal fuss, I usually grab a copy of my [d3-starter-kit repo](blah.com). It contains [d3](blah.com), [lodash](asdf), [d3-jetpack](asdj) and some helper functions and for generating tooltips, scales, axiis and styling them.
+To get started quickly with minimal fuss, I usually grab a copy of my [d3-starter-kit repo](https://github.com/1wheel/d3-starterkit). It contains [d3](http://d3js.org/), [lodash](http://underscorejs.org/), [d3-jetpack](https://github.com/gka/d3-jetpack) and some helper functions and for generating tooltips, scales, axiis and styling them.
 
 Having saved the array of nomintions as `data.csv`, we can load it into the starter-kit [template](script.js) and check the integrity of our data: 
 
