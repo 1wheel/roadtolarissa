@@ -15,7 +15,7 @@ The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/Basi
 
 <gif></gif>
 
-All the awards are contained within a single `dl` element. Each year and award type are denotated with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While `document.querySelectorAll` or the already loaded jQuery could be used to traverse the DOM, injecting D3 onto the page allows us to use the same API for gathering and displaying data. Its also simple: 
+All the awards are contained within a single `dl` element. Each year and award type are denotated with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While `document.querySelectorAll` or the already loaded jQuery could be used to traverse the DOM, injecting D3 onto the page allows us to use the same API for gathering and displaying data. A little bit of javascrict in the console does the trick: 
 
 ```javascript
 var script = document.createElement("script")
