@@ -11,7 +11,7 @@ D3 is best known for [polished interactive visualizations](http://d3js.org/). Wi
 
 The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/BasicSearchInput.jsp) displays all award nominations on a single page (pick award years 1927 to 2014 and click search). The Elements tab of the dev tools reveals the structure of the page: 
 
-<gif></gif>
+<src src='imgage/data-explore.gif'></src >
 
 All the awards are contained within a single `dl` element. Each year and award type are denotated with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While `document.querySelectorAll` or the already loaded jQuery could be used to traverse the DOM, injecting D3 onto the page allows us to use the same API for gathering and displaying data. A little bit of javascrict in the console does the trick: 
 
@@ -62,13 +62,13 @@ d3.csv('data.csv', function(nominations){
   nominations.forEach(function(d){ d.ceremonyNum = +d.ceremonyNum })
 
   //check that every ceremony has been loaded
-  d3.extent(nominations, f('ceremonyNum')) //[1, 87]
+  d3.extent(nominations, ƒ('ceremonyNum')) //[1, 87]
 ```
 
 
-Passed a single string, `f` [returns a function](link to old post) that takes an object and returns the object's string property. For the computer, `f('ceremonyNum')` is equivalent to `function(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
+Passed a single string, `ƒ` [returns a function](link to old post) that takes an object and returns the object's string property. For the computer, `ƒ('ceremonyNum')` is equivalent to `ƒunction(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
 
-Lets focus in on actress nominations:
+Lets focus on actress nominations:
 
 ```javascript
 //select only actress nominations
@@ -76,15 +76,15 @@ var actressNominations = nominations.filter(function(d){
   return d.award == 'ACTRESS' })
 
 //group by name
-var byActress = d3.nest().key(f('name')).entries(actressNominations)
+var byActress = d3.nest().key(ƒ('name')).entries(actressNominations)
 
 //sanity check - Merylr Strep has 15 nominations
-d3.max(byActress, f('values', 'length'))
+d3.max(byActress, ƒ('values', 'length'))
 ```
 
 [d3.nest](docs) takes a key function and an entries array, grouping the members of the entires by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
 
-When passed multiple string arguments, `f` converts each into field accessor functions and returns their composition. `f('values', 'length')` is equivalent to `function(d){ return d.values.length }); calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](wiki.com) - is a great way of double checking your data and calculations. 
+When passed multiple string arguments, `ƒ` converts each into field accessor functions and returns their composition. `ƒ('values', 'length')` is equivalent to `ƒunction(d){ return d.values.length }); calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](wiki.com) - is a great way of double checking your data and calculations. 
 I'm curious about the relationship between number of previous nominations and actual winners. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nomminie had:
 
 ```javascript
@@ -105,17 +105,17 @@ Time to graph the data!
 var c = d3.conventions({parentSel: d3.select('#nominations-scatter')})
 
 //compute domain of scales
-c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
-c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+c.x.domain(d3.extent(actressNominations, ƒ('ceremonyNum')))
+c.y.domain(d3.extent(actressNominations, ƒ('prevNominations')))
 
 //draw x and y axis
 c.drawAxis()
 
 //draw a circle for each actress nomination
 c.svg.dataAppend(actressNominations, 'circle.nomination')
-    .attr('cx', f('ceremonyNum', c.x))
-    .attr('cy', f('prevNominations', c.y))
-    .classed('winner', f('won'))
+    .attr('cx', ƒ('ceremonyNum', c.x))
+    .attr('cy', ƒ('prevNominations', c.y))
+    .classed('winner', ƒ('won'))
     .attr('r', 3)
     .call(d3.attachTooltip)
 ```
@@ -131,7 +131,7 @@ c.svg.selectAll('circle.nomination')
     .classed('nomination', true)
 ```
 
-In addition to converting strings into accessor functions, `f` also composes functions. Typically the functions passed to `attr` or `style` select a single property from that data bound to an element and encode it as a visual property with a scale function. Instead of typing this same type of function over and over - `.attr('cx', function(d){ return c.x(d.ceremonyNum) })` - we can strip it down to its bare essentials with `.attr('cx', f('ceremonyNum', c.x))`.
+In addition to converting strings into accessor functions, `ƒ` also composes functions. Typically the functions passed to `attr` or `style` select a single property from that data bound to an element and encode it as a visual property with a scale function. Instead of typing this same type of function over and over - `.attr('cx', function(d){ return c.x(d.ceremonyNum) })` - we can strip it down to its bare essentials with `.attr('cx', ƒ('ceremonyNum', c.x))`.
 
 `d3.attachTooltip` adds a basic tooltip showing all the properties attached to an element, removing the need to `Inspect element` and run `d3.select($0).datum` to examine outliers.  
 
@@ -157,8 +157,8 @@ d3.nest()
 
 var circles = c.svg.dataAppend(actressNominations), 'circle.nomination')
     //position with transform translate instead
-    .translate(f('pos'))
-    .classed('winner', f('won'))
+    .translate(ƒ('pos'))
+    .classed('winner', ƒ('won'))
     .attr('r', 3)
 ```
 
@@ -176,7 +176,7 @@ circles.on('mouseover', function(d){
   circles.attr('r', function(e){ return d.name == e.name ? 7 : 3 })
 
   //connect them with a path
-  mouseoverPath.attr('d', 'M' + d.otherNominations.map(f('pos')).join('L'))
+  mouseoverPath.attr('d', 'M' + d.otherNominations.map(ƒ('pos')).join('L'))
 })
 ```
 
@@ -188,12 +188,12 @@ Connecting and labeling the nominations of very successful actresses helps provi
 var topActresses = byActress.filter(function(d){ return d.values.length > 5 })
 
 c.svg.dataAppend(topActresses, 'path.connection')
-    .attr('d', function(d){ return 'M' + d.values.map(f('pos')).join('L') })
+    .attr('d', function(d){ return 'M' + d.values.map(ƒ('pos')).join('L') })
 
 c.svg.dataAppend(topActresses, 'text')
     //values are sorted by time - most recent nomination is always last 
     .translate(function(d){ return _.last(d.values).pos })
-    .text(f('key'))
+    .text(ƒ('key'))
     .attr({dy: -4, 'text-anchor': 'middle'})
 ```
 
@@ -203,16 +203,16 @@ While javascript doesn't have an abundance of stats packages like R or python, `
 
 ```javascript
 //group by year
-var byYear = d3.nest().key(f('ceremonyNum')).entries(actressNominations)
+var byYear = d3.nest().key(ƒ('ceremonyNum')).entries(actressNominations)
 byYear.forEach(function(d){
   //for each year, select previous 15 years
   var prevYears = byYear.slice(Math.max(0, i - 15), i + 1)
   //create array of all nominations over previous 15 years
-  var prevNoms = _.flatten(prevYears.map(f('values')))
+  var prevNoms = _.flatten(prevYears.map(ƒ('values')))
 
   //average previous nominations for nominees and winners 
-  d.nomAvgPrev = d3.mean(prevNoms,                  f('prevNominations'))
-  d.wonAvgPrev = d3.mean(prevNoms.filter(f('won')), f('prevNominations'))
+  d.nomAvgPrev = d3.mean(prevNoms,                  ƒ('prevNominations'))
+  d.wonAvgPrev = d3.mean(prevNoms.filter(ƒ('won')), ƒ('prevNominations'))
 })
 ```
 Looping over each year, the average number of previous nominations over the past 15 is computed and attached to each year group. This isn't a particularity efficient way of calculating a rolling average - see [science.js](https://github.com/jasondavies/science.js) or [simple-statistics](https://github.com/tmcw/simple-statistics) for that - but our data set is small and it gets the job done.
@@ -220,14 +220,14 @@ Looping over each year, the average number of previous nominations over the past
 
 ```javascript
 var line = d3.svg.line()
-    .x(f('key', c.x))
-    .y(f('nomAvgPrev', c.y))
+    .x(ƒ('key', c.x))
+    .y(ƒ('nomAvgPrev', c.y))
 
 c.svg.append('path.nomAvg').attr('d', line(byYear))
-c.svg.append('path.winAvg').attr('d', line.y(f('wonAvgPrev', c.y))(byYear))
+c.svg.append('path.winAvg').attr('d', line.y(ƒ('wonAvgPrev', c.y))(byYear))
 ```
 
-Again, `f` provides a susscient way of grabbing a property from an object and transforming it with a scale. 
+Again, `ƒ` provides a susscient way of grabbing a property from an object and transforming it with a scale. 
 
 <div id='nominations-average'></div>
 
@@ -240,20 +240,20 @@ Over the last 20 years, the accemdy has prefered picked best actresses with fewe
 ```javascript
 c.y.domain([0, topActresses.length - 1])
 
-topActresses = topActresses.sort(d3.ascendingKey(f('values', 'length')))
+topActresses = topActresses.sort(d3.ascendingKey(ƒ('values', 'length')))
 var actressG = c.svg.dataAppend(topActresses, 'g')
     .translate(function(d, i){ return [0, c.y(i)] })
     
-actressG.append('text.name').text(f('key'))
+actressG.append('text.name').text(ƒ('key'))
     .attr({'text-anchor': 'end', dy: '.33em', x: -8})
 ```
 
 Then append a circle for each nomintation: 
 
 ```javascript
-c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
-actressG.dataAppend(f('values'), 'circle.nomination')
-    .classed('winner', f('won'))
+c.x.domain([0, d3.max(topActresses, ƒ('values', 'length'))])
+actressG.dataAppend(ƒ('values'), 'circle.nomination')
+    .classed('winner', ƒ('won'))
     .attr('cx', function(d, i){ return c.x(i) })
     .attr('r', 4)
     .call(d3.attachTooltip)
@@ -268,14 +268,14 @@ var positionByNomintions = {
   label:  'Most Nominations',
   //position circles
   setX: function(){
-    c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+    c.x.domain([0, d3.max(topActresses, ƒ('values', 'length'))])
 
     topActresses.forEach(function(actress){
       actress.values.forEach(function(d, i){ d.xPos = c.x(i) })
     })
   },
   //order for rows
-  sortBy: f('values', 'length')
+  sortBy: ƒ('values', 'length')
 }
 
 function renderPositioning(d){
@@ -283,7 +283,7 @@ function renderPositioning(d){
   d.setX()
   actressG.transition()
     .selectAll('circle')
-      .attr('cx', f('x'))
+      .attr('cx', ƒ('x'))
 
   //save order to actress object
   topActresses
@@ -304,11 +304,11 @@ By creating more objects with `setX` and `sortBy` functions, we can quickly inve
 var positionByWins = { 
   label:  'Most Wins',
   setX: function(){
-    c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+    c.x.domain([0, d3.max(topActresses, ƒ('values', 'length'))])
 
     topActresses.forEach(function(actress){
       actress.values
-        .sort(d3.ascendingKey(f('won')))
+        .sort(d3.ascendingKey(ƒ('won')))
         .forEach(function(d, i){ d.x = c.x(d.i) })
     })
   },
@@ -342,12 +342,13 @@ Store the created positionBy objects in an array makes creating a toggle to swit
 ```javascript
 
 d3.select('#buttons').dataAppend(positionings, 'span.button')
-    .text(f('label'))
+    .text(ƒ('label'))
     .on('click', renderPositioning)
 ```
 
 <div id='buttons'></div>
 
+This is just a starting point - onces 
 
 Since we've stored 
 
@@ -355,13 +356,11 @@ Since we've stored
 ggplot2 dplyr rstudio provide a lovely intergrated enviroment with tight feedback cycles
 Wickamh - tidy data + split apply combine
 
-tamera's book!
+tamera's book! - very clear thinking about different ways of encoding data
 
-rotations of data, tuffte/heere
+rotations of data, tuffte/heereiterating over the design space
 
-iterating over the design space
-
-jsdata
+jsdata is a great introduction to lightweight data analysis with d3. 
 
 
 
