@@ -43,11 +43,9 @@ d3.selectAll('dl > *').each(function(){
 
 ```
 
-Writing this code in the Source tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `table(nominations)` in the console creates a pleasantly short feedback loop. To get more information from each nomination, set a breakpoint inside the `else` block and try looking for something else that can be programmatically read from the text (I also [get](asdf) the name of the movie, the winner and clean up the year field).
+Writing this code in the sources tab as a [snippet](https://developer.chrome.com/devtools/docs/authoring-development-workflow#snippets) and checking the output by running `> table(nominations)` in the console creates a pleasantly short feedback loop. To get more information from each nomination, set a breakpoint inside the `else` block and try looking for something else that can be programmatically read from the text (I also [get](https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/dataAnalysis/scrapeOscars.js) the name of the movie, the winner and clean up the year field).
 
-For a larger project, setting up a [replicatable data pipeline](http://bost.ocks.org/mike/make/) is generally a best practice; in the interest of taking a quick look at the Oscars, we'll relay on the clipboard.
-
-`d3.csv.format` converts an array of objects to a csv string. With `copy(d3.csv.format(nominations))`, the nomination data copied to the clipboard and can be pasted into a csv file locally. Documenting what you've done so far or making the process [replicatable](http://bost.ocks.org/mike/make/) is generally a good idea to save yourself confusion in the future.
+For a larger project, setting up a [replicatable data pipeline](http://bost.ocks.org/mike/make/) is generally a best practice; in the interest of taking a quick look at the Oscars, we'll relay on the clipboard. `d3.csv.format` converts an array of objects to a csv string. With `> copy(d3.csv.format(nominations))`, the nomination data is copied to the clipboard which can then be pasted and saved into a csv file locally. 
 
 
 #### Looking at data
@@ -65,8 +63,7 @@ d3.csv('data.csv', function(nominations){
   d3.extent(nominations, ƒ('ceremonyNum')) //[1, 87]
 ```
 
-
-Passed a single string, `ƒ` [returns a function](link to old post) that takes an object and returns the object's string property. For the computer, `ƒ('ceremonyNum')` is equivalent to `ƒunction(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
+Passed a single `string`, `ƒ` [returns a function](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) that takes an `object` and returns `object[string]`. For the computer, `ƒ('ceremonyNum')` is equivalent to `ƒunction(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
 
 Lets focus on actress nominations:
 
@@ -78,14 +75,14 @@ var actressNominations = nominations.filter(function(d){
 //group by name
 var byActress = d3.nest().key(ƒ('name')).entries(actressNominations)
 
-//sanity check - Merylr Strep has 15 nominations
-d3.max(byActress, ƒ('values', 'length'))
+//sanity check - Meryl Streep has 15 nominations
+d3.max(byActress, ƒ('values', 'length'))  //15
 ```
 
-[d3.nest](docs) takes a key function and an entries array, grouping the members of the entires by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
+[d3.nest](https://github.com/mbostock/d3/wiki/Arrays#-nest) takes a key function and an entries array, grouping the members of the entires by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
 
-When passed multiple string arguments, `ƒ` converts each into field accessor functions and returns their composition. `ƒ('values', 'length')` is equivalent to `ƒunction(d){ return d.values.length }); calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](wiki.com) - is a great way of double checking your data and calculations. 
-I'm curious about the relationship between number of previous nominations and actual winners. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nomminie had:
+When passed multiple string arguments, `ƒ` converts each string into field accessor functions and returns their composition. `ƒ('values', 'length')` is equivalent to `ƒunction(d){ return d.values.length }); calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](http://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Meryl_Streep#Academy_Awards) - is a great way of double checking your data and calculations. 
+I'm curious about the relationship between number of previous nominations that nominees and actual actual winners have. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nomminie had:
 
 ```javascript
 //count previous nominations
