@@ -63,7 +63,7 @@ d3.csv('data.csv', function(nominations){
   d3.extent(nominations, ƒ('ceremonyNum')) //[1, 87]
 ```
 
-Passed a single `string`, `ƒ` [returns a function](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) that takes an `object` and returns `object[string]`. For the computer, `ƒ('ceremonyNum')` is equivalent to `ƒunction(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
+Passed a single string, `ƒ` [returns a function](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) that takes an object and returns whatever property of the object the string is named. For the computer, `ƒ('ceremonyNum')` is equivalent to `ƒunction(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
 
 Lets focus on actress nominations:
 
@@ -82,7 +82,7 @@ d3.max(byActress, ƒ('values', 'length'))  //15
 [d3.nest](https://github.com/mbostock/d3/wiki/Arrays#-nest) takes a key function and an entries array, grouping the members of the entires by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
 
 When passed multiple string arguments, `ƒ` converts each string into field accessor functions and returns their composition. `ƒ('values', 'length')` is equivalent to `ƒunction(d){ return d.values.length }); calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](http://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Meryl_Streep#Academy_Awards) - is a great way of double checking your data and calculations. 
-I'm curious about the relationship between number of previous nominations that nominees and actual actual winners have. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nomminie had:
+I'm curious about the relationship between number of previous nominations that nominees and actual actual winners have. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nominee had:
 
 ```javascript
 //count previous nominations
@@ -130,7 +130,7 @@ c.svg.selectAll('circle.nomination')
 
 In addition to converting strings into accessor functions, `ƒ` also composes functions. Typically the functions passed to `attr` or `style` select a single property from that data bound to an element and encode it as a visual property with a scale function. Instead of typing this same type of function over and over - `.attr('cx', function(d){ return c.x(d.ceremonyNum) })` - we can strip it down to its bare essentials with `.attr('cx', ƒ('ceremonyNum', c.x))`.
 
-`d3.attachTooltip` adds a basic tooltip showing all the properties attached to an element, removing the need to `Inspect element` and run `d3.select($0).datum` to examine outliers.  
+`d3.attachTooltip` adds a basic tooltip showing all the properties attached to an element, removing the need to `Inspect element` and run `> d3.select($0).datum` to examine outliers.  
 
 The result:
 
@@ -159,7 +159,7 @@ var circles = c.svg.dataAppend(actressNominations), 'circle.nomination')
     .attr('r', 3)
 ```
 
-Just like with the calculation of previous nominations, we've grouped the data, sorted items in the same group, and saved their index. This pattern is useful in a wide range situations// and d3 makes it easy to use.  
+Just like with the calculation of previous nominations, we've grouped the data, sorted items in the same group, and saved their index. This pattern is useful in a wide range situations and d3 makes it easy to use.  
 
 <div id='nominations-offset'></div>
 
