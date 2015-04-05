@@ -1,12 +1,10 @@
-var f = d3.f
-
 // d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(data){
 d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
   //convert the award ceremony index to a number  
   nominations.forEach(function(d){ d.ceremonyNum = +d.ceremonyNum })
 
   //check that every ceremony has been loaded
-  d3.extent(nominations, f('ceremonyNum')) //[1, 87]
+  d3.extent(nominations, ƒ('ceremonyNum')) //[1, 87]
 
 
   //select only actress nominations
@@ -14,10 +12,10 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     return d.award == 'ACTRESS' })
 
   //group by actress
-  var byActress = d3.nest().key(f('name')).entries(actressNominations)
+  var byActress = d3.nest().key(ƒ('name')).entries(actressNominations)
 
   //sanity check - Merylr Strep has 15 nominations
-  d3.max(byActress, f('values', 'length'))
+  d3.max(byActress, ƒ('values', 'length'))
 
   //count previous nominations
   byActress.forEach(function(actress){
@@ -32,17 +30,17 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     var c = d3.conventions({parentSel: d3.select('#nominations-scatter')})
 
     //compute domain of scales
-    c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
-    c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+    c.x.domain(d3.extent(actressNominations, ƒ('ceremonyNum')))
+    c.y.domain(d3.extent(actressNominations, ƒ('prevNominations')))
     
     //draw x and y axis
     c.drawAxis()
 
     //draw circles
     c.svg.dataAppend(actressNominations, 'circle.nomination')
-        .attr('cx', f('ceremonyNum', c.x))
-        .attr('cy', f('prevNominations', c.y))
-        .classed('winner', f('won'))
+        .attr('cx', ƒ('ceremonyNum', c.x))
+        .attr('cy', ƒ('prevNominations', c.y))
+        .classed('winner', ƒ('won'))
         .attr('r', 3)
         .call(d3.attachTooltip)
   })()
@@ -52,8 +50,8 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
   !(function(){
     var c = d3.conventions({parentSel: d3.select('#nominations-offset')})
 
-    c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
-    c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+    c.x.domain(d3.extent(actressNominations, ƒ('ceremonyNum')))
+    c.y.domain(d3.extent(actressNominations, ƒ('prevNominations')))
     c.drawAxis()
     
     //calculate offset 
@@ -70,10 +68,10 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     })
 
 
-    c.svg.dataAppend(_.sortBy(actressNominations, f('offset')), 'circle.nomination')
+    c.svg.dataAppend(_.sortBy(actressNominations, ƒ('offset')), 'circle.nomination')
         //position with transform translate instead
-        .translate(f('pos'))
-        .classed('winner', f('won'))
+        .translate(ƒ('pos'))
+        .classed('winner', ƒ('won'))
         .attr('r', 3)
         .call(d3.attachTooltip)
   })()
@@ -82,8 +80,8 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
   !(function(){
     var c = d3.conventions({parentSel: d3.select('#nominations-linked')})
 
-    c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
-    c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+    c.x.domain(d3.extent(actressNominations, ƒ('ceremonyNum')))
+    c.y.domain(d3.extent(actressNominations, ƒ('prevNominations')))
     c.drawAxis()
     
     d3.nest()
@@ -101,17 +99,17 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     var topActresses = byActress.filter(function(d){ return d.values.length > 5 })
 
     c.svg.dataAppend(topActresses, 'path.connection')
-        .attr('d', function(d){ return 'M' + d.values.map(f('pos')).join('L') })
+        .attr('d', function(d){ return 'M' + d.values.map(ƒ('pos')).join('L') })
 
     c.svg.dataAppend(topActresses, 'text')
         //values are sorted by time - most recent nomination is always last 
         .translate(function(d){ return _.last(d.values).pos })
-        .text(f('key'))
+        .text(ƒ('key'))
         .attr({dy: -4, 'text-anchor': 'middle'})
 
-    var circles = c.svg.dataAppend(_.sortBy(actressNominations, f('offset')), 'circle.nomination')
-        .translate(f('pos'))
-        .classed('winner', f('won'))
+    var circles = c.svg.dataAppend(_.sortBy(actressNominations, ƒ('offset')), 'circle.nomination')
+        .translate(ƒ('pos'))
+        .classed('winner', ƒ('won'))
         .attr('r', 3)
         .call(d3.attachTooltip)
 
@@ -119,7 +117,7 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
       //make nominations with the same actor larger
       circles.attr('r', function(e){ return d.name == e.name ? 5 : 3 })
       //connect lines with a path
-      mouseoverPath.attr('d', 'M' + d.otherNominations.map(f('pos')).join('L'))
+      mouseoverPath.attr('d', 'M' + d.otherNominations.map(ƒ('pos')).join('L'))
     })
   })()
 
@@ -128,8 +126,8 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
   !(function(){
     var c = d3.conventions({parentSel: d3.select('#nominations-average')})
 
-    c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
-    c.y.domain(d3.extent(actressNominations, f('prevNominations')))
+    c.x.domain(d3.extent(actressNominations, ƒ('ceremonyNum')))
+    c.y.domain(d3.extent(actressNominations, ƒ('prevNominations')))
     c.drawAxis()
     
     d3.nest()
@@ -143,41 +141,41 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     })
 
     //group by year
-    var byYear = d3.nest().key(f('ceremonyNum')).entries(actressNominations)
+    var byYear = d3.nest().key(ƒ('ceremonyNum')).entries(actressNominations)
     byYear.forEach(function(d, i){
       //for each year, select previous 15 years
       var prevYears = byYear.slice(Math.max(0, i - 15), i + 1)
       //create array of all nominations over previous 15 years
-      var prevNoms = _.flatten(prevYears.map(f('values')))
+      var prevNoms = _.flatten(prevYears.map(ƒ('values')))
 
       //calculate average number of previous nominations for nominees and winners 
-      d.nomAvgPrev = d3.mean(prevNoms,                  f('prevNominations'))
-      d.wonAvgPrev = d3.mean(prevNoms.filter(f('won')), f('prevNominations'))
+      d.nomAvgPrev = d3.mean(prevNoms,                  ƒ('prevNominations'))
+      d.wonAvgPrev = d3.mean(prevNoms.filter(ƒ('won')), ƒ('prevNominations'))
     })
 
     var line = d3.svg.line()
-        .x(f('key', c.x))
-        .y(f('nomAvgPrev', c.y))
+        .x(ƒ('key', c.x))
+        .y(ƒ('nomAvgPrev', c.y))
 
     c.svg.append('path.nomAvg').attr('d', line(byYear))
-    c.svg.append('path.winAvg').attr('d', line.y(f('wonAvgPrev', c.y))(byYear))
+    c.svg.append('path.winAvg').attr('d', line.y(ƒ('wonAvgPrev', c.y))(byYear))
 
     var mouseoverPath = c.svg.append('path.mouseconnection')
 
     var topActresses = byActress.filter(function(d){ return d.values.length > 5 })
 
     c.svg.dataAppend(topActresses, 'path.connection')
-        .attr('d', function(d){ return 'M' + d.values.map(f('pos')).join('L') })
+        .attr('d', function(d){ return 'M' + d.values.map(ƒ('pos')).join('L') })
 
     c.svg.dataAppend(topActresses, 'text')
         //values are sorted by time - most recent nomination is always last 
         .translate(function(d){ return _.last(d.values).pos })
-        .text(f('key'))
+        .text(ƒ('key'))
         .attr({dy: -4, 'text-anchor': 'middle'})
 
-    var circles = c.svg.dataAppend(_.sortBy(actressNominations, f('offset')), 'circle.nomination')
-        .translate(f('pos'))
-        .classed('winner', f('won'))
+    var circles = c.svg.dataAppend(_.sortBy(actressNominations, ƒ('offset')), 'circle.nomination')
+        .translate(ƒ('pos'))
+        .classed('winner', ƒ('won'))
         .attr('r', 3)
         .call(d3.attachTooltip)
 
@@ -185,7 +183,7 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
       //make nominations with the same actor larger
       circles.attr('r', function(e){ return d.name == e.name ? 5 : 3 })
       //connect lines with a path
-      mouseoverPath.attr('d', 'M' + d.otherNominations.map(f('pos')).join('L'))
+      mouseoverPath.attr('d', 'M' + d.otherNominations.map(ƒ('pos')).join('L'))
     })
   })()
 
@@ -194,27 +192,27 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     var c = d3.conventions({
       parentSel: d3.select('#distribution'),
       height: 800,
-      width: 450,
-      margin: {left: 200, top: 0, bottom: 0, right: 100}
+      width: 500,
+      margin: {left: 200, top: 10, bottom: 10, right: 150}
     })
 
     var topActresses = byActress
       .filter(function(d){
-        return d.values.length > 2 || d.values.some(f('won')) })
-      .sort(d3.ascendingKey(f('values', 'length')))
+        return d.values.length > 2 || d.values.some(ƒ('won')) })
+      .sort(d3.ascendingKey(ƒ('values', 'length')))
 
-    c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+    c.x.domain([0, d3.max(topActresses, ƒ('values', 'length'))])
 
     c.y.domain([0, topActresses.length - 1])
-    topActresses = topActresses.sort(d3.ascendingKey(f('values', 'length')))
+    topActresses = topActresses.sort(d3.ascendingKey(ƒ('values', 'length')))
     var actressG = c.svg.dataAppend(topActresses, 'g')
         .translate(function(d, i){ return [0, c.y(i)] })
 
-    actressG.append('text.name').text(f('key'))
+    actressG.append('text.name').text(ƒ('key'))
         .attr({'text-anchor': 'end', dy: '.33em', x: -8})
 
-    actressG.dataAppend(f('values'), 'circle.nomination')
-        .classed('winner', f('won'))
+    actressG.dataAppend(ƒ('values'), 'circle.nomination')
+        .classed('winner', ƒ('won'))
         .attr('cx', function(d, i){ return c.x(i) })
         .attr('r', 4)
         .call(d3.attachTooltip)
@@ -226,7 +224,7 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
       { label:  'Most Nominations',
         //position circles
         setX: function(){
-          c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+          c.x.domain([0, d3.max(topActresses, ƒ('values', 'length'))])
 
           topActresses.forEach(function(actress){
             _.sortBy(actress.values, 'ceremonyNum')
@@ -235,11 +233,11 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
 
         },
         //order for rows
-        sortBy: f('values', 'length')
+        sortBy: ƒ('values', 'length')
       },
       { label:  'Most Wins',
         setX: function(){
-          c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+          c.x.domain([0, d3.max(topActresses, ƒ('values', 'length'))])
 
           topActresses.forEach(function(actress){
             _.sortBy(actress.values, function(d){ return -d.won*100 + d.ceremonyNum })
@@ -248,7 +246,7 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
         },
         //lexicographic sort
         sortBy: function(d){
-          return d.values.filter(f('won')).length*100 + d.values.length }
+          return d.values.filter(ƒ('won')).length*100 + d.values.length }
       },
       { label:  'Most Without',
         setX: function(){
@@ -259,8 +257,8 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
             }
             d.afterFirst = d.values.length - d.firstWin 
           })
-          c.x.domain([-d3.max(topActresses, f('firstWin')), 
-                     d3.max(topActresses, f('afterFirst'))])
+          c.x.domain([-d3.max(topActresses, ƒ('firstWin')), 
+                     d3.max(topActresses, ƒ('afterFirst'))])
 
           topActresses.forEach(function(actress){
             _.sortBy(actress.values, 'ceremonyNum')
@@ -285,7 +283,7 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
       },
       { label:  'Over Time',
         setX: function(){
-          c.x.domain(d3.extent(actressNominations, f('ceremonyNum')))
+          c.x.domain(d3.extent(actressNominations, ƒ('ceremonyNum')))
           actressNominations.forEach(function(d){ d.x = c.x(d.ceremonyNum) })
         },
         sortBy: function(d){ return -d.values[0].ceremonyNum }
@@ -294,33 +292,33 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     ]
 
     d3.select('#buttons').dataAppend(positionings, 'span.button')
-        .text(f('label'))
+        .text(ƒ('label'))
         .on('click', renderPositioning)
 
     var c = d3.conventions({
       parentSel: d3.select('#buttons'),
       height: 800,
-      width: 450,
-      margin: {left: 100, top: 10, bottom: 0, right: 100}
+      width: 500,
+      margin: {left: 100, top: 10, bottom: 10, right: 150}
     })
 
     var topActresses = byActress
       .filter(function(d){
-        return d.values.length > 2 || d.values.some(f('won')) })
-      .sort(d3.ascendingKey(f('values', 'length')))
+        return d.values.length > 2 || d.values.some(ƒ('won')) })
+      .sort(d3.ascendingKey(ƒ('values', 'length')))
 
-    c.x.domain([0, d3.max(topActresses, f('values', 'length'))])
+    c.x.domain([0, d3.max(topActresses, ƒ('values', 'length'))])
 
     c.y.domain([0, topActresses.length - 1])
-    topActresses = topActresses.sort(d3.ascendingKey(f('values', 'length')))
+    topActresses = topActresses.sort(d3.ascendingKey(ƒ('values', 'length')))
     var actressG = c.svg.dataAppend(topActresses, 'g')
         .translate(function(d, i){ return [0, c.y(i)] })
 
-    actressG.append('text.name').text(f('key'))
+    actressG.append('text.name').text(ƒ('key'))
         .attr({'text-anchor': 'end', dy: '.33em', x: -8})
 
-    actressG.dataAppend(f('values'), 'circle.nomination')
-        .classed('winner', f('won'))
+    actressG.dataAppend(ƒ('values'), 'circle.nomination')
+        .classed('winner', ƒ('won'))
         .attr('cx', function(d, i){ return c.x(i) })
         .attr('r', 4)
         .call(d3.attachTooltip)
@@ -331,7 +329,7 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
       d.setX()
       actressG.transition('circles').delay(function(d){ return (86 - (d.i || 86))*20 }).duration(500)
         .selectAll('circle')
-          .attr('cx', f('x'))
+          .attr('cx', ƒ('x'))
 
       //save order to actress object
       _.sortBy(topActresses, d.sortBy).forEach(function(d, i){ d.i = i })
@@ -340,7 +338,7 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
           .translate(function(d){ return [0, c.y(d.i)] })
 
   
-      ta = topActresses
+      d3.selectAll('.button').classed('selected', function(e){ return e == d })
     }
   
     function careerLength(d){

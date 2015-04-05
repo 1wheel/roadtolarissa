@@ -234,11 +234,9 @@ Over the last 20 years, the academy has picked best actresses with fewer previou
 
 #### Animating data
 
-Encoding the data differently shows different patterns. Combining D3 with these helper functions allows us to rapidly explore the space of potential visualizations 
+Encoding the data differently shows different patterns. Combining D3 with these helper functions allows us to rapidly explore the [space of potential visualizations](https://www.youtube.com/watch?v=fThhbt23SGM). 
 
-//[variations in the data](www.youtube.com/watch?v=vc1bq0qIKoA).
-
-While it is clear Strep has the most nominations, by deemphasizing time we can see the distribution of nominations across actress. First, create a `g` element for each actress and sort vertically by number of nominations: 
+For example while it is clear Strep has the most nominations, by deemphasizing time we can see the distribution of nominations across actress. First, create a `g` element for each actress and sort vertically by number of nominations: 
 
 ```javascript
 c.y.domain([0, topActresses.length - 1])
@@ -301,7 +299,7 @@ function renderPositioning(d){
 renderPosition(positionByNomintions)
 ```
 
-By creating more objects with `setX` and `sortBy` functions, we can quickly investigate other arrgements of the data like the distrubtion of wins or the longest career:
+By creating more objects with `setX` and `sortBy` functions, we can quickly investigate other arrangements of the data like the distribution of wins or the longest career:
 
 ```javascript
 var positionByWins = { 

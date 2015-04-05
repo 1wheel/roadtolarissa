@@ -33,6 +33,7 @@ svg{
   background-color: white;
   overflow: visible;
   margin-left: -25px;
+  margin-bottom: 22px;
 }
 
 path{
@@ -79,8 +80,17 @@ text.name{
   font
 }
 
+#buttons{
+  width: 850px;
+}
+
 .button{
   display: inline-block;
-  width: 150px;
+  width: 165px;
   cursor: pointer;
+}
+
+.button:hover, .button.selected{
+  font-weight: bold;
+  text-decoration: underline;
 }
