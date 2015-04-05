@@ -230,14 +230,15 @@ Again, `ƒ` provides a succinct way of grabbing a property from an object and tr
 
 <div id='nominations-average'></div>
 
-Over the last 20 years, the academy has preferred picked best actresses with fewer previous nominations than their other nominees. Since we've already downloading supporting and 
+Over the last 20 years, the academy has picked best actresses with fewer previous nominations than the other nominees. Since all the animations have already be scrapped and there's only one line of actress specific code, `return d.award == 'ACTRESS' })`, seeing if this pattern holds across supporting actress, actors and directors isn't too difficult - grab a [copy of the repo](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/dataAnalysis) and try!
 
 #### Animating data
 
-Encoding the data differently shows different patterns. While it is clear Strep has the most nominations, by deemphasizing time we can see the distribution of nominations across actress. Fir 
+Encoding the data differently shows different patterns. Combining D3 with these helper functions allows us to rapidly explore the space of potential visualizations 
 
+//[variations in the data](www.youtube.com/watch?v=vc1bq0qIKoA).
 
-First, create a `g` element for each actress and sort vertically by number of nominations: 
+While it is clear Strep has the most nominations, by deemphasizing time we can see the distribution of nominations across actress. First, create a `g` element for each actress and sort vertically by number of nominations: 
 
 ```javascript
 c.y.domain([0, topActresses.length - 1])
@@ -263,7 +264,7 @@ actressG.dataAppend(ƒ('values'), 'circle.nomination')
 
 <div id='distribution'></div>
 
-Just like we've abstracted the process of creating functions to transform properties of objects into visual attributes, we can abstract the sorting of actress rows and positioning of nomintions into functions:
+Just like we've abstracted the process of creating functions to transform properties of objects into visual attributes, we can abstract the sorting of actress rows and positioning of nominations into functions:
 
 ```javascript
 var positionByNomintions = { 
