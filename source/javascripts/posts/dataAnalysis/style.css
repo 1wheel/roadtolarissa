@@ -86,8 +86,9 @@ text.name{
 
 .button{
   display: inline-block;
-  width: 165px;
+  width: 155px;
   cursor: pointer;
+  text-align: center;
 }
 
 .button:hover, .button.selected{

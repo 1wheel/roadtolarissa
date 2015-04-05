@@ -5,15 +5,15 @@ permalink: data-exploration
 categories: 
 ---
 
-D3 is best known for [polished interactive visualizations](http://d3js.org/). With its rich API however, it is also an excellent tool for acquiring and, with a bit of work, exploring, data. This post will walk through scraping and plotting different dimensions of the history of the Oscars as an instructive example.
+D3 is best known for [polished interactive visualizations](http://d3js.org/). With its rich API however, it is also an excellent tool for acquiring and, with a bit of work, exploring data. This post will walk through scraping and plotting different dimensions of the history of the Oscars as an instructive example.
 
 #### Scraping data
 
-The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/BasicSearchInput.jsp) displays all award nominations on a single page (pick award years 1927 to 2014 and click search). The Elements tab of the dev tools reveals the structure of the page: 
+The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/BasicSearchInput.jsp) displays all award nominations on a single page (pick award years 1927 to 2014 and click search). The Elements tab of the dev tools reveals the structure of the page:
 
 <video controls="controls" width="750" name="Elements Tab" autoplay="true" loop="true" controller="false" src="images/scrape.mov"></video>
 
-All the awards are contained within a single `dl` element. Each year and award type are denoted with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While `document.querySelectorAll` or the already loaded jQuery could be used to traverse the DOM, injecting D3 onto the page allows us to use the same API for gathering and displaying data. A little bit of javascrict in the console does the trick: 
+All the awards are contained within a single `dl` element. Each year and award type are denoted with `dt` and `div` elements, while the actual nominations are `table` elements interwoven - not nested - between. While `document.querySelectorAll` or the already loaded jQuery could be used to traverse the DOM, injecting D3 onto the page allows us to use the same API for gathering and displaying data. A little bit of javascrict in the console does the trick: 
 
 ```javascript
 var script = document.createElement("script")
@@ -48,9 +48,9 @@ Writing this code in the sources tab as a [snippet](https://developer.chrome.com
 For a larger project, setting up a [replicatable data pipeline](http://bost.ocks.org/mike/make/) is generally a best practice; in the interest of taking a quick look at the Oscars, we'll relay on the clipboard. `d3.csv.format` converts an array of objects to a csv string. With `> copy(d3.csv.format(nominations))`, the nomination data is copied to the clipboard which can then be pasted and saved into a csv file locally. 
 
 
-#### Looking at data
+#### Seeing data
 
-To get started quickly with minimal fuss, I usually grab a copy of my [d3-starter-kit repo](https://github.com/1wheel/d3-starterkit). It contains [d3](http://d3js.org/), [lodash](http://underscorejs.org/), [d3-jetpack](https://github.com/gka/d3-jetpack) and some helper functions and for generating tooltips, scales, axes and styling them.
+To get started quickly with minimal fuss, I usually grab a copy of my [d3-starter-kit repo](https://github.com/1wheel/d3-starterkit). It contains [d3](http://d3js.org/), [lodash](http://underscorejs.org/), [d3-jetpack](https://github.com/gka/d3-jetpack) and some helper functions for generating tooltips, scales, axes and styling them.
 
 Having saved the array of nominations as `data.csv`, we can load it into the starter-kit [template](https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/dataAnalysis/script.js) and check the integrity of our data: 
 
@@ -79,11 +79,11 @@ var byActress = d3.nest().key(ƒ('name')).entries(actressNominations)
 d3.max(byActress, ƒ('values', 'length'))  //15
 ```
 
-[d3.nest](https://github.com/mbostock/d3/wiki/Arrays#-nest) takes a key function and an entries array, grouping the members of the entries by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
+[d3.nest](https://github.com/mbostock/d3/wiki/Arrays#-nest) takes a key function and an entries array, grouping the members of the entries by the value returned from calling the key function on each entry. It returns an array of group objects. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
 
-When passed multiple string arguments, `ƒ` converts each string into field accessor functions and returns their composition. `ƒ('values', 'length')` is equivalent to `function(d){ return d.values.length })` calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](http://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Meryl_Streep#Academy_Awards) - is a great way of double checking your data and calculations. 
+When passed multiple string arguments, `ƒ` converts each string into field accessor functions and returns their composition. `ƒ('values', 'length')` is equivalent to `function(d){ return d.values.length })`, calling it with every group object and calculating the maximum returns the most Best Actress nominations a single person has received. Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](http://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Meryl_Streep#Academy_Awards) - is a great way of double checking your data and calculations. 
 
-I'm curious about the relationship between number of previous nominations that nominees and actual winners had. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nominee had:
+I'm curious about the relationship between the number of previous nominations that nominees and actual winners had. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the nominee's previous nominations:
 
 ```javascript
 //count previous nominations
@@ -95,7 +95,7 @@ byActress.forEach(function(actress){
 })
 ```
 
-Since the nominations are already sorted by year, the index of each actresses' nomination in its nested values array is equal to the number of previous nominations the actress had at the time of the nomination. While looping over the nominations in the values array, I also attach a reference to the actresses' other nominations so it will be easy to find a nominees' other nominations later.   
+Since the nominations are already sorted by year, the index of each actress' nomination in its nested values array is equal to the number of previous nominations the actress had at the time of the nomination. While looping over the nominations in the values array, I also attach a reference to the actress' other nominations so it will be easy to find a nominees' other nominations later.   
 
 Time to graph the data! 
 
@@ -118,9 +118,9 @@ c.svg.dataAppend(actressNominations, 'circle.nomination')
     .call(d3.attachTooltip)
 ```
 
-There are a couple of abstractions from [d3-starterkit](https://github.com/1wheel/d3-starterkit) that make this code shorter and more readable. `d3.conventions` returns an object with automatically configured margins, svg, scales and axis - saving the tedium of globbing together snippets from several bl.ocks over and over again.
+There are a couple of abstractions from [d3-starterkit](https://github.com/1wheel/d3-starterkit) that make this code shorter and more readable. `d3.conventions` returns an object with automatically configured margins, svg, scales and axis - saving the tedium of globbing together snippets from several [bl.ocks](http://bl.ocks.org/mbostock/3019563) over and over again.
 
-`c.svg.dataAppend(actressNominations, 'circle.nomination')` is shorthand for
+`c.svg.dataAppend(actressNominations, 'circle.nomination')` is shorthand for:
 
 ```javascript
 c.svg.selectAll('circle.nomination')
@@ -164,7 +164,7 @@ Just like with the calculation of previous nominations, we've grouped the data, 
 
 <div id='nominations-offset'></div>
 
-This graph is functional but it is difficult to see the arcs of different careers. We can start by highlight all of an actresses' nominations on mouseover:    
+This graph is functional but it is difficult to see the arcs of different careers. We can start by highlight all of an actress' nominations on mouseover:    
 
 ```javascript
 var mouseoverPath = c.svg.append('path.connection')
@@ -178,9 +178,9 @@ circles.on('mouseover', function(d){
 })
 ```
 
-Saving a reference to an actresses' other nominations and storing position as an `[x, y]` property makes [drawing a path](http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/) connecting them simple.   
+Saving a reference to an actress' other nominations and storing position as an `[x, y]` property makes [drawing a path](http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/) connecting them simple.   
 
-Connecting and labeling the nominations of very successful actresses helps provide context while examining other careers. Oscar nominations aren't nearly as sparse as the home runs or touchdown passing records; only the actresses with more than 5 nominations are connected so the bottom of the graph doesn't turn to spaghetti.
+Connecting and labeling the nominations of very successful actresses helps provide context while examining other careers. Oscar nominations aren't nearly as sparse as home runs or touchdown passing records; only the actresses with more than 5 nominations are connected so the bottom of the graph doesn't turn to spaghetti.
 
 ```javascript
 var topActresses = byActress.filter(function(d){ return d.values.length > 5 })
@@ -214,7 +214,7 @@ byYear.forEach(function(d){
 })
 ```
 
-Looping over each year, the average number of previous nominations over the past 15 is computed and attached to each year group. This isn't a particularity efficient way of calculating a rolling average - see [science.js](https://github.com/jasondavies/science.js) or [simple-statistics](https://github.com/tmcw/simple-statistics) for that - but our data set is small and it gets the job done.
+Looping over each year, the average number of previous nominations over the past 15 years is computed and attached to each year group. This isn't a particularity efficient way of calculating a rolling average - see [science.js](https://github.com/jasondavies/science.js) or [simple-statistics](https://github.com/tmcw/simple-statistics) for that - but our data set is small and it gets the job done.
 
 
 ```javascript
@@ -230,13 +230,13 @@ Again, `ƒ` provides a succinct way of grabbing a property from an object and tr
 
 <div id='nominations-average'></div>
 
-Over the last 20 years, the academy has picked best actresses with fewer previous nominations than the other nominees. Since all the animations have already be scrapped and there's only one line of actress specific code, `return d.award == 'ACTRESS' })`, seeing if this pattern holds across supporting actress, actors and directors isn't too difficult - grab a [copy of the repo](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/dataAnalysis) and try!
+Over the last 20 years, the Academy has picked best actresses with fewer previous nominations than the other nominees. Since all the animations have already been scrapped and there's only one line of actress specific code, `return d.award == 'ACTRESS' })`, seeing if this pattern holds across supporting actresses, actors and directors isn't too difficult - grab a [copy of the repo](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/dataAnalysis) and try!
 
 #### Animating data
 
 Encoding the data differently shows different patterns. Combining D3 with these helper functions allows us to rapidly explore the [space of potential visualizations](https://www.youtube.com/watch?v=fThhbt23SGM). 
 
-For example while it is clear Strep has the most nominations, by deemphasizing time we can see the distribution of nominations across actress. First, create a `g` element for each actress and sort vertically by number of nominations: 
+For example, while it's clear that Strep has the most nominations, by deemphasizing time we can see the distribution of nominations across actresses. First, create a `g` element for each actress and sort vertically by number of nominations: 
 
 ```javascript
 c.y.domain([0, topActresses.length - 1])
@@ -249,7 +249,7 @@ actressG.append('text.name').text(ƒ('key'))
     .attr({'text-anchor': 'end', dy: '.33em', x: -8})
 ```
 
-Then append a circle for each nomintation: 
+Then append a circle for each nomination: 
 
 ```javascript
 c.x.domain([0, d3.max(topActresses, ƒ('values', 'length'))])
@@ -280,7 +280,7 @@ var positionByNomintions = {
 }
 
 function renderPositioning(d){
-  //position circles by updating their x proprety
+  //position circles by updating their x property
   d.setX()
   actressG.transition()
     .selectAll('circle')
@@ -338,7 +338,7 @@ function careerLength(d){
 }
 ```
 
-Store the created positionBy objects in an array makes creating a toggle to switch between them simple:
+Storing the created `positionBy` objects in an array makes creating a toggle to switch between them simple:
 
 ```javascript
 d3.select('#buttons').dataAppend(positionings, 'span.button')
@@ -348,15 +348,15 @@ d3.select('#buttons').dataAppend(positionings, 'span.button')
 
 <div id='buttons'></div>
 
-This is just a starting point. If we think of anything to sort or group our data on, seeing it only requires writing a short function. We've also only looked at a small slice of whole nomination dataset. 
+This is just a starting point. If we think of anything to sort or group our data on, seeing it only requires writing a short function. We've also only looked at a small slice of the whole nomination dataset. 
 
 #### Interesting things to read
 
-`ggplot2` `dplyr` `magrittr` and `rstudio` create a wonderfully integrated environment for quickly and efficiently analyzing data. While using these tools to create visualizations for the web unfortunately require some duplication of effort, the advice in Hadley Wickham's [Tidy Data](http://vita.had.co.nz/papers/tidy-data.pdf) and [The Split-Apply-Combine](http://www.jstatsoft.org/v40/i01/paper) papers apply to anyone working with data. This post is essentially an amalgamation of different ways I've been trying to pull ideas from Hadleyverse into my D3 work. 
+`ggplot2`, `dplyr`, `magrittr` and `rstudio` create a wonderfully integrated environment for quickly and efficiently analyzing data. While using these tools to create visualizations for the web unfortunately requires some duplication of effort, the advice in Hadley Wickham's [Tidy Data](http://vita.had.co.nz/papers/tidy-data.pdf) and [The Split-Apply-Combine](http://www.jstatsoft.org/v40/i01/paper) papers apply to anyone manipulating with data. This post is essentially an amalgamation of different ways I've been trying to pull ideas from Hadleyverse into my D3 work. 
 
 Tamara Munzner's [Visualization Analysis & Design](http://www.crcpress.com/product/isbn/9781466508910) has helped me think significantly more clearly about ways of representing data. 
 
-[Learn JS Data](http://learnjsdata.com/) is a great introduction to lightweight data analysis with d3 and underscore. Other good resources on functional javascript include [Eloquent Javascript](http://eloquentjavascript.net/05_higher_order.html), [Functional Javascript](http://www.functionaljavascript.com/) and [Javascript Allonge](https://leanpub.com/javascript-allonge/read).
+[Learn JS Data](http://learnjsdata.com/) is a great introduction to lightweight data analysis with D3 and underscore. Other good resources on functional javascript include [Eloquent Javascript](http://eloquentjavascript.net/05_higher_order.html), [Functional Javascript](http://www.functionaljavascript.com/) and [Javascript Allonge](https://leanpub.com/javascript-allonge/read).
 
 Code for this post on [github](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/dataAnalysis). 
 
