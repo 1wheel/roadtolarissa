@@ -11,7 +11,7 @@ D3 is best known for [polished interactive visualizations](http://d3js.org/). Wi
 
 The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/BasicSearchInput.jsp) displays all award nominations on a single page (pick award years 1927 to 2014 and click search). The Elements tab of the dev tools reveals the structure of the page:
 
-<video controls="controls" width="750" name="Elements Tab" autoplay="true" loop="true" controller="false" src="images/scrape.mov"></video>
+<video controls="controls" width="750" name="Elements Tab" autoplay="true" loop="true" controller="false" src="/images/scrape.mov"></video>
 
 All the awards are contained within a single `dl` element. Each year and award type are denoted with `dt` and `div` elements, while the actual nominations are `table` elements interwoven - not nested - between. While `document.querySelectorAll` or the already loaded jQuery could be used to traverse the DOM, injecting D3 onto the page allows us to use the same API for gathering and displaying data. A little bit of javascrict in the console does the trick: 
 
