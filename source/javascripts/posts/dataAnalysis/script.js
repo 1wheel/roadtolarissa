@@ -192,8 +192,8 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     var c = d3.conventions({
       parentSel: d3.select('#distribution'),
       height: 800,
-      width: 500,
-      margin: {left: 200, top: 10, bottom: 10, right: 150}
+      width: 550,
+      margin: {left: 100, top: 10, bottom: 10, right: 150}
     })
 
     var topActresses = byActress
@@ -298,7 +298,7 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
     var c = d3.conventions({
       parentSel: d3.select('#buttons'),
       height: 800,
-      width: 500,
+      width: 550,
       margin: {left: 100, top: 10, bottom: 10, right: 150}
     })
 
@@ -323,6 +323,8 @@ d3.csv('/javascripts/posts/dataAnalysis/data.csv', function(nominations){
         .attr('r', 4)
         .call(d3.attachTooltip)
 
+
+    renderPositioning(positionings[0])
 
     function renderPositioning(d){
       //position circles by updating their x proprety
