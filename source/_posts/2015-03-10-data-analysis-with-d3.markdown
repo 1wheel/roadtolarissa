@@ -50,9 +50,9 @@ For a larger project, setting up a [replicatable data pipeline](http://bost.ocks
 
 #### Looking at data
 
-To get started quickly with minimal fuss, I usually grab a copy of my [d3-starter-kit repo](https://github.com/1wheel/d3-starterkit). It contains [d3](http://d3js.org/), [lodash](http://underscorejs.org/), [d3-jetpack](https://github.com/gka/d3-jetpack) and some helper functions and for generating tooltips, scales, axiis and styling them.
+To get started quickly with minimal fuss, I usually grab a copy of my [d3-starter-kit repo](https://github.com/1wheel/d3-starterkit). It contains [d3](http://d3js.org/), [lodash](http://underscorejs.org/), [d3-jetpack](https://github.com/gka/d3-jetpack) and some helper functions and for generating tooltips, scales, axes and styling them.
 
-Having saved the array of nomintions as `data.csv`, we can load it into the starter-kit [template](script.js) and check the integrity of our data: 
+Having saved the array of nominations as `data.csv`, we can load it into the starter-kit [template](https://github.com/1wheel/roadtolarissa/blob/master/source/javascripts/posts/dataAnalysis/script.js) and check the integrity of our data: 
 
 ```javascript
 d3.csv('data.csv', function(nominations){
@@ -63,7 +63,7 @@ d3.csv('data.csv', function(nominations){
   d3.extent(nominations, ƒ('ceremonyNum')) //[1, 87]
 ```
 
-Passed a single string, `ƒ` [returns a function](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) that takes an object and returns whatever property of the object the string is named. For the computer, `ƒ('ceremonyNum')` is equivalent to `ƒunction(d){ return d.ceremonyNum; })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
+Passed a single string, `ƒ` [returns a function](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) that takes an object and returns whatever property of the object the string is named. For the computer, `ƒ('ceremonyNum')` is equivalent to `function(d){ return d.ceremonyNum })`. For humans, the lack syntactical noise makes it more expressive and quicker to type - critical for rapid prototyping.
 
 Lets focus on actress nominations:
 
@@ -79,10 +79,11 @@ var byActress = d3.nest().key(ƒ('name')).entries(actressNominations)
 d3.max(byActress, ƒ('values', 'length'))  //15
 ```
 
-[d3.nest](https://github.com/mbostock/d3/wiki/Arrays#-nest) takes a key function and an entries array, grouping the members of the entires by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
+[d3.nest](https://github.com/mbostock/d3/wiki/Arrays#-nest) takes a key function and an entries array, grouping the members of the entries by result of applying the key function. An array of group objects is returned. Each has a `key` property, here the name of an actress, and an array of `values`, here an array of nominations. 
 
-When passed multiple string arguments, `ƒ` converts each string into field accessor functions and returns their composition. `ƒ('values', 'length')` is equivalent to `ƒunction(d){ return d.values.length }); calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](http://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Meryl_Streep#Academy_Awards) - is a great way of double checking your data and calculations. 
-I'm curious about the relationship between number of previous nominations that nominees and actual actual winners have. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nominee had:
+When passed multiple string arguments, `ƒ` converts each string into field accessor functions and returns their composition. `ƒ('values', 'length')` is equivalent to `function(d){ return d.values.length })` calling it with every group object and taking the max returns the most Best Actress nominations a single person has received.Calculating known summary statistics from your data - here Meryl's [15 Best Actress nominations](http://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Meryl_Streep#Academy_Awards) - is a great way of double checking your data and calculations. 
+
+I'm curious about the relationship between number of previous nominations that nominees and actual winners had. To get an overview of the data, I'll start by making an Amanda Cox style [record chart](http://flowingdata.com/2014/11/06/touchdown-passing-record/). To do that, each nomination needs information about the previous nominations the nominee had:
 
 ```javascript
 //count previous nominations
@@ -94,7 +95,7 @@ byActress.forEach(function(actress){
 })
 ```
 
-Since the nominations are already sorted by year, the index of each actresses' nomination in its nested values array is equal to the number of previous nominations the actress had at the time of the nomination. While looping over each of the nominations in the values array, I also attach a reference to the actresses' other nominations so it will be easy to find a nominees' other nominations easily later.   
+Since the nominations are already sorted by year, the index of each actresses' nomination in its nested values array is equal to the number of previous nominations the actress had at the time of the nomination. While looping over the nominations in the values array, I also attach a reference to the actresses' other nominations so it will be easy to find a nominees' other nominations later.   
 
 Time to graph the data! 
 
@@ -117,7 +118,7 @@ c.svg.dataAppend(actressNominations, 'circle.nomination')
     .call(d3.attachTooltip)
 ```
 
-There are a couple of simplifications that make the code shorter and more readable. `d3.conventions` returns an object with automatically configured margin, svg, scales and axis - saving the tedium of globbing together snippets from several bl.ocks over and over.
+There are a couple of abstractions from [d3-starterkit](https://github.com/1wheel/d3-starterkit) that make this code shorter and more readable. `d3.conventions` returns an object with automatically configured margins, svg, scales and axis - saving the tedium of globbing together snippets from several bl.ocks over and over again.
 
 `c.svg.dataAppend(actressNominations, 'circle.nomination')` is shorthand for
 
@@ -128,16 +129,16 @@ c.svg.selectAll('circle.nomination')
     .classed('nomination', true)
 ```
 
-In addition to converting strings into accessor functions, `ƒ` also composes functions. Typically the functions passed to `attr` or `style` select a single property from that data bound to an element and encode it as a visual property with a scale function. Instead of typing this same type of function over and over - `.attr('cx', function(d){ return c.x(d.ceremonyNum) })` - we can strip it down to its bare essentials with `.attr('cx', ƒ('ceremonyNum', c.x))`.
+In addition to converting strings into accessor functions, `ƒ` also composes functions. Typically the functions passed to `attr` or `style` select a single property from the data bound to an element and encode it as a visual property with a scale function. Instead of typing this same type of function over and over - `.attr('cx', function(d){ return c.x(d.ceremonyNum) })` - we can strip it down to its bare essentials with `.attr('cx', ƒ('ceremonyNum', c.x))`.
 
-`d3.attachTooltip` adds a basic tooltip showing all the properties attached to an element, removing the need to `Inspect element` and run `> d3.select($0).datum` to examine outliers.  
+`d3.attachTooltip` adds a basic tooltip showing all the properties attached to an element, removing the need to `Inspect element` and run `> d3.select($0).datum` to examine outliers and other interesting points.  
 
 The result:
 
 ##### Number of previous nominations over time
 <div id='nominations-scatter'></div>
 
-Unfortunately nominations in the same year with the same number of previous nominations cover each other up. We can fix that by grouping on year and previous nominations, then offsetting nominations in the same group so they don't overlap:
+Unfortunately nominations in the same year with the same number of previous nominations cover each other up. We can fix that by grouping on year and number previous nominations, then offsetting nominations in the same group so they don't overlap:
 
 ```javascript
 d3.nest()
@@ -177,9 +178,9 @@ circles.on('mouseover', function(d){
 })
 ```
 
-Saving a reference to an actresses' other nominations and storing position as an `[x, y]` property makes [drawing a path](roadtolariss/as) connecting them simple.   
+Saving a reference to an actresses' other nominations and storing position as an `[x, y]` property makes [drawing a path](http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/) connecting them simple.   
 
-Connecting and labeling the nominations of very successful actresses helps provide context while examining other careers. Oscar nominations aren't nearly as sparse as home runs; only the actresses with more than 5 nominations are connected so the bottom of the graph doesn't turn to spaghetti.
+Connecting and labeling the nominations of very successful actresses helps provide context while examining other careers. Oscar nominations aren't nearly as sparse as the home runs or touchdown passing records; only the actresses with more than 5 nominations are connected so the bottom of the graph doesn't turn to spaghetti.
 
 ```javascript
 var topActresses = byActress.filter(function(d){ return d.values.length > 5 })
@@ -196,7 +197,7 @@ c.svg.dataAppend(topActresses, 'text')
 
 <div id='nominations-linked'></div>
 
-While javascript doesn't have an abundance of stats packages like R or python, `d3.nest` and `d3.mean` make rudimentary trend analysis possible:
+While javascript doesn't have an abundance of statistics packages like R or python, `d3.nest` and `d3.mean` make rudimentary trend analysis possible:
 
 ```javascript
 //group by year
@@ -212,6 +213,7 @@ byYear.forEach(function(d){
   d.wonAvgPrev = d3.mean(prevNoms.filter(ƒ('won')), ƒ('prevNominations'))
 })
 ```
+
 Looping over each year, the average number of previous nominations over the past 15 is computed and attached to each year group. This isn't a particularity efficient way of calculating a rolling average - see [science.js](https://github.com/jasondavies/science.js) or [simple-statistics](https://github.com/tmcw/simple-statistics) for that - but our data set is small and it gets the job done.
 
 
@@ -224,15 +226,18 @@ c.svg.append('path.nomAvg').attr('d', line(byYear))
 c.svg.append('path.winAvg').attr('d', line.y(ƒ('wonAvgPrev', c.y))(byYear))
 ```
 
-Again, `ƒ` provides a susscient way of grabbing a property from an object and transforming it with a scale. 
+Again, `ƒ` provides a succinct way of grabbing a property from an object and transforming it with a scale. 
 
 <div id='nominations-average'></div>
 
+Over the last 20 years, the academy has preferred picked best actresses with fewer previous nominations than their other nominees. Since we've already downloading supporting and 
+
 #### Animating data
 
-Encoding the data differently shows different patterns. While it is clear Strep has the most nominations, by deemphasizing time we can see the distrubution of nomintions across actress. Fir 
+Encoding the data differently shows different patterns. While it is clear Strep has the most nominations, by deemphasizing time we can see the distribution of nominations across actress. Fir 
 
-Over the last 20 years, the accemdy has prefered picked best actresses with fewer previous nominations than their other nommines. First, create a `g` element for each actress and sort vertically by number of nominations: 
+
+First, create a `g` element for each actress and sort vertically by number of nominations: 
 
 ```javascript
 c.y.domain([0, topActresses.length - 1])
