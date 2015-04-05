@@ -11,7 +11,7 @@ D3 is best known for [polished interactive visualizations](http://d3js.org/). Wi
 
 The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/BasicSearchInput.jsp) displays all award nominations on a single page (pick award years 1927 to 2014 and click search). The Elements tab of the dev tools reveals the structure of the page: 
 
-<src src='image/data-explore.gif'></src >
+<video controls="controls" width="750" name="Elements Tab" autoplay="true" loop="true" controller="false" src="images/scrape.mov"></video>
 
 All the awards are contained within a single `dl` element. Each year and award type are denoted with `dt` and `div` elements, with the actual nominations are `table` elements interwoven - not nested - between. While `document.querySelectorAll` or the already loaded jQuery could be used to traverse the DOM, injecting D3 onto the page allows us to use the same API for gathering and displaying data. A little bit of javascrict in the console does the trick: 
 
@@ -341,7 +341,6 @@ function careerLength(d){
 Store the created positionBy objects in an array makes creating a toggle to switch between them simple:
 
 ```javascript
-
 d3.select('#buttons').dataAppend(positionings, 'span.button')
     .text(ƒ('label'))
     .on('click', renderPositioning)
@@ -349,9 +348,7 @@ d3.select('#buttons').dataAppend(positionings, 'span.button')
 
 <div id='buttons'></div>
 
-This is just a starting point - onces 
-
-Since we've stored 
+This is just a starting point. If we think of anything to sort or group our data on, seeing it only requires writing a short function. We've also only looked at a small slice of whole nomination dataset. 
 
 #### Interesting things to read
 
