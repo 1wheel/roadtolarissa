@@ -354,16 +354,14 @@ This is just a starting point - onces
 Since we've stored 
 
 #### Interesting things to read
-ggplot2 dplyr rstudio provide a lovely intergrated enviroment with tight feedback cycles
-Wickamh - tidy data + split apply combine
 
-tamera's book! - very clear thinking about different ways of encoding data
+`ggplot2` `dplyr` `magrittr` and `rstudio` create a wonderfully integrated environment for quickly and efficiently analyzing data. While using these tools to create visualizations for the web unfortunately require some duplication of effort, the advice in Hadley Wickham's [Tidy Data](http://vita.had.co.nz/papers/tidy-data.pdf) and [The Split-Apply-Combine](http://www.jstatsoft.org/v40/i01/paper) papers apply to anyone working with data. This post is essentially an amalgamation of different ways I've been trying to pull ideas from Hadleyverse into my D3 work. 
 
-rotations of data, tuffte/heereiterating over the design space
+Tamara Munzner's [Visualization Analysis & Design](http://www.crcpress.com/product/isbn/9781466508910) has helped me think significantly more clearly about ways of representing data. 
 
-jsdata is a great introduction to lightweight data analysis with d3. 
+[Learn JS Data](http://learnjsdata.com/) is a great introduction to lightweight data analysis with d3 and underscore. Other good resources on functional javascript include [Eloquent Javascript](http://eloquentjavascript.net/05_higher_order.html), [Functional Javascript](http://www.functionaljavascript.com/) and [Javascript Allonge](https://leanpub.com/javascript-allonge/read).
 
-
+Code for this post on [github](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/dataAnalysis). 
 
 
 <div class='tooltip'></div>
