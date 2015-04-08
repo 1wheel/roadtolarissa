@@ -52,17 +52,16 @@ Turn twitter follow list into a rss feed, export OXML
 
 Make front end to browse
 
-###D3 attr and style with auto compose
+###[graph-scroll lib](http://1wheel.github.io/graph-scroll/)
 
-###graph-scroll lib
-
-###Analysing data with d3 
+###[Analysing data with d3](http://roadtolarissa.com/data-exploration/) 
 Oscars, temp over time
 - scrape
 - nest
 - group
 
-###Click and drag exploration of svg paths
+
+###[Click and drag exploration of svg paths](http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/)
 
 ###Software usage
 http://cran-logs.rstudio.com/
@@ -90,6 +89,12 @@ Every player that's played with another player
 
 Convex box score points - every player that's played 20 min+ and scored less than 10
 
+###Space debis
+http://earthobservatory.nasa.gov/Features/OrbitsCatalog/page3.php
+
+http://www.ucsusa.org/nuclear_weapons_and_global_security/solutions/space-weapons/ucs-satellite-database.html#.VSaJAjvF-nB
+
+http://www.asterank.com/3d/
 
 ###python v r data analysis 
 
