@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Data Exploration With D3"
-permalink: data-exploration
+permalink: /data-exploration
 categories: 
 ---
 
