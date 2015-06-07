@@ -1,0 +1,32 @@
+body{
+	margin: 0px;
+	font: 10px sans-serif;
+}
+
+path.player{
+	stroke: steelblue;
+	stroke-width: 4px;
+	fill: none;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+circle{
+	stroke-width: 2px;
+	stroke: steelblue;
+}
+
+.name{
+	text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;
+	fill: black;
+}
+
+
+svg{
+	overflow: visible;
+}
