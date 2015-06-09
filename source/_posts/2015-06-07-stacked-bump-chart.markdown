@@ -28,7 +28,7 @@ var players = [
 ```
 
 
-<div id='line'></div>
+<div id='lines'></div>
 
 Words, words words
 
@@ -43,7 +43,7 @@ Words, words words
 <script src="/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
 <script src="/javascripts/libs/lodash.js" type="text/javascript"></script>
 <script src="/javascripts/libs/d3-jetpack-v1.js" type="text/javascript"></script>
-<script src="/javascripts/libs/d3-starterkit-v0.js" type="text/javascript"></script>
+<script src="/javascripts/libs/d3-starterkit-v1.js" type="text/javascript"></script>
 
 
 <script src="/javascripts/posts/stackedBump/script.js"></script>

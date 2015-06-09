@@ -1,8 +1,3 @@
-body{
-	margin: 0px;
-	font: 10px sans-serif;
-}
-
 path.player{
 	stroke: steelblue;
 	stroke-width: 4px;
@@ -29,4 +24,6 @@ circle{
 
 svg{
 	overflow: visible;
+	font-size: 10px;
+	background-color: white;
 }
