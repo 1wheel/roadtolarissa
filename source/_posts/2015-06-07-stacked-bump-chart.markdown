@@ -27,6 +27,14 @@ var players = [
 ]
 ```
 
+Now, lets try drawing the chart
+
+var c = d3.conventions({height: 120, parentSel: d3.select('#bump')})
+
+c.x.domain([1950, 2015])
+c.y.domain([0, 10])
+
+
 
 <div id='lines'></div>
 
