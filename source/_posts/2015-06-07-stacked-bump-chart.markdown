@@ -3,6 +3,7 @@ layout: post
 title: "Stacked Bump Charts"
 comments: true
 categories: 
+plink: bump-chart
 ---
 
 Alicia Parlapiano published an excellent [series of stacked bump charts](http://www.nytimes.com/interactive/2015/06/04/us/politics/stacking-up-the-presidential-fields.html) showing the history of presidential primary campaigns last Thursday. 
@@ -17,7 +18,7 @@ First, the data needs to be in the right format. Since we're just showing when e
 
 ```javascript
 var players = [
-	{name: 'Kareem',    start: 1970,  stop: 1989},
+  {name: 'Kareem',    start: 1970,  stop: 1989},
   {name: 'Jordan',    start: 1985,  stop: 2003},
   {name: 'Russell',   start: 1957,  stop: 1969},
   {name: 'Wilt',      start: 1959,  stop: 1969},
