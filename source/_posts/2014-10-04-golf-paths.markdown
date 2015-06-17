@@ -1,6 +1,6 @@
 ---
 layout: post
-permalink: /golf-paths
+plink: golf-paths
 title: "Golf Paths"
 comments: true
 categories: 

@@ -2,7 +2,7 @@
 title: Next Project
 author: admin
 layout: post
-permalink: /next-project
+plink: next-project
 categories:
   - Uncategorized
 ---

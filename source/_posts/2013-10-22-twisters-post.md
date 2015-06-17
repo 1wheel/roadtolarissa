@@ -2,7 +2,7 @@
 title: Twisters
 author: admin
 layout: post
-permalink: /twisters-post
+plink: twisters-post
 categories:
   - Uncategorized
 ---

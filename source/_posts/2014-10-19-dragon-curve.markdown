@@ -1,6 +1,6 @@
 ---
 layout: post
-permalink: /dragon-curve
+plink: dragon-curve
 title: "Dragon Curve"
 categories: 
 ---

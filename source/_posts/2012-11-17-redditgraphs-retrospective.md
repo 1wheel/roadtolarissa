@@ -2,7 +2,7 @@
 title: Redditgraphs Retrospective
 author: admin
 layout: post
-permalink: /redditgraphs-retrospective
+plink: redditgraphs-retrospective
 categories:
   - Uncategorized
 ---

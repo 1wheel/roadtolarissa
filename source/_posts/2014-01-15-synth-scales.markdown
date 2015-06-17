@@ -2,7 +2,7 @@
 layout: post
 title: "Making Music with d3"
 published: true
-permalink: /synth
+plink: synth
 ---
 
 <svg id='synth'></svg>

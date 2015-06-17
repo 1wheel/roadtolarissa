@@ -2,7 +2,7 @@
 title: Unemployment Rates
 author: admin
 layout: post
-permalink: /unemployment-rates
+plink: unemployment-rates
 categories:
   - Uncategorized
 ---

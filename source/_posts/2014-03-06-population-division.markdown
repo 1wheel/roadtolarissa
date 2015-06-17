@@ -3,7 +3,7 @@ layout: post
 title: "Population Division"
 comments: true
 categories: 
-permalink: /population-division
+plink: population-division
 
 ---
 

@@ -2,7 +2,6 @@
 layout: post
 title: "Stacked Bump Charts"
 comments: true
-categories: 
 plink: bump-chart
 ---
 

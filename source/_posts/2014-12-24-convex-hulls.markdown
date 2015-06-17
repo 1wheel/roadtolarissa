@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Convex Hulls"
-permalink: /convex-hulls
+plink: convex-hulls
 comments: true
 categories: 
 ---

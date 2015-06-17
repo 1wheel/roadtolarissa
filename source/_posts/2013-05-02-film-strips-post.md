@@ -2,7 +2,7 @@
 title: Film Strips
 author: admin
 layout: post
-permalink: /film-strips-post
+plink: film-strips-post
 categories:
   - Uncategorized
 ---

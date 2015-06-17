@@ -2,7 +2,7 @@
 title: Whale Words
 author: admin
 layout: post
-permalink: /whale-words
+plink: whale-words
 categories:
   - Uncategorized
 ---
