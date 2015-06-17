@@ -1,0 +1,12 @@
+<div class="wrap">
+  <div class="inner" style="text-align: center">
+    <% if (config.author){ %>
+    &copy; <%= new Date().getFullYear() %> <%= config.author %> All Rights Reserved
+    <% } else { %>
+    &copy; <%= new Date().getFullYear() %> <%= config.title %> All Rights Reserved
+    <% } %>
+
+    / <a href="https://github.com/kywk/hexo-theme-biture">biture</a> for <a href="http://zespia.tw/hexo/">hexo</a>
+    / developed by <a href="http://kywk.github.io/moco/">MooCow (kywk)</a>.
+  </div>
+</div>

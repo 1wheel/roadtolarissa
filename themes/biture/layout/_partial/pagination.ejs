@@ -1,0 +1,14 @@
+<div class="pure-g bitpager">
+  <div class="pure-u-1-12"></div>
+  <div class="pure-u-1-4">
+    <% if (page.prev){ %>
+    <a href="<%- config.root %><%- page.prev_link %>">&larr; <%= __('prev') %></a>
+    <% } %>
+  </div>
+  <div class="pure-u-5-12"></div>
+  <div class="pure-u-1-4">
+    <% if (page.next){ %>
+    <a href="<%- config.root %><%- page.next_link %>" class="pull-right"><%= __('next') %> &rarr;</a>
+    <% } %>
+  </div>
+</div>

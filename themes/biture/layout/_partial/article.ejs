@@ -1,0 +1,33 @@
+<article class="<%= item.layout %>">
+  <div class="pure-g">
+
+    <!-- article: meta -->
+    <div class="pure-u-1-12 article-meta">
+      <div class="date"><time datetime="<%= item.date.toDate().toISOString() %>">
+        <div class="day"><%= item.date.format("D") %></div>
+        <div class="month"><%=  item.date.format("MMM YYYY") %></div>
+      </time></div>
+      <div class="article-tags">
+        <%- partial('post/tag') %>
+      </div>
+    </div>
+
+    <!-- article: main -->
+    <div class="pure-u-11-12">
+      <header><div class="article-title">
+        <%- partial('post/title') %>
+      </div></header>
+      <div class="article-entry">
+        <% if (item.excerpt && index){ %>
+          <%- item.excerpt %>
+          <a href="<%- item.permalink %>"><%- theme.excerpt_link %></a>
+        <% } else { %>
+          <%- item.content %>
+        <% } %>
+      </div>
+      <footer><div class="article-comment">
+        <%- partial('comment') %>
+      </div></footer>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,7 @@
+<h1>Home Page</h1>
+
+<% page.posts.each(function(item){ %>
+  <%- partial('_partial/article', {item: item, index: true}) %>
+<% }); %>
+
+<%- partial('_partial/pagination') %>

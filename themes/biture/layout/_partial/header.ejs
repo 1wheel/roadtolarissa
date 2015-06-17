@@ -1,0 +1,42 @@
+<div class="wrap">
+  <div class="inner">
+    <a class="brand" href="<%- config.root %>"><%= config.title %></a>
+    <a id="menu-toggle" href="#"><i class="fa fa-bars"></i></a>
+<ul class="nav-menu">
+<%  for (var i in theme.menu) { %>
+<%    if (Object.prototype.toString.call(theme.menu[i]) === '[object Object]' ) { %>
+  <li><a href="#"><%= i %></a>
+    <ul class="sub-menu">
+<%      for (var j in theme.menu[i]) { %>
+      <li><a href="<%- theme.menu[i][j] %>"><%= j %></a></li>
+<%      } %>
+    </ul>
+  </li>
+<%    } else { %>
+    <li><a href="<%- theme.menu[i] %>"><%= i %></a></li>
+<%    } %>
+<%  } %>
+</ul>
+
+<ul class="nav-menu ext-menu">
+<%  for (var i in theme.extmenu) { %>
+<%    if ( Object.prototype.toString.call( theme.extmenu[i] ) === '[object Object]' ) { %>
+  <li><a href="#"><%= i %></a>
+    <ul class="sub-menu">
+<%      for (var j in theme.extmenu[i]) { %>
+      <li><a href="<%- theme.extmenu[i][j] %>"><%= j %></a></li>
+<%      } %>
+    </ul>
+  </li>
+<%    } else { %>
+    <li><a href="<%- theme.extmenu[i] %>"><%= i %></a></li>
+<%    } %>
+<%  } %>
+  <li><a class="various" href="#fbox-tagcloud">tags</a></li>
+</ul>
+</div>
+
+  </div>
+</div>
+
+<div class="tagcloud" id="fbox-tagcloud" style="margin:10px; display:none; overflow: hidden"><%- tagcloud(site.tags, { "min_font": 12, "max_font": 24, "amount": 80,}) %></div>
