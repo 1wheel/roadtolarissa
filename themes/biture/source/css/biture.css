@@ -106,7 +106,6 @@ blockquote footer {
 /* 2. biture: Header & Navigate menu */
 /*-------------------------------------------------------------------------------------------*/
 #header {
-  position: fixed;
   left: 0;
   right: 0;
   width: 100%;
