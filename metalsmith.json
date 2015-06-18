@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "title": "My Blog",
+    "description": "My second, super-cool blog."
+  },
+  "source": "source",
+  "destination": "public",
+  "plugins": {
+    "metalsmith-ignore": [
+      "**/.DS_Store",
+      "unfinished/*"
+    ],
+    "metalsmith-markdown": {},
+    "metalsmith-permalinks": {
+      "pattern": ":title"
+    },
+    "metalsmith-templates": {
+      "engine": "handlebars"
+    }
+  }
+}

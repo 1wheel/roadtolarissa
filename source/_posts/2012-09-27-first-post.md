@@ -1,8 +1,8 @@
 ---
 title: First Post
 author: admin
-layout: post
-permalink: /first-post
+template: post.html
+permalink: first-post
 categories:
   - Uncategorized
 tags:

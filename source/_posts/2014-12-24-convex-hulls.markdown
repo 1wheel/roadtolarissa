@@ -1,5 +1,5 @@
 ---
-layout: post
+template: post.html
 title: "Convex Hulls"
 permalink: /convex-hulls
 comments: true

@@ -1,7 +1,7 @@
 ---
 title: Film Strips
 author: admin
-layout: post
+template: post.html
 permalink: /film-strips-post
 categories:
   - Uncategorized

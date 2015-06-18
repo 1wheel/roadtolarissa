@@ -1,5 +1,5 @@
 ---
-layout: post
+template: post.html
 permalink: /golf-paths
 title: "Golf Paths"
 comments: true

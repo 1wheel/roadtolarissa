@@ -1,7 +1,7 @@
 ---
 title: Zoomable Sierpinski Triangle
 author: admin
-layout: post
+template: post.html
 permalink: /zoomable-sierpinski-triangle-with-d3-js
 categories:
   - Uncategorized

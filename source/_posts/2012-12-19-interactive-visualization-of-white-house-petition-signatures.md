@@ -1,7 +1,7 @@
 ---
 title: White House Petition Signatures
 author: admin
-layout: post
+template: post.html
 permalink: /interactive-visualization-of-white-house-petition-signatures
 categories:
   - Uncategorized

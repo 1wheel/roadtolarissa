@@ -1,7 +1,8 @@
 ---
-layout: post
+template: post.html
 title: "Stacked Bump Charts"
 comments: true
+permalink: /stacked-bump
 categories: 
 ---
 

@@ -1,6 +1,7 @@
 ---
-layout: post
+template: post.html
 title: "Coloring Maps"
+permalink: /coloring-maps
 categories: 
 ---
 

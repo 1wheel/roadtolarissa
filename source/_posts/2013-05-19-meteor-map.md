@@ -1,7 +1,7 @@
 ---
 title: Meteor Map
 author: admin
-layout: post
+template: post.html
 permalink: /meteor-map
 categories:
   - Uncategorized
