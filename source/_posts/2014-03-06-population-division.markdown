@@ -1,5 +1,5 @@
 ---
-layout: post
+template: post.html
 title: "Population Division"
 comments: true
 categories: 

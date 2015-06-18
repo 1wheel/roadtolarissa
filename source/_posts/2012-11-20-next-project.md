@@ -1,7 +1,7 @@
 ---
 title: Next Project
 author: admin
-layout: post
+template: post.html
 permalink: /next-project
 categories:
   - Uncategorized

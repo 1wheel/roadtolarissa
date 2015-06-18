@@ -1,7 +1,7 @@
 ---
 title: Unemployment Rates
 author: admin
-layout: post
+template: post.html
 permalink: /unemployment-rates
 categories:
   - Uncategorized

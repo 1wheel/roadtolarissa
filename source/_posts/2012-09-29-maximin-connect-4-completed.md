@@ -1,8 +1,8 @@
 ---
 title: Maximin Connect 4 Completed
 author: admin
-layout: post
-permalink: /maximin-connect-4-completed
+template: post.html
+permalink: maximin-connect-4-completed
 categories:
   - Uncategorized
 ---

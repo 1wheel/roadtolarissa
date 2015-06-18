@@ -1,7 +1,7 @@
 ---
 title: Redditgraphs Retrospective
 author: admin
-layout: post
+template: post.html
 permalink: /redditgraphs-retrospective
 categories:
   - Uncategorized

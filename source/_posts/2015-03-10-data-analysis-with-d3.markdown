@@ -1,5 +1,5 @@
 ---
-layout: post
+template: post.html
 title: "Data Exploration With D3"
 permalink: /data-exploration
 categories: 

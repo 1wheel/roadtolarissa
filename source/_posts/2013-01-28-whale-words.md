@@ -1,7 +1,7 @@
 ---
 title: Whale Words
 author: admin
-layout: post
+template: post.html
 permalink: /whale-words
 categories:
   - Uncategorized

@@ -1,7 +1,7 @@
 ---
 title: Twisters
 author: admin
-layout: post
+template: post.html
 permalink: /twisters-post
 categories:
   - Uncategorized

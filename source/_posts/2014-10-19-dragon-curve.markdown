@@ -1,5 +1,5 @@
 ---
-layout: post
+template: post.html
 permalink: /dragon-curve
 title: "Dragon Curve"
 categories: 

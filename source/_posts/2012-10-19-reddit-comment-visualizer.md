@@ -1,7 +1,7 @@
 ---
 title: Reddit Comment Visualizer
 author: admin
-layout: post
+template: post.html
 permalink: /reddit-comment-visualizer
 categories:
   - redditgraphs
