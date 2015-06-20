@@ -10,12 +10,17 @@
       "**/.DS_Store",
       "unfinished/*"
     ],
+    "metalsmith-metallic": true,
     "metalsmith-markdown": {},
     "metalsmith-permalinks": {
       "pattern": ":title"
     },
     "metalsmith-templates": {
       "engine": "handlebars"
+    },
+    "metalsmith-assets": {
+      "source": "source",
+      "destination": "public"
     }
   }
 }

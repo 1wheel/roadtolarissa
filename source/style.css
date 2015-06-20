@@ -1,0 +1,36 @@
+html{
+	border-top: 40px solid black;
+	min-width: 760px;
+	background-color: #F5F5F5;
+}
+
+body{
+	padding-top: 40px;
+	max-width: 750px;
+	margin: 0px auto;
+	font-family: 'Roboto Slab', serif;
+	line-height: 22px;
+	font-size: 16px;
+}
+
+.header{
+	position: absolute;
+	top: 6px;
+	color: #eee;
+	font-size: 15px;
+	width: 750px;
+	overflow: visible;
+}
+.header-left{
+	float: left;
+}
+.header-right{
+	float: right;
+}
+
+.header a{
+	color: #eee;
+}
+.header a:hover{
+	color: #fff;
+}
