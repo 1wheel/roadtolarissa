@@ -1,8 +1,24 @@
 <html>
 <head>
   <title>My Blog</title>
+
+	<link rel="stylesheet" type="text/css" href="/style.css">
+
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>  
+	<link rel="stylesheet" type="text/css" href="/highlight.css">
 </head>
 <body>
+	<div class='header'>
+		<div class='header-left'>
+			<a href='http://roadtolarissa.com'>roadtolarissa</a>
+		</div>
+		<div class='header-right'>
+			Adam Pearce
+			<a href='http://github.com/1wheel'>gh</a>
+			<a href='http://github.com/1wheel'>twtr</a>
+		</div>
+  </div>
+  
   <h1>{{ title }}</h1>
   <time>{{ date }}</time>
   {{{ contents }}}
