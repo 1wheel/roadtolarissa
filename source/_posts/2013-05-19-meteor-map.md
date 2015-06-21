@@ -18,8 +18,8 @@ Most of the ~30 hours I've spent working on this map were spent adding some of t
 *   **Mouseover** **effects**  
     [<img class="alignnone size-full wp-image-242" alt="mouseover" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/mouseover.png" width="254" height="326" />][4]  
     The data set had some additional information that I wasn't sure how to represent graphically. To keep that information accessible and make the map interactive, I added it to a mouseover tooltip. Each meteor also had a URL pointing to its [meteorological society page][5] which was used to create an onclick event for the circles. The pages had pictures of meteors which I used to create thumbnail previews. This went fairly smoothly until I tried to upload the images to my webserver. I was using meteor name as the filename and some of them had unicode characters which resulted in weird errors that were difficult to diagnose.
-*   **Crossfilters  
-    **To make the map even more interactive, I incorporated the year and mass data into histogram [crossfilters][6]. I've used the crossfilter library indirectly before, through [dc.js][7] which has several chart types premade. Getting the circles on the map to change with transitions went beyond what dc.js can do out of the box and I had to get my hands dirty with the actual crossfilter library. The messiness of the code I ended up with reflects that - I'm getting closer to doing things correctly, but I'm not quite there yet.
+*   **Crossfilters**<br>
+    To make the map even more interactive, I incorporated the year and mass data into histogram [crossfilters][6]. I've used the crossfilter library indirectly before, through [dc.js][7] which has several chart types premade. Getting the circles on the map to change with transitions went beyond what dc.js can do out of the box and I had to get my hands dirty with the actual crossfilter library. The messiness of the code I ended up with reflects that - I'm getting closer to doing things correctly, but I'm not quite there yet.
 
 Ultimately, I ended up with a presentation pretty close to [Javier de la Torre's][8]:
 
