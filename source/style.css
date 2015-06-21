@@ -1,25 +1,31 @@
 html{
-	border-top: 40px solid black;
+	/*border-top: 40px solid black;*/
 	min-width: 760px;
 	background-color: #F5F5F5;
+	font-weight: normal;
 }
 
 body{
-	padding-top: 40px;
+	padding-top: 22px;
 	max-width: 750px;
 	margin: 0px auto;
 	font-family: 'Roboto Slab', serif;
-	line-height: 22px;
+	line-height: 1.55em;
 	font-size: 16px;
+}
+
+a{
+	color: black;
 }
 
 .header{
 	position: absolute;
 	top: 6px;
-	color: #eee;
+	color: black;
 	font-size: 15px;
 	width: 750px;
 	overflow: visible;
+	/*border-bottom: 1px solid black;*/
 }
 .header-left{
 	float: left;
@@ -29,14 +35,30 @@ body{
 }
 
 .header a{
-	color: #eee;
+	opacity: .5;
+	text-decoration: none;
 }
 .header a:hover{
-	color: #fff;
+	opacity: 1
 }
+.header img{
+	width: 16px;
+	position: relative;
+	top: 2px;
+	margin-left: 5px;
+}
+
 
 h1,h2,h3,h4,h5{
 	font-family: 'Roboto', sans-serif;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+h1{
+	font-weight: 300;
+	letter-spacing: -2px;
+	font-size: 44px;
 }
 
 h2,h3,h4,h5{
@@ -49,4 +71,8 @@ p code{
 	padding-left: .2em;
 	padding-right: .2em;
 	border-radius: 6px;
+}
+
+strong{
+	font-weight: bold;
 }
