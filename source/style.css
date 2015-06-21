@@ -34,3 +34,19 @@ body{
 .header a:hover{
 	color: #fff;
 }
+
+h1,h2,h3,h4,h5{
+	font-family: 'Roboto', sans-serif;
+}
+
+h2,h3,h4,h5{
+	font-size: 22px;
+}
+
+p code{
+	background: #ddd;
+	padding: .05em;
+	padding-left: .2em;
+	padding-right: .2em;
+	border-radius: 6px;
+}
