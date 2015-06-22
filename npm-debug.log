@@ -1,0 +1,343 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'metalsmith-permalinks' ]
+2 info using npm@2.1.10
+3 info using node@v0.10.33
+4 verbose node symlink /usr/local/bin/node
+5 silly cache add args [ 'metalsmith-permalinks@^0.1.1', null ]
+6 verbose cache add spec metalsmith-permalinks@^0.1.1
+7 silly cache add parsed spec { raw: 'metalsmith-permalinks@^0.1.1',
+7 silly cache add   scope: null,
+7 silly cache add   name: 'metalsmith-permalinks',
+7 silly cache add   rawSpec: '^0.1.1',
+7 silly cache add   spec: '>=0.1.1 <0.2.0',
+7 silly cache add   type: 'range' }
+8 verbose addNamed metalsmith-permalinks@>=0.1.1 <0.2.0
+9 silly addNamed semver.valid null
+10 silly addNamed semver.validRange >=0.1.1 <0.2.0
+11 silly addNameRange { name: 'metalsmith-permalinks',
+11 silly addNameRange   range: '>=0.1.1 <0.2.0',
+11 silly addNameRange   hasData: false }
+12 silly mapToRegistry name metalsmith-permalinks
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/metalsmith-permalinks
+16 verbose addNameRange registry:https://registry.npmjs.org/metalsmith-permalinks not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/metalsmith-permalinks
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 16:49:17
+20 verbose request id 692591c0ef2c8547
+21 verbose etag "QMFFDVTB2KKMYODAPST66MPC"
+22 http request GET https://registry.npmjs.org/metalsmith-permalinks
+23 http 304 https://registry.npmjs.org/metalsmith-permalinks
+24 silly get cb [ 304,
+24 silly get   { date: 'Thu, 18 Jun 2015 20:49:18 GMT',
+24 silly get     via: '1.1 varnish',
+24 silly get     'cache-control': 'max-age=60',
+24 silly get     etag: '"QMFFDVTB2KKMYODAPST66MPC"',
+24 silly get     age: '0',
+24 silly get     connection: 'keep-alive',
+24 silly get     'x-served-by': 'cache-jfk1032-JFK',
+24 silly get     'x-cache': 'MISS',
+24 silly get     'x-cache-hits': '0',
+24 silly get     'x-timer': 'S1434660558.104358,VS0,VE19',
+24 silly get     vary: 'Accept' } ]
+25 verbose etag https://registry.npmjs.org/metalsmith-permalinks from cache
+26 silly addNameRange number 2 { name: 'metalsmith-permalinks',
+26 silly addNameRange   range: '>=0.1.1 <0.2.0',
+26 silly addNameRange   hasData: true }
+27 silly addNameRange versions [ 'metalsmith-permalinks',
+27 silly addNameRange   [ '0.0.1',
+27 silly addNameRange     '0.0.2',
+27 silly addNameRange     '0.1.0',
+27 silly addNameRange     '0.1.1',
+27 silly addNameRange     '0.1.2',
+27 silly addNameRange     '0.1.3',
+27 silly addNameRange     '0.2.0',
+27 silly addNameRange     '0.2.1',
+27 silly addNameRange     '0.2.2',
+27 silly addNameRange     '0.3.0',
+27 silly addNameRange     '0.3.1',
+27 silly addNameRange     '0.3.2',
+27 silly addNameRange     '0.4.0' ] ]
+28 verbose addNamed metalsmith-permalinks@0.1.3
+29 silly addNamed semver.valid 0.1.3
+30 silly addNamed semver.validRange 0.1.3
+31 silly cache afterAdd metalsmith-permalinks@0.1.3
+32 verbose afterAdd /Users/traveler/.npm/metalsmith-permalinks/0.1.3/package/package.json not in flight; writing
+33 verbose afterAdd /Users/traveler/.npm/metalsmith-permalinks/0.1.3/package/package.json written
+34 silly install resolved [ { name: 'metalsmith-permalinks',
+34 silly install resolved     description: 'A metalsmith plugin for permalinks.',
+34 silly install resolved     repository:
+34 silly install resolved      { type: 'git',
+34 silly install resolved        url: 'git://github.com/segmentio/metalsmith-permalinks.git' },
+34 silly install resolved     version: '0.1.3',
+34 silly install resolved     license: 'MIT',
+34 silly install resolved     main: 'lib/index.js',
+34 silly install resolved     dependencies:
+34 silly install resolved      { substitute: 'git://github.com/segmentio/substitute#0.0.1',
+34 silly install resolved        'slug-component': '~1.1.0',
+34 silly install resolved        debug: '~0.7.4' },
+34 silly install resolved     devDependencies: { mocha: '1.x', metalsmith: '0.x', 'assert-dir-equal': '0.0.1' },
+34 silly install resolved     bugs: { url: 'https://github.com/segmentio/metalsmith-permalinks/issues' },
+34 silly install resolved     homepage: 'https://github.com/segmentio/metalsmith-permalinks',
+34 silly install resolved     _id: 'metalsmith-permalinks@0.1.3',
+34 silly install resolved     dist:
+34 silly install resolved      { shasum: '2e206c2f431be6d89ee00f92d0a99a5a57b3fa6f',
+34 silly install resolved        tarball: 'http://registry.npmjs.org/metalsmith-permalinks/-/metalsmith-permalinks-0.1.3.tgz' },
+34 silly install resolved     _from: 'metalsmith-permalinks@>=0.1.1 <0.2.0',
+34 silly install resolved     _npmVersion: '1.4.4',
+34 silly install resolved     _npmUser: { name: 'segmentio', email: 'team@segment.io' },
+34 silly install resolved     maintainers: [ [Object], [Object] ],
+34 silly install resolved     directories: {},
+34 silly install resolved     _shasum: '2e206c2f431be6d89ee00f92d0a99a5a57b3fa6f',
+34 silly install resolved     _resolved: 'https://registry.npmjs.org/metalsmith-permalinks/-/metalsmith-permalinks-0.1.3.tgz',
+34 silly install resolved     readme: 'ERROR: No README data found!' } ]
+35 info install metalsmith-permalinks@0.1.3 into /Users/traveler/Desktop/roadtolarissa
+36 info installOne metalsmith-permalinks@0.1.3
+37 verbose installOne of metalsmith-permalinks to /Users/traveler/Desktop/roadtolarissa not in flight; installing
+38 verbose lock using /Users/traveler/.npm/_locks/metalsmith-permalinks-1516a5f527455d9b.lock for /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+39 silly install write writing metalsmith-permalinks 0.1.3 to /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+40 silly cache addNamed cb metalsmith-permalinks@0.1.3
+41 verbose unbuild node_modules/metalsmith-permalinks
+42 info preuninstall metalsmith-permalinks@0.1.3
+43 info uninstall metalsmith-permalinks@0.1.3
+44 verbose unbuild rmStuff metalsmith-permalinks@0.1.3 from /Users/traveler/Desktop/roadtolarissa/node_modules
+45 info postuninstall metalsmith-permalinks@0.1.3
+46 verbose gentlyRm vacuuming /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+47 silly gentlyRm purging /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+48 silly gentlyRm quitting because other entries in /Users/traveler/Desktop/roadtolarissa/node_modules
+49 verbose tar unpack /Users/traveler/.npm/metalsmith-permalinks/0.1.3/package.tgz
+50 verbose tar unpacking to /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+51 verbose gentlyRm vacuuming /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+52 silly gunzTarPerm modes [ '755', '644' ]
+53 silly gunzTarPerm extractEntry package.json
+54 silly gunzTarPerm extractEntry .npmignore
+55 silly gunzTarPerm extractEntry History.md
+56 silly gunzTarPerm extractEntry Makefile
+57 silly gunzTarPerm extractEntry Readme.md
+58 silly gunzTarPerm extractEntry lib/index.js
+59 silly gunzTarPerm extractEntry test/index.js
+60 silly gunzTarPerm extractEntry test/fixtures/no-pattern/build/index.html
+61 silly gunzTarPerm extractEntry test/fixtures/no-pattern/build/post/index.html
+62 silly gunzTarPerm extractEntry test/fixtures/no-pattern/expected/index.html
+63 silly gunzTarPerm extractEntry test/fixtures/no-pattern/expected/post/index.html
+64 silly gunzTarPerm extractEntry test/fixtures/no-pattern/src/index.html
+65 silly gunzTarPerm extractEntry test/fixtures/no-pattern/src/post.html
+66 silly gunzTarPerm extractEntry test/fixtures/pattern/build/index.html
+67 silly gunzTarPerm extractEntry test/fixtures/pattern/build/one-post/index.html
+68 silly gunzTarPerm extractEntry test/fixtures/pattern/expected/index.html
+69 silly gunzTarPerm extractEntry test/fixtures/pattern/expected/one-post/index.html
+70 silly gunzTarPerm extractEntry test/fixtures/pattern/src/index.html
+71 silly gunzTarPerm extractEntry test/fixtures/pattern/src/one.html
+72 silly gunzTarPerm extractEntry test/fixtures/relative/build/image.jpg
+73 silly gunzTarPerm extractEntry test/fixtures/relative/build/post/image.jpg
+74 silly gunzTarPerm extractEntry test/fixtures/relative/build/post/index.html
+75 silly gunzTarPerm extractEntry test/fixtures/relative/expected/image.jpg
+76 silly gunzTarPerm extractEntry test/fixtures/relative/expected/post/image.jpg
+77 silly gunzTarPerm extractEntry test/fixtures/relative/expected/post/index.html
+78 silly gunzTarPerm extractEntry test/fixtures/relative/src/image.jpg
+79 silly gunzTarPerm extractEntry test/fixtures/relative/src/post.html
+80 silly gunzTarPerm extractEntry test/fixtures/relative-pattern/build/image.jpg
+81 silly gunzTarPerm extractEntry test/fixtures/relative-pattern/build/something-else/image.jpg
+82 silly gunzTarPerm extractEntry test/fixtures/relative-pattern/build/something-else/index.html
+83 silly gunzTarPerm extractEntry test/fixtures/relative-pattern/expected/image.jpg
+84 silly gunzTarPerm extractEntry test/fixtures/relative-pattern/expected/something-else/image.jpg
+85 silly gunzTarPerm extractEntry test/fixtures/relative-pattern/expected/something-else/index.html
+86 silly gunzTarPerm extractEntry test/fixtures/relative-pattern/src/image.jpg
+87 silly gunzTarPerm extractEntry test/fixtures/relative-pattern/src/post.html
+88 silly gunzTarPerm extractEntry test/fixtures/shorthand/build/index.html
+89 silly gunzTarPerm extractEntry test/fixtures/shorthand/build/one-post/index.html
+90 silly gunzTarPerm extractEntry test/fixtures/shorthand/expected/index.html
+91 silly gunzTarPerm extractEntry test/fixtures/shorthand/expected/one-post/index.html
+92 silly gunzTarPerm extractEntry test/fixtures/shorthand/src/index.html
+93 silly gunzTarPerm extractEntry test/fixtures/shorthand/src/one.html
+94 info preinstall metalsmith-permalinks@0.1.3
+95 silly prepareForInstallMany adding substitute@git://github.com/segmentio/substitute#0.0.1 from metalsmith-permalinks dependencies
+96 silly prepareForInstallMany adding slug-component@~1.1.0 from metalsmith-permalinks dependencies
+97 silly prepareForInstallMany adding debug@~0.7.4 from metalsmith-permalinks dependencies
+98 silly cache add args [ 'substitute@git://github.com/segmentio/substitute#0.0.1',
+98 silly cache add   null ]
+99 verbose cache add spec substitute@git://github.com/segmentio/substitute#0.0.1
+100 silly cache add args [ 'slug-component@~1.1.0', null ]
+101 verbose cache add spec slug-component@~1.1.0
+102 silly cache add parsed spec { raw: 'substitute@git://github.com/segmentio/substitute#0.0.1',
+102 silly cache add   scope: null,
+102 silly cache add   name: 'substitute',
+102 silly cache add   rawSpec: 'git://github.com/segmentio/substitute#0.0.1',
+102 silly cache add   spec: 'git://github.com/segmentio/substitute#0.0.1',
+102 silly cache add   type: 'git' }
+103 verbose addRemoteGit u="git://github.com/segmentio/substitute#0.0.1" silent=false
+104 silly addRemoteGit parsed { protocol: 'git:',
+104 silly addRemoteGit   slashes: true,
+104 silly addRemoteGit   auth: null,
+104 silly addRemoteGit   host: 'github.com',
+104 silly addRemoteGit   port: null,
+104 silly addRemoteGit   hostname: 'github.com',
+104 silly addRemoteGit   hash: '#0.0.1',
+104 silly addRemoteGit   search: '',
+104 silly addRemoteGit   query: {},
+104 silly addRemoteGit   pathname: '/segmentio/substitute',
+104 silly addRemoteGit   path: '/segmentio/substitute',
+104 silly addRemoteGit   href: 'git://github.com/segmentio/substitute#0.0.1' }
+105 verbose addRemoteGit git://github.com/segmentio/substitute not in flight; cloning
+106 verbose addRemoteGit [ 'git://github.com/segmentio/substitute', '0.0.1' ]
+107 silly cache add parsed spec { raw: 'slug-component@~1.1.0',
+107 silly cache add   scope: null,
+107 silly cache add   name: 'slug-component',
+107 silly cache add   rawSpec: '~1.1.0',
+107 silly cache add   spec: '>=1.1.0 <1.2.0',
+107 silly cache add   type: 'range' }
+108 verbose addNamed slug-component@>=1.1.0 <1.2.0
+109 silly addNamed semver.valid null
+110 silly addNamed semver.validRange >=1.1.0 <1.2.0
+111 silly addNameRange { name: 'slug-component',
+111 silly addNameRange   range: '>=1.1.0 <1.2.0',
+111 silly addNameRange   hasData: false }
+112 silly mapToRegistry name slug-component
+113 silly mapToRegistry using default registry
+114 silly mapToRegistry registry https://registry.npmjs.org/
+115 silly mapToRegistry uri https://registry.npmjs.org/slug-component
+116 verbose addNameRange registry:https://registry.npmjs.org/slug-component not in flight; fetching
+117 silly cache add args [ 'debug@~0.7.4', null ]
+118 verbose cache add spec debug@~0.7.4
+119 silly cache add parsed spec { raw: 'debug@~0.7.4',
+119 silly cache add   scope: null,
+119 silly cache add   name: 'debug',
+119 silly cache add   rawSpec: '~0.7.4',
+119 silly cache add   spec: '>=0.7.4 <0.8.0',
+119 silly cache add   type: 'range' }
+120 verbose addNamed debug@>=0.7.4 <0.8.0
+121 silly addNamed semver.valid null
+122 silly addNamed semver.validRange >=0.7.4 <0.8.0
+123 silly addNameRange { name: 'debug', range: '>=0.7.4 <0.8.0', hasData: false }
+124 silly mapToRegistry name debug
+125 silly mapToRegistry using default registry
+126 silly mapToRegistry registry https://registry.npmjs.org/
+127 silly mapToRegistry uri https://registry.npmjs.org/debug
+128 verbose addNameRange registry:https://registry.npmjs.org/debug not in flight; fetching
+129 verbose request uri https://registry.npmjs.org/slug-component
+130 verbose request no auth needed
+131 info attempt registry request try #1 at 16:49:39
+132 verbose etag "5B8AWDZSXRA5L49ACGJLV0AUX"
+133 http request GET https://registry.npmjs.org/slug-component
+134 verbose request uri https://registry.npmjs.org/debug
+135 verbose request no auth needed
+136 info attempt registry request try #1 at 16:49:39
+137 verbose etag "2T7I20OARVMTSKDMMBVQ9H064"
+138 http request GET https://registry.npmjs.org/debug
+139 info git [ 'clone',
+139 info git   '--template=/Users/traveler/.npm/_git-remotes/_templates',
+139 info git   '--mirror',
+139 info git   'git://github.com/segmentio/substitute',
+139 info git   '/Users/traveler/.npm/_git-remotes/git-github-com-segmentio-substitute-743b282e' ]
+140 http 304 https://registry.npmjs.org/debug
+141 silly get cb [ 304,
+141 silly get   { date: 'Thu, 18 Jun 2015 20:49:39 GMT',
+141 silly get     via: '1.1 varnish',
+141 silly get     'cache-control': 'max-age=60',
+141 silly get     etag: '"2T7I20OARVMTSKDMMBVQ9H064"',
+141 silly get     age: '9',
+141 silly get     connection: 'keep-alive',
+141 silly get     'x-served-by': 'cache-jfk1020-JFK',
+141 silly get     'x-cache': 'HIT',
+141 silly get     'x-cache-hits': '2',
+141 silly get     'x-timer': 'S1434660579.112663,VS0,VE0',
+141 silly get     vary: 'Accept' } ]
+142 verbose etag https://registry.npmjs.org/debug from cache
+143 silly addNameRange number 2 { name: 'debug', range: '>=0.7.4 <0.8.0', hasData: true }
+144 silly addNameRange versions [ 'debug',
+144 silly addNameRange   [ '0.0.1',
+144 silly addNameRange     '0.1.0',
+144 silly addNameRange     '0.2.0',
+144 silly addNameRange     '0.3.0',
+144 silly addNameRange     '0.4.0',
+144 silly addNameRange     '0.4.1',
+144 silly addNameRange     '0.5.0',
+144 silly addNameRange     '0.6.0',
+144 silly addNameRange     '0.7.0',
+144 silly addNameRange     '0.7.1',
+144 silly addNameRange     '0.7.2',
+144 silly addNameRange     '0.7.3',
+144 silly addNameRange     '0.7.4',
+144 silly addNameRange     '0.8.0',
+144 silly addNameRange     '0.8.1',
+144 silly addNameRange     '1.0.0',
+144 silly addNameRange     '1.0.1',
+144 silly addNameRange     '1.0.2',
+144 silly addNameRange     '1.0.3',
+144 silly addNameRange     '1.0.4',
+144 silly addNameRange     '2.0.0',
+144 silly addNameRange     '2.1.0',
+144 silly addNameRange     '2.1.1',
+144 silly addNameRange     '2.1.2',
+144 silly addNameRange     '2.1.3',
+144 silly addNameRange     '2.2.0' ] ]
+145 verbose addNamed debug@0.7.4
+146 silly addNamed semver.valid 0.7.4
+147 silly addNamed semver.validRange 0.7.4
+148 silly cache afterAdd debug@0.7.4
+149 verbose afterAdd /Users/traveler/.npm/debug/0.7.4/package/package.json not in flight; writing
+150 verbose afterAdd /Users/traveler/.npm/debug/0.7.4/package/package.json written
+151 http 304 https://registry.npmjs.org/slug-component
+152 silly get cb [ 304,
+152 silly get   { date: 'Thu, 18 Jun 2015 20:49:39 GMT',
+152 silly get     via: '1.1 varnish',
+152 silly get     'cache-control': 'max-age=60',
+152 silly get     etag: '"5B8AWDZSXRA5L49ACGJLV0AUX"',
+152 silly get     age: '0',
+152 silly get     connection: 'keep-alive',
+152 silly get     'x-served-by': 'cache-jfk1030-JFK',
+152 silly get     'x-cache': 'MISS',
+152 silly get     'x-cache-hits': '0',
+152 silly get     'x-timer': 'S1434660579.113208,VS0,VE19',
+152 silly get     vary: 'Accept' } ]
+153 verbose etag https://registry.npmjs.org/slug-component from cache
+154 silly addNameRange number 2 { name: 'slug-component',
+154 silly addNameRange   range: '>=1.1.0 <1.2.0',
+154 silly addNameRange   hasData: true }
+155 silly addNameRange versions [ 'slug-component', [ '0.0.1', '1.0.0', '1.1.0' ] ]
+156 verbose addNamed slug-component@1.1.0
+157 silly addNamed semver.valid 1.1.0
+158 silly addNamed semver.validRange 1.1.0
+159 silly cache afterAdd slug-component@1.1.0
+160 verbose afterAdd /Users/traveler/.npm/slug-component/1.1.0/package/package.json not in flight; writing
+161 verbose afterAdd /Users/traveler/.npm/slug-component/1.1.0/package/package.json written
+162 error git clone git://github.com/segmentio/substitute Cloning into bare repository '/Users/traveler/.npm/_git-remotes/git-github-com-segmentio-substitute-743b282e'...
+162 error git clone git://github.com/segmentio/substitute fatal: unable to connect to github.com:
+162 error git clone git://github.com/segmentio/substitute github.com[0: 192.30.252.129]: errno=Operation timed out
+163 verbose about to build /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+164 verbose unlock done using /Users/traveler/.npm/_locks/metalsmith-permalinks-1516a5f527455d9b.lock for /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+165 verbose stack Error: Command failed: Cloning into bare repository '/Users/traveler/.npm/_git-remotes/git-github-com-segmentio-substitute-743b282e'...
+165 verbose stack fatal: unable to connect to github.com:
+165 verbose stack github.com[0: 192.30.252.129]: errno=Operation timed out
+165 verbose stack
+165 verbose stack
+165 verbose stack     at ChildProcess.exithandler (child_process.js:648:15)
+165 verbose stack     at ChildProcess.emit (events.js:98:17)
+165 verbose stack     at maybeClose (child_process.js:756:16)
+165 verbose stack     at Socket.<anonymous> (child_process.js:969:11)
+165 verbose stack     at Socket.emit (events.js:95:17)
+165 verbose stack     at Pipe.close (net.js:465:12)
+166 verbose cwd /Users/traveler/Desktop/roadtolarissa
+167 error Darwin 13.4.0
+168 error argv "node" "/usr/local/bin/npm" "install" "metalsmith-permalinks"
+169 error node v0.10.33
+170 error npm  v2.1.10
+171 error code 128
+172 error Command failed: Cloning into bare repository '/Users/traveler/.npm/_git-remotes/git-github-com-segmentio-substitute-743b282e'...
+172 error fatal: unable to connect to github.com:
+172 error github.com[0: 192.30.252.129]: errno=Operation timed out
+173 error If you need help, you may report this error at:
+173 error     <http://github.com/npm/npm/issues>
+174 verbose exit [ 1, true ]
+175 verbose unbuild node_modules/metalsmith-permalinks
+176 info preuninstall metalsmith-permalinks@0.1.3
+177 info uninstall metalsmith-permalinks@0.1.3
+178 verbose unbuild rmStuff metalsmith-permalinks@0.1.3 from /Users/traveler/Desktop/roadtolarissa/node_modules
+179 info postuninstall metalsmith-permalinks@0.1.3
+180 verbose gentlyRm vacuuming /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+181 silly gentlyRm purging /Users/traveler/Desktop/roadtolarissa/node_modules/metalsmith-permalinks
+182 silly gentlyRm quitting because other entries in /Users/traveler/Desktop/roadtolarissa/node_modules
