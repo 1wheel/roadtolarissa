@@ -1,23 +1,75 @@
----
-layout: page
-comments: true
-sharing: true
-footer: true
----
+<!DOCTYPE html>
 
-<div id='gallery'></div>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>roadtolarissa</title>
+
+  <link rel="stylesheet" type="text/css" href="/style.css">
+
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:700,300' rel='stylesheet' type='text/css'>  
+  <link rel="stylesheet" type="text/css" href="/highlight.css">
+
+</head>
+<body>
+  <div class='header'>
+    <div class='header-left'>
+      <a href='http://roadtolarissa.com'>roadtolarissa</a>
+    </div>
+    <div class='header-right'>
+      <span style='opacity: .7'>Adam Pearce</span>
+      <a href='http://github.com/1wheel'>
+        <img src='/images/gh-32px.png'></img>
+      </a>
+      <a href='http://twitter.com/adamrpearce'>
+        <img src='/images/twitter.png'></img>
+      </a>
+      <a href='http://twitter.com/adamrpearce'>
+        <img src='/images/email.png'></img>
+      </a>
+    </div>
+  </div>
+
+  <div id='gallery'></div>
+</body>
+
+
+
+
 
 <style>
-article header{
-  display: none;
+
+#gallery{
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+svg{
+  margin: 0px auto;
+  display: block;
+  overflow: visible;
+}
+
+.border{
+  fill: rgba(0,0,0,0);
+  stroke: black;
+}
+
+text{
+  fill: white;
 }
 
 </style>
 
-<script src="{{ root_url }}/javascripts/libs/d3.3.13.js" type="text/javascript"></script>
-<script>
-function f(str){ return function(obj){ return obj[str]; } }
 
+<script src="/javascripts/libs/d3.4.11.js" type="text/javascript"></script>
+<script src="/javascripts/libs/lodash.js" type="text/javascript"></script>
+<script src="/javascripts/libs/d3-jetpack-v1.js" type="text/javascript"></script>
+<script src="/javascripts/libs/d3-starterkit-v0.js" type="text/javascript"></script>
+
+
+<script>
 var projects = [
   {img: '215-teeth',            url: 'http://roadtolarissa.com/215-teeth/'},
   {img: 'joymap',               url: 'http://roadtolarissa.com/population-division/'},
@@ -33,26 +85,186 @@ var projects = [
   {img: 'RedditGraphs',         url: 'http://www.roadtolarissa.com/redditgraphs'},
   {img: 'backgammon',           url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
   {img: 'connect4',             url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
+
+  {img: '215-teeth',            url: 'http://roadtolarissa.com/215-teeth/'},
+  {img: 'joymap',               url: 'http://roadtolarissa.com/population-division/'},
+  {img: 'synthScale',           url: 'http://roadtolarissa.com/synth/'},
+  {img: 'Twisters',             url: 'http://roadtolarissa.com/twisters/'},
+  {img: 'nba-draft',            url: 'http://roadtolarissa.com/nba-draft/'},
+  {img: 'meteors',              url: 'http://roadtolarissa.com/meteors/'},
+  {img: 'FilmStrips',           url: 'http://roadtolarissa.com/film-strips/'},
+  {img: 'WhaleWords',           url: 'http://www.roadtolarissa.com/whalewords'},
+  {img: 'UnemploymentRates',    url: 'http://www.roadtolarissa.com/unemployment'},
+  {img: 'SierpinskiTriangle',   url: 'http://roadtolarissa.com/triangles/'},
+  {img: 'whiteHousePetition',   url: 'http://www.roadtolarissa.com/whitehouse'},
+  {img: 'RedditGraphs',         url: 'http://www.roadtolarissa.com/redditgraphs'},
+  {img: 'backgammon',           url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
+  {img: 'connect4',             url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
+
+
+  {img: '215-teeth',            url: 'http://roadtolarissa.com/215-teeth/'},
+  {img: 'joymap',               url: 'http://roadtolarissa.com/population-division/'},
+  {img: 'synthScale',           url: 'http://roadtolarissa.com/synth/'},
+  {img: 'Twisters',             url: 'http://roadtolarissa.com/twisters/'},
+  {img: 'nba-draft',            url: 'http://roadtolarissa.com/nba-draft/'},
+  {img: 'meteors',              url: 'http://roadtolarissa.com/meteors/'},
+  {img: 'FilmStrips',           url: 'http://roadtolarissa.com/film-strips/'},
+  {img: 'WhaleWords',           url: 'http://www.roadtolarissa.com/whalewords'},
+  {img: 'UnemploymentRates',    url: 'http://www.roadtolarissa.com/unemployment'},
+  {img: 'SierpinskiTriangle',   url: 'http://roadtolarissa.com/triangles/'},
+  {img: 'whiteHousePetition',   url: 'http://www.roadtolarissa.com/whitehouse'},
+  {img: 'RedditGraphs',         url: 'http://www.roadtolarissa.com/redditgraphs'},
+  {img: 'backgammon',           url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
+  {img: 'connect4',             url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
+
+
 ];
 
 
-var margin = '25px';
-d3.select('#gallery').selectAll('img')
-    .data(projects).enter()
-  .append('a')
-    .attr('href', f('url'))
-  .append('img')
-    .attr('src', function(d){ return '/images/thumbnails/' + d.img + '.png'; })
-    .style('margin-bottom', margin)
-    .style('margin-left', function(d, i){ return i % 2 ? margin : 0; })
-    .style('width', '360px')
+// var margin = '25px';
+// d3.select('#gallery').selectAll('img')
+//     .data(projects).enter()
+//   .append('a')
+//     .attr('href', ƒ('url'))
+//   .append('img')
+//     .attr('src', function(d){ return '/images/thumbnails/' + d.img + '.png'; })
+//     .style('margin-bottom', margin)
+//     .style('margin-left', function(d, i){ return i % 2 ? margin : 0; })
+//     .style('width', '360px')
 
-var parentElement = d3.select('#gallery').node().parentElement;
 
-d3.select(parentElement)
-    .style('padding-top', margin)
-  .select('header')
-    .remove();
+
+
+var s = 750/4,
+    numX = 4,
+    numY = 8
+    width = s*numX,
+    height = s*numY
+
+var boxes = d3.range(numX*numY).map(function(i){
+  return {
+    pos: [s*(i % numX) + s/2, s*(Math.floor(i/numX)) + s/2],
+    i: i,
+    id: 'clip-' + i,
+    clipId: 'url(#clip-' + i + ')',
+    name: randString(10),
+    date: 'May 2014',
+    name: projects[i].img,
+    imgUrl: '/images/thumbnails/' + projects[i].img + '.png',
+    url: projects[i].url
+  }
+})
+
+
+var svg = d3.select('#gallery')
+  .append('svg')
+    .attr({width: width, height: height})
+
+svg.append('defs').dataAppend(boxes, 'clipPath')
+    .attr('id', ƒ('id'))
+  .append('rect')
+    .attr({width: s, height: s})
+    .attr({x: -s/2, y: -s/2})
+    .each(function(d){ d.clip = d3.select(this) })
+
+
+var boxGs = svg.dataAppend(boxes, 'g')
+    .translate(ƒ('pos'))
+    .attr('clip-path', ƒ('clipId'))
+    .on('mousemove', function(d){
+      this.parentNode.appendChild(this)
+      sizeSquare(d, _.max(d3.mouse(this).map(Math.abs))/(s/2))
+    })
+    .on('mouseout', function(d){
+      sizeSquare(d, 1)
+    })
+
+boxGs.append('rect')
+    .attr({width: s*2, height: s*2})
+    .attr({x: -s, y: -s})
+    .attr('fill', function(){ return randColor() })
+    .each(function(d){ d.rect = d3.select(this) })
+
+boxGs.append('image')
+    .attr({width: s*2, height: s*2})
+    .attr({x: -s, y: -s})
+    .attr('xlink:href', ƒ('imgUrl'))
+    .each(function(d){ d.img = d3.select(this) })
+
+
+boxGs.append('rect.border')
+    .attr({width: s, height: s})
+    .attr({x: -s/2, y: -s/2})
+    .each(function(d){ d.border = d3.select(this) })
+
+boxGs.append('rect.border')
+    .attr({width: s, height: 0})
+    .attr({x: -s/2, y: -s/2})
+    .each(function(d){ d.bot = d3.select(this) })
+
+boxGs.append('text').attr({dx: '1em', dy: '-1.0em'})
+    .text(ƒ('name'))
+    .style('font-size', '0px')
+    .attr('text-anchor', 'start')
+    .each(function(d){ d.name = d3.select(this) })
+
+boxGs.append('text').attr({dx: '-1em', dy: '-1.0em'})
+    .text(ƒ('date'))
+    .style('font-size', '0px')
+    .attr('text-anchor', 'end')
+    .each(function(d){ d.date = d3.select(this) })
+
+function sizeSquare(d, t){
+  t = clamp(0, t, 1)
+
+  var l = (2 - t)*s
+
+  var rectAttr = {width: l, height: l, x: -l/2, y: -l/2}
+
+  d.clip.attr(rectAttr)
+  d.border.attr(rectAttr)
+      .style('stroke-width', (20*(1 - t) + 1))
+
+  d.bot.attr(rectAttr)
+      .attr({y: l/2, height: .1})
+      .style('stroke-width', (120*(1 - t) + 1))
+
+  d.name.style('font-size', 23*(1 - t) + 'px')
+      .attr({x: -l/2, y: l/2})
+
+  d.date.style('font-size', 23*(1 - t) + 'px')
+      .attr({x: l/2, y: l/2})
+}
+
+
+
+function randString(len){
+  var alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ     '
+  return d3.range(len).map(function(){
+    return alpha[Math.floor(Math.random()*alpha.length)]
+  }).join('')
+}
+
+function randColor(){
+  return 'rgb(' + [Math.random()*255, Math.random()*255, Math.random()*255].map(Math.round) + ')'
+}
+
+function clamp(min, d, max){
+  return Math.min(max, Math.max(min, d))
+}
+
+
+
+// var parentElement = d3.select('#gallery').node().parentElement;
+
+// d3.select(parentElement)
+//     .style('padding-top', margin)
+//   .select('header')
+//     .remove();
 
 
 </script>
+
+
+
+</html>
