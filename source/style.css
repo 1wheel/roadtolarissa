@@ -25,6 +25,7 @@ a{
 	font-size: 15px;
 	width: 750px;
 	overflow: visible;
+	z-index: -1;
 	/*border-bottom: 1px solid black;*/
 }
 .header-left{
