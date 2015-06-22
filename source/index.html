@@ -71,20 +71,20 @@ text{
 
 <script>
 var projects = [
-  {img: '215-teeth',            url: 'http://roadtolarissa.com/215-teeth/'},
-  {img: 'joymap',               url: 'http://roadtolarissa.com/population-division/'},
-  {img: 'synthScale',           url: 'http://roadtolarissa.com/synth/'},
-  {img: 'Twisters',             url: 'http://roadtolarissa.com/twisters/'},
-  {img: 'nba-draft',            url: 'http://roadtolarissa.com/nba-draft/'},
-  {img: 'meteors',              url: 'http://roadtolarissa.com/meteors/'},
-  {img: 'FilmStrips',           url: 'http://roadtolarissa.com/film-strips/'},
-  {img: 'WhaleWords',           url: 'http://www.roadtolarissa.com/whalewords'},
-  {img: 'UnemploymentRates',    url: 'http://www.roadtolarissa.com/unemployment'},
-  {img: 'SierpinskiTriangle',   url: 'http://roadtolarissa.com/triangles/'},
-  {img: 'whiteHousePetition',   url: 'http://www.roadtolarissa.com/whitehouse'},
-  {img: 'RedditGraphs',         url: 'http://www.roadtolarissa.com/redditgraphs'},
-  {img: 'backgammon',           url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
-  {img: 'connect4',             url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
+  {img: '215-teeth',            date: '6/2014',   url: 'http://roadtolarissa.com/215-teeth/'},
+  {img: 'joymap',               date: '3/2014',   url: 'http://roadtolarissa.com/population-division/'},
+  {img: 'synthScale',           date: '1/2014',   url: 'http://roadtolarissa.com/synth/'},
+  {img: 'Twisters',             date: '10/2013',   url: 'http://roadtolarissa.com/twisters/'},
+  {img: 'nba-draft',            date: '6/2013',   url: 'http://roadtolarissa.com/nba-draft/'},
+  {img: 'meteors',              date: '5/2013',   url: 'http://roadtolarissa.com/meteors/'},
+  {img: 'film-strips',          date: '5/2013',   url: 'http://roadtolarissa.com/film-strips/'},
+  {img: 'whale-words',          date: '1/2013',   url: 'http://www.roadtolarissa.com/whalewords'},
+  {img: 'unemployment-rates',   date: '1/2013',    url: 'http://www.roadtolarissa.com/unemployment'},
+  {img: 'sierpinski-triangle',  date: '12/2012',   url: 'http://roadtolarissa.com/triangles/'},
+  {img: 'whitehouse-petitions', date: '12/2012',   url: 'http://www.roadtolarissa.com/whitehouse'},
+  {img: 'redditgraphs',         date: '10/2012',   url: 'http://www.roadtolarissa.com/redditgraphs'},
+  {img: 'backgammon',           date: '10/2012',    url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
+  {img: 'connect-4',            date: '9/2012',     url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
 
   {img: '215-teeth',            url: 'http://roadtolarissa.com/215-teeth/'},
   {img: 'joymap',               url: 'http://roadtolarissa.com/population-division/'},
@@ -95,7 +95,7 @@ var projects = [
   {img: 'FilmStrips',           url: 'http://roadtolarissa.com/film-strips/'},
   {img: 'WhaleWords',           url: 'http://www.roadtolarissa.com/whalewords'},
   {img: 'UnemploymentRates',    url: 'http://www.roadtolarissa.com/unemployment'},
-  {img: 'SierpinskiTriangle',   url: 'http://roadtolarissa.com/triangles/'},
+  {img: 'sierpinski-triangle',  url: 'http://roadtolarissa.com/triangles/'},
   {img: 'whiteHousePetition',   url: 'http://www.roadtolarissa.com/whitehouse'},
   {img: 'RedditGraphs',         url: 'http://www.roadtolarissa.com/redditgraphs'},
   {img: 'backgammon',           url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
@@ -147,11 +147,11 @@ var boxes = d3.range(numX*numY).map(function(i){
     i: i,
     id: 'clip-' + i,
     clipId: 'url(#clip-' + i + ')',
-    name: randString(10),
-    date: 'May 2014',
     name: projects[i].img,
     imgUrl: '/images/thumbnails/' + projects[i].img + '.png',
-    url: projects[i].url
+    url: projects[i].url,
+    date: projects[i].date
+
   }
 })
 
@@ -179,11 +179,11 @@ var boxGs = svg.dataAppend(boxes, 'g')
       sizeSquare(d, 1)
     })
 
-boxGs.append('rect')
-    .attr({width: s*2, height: s*2})
-    .attr({x: -s, y: -s})
-    .attr('fill', function(){ return randColor() })
-    .each(function(d){ d.rect = d3.select(this) })
+// boxGs.append('rect')
+//     .attr({width: s*2, height: s*2})
+//     .attr({x: -s, y: -s})
+//     .attr('fill', function(){ return randColor() })
+//     .each(function(d){ d.rect = d3.select(this) })
 
 boxGs.append('image')
     .attr({width: s*2, height: s*2})
@@ -238,16 +238,10 @@ function sizeSquare(d, t){
 
 
 
-function randString(len){
-  var alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ     '
-  return d3.range(len).map(function(){
-    return alpha[Math.floor(Math.random()*alpha.length)]
-  }).join('')
-}
 
-function randColor(){
-  return 'rgb(' + [Math.random()*255, Math.random()*255, Math.random()*255].map(Math.round) + ')'
-}
+// function randColor(){
+//   return 'rgb(' + [Math.random()*255, Math.random()*255, Math.random()*255].map(Math.round) + ')'
+// }
 
 function clamp(min, d, max){
   return Math.min(max, Math.max(min, d))
