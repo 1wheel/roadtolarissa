@@ -13,7 +13,7 @@ This post describes several [d3 quantitative scales](https://github.com/mbostock
 
 We start with an array of objects - `places` - representing the filled in areas on the right choropleth. Each has a `value` property equal to a number that we'll encode as a color using the `colorScale` defined in the center code snippet. The scatter plot on the left shows the distribution of values. 
 
-The code in the center uses a few libraries: `purples` an array of 5 [colorbrewer](http://bl.ocks.org/mbostock/5577023) purple shades, `_` [library](https://lodash.com/) of helper functions, `ss` [simple-statics](http://www.macwright.org/simple-statistics/), `ƒ` a [field accessor](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/), and `d3` [itself](http://d3js.org). 
+The code in the center uses a few libraries: `purples` an array of 5 [colorbrewer](http://bl.ocks.org/mbostock/5577023) purple shades, `_` [library](https://lodash.com/) of helper functions, `ss` [simple-statistics](http://www.macwright.org/simple-statistics/), `ƒ` a [field accessor](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/), and `d3` [itself](http://d3js.org). 
 
 <!-- ####Linear
 `d3.scale.linear()` returns a function that uses linear interpolation to transform a value in the domain into one in the range. `d3.extent` finds the minimum and maximum numbers the value property takes on, which is then used to set the domain. The range is set to the lightest and darkest shades of purple. Internally, `d3.interpolate` [detects](https://github.com/mbostock/d3/wiki/Transitions#d3_interpolate) that the range is a color and has `colorScale` return lighter shades of purple when passed lower numbers and darker shades when passed higher numbers. By default the colors are interpolated through an RGB color space; d3 also [supports](https://github.com/mbostock/d3/wiki/Colors#hsl) other color spaces with better [perceptually propertiess](http://www.research.ibm.com/people/l/lloydt/color/color.HTM). 
@@ -105,7 +105,7 @@ colorScale = d3.scale.quantile()
 
   <p>A quantize scale divides values into several discrete buckets, assigning a color to each based on which bucket it falls into. As with the linear scale, the domain is set to the minimum and maximum values. Instead of passing two colors to the range however, an array of colors is passed. The scale function then creates a bucket for each color, shown by the 5 horizontal bars on the left scatter plot.</p>
 
-  <p>The quantize scale divides the range of values evenly so that values in the bottom 5th &ndash; those between <code>minValue</code> and <code>minValue + 1/5*(maxValue +minValue)</code> &ndash; are put in the first bucket with the lightest color, while values in the the top 5th are put in the darkest bucket. More formally, values in the nth bucket will be between <code>minValue + n/purples.length*(maxValue - minValue)</code> and <code>minValue + (n + 1)/purples.length*(maxValue - minValue)</code>.</p>
+  <p>The quantize scale divides the range of values evenly so that values in the bottom 5th – those between `minValue` and `minValue + 1/5*(maxValue + minValue)` – are put in the first bucket with the lightest color, while values in the the top 5th are put in the darkest bucket. More formally, values in the nth bucket will be between `minValue + n/purples.length*(maxValue - minValue)` and `minValue + (n + 1)/purples.length*(maxValue - minValue)`.</p>
 </div>
 
 <div class='scroll-section'>

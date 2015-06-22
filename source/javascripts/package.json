@@ -1,9 +1,0 @@
-{
-  "name": "site",
-  "dependencies": {
-    "tiny-lr": "0.0.5",
-    "gulp": "~3.2.0",
-    "express": "~3.4.7",
-    "gulp-util": "~2.2.0"
-  }
-}
