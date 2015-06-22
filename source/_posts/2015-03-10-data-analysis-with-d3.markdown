@@ -236,7 +236,7 @@ Over the last 20 years, the Academy has picked best actresses with fewer previou
 
 Encoding the data differently shows different patterns. Combining D3 with these helper functions allows us to rapidly explore the [space of potential visualizations](https://www.youtube.com/watch?v=fThhbt23SGM). 
 
-For example, while it's clear that Strep has the most nominations, by deemphasizing time we can see the distribution of nominations across actresses. First, create a `g` element for each actress and sort vertically by number of nominations: 
+For example, while it's clear that Streep has the most nominations, by deemphasizing time we can see the distribution of nominations across actresses. First, create a `g` element for each actress and sort vertically by number of nominations: 
 
 ```javascript
 c.y.domain([0, topActresses.length - 1])
