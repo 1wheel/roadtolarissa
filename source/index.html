@@ -68,13 +68,36 @@ text{
 <script src="/javascripts/libs/d3-jetpack-v1.js" type="text/javascript"></script>
 <script src="/javascripts/libs/d3-starterkit-v0.js" type="text/javascript"></script>
 
-
 <script>
 var projects = [
+  {img: 'what-is-code',         date: '6/2015',   url: 'http://www.bloomberg.com/whatiscode'},
+  {img: 'dangerous-jobs',       date: '5/2015',   url: 'http://www.bloomberg.com/graphics/2015-dangerous-jobs/'},
+  {img: 'uk-election',          date: '5/2015',   url: 'http://www.bloomberg.com/graphics/2015-uk-election/'},
+  {img: 'uk-splatter',          date: '5/2015',   url: 'http://www.bloomberg.com/graphics/2015-uk-election/messy.html'},
+  {img: 'weed-index',           date: '4/2015',   url: 'http://www.bloomberg.com/graphics/2015-weed-index/'},
+  {img: 'ncaa-gambling',        date: '4/2015',   url: 'http://www.bloomberg.com/graphics/2015-march-madness-gambling/'},
+  {img: 'basketball-fund',      date: '3/2015',   url: 'http://www.bloomberg.com/graphics/2015-march-madness-basketball-fund/'},
+  {img: 'measles-outbreaks',    date: '2/2015',   url: 'http://www.bloomberg.com/graphics/2015-measles-outbreaks/'},
+  {img: 'oscar-winners',        date: '2/2015',   url: 'http://www.bloomberg.com/graphics/2015-oscar-winners/'},
+  {img: 'superbowl-salary',     date: '1/2015',   url: 'http://www.bloomberg.com/graphics/2015-nfl-super-bowl-salary/'},
+  {img: 'auto-sales',           date: '1/2015',   url: 'http://www.bloomberg.com/graphics/2015-auto-sales/'},
+  {img: 'space-race',           date: '1/2015',   url: 'http://www.bloomberg.com/news/features/2015-01-22/the-new-space-race-one-man-s-mission-to-build-a-galactic-internet-i58i2dp6'},
+
+
+
+  {img: 'senate-ads',           date: '10/2014',   url: 'http://www.bloomberg.com/politics/features/2014-10-27/the-persuadables'},
+  {img: 'midterm-ads',          date: '10/2014',   url: 'http://www.bloomberg.com/politics/graphics/2014-senate-ads-and-issues/'},
+  {img: 'governor-jobs',        date: '10/2014',   url: 'http://www.bloomberg.com/politics/graphics/2014-incumbent-governors/'},
+  {img: 'live-midterm-results', date: '11/2014',   url: 'http://www.bloomberg.com/politics/topics/2014-midterms'},
+
+  {img: 'zhou-crackdown',       date: '5/2015',   url: 'http://www.bloomberg.com/infographics/2014-08-04/how-to-catch-a-tiger.html'},
+  {img: 'world-cup',            date: '5/2015',   url: 'http://www.bloomberg.com/visual-data/world-cup/#0,0,-1'},
+
+
   {img: '215-teeth',            date: '6/2014',   url: 'http://roadtolarissa.com/215-teeth/'},
   {img: 'joymap',               date: '3/2014',   url: 'http://roadtolarissa.com/population-division/'},
-  {img: 'synthScale',           date: '1/2014',   url: 'http://roadtolarissa.com/synth/'},
-  {img: 'Twisters',             date: '10/2013',   url: 'http://roadtolarissa.com/twisters/'},
+  {img: 'synth-scale',           date: '1/2014',   url: 'http://roadtolarissa.com/synth/'},
+  {img: 'twisters',             date: '10/2013',   url: 'http://roadtolarissa.com/twisters/'},
   {img: 'nba-draft',            date: '6/2013',   url: 'http://roadtolarissa.com/nba-draft/'},
   {img: 'meteors',              date: '5/2013',   url: 'http://roadtolarissa.com/meteors/'},
   {img: 'film-strips',          date: '5/2013',   url: 'http://roadtolarissa.com/film-strips/'},
@@ -86,41 +109,10 @@ var projects = [
   {img: 'backgammon',           date: '10/2012',    url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
   {img: 'connect-4',            date: '9/2012',     url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
 
-  {img: '215-teeth',            url: 'http://roadtolarissa.com/215-teeth/'},
-  {img: 'joymap',               url: 'http://roadtolarissa.com/population-division/'},
-  {img: 'synthScale',           url: 'http://roadtolarissa.com/synth/'},
-  {img: 'Twisters',             url: 'http://roadtolarissa.com/twisters/'},
-  {img: 'nba-draft',            url: 'http://roadtolarissa.com/nba-draft/'},
-  {img: 'meteors',              url: 'http://roadtolarissa.com/meteors/'},
-  {img: 'FilmStrips',           url: 'http://roadtolarissa.com/film-strips/'},
-  {img: 'WhaleWords',           url: 'http://www.roadtolarissa.com/whalewords'},
-  {img: 'UnemploymentRates',    url: 'http://www.roadtolarissa.com/unemployment'},
-  {img: 'sierpinski-triangle',  url: 'http://roadtolarissa.com/triangles/'},
-  {img: 'whiteHousePetition',   url: 'http://www.roadtolarissa.com/whitehouse'},
-  {img: 'RedditGraphs',         url: 'http://www.roadtolarissa.com/redditgraphs'},
-  {img: 'backgammon',           url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
-  {img: 'connect4',             url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
-
-
-  {img: '215-teeth',            url: 'http://roadtolarissa.com/215-teeth/'},
-  {img: 'joymap',               url: 'http://roadtolarissa.com/population-division/'},
-  {img: 'synthScale',           url: 'http://roadtolarissa.com/synth/'},
-  {img: 'Twisters',             url: 'http://roadtolarissa.com/twisters/'},
-  {img: 'nba-draft',            url: 'http://roadtolarissa.com/nba-draft/'},
-  {img: 'meteors',              url: 'http://roadtolarissa.com/meteors/'},
-  {img: 'FilmStrips',           url: 'http://roadtolarissa.com/film-strips/'},
-  {img: 'WhaleWords',           url: 'http://www.roadtolarissa.com/whalewords'},
-  {img: 'UnemploymentRates',    url: 'http://www.roadtolarissa.com/unemployment'},
-  {img: 'SierpinskiTriangle',   url: 'http://roadtolarissa.com/triangles/'},
-  {img: 'whiteHousePetition',   url: 'http://www.roadtolarissa.com/whitehouse'},
-  {img: 'RedditGraphs',         url: 'http://www.roadtolarissa.com/redditgraphs'},
-  {img: 'backgammon',           url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
-  {img: 'connect4',             url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
-
 
 ];
 
-
+375
 // var margin = '25px';
 // d3.select('#gallery').selectAll('img')
 //     .data(projects).enter()
@@ -141,16 +133,16 @@ var s = 750/4,
     width = s*numX,
     height = s*numY
 
-var boxes = d3.range(numX*numY).map(function(i){
+var boxes = projects.map(function(d, i){
   return {
     pos: [s*(i % numX) + s/2, s*(Math.floor(i/numX)) + s/2],
     i: i,
     id: 'clip-' + i,
     clipId: 'url(#clip-' + i + ')',
-    name: projects[i].img,
-    imgUrl: '/images/thumbnails/' + projects[i].img + '.png',
-    url: projects[i].url,
-    date: projects[i].date
+    name: d.img,
+    imgUrl: '/images/thumbnails/' + d.img + '.png',
+    url: d.url,
+    date: d.date
 
   }
 })
@@ -175,9 +167,8 @@ var boxGs = svg.dataAppend(boxes, 'g')
       this.parentNode.appendChild(this)
       sizeSquare(d, _.max(d3.mouse(this).map(Math.abs))/(s/2))
     })
-    .on('mouseout', function(d){
-      sizeSquare(d, 1)
-    })
+    .on('mouseout', function(d){ sizeSquare(d, 1) })
+    .on('click', function(d){ window.open(d.url, '_blank') })
 
 // boxGs.append('rect')
 //     .attr({width: s*2, height: s*2})
@@ -223,7 +214,7 @@ function sizeSquare(d, t){
 
   d.clip.attr(rectAttr)
   d.border.attr(rectAttr)
-      .style('stroke-width', (20*(1 - t) + 1))
+      .style('stroke-width', (20*(1 - t) + 2))
 
   d.bot.attr(rectAttr)
       .attr({y: l/2, height: .1})

@@ -13,7 +13,7 @@
     "metalsmith-metallic": true,
     "metalsmith-markdown": {},
     "metalsmith-permalinks": {
-      "pattern": ":title"
+      "pattern": ":permalink"
     },
     "metalsmith-templates": {
       "engine": "handlebars"

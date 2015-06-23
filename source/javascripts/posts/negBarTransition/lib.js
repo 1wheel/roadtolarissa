@@ -13,7 +13,7 @@ function midPoint(a, b){
 }
 
 
-
+charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'
 
 var encode = function(bits) {
   var chunk, chunks, decimals, encoded, i, last_chunk_length;
@@ -41,7 +41,7 @@ var encode = function(bits) {
     _results = [];
     for (_i = 0, _len = decimals.length; _i < _len; _i++) {
       i = decimals[_i];
-      _results.push(this.charset[i]);
+      _results.push(charset[i]);
     }
     return _results;
   }).call(this)).join('');
@@ -55,7 +55,7 @@ var decode =function(encoded) {
     _results = [];
     for (_i = 0, _len = encoded.length; _i < _len; _i++) {
       char = encoded[_i];
-      _results.push(this.charset.indexOf(char));
+      _results.push(charset.indexOf(char));
     }
     return _results;
   }).call(this);
