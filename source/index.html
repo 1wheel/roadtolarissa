@@ -85,13 +85,25 @@ var projects = [
 
 
 
+  {img: 'campaign-declaration', date: '11/2014',   url: 'http://www.bloomberg.com/politics/articles/2014-11-25/when-do-presidential-candidates-announce'},
+  {img: 'live-midterm-results', date: '11/2014',   url: 'http://www.bloomberg.com/politics/topics/2014-midterms'},
   {img: 'senate-ads',           date: '10/2014',   url: 'http://www.bloomberg.com/politics/features/2014-10-27/the-persuadables'},
   {img: 'midterm-ads',          date: '10/2014',   url: 'http://www.bloomberg.com/politics/graphics/2014-senate-ads-and-issues/'},
   {img: 'governor-jobs',        date: '10/2014',   url: 'http://www.bloomberg.com/politics/graphics/2014-incumbent-governors/'},
-  {img: 'live-midterm-results', date: '11/2014',   url: 'http://www.bloomberg.com/politics/topics/2014-midterms'},
 
   {img: 'zhou-crackdown',       date: '5/2015',   url: 'http://www.bloomberg.com/infographics/2014-08-04/how-to-catch-a-tiger.html'},
   {img: 'world-cup',            date: '5/2015',   url: 'http://www.bloomberg.com/visual-data/world-cup/#0,0,-1'},
+
+
+  {img: 'golf-paths',           date: '10/2015',   url: 'http://roadtolarissa.com/golf-paths/'},
+  {img: 'drawdown',             date: '9/2015',  url: 'http://roadtolarissa.com/drawdown/'},
+  {img: 'svg-path',             date: '2/2015',  url: 'http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/'},
+
+  {img: 'coloring-maps',        date: '1/2015',   url: 'http://roadtolarissa.com/blog/2015/01/04/coloring-maps-with-d3/'},
+  {img: 'world-cup',            date: '5/2015',   url: 'http://www.bloomberg.com/visual-data/world-cup/#0,0,-1'},
+  {img: 'world-cup',            date: '5/2015',   url: 'http://www.bloomberg.com/visual-data/world-cup/#0,0,-1'},
+  {img: 'world-cup',            date: '5/2015',   url: 'http://www.bloomberg.com/visual-data/world-cup/#0,0,-1'},
+
 
 
   {img: '215-teeth',            date: '6/2014',   url: 'http://roadtolarissa.com/215-teeth/'},
@@ -112,6 +124,8 @@ var projects = [
 
 ];
 
+
+
 375
 // var margin = '25px';
 // d3.select('#gallery').selectAll('img')
@@ -129,9 +143,8 @@ var projects = [
 
 var s = 750/4,
     numX = 4,
-    numY = 8
     width = s*numX,
-    height = s*numY
+    height = s*Math.ceil(projects.length/numX)
 
 var boxes = projects.map(function(d, i){
   return {
