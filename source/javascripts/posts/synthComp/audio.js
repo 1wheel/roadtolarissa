@@ -193,7 +193,7 @@ function loadState(){
 
 function playNote(pitch, start, duration){
   oscillator = ac.createOscillator(),
-  oscillator.type = 1;
+  oscillator.type = 'sine';
   oscillator.frequency.value = pitch*getPitch();
   
   gainNode = ac.createGain();
