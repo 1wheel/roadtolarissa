@@ -8,6 +8,7 @@
     "metalsmith": "^1.0.0",
     "metalsmith-ignore": "^0.1.2",
     "metalsmith-metallic": "^0.3.0",
+    "metalsmith-sitemap": "^0.0.10",
     "handlebars": "^2.0.0-alpha.2"
   }
 }
