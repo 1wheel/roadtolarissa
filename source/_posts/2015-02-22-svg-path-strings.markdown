@@ -2,7 +2,7 @@
 template: post.html
 title: "SVG Path Strings"
 comments: true
-permalinke: /path-strings
+permalink: path-strings
 categories: 
 ---
 

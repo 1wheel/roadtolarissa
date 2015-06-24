@@ -32,6 +32,42 @@
   </div>
 
   <div id='gallery'></div>
+
+
+
+  <h2>Posts</h2>
+  <div id='posts'>
+    <a href="data-exploration">Data Exploration With D3</a>
+    <a href="/blog/2015/02/22/svg-path-strings/">SVG Path Strings</a>
+    <a href="/blog/2015/01/04/coloring-maps-with-d3/">Coloring Maps</a>
+    <a href="/convex-hulls">Convex Hulls</a>
+    <a href="/dragon-curve">Dragon Curve</a>
+    <a href="/golf-paths">Golf Paths</a>
+    <a href="/drawdown">Drawdown</a>
+    <a href="/215-teeth">215 Teeth / 1008 Beats</a>
+    <a href="/blog/2014/06/23/even-fewer-lamdas-with-d3/">Even Fewer Lambdas</a>
+    <a href="/population-division">Population Division</a>
+    <a href="/synth">Making Music With D3</a>
+    <a href="/twisters-post">Twisters</a>
+    <a href="/nba_draft">NBA Draft</a>
+    <a href="/meteor-map">Meteor Map</a>
+    <a href="/film-strips-post">Film Strips</a>
+    <a href="/whale-words">Whale Words</a>
+    <a href="/unemployment-rates">Unemployment Rates</a>
+    <a href="/zoomable-sierpinski-triangle-with-d3-js">Zoomable Sierpinski Triangle</a>
+    <a href="/interactive-visualization-of-white-house-petition-signatures">White House Petition Signatures</a>
+    <a href="/next-project">Next Project</a>
+    <a href="/redditgraphs-retrospective">Redditgraphs Retrospective</a>
+    <a href="/reddit-comment-visualizer">Reddit Comment Visualizer</a>
+    <a href="/yglesias-on-amazons-pe-ratio">Yglesias on Amazon's P/E Ratio</a>
+    <a href="/speed-issues-with-gokos-online-dominion-implementation">Speed Issues Goko Dominion</a>
+    <a href="/connect-4-ai-how-it-works">Connect 4 AI: How It Works</a>
+    <a href="/maximin-connect-4-completed">Maximin Connect 4 Completed</a>
+    <a href="/first-post">First Post</a>
+  </li>
+
+
+
 </body>
 
 
@@ -39,6 +75,12 @@
 
 
 <style>
+
+#posts a{
+  width: 800px;
+  display: inline-block;
+  /*padding-bottom: 20px;*/
+}
 
 #gallery{
   margin-top: 60px;
@@ -120,13 +162,10 @@ var projects = [
   {img: 'redditgraphs',         date: '10/2012',   url: 'http://www.roadtolarissa.com/redditgraphs'},
   {img: 'backgammon',           date: '10/2012',    url: 'http://www.roadtolarissa.com/javascript/hangout-boardgames/'},
   {img: 'connect-4',            date: '09/2012',     url: 'http://www.roadtolarissa.com/connect-4-ai-how-it-works/'},
-
-
 ];
 
 
-
-375
+// 375
 
 
 projects = _.sortBy(projects, ƒ('date', d3.time.format('%m/%Y').parse)).reverse()
@@ -165,8 +204,10 @@ svg.append('defs').dataAppend(boxes, 'clipPath')
 var boxGs = svg.dataAppend(boxes, 'g')
     .translate(ƒ('pos'))
     .attr('clip-path', ƒ('clipId'))
-    .on('mousemove', function(d){
+    .on('mouseover', function(){
       this.parentNode.appendChild(this)
+    })
+    .on('mousemove', function(d){
       sizeSquare(d, _.max(d3.mouse(this).map(Math.abs))/(s/2))
     })
     .on('mouseout', function(d){ sizeSquare(d, 1) })
@@ -229,25 +270,10 @@ function sizeSquare(d, t){
       .attr({x: l/2, y: l/2})
 }
 
-
-
-
-// function randColor(){
-//   return 'rgb(' + [Math.random()*255, Math.random()*255, Math.random()*255].map(Math.round) + ')'
-// }
-
 function clamp(min, d, max){
   return Math.min(max, Math.max(min, d))
 }
 
-
-
-// var parentElement = d3.select('#gallery').node().parentElement;
-
-// d3.select(parentElement)
-//     .style('padding-top', margin)
-//   .select('header')
-//     .remove();
 
 
 </script>
