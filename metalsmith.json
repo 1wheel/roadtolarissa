@@ -19,10 +19,6 @@
     "metalsmith-templates": {
       "engine": "handlebars"
     },
-    "metalsmith-assets": {
-      "source": "source",
-      "destination": "public"
-    },
     "metalsmith-sitemap":{
       "output": "sitemap.xml",
       "hostname": "http://roadtolarissa.com"
