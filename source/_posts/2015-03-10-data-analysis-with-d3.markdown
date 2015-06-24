@@ -138,8 +138,6 @@ In addition to converting strings into accessor functions, `ƒ` also composes fu
 `d3.attachTooltip` adds a basic tooltip showing all the properties attached to an element, removing the need to `Inspect element` and run `> d3.select($0).datum` to examine outliers and other interesting points.  
 
 The result:
-
-##### Number of previous nominations over time
 <div id='nominations-scatter'></div>
 
 Unfortunately nominations in the same year with the same number of previous nominations cover each other up. We can fix that by grouping on year and number previous nominations, then offsetting nominations in the same group so they don't overlap:
