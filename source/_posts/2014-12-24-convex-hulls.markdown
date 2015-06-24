@@ -53,19 +53,21 @@ _.sortBy(points, 'x').forEach(function(p){
   //   the last two topPoints and the next point p form an angle less than 180°
   //or topPoints only contains the left most point
   while(topPoints.length > 1
-  && isConcave(p, topPoints[topPoints.length - 2], _.last(topPoints)_)){
+  && isConcave(p, topPoints[topPoints.length - 2], _.last(topPoints))){
     topPoints.pop()
   }
 
   topPoints.push(p)
 })
 ```
+
 While this approach initially looks like it could have a worst case runtime of `O(n²)` - for every point we could end up iterating over the whole `topPoints` array - each point can only be removed the `topPoints` array once. Asymptotically, most of the execution time will be spent sorting the array, making the algorithm `n log n`.
 
 Depending on the number of points on the convex hull, this runtime can be  further improved.
 [Jarvis' march](http://en.wikipedia.org/wiki/Gift_wrapping_algorithm) moves along the convex hull by checking all of the points to find the largest angle formed by the two last points on the hull and one of the other points. Below, larger angles are purple and small angle are green. 
 
 <div id='hn' style='width: 100%'></div>
+
 ```javascript
 //array of points on hull - initialize with leftmost point. 
 var hull = [leftMostPoint], a, b
@@ -85,6 +87,7 @@ while (hull[0] != _.last(hull)){
   hull.push(max.p)
 }
 ```
+
 With `h` points on the hull and `n` total points, each point will have its angle calculated `n*h` times. If there are less than `log n` points on the hull, Jarvis' march will be faster than Graham's scan.  
 
 [Code for animations on github](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/convexHull)
