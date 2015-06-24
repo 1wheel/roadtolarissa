@@ -8,7 +8,8 @@
   "plugins": {
     "metalsmith-ignore": [
       "**/.DS_Store",
-      "unfinished/*"
+      "unfinished/*", 
+      "javascripts/**.*"
     ],
     "metalsmith-metallic": true,
     "metalsmith-markdown": {},
@@ -21,6 +22,10 @@
     "metalsmith-assets": {
       "source": "source",
       "destination": "public"
+    },
+    "metalsmith-sitemap":{
+      "output": "sitemap.xml",
+      "hostname": "http://roadtolarissa.com"
     }
   }
 }
