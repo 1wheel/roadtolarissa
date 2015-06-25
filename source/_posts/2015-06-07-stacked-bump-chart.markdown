@@ -57,7 +57,7 @@ c.svg.dataAppend(players, 'line.player')
 
 `c.svg.dataAppend(players, 'line.player')` adds line element for each player object to the SVG created by `d3.conventions`. Each line has a player's data attached to it by d3, which we can use to position and style the lines based on the properties of its corresponding player. 
 
-`ƒ('start', c.x))` creates a function that takes an object and returns its start property transformed by the x scale. `.attr('x1', ƒ('start', c.x))` sets each line's `x1` attribute by passing 
+`ƒ('start', c.x))` creates a function that takes an object and returns its start property transformed by the x scale. `.attr('x1', ƒ('start', c.x))` sets each line's `x1` attribute by passing its player object to the created function
 
 Putting it all together 
 <div id='lines'></div>
