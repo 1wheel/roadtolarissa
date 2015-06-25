@@ -24,7 +24,7 @@ var players = [
   {name: 'Isiah',     start: 1982,  stop: 1994},
 ]
 
-// players = _.sortBy(players, 'start').reverse()
+players = _.sortBy(players, 'start').reverse()
 
 var c = d3.conventions({height: 250, parentSel: d3.select('#lines')})
 c.x.domain([1950, 2015])
@@ -36,11 +36,10 @@ c.yAxis
 
 c.drawAxis()
 
-c.svg.dataAppend(players, 'g.player')
-    .translate(function(d, i){ return [0, c.y(i)] })
-  .append('line')
+c.svg.dataAppend(players, 'line')
     .attr('x1', ƒ('start', c.x))
     .attr('x2', ƒ('stop' , c.x))
+    .translate(function(d, i){ return [0, c.y(i)] })
     .style({stroke: 'steelblue', 'stroke-width': 4})
 
 
