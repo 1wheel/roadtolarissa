@@ -23,6 +23,7 @@ var players = [
   {name: 'Russell',   start: 1957,  stop: 1969},
   {name: 'Wilt',      start: 1959,  stop: 1969},
   {name: 'Kareem',    start: 1970,  stop: 1989},
+  {name: 'Bird',      start: 1980,  stop: 1982},
   {name: 'Jordan',    start: 1985,  stop: 2003},
   {name: 'Kobe',      start: 1997,  stop: 2015},
   {name: 'Duncan',    start: 1998,  stop: 2015},
@@ -42,29 +43,29 @@ The c object also creates a linear x and y scale with their ranges set to the wi
 
 ```javascript
 c.x.domain([1950, 2015])
-c.y.domain([0, players.length])
+c.y.domain([0, players.length - 1])
 ```
 
 Now we need to convert our javascript array of player objects to elements on the page that we can manipulate with the scales. 
 
 ```javascript
 c.svg.dataAppend(players, 'line.player')
+    .translate(function(d, i){ return [0, c.y(i)] })
     .attr('x1', ƒ('start', c.x))
     .attr('x2', ƒ('stop' , c.x))
-    .translate(function(d, i){ return [0, c.y(i)] })
-    .style({stroke: 'steelblue', 'stroke-width': 4})
 ```
 
 `c.svg.dataAppend(players, 'line.player')` adds line element for each player object to the SVG created by `d3.conventions`. Each line has a player's data attached to it by d3, which we can use to position and style the lines based on the properties of its corresponding player. 
 
-`ƒ('start', c.x))` creates a function that takes an object and returns its start property transformed by the x scale. `.attr('x1', ƒ('start', c.x))` sets each line's `x1` attribute by passing its player object to the created function, essentially setting 
+`.translate(function(d, i){ return [0, c.y(i)] })` uses [d3-jetpack translate](https://github.com/gka/d3-jetpack#selectiontranslate) to arrange to lines vertically. The function passed to translate is called on each line. The first arguement, `d`, is the player object associtated with the line and the secound, `i`, is the index number of the line. By passing the index of each line to the y scale, which linearly converts number between 0 and the number of players to a number between 0 and the height of the chart, we're essentially evenly spacing each line vertically. This won't create a bump chart quite yet, but by using the start and stop properties of player object to set the length of the line, we can create a prelimary visualization. 
 
-`.translate(function(d, i){ return [0, c.y(i)] })` uses [d3-jetpack]() to arrange to lines vertically. Setting the `y1` and `y2` attributes of the lines would have also worked, would have required duplicated 
+`ƒ('start', c.x))` creates a function that takes an object and returns its start property transformed by the x scale. `.attr('x1', ƒ('start', c.x))` calls the created function with every player object and sets their coorisponding line's `x1` attribute to the returned value. `.attr('x2', ƒ('stop', c.x))` does almost the same thing, but sets maps the player's `stop` property to the line's `x2` instead. Putting it all togeather: 
 
-Putting it all together 
 <div id='lines'></div>
 
-`d3.conventions` also configures an x and y axis along with a `drawAxis`. The x axis draws nicely by default, but getting a label for each player requires a little bit of fiddling with `tickValues` and `tickFormat`.  
+Its a good idea to take frequent looks at your data from different perspectives. I initially entered Bird's career end date as 1982 instead of 1992. The error doesn't stand out in the rows of number, but its hard not to notice a single short bar among many long bars.  
+
+The axis are drawn with another `d3.conventions` helper function, `drawAxis`. The x axis draws nicely by default, but getting a label for each player requires a little bit of fiddling with `tickValues` and `tickFormat`:  
 
 ```javascript
 c.yAxis
@@ -73,8 +74,6 @@ c.yAxis
 
 c.drawAxis()
 ```
-
-Its a good idea to take frequent looks at your data from different perspectives. I initially marked Bird's career end date as 1982. The error doesn't stand out in rows of number, but its hard not to notice a single short bar among many long bars.  
 
 ##Making bumps
 
