@@ -17,7 +17,7 @@ circle{
 }
 
 .name{
-	text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;
+	text-shadow: 0 2px 0 #F5F5F5, 2px 0 0 #F5F5F5, 0 -2px 0 #F5F5F5, -2px 0 0 #F5F5F5;
 	fill: black;
 }
 
