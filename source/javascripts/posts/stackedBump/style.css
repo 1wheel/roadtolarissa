@@ -1,14 +1,15 @@
-path.player{
-	stroke: steelblue;
-	stroke-width: 4px;
-	fill: none;
-}
 
 .axis line,
 .axis path {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+}
+
+path.player{
+	stroke: steelblue;
+	stroke-width: 4px;
+	fill: none;
 }
 
 circle{
@@ -18,7 +19,6 @@ circle{
 
 .name{
 	text-shadow: 0 1px 0 #F5F5F5, 1px 0 0 #F5F5F5, 0 -1px 0 #F5F5F5, -1px 0 0 #F5F5F5;
-	fill: black;
 }
 
 

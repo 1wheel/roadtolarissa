@@ -80,16 +80,35 @@ d3.range(1950, 2016).forEach(function(year){
   var currentHeight = 0
   players.forEach(function(d){
     if (d.start <= year && year <= d.stop){
-      d.years.push({year: year, height: ++currentHeight})
       if (d.stop  == year) d.stopHeight  = currentHeight
       if (d.start == year) d.startHeight = currentHeight
-
+      d.years.push({year: year, height: currentHeight++})
     }
   })
 })
 
 
 var c = d3.conventions({height: 120, parentSel: d3.select('#bump')})
+
+c.x.domain([1950, 2015])
+c.y.domain([0, 10])
+
+c.yAxis.ticks(2)
+
+c.drawAxis()
+
+var line = d3.svg.line()
+    .x(ƒ('year', c.x))
+    .y(ƒ('height', c.y))
+
+c.svg.dataAppend(players, 'path.player')
+    .attr('d', ƒ('years', line))
+
+
+
+
+
+var c = d3.conventions({height: 120, parentSel: d3.select('#bump-circles')})
 
 c.x.domain([1950, 2015])
 c.y.domain([0, 10])
@@ -117,5 +136,20 @@ c.svg.dataAppend(players, 'text.name')
     .attr({x: ƒ('start', c.x), y: ƒ('startHeight', c.y)})
     .text(ƒ('name'))
     .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

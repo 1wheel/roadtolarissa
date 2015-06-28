@@ -12,6 +12,8 @@ Alicia Parlapiano published an excellent [series of stacked bump charts](http://
 
 Her graphic does a great job showing both the size of the field and the duration of the primary campaigns, while previous pieces by the [Economist](http://www.economist.com/blogs/graphicdetail/2015/04/us-presidential-candidate-announcements) and [Bloomberg](http://www.bloomberg.com/politics/articles/2014-11-25/when-do-presidential-candidates-announce) focused on how the duration of campaigns has changed over time.
 
+[img]
+
 I've thinking about using a similar stacked bump chart to improve my (still very rough) [visualization](http://bl.ocks.org/1wheel/cbd9053de9bb39231924) of a line intersection algorithm. To get a feel for how to make one, I've recreated Alicia's chart with Basketball Reference's list of [most accomplished players](http://www.basketball-reference.com/leaders/hof_prob.html). The rest of the this post will show how to make your own bump chart with D3. 
 
 ##Drawing bars
@@ -78,20 +80,88 @@ c.drawAxis()
 
 ##Making bumps
 
-To add bumps to the chart, we'll have to draw a more compicated shap thatn 
-
+Drawing the line with bumps is a bit trickier than straight lines. Instead of using a constant height for each line like we did above, the height of the line varies year to year. In a given year, the height of a player's line should be proportional to the number of players who started playing before them and are still playing in the current year. We'll start by adding `years` property to the player objects which will keep track of number of players under the current player in each:
 
 ```javascript
-var c = d3.conventions({height: 120, parentSel: d3.select('#bump')})
+players.forEach(function(d){ d.years = [] })
+```
+
+We're going to be repeatably counting the number of active players who started playing before a given player, so lets also make sure that our array of players is sorted based on their start date. 
+
+```javascript
+players = _.sortBy(players, 'start')
+```
+
+Now we can find the number of earlier starting, still active players for each player in given year by iterating over the `players` array. Each time we find a player that is active in the given year, increment an `ealierStarters` variable and save its current value to the player. 
+
+Repeating this for every year gives enough information to construct each player's `years` array: 
+
+```javascript
+d3.range(1950, 2016).forEach(function(year){
+  var ealierStarters = 0
+  players.forEach(function(d){
+    //is the player active in the given year?
+    if (d.start <= year && year <= d.stop){
+      d.years.push({year: year, height: ealierStarters++})
+    }
+  })
+})
+```
+
+
+Because our data has been reshaped to closely match what we're draw, actually drawing becomes significantly easier.
+
+```javascript
+var c = d3.conventions({height: 120, width: 750})
 
 c.x.domain([1950, 2015])
 c.y.domain([0, 10])
+
+c.drawAxis()
 ```
 
 <div id='bump'></div>
 
+Lets add circles and player names
 
-##Position labels
+```javascript
+c.svg.dataAppend(players, 'circle.start')
+    .attr({cx: ƒ('stop', c.x), cy: ƒ('stopHeight', c.y)})
+    .attr({r: 3, fill: 'white'})
+
+c.svg.dataAppend(players, 'circle.stop')
+    .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
+    .attr({r: 3, fill: 'steelblue'})
+
+c.svg.dataAppend(players, 'text.name')
+    .attr({x: ƒ('start', c.x), y: ƒ('startHeight', c.y)})
+    .text(ƒ('name'))
+    .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
+```
+
+<div id='bump-circles'></div>
+
+Getting this looking nice requires a little bit of css styling:
+
+```css
+.player{
+  stroke: steelblue;
+  stroke-width: 4px;
+  fill: none;
+}
+
+circle{
+  stroke-width: 2px;
+  stroke: steelblue;
+}
+
+.name{
+  text-shadow: 0 1px 0 #F5F5F5, 1px 0 0 #F5F5F5, 0 -1px 0 #F5F5F5, -1px 0 0 #F5F5F5;
+}
+```
+
+
+##Positioning labels
 
 d3.drag
 
@@ -103,7 +173,11 @@ don't mutate starting array, save positions separately
 
 player segments, connections
 
+##More improvements
 
+Alicia had a number of great styling choices that I didn't go over. Trying to replicate them without looking at her code is good practice.
+
+Tooltips? Hover highlighting? On load animations? Tempting to add, but less can be more. 
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/stackedBump/style.css">
 
