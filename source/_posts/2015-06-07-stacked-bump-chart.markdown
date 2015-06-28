@@ -78,7 +78,7 @@ c.drawAxis()
 
 ##Making bumps
 
-Words, words words
+To add bumps to the chart, we'll have to draw a more compicated shap thatn 
 
 
 ```javascript
