@@ -25,5 +25,6 @@ circle{
 svg{
 	overflow: visible;
 	font-size: 10px;
+	margin-left: -50px;
 	/*background-color: white;*/
 }

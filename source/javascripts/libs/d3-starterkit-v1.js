@@ -6,7 +6,7 @@ d3.conventions = function(c){
   c.width  = c.width  || 750
   c.height = c.height || 500
 
-  c.width  -= c.margin.left + c.margin.right
+  c.width  -= 30
   c.height -= c.margin.top  + c.margin.bottom
 
 

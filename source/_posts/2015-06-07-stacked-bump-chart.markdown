@@ -92,24 +92,27 @@ We're going to be repeatably counting the number of active players who started p
 players = _.sortBy(players, 'start')
 ```
 
-Now we can find the number of earlier starting, still active players for each player in given year by iterating over the `players` array. Each time we find a player that is active in the given year, increment an `ealierStarters` variable and save its current value to the player. 
+Now we can find the number of earlier starting, still active players for each player in given year by iterating over the `players` array. Each time we find a player that is active in the given year, increment an `numActiveBefore` variable and save its current value to the player. 
 
 Repeating this for every year gives enough information to construct each player's `years` array: 
 
 ```javascript
 d3.range(1950, 2016).forEach(function(year){
-  var ealierStarters = 0
+  var numActiveBefore = 0
   players.forEach(function(d){
     //is the player active in the given year?
     if (d.start <= year && year <= d.stop){
-      d.years.push({year: year, height: ealierStarters++})
+      d.years.push({year: year, numActiveBefore: numActiveBefore++})
     }
   })
 })
 ```
 
+Each entry in the years array is an object with the year and the number of active players who started playing before the player. 
 
-Because our data has been reshaped to closely match what we're draw, actually drawing becomes significantly easier.
+Because our data has been reshaped to closely match what we're draw, actually drawing becomes significantly easier. 
+
+Calling `d3.conventions` again gives a clean slate to work with a clean slate to 
 
 ```javascript
 var c = d3.conventions({height: 120, width: 750})
