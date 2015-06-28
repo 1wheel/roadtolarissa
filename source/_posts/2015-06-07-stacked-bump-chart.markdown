@@ -49,13 +49,14 @@ c.y.domain([0, players.length - 1])
 Now we need to convert our javascript array of player objects to elements on the page that we can manipulate with the scales. 
 
 ```javascript
-c.svg.dataAppend(players, 'line.player')
+c.svg.dataAppend(players, 'line')
     .translate(function(d, i){ return [0, c.y(i)] })
     .attr('x1', ƒ('start', c.x))
     .attr('x2', ƒ('stop' , c.x))
+    .style({stroke: 'steelblue', 'stroke-width': 4})
 ```
 
-`c.svg.dataAppend(players, 'line.player')` adds line element for each player object to the SVG created by `d3.conventions`. Each line has a player's data attached to it by d3, which we can use to position and style the lines based on the properties of its corresponding player. 
+`c.svg.dataAppend(players, 'line')` adds line element with the for each player object to the SVG created by `d3.conventions`. Each line has a player's data attached to it by d3, which we can use to position and style the lines based on the properties of its corresponding player. 
 
 `.translate(function(d, i){ return [0, c.y(i)] })` uses [d3-jetpack translate](https://github.com/gka/d3-jetpack#selectiontranslate) to arrange to lines vertically. The function passed to translate is called on each line. The first arguement, `d`, is the player object associtated with the line and the secound, `i`, is the index number of the line. By passing the index of each line to the y scale, which linearly converts number between 0 and the number of players to a number between 0 and the height of the chart, we're essentially evenly spacing each line vertically. This won't create a bump chart quite yet, but by using the start and stop properties of player object to set the length of the line, we can create a prelimary visualization. 
 

@@ -36,7 +36,7 @@ c.yAxis
 
 c.drawAxis()
 
-c.svg.dataAppend(players, 'line')
+c.svg.dataAppend(players, 'line.player')
     .attr('x1', ƒ('start', c.x))
     .attr('x2', ƒ('stop' , c.x))
     .translate(function(d, i){ return [0, c.y(i)] })
