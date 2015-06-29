@@ -77,12 +77,12 @@ players.forEach(function(d){ d.years = [] })
 
 
 d3.range(1950, 2016).forEach(function(year){
-  var currentHeight = 0
+  var numActiveBefore = 0
   players.forEach(function(d){
     if (d.start <= year && year <= d.stop){
-      if (d.stop  == year) d.stopHeight  = currentHeight
-      if (d.start == year) d.startHeight = currentHeight
-      d.years.push({year: year, height: currentHeight++})
+      if (d.stop  == year) d.stopHeight  = numActiveBefore
+      if (d.start == year) d.startHeight = numActiveBefore
+      d.years.push({year: year, numActiveBefore: numActiveBefore++})
     }
   })
 })
@@ -99,7 +99,7 @@ c.drawAxis()
 
 var line = d3.svg.line()
     .x(ƒ('year', c.x))
-    .y(ƒ('height', c.y))
+    .y(ƒ('numActiveBefore', c.y))
 
 c.svg.dataAppend(players, 'path.player')
     .attr('d', ƒ('years', line))
@@ -119,7 +119,7 @@ c.drawAxis()
 
 var line = d3.svg.line()
     .x(ƒ('year', c.x))
-    .y(ƒ('height', c.y))
+    .y(ƒ('numActiveBefore', c.y))
 
 c.svg.dataAppend(players, 'path.player')
     .attr('d', ƒ('years', line))
@@ -133,7 +133,8 @@ c.svg.dataAppend(players, 'circle.stop')
     .attr({r: 3, fill: 'steelblue'})
 
 c.svg.dataAppend(players, 'text.name')
-    .attr({x: ƒ('start', c.x), y: ƒ('startHeight', c.y)})
+    .attr('x', ƒ('start', c.x))
+    .attr('y', ƒ('years', 0, 'numActiveBefore', c.y))
     .text(ƒ('name'))
     .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
 

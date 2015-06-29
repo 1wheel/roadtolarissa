@@ -92,7 +92,7 @@ We're going to be repeatably counting the number of active players who started p
 players = _.sortBy(players, 'start')
 ```
 
-Now we can find the number of earlier starting, still active players for each player in given year by iterating over the `players` array. Each time we find a player that is active in the given year, increment an `numActiveBefore` variable and save its current value to the player. 
+With the array sorted, we can find the number of earlier starting, still active players for each player in given year by iterating over the `players` array. Each time we find a player that is active in the given year, increment an `numActiveBefore` variable and save its current value to the player. 
 
 Repeating this for every year gives enough information to construct each player's `years` array: 
 
@@ -108,11 +108,9 @@ d3.range(1950, 2016).forEach(function(year){
 })
 ```
 
-Each entry in the years array is an object with the year and the number of active players who started playing before the player. 
+Each entry in the years array is an object with the year and the number of active players who started playing before the player.  Because our data has been reshaped to closely match what we're try draw, all we need to do now is convert every element of the `years` array to x and y pixel positions and connect those positions with a line. 
 
-Because our data has been reshaped to closely match what we're draw, actually drawing becomes significantly easier. 
-
-Calling `d3.conventions` again gives a clean slate to work with a clean slate to 
+Calling `d3.conventions` again gives a clean slate to work with. The domain of the scales need to be defined again.
 
 ```javascript
 var c = d3.conventions({height: 120, width: 750})
@@ -123,28 +121,59 @@ c.y.domain([0, 10])
 c.drawAxis()
 ```
 
-<div id='bump'></div>
+Like before the x scale will convert a year between 1950 and 2015 to a number between 0 and 750, representing a x position. The y scale will convert years' `numActiveBefore` (always between 0 and 10 since there aren't ever 10 players active at once) to a value between 0 and 120, representing a y position. 
 
-Lets add circles and player names
+To draw the shapes, we'll use a [line generator](https://github.com/mbostock/d3/wiki/SVG-Shapes#line) to transform each player's years array to an [SVG path string](http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/) that the browser can render. 
 
 ```javascript
-c.svg.dataAppend(players, 'circle.start')
-    .attr({cx: ƒ('stop', c.x), cy: ƒ('stopHeight', c.y)})
-    .attr({r: 3, fill: 'white'})
+var line = d3.svg.line()
+    .x(ƒ('year', c.x))
+    .y(ƒ('numActiveBefore', c.y))
+```
 
-c.svg.dataAppend(players, 'circle.stop')
-    .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
-    .attr({r: 3, fill: 'steelblue'})
+Passing an array to `line` will convert every member of the array to point on the line. The x position is determined by the member's `year` property scaled by the x scale; the y position by the member's `numActiveBefore` property scaled by the y scale. 
 
-c.svg.dataAppend(players, 'text.name')
-    .attr({x: ƒ('start', c.x), y: ƒ('startHeight', c.y)})
+Finally, we'll create a path element for each player and set its path `d`escription attribute to the result of calling `line` with the player's array of `years`.
+
+```javascript
+c.svg.dataAppend(players, 'path.player').attr('d', ƒ('years', line))
+```
+
+By using the layers of abstractions we've built up, this single line of code draws 20 complicated shapes at once!
+
+<div id='bump'></div>
+
+This is looking much closer than the bars, but without labels the chart isn't very useful. 
+
+```javascript
+c.svg.dataAppend(players, 'text.label')
+    .attr('x', ƒ('start', c.x))
+    .attr('y', ƒ('years', 0, 'numActiveBefore', c.y))
     .text(ƒ('name'))
     .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
 ```
 
+The x position of each player's label is proportional to the player's start year. The y position is a bit trickier - we need the `numbActiveBefore` of the first element of the player's `years` array transformed by the y scale. `.text(ƒ('name'))` sets the text of the label to the player's `name` property.
+
+The start and end circles can be positioned similarly, using the cx and cy attributes. 
+
+```javascript
+c.svg.dataAppend(players, 'circle.start')
+    .attr('cx', ƒ('start', c.x))
+    .attr('cy', ƒ('years', 0, 'numActiveBefore', c.y))
+    .attr('r', 3)
+
+c.svg.dataAppend(players, 'circle.stop')
+    .attr('cx', ƒ('stop', c.x))
+    .attr('cy', ƒ('years', _.last, 'numActiveBefore', c.y))
+    .attr('r', 3)
+```
+
+For the stop circle, the last element of the `years` array is used instead of the first. The chart is starting to come together:
+
 <div id='bump-circles'></div>
 
-Getting this looking nice requires a little bit of css styling:
+We're also using a little bit of css styling:
 
 ```css
 .player{
@@ -156,17 +185,23 @@ Getting this looking nice requires a little bit of css styling:
 circle{
   stroke-width: 2px;
   stroke: steelblue;
+  fill: steelblue;
 }
 
-.name{
+.start{
+  fill: white;
+}
+
+.label{
   text-shadow: 0 1px 0 #F5F5F5, 1px 0 0 #F5F5F5, 0 -1px 0 #F5F5F5, -1px 0 0 #F5F5F5;
 }
 ```
 
+These styles could have been set with `.style`, but moving them to a separate css file makes them easier to reuse and the javascript a little more readable. 
 
 ##Positioning labels
 
-d3.drag
+Most of the labels 
 
 save positions
 
