@@ -201,7 +201,8 @@ These styles could have been set with `.style`, but moving them to a separate cs
 
 ##Positioning labels
 
-Most of the labels 
+Adding labels definitely improves the chart, but introduce the problem of label overlap. While we could try to implement some sort of automatic label placement algorithm, our dataset is small so positioning them manually will be much quicker.  
+
 
 save positions
 

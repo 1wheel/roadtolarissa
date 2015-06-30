@@ -132,12 +132,20 @@ c.svg.dataAppend(players, 'circle.stop')
     .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
     .attr({r: 3, fill: 'steelblue'})
 
+
+var playersLabelOffsets = {
+  'Russell':  [10, -20],
+  'Wilt':     [12, 3], 
+  'Kareem':   [0, -50]
+}
+
+
 c.svg.dataAppend(players, 'text.name')
     .attr('x', ƒ('start', c.x))
     .attr('y', ƒ('years', 0, 'numActiveBefore', c.y))
     .text(ƒ('name'))
     .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
-
+    .translate(function(d){ return playersLabelOffsets[d.name] || null })
 
 
 
