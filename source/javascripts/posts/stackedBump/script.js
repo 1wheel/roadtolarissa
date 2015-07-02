@@ -132,6 +132,42 @@ c.svg.dataAppend(players, 'circle.stop')
     .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
     .attr({r: 3, fill: 'steelblue'})
 
+c.svg.dataAppend(players, 'text.name')
+    .attr('x', ƒ('start', c.x))
+    .attr('y', ƒ('years', 0, 'numActiveBefore', c.y))
+    .text(ƒ('name'))
+    .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
+
+
+
+
+
+
+
+var c = d3.conventions({height: 120, parentSel: d3.select('#bump-drag')})
+
+c.x.domain([1950, 2015])
+c.y.domain([0, 10])
+
+c.yAxis.ticks(2)
+
+c.drawAxis()
+
+var line = d3.svg.line()
+    .x(ƒ('year', c.x))
+    .y(ƒ('numActiveBefore', c.y))
+
+c.svg.dataAppend(players, 'path.player')
+    .attr('d', ƒ('years', line))
+
+c.svg.dataAppend(players, 'circle.start')
+    .attr({cx: ƒ('stop', c.x), cy: ƒ('stopHeight', c.y)})
+    .attr({r: 3, fill: 'white'})
+
+c.svg.dataAppend(players, 'circle.stop')
+    .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
+    .attr({r: 3, fill: 'steelblue'})
+
 
 var playersLabelOffsets = {
   'Russell':  [10, -20],
@@ -139,14 +175,94 @@ var playersLabelOffsets = {
   'Kareem':   [0, -50]
 }
 
+{
+  "Russell": [
+    -1.0384615384615472,
+    -1.5
+  ],
+  "Wilt": [
+    -2.1923076923076934,
+    -1
+  ],
+  "Kareem": [
+    30.961538461538453,
+    -9.5
+  ],
+  "M. Malone": [
+    23.576923076923038,
+    -9.5
+  ],
+  "K. Malone": [
+    4.730769230769226,
+    -9
+  ],
+  "Hayes": [
+    0.038461538461518785,
+    -6
+  ],
+  "Stockton": [
+    0.6538461538461462,
+    -0.9999999999999929
+  ],
+  "Robertson": [
+    52.57692307692304,
+    -1
+  ],
+  "Olajuwon": [
+    4.807692307692264,
+    -8.5
+  ],
+  "Jordan": [
+    -0.19230769230773603,
+    -6.999999999999993
+  ],
+  "LeBron": [
+    38.34615384615381,
+    -7.999999999999993
+  ],
+  "Kobe": [
+    31.88461538461536,
+    -0.5
+  ],
+  "Duncan": [
+    41.807692307692264,
+    -0.9999999999999929
+  ],
+  "Dirk": [
+    26.730769230769283,
+    -8.5
+  ],
+  "Garnett": [
+    27.038461538461547,
+    -10.5
+  ],
+  "Shaq": [
+    4.192307692307622,
+    -10.5
+  ]
+}
+var drag = d3.behavior.drag()
+  .on('drag', function(d){
+    var pos = d3.mouse(c.svg.node())
+    var x = pos[0] - d3.select(this).attr('x')
+    var y = pos[1] - d3.select(this).attr('y')
+    
+    playersLabelOffsets[d.name] = [x, y]
+    d3.select(this).translate([x, y])
+  })
+  // .origin(function(d){
+  //   var pos = playersLabelOffsets[d.name] || [0, 0]
+  //   return {x: pos[0], y: pos[1]}
+  // })
+
 
 c.svg.dataAppend(players, 'text.name')
     .attr('x', ƒ('start', c.x))
     .attr('y', ƒ('years', 0, 'numActiveBefore', c.y))
     .text(ƒ('name'))
     .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
-    .translate(function(d){ return playersLabelOffsets[d.name] || null })
-
+    .translate(function(d){ return playersLabelOffsets[d.name] || [0, 0] })
+    .call(drag)
 
 
 
