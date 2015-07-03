@@ -170,85 +170,110 @@ c.svg.dataAppend(players, 'circle.stop')
 
 
 var playersLabelOffsets = {
-  'Russell':  [10, -20],
-  'Wilt':     [12, 3], 
-  'Kareem':   [0, -50]
-}
-
-{
   "Russell": [
-    -1.0384615384615472,
-    -1.5
+    -2,
+    0
   ],
   "Wilt": [
-    -2.1923076923076934,
+    0,
     -1
   ],
   "Kareem": [
-    30.961538461538453,
-    -9.5
+    31,
+    -10
   ],
   "M. Malone": [
-    23.576923076923038,
-    -9.5
+    22,
+    -10
   ],
   "K. Malone": [
-    4.730769230769226,
+    2,
     -9
   ],
   "Hayes": [
-    0.038461538461518785,
-    -6
+    0,
+    -10
   ],
   "Stockton": [
-    0.6538461538461462,
-    -0.9999999999999929
+    -2,
+    -1
   ],
   "Robertson": [
-    52.57692307692304,
+    53,
     -1
   ],
   "Olajuwon": [
-    4.807692307692264,
-    -8.5
+    2,
+    -9
   ],
   "Jordan": [
-    -0.19230769230773603,
-    -6.999999999999993
+    -6,
+    -9
   ],
   "LeBron": [
-    38.34615384615381,
-    -7.999999999999993
+    44,
+    -2
   ],
   "Kobe": [
-    31.88461538461536,
-    -0.5
+    32,
+    -1
   ],
   "Duncan": [
-    41.807692307692264,
-    -0.9999999999999929
+    43,
+    -1
   ],
   "Dirk": [
-    26.730769230769283,
-    -8.5
+    25,
+    -9
   ],
   "Garnett": [
-    27.038461538461547,
-    -10.5
+    21,
+    -11
   ],
   "Shaq": [
     4.192307692307622,
     -10.5
+  ],
+  "Cousy": [
+    -2,
+    -2
+  ],
+  "Schayes": [
+    -4,
+    -1
+  ],
+  "Pettit": [
+    -3,
+    0
+  ],
+  "Isiah": [
+    -3,
+    -1
+  ],
+  "Bird": [
+    -1,
+    0
+  ],
+  "Magic": [
+    -2,
+    0
+  ],
+  "West": [
+    -1,
+    0
   ]
 }
+
+
 var drag = d3.behavior.drag()
   .on('drag', function(d){
     var pos = d3.mouse(c.svg.node())
     var x = pos[0] - d3.select(this).attr('x')
     var y = pos[1] - d3.select(this).attr('y')
+    var offset = [x, y].map(Math.round)
     
-    playersLabelOffsets[d.name] = [x, y]
-    d3.select(this).translate([x, y])
+    playersLabelOffsets[d.name] = offset
+    d3.select(this).translate(offset)
   })
   // .origin(function(d){
   //   var pos = playersLabelOffsets[d.name] || [0, 0]
