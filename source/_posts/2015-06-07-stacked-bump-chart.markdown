@@ -203,7 +203,15 @@ These styles could have been set with `.style`, but moving them to a separate cs
 
 Adding labels definitely improves the chart, but introduce the problem of label overlap. While we could try to implement some sort of automatic label placement algorithm, our dataset is small so positioning them manually will be much quicker.  
 
+The manually positioning can be reprsented as small offsets from the each label's calculated placement:
 
+```javascript
+var playersLabelOffsets = {
+  "Russell": [-2, 2],
+  "Wilt":    [0,  10],
+  "Kareem":  [31, -10],
+  ...
+}
 save positions
 
 don't mutate starting array, save positions separately

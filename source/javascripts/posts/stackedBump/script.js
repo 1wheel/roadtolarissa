@@ -170,98 +170,33 @@ c.svg.dataAppend(players, 'circle.stop')
 
 
 var playersLabelOffsets = {
-  "Russell": [
-    -2,
-    0
-  ],
-  "Wilt": [
-    0,
-    -1
-  ],
-  "Kareem": [
-    31,
-    -10
-  ],
-  "M. Malone": [
-    22,
-    -10
-  ],
-  "K. Malone": [
-    2,
-    -9
-  ],
-  "Hayes": [
-    0,
-    -10
-  ],
-  "Stockton": [
-    -2,
-    -1
-  ],
-  "Robertson": [
-    53,
-    -1
-  ],
-  "Olajuwon": [
-    2,
-    -9
-  ],
-  "Jordan": [
-    -6,
-    -9
-  ],
-  "LeBron": [
-    44,
-    -2
-  ],
-  "Kobe": [
-    32,
-    -1
-  ],
-  "Duncan": [
-    43,
-    -1
-  ],
-  "Dirk": [
-    25,
-    -9
-  ],
-  "Garnett": [
-    21,
-    -11
-  ],
-  "Shaq": [
-    4.192307692307622,
-    -10.5
-  ],
-  "Cousy": [
-    -2,
-    -2
-  ],
-  "Schayes": [
-    -4,
-    -1
-  ],
-  "Pettit": [
-    -3,
-    0
-  ],
-  "Isiah": [
-    -3,
-    -1
-  ],
-  "Bird": [
-    -1,
-    0
-  ],
-  "Magic": [
-    -2,
-    0
-  ],
-  "West": [
-    -1,
-    0
-  ]
+  "Russell": [-2, 0],
+  "Wilt": [0,
+     ],
+  "Kareem": [31, -10],
+  "M. Malone": [22, -10],
+  "K. Malone": [2,
+     ],
+  "Hayes": [0,
+      ],
+  "Stockton": [-2, -1],
+  "Robertson": [53, -1],
+  "Olajuwon": [2,
+     ],
+  "Jordan": [-6, -9],
+  "LeBron": [44, -2],
+  "Kobe": [32, -1],
+  "Duncan": [43, -1],
+  "Dirk": [25, -9],
+  "Garnett": [21, -11],
+  "Shaq": [4.19230769230762   -10.5],
+  "Cousy": [-2, -2],
+  "Schayes": [-4, -1],
+  "Pettit": [-3, 0],
+  "Isiah": [-3, -1],
+  "Bird": [-1, 0],
+  "Magic": [-2, 0],
+  "West": [-1, 0]
 }
 
 
