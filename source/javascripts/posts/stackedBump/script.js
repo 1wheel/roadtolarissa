@@ -170,35 +170,105 @@ c.svg.dataAppend(players, 'circle.stop')
 
 
 var playersLabelOffsets = {
-  "Russell": [-2, 0],
-  "Wilt": [0,
-     ],
-  "Kareem": [31, -10],
-  "M. Malone": [22, -10],
-  "K. Malone": [2,
-     ],
-  "Hayes": [0,
-      ],
-  "Stockton": [-2, -1],
-  "Robertson": [53, -1],
-  "Olajuwon": [2,
-     ],
-  "Jordan": [-6, -9],
-  "LeBron": [44, -2],
-  "Kobe": [32, -1],
-  "Duncan": [43, -1],
-  "Dirk": [25, -9],
-  "Garnett": [21, -11],
-  "Shaq": [4.19230769230762   -10.5],
-  "Cousy": [-2, -2],
-  "Schayes": [-4, -1],
-  "Pettit": [-3, 0],
-  "Isiah": [-3, -1],
-  "Bird": [-1, 0],
-  "Magic": [-2, 0],
-  "West": [-1, 0]
+  "Russell": [
+    -2,
+    0
+  ],
+  "Wilt": [
+    -3,
+    0
+  ],
+  "Kareem": [
+    31,
+    -10
+  ],
+  "M. Malone": [
+    22,
+    -10
+  ],
+  "K. Malone": [
+    1,
+    -11
+  ],
+  "Hayes": [
+    0,
+    0
+  ],
+  "Stockton": [
+    -2,
+    -1
+  ],
+  "Robertson": [
+    53,
+    -1
+  ],
+  "Olajuwon": [
+    -2,
+    -10
+  ],
+  "Jordan": [
+    -3,
+    -9
+  ],
+  "LeBron": [
+    44,
+    -2
+  ],
+  "Kobe": [
+    32,
+    -1
+  ],
+  "Duncan": [
+    43,
+    -1
+  ],
+  "Dirk": [
+    25,
+    -9
+  ],
+  "Garnett": [
+    21,
+    -11
+  ],
+  "Shaq": [
+    2,
+    -9
+  ],
+  "Cousy": [
+    -2,
+    -2
+  ],
+  "Schayes": [
+    -4,
+    -1
+  ],
+  "Pettit": [
+    -3,
+    0
+  ],
+  "Isiah": [
+    -3,
+    -1
+  ],
+  "Bird": [
+    -1,
+    0
+  ],
+  "Magic": [
+    -2,
+    0
+  ],
+  "West": [
+    -1,
+    0
+  ]
 }
 
+
+var posText = c.svg.append('text')
+    .translate([50, 10])
+    .style('font-size', '150%')
+    .style('font-family', 'monospace')
 
 var drag = d3.behavior.drag()
   .on('drag', function(d){
@@ -209,7 +279,11 @@ var drag = d3.behavior.drag()
     
     playersLabelOffsets[d.name] = offset
     d3.select(this).translate(offset)
+
+    posText.text('offset: ' + offset)
   })
+  .on('dragstart', function(){ posText.style('opacity', 1) })
+  .on('dragend',   function(){ posText.style('opacity', 0) })
   // .origin(function(d){
   //   var pos = playersLabelOffsets[d.name] || [0, 0]
   //   return {x: pos[0], y: pos[1]}
@@ -219,10 +293,11 @@ var drag = d3.behavior.drag()
 c.svg.dataAppend(players, 'text.name')
     .attr('x', ƒ('start', c.x))
     .attr('y', ƒ('years', 0, 'numActiveBefore', c.y))
+    .translate(function(d){ return playersLabelOffsets[d.name] || [0, 0] })
     .text(ƒ('name'))
     .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
-    .translate(function(d){ return playersLabelOffsets[d.name] || [0, 0] })
     .call(drag)
+    .style('cursor', 'pointer')
 
 
 

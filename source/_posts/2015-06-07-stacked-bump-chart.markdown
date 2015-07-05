@@ -203,18 +203,45 @@ These styles could have been set with `.style`, but moving them to a separate cs
 
 Adding labels definitely improves the chart, but introduce the problem of label overlap. While we could try to implement some sort of automatic label placement algorithm, our dataset is small so positioning them manually will be much quicker.  
 
-The manually positioning can be reprsented as small offsets from the each label's calculated placement:
+The manually positioning can be reprsented as small offsets from the each label's calculated placement and rendered with `translate`:
 
 ```javascript
-var playersLabelOffsets = {
-  "Russell": [-2, 2],
+var playerLabelOffsets = {
+  "Russell": [-2, 5],
   "Wilt":    [0,  10],
   "Kareem":  [31, -10],
+  "Robertson": [53, -5],
   ...
 }
-save positions
 
-don't mutate starting array, save positions separately
+c.svg.selectAll('text.name')
+    .translate(function(d){ return playerLabelOffsets[d.name] })
+```
+
+So the 'Robertson' is moved 53 pixels to the right and 5 up. These offsets could be stored in the `players`, but not manually merging data from different sources is generally a good idea - when the players data invariably needs to be updated, we can just drop the new spreadsheet it. 
+
+Its possible to adjust all the offset by editing the position value and incrementally reloading the page. This isn't that bad with [live-server](https://github.com/tapio/live-server), but getting things in just the right position by typing numbers isn't ideal. Using [d3.behavior.drag](https://github.com/mbostock/d3/wiki/Drag-Behavior), we can create an event handler that will update a label's offsets when we click and drag on it. 
+
+```javascript
+var drag = d3.behavior.drag()
+  .on('drag', function(d){
+    var pos = d3.mouse(c.svg.node())
+    var x = pos[0] - d3.select(this).attr('x')
+    var y = pos[1] - d3.select(this).attr('y')
+    var offset = [x, y].map(Math.round)
+    
+    playerLabelOffsets[d.name] = offset
+    d3.select(this).translate(offset)
+  })
+
+c.svg.selectAll('text.name').call(drag)
+```
+
+Each time a label is dragged, we find the position of the mouse relative to the upper left hand corner of the SVG and subtract the calculated placement (the x and y attributes) to find the offset. The updated offset is saved to `playerLabelOffsets` so it can be accessed later and the label itself is translated with the offset. This happens every time the mouse
+
+
+<div id='bump-drag'></div>
+_Click and drag to reposition the labels_
 
 ##Taking a break
 
