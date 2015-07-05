@@ -142,33 +142,6 @@ c.svg.dataAppend(players, 'text.name')
 
 
 
-
-
-var c = d3.conventions({height: 120, parentSel: d3.select('#bump-drag')})
-
-c.x.domain([1950, 2015])
-c.y.domain([0, 10])
-
-c.yAxis.ticks(2)
-
-c.drawAxis()
-
-var line = d3.svg.line()
-    .x(ƒ('year', c.x))
-    .y(ƒ('numActiveBefore', c.y))
-
-c.svg.dataAppend(players, 'path.player')
-    .attr('d', ƒ('years', line))
-
-c.svg.dataAppend(players, 'circle.start')
-    .attr({cx: ƒ('stop', c.x), cy: ƒ('stopHeight', c.y)})
-    .attr({r: 3, fill: 'white'})
-
-c.svg.dataAppend(players, 'circle.stop')
-    .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
-    .attr({r: 3, fill: 'steelblue'})
-
-
 var playersLabelOffsets = {
   "Russell": [
     -2,
@@ -265,6 +238,36 @@ var playersLabelOffsets = {
 }
 
 
+
+
+
+var c = d3.conventions({height: 120, parentSel: d3.select('#bump-drag')})
+
+c.x.domain([1950, 2015])
+c.y.domain([0, 10])
+
+c.yAxis.ticks(2)
+
+c.drawAxis()
+
+var line = d3.svg.line()
+    .x(ƒ('year', c.x))
+    .y(ƒ('numActiveBefore', c.y))
+
+c.svg.dataAppend(players, 'path.player')
+    .attr('d', ƒ('years', line))
+
+c.svg.dataAppend(players, 'circle.start')
+    .attr({cx: ƒ('stop', c.x), cy: ƒ('stopHeight', c.y)})
+    .attr({r: 3, fill: 'white'})
+
+c.svg.dataAppend(players, 'circle.stop')
+    .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
+    .attr({r: 3, fill: 'steelblue'})
+
+
+
+
 var posText = c.svg.append('text')
     .translate([50, 10])
     .style('font-size', '150%')
@@ -284,10 +287,8 @@ var drag = d3.behavior.drag()
   })
   .on('dragstart', function(){ posText.style('opacity', 1) })
   .on('dragend',   function(){ posText.style('opacity', 0) })
-  // .origin(function(d){
-  //   var pos = playersLabelOffsets[d.name] || [0, 0]
-  //   return {x: pos[0], y: pos[1]}
-  // })
+
+
 
 
 c.svg.dataAppend(players, 'text.name')
@@ -306,9 +307,94 @@ c.svg.dataAppend(players, 'text.name')
 
 
 
+var playerSegments = [
+  {name: 'Kareem',    start: 1970,  stop: 1989},
+  {name: 'Jordan',    start: 1985,  stop: 1994},
+  {name: 'Jordan',    start: 1996,  stop: 1998},
+  {name: 'Jordan',    start: 2001,  stop: 2003},
+  {name: 'Russell',   start: 1957,  stop: 1969},
+  {name: 'Wilt',      start: 1959,  stop: 1969},
+  {name: 'Kobe',      start: 1997,  stop: 2015},
+  {name: 'Duncan',    start: 1998,  stop: 2015},
+  {name: 'Shaq',      start: 1993,  stop: 2011},
+  {name: 'Cousy',     start: 1951,  stop: 1963},
+  {name: 'Garnett',   start: 1995,  stop: 2015},
+  {name: 'West',      start: 1961,  stop: 1974},
+  {name: 'Magic',     start: 1980,  stop: 1989},
+  {name: 'Magic',     start: 1993,  stop: 1996},
+  {name: 'K. Malone', start: 1986,  stop: 2004},
+  {name: 'LeBron',    start: 2004,  stop: 2015},
+  {name: 'Olajuwon',  start: 1985,  stop: 2002},
+  {name: 'Bird',      start: 1980,  stop: 1992},
+  {name: 'Hayes',     start: 1969,  stop: 1984},
+  {name: 'Robertson', start: 1975,  stop: 1995},
+  {name: 'M. Malone', start: 1975,  stop: 1995},
+  {name: 'Schayes',   start: 1950,  stop: 1964},
+  {name: 'Dirk',      start: 1999,  stop: 2015},
+  {name: 'Stockton',  start: 1961,  stop: 1974},
+  {name: 'Pettit',    start: 1955,  stop: 1965},
+  {name: 'Isiah',     start: 1982,  stop: 1994},
+]
+
+playerSegments = _.sortBy(playerSegments, 'start')
+
+
+var players = d3.nest().key(ƒ('name')).entries(playerSegments)
+
+players.forEach(function(d){
+  d.start = d.values[0].start
+  d.stop  = _.last(d.values).stop
+  d.name  = d.key
+  d.years = []
+})
+
+d3.range(1950, 2016).forEach(function(year){
+  var numActiveBefore = 0
+  players.forEach(function(d){
+    if (d.start <= year && year <= d.stop){
+      if (d.stop  == year) d.stopHeight  = numActiveBefore
+      if (d.start == year) d.startHeight = numActiveBefore
+      d.years.push({year: year, numActiveBefore: numActiveBefore++})
+    }
+  })
+})
 
 
 
+
+var c = d3.conventions({height: 120, parentSel: d3.select('#bump-break')})
+
+c.x.domain([1950, 2015])
+c.y.domain([0, 10])
+
+c.yAxis.ticks(2)
+
+c.drawAxis()
+
+var line = d3.svg.line()
+    .x(ƒ('year', c.x))
+    .y(ƒ('numActiveBefore', c.y))
+
+c.svg.dataAppend(players, 'path.player')
+    .attr('d', ƒ('years', line))
+
+c.svg.dataAppend(players, 'circle.start')
+    .attr({cx: ƒ('stop', c.x), cy: ƒ('stopHeight', c.y)})
+    .attr({r: 3, fill: 'white'})
+
+c.svg.dataAppend(players, 'circle.stop')
+    .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
+    .attr({r: 3, fill: 'steelblue'})
+
+
+
+
+c.svg.dataAppend(players, 'text.name')
+    .attr('x', ƒ('start', c.x))
+    .attr('y', ƒ('years', 0, 'numActiveBefore', c.y))
+    .translate(function(d){ return playersLabelOffsets[d.name] || [0, 0] })
+    .text(ƒ('name'))
+    .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
 
 
 

@@ -224,28 +224,45 @@ Its possible to adjust all the offset by editing the position value and incremen
 
 ```javascript
 var drag = d3.behavior.drag()
-  .on('drag', function(d){
-    var pos = d3.mouse(c.svg.node())
-    var x = pos[0] - d3.select(this).attr('x')
-    var y = pos[1] - d3.select(this).attr('y')
-    var offset = [x, y].map(Math.round)
-    
-    playerLabelOffsets[d.name] = offset
-    d3.select(this).translate(offset)
-  })
+    .on('drag', function(d){
+      var pos = d3.mouse(c.svg.node())
+      var x = pos[0] - d3.select(this).attr('x')
+      var y = pos[1] - d3.select(this).attr('y')
+      var offset = [x, y].map(Math.round)
+      
+      playerLabelOffsets[d.name] = offset
+      d3.select(this).translate(offset)
+    })
 
 c.svg.selectAll('text.name').call(drag)
 ```
 
-Each time a label is dragged, we find the position of the mouse relative to the upper left hand corner of the SVG and subtract the calculated placement (the x and y attributes) to find the offset. The updated offset is saved to `playerLabelOffsets` so it can be accessed later and the label itself is translated with the offset. This happens every time the mouse
+Each time a label is dragged, we find the position of the mouse relative to the upper left hand corner of the SVG and subtract the calculated placement (the x and y attributes) to find the offset. The updated offset is saved to `playerLabelOffsets` so it can be accessed later and the label itself is translated with the offset. This happens every time the mouse moves while dragging - a much faster feedback loop than editing a number, saving a file and reloading.
 
+I've arranged the labels to get rid of the overlap. They're definitely not perfect - can you do better?
 
 <div id='bump-drag'></div>
 _Click and drag to reposition the labels_
 
+After dragging the labels around, the mutated `playerLabelOffsets` object can be copied to the clipboard by running `> copy(playerLabelOffsets)` in the browser console and saved by pasting the object into your javascript file. 
+
+
 ##Taking a break
 
-player segments, connections
+While its starting to look nice, our chart isn't quite showing the number of time great players active at a given time. Jordan and Magic took breaks ... . These periods of activity and inactively
+
+```javascript
+var playerSegments = [
+  {name: 'Russell',   start: 1957,  stop: 1969},
+  {name: 'Kareem',    start: 1970,  stop: 1989},
+  {name: 'Jordan',    start: 1985,  stop: 1994},
+  {name: 'Jordan',    start: 1996,  stop: 1998},
+  {name: 'Jordan',    start: 2001,  stop: 2003},
+  ...
+}
+```
+
+This same technqieu could be used to encode other time based information along the line - we could color different segments along a single line differently to show what team a player was on.  
 
 ##More improvements
 
