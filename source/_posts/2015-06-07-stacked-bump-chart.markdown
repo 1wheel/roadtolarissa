@@ -94,6 +94,7 @@ players = _.sortBy(players, 'start')
 
 With the array sorted, we can find the number of earlier starting, still active players for each player in given year by iterating over the `players` array. Each time we find a player that is active in the given year, increment an `numActiveBefore` variable and save its current value to the player. 
 
+<div id='yeariteration'></div>
 Repeating this for every year gives enough information to construct each player's `years` array: 
 
 ```javascript
@@ -249,7 +250,7 @@ After dragging the labels around, the mutated `playerLabelOffsets` object can be
 
 ##Taking a break
 
-While its starting to look nice, our chart isn't quite showing the number of time great players active at a given time. Jordan and Magic took breaks ... . These periods of activity and inactively
+While its starting to look nice, our chart isn't quite showing the number of time great players active at a given time. Jordan and Magic took breaks ... . These periods of activity and inactively can be represented by an array of player segments with start and stop years for each segment.  
 
 ```javascript
 var playerSegments = [
@@ -262,7 +263,29 @@ var playerSegments = [
 }
 ```
 
-This same technqieu could be used to encode other time based information along the line - we could color different segments along a single line differently to show what team a player was on.  
+With [d3.nest]() we can group the player segments by name. 
+
+```javascript
+var players = d3.nest().key(ƒ('name')).entries(playerSegments)
+players.forEach(function(d){
+  d.start = d.values[0].start
+  d.stop  = _.last(d.values).stop
+  d.name  = d.key
+  d.years = []
+})
+```
+
+The player's overall start is equal to the first segment's start; the player's stop is equal to the last segment's stop. 
+
+The year's property of each player can be calculated as we did <span onclick='yeariteration.scrollIntoView'>previously</span>
+
+
+[previously](#yeariteration)
+[previously](/stacked-bump#yeariteration)
+<span onclick='yeariteration.scrollIntoView'>previously</span>
+
+
+This same technique could be used to encode other time based information along the line - we could color different segments along a single line differently to show what team a player was on.  
 
 ##More improvements
 
