@@ -263,29 +263,54 @@ var playerSegments = [
 }
 ```
 
-With [d3.nest]() we can group the player segments by name. 
+With [d3.nest]() we can group the player segments by name to recreate a `players` array with the same properties as the one hand created earlier. 
+
+<!-- d3.nest takes a key function and an array of objects. It calls the key function on each object and returns an array of key/values pairs  -->
 
 ```javascript
 var players = d3.nest().key(ƒ('name')).entries(playerSegments)
 players.forEach(function(d){
-  d.start = d.values[0].start
-  d.stop  = _.last(d.values).stop
-  d.name  = d.key
-  d.years = []
+  d.values = _.sortBy(d.values, 'start')
+  d.start  = d.values[0].start
+  d.stop   = _.last(d.values).stop
+  d.name   = d.key
+  d.years  = []
 })
 ```
 
-The player's overall start is equal to the first segment's start; the player's stop is equal to the last segment's stop. 
+The player's overall start is equal to the first segment's start; the player's stop is equal to the last segment's stop. The year's property of each player can be calculated as we did [previously](#yeariteration), by iterating over each year and finding the number of previously active players for each player.
 
-The year's property of each player can be calculated as we did <span onclick='yeariteration.scrollIntoView'>previously</span>
+Since our new `players` array has the same properties as before, the `line`  function can be reused to draw a thin line to show their career span: 
+
+```javascript
+c.svg.dataAppend(players, 'path.player')
+    .attr('d', ƒ('years', line))
+    .style('stroke-width', 1)
+```
+<div id='bump-thin'></div>
+
+To create a thick line for each player segment we'll iterate over each players' segments (stored in the values array by d3.nest, remember). The segments' `years` array will created by filtering the player's `years` array for years between the segments start and stop:
+
+```javascript
+players.forEach(function(player){
+  player.values.forEach(function(segment){
+    segment.years = player.years.filter(function(year){
+      return segment.start <= year.year && year.year <= segment.stop
+    })
+  })
+})
+```
+Now the `playerSegments` have a `years` array and thick lines can be drawn with the `line` function:
+
+```javascript
+c.svg.dataAppend(playerSegments, 'path.player')
+    .attr('d', ƒ('years', line))
+    .style('stroke-width', 3)
+```
+<div id='bump-break'></div>
 
 
-[previously](#yeariteration)
-[previously](/stacked-bump#yeariteration)
-<span onclick='yeariteration.scrollIntoView'>previously</span>
-
-
-This same technique could be used to encode other time based information along the line - we could color different segments along a single line differently to show what team a player was on.  
+This same technique could be used to encode other time based information along a single bump line. If we made segments for each team a player was on, we could color code the lines to see Robinson's and Duncan's long, overlapping time on the Spurs or [the Shaq's rainbow](https://i.imgur.com/oCTy1.jpg).  
 
 ##More improvements
 

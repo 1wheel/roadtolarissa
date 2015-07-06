@@ -340,7 +340,6 @@ playerSegments = _.sortBy(playerSegments, 'start')
 
 
 var players = d3.nest().key(ƒ('name')).entries(playerSegments)
-
 players.forEach(function(d){
   d.start = d.values[0].start
   d.stop  = _.last(d.values).stop
@@ -360,9 +359,16 @@ d3.range(1950, 2016).forEach(function(year){
 })
 
 
+players.forEach(function(player){
+  player.values.forEach(function(segment){
+    segment.years = player.years.filter(function(year){
+      return segment.start <= year.year && year.year <= segment.stop
+    })
+  })
+})
 
 
-var c = d3.conventions({height: 120, parentSel: d3.select('#bump-break')})
+var c = d3.conventions({height: 120, parentSel: d3.select('#bump-thin')})
 
 c.x.domain([1950, 2015])
 c.y.domain([0, 10])
@@ -377,6 +383,7 @@ var line = d3.svg.line()
 
 c.svg.dataAppend(players, 'path.player')
     .attr('d', ƒ('years', line))
+    .style('stroke-width', 1)
 
 c.svg.dataAppend(players, 'circle.start')
     .attr({cx: ƒ('stop', c.x), cy: ƒ('stopHeight', c.y)})
@@ -398,4 +405,47 @@ c.svg.dataAppend(players, 'text.name')
 
 
 
+
+
+
+
+
+
+
+var c = d3.conventions({height: 120, parentSel: d3.select('#bump-break')})
+
+c.x.domain([1950, 2015])
+c.y.domain([0, 10])
+
+c.yAxis.ticks(2)
+
+c.drawAxis()
+
+var line = d3.svg.line()
+    .x(ƒ('year', c.x))
+    .y(ƒ('numActiveBefore', c.y))
+
+c.svg.dataAppend(players, 'path.player')
+    .attr('d', ƒ('years', line))
+    .style('stroke-width', 1)
+c.svg.dataAppend(playerSegments, 'path.player')
+    .attr('d', ƒ('years', line))
+
+c.svg.dataAppend(players, 'circle.start')
+    .attr({cx: ƒ('stop', c.x), cy: ƒ('stopHeight', c.y)})
+    .attr({r: 3, fill: 'white'})
+
+c.svg.dataAppend(players, 'circle.stop')
+    .attr({cx: ƒ('start', c.x), cy: ƒ('startHeight', c.y)})
+    .attr({r: 3, fill: 'steelblue'})
+
+
+
+
+c.svg.dataAppend(players, 'text.name')
+    .attr('x', ƒ('start', c.x))
+    .attr('y', ƒ('years', 0, 'numActiveBefore', c.y))
+    .translate(function(d){ return playersLabelOffsets[d.name] || [0, 0] })
+    .text(ƒ('name'))
+    .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
 
