@@ -263,9 +263,9 @@ var playerSegments = [
 }
 ```
 
-With [d3.nest]() we can group the player segments by name to recreate a `players` array with the same properties as the one hand created earlier. 
+With [d3.nest]() we can group the player segments by name. d3.nest takes a key function and an array of objects. It calls the key function on each object and returns an array of key/values pairs. The key property is a value the key function returned and the values property is an array of all original objects that returned the given key. 
 
-<!-- d3.nest takes a key function and an array of objects. It calls the key function on each object and returns an array of key/values pairs  -->
+By using `ƒ('name')` as the key function and passing in `playerSegments`, each player segment with the same name will be grouped together. We'll iterate over each of those groups to recreate a `players` array with the same properties as the one hand created earlier.
 
 ```javascript
 var players = d3.nest().key(ƒ('name')).entries(playerSegments)
@@ -310,13 +310,13 @@ c.svg.dataAppend(playerSegments, 'path.player')
 <div id='bump-break'></div>
 
 
-This same technique could be used to encode other time based information along a single bump line. If we made segments for each team a player was on, we could color code the lines to see Robinson's and Duncan's long, overlapping time on the Spurs or [the Shaq's rainbow](https://i.imgur.com/oCTy1.jpg).  
+This same technique could be used to encode other time based information along a single bump line. If we made segments for each team a player was on, for example, we could color code the lines to see Robinson's and Duncan's long, overlapping time on the Spurs or [the Shaq's rainbow](https://i.imgur.com/oCTy1.jpg).  
 
 ##More improvements
 
-Alicia had a number of great styling choices that I didn't go over. Trying to replicate them without looking at her code is good practice.
+Alicia had a number of great styling choices that I didn't go over. Trying to replicate them without looking at her code and then peeking at her css if you get stuck is good practice.
 
-Tooltips? Hover highlighting? On load animations? Tempting to add, but less can be more. 
+If I had been publishing this chart, I would have gone over board with tooltips, hover highlighting and scroll into view animations. Those effects add a lot in the right place, but thinking carefully about Alicia's chart has been instructive to me - getting the little details just right makes the chart interesting without requiring flashy effects.
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/stackedBump/style.css">
 

@@ -3,7 +3,7 @@ d3.conventions = function(c){
 
   c.margin = c.margin || {top: 5, right: 10, bottom: 20, left: 50}
 
-  c.width  = c.width  || 750
+  c.width  = c.width  || 800
   c.height = c.height || 500
 
   c.width  -= 30
