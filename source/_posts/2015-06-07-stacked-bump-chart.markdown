@@ -8,17 +8,17 @@ categories:
 
 Alicia Parlapiano published an excellent [series of stacked bump charts](http://www.nytimes.com/interactive/2015/06/04/us/politics/stacking-up-the-presidential-fields.html) showing the history of presidential primary campaigns earlier this month. 
 
-[img]
+![NYT Primary Graphic](/images/posts/nyt-primary.png)
 
 Her graphic does a great job showing both the size of the field and the duration of the primary campaigns, while previous pieces by the [Economist](http://www.economist.com/blogs/graphicdetail/2015/04/us-presidential-candidate-announcements) and [Bloomberg](http://www.bloomberg.com/politics/articles/2014-11-25/when-do-presidential-candidates-announce) focused on how the duration of campaigns has changed over time.
 
-[img]
+![Bloomberg/Economist Primary Graphic](/images/posts/bb_econ-primary.png)
 
 I've been thinking about using a similar stacked bump chart to improve my (still very rough) [visualization](http://bl.ocks.org/1wheel/cbd9053de9bb39231924) of a line intersection algorithm. To get a feel for how to make one, I've recreated Alicia's chart with Basketball Reference's list of [most accomplished players](http://www.basketball-reference.com/leaders/hof_prob.html). The rest of the this post will show how to make your own bump chart with d3. 
 
 ##Drawing bars
 
-First, the data needs to be in the right format. Since we're just showing when each player enters and exits the league (and ignoring complications like Jordan's baseball career), let's start by creating an array of objects with exactly that info:
+First, the data needs to be in the right format. Since we're just showing when each player enters and exits the league (and ignoring complications like Jordan's baseball career for now), let's start by creating an array of objects with exactly that information:
 
 ```javascript
 var players = [
@@ -313,13 +313,13 @@ c.svg.dataAppend(playerSegments, 'path.player')
 <div id='bump-break'></div>
 
 
-This same technique could be used to encode other time based information along a single bump line. If we made segments for each team a player was on, for example, we could color code the lines to see Robinson's and Duncan's long, overlapping time on the Spurs or [the Shaq's rainbow](https://i.imgur.com/oCTy1.jpg).  
+This same technique could be used to encode other time-based information along a single bump line. If we made segments for each team a player was on, for example, we could color-code the lines to see Robinson's and Duncan's long, overlapping time on the Spurs or [the Shaq's rainbow](https://i.imgur.com/oCTy1.jpg).  
 
 ##More improvements
 
-Alicia had a number of great styling choices that I didn't go over. Trying to replicate them without looking at her code and then peeking at her css if you get stuck is good practice.
+Alicia made a number of great styling choices that I didn't go over. Try replicating them without looking at her code - and then peeking at her css if you get stuck - for some good practice.
 
-If I had been publishing this chart, I would have gone over board with tooltips, hover highlighting and scroll into view animations. Those effects add a lot in the right place, but thinking carefully about Alicia's chart has been instructive to me - getting the little details just right makes the chart interesting without requiring flashy effects.
+If I'd published this chart, I would have gone overboard with tooltips, hover highlighting and scroll animations. Those effects add a lot in the right place, but thinking carefully about Alicia's chart has been instructive to me - getting the little details just right makes the chart interesting without requiring flashy effects.
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/stackedBump/style.css">
 

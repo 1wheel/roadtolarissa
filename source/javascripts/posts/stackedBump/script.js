@@ -309,9 +309,9 @@ c.svg.dataAppend(players, 'text.name')
 
 var playerSegments = [
   {name: 'Kareem',    start: 1970,  stop: 1989},
-  {name: 'Jordan',    start: 1985,  stop: 1994},
-  {name: 'Jordan',    start: 1996,  stop: 1998},
-  {name: 'Jordan',    start: 2001,  stop: 2003},
+  {name: 'Jordan',    start: 1985,  stop: 1993},
+  {name: 'Jordan',    start: 1994,  stop: 1998},
+  {name: 'Jordan',    start: 2002,  stop: 2003},
   {name: 'Russell',   start: 1957,  stop: 1969},
   {name: 'Wilt',      start: 1959,  stop: 1969},
   {name: 'Kobe',      start: 1997,  stop: 2015},
@@ -320,8 +320,8 @@ var playerSegments = [
   {name: 'Cousy',     start: 1951,  stop: 1963},
   {name: 'Garnett',   start: 1995,  stop: 2015},
   {name: 'West',      start: 1961,  stop: 1974},
-  {name: 'Magic',     start: 1980,  stop: 1989},
-  {name: 'Magic',     start: 1993,  stop: 1996},
+  {name: 'Magic',     start: 1980,  stop: 1991},
+  {name: 'Magic',     start: 1996,  stop: 1996},
   {name: 'K. Malone', start: 1986,  stop: 2004},
   {name: 'LeBron',    start: 2004,  stop: 2015},
   {name: 'Olajuwon',  start: 1985,  stop: 2002},
