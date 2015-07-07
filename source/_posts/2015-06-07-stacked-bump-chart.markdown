@@ -252,15 +252,15 @@ After dragging the labels around, the mutated `playerLabelOffsets` object can be
 
 ##Taking a break
 
-While it's starting to look nice, our chart isn't quite showing the number of time that great players are active at a given time. Jordan and Magic took breaks. These periods of activity and inactively can be represented by an array of player segments with start and stop years for each segment.  
+While it's starting to look nice, our chart isn't quite showing the number of time that great players are active at a given time. Jordan and Magic took several seasons off during their careers. These periods of activity and inactively can be represented by an array of player segments with start and stop years for each segment.  
 
 ```javascript
 var playerSegments = [
   {name: 'Russell',   start: 1957,  stop: 1969},
   {name: 'Kareem',    start: 1970,  stop: 1989},
-  {name: 'Jordan',    start: 1985,  stop: 1994},
-  {name: 'Jordan',    start: 1996,  stop: 1998},
-  {name: 'Jordan',    start: 2001,  stop: 2003},
+  {name: 'Jordan',    start: 1985,  stop: 1993},
+  {name: 'Jordan',    start: 1994,  stop: 1998},
+  {name: 'Jordan',    start: 2002,  stop: 2003},
   ...
 }
 ```
