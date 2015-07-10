@@ -251,6 +251,7 @@ boxGs.append('text').attr({dx: '-1em', dy: '-1.0em'})
 
 function sizeSquare(d, t){
   t = clamp(0, t, 1)
+  t = Math.pow(t, 2)
 
   var l = (2 - t)*s
 
