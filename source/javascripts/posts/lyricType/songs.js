@@ -1756,9 +1756,9 @@ supercali = {
 
 var songs = [
   {id: 'fVyVIsvQoaE', title: 'Bombs over Baghdad', start: 0,  lines: bob},
-  {id: 'BAyADMSppaw', title: 'Summertime Clothes', start: 41, lines: summertime},
-  {id: 'fWNaR-rxAic', title: 'Call Me Maybe',      start: 7,  lines: callme},
-  {id: 'xwS77fWZ8_0', title: 'Strange Powers',     start: 10, lines: strange},
+  {id: 'BAyADMSppaw', title: 'Summertime Clothes', start: 0, lines: summertime},
+  {id: 'fWNaR-rxAic', title: 'Call Me Maybe',      start: 0,  lines: callme},
+  {id: 'xwS77fWZ8_0', title: 'Strange Powers',     start: 0, lines: strange},
   {id: 'xwS77fWZ8_0', title: 'Super',              start: 0,  lines: supercali},
 ]
 

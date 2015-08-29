@@ -1,8 +1,4 @@
-var curSong = songs[1]
-var curLine = null
-var curTime = 0
-var curStartT = 0
-var isPlaying = false
+var curSong = curLine = isPlaying = curTime = curStartT = null
 
 var height = 500
 var width  = 750 
@@ -11,50 +7,71 @@ var baseCharPerSec = 6
 var lastCharPerSec = baseCharPerSec
 var  minCharPerSec = 3
 
+var player = d3.select('#player')
+
 var red  = '#d2130a',
     blue = '#3b4274',
     grey = '#ccc'
 
+function onYouTubeIframeAPIReady(){
+  d3.select('#buttons').dataAppend(songs, 'div.button')
+      .text(ƒ('title'))
+      .on('click', playSong)
 
-curSong.lines.forEach(function(d, i){
-  d.i = i
+  playSong(songs[0])
+}
 
-  var s = d3.scale.linear()
-      .domain([0, d.text.length - 1])
-      .range([d.start, d.start + d.dur])
-  d.chars = d.text.split('').map(function(c, i){
-    return {
-      line: d,
-      c: c,
-      sTime: s(i),
-      rTime: Math.round(s(i))/100
-    }
+
+
+function playSong(song){
+  //style buttons
+  d3.selectAll('.button').classed('selected', function(d){ return d === song })
+
+  isPlaying = false
+  curSong = null
+
+  //
+  song.lines.forEach(function(d, i){
+    d.i = i
+
+    var s = d3.scale.linear()
+        .domain([0, d.text.length - 1])
+        .range([d.start, d.start + d.dur])
+    d.chars = d.text.split('').map(function(c, i){
+      return {
+        line: d,
+        c: c,
+        sTime: s(i),
+        rTime: Math.round(s(i))/100
+      }
+    })
   })
-})
 
-//set up DOM 
-var player = d3.select('#player')
+  //set up DOM 
+  player.html('')
 
-var lineContainer = player.append('div#lineContainer')
+  var lineContainer = player.append('div#lineContainer')
 
-var lineEls = lineContainer.dataAppend(curSong.lines, 'div.line')
-    .each(function(d){ d.sel = d3.select(this) })
-lineEls.append('div.frontline').html(ƒ('text', toText))
-lineEls.append('div.backline')
-    .each(function(d){ d.backSel = d3.select(this) })
+  var lineEls = lineContainer.dataAppend(song.lines, 'div.line')
+      .each(function(d){ d.sel = d3.select(this) })
+  lineEls.append('div.frontline').html(ƒ('text', toText))
+  lineEls.append('div.backline')
+      .each(function(d){ d.backSel = d3.select(this) })
 
-//embed youtube video
-var ytContainer = player.append('div#ytContainer')
-
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('ytContainer', {
+  //embed youtube video
+  var ytContainer = player.append('div#ytContainer')
+  playerYT = new YT.Player('ytContainer', {
     width: width,
     height: height,
-    videoId: curSong.id,
+    videoId: song.id,
     startSeconds: 40,
     endSeconds: 10,
     events: {
-      onReady: function(e){ e.target.playVideo() },
+      onReady: function(e){
+        e.target.playVideo()
+        curSong = song
+        drawGraph() 
+      },
       onStateChange: function(e){ isPlaying = e.data == 1},
     }
   })
@@ -65,7 +82,7 @@ function onYouTubeIframeAPIReady() {
 d3.timer(function(t){
   if (!isPlaying || !curSong) return
 
-  curTime = player.getCurrentTime()
+  curTime = playerYT.getCurrentTime()
 
   //check if curLine is still active
   if (!(curLine && curLine.start <= curTime && curTime <= curLine.start + curLine.actualDur)) {
@@ -76,7 +93,7 @@ d3.timer(function(t){
       if (d.isActive) activeLine = d
     })
 
-    lineEls.style('opacity', function(d){ return d.isActive ? 1 : 0 })
+    d3.selectAll('div.line').style('opacity', function(d){ return d.isActive ? 1 : 0 })
 
     if (!activeLine) return 
 
@@ -148,34 +165,33 @@ d3.select(window).on('keypress', function(){
 
 
 
+function drawGraph(){
+  var chars = _.flatten(curSong.lines.map(ƒ('chars')))
 
+  var byTime = d3.nest().key(ƒ('rTime')).entries(chars)
+  byTime.forEach(function(sec){
+    sec.values.forEach(function(d, i){ d.i = i })
+  })
 
-//graphs!
-var chars = _.flatten(curSong.lines.map(ƒ('chars')))
+  var c = d3.conventions({
+    parentSel: player.append('div'),
+    width: width, 
+    height: 300,
+    margin: {left: 10, right: 10, top: 10, bottom: 10}
+  })
 
-var byTime = d3.nest().key(ƒ('rTime')).entries(chars)
-byTime.forEach(function(sec){
-  sec.values.forEach(function(d, i){ d.i = i })
-})
+  c.x.domain([0, playerYT.getDuration()/100])
+  c.y.domain(d3.extent(chars,  ƒ('i')).reverse())
 
-var c = d3.conventions({
-  parentSel: player.append('div'),
-  width: width, 
-  height: 300,
-  margin: {left: 10, right: 10, top: 10, bottom: 10}
-})
+  var secs = c.svg.dataAppend(byTime, 'g')
+      .translate(function(d){ return [c.x(d.key), 0] })
 
-c.x.domain(d3.extent(byTime, ƒ('key')))
-c.y.domain(d3.extent(chars,  ƒ('i')).reverse())
-
-var secs = c.svg.dataAppend(byTime, 'g')
-    .translate(function(d){ return [c.x(d.key), 0] })
-
-secs.dataAppend(ƒ('values'), 'circle')
-    .attr('r', 1)
-    .attr('cy', ƒ('i', c.y))
-    .attr('fill', grey)
-    .each(function(d){ d.sel = d3.select(this) })
+  secs.dataAppend(ƒ('values'), 'circle')
+      .attr('r', 1)
+      .attr('cy', ƒ('i', c.y))
+      .attr('fill', grey)
+      .each(function(d){ d.sel = d3.select(this) })
+}
 
 
 
