@@ -1,0 +1,41 @@
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+.name{
+	text-shadow: 0 2px 0 #F5F5F5, 2px 0 0 #F5F5F5, 0 -2px 0 #F5F5F5, -2px 0 0 #F5F5F5;
+}
+
+
+svg{
+	overflow: visible;
+	font-size: 10px;
+}
+
+
+
+#player{
+	position: relative;
+}
+
+#lineContainer{
+	z-index: 100;
+	position: relative;
+	pointer-events: none;
+}
+
+.line{
+	height: 0px;
+	color: red;
+	font-size: 30px;
+	font-family: monospace;
+}
+
+#ytContainer{
+	z-index: -1;
+	position: relative;
+}
