@@ -104,3 +104,10 @@ http://www.asterank.com/3d/
 - Boardgames
 - Working git server with preview
 
+###waterlines
+- http://uxblog.idvsolutions.com/2015/08/beautiful-old-map.html
+- https://en.wikipedia.org/wiki/Medial_axis
+
+###song lyrics
+
+###catrography w/ nba or game positions 
