@@ -1,4 +1,5 @@
-bob ={
+transcripts = {}
+transcripts.bob ={
   "transcript": {
     "text": [
       {
@@ -594,7 +595,7 @@ bob ={
   }
 }.transcript.text
 
-summertime = {
+transcripts.summertime = {
   "transcript": {
     "text": [
       {
@@ -926,7 +927,7 @@ summertime = {
   }
 }.transcript.text
 
-callme = {
+transcripts.callme = {
   "transcript": {
     "text": [
       {
@@ -1343,7 +1344,7 @@ callme = {
   }
 }.transcript.text
 
-strange = {
+transcripts.strange = {
   "transcript": {
     "text": [
       {
@@ -1530,7 +1531,7 @@ strange = {
   }
 }.transcript.text
 
-supercali = {
+transcripts.supercali = {
   "transcript": {
     "text": [
       {
@@ -1755,17 +1756,19 @@ supercali = {
 
 
 var songs = [
-  {id: 'fVyVIsvQoaE', title: 'Bombs over Baghdad', start: 0, lines: bob},
-  {id: 'BAyADMSppaw', title: 'Summertime Clothes', start: 0, lines: summertime},
-  {id: 'fWNaR-rxAic', title: 'Call Me Maybe',      start: 0, lines: callme},
-  {id: 'xwS77fWZ8_0', title: 'Strange Powers',     start: 0, lines: strange},
-  {id: 'tRFHXMQP-QU', title: 'Super',              start: 0, lines: supercali},
+  {id: 'fVyVIsvQoaE', title: 'Bombs over Baghdad', start: 0, slug: 'bob'},
+  {id: 'BAyADMSppaw', title: 'Summertime Clothes', start: 0, slug: 'summertime'},
+  {id: 'fWNaR-rxAic', title: 'Call Me Maybe',      start: 0, slug: 'callme'},
+  {id: 'xwS77fWZ8_0', title: 'Strange Powers',     start: 0, slug: 'strange'},
+  {id: 'tRFHXMQP-QU', title: 'Super',              start: 0, slug: 'supercali'},
 ]
 
 
 
 
 songs.forEach(function(d){
+  d.lines = transcripts[d.slug]
+
   d.lines.forEach(function(d){
     d.start = +d['-start']
     d.dur   = +d['-dur']
