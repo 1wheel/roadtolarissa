@@ -26,14 +26,29 @@ svg{
 	z-index: 100;
 	position: relative;
 	pointer-events: none;
+
 }
 
 .line{
 	height: 0px;
-	color: red;
-	font-size: 30px;
+	font-size: 40px;
 	font-family: monospace;
+	font-weight: bold;
+	line-height: 1.3em;
 }
+
+.frontline{
+	height: 0px;
+	color: red;
+	text-shadow: 0 1px 0 lightgrey, 1px 0 0 lightgrey, 0 -1px 0 lightgrey, -1px 0 0 lightgrey;
+}
+
+.backline{
+	height: 0px;
+	color: green;
+	text-shadow: 0 2px 0 black, 2px 0 0 black, 0 -2px 0 black, -2px 0 0 black;
+}
+
 
 #ytContainer{
 	z-index: -1;

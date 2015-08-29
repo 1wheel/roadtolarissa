@@ -4,15 +4,28 @@ var curTime = 0
 var curStartT = 0
 var height  = 500
 
+
+curSong.lines.forEach(function(d){
+  d.chars = d.text.split('').map(function(c){
+    return {
+      line: d,
+      c: c
+    }
+  })
+})
+
+//set up DOM 
 var player = d3.select('#player')
 
 var lineContainer = player.append('div#lineContainer')
 
 var lineEls = lineContainer.dataAppend(curSong.lines, 'div.line')
-    .text(ƒ('text'))
     .each(function(d){ d.sel = d3.select(this) })
+lineEls.append('div.frontline').text(ƒ('text'))
+lineEls.append('div.backline')
+    .each(function(d){ d.backSel = d3.select(this) })
 
-
+//embed youtube video
 var ytContainer = player.append('div#ytContainer')
 var isPlaying = false
 
@@ -24,12 +37,12 @@ function onYouTubeIframeAPIReady() {
     events: {
       onReady: function(e){ e.target.playVideo() },
       onStateChange: function(e){ isPlaying = e.data == 1},
-      // 'onError': onPlayerError
     }
-  });
+  })
 }
 
 
+//animate lyrics
 d3.timer(function(t){
   if (!isPlaying || !curSong) return
 
@@ -53,3 +66,37 @@ d3.timer(function(t){
     curLine.sel.style('transform', 'translateY(' +  offset + 'px)')  
   }
 })
+
+
+
+//listen for keypresses
+
+d3.select(window).on('keypress', function(){
+  if (!isPlaying || !curSong || !curLine) return
+
+
+  //redo with slice?
+  var nextChar = curLine.chars.filter(function(d){ return !d.typed })[0]
+  if (!nextChar) return
+
+  var k = String.fromCharCode(d3.event.charCode)
+  
+  if (nextChar.c == k){
+    nextChar.typed = true
+    curLine.backSel.text(curLine.chars.filter(ƒ('typed')).map(ƒ('c')).join(''))
+    //todo - graph animation
+  }
+
+  d3.event.preventDefault()
+})
+
+
+
+// $(window).bind('keypress', function(e) {
+//   saveKey = e;
+//     var code = (e.keyCode ? e.keyCode : e.which);
+//   if((CurrentLyrics && CurrentLyrics.lyricsReady) && player.playing){
+//     CurrentLyrics.compareToNext(String.fromCharCode(e.charCode));
+//   }
+// });
+

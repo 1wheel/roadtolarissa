@@ -7,8 +7,8 @@ songs[0].lines ={
   "transcript": {
     "text": [
       {
-        "-start": "3.88",
-        "-dur": "2.51",
+        "-start": "0",
+        "-dur": "6.39",
         "#text": "1, 2. 1, 2, 3; yeah!"
       },
       {
@@ -608,4 +608,6 @@ songs.forEach(function(d){
     d.dur   = +d['-dur']
     d.text  =  d['#text']
   })
+
+  d.lines = d.lines.filter(ƒ('text'))
 })
