@@ -2,7 +2,11 @@ var curSong = songs[0]
 var curLine = null
 var curTime = 0
 var curStartT = 0
-var height  = 500
+var isPlaying = false
+
+var height = 500
+var width  = 750 
+
 var baseCharPerSec = 6
 var lastCharPerSec = baseCharPerSec
 var  minCharPerSec = 3
@@ -10,10 +14,15 @@ var  minCharPerSec = 3
 
 curSong.lines.forEach(function(d, i){
   d.i = i
-  d.chars = d.text.split('').map(function(c){
+
+  var s = d3.scale.linear()
+      .domain([0, d.text.length - 1])
+      .range([d.start, d.start + d.dur])
+  d.chars = d.text.split('').map(function(c, i){
     return {
       line: d,
-      c: c
+      c: c,
+      sTime: s(i)
     }
   })
 })
@@ -31,12 +40,11 @@ lineEls.append('div.backline')
 
 //embed youtube video
 var ytContainer = player.append('div#ytContainer')
-var isPlaying = false
 
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('ytContainer', {
-    width: 750,
-    height: 500,
+    width: width,
+    height: height,
     videoId: curSong.id,
     events: {
       onReady: function(e){ e.target.playVideo() },
@@ -69,6 +77,8 @@ d3.timer(function(t){
       if (typed.length > 3){
         lastCharPerSec = 1/3*lastCharPerSec
                        + 2/3*typed.length/(_.last(typed).time - typed[0].time)   
+
+        lastCharPerSec = Math.max(lastCharPerSec, minCharPerSec)
       }
     }
 
@@ -95,10 +105,8 @@ d3.timer(function(t){
 
 
 //listen for keypresses
-
 d3.select(window).on('keypress', function(){
   if (!isPlaying || !curSong || !curLine) return
-
 
   //redo with slice?
   var nextChar = curLine.chars.filter(function(d){ return !d.typed })[0]
@@ -115,3 +123,9 @@ d3.select(window).on('keypress', function(){
 
   d3.event.preventDefault()
 })
+
+
+
+
+
+//graphs!
