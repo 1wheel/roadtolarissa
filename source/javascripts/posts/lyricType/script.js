@@ -14,8 +14,9 @@ var red  = '#d2130a',
     grey = '#ccc'
 
 function onYouTubeIframeAPIReady(){
-  d3.select('#buttons').dataAppend(songs, 'div.button')
-      .text(ƒ('title'))
+  d3.select('#buttons').dataAppend(songs, 'img.button')
+      .attr('src', function(d){
+        return '/images/thumbnails/lyrics/' + d.slug + '.jpg' })
       .on('click', playSong)
 
   playSong(songs[2])
@@ -139,6 +140,8 @@ d3.timer(function(t){
 
 //listen for keypresses
 d3.select(window).on('keypress', function(){
+  d3.event.preventDefault()
+
   if (!isPlaying || !curSong || !curLine) return
 
   //redo with slice?
@@ -159,8 +162,6 @@ d3.select(window).on('keypress', function(){
       .transition().duration(1000)
         .attr('r', 3)
   }
-
-  d3.event.preventDefault()
 })
 
 

@@ -6,10 +6,13 @@ permalink: /lyric-type
 categories: 
 ---
 
+Type the words in time with music!
+<div id='buttons'></div>
+
 
 <div id='player'></div>
 
-<div id='buttons'></div>
+Made at [NYC Monthly Music Hack](http://monthlymusichackathon.org/). Code on [github](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/lyricType).
 
 <div class='tooltip'></div>
 

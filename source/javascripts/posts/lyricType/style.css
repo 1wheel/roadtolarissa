@@ -17,9 +17,25 @@ svg{
 }
 
 
+#buttons{
+	margin-bottom: -3px;
+}
+img.button{
+	width: 140px;
+	cursor: pointer;
+	border: 5px solid rgba(0,0,0,0);
+}
+
+img.button.selected{
+	border-color: black;
+	border-bottom-width: 10px;
+	top: 5px;
+	position: relative;
+}
 
 #player{
 	position: relative;
+	min-height: 800px;
 }
 
 #lineContainer{
@@ -60,6 +76,3 @@ svg{
 	display: none;
 }
 
-svg{
-	overflow: visible;
-}
