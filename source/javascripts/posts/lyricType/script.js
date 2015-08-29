@@ -1,4 +1,4 @@
-var curSong = songs[0]
+var curSong = songs[1]
 var curLine = null
 var curTime = 0
 var curStartT = 0
@@ -51,6 +51,8 @@ function onYouTubeIframeAPIReady() {
     width: width,
     height: height,
     videoId: curSong.id,
+    startSeconds: 40,
+    endSeconds: 10,
     events: {
       onReady: function(e){ e.target.playVideo() },
       onStateChange: function(e){ isPlaying = e.data == 1},
@@ -75,6 +77,8 @@ d3.timer(function(t){
     })
 
     lineEls.style('opacity', function(d){ return d.isActive ? 1 : 0 })
+
+    if (!activeLine) return 
 
     //calculate target speed
     if (curLine){
