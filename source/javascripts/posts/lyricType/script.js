@@ -3,9 +3,13 @@ var curLine = null
 var curTime = 0
 var curStartT = 0
 var height  = 500
+var baseCharPerSec = 6
+var lastCharPerSec = baseCharPerSec
+var  minCharPerSec = 3
 
 
-curSong.lines.forEach(function(d){
+curSong.lines.forEach(function(d, i){
+  d.i = i
   d.chars = d.text.split('').map(function(c){
     return {
       line: d,
@@ -48,23 +52,44 @@ d3.timer(function(t){
 
   curTime = player.getCurrentTime()
 
-  var activeLine = null
-  curSong.lines.forEach(function(d){
-    d.isActive = d.start <= curTime && curTime <= d.start + d.dur
-    if (d.isActive) activeLine = d
-  })
+  //check if curLine is still active
+  if (!(curLine && curLine.start <= curTime && curTime <= curLine.start + curLine.actualDur)) {
 
-  if (activeLine != curLine){
+    var activeLine = null
+    curSong.lines.forEach(function(d){
+      d.isActive = d.start <= curTime && curTime <= d.start + d.dur
+      if (d.isActive) activeLine = d
+    })
+
     lineEls.style('opacity', function(d){ return d.isActive ? 1 : 0 })
+
+    //calculate target speed
+    if (curLine){
+      var typed = curLine.chars.filter(ƒ('typed'))
+      if (typed.length > 3){
+        lastCharPerSec = 1/3*lastCharPerSec
+                       + 2/3*typed.length/(_.last(typed).time - typed[0].time)   
+      }
+    }
+
+    console.log(lastCharPerSec)
+
     curLine = activeLine
     curStartT = t
+
+    //calculate number of lines to skip
+    curLine.actualDur = curLine.dur; i = curLine.i
+    while (curLine.chars.length/curLine.actualDur > lastCharPerSec && i < curSong.lines.length - 1){
+      curLine.actualDur += curSong.lines[++i].dur
+    }
+
   }
 
   if (curLine){
-    var offset = (t - curStartT)/curLine.dur*(height - 50)/1000
-    // console.log(offset)
+    var offset = (t - curStartT)/curLine.actualDur*(height - 50)/1000
     curLine.sel.style('transform', 'translateY(' +  offset + 'px)')  
   }
+
 })
 
 
@@ -83,20 +108,10 @@ d3.select(window).on('keypress', function(){
   
   if (nextChar.c == k){
     nextChar.typed = true
+    nextChar.time = curTime
     curLine.backSel.text(curLine.chars.filter(ƒ('typed')).map(ƒ('c')).join(''))
     //todo - graph animation
   }
 
   d3.event.preventDefault()
 })
-
-
-
-// $(window).bind('keypress', function(e) {
-//   saveKey = e;
-//     var code = (e.keyCode ? e.keyCode : e.which);
-//   if((CurrentLyrics && CurrentLyrics.lyricsReady) && player.playing){
-//     CurrentLyrics.compareToNext(String.fromCharCode(e.charCode));
-//   }
-// });
-

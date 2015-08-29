@@ -26,6 +26,7 @@ svg{
 	z-index: 100;
 	position: relative;
 	pointer-events: none;
+	padding-left: 10px;
 
 }
 
