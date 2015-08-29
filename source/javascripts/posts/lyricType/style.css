@@ -35,6 +35,7 @@ svg{
 	font-family: monospace;
 	font-weight: bold;
 	line-height: 1.3em;
+	opacity: 0;
 }
 
 .frontline{
@@ -57,4 +58,8 @@ svg{
 
 #graphContainer{
 	display: none;
+}
+
+svg{
+	overflow: visible;
 }

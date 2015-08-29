@@ -937,7 +937,7 @@ callme = {
       {
         "-start": "6.13",
         "-dur": "2.01",
-        "#text": "Don’t ask me, I’ll never tell"
+        "#text": "Don't ask me, I'll never tell"
       },
       {
         "-start": "8.14",
@@ -947,7 +947,7 @@ callme = {
       {
         "-start": "9.91",
         "-dur": "2.01",
-        "#text": "and now you’re in my way"
+        "#text": "and now you're in my way"
       },
       {
         "-start": "11.92",
@@ -962,27 +962,27 @@ callme = {
       {
         "-start": "16.17",
         "-dur": "2.02",
-        "#text": "I wasn’t looking for this"
+        "#text": "I wasn't looking for this"
       },
       {
         "-start": "18.19",
         "-dur": "2",
-        "#text": "but now you’re in my way"
+        "#text": "but now you're in my way"
       },
       {
         "-start": "20.19",
         "-dur": "3.77",
-        "#text": "Your stare was holdin’, Ripped jeans, skin was showin’"
+        "#text": "Your stare was holdin', Ripped jeans, skin was showin'"
       },
       {
         "-start": "23.96",
         "-dur": "2.02",
-        "#text": "Hot night, wind was blowin’"
+        "#text": "Hot night, wind was blowin'"
       },
       {
         "-start": "25.98",
         "-dur": "2",
-        "#text": "Where you think you’re going, baby?"
+        "#text": "Where you think you're going, baby?"
       },
       {
         "-start": "27.98",
@@ -997,7 +997,7 @@ callme = {
       {
         "-start": "32.77",
         "-dur": "2.01",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "34.78",
@@ -1007,7 +1007,7 @@ callme = {
       {
         "-start": "36.53",
         "-dur": "2.51",
-        "#text": "It’s hard to look right"
+        "#text": "It's hard to look right"
       },
       {
         "-start": "39.04",
@@ -1017,7 +1017,7 @@ callme = {
       {
         "-start": "40.85",
         "-dur": "1.75",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "42.6",
@@ -1037,7 +1037,7 @@ callme = {
       {
         "-start": "48.63",
         "-dur": "1.75",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "50.38",
@@ -1057,7 +1057,7 @@ callme = {
       {
         "-start": "56.95",
         "-dur": "1.51",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "58.46",
@@ -1082,7 +1082,7 @@ callme = {
       {
         "-start": "70.01",
         "-dur": "2.05",
-        "#text": "but still, you’re in my way"
+        "#text": "but still, you're in my way"
       },
       {
         "-start": "72.06",
@@ -1092,32 +1092,32 @@ callme = {
       {
         "-start": "74.4",
         "-dur": "2",
-        "#text": "Have foresight and it’s real"
+        "#text": "Have foresight and it's real"
       },
       {
         "-start": "76.4",
         "-dur": "1.75",
-        "#text": "I didn’t know I would feel it"
+        "#text": "I didn't know I would feel it"
       },
       {
         "-start": "78.15",
         "-dur": "2.52",
-        "#text": "but it’s in my way"
+        "#text": "but it's in my way"
       },
       {
         "-start": "80.67",
         "-dur": "3.26",
-        "#text": "Your stare was holdin’, Ripped jeans, skin was showin’"
+        "#text": "Your stare was holdin', Ripped jeans, skin was showin'"
       },
       {
         "-start": "83.93",
         "-dur": "2",
-        "#text": "Hot night, wind was blowin’"
+        "#text": "Hot night, wind was blowin'"
       },
       {
         "-start": "85.93",
         "-dur": "2.27",
-        "#text": "Where you think you’re going, baby?"
+        "#text": "Where you think you're going, baby?"
       },
       {
         "-start": "88.2",
@@ -1132,7 +1132,7 @@ callme = {
       {
         "-start": "92.73",
         "-dur": "2.75",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "95.48",
@@ -1142,7 +1142,7 @@ callme = {
       {
         "-start": "96.48",
         "-dur": "2.53",
-        "#text": "It’s hard to look right"
+        "#text": "It's hard to look right"
       },
       {
         "-start": "99.01",
@@ -1152,7 +1152,7 @@ callme = {
       {
         "-start": "100.76",
         "-dur": "1.75",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "102.51",
@@ -1172,7 +1172,7 @@ callme = {
       {
         "-start": "108.79",
         "-dur": "1.75",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "110.54",
@@ -1192,7 +1192,7 @@ callme = {
       {
         "-start": "116.81",
         "-dur": "1.76",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "118.57",
@@ -1242,7 +1242,7 @@ callme = {
       {
         "-start": "143.63",
         "-dur": "3.21",
-        "#text": "It’s hard to look right"
+        "#text": "It's hard to look right"
       },
       {
         "-start": "146.84",
@@ -1252,7 +1252,7 @@ callme = {
       {
         "-start": "148.61",
         "-dur": "1.79",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "150.4",
@@ -1272,7 +1272,7 @@ callme = {
       {
         "-start": "156.41",
         "-dur": "2.52",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "158.93",
@@ -1292,7 +1292,7 @@ callme = {
       {
         "-start": "165.19",
         "-dur": "1.52",
-        "#text": "but here’s my number"
+        "#text": "but here's my number"
       },
       {
         "-start": "166.71",
@@ -1755,11 +1755,11 @@ supercali = {
 
 
 var songs = [
-  {id: 'fVyVIsvQoaE', title: 'Bombs over Baghdad', start: 0,  lines: bob},
+  {id: 'fVyVIsvQoaE', title: 'Bombs over Baghdad', start: 0, lines: bob},
   {id: 'BAyADMSppaw', title: 'Summertime Clothes', start: 0, lines: summertime},
-  {id: 'fWNaR-rxAic', title: 'Call Me Maybe',      start: 0,  lines: callme},
+  {id: 'fWNaR-rxAic', title: 'Call Me Maybe',      start: 0, lines: callme},
   {id: 'xwS77fWZ8_0', title: 'Strange Powers',     start: 0, lines: strange},
-  {id: 'xwS77fWZ8_0', title: 'Super',              start: 0,  lines: supercali},
+  {id: 'tRFHXMQP-QU', title: 'Super',              start: 0, lines: supercali},
 ]
 
 
@@ -1774,6 +1774,6 @@ songs.forEach(function(d){
 
   d.lines = d.lines.filter(ƒ('text'))
 
-  d.lines[0].start = d.start
-  d.lines[0].dur = d.lines[1].start - d.lines[0].start
+  // d.lines[0].start = d.start
+  // d.lines[0].dur = d.lines[1].start - d.lines[0].start
 })

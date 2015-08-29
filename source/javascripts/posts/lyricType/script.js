@@ -18,7 +18,7 @@ function onYouTubeIframeAPIReady(){
       .text(ƒ('title'))
       .on('click', playSong)
 
-  playSong(songs[0])
+  playSong(songs[2])
 }
 
 
@@ -174,7 +174,7 @@ function drawGraph(){
   })
 
   var c = d3.conventions({
-    parentSel: player.append('div'),
+    parentSel: player.append('div#graphCont'),
     width: width, 
     height: 300,
     margin: {left: 10, right: 10, top: 10, bottom: 10}
@@ -188,7 +188,7 @@ function drawGraph(){
 
   secs.dataAppend(ƒ('values'), 'circle')
       .attr('r', 1)
-      .attr('cy', ƒ('i', c.y))
+      .attr('cy', function(d){ return d.i*7 })
       .attr('fill', grey)
       .each(function(d){ d.sel = d3.select(this) })
 }
