@@ -1,4 +1,4 @@
-var curSong = curLine = isPlaying = curTime = curStartT = null
+var curSong = curLine = isPlaying = curTime = curStartT = curT = null
 
 var height = 500
 var width  = 750 
@@ -31,22 +31,25 @@ function playSong(song){
   isPlaying = false
   curSong = null
 
-  //
+  //break lines into characters for graphing 
   song.lines.forEach(function(d, i){
     d.i = i
 
     var s = d3.scale.linear()
         .domain([0, d.text.length - 1])
         .range([d.start, d.start + d.dur])
-    d.chars = d.text.split('').map(function(c, i){
+    d.chars = d.text.split('').map(function(c, j){
       return {
         line: d,
         c: c,
         sTime: s(i),
-        rTime: Math.round(s(i))/100
+        rTime: Math.round(s(i))/100,
+        j: j
       }
     })
   })
+
+  chars = _.flatten(song.lines.map(ƒ('chars')))
 
   //set up DOM 
   player.html('')
@@ -84,6 +87,7 @@ d3.timer(function(t){
   if (!isPlaying || !curSong) return
 
   curTime = playerYT.getCurrentTime()
+  curT = t
 
   //check if curLine is still active
   if (!(curLine && curLine.start <= curTime && curTime <= curLine.start + curLine.actualDur)) {
@@ -109,8 +113,6 @@ d3.timer(function(t){
       }
     }
 
-    console.log(lastCharPerSec)
-
     curLine = activeLine
     curStartT = t
 
@@ -120,8 +122,8 @@ d3.timer(function(t){
       curLine.actualDur += curSong.lines[++i].dur
     }
 
-    curLine.chars.forEach(function(d){
-      d.sel.transition()
+    curLine.chars.forEach(function(d, i){
+      d.sel.transition().delay(i*50)
           .attr({fill: red, r: 5})
         .transition().duration(500)
           .attr('r', 2)
@@ -151,35 +153,52 @@ d3.select(window).on('keypress', function(){
   var k = String.fromCharCode(d3.event.charCode)
   
   if (nextChar.c == k){
+
     nextChar.typed = true
     nextChar.time = curTime
+    nextChar.tTime = (curLine.start + (curT - curStartT)/1000)/100
+
     curLine.backSel.html(toText(curLine.chars.filter(ƒ('typed')).map(ƒ('c')).join('')))
-    //todo - graph animation
+
+    typedChars = chars.filter(ƒ('typed'))
+    if (typedChars.length - 1){
+      nextChar.tDif =  nextChar.tTime - typedChars[typedChars.length - 2].tTime
+      console.log(nextChar.tDif)
+      nextChar.tDif =  Math.max(nextChar.tDif, .00001)
+      nextChar.cps = 1/nextChar.tDif
+      console.log(nextChar.tDif, nextChar.cps)
+      updateLine()
+    }
+
 
     nextChar.sel.attr('fill', blue)
       .transition()
-        .attr('r', 10)
+        .attr('r', 15)
+        .style('stroke', 'white')
       .transition().duration(1000)
         .attr('r', 3)
   }
 })
 
 
-
+var c, chars
 function drawGraph(){
-  var chars = _.flatten(curSong.lines.map(ƒ('chars')))
+  
 
   var byTime = d3.nest().key(ƒ('rTime')).entries(chars)
   byTime.forEach(function(sec){
     sec.values.forEach(function(d, i){ d.i = i })
   })
 
-  var c = d3.conventions({
+  c = d3.conventions({
     parentSel: player.append('div#graphCont'),
     width: width, 
     height: 300,
     margin: {left: 10, right: 10, top: 10, bottom: 10}
   })
+
+  c.path = c.svg.append('path')
+      .style({stroke: 'black', fill: 'none', 'stroke-width': .5})
 
   c.x.domain([0, playerYT.getDuration()/100])
   c.y.domain(d3.extent(chars,  ƒ('i')).reverse())
@@ -192,6 +211,20 @@ function drawGraph(){
       .attr('cy', function(d){ return d.i*7 })
       .attr('fill', grey)
       .each(function(d){ d.sel = d3.select(this) })
+
+  
+
+
+  c.y.domain([0, 3000]).range([c.height, c.height - 100]).clamp(true)
+  c.line = d3.svg.line()
+      .x(ƒ('tTime', c.x))
+      .y(ƒ('cps', c.y))
+      .interpolate('step')
+
+}
+
+function updateLine(){
+  c.path.attr('d', c.line(typedChars.slice(1)))
 }
 
 
