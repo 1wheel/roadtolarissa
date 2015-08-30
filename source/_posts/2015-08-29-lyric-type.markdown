@@ -7,18 +7,22 @@ categories:
 ---
 
 Type the words in time with music!
-<div id='buttons'></div>
 
+<div id='buttons'></div>
 
 <div id='player'></div>
 
 Made at [NYC Monthly Music Hack](http://monthlymusichackathon.org/). Code on [github](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/lyricType).
 
-Hearing lyrics while typing them creates an interesting [synesthesia](https://en.wikipedia.org/wiki/Synesthesia) like effect, recontextualizing familar music. One of my favorite games [Audiosurf](https://en.wikipedia.org/wiki/Audiosurf) also did this, mixing songs and puzzle matching together. 
+Hearing lyrics while typing them creates an interesting [synesthesia](https://en.wikipedia.org/wiki/Synesthesia) like effect, recontextualizing familiar music. One of my favorite games, [Audiosurf](https://en.wikipedia.org/wiki/Audiosurf), also did this, mixing songs and puzzle matching together. 
 
-I made [version](https://github.com/1wheel/typing) of this typing game three years ago, one of my first javascript programs.  On a day to day basis, sometimes it feels like I'm not learning much more about programming, but something must be adding up - it took just a few hours to write this time instead of a few weeks. 
+I made [version](https://github.com/1wheel/typing) of this typing game three years ago, one of my first javascript programs.  On a day-to-day basis, sometimes it feels like I'm not learning much more about programming, but something must be adding up - this time the code took just a few hours to write instead of a few weeks. 
 
-The previous version was built on the now defunct Spotify desktop app platform and decrypted tunewiki's .
+The previous version was built on the now defunct Spotify desktop app platform and decrypted the also now defunct [TuneWiki](https://en.wikipedia.org/wiki/TuneWiki) internal API for timestamped lyrics. That version had lyrics for millions of songs but was difficult to share - it required installing a Spotify app and leeching off the API seemed like an okay thing to do locally but not publicly. 
+
+This version uses YouTube for the music and I've baked in the lyrics for just 5 songs. It looks like [MusicXmatch](https://developer.musixmatch.com/) has timestamped lyrics, but it doesn't look they provide an API for them. I might come back to this and add the ability to add your own videos and [lyrics](https://en.wikipedia.org/wiki/LRC_(file_format)) - saved in localStorage or shared with query parameters perhaps - but until then, you're stuck with Julie Andrews and Carly Rae Jepsen.
+
+
 <div class='tooltip'></div>
 
 
