@@ -276,8 +276,8 @@ var posText = c.svg.append('text')
 var drag = d3.behavior.drag()
   .on('drag', function(d){
     var pos = d3.mouse(c.svg.node())
-    var x = pos[0] - d3.select(this).attr('x')
-    var y = pos[1] - d3.select(this).attr('y')
+    var x = pos[0] - d3.select(this).attr('x') + 5
+    var y = pos[1] - d3.select(this).attr('y') + 259
     var offset = [x, y].map(Math.round)
     
     playersLabelOffsets[d.name] = offset
@@ -450,13 +450,13 @@ c.svg.dataAppend(players, 'text.name')
     .attr({'text-anchor': 'end', 'dy': '.33em', 'dx': '-.5em'})
 
 
-d3.selectAll('svg')
-    .style('display', 'none')
-  .transition()
-  .duration(10)
-  .delay(function(d, i){ return i*1000 })
-    .style('display', 'block')
-  .transition()
-  .delay(function(d, i){ return i*1000 + 1000})
-  .duration(0)
-    .style('display', function(d, i){ return i == 5 ? 'block' : 'none' })
+// d3.selectAll('svg')
+//     .style('display', 'none')
+//   .transition()
+//   .duration(10)
+//   .delay(function(d, i){ return i*1000 })
+//     .style('display', 'block')
+//   .transition()
+//   .delay(function(d, i){ return i*1000 + 1000})
+//   .duration(0)
+//     .style('display', function(d, i){ return i == 5 ? 'block' : 'none' })
