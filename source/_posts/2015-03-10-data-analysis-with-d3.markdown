@@ -7,7 +7,7 @@ categories:
 
 D3 is best known for [polished interactive visualizations](http://d3js.org/). With its rich API however, it is also an excellent tool for acquiring and, with a bit of work, exploring data. This post will walk through scraping and plotting different dimensions of the history of the Oscars as an instructive example.
 
-#### Scraping data
+## Scraping data
 
 The [Academy Awards Database](http://awardsdatabase.oscars.org/ampas_awards/BasicSearchInput.jsp) displays all award nominations on a single page (pick award years 1927 to 2014 and click search). The Elements tab of the dev tools reveals the structure of the page:
 
@@ -52,7 +52,7 @@ Writing this code in the sources tab as a [snippet](https://developer.chrome.com
 For a larger project, setting up a [replicatable data pipeline](http://bost.ocks.org/mike/make/) is generally a best practice; in the interest of taking a quick look at the Oscars, we'll relay on the clipboard. `d3.csv.format` converts an array of objects to a csv string. With `> copy(d3.csv.format(nominations))`, the nomination data is copied to the clipboard which can then be pasted and saved into a csv file locally. 
 
 
-#### Seeing data
+## Seeing data
 
 To get started quickly with minimal fuss, I usually grab a copy of my [d3-starter-kit repo](https://github.com/1wheel/d3-starterkit). It contains [d3](http://d3js.org/), [lodash](http://underscorejs.org/), [d3-jetpack](https://github.com/gka/d3-jetpack) and some helper functions for generating tooltips, scales, axes and styling them.
 
@@ -234,7 +234,7 @@ Again, `ƒ` provides a succinct way of grabbing a property from an object and tr
 
 Over the last 20 years, the Academy has picked best actresses with fewer previous nominations than the other nominees. Since all the animations have already been scrapped and there's only one line of actress specific code, `return d.award == 'ACTRESS' })`, seeing if this pattern holds across supporting actresses, actors and directors isn't too difficult - grab a [copy of the repo](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/dataAnalysis) and try!
 
-#### Animating data
+## Animating data
 
 Encoding the data differently shows different patterns. Combining D3 with these helper functions allows us to rapidly explore the [space of potential visualizations](https://www.youtube.com/watch?v=fThhbt23SGM). 
 
@@ -352,7 +352,7 @@ d3.select('#buttons').dataAppend(positionings, 'span.button')
 
 This is just a starting point. If we think of anything to sort or group our data on, seeing it only requires writing a short function. We've also only looked at a small slice of the whole nomination dataset. 
 
-#### Interesting things to read
+## Interesting things to read
 
 `ggplot2`, `dplyr`, `magrittr` and `rstudio` create a wonderfully integrated environment for quickly and efficiently analyzing data. While using these tools to create visualizations for the web unfortunately requires some duplication of effort, the advice in Hadley Wickham's [Tidy Data](http://vita.had.co.nz/papers/tidy-data.pdf) and [The Split-Apply-Combine](http://www.jstatsoft.org/v40/i01/paper) papers apply to anyone manipulating with data. This post is essentially an amalgamation of different ways I've been trying to pull ideas from Hadleyverse into my D3 work. 
 

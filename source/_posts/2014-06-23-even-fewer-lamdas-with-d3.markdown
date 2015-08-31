@@ -7,7 +7,7 @@ permalink: even-fewer-lamdas-with-d3
 ---
 Writing d3 typically involves writing lots of anonymous functions. The [scatter plot](http://bl.ocks.org/mbostock/3887118) example illustrates two typical use cases: scales and attributes.  
 
-####Scale computations 
+## Scale computations 
 
 ```javascript 
 var x = d3.scale.linear()
@@ -23,7 +23,7 @@ var y = d3.scale.linear()
 
 Since `sepalWidth` is always a number, `map` returns an array of numbers. This array is immediately passed to `d3.extent`, which returns the min and max sepalWidths and is used to set the domain of the `x` scale.
 
-####Data driven attributes  
+## Data driven attributes  
 
 ```javascript 
 svg.selectAll(".dot")
@@ -49,7 +49,7 @@ var legend = svg.selectAll(".legend")
 ```
 Instead of binding an element of the data array to a circle, we attach names of different types of flowers to a text element. Just like `.attr`, `.text(function(d){ return d; })` calls the anonymous function on each element of the selection and uses the return value to update the element. Instead of changing an arbitrary attribute, `.text` (as the name suggests) sets the text inside of the element. Since the bound data is an array of strings and we're only trying to print each of them out, our function just returns what it was passed. 
 
-####Generalizations
+## Generalizations
 
 Needing a function that returns what it is passed turns out to be surprisingly common. We can skip a bit of typing by saving a reference to the identify function: 
 ```javascript
@@ -115,7 +115,7 @@ compose(divideByTwo, addOne)(14)	//(14 + 1)*5 =  7.5
 
 ```
 
-####More modifications
+## More modifications
 Since we're making our helper functions, we can modify them to be even more useful. `ƒ`, for example, can replace `idFn` if we add a check for an `undefined` field:
 
 ```javascript
@@ -132,7 +132,7 @@ I've tried having `ƒ` accept arrays to access nested properties (not convinced 
 The [annotated source](http://underscorejs.org/docs/underscore.html) of underscore shows how `compose` can be extend to take any number of functions. 
 
 
-####Further reading
+## Further reading
 These helpers for d3 and d3 itself makes heavy use of function's first class status in Javascript. More cool things that functions can do:
 
 - [Javascript Allongé](https://leanpub.com/javascript-allonge/read)

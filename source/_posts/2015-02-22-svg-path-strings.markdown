@@ -12,7 +12,7 @@ SVG comes with several shape elements - `rect`, `ellipse`, `line`, `polygon` - t
 
 This `d` attribute processes a path string that describing the movement of a pen across a sheet of paper. [D3](https://github.com/mbostock/d3/wiki/SVG-Shapes#path-data-generators) has powerful path generators that are simple to use; this post describes how the path strings are interpreted so you can create your own.
 
-###Straight Line
+## Straight Line
 
 Each path string starts with an `M` moveto command that moves the pen to a new coordinate defined by a pair of numbers after the `M`. For example, `M 100 200` moves the pen to a start position 100 pixels left and 200 pixels down from the origin (typically the upper left corner of the SVG). 
 
@@ -25,7 +25,7 @@ Multiple `L` and `M` commands can be combined to create complex shapes:
 By default, SVG shapes are colored black with no stroke. Here the path has been styled with a black stroke and gray fill. 
 
 
-###Cubic Bézier
+## Cubic Bézier
 
 [Béziers](https://www.jasondavies.com/animated-bezier/) connect two points with a smooth curve. The `C` curveto command takes three coordinates: a control point for the current position, a control point for the next position and the new position itself. `M 670,60 C 110,50 250,440 530,415` starts at 680,60 and moves to 530,415 along a path determined by the control points:
 
@@ -34,7 +34,7 @@ By default, SVG shapes are colored black with no stroke. Here the path has been 
 The smooth curveto `S` command allows for easy chaining of béziers. It takes a new control coordinate and a new position and draws a bézier using the previous current position and its control point. `L` and `M` commands can also follow `C` and `S` commands, so a single path can be both straight and curved.
 
 
-###Elliptical Arc
+## Elliptical Arc
 
 While béziers are quite flexible, they aren't actually able to draw a [perfect circle](http://spencermortensen.com/articles/bezier-circle/). The arc `A` command draws an ellipse segment from the current position to a new position. The first three parameters define the x radius, the y radius and the rotation of the ellipse. The next two parameters are boolean flags that indicate if the larger or smaller ellipse segment should be used and if the left or right ellipse should be used (unused segments denoted with a dashed line below). The final two parameters are the x and y values of the new position. 
 
@@ -43,14 +43,14 @@ While béziers are quite flexible, they aren't actually able to draw a [perfect 
 If the start and end points are moved so far apart that they can't be connected by an ellipse with the given radius and rotation, a new minimal radius is calculated and used instead. 
 
 
-###Other useful commands
+## Other useful commands
 
 Each of the above commands has a lower case version that uses relative position from the current point instead of distance from the origin. `M 100,200 l 40,80` moves to 100,200 and draws a diagonal 40 pixels to the right and 80 pixels down to 140,280. This has the same effect as `M 100,200 L 140,280`, but the code to generate the former can be more convenient. 
 
 The closepath `Z` command draws a straight line from the current position to the start of the path, creating a closed shape.   
 
 
-###More reading
+## More reading
   
 The W3C [documentation on paths](http://www.w3.org/TR/SVG/paths.html#Introduction) is terse but covers many cases and implementation details I've glossed over. 
 

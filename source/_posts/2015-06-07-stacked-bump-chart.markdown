@@ -16,7 +16,7 @@ Her graphic does a great job showing both the size of the field and the duration
 
 I've been thinking about using a similar stacked bump chart to improve my (still very rough) [visualization](http://bl.ocks.org/1wheel/cbd9053de9bb39231924) of a line intersection algorithm. To get a feel for how to make one, I've recreated Alicia's chart with Basketball Reference's list of [most accomplished players](http://www.basketball-reference.com/leaders/hof_prob.html). The rest of the this post will show how to make your own bump chart with d3. 
 
-##Drawing bars
+## Drawing bars
 
 First, the data needs to be in the right format. Since we're just showing when each player enters and exits the league (and ignoring complications like Jordan's baseball career for now), let's start by creating an array of objects with exactly that information:
 
@@ -78,7 +78,7 @@ c.yAxis
 c.drawAxis()
 ```
 
-##Making bumps
+## Making bumps
 
 Drawing the lines with bumps is trickier than drawing straight lines. Instead of using a constant height like we did above, the height of each line varies year to year. In a given year, the height of a player's line should be proportional to the number of players who started playing before him and are still playing in the current year. We'll start by adding a `years` property to the player objects, which will keep track of the number of active players who started before him in each year:
 
@@ -200,7 +200,7 @@ circle{
 
 These styles could have been set with `.style`, but moving them to a separate css file makes them easier to reuse and the javascript more readable. 
 
-##Positioning labels
+## Positioning labels
 
 Adding labels definitely improves the chart, but introduces the problem of label overlap. While we could try to implement some sort of automatic label placement algorithm, our dataset is small so positioning them manually will be much quicker.  
 
@@ -250,7 +250,7 @@ _Click and drag to reposition the labels_
 After dragging the labels around, the mutated `playerLabelOffsets` object can be copied to the clipboard by running `> copy(playerLabelOffsets)` in the browser console and saved by pasting the object into your javascript file. 
 
 
-##Taking a break
+## Taking a break
 
 While it's starting to look nice, our chart isn't quite showing the number of time that great players are active at a given time. Jordan and Magic took several seasons off during their careers. These periods of activity and inactively can be represented by an array of player segments with start and stop years for each segment.  
 
@@ -315,7 +315,7 @@ c.svg.dataAppend(playerSegments, 'path.player')
 
 This same technique could be used to encode other time-based information along a single bump line. If we made segments for each team a player was on, for example, we could color-code the lines to see Robinson's and Duncan's long, overlapping time on the Spurs or [the Shaq's rainbow](https://i.imgur.com/oCTy1.jpg).  
 
-##More improvements
+## More improvements
 
 Alicia made a number of great styling choices that I didn't go over. Try replicating them without looking at her code - and then peeking at her css if you get stuck - for some good practice.
 

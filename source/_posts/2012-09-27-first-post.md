@@ -24,7 +24,7 @@ I'd like to learn more about creating computer programs able to play board games
  [1]: http://en.wikipedia.org/wiki/Monte_Carlo_method#Games
 
 
-##Other assorted ideas I'm thinking of trying (updated occasionally): 
+## Other assorted ideas I'm thinking of trying (updated occasionally): 
 
 ### State population flow
 http://ilya.boyandin.me/assets/thesis.pdf Pupyrev et al. parallel flow diagrams look very promising. 
@@ -43,27 +43,27 @@ Style like an old map
 
 Use canvas or webGL to show flow of information
 
-###Fibonacci numbers
+### Fibonacci numbers
 Show computation with recursion, memorization and newtons method 
 
 
-###Twitter -> RSS
+### Twitter -> RSS
 Turn twitter follow list into a rss feed, export OXML
 
 Make front end to browse
 
-###[graph-scroll lib](http://1wheel.github.io/graph-scroll/)
+### [graph-scroll lib](http://1wheel.github.io/graph-scroll/)
 
-###[Analysing data with d3](http://roadtolarissa.com/data-exploration/) 
+### [Analysing data with d3](http://roadtolarissa.com/data-exploration/) 
 Oscars, temp over time
 - scrape
 - nest
 - group
 
 
-###[Click and drag exploration of svg paths](http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/)
+### [Click and drag exploration of svg paths](http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/)
 
-###Software usage
+### Software usage
 http://cran-logs.rstudio.com/
 
 https://www.npmjs.com/
@@ -84,30 +84,30 @@ Most lead changes?
 
 The 'best' bowler
 
-###Degrees of Duncan
+### Degrees of Duncan
 Every player that's played with another player
 
 Convex box score points - every player that's played 20 min+ and scored less than 10
 
-###Space debis
+### Space debis
 http://earthobservatory.nasa.gov/Features/OrbitsCatalog/page3.php
 
 http://www.ucsusa.org/nuclear_weapons_and_global_security/solutions/space-weapons/ucs-satellite-database.html#.VSaJAjvF-nB
 
 http://www.asterank.com/3d/
 
-###python v r data analysis 
+### python v r data analysis 
 
-###clojurescript/om demo
+### clojurescript/om demo
 
-###Server side code
+### Server side code
 - Boardgames
 - Working git server with preview
 
-###waterlines
+### waterlines
 - http://uxblog.idvsolutions.com/2015/08/beautiful-old-map.html
 - https://en.wikipedia.org/wiki/Medial_axis
 
-###song lyrics
+### [song lyrics](roadtolarissa.com/lyric-type/)
 
-###catrography w/ nba or game positions 
+### catrography w/ nba or game positions 
