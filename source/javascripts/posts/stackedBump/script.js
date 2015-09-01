@@ -266,7 +266,7 @@ c.svg.dataAppend(players, 'circle.stop')
     .attr({r: 3, fill: 'steelblue'})
 
 
-
+var cBump = c
 
 var posText = c.svg.append('text')
     .translate([50, 10])
@@ -275,9 +275,9 @@ var posText = c.svg.append('text')
 
 var drag = d3.behavior.drag()
   .on('drag', function(d){
-    var pos = d3.mouse(c.svg.node())
-    var x = pos[0] - d3.select(this).attr('x') + 5
-    var y = pos[1] - d3.select(this).attr('y') + 259
+    var pos = d3.mouse(cBump.svg.node())
+    var x = pos[0] - d3.select(this).attr('x')
+    var y = pos[1] - d3.select(this).attr('y')
     var offset = [x, y].map(Math.round)
     
     playersLabelOffsets[d.name] = offset
