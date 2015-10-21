@@ -1,6 +1,6 @@
 http://roadtolarissa.com/lyric-type/
 
-Interesting javascript is in `song.js`. To run locally: 
+Interesting javascript is in `script.js`. To run locally: 
 
 		git clone https://github.com/1wheel/roadtolarissa.git
 		cd roadtolarissa/source/
