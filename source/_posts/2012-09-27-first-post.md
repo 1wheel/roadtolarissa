@@ -111,3 +111,21 @@ http://www.asterank.com/3d/
 ### [song lyrics](roadtolarissa.com/lyric-type/)
 
 ### catrography w/ nba or game positions 
+
+### Stretching and shrinking time
+    - Speakers
+    - Spoofing
+    - Oscars
+
+### Making tools for d3
+    - jetpack
+    - starterkit
+    - graph-scroll
+    - swoopy/annotations
+
+### Difference between playoff and regular season win rates
+    - Cubs got swept in playoffs after sweeping during season
+
+### Remake trib baseball chart
+    - https://twitter.com/waynekamidoi/status/657359312520638464
+    - https://twitter.com/kleinmatic/status/657400344394276864 
