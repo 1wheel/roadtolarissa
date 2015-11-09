@@ -129,3 +129,5 @@ http://www.asterank.com/3d/
 ### Remake trib baseball chart
     - https://twitter.com/waynekamidoi/status/657359312520638464
     - https://twitter.com/kleinmatic/status/657400344394276864 
+    
+### [Ship logs](https://www.kaggle.com/c/climate-data-from-ocean-ships/data)
