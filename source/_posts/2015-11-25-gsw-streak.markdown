@@ -1,16 +1,18 @@
 ---
 template: post.html
-title: "Golden State's Point Differential"
+title: "Golden State's 2015 Point Differentials"
 comments: true
 permalink: /gsw-streak
 categories: 
 ---
 
-
 <div id='graph'></div>
 
+Golden State resoundingly defeated the Lakers last night, becoming the first NBA team to start the season 16-0. They're lead by Steph Curry, who is on pace to break the record he set last year for made three pointers. 
 
-[code]
+Data from stats.nba.com. Scraping and chart [code](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/gsw-streak).
+
+
 <div class='tooltip'></div>
 
 

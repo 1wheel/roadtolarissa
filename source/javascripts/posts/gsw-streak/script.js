@@ -35,13 +35,14 @@ d3.json('/javascripts/posts/gsw-streak/games.json', function(res){
 							+ +d.pctimestring.split(':')[1]/60
 			d.negMin = -d.min
 			d.info = d.visitordescription
+			game.isVisit = true
 		})
 
 		game.lastScore = _.last(game.scores)
 		if (game.lastScore.diff < 0) game.scores.forEach(function(d){
 			d.diff = -d.diff 
 			d.info = d.homedescription
-			game.isVisit = true
+			game.isVisit = false
 		})
 
 		game.curry3s = game.scores.filter(function(d){
@@ -55,6 +56,7 @@ d3.json('/javascripts/posts/gsw-streak/games.json', function(res){
 
 		game.isOT = game.lastScore.period > 4
 		game.finalScore = game.lastScore.score.replace(' ', '').replace(' ', '')
+		if (game.isVisit) game.finalScore = game.finalScore.split('-').reverse().join('-')
 		game.diffExtent = d3.extent(game.scores, ƒ('diff'))
 	})
 	games = _.sortBy(games, 'id')
@@ -74,7 +76,7 @@ d3.json('/javascripts/posts/gsw-streak/games.json', function(res){
 		var c = d3.conventions({
 			parentSel: d3.select(this),
 			height: 150, width: 195, 
-			margin: {left: 40, top: 10, bottom: 10, right: 10}})
+			margin: {left: 25, top: 10, bottom: 10, right: 25}})
 
 		c.x.domain([48, 0])
 		c.y.domain(diffExtent)

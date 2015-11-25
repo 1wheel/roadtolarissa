@@ -73,7 +73,7 @@ path.domain{
 }
 .game .date{
 	position: absolute;
-	left: 16px;
+	left: 20px;
 	top: 6px;
 	color: #555;
 	/*z-index: -1;*/
@@ -87,7 +87,7 @@ path.domain{
 }
 .game .score{
 	position: absolute;
-	right: 10px;
+	right: 13px;
 	top: 6px;
 	color: #555;
 }
