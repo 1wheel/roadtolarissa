@@ -99,6 +99,8 @@ http://www.asterank.com/3d/
 ### python v r data analysis 
 
 ### clojurescript/om demo
+- advent cal
+- sf practice 
 
 ### Server side code
 - Boardgames
@@ -113,24 +115,32 @@ http://www.asterank.com/3d/
 ### catrography w/ nba or game positions 
 
 ### Stretching and shrinking time
-    - Speakers
-    - Spoofing
-    - Oscars
+- Speakers
+- Spoofing
+- Oscars
 
 ### Making tools for d3
-    - jetpack
-    - starterkit
-    - graph-scroll
-    - swoopy/annotations
+- jetpack
+- starterkit
+- graph-scroll
+- swoopy/annotations
 
 ### Difference between playoff and regular season win rates
-    - Cubs got swept in playoffs after sweeping during season
+- Cubs got swept in playoffs after sweeping during season
 
 ### Remake trib baseball chart
-    - https://twitter.com/waynekamidoi/status/657359312520638464
-    - https://twitter.com/kleinmatic/status/657400344394276864 
-    
+- https://twitter.com/waynekamidoi/status/657359312520638464
+- https://twitter.com/kleinmatic/status/657400344394276864 
+  
 ### [Ship logs](https://www.kaggle.com/c/climate-data-from-ocean-ships/data)
 
-### Number of second with a lead v chance of winning
-    - Which series/team/game had the most come from behind wins?
+### Number of seconds with a lead v chance of winning
+- Which series/team/game had the most come from behind wins?
+
+### Small multiples point differential for each minute over the course of a game
+- http://graphics.wsj.com/job-market-tracker/
+
+### Hilbert Scope
+- https://www.youtube.com/watch?v=hl3tDWln3NU
+
+
