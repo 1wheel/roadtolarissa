@@ -168,3 +168,14 @@ console.log(Math.max(...d3.range(20)))
 
 
 //symboles
+
+
+//iterator
+
+//generator
+
+//classes
+
+//promises
+
+//import export
