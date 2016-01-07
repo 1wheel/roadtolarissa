@@ -1,0 +1,155 @@
+body{
+	margin: 0px auto;
+	font: 11px monospace;
+	font-weight: bold;
+	background: #F5F5F5;
+	width: 980px;
+	/*margin-left: -105px;*/
+}
+
+
+.key{
+  padding: 6px;
+  position: relative;
+  top: 3px;
+  width: 1.38889%;
+  display: inline-block;
+  text-align: center;
+  font-size: 10px;
+  color: #FFFFFF;
+}
+
+svg{
+	overflow: visible;
+	position: relative;
+}
+
+.anno{
+	stroke: black;
+}
+
+.score-line{
+	fill: none;
+	stroke: #FDB927;
+	stroke-width: 2px;
+}
+
+.area{
+	fill: #006BB6;
+}
+
+path.domain{
+	display: none;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text{
+	fill: #bbb;
+}
+.x.axis line{
+	stroke: #ddd;
+}
+
+.y.axis line{
+	display: none;
+}
+
+
+.zero{
+	stroke: #ddd;
+}
+
+.name{
+	/*text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;*/
+	fill: black;
+}
+
+.game{
+	width: 245px;
+	display: inline-block;
+	padding-bottom: 25px;
+	position: relative;
+}
+
+.game div{
+	font-size: 12px;
+	/* text-align: center; */
+	display: block;
+	font-weight: 500;
+	/*background: rgba(0,0,0,0);*/
+}
+.game .date{
+	position: absolute;
+	left: 20px;
+	top: 6px;
+	color: #555;
+	/*z-index: -1;*/
+
+}
+.game div.team{
+	font-size: 18px;
+	font-weight: bold;
+	position: relative;
+	/*width: 100px;*/
+}
+.game .score{
+	position: absolute;
+	right: 13px;
+	top: 6px;
+	color: #555;
+}
+
+
+.hover-path{
+	stroke: #666;
+	fill: none;
+	opacity: 0;
+	pointer-events: none;
+}
+.hover-text{
+	opacity: 0;
+	pointer-events: none;
+}
+.game:hover .hover-text{
+	opacity: 1;
+}
+.game:hover circle.selected{
+	stroke: #666;
+}
+.game:hover .hover-path{
+	opacity: 1;
+}
+
+
+
+
+path.hover{
+	stroke: #555;
+	stroke-dasharray: 4 2 2 2;
+}
+text.hover{
+	fill: #555;
+}
+.neg path.hover{
+	stroke: #006BB6;
+	stroke-dasharray: 4 2 2 2;
+}
+.neg text.hover{
+	fill: #006BB6;
+}
+
+
+.anno{
+	font-weight: 500;
+}
+
+.anno path{
+	stroke: black;
+	fill: none;
+}
