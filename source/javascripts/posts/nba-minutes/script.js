@@ -98,7 +98,7 @@ d3.json('games.json', function(res){
         d.i = i
       })
     })
-    team.wins = team.values.filter(function(d){ return _.last(d.minutes).dif > 0 }).length + (['CHI', 'MEM', 'IND'].indexOf(team.key)/1000) //force CHI to edge
+    team.wins = team.values.filter(function(d){ return _.last(d.minutes).dif > 0 }).length/team.values.length
   })
 
   teamSel = d3.select('#graph').dataAppend(_.sortBy(byTeam, 'wins').reverse(), 'div.game')
@@ -108,7 +108,7 @@ d3.json('games.json', function(res){
     // if (i > 4) return
     var c = d3.conventions({
       parentSel: d3.select(this),
-      height: 150, width: 190, 
+      height: 150, width: 160, 
       margin: {left: 10, top: 10, bottom: 10, right: 10}})
 
     c.x.domain([48, 0])
@@ -152,7 +152,7 @@ d3.json('games.json', function(res){
     var botTime = botTextG.append('text').attr({'text-anchor': 'middle', 'y': '1.45em'})
     var circleSel = minuteSel.dataAppend(ƒ('values'), 'circle')
         .attr('cy', ƒ('i', c.y))
-        .attr('r', 2)
+        .attr('r', 1.9)
         .attr('fill', ƒ('dif', color))
         .on('mouseover', function(d){
           // console.log(d)
