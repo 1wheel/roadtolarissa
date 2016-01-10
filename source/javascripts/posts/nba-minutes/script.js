@@ -88,6 +88,7 @@ d3.json('games.json', function(res){
     var botLine = c.svg.append('path.hover-path')
 
     c.svg.selectAll('.x line').attr('y1', -c.height)
+    c.svg.select('.x .tick').append('text').text('min').attr({y: 9, dy: '.71em', x: 10})
     // c.svg.append('path.zero').attr('d', ['M', [0, c.y(0)], 'h', c.width].join(''))
 
 
