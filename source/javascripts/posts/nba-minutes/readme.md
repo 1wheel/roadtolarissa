@@ -1,16 +1,10 @@
 todo
 
 - put in blog
-- img
-- laker
-- missing 3s
-- shrink file
+- meta img
+- swoopy arrow
+- more anon
+- canvas or lag load
+- correct data - ties? det bkn
 
 done
-- x axis
-- y axis
-- fill area
-- swoopy arrow
-- hover
-- team names/team
-- max/min/end label

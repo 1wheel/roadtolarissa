@@ -24,7 +24,13 @@ var annontations = {
     path: 'M 210,80 C 210,147 210,147 190,147'
   },
   CHI: {
-    text: "After taking the game to 4th 0TH \n a loss",
+    text: "After taking the game to 4th 0T \n a loss",
+    textAnchor: 'middle',
+    textPos: [100, 150],
+    path: 'M 210,80 C 210,147 210,147 190,147'
+  },
+  DET: {
+    text: "Largest lead after 3",
     textAnchor: 'middle',
     textPos: [100, 150],
     path: 'M 210,80 C 210,147 210,147 190,147'
@@ -37,6 +43,12 @@ var annontations = {
   },
   PHI: {
     text: "Despite leading 11 times w/ 7 min left, PHI only has 3 wins",
+    textAnchor: 'middle',
+    textPos: [100, 150],
+    path: 'M 210,80 C 210,147 210,147 190,147'
+  },
+  WAS: {
+    text: "Largest lead after 5",
     textAnchor: 'middle',
     textPos: [100, 150],
     path: 'M 210,80 C 210,147 210,147 190,147'
@@ -55,15 +67,13 @@ d3.select('#graph').append('div').style('margin-bottom', '20px').dataAppend(d3.r
     .filter(function(d){ return !d }).style('color', 'black')
 
 d3.json('games.json', function(res){
-  //only 2015
-  games = res.filter(function(d){ return d.date[3] == '5' })
+  games = res
 
   teamGames = []
   games.forEach(function(game){
     game.team = game.away
     game.oppTeam = game.home
     teamGames.push(game)
-    game.date = game.date.split('T')[0].replace('2015-', '').replace('-', '/')
 
     var flippedGame = {team: game.home, oppTeam: game.away, isFlipped: true, date: game.date}
     flippedGame.minutes = game.minutes.map(function(d){
@@ -88,7 +98,7 @@ d3.json('games.json', function(res){
         d.i = i
       })
     })
-    team.wins = team.values.filter(function(d){ return _.last(d.minutes).dif > 0 }).length
+    team.wins = team.values.filter(function(d){ return _.last(d.minutes).dif > 0 }).length + (['CHI', 'MEM', 'IND'].indexOf(team.key)/1000) //force CHI to edge
   })
 
   teamSel = d3.select('#graph').dataAppend(_.sortBy(byTeam, 'wins').reverse(), 'div.game')
