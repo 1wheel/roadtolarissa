@@ -3,40 +3,46 @@ var annontations = {
     text: "GSW has lost by more\n than 13 points twice",
     textAnchor: 'end',
     textPos: [165, 135],
-    path: 'M 190,90 C 190,130 190,130 170,133'
+    path: 'M 165,90 C 190,130 190,130 170,133'
   },
   SAS: {
-    text: "Spurs have only trailed \n 3 times at the end of the 3rd",
+    text: "Spurs only trailed 3 \n times at the end of the 3rd",
     textAnchor: 'middle',
-    textPos: [120, 136],
-    path: 'M 139,96 C 139,118 139,118 139,118'
+    textPos: [100, 136],
+    path: 'M 117,96 C 117,118 117,118 117,118'
   },
   OKC: {
-    text: "OKC won both overtime games",
+    text: "OKC won both OT games",
     textAnchor: 'middle',
-    textPos: [100, 150],
-    path: 'M 210,80 C 210,147 210,147 190,147'
+    textPos: [108, 150],
+    path: 'M 173,85 V 135'
   },
-  ATL: {
-    text: "2nd line stuggles at the end of the 1st",
+  CLE: {
+    text: "CLE lost both OT games",
     textAnchor: 'middle',
-    textPos: [100, 150],
-    path: 'M 210,80 C 210,147 210,147 190,147'
+    textPos: [108, 150],
+    path: 'M 173,85 V 135'
   },
+  // ATL: {
+  //   text: "2nd line stuggles at the end of the 1st",
+  //   textAnchor: 'middle',
+  //   textPos: [100, 150],
+  //   path: 'M 210,80 C 210,147 210,147 190,147'
+  // },
   CHI: {
-    text: "After taking the game to 4th 0T \n a loss",
+    text: "Pistons beat the Bulls in quadruple overtime",
     textAnchor: 'middle',
-    textPos: [100, 150],
-    path: 'M 210,80 C 210,147 210,147 190,147'
+    textPos: [138, 180],
+    path: 'M 226,80 C 226,172 130,80 135,170'
   },
   DET: {
-    text: "Largest lead after 3",
+    text: "",
     textAnchor: 'middle',
     textPos: [100, 150],
-    path: 'M 210,80 C 210,147 210,147 190,147'
+    path: 'M 226,70 C 226,-95 34,30 34,-25'
   },
-  BKN: {
-    text: "If games ended after a minute, BKN would have the best record",
+  MIN: {
+    text: "If games ended after a minute, this would be the best record",
     textAnchor: 'middle',
     textPos: [100, 150],
     path: 'M 210,80 C 210,147 210,147 190,147'
@@ -53,6 +59,13 @@ var annontations = {
     textPos: [100, 150],
     path: 'M 210,80 C 210,147 210,147 190,147'
   },
+  LAL: {
+    text: "Biggest defict after 3 min",
+    textAnchor: 'middle',
+    textPos: [100, 150],
+    path: 'M 210,80 C 210,147 210,147 190,147'
+  },
+
 }
 
 
@@ -98,10 +111,10 @@ d3.json('games.json', function(res){
         d.i = i
       })
     })
-    team.wins = team.values.filter(function(d){ return _.last(d.minutes).dif > 0 }).length/team.values.length
+    team.wins = team.values.filter(function(d){ return _.last(d.minutes).dif > 0 }).length/team.values.length + (team.key == 'CHI' ? -.01 : 0)
   })
 
-  teamSel = d3.select('#graph').dataAppend(_.sortBy(byTeam, 'wins').reverse(), 'div.game')
+  teamSel = d3.select('#graph').dataAppend(_.sortBy(byTeam, 'wins').reverse(), 'div.game').style('z-index', function(d, i){ return 100-i })
   teamSel.append('div').text(ƒ('key'))//.style({'z-index': 3, position: 'relative'})
 
   teamSel.each(function(d, i){
@@ -119,7 +132,7 @@ d3.json('games.json', function(res){
 
     c.svg
       .on('mousemove', function(){
-        console.log(d3.mouse(this))
+        console.log(d3.mouse(this).map(Math.round))
       })
         .append('rect').attr({height: c.height, width: c.width, opacity: 0})
 
@@ -135,6 +148,7 @@ d3.json('games.json', function(res){
     var minuteSel = c.svg.dataAppend(d.byMinute, 'g.min')
         .translate(function(d){ return [c.x(d.key), c.y(-Math.floor(d.numTie/2) - d.numNeg) - c.y(0)] })
         // .style('opacity', function(d, i){ return d.key != 48 ? 1 : 0 })
+    var annoG = c.svg.append('g.anno') 
 
     var line = d3.svg.line()
         .x(ƒ('min', c.x))
@@ -179,7 +193,6 @@ d3.json('games.json', function(res){
     var anno = annontations[d.key]
     if (!anno) return
 
-    var annoG = c.svg.append('g.anno') 
     annoG.append('text')
         .attr('text-anchor', anno.textAnchor)
         .translate(anno.textPos)
