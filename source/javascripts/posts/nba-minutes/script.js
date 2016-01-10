@@ -3,13 +3,43 @@ var annontations = {
     text: "GSW has lost by more\n than 13 points twice",
     textAnchor: 'end',
     textPos: [165, 135],
-    path: 'M 190,90 C 190,130 190,130 170,130'
+    path: 'M 190,90 C 190,130 190,130 170,133'
   },
   SAS: {
     text: "Spurs have only trailed \n 3 times at the end of the 3rd",
     textAnchor: 'middle',
     textPos: [120, 136],
     path: 'M 139,96 C 139,118 139,118 139,118'
+  },
+  OKC: {
+    text: "OKC won both overtime games",
+    textAnchor: 'middle',
+    textPos: [100, 150],
+    path: 'M 210,80 C 210,147 210,147 190,147'
+  },
+  ATL: {
+    text: "2nd line stuggles at the end of the 1st",
+    textAnchor: 'middle',
+    textPos: [100, 150],
+    path: 'M 210,80 C 210,147 210,147 190,147'
+  },
+  CHI: {
+    text: "After taking the game to 4th 0TH \n a loss",
+    textAnchor: 'middle',
+    textPos: [100, 150],
+    path: 'M 210,80 C 210,147 210,147 190,147'
+  },
+  BKN: {
+    text: "If games ended after a minute, BKN would have the best record",
+    textAnchor: 'middle',
+    textPos: [100, 150],
+    path: 'M 210,80 C 210,147 210,147 190,147'
+  },
+  PHI: {
+    text: "Despite leading 11 times w/ 7 min left, PHI only has 3 wins",
+    textAnchor: 'middle',
+    textPos: [100, 150],
+    path: 'M 210,80 C 210,147 210,147 190,147'
   },
 }
 
@@ -65,7 +95,7 @@ d3.json('games.json', function(res){
   teamSel.append('div').text(ƒ('key'))//.style({'z-index': 3, position: 'relative'})
 
   teamSel.each(function(d, i){
-    if (i > 4) return
+    // if (i > 4) return
     var c = d3.conventions({
       parentSel: d3.select(this),
       height: 150, width: 190, 
