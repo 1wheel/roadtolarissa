@@ -71,7 +71,7 @@ d3.select('#graph').append('div').style('margin-bottom', '20px').dataAppend(d3.r
     .style('background', color)
     .filter(function(d){ return !d }).style('color', 'black')
 
-d3.json('games.json', function(res){
+d3.json('/javascripts/posts/nba-minutes/games.json', function(res){
   games = res
 
   teamGames = []
@@ -135,6 +135,9 @@ d3.json('games.json', function(res){
 
     c.svg.selectAll('.x line').attr('y1', -c.height)
     c.svg.select('.x .tick').append('text').text('min').attr({y: 9, dy: '.71em', x: 10})
+
+    c.svg.select('.y').append('text.y-label').text('winning →').attr({transform: 'rotate(270)', x: -72, y: -5})
+    c.svg.select('.y').append('text.y-label').text('← losing').attr({transform: 'rotate(270)', x: -145, y: -5})
 
     var minuteSel = c.svg.dataAppend(d.byMinute, 'g.min')
         .translate(function(d){ return [c.x(d.key), c.y(-Math.floor(d.numTie/2) - d.numNeg) - c.y(0)] })

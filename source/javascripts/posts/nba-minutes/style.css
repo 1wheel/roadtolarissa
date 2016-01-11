@@ -32,6 +32,11 @@ svg{
 	padding-bottom: 30px;
 }
 
+.y-label{ opacity: 0 }
+#graph .game:nth-child(5n - 3) .y-label{
+	opacity: 1;
+}
+
 .score-line{
 	fill: none;
 	stroke: #FDB927;
