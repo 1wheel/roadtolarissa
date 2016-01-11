@@ -28,6 +28,10 @@ svg{
 	stroke: black;
 }
 
+#graph{
+	padding-bottom: 30px;
+}
+
 .score-line{
 	fill: none;
 	stroke: #FDB927;

@@ -23,12 +23,6 @@ var annontations = {
     textPos: [108, 150],
     path: 'M 173,85 V 135'
   },
-  // ATL: {
-  //   text: "2nd line stuggles at the end of the 1st",
-  //   textAnchor: 'middle',
-  //   textPos: [100, 150],
-  //   path: 'M 210,80 C 210,147 210,147 190,147'
-  // },
   CHI: {
     text: "Pistons beat the Bulls in quadruple overtime",
     textAnchor: 'middle',
@@ -42,36 +36,34 @@ var annontations = {
     path: 'M 226,70 C 226,-95 34,30 34,-25'
   },
   MIN: {
-    text: "If games ended after a minute, this would be the best record",
+    text: "If games lasted one \n minute, MIN would be #1",
     textAnchor: 'middle',
-    textPos: [100, 150],
-    path: 'M 210,80 C 210,147 210,147 190,147'
+    textPos: [110, -16],
+    path: 'M -1,5 C -80,5 45,-70 50,-25'
   },
   PHI: {
-    text: "Despite leading 11 times w/ 7 min left, PHI only has 3 wins",
+    text: "Despite leading 11 times w/ \n7 min left, PHI only has 3 wins",
     textAnchor: 'middle',
-    textPos: [100, 150],
-    path: 'M 210,80 C 210,147 210,147 190,147'
+    textPos: [90, 0],
+    path: 'M 137,32 L 137,20'
   },
   WAS: {
-    text: "Largest lead after 5",
+    text: "Largest lead after 5 min",
     textAnchor: 'middle',
-    textPos: [100, 150],
-    path: 'M 210,80 C 210,147 210,147 190,147'
+    textPos: [100, 5],
+    path: 'M 13,18 C -10,10 -15,5 18,2'
   },
   LAL: {
-    text: "Biggest defict after 3 min",
+    text: "Biggest deficit after 3 min",
     textAnchor: 'middle',
-    textPos: [100, 150],
-    path: 'M 210,80 C 210,147 210,147 190,147'
+    textPos: [80, 200],
+    path: 'M 8,158 L 8,190'
   },
-
 }
 
 
 color = d3.scale.threshold()
     .domain([-12, -6, 0, 1, 7, 13])
-    // .range(["#b35806","#f1a340","#fee0b6","#f7f7f7","#d8daeb","#998ec3","#542788"])
     .range(["#b35806","#f1a340","#fee0b6","rgba(255,255,255,1)","#d8daeb","#998ec3","#542788"].reverse())
 
 d3.select('#graph').append('div').style('margin-bottom', '20px').dataAppend(d3.range(-18, 19), 'div.key')
@@ -103,7 +95,7 @@ d3.json('games.json', function(res){
   byTeam.forEach(function(team){
     team.byMinute = d3.nest().key(ƒ('min')).entries(_.flatten(team.values.map(ƒ('minutes'))))
     team.byMinute.forEach(function(minute){
-      minute.values = _.sortBy(minute.values, 'dif')//.reverse()
+      minute.values = _.sortBy(minute.values, 'dif')
       minute.numNeg = minute.values.filter(function(d){ return d.dif <  0 }).length
       minute.numTie = minute.values.filter(function(d){ return d.dif == 0 }).length
       minute.values.forEach(function(d, i){
@@ -117,8 +109,9 @@ d3.json('games.json', function(res){
   teamSel = d3.select('#graph').dataAppend(_.sortBy(byTeam, 'wins').reverse(), 'div.game').style('z-index', function(d, i){ return 100-i })
   teamSel.append('div').text(ƒ('key'))//.style({'z-index': 3, position: 'relative'})
 
-  teamSel.each(function(d, i){
-    // if (i > 4) return
+  function drawTeam(d){
+    // if (d.key != 'PHI') return
+
     var c = d3.conventions({
       parentSel: d3.select(this),
       height: 150, width: 160, 
@@ -130,11 +123,11 @@ d3.json('games.json', function(res){
     c.yAxis.tickValues([])
     c.xAxis.tickValues([48, 36, 24, 12, 0])
 
-    c.svg
-      .on('mousemove', function(){
-        console.log(d3.mouse(this).map(Math.round))
-      })
-        .append('rect').attr({height: c.height, width: c.width, opacity: 0})
+    // c.svg
+    //   .on('mousemove', function(){
+    //     console.log(d3.mouse(this).map(Math.round))
+    //   })
+    //     .append('rect').attr({height: c.height, width: c.width, opacity: 0})
 
     c.drawAxis()
 
@@ -142,12 +135,9 @@ d3.json('games.json', function(res){
 
     c.svg.selectAll('.x line').attr('y1', -c.height)
     c.svg.select('.x .tick').append('text').text('min').attr({y: 9, dy: '.71em', x: 10})
-    // c.svg.append('path.zero').attr('d', ['M', [0, c.y(0)], 'h', c.width].join(''))
-
 
     var minuteSel = c.svg.dataAppend(d.byMinute, 'g.min')
         .translate(function(d){ return [c.x(d.key), c.y(-Math.floor(d.numTie/2) - d.numNeg) - c.y(0)] })
-        // .style('opacity', function(d, i){ return d.key != 48 ? 1 : 0 })
     var annoG = c.svg.append('g.anno') 
 
     var line = d3.svg.line()
@@ -169,7 +159,6 @@ d3.json('games.json', function(res){
         .attr('r', 1.9)
         .attr('fill', ƒ('dif', color))
         .on('mouseover', function(d){
-          // console.log(d)
           lineSel.attr('d', line(d.game.minutes))
 
           circleSel.classed('selected', function(e){ return e.game == d.game })
@@ -180,14 +169,11 @@ d3.json('games.json', function(res){
           dateText.text(d.game.date)
           scoreText.text(finalScore.h + '-' + finalScore.v)
 
-
           botTextG.translate([c.x(d.min), c.height])
           botTime.text(d.min)
           botScore.text(d.h + '-' + d.v)
           botLine.attr('d', ['M', c.x(d.min), 0, 'v', c.height].join(' '))
-
         })
-        // .call(d3.attachTooltip)
 
 
     var anno = annontations[d.key]
@@ -198,13 +184,21 @@ d3.json('games.json', function(res){
         .translate(anno.textPos)
         .tspans(anno.text.split('\n'))
 
+    annoG.append('path').attr('d', anno.path)
+  }
 
-    annoG.append('path')
-        .attr('d', anno.path)
 
-  })
+  byTeam.forEach(function(d){ d.notDrawn = true })
+  function drawNext(){
+    teamSel
+        .filter(ƒ('notDrawn'))
+        .filter(function(d, i){ return i < 5 })
+        .each(drawTeam)
+        .each(function(d, i){
+          d.notDrawn = false; 
+          if (!i) setTimeout(drawNext, 0) 
+        })
+  }
+  drawNext()
 
-  d3.select(self.frameElement).style("height", 2000 + "px");
 })
-
-function clamp(a, b, c){ return Math.max(a, Math.min(b, c)) }
