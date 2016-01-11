@@ -66,7 +66,7 @@ color = d3.scale.threshold()
     .domain([-12, -6, 0, 1, 7, 13])
     .range(["#b35806","#f1a340","#fee0b6","rgba(255,255,255,1)","#d8daeb","#998ec3","#542788"].reverse())
 
-d3.select('#graph').append('div').style('margin-bottom', '20px').dataAppend(d3.range(-18, 19), 'div.key')
+d3.select('#graph').append('div').style({'margin-bottom': '30px', 'margin-top': '-40px'}).dataAppend(d3.range(-18, 19), 'div.key')
     .text(function(d){ return d < 0 ? -d : d == 0 ? '0' : d })
     .style('background', color)
     .filter(function(d){ return !d }).style('color', 'black')

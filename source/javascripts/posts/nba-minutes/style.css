@@ -1,12 +1,14 @@
 body{
 	margin: 0px auto;
-	font: 11px monospace;
 	font-weight: bold;
 	background: #F5F5F5;
 	width: 980px;
 	/*margin-left: -105px;*/
 }
 
+h1{
+	font-size: 29px;
+}
 
 .key{
   padding: 6px;
@@ -29,7 +31,11 @@ svg{
 }
 
 #graph{
+	font: 11px monospace;
 	padding-bottom: 30px;
+	margin: 0px;
+	width: 980px;
+	margin-left: -105px;
 }
 
 .y-label{ opacity: 0 }
