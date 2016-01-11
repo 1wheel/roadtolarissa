@@ -1,10 +1,12 @@
-todo
+http://roadtolarissa.com/nba-minutes/
 
-- put in blog
-- meta img
-- lh ylabel
+todo
+- min height on games
 
 done
+- lh ylabel
+- meta img
+- put in blog
 - correct data - ties? det bkn
 - change z index
 - text shadow

@@ -24,9 +24,9 @@ var annontations = {
     path: 'M 173,85 V 135'
   },
   CHI: {
-    text: "Pistons beat the Bulls in quadruple overtime",
+    text: "Pistons beat the Bulls in quadruple OT",
     textAnchor: 'middle',
-    textPos: [138, 180],
+    textPos: [112, 180],
     path: 'M 226,80 C 226,172 130,80 135,170'
   },
   DET: {
@@ -107,12 +107,11 @@ d3.json('/javascripts/posts/nba-minutes/games.json', function(res){
     team.wins = team.values.filter(function(d){ return _.last(d.minutes).dif > 0 }).length/team.values.length + (team.key == 'CHI' ? -.01 : 0)
   })
 
+
   teamSel = d3.select('#graph').dataAppend(_.sortBy(byTeam, 'wins').reverse(), 'div.game').style('z-index', function(d, i){ return 100-i })
-  teamSel.append('div').text(ƒ('key'))//.style({'z-index': 3, position: 'relative'})
+  teamSel.append('div').text(ƒ('key'))
 
   function drawTeam(d){
-    // if (d.key != 'PHI') return
-
     var c = d3.conventions({
       parentSel: d3.select(this),
       height: 150, width: 160, 
@@ -123,12 +122,6 @@ d3.json('/javascripts/posts/nba-minutes/games.json', function(res){
     c.yAxis.tickValues([-15, 0, 15])
     c.yAxis.tickValues([])
     c.xAxis.tickValues([48, 36, 24, 12, 0])
-
-    // c.svg
-    //   .on('mousemove', function(){
-    //     console.log(d3.mouse(this).map(Math.round))
-    //   })
-    //     .append('rect').attr({height: c.height, width: c.width, opacity: 0})
 
     c.drawAxis()
 
@@ -162,7 +155,10 @@ d3.json('/javascripts/posts/nba-minutes/games.json', function(res){
         .attr('cy', ƒ('i', c.y))
         .attr('r', 1.9)
         .attr('fill', ƒ('dif', color))
-        .on('mouseover', function(d){
+        .on('mouseover', updateHover) 
+        .on('touchend', updateHover) 
+
+        function updateHover(d){
           lineSel.attr('d', line(d.game.minutes))
 
           circleSel.classed('selected', function(e){ return e.game == d.game })
@@ -177,7 +173,7 @@ d3.json('/javascripts/posts/nba-minutes/games.json', function(res){
           botTime.text(d.min)
           botScore.text(d.h + '-' + d.v)
           botLine.attr('d', ['M', c.x(d.min), 0, 'v', c.height].join(' '))
-        })
+        }
 
 
     var anno = annontations[d.key]
@@ -190,7 +186,6 @@ d3.json('/javascripts/posts/nba-minutes/games.json', function(res){
 
     annoG.append('path').attr('d', anno.path)
   }
-
 
   byTeam.forEach(function(d){ d.notDrawn = true })
   function drawNext(){

@@ -5,6 +5,10 @@ body{
 	/*margin-left: -105px;*/
 }
 
+.source{
+	font: 11px monospace;
+}
+
 h1{
 	font-size: 29px;
 }
@@ -90,6 +94,7 @@ path.domain{
 	display: inline-block;
 	padding-bottom: 25px;
 	position: relative;
+	min-height: 187px;
 }
 
 .game div{
