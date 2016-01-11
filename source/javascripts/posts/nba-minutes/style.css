@@ -1,6 +1,5 @@
 body{
 	margin: 0px auto;
-	font-weight: bold;
 	background: #F5F5F5;
 	width: 980px;
 	/*margin-left: -105px;*/
@@ -14,7 +13,7 @@ h1{
   padding: 6px;
   position: relative;
   top: 3px;
-  width: 14.1px;
+  width: 13.5px;
   display: inline-block;
   text-align: center;
   font-size: 10px;
@@ -31,6 +30,7 @@ svg{
 }
 
 #graph{
+	font-weight: bold;
 	font: 11px monospace;
 	padding-bottom: 30px;
 	margin: 0px;
