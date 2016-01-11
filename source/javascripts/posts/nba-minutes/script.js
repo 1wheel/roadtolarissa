@@ -1,6 +1,6 @@
 var annontations = {
   GSW: {
-    text: "GSW has lost by more\n than 13 points twice",
+    text: "GSW lost by more\n than 13 points twice",
     textAnchor: 'end',
     textPos: [165, 135],
     path: 'M 165,90 C 190,130 190,130 170,133'
