@@ -16,7 +16,7 @@ To squeeze distribution in, I had to make a couple of trade offs. Instead of bei
  
 Showing an entire season - not just the first half shown here - might require using something other than dots to avoid a long vertical scroll. Stacked area charts, which also wouldn't require bucketing time, might work better? I'd also be curious to see how these charts would change if they showed winning percentage instead of the score differentials I had on hand. 
 
-I'm not sure where I first saw the key trick of this chart - showing a changing distributions by stacking colored objects. [538](http://fivethirtyeight.com/features/dan-feyer-american-crossword-puzzle-tournament/) and [WSJ](http://graphics.wsj.com/job-market-tracker/) have both used the technique recently, but I wouldn't be surprised if there are much earlier examples. 
+I'm not sure where I first saw the key trick of this chart - showing a  changing distribution by stacking colored objects. [538](http://fivethirtyeight.com/features/dan-feyer-american-crossword-puzzle-tournament/) and [WSJ](http://graphics.wsj.com/job-market-tracker/) have both used the technique recently, but I wouldn't be surprised if there are much earlier examples. 
 
 
 <span class='source'>Data from stats.nba.com. Scraping and chart [code](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/nba-minutes).</span>
