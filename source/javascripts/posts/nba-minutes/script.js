@@ -158,22 +158,22 @@ d3.json('/javascripts/posts/nba-minutes/games.json', function(res){
         .on('mouseover', updateHover) 
         .on('touchend', updateHover) 
 
-        function updateHover(d){
-          lineSel.attr('d', line(d.game.minutes))
+    function updateHover(d){
+      lineSel.attr('d', line(d.game.minutes))
 
-          circleSel.classed('selected', function(e){ return e.game == d.game })
-          
-          var finalScore = _.last(d.game.minutes)
-          textG.translate([c.width + 3, c.y(finalScore.y) + (d.game.minutes.length > 50 ? -10 : 0)])
-          oppText.text((d.game.isFlipped ? ' ' : '@') + d.game.oppTeam)
-          dateText.text(d.game.date)
-          scoreText.text(finalScore.h + '-' + finalScore.v)
+      circleSel.classed('selected', function(e){ return e.game == d.game })
+      
+      var finalScore = _.last(d.game.minutes)
+      textG.translate([c.width + 3, c.y(finalScore.y) + (d.game.minutes.length > 50 ? -10 : 0)])
+      oppText.text((d.game.isFlipped ? ' ' : '@') + d.game.oppTeam)
+      dateText.text(d.game.date)
+      scoreText.text(finalScore.h + '-' + finalScore.v)
 
-          botTextG.translate([c.x(d.min), c.height])
-          botTime.text(d.min)
-          botScore.text(d.h + '-' + d.v)
-          botLine.attr('d', ['M', c.x(d.min), 0, 'v', c.height].join(' '))
-        }
+      botTextG.translate([c.x(d.min), c.height])
+      botTime.text(d.min)
+      botScore.text(d.h + '-' + d.v)
+      botLine.attr('d', ['M', c.x(d.min), 0, 'v', c.height].join(' '))
+    }
 
 
     var anno = annontations[d.key]
