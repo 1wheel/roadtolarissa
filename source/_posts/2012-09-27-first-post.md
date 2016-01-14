@@ -143,4 +143,5 @@ http://www.asterank.com/3d/
 ### Hilbert Scope
 - https://www.youtube.com/watch?v=hl3tDWln3NU
 
-
+## Streaks
+- During a rare happy stretch of Philly's blowout loss to the Hawks on Friday, the Sixers' broadcast team pointed out that Philly was on "an 8-3 run." I know the Sixers aren't good enough to put together normal NBA runs, but an 8-3 scoring gap is not a run. It is a randomly occurring blip that happens every game. 
