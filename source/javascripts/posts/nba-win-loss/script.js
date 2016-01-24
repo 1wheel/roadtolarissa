@@ -6,13 +6,13 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
   byWinLoss.forEach(function(d){
     d.tW = +d.values[0].tW
     d.tL = +d.values[0].tL
-    d.tG = d.tW + d.tL
   })
 
 
   recordBests = [{tL: 31, tW: 128}]
   byWin = d3.nest().key(ƒ('tW')).entries(byWinLoss)
-  byWin.reverse().forEach(function(d){
+  byWin.forEach(function(d){ d.tW = +d.key })
+  _.sortBy(byWin, 'tW').reverse().forEach(function(d){
     d.values = _.sortBy(d.values, ƒ('tL'))
     var best = d.values[0]
     if (_.last(recordBests).tL >= best.tL){ recordBests.push(best) }
@@ -21,7 +21,8 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
 
   recordWorsts = [{tL: 133, tW: 27}]
   byLoss = d3.nest().key(ƒ('tL')).entries(byWinLoss)
-  byLoss.reverse().forEach(function(d){
+  byLoss.forEach(function(d){ d.tL = +d.key })
+  _.sortBy(byLoss, 'tL').reverse().forEach(function(d){
     d.values = _.sortBy(d.values, ƒ('tW'))
     var best = d.values[0]
     if (_.last(recordWorsts).tW >= best.tW){ recordWorsts.push(best) }

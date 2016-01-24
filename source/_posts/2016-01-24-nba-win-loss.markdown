@@ -8,7 +8,7 @@ shareimg: http://roadtolarissa.com/images/posts/nba-win-loss.png
 ---
 
 
-<h1 style='title'>Combined Win-Loss Record <br>of Teams Before Every <br>NBA Game
+<h1 class='title'>Combined Win-Loss Record <br>of Teams Before Every <br>NBA Game</h1>
 <div id='graph'></div>
 
 text text lor. asdfsdakl asd;flkajsdf  a;lsdkfj;a . asdfasdfasdfasdf asdf
@@ -23,6 +23,8 @@ text text lor. asdfsdakl asd;flkajsdf  a;lsdkfj;a . asdfasdfasdfasdf asdf
 text text lor. asdfsdakl asd;flkajsdf  a;lsdkfj;a . asdfasdfasdfasdf asdf
 
 <span class='source'>Data from stats.nba.com. Scraping and chart [code](https://github.com/1wheel/roadtolarissa/tree/master/source/javascripts/posts/nba-win-loss).</span>
+
+<div class='tooltip'></div>
 
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/nba-win-loss/style.css">

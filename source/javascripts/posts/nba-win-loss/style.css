@@ -17,6 +17,11 @@ h1.title{
 #graph{
 	font: 11px monospace;
 	font-weight: bold;
+	margin-bottom: 345px;
+}
+
+.tooltip{
+	font: 11px monospace;
 }
 
 div.tooltip {
