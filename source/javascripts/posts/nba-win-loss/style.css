@@ -1,0 +1,107 @@
+body{
+	margin: 0px auto;
+	background: #F5F5F5;
+	width: 980px;
+	/*margin-left: -105px;*/
+}
+
+h1{
+	display: none;
+}
+
+h1.title{
+	display: block;
+	height: 0px;
+}
+
+#graph{
+	font: 11px monospace;
+	font-weight: bold;
+}
+
+div.tooltip {
+  top: -1000px;
+  position: absolute;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  z-index: 30;
+}
+.tooltip-hidden{
+  opacity: 0;
+}
+
+
+svg{
+	overflow: visible;
+	position: relative;
+	transform: rotate(45deg) translate(30%, 0px);
+	/*transform: rotate(45deg) translate(00%, 300px);*/
+}
+
+
+path.domain{ display: none; }
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.axis text{	fill: #bbb; }
+.x.axis line{	stroke: #ddd; }
+.y.axis line{	stroke:  #ddd; }
+.x.axis text{
+	transform: rotate(-45deg) translate(-5px, 0px);}
+.y.axis text{
+	transform: rotate(-45deg) translate(0px, -5px);}
+
+
+rect.tooltipped{
+	stroke: red;
+}
+
+rect.active{
+/*	stroke: steeblue;
+	fill: steelblue;
+*/}
+
+.anno{
+	stroke: black;
+}
+.anno{
+	font-weight: 500;
+}
+.anno path{
+	stroke: black;
+	fill: none;
+}
+
+
+.worst{
+	stroke: #777;
+	fill: none;
+}
+.best{
+	stroke: #777;
+	fill: none;
+}
+
+
+path.upcoming{
+	stroke: black;
+	fill: none;
+}
+
+
+
+
+.team-name{
+	/*padding: 10px;*/
+	width: 3em;
+	display: in
+}
+
+.team-name:after{
+	content: ' ';
+}
