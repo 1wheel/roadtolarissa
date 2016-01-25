@@ -5,6 +5,11 @@ body{
 	/*margin-left: -105px;*/
 }
 
+.header{
+	z-index: 10;
+	top: 0px;
+}
+
 h1{
 	display: none;
 }
