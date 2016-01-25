@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: "Combined Win-Loss Record <br>of Teams Before Every <br>NBA Game"
+title: "Teams' Combined  Win and Loss Record  Before Every NBA Game Ever"
 comments: true
 permalink: /nba-win-loss
 categories: 
@@ -8,7 +8,7 @@ shareimg: http://roadtolarissa.com/images/posts/nba-win-loss.png
 ---
 
 
-<h1 class='title'>Combined Win <br>and Loss Record of  Teams<br>  Before Every NBA Game Ever<br> </h1>
+<h1 class='title'>Teams' Combined  <br> Win and Loss Record <br>  Before Every NBA Game <br> </h1>
 <div id='graph'></div>
 
 text text lor. asdfsdakl asd;flkajsdf  a;lsdkfj;a . asdfasdfasdfasdf asdf
