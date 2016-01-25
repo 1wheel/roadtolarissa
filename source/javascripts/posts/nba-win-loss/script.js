@@ -5,11 +5,17 @@ var annontations = [
     textTranslate: [-260, 160],
     path: 'M -5, 5 L -100 40'
   },
-  { text: 'GSW and SAS are on pace to have one \nof the best regualar season series ever. \nEven with some regression to the mean \ncould be between two all timegreats — \nhopefully there aren\'t too many more \n"sore knees."',
+  { text: 'GSW and SAS are on pace to have one \nof the best regualar season series ever. \nEven with some regression to the mean, \n their last three matches could be between \ntwo all time greats — hopefully there \naren\'t too many more "sore knees."',
     textAnchor: 'end',
     translate: [17, 138],
     textTranslate: [30, -20],
     path: 'M 20, -25 L 15 -25     M 9, -9 L 20 -20   M 22 -15 L -5 95'
+  },
+  { text: 'The Knicks stop the \'97 Bull from \npicking up a secound 70 win season',
+    textAnchor: 'end',
+    translate: [37, 125],
+    textTranslate: [30, 10],
+    path: 'M 24 -3 L 8 -3'
   },
 ]
 
@@ -66,11 +72,17 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
       .attr('transform', 'rotate(-90)')
       .attr({x: -c.width, y: -45})
   c.svg.append('text.axis-label').text('Combined Losses')
-      // .attr('transform', 'rotate(-90) translate(' + [0, c.height] + ')')
       .attr({y: c.height + 45})
 
+  c.svg.append('text.record-label').text('Wins/Losses Record')
+      .attr('transform', 'rotate(-90)')
+      .attr({x: -c.width + 230, y: 30})
+  c.svg.append('text.record-label').text('Losses/Wins Record')
+      .attr({x: 230, y: c.height - 25})
+
+
   var color = d3.scale.threshold()
-      .domain([2, 5, 10, 18, 30, 50])
+      .domain([2, 5, 10, 16, 24, 35])
       .range(['#ffd06b','#eb9f3b','#ca7421','#a14d15','#722f10','#40190a','#000000']);
 
   colorScale = d3.scale.quantile()

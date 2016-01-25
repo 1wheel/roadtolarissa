@@ -31,7 +31,7 @@ h1.title{
 svg{
 	overflow: visible;
 	position: relative;
-	/*transform: rotate(45deg);*/
+	transform: rotate(45deg);
 }
 
 
@@ -72,6 +72,9 @@ path.domain{ display: none; }
 
 .axis-label{
 	font-size: 18px;
+}
+.record-label{
+	fill: #777;
 }
 
 
