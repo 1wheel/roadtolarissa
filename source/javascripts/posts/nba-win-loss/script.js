@@ -2,7 +2,8 @@ var annontations = [
   { text: "Tonight's game between GSW (40-4) \nand SAS (38-6) will be the first time \ntwo teams have played with a \ncombined 70 plus wins and \n10 or less losses.",
     textAnchor: 'end',
     translate: [10, 79],
-    textTranslate: [-260, 160],
+    textTranslate: [-240, 80],
+
     path: 'M -5, 5 L -100 40'
   },
   { text: 'GSW and SAS are on pace to have one \nof the best regualar season series ever. \nEven with some regression to the mean, \n their last three matches could be between \ntwo all time greats — hopefully there \naren\'t too many more "sore knees."',
@@ -11,11 +12,23 @@ var annontations = [
     textTranslate: [30, -20],
     path: 'M 20, -25 L 15 -25     M 9, -9 L 20 -20   M 22 -15 L -5 95'
   },
-  { text: 'The Knicks stop the \'97 Bull from \npicking up a secound 70 win season',
+  { text: 'The Knicks stop the \'97 Bull from \npicking up a secound 70 win season.',
     textAnchor: 'end',
     translate: [37, 125],
     textTranslate: [30, 10],
     path: 'M 24 -3 L 8 -3'
+  },
+  { text: "This season's \nwar of tanks between \nPHI and LAL set a record \nfor the most losses in a game \nbetween two teams with less \nthan 10 total wins — 58 losses!",
+    textAnchor: 'end',
+    translate: [58, 10],
+    textTranslate: [30, 155],
+    path: 'M 13 13 L 60 90'
+  },
+  { text: "The '90s Mavericks won 3 \n of the NBA's most loss \n filled games.",
+    textAnchor: 'end',
+    translate: [130, 32],
+    textTranslate: [15, -5],
+    path: 'M 6 -6 L 20 4 M 23 20 L 23 8 M -16 12 L 19 7'
   },
 ]
 
@@ -60,7 +73,7 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
 
   c.xAxis.tickSize(-c.y(0))
   // c.xAxis.tickSize(function(d){ return -c.y(0) })
-  c.yAxis.tickSize(-c.x(130))
+  c.yAxis.tickSize(-c.x(130)).tickFormat(function(d){ return d == 130 ? '' : d })
   c.drawAxis()
 
   c.svg.selectAll('.y line')

@@ -18,6 +18,10 @@ h1.title{
 	display: block;
 	height: 0px;
 	line-height: 1.3em;
+
+  transform: rotate(-45deg) translate(-300px, -200px);
+  text-align: center;
+
 }
 
 #graph{
@@ -79,7 +83,7 @@ path.domain{ display: none; }
 
 
 rect.tooltipped{
-	stroke: red;
+	stroke: white;
 }
 
 rect.active{
