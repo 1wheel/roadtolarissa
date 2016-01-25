@@ -23,7 +23,16 @@ h1.title{
 	font: 11px monospace;
 	font-weight: bold;
 	margin-bottom: 345px;
+	margin-left: 	180px;
+	margin-top: 1250px;
 }
+
+svg{
+	overflow: visible;
+	position: relative;
+	transform: rotate(45deg);
+}
+
 
 .tooltip{
 	font: 11px monospace;
@@ -43,12 +52,6 @@ div.tooltip {
 }
 
 
-svg{
-	overflow: visible;
-	position: relative;
-	transform: rotate(45deg) translate(30%, 0px);
-	/*transform: rotate(45deg) translate(00%, 300px);*/
-}
 
 
 path.domain{ display: none; }
@@ -65,6 +68,10 @@ path.domain{ display: none; }
 	transform: rotate(-45deg) translate(-5px, 0px);}
 .y.axis text{
 	transform: rotate(-45deg) translate(0px, -5px);}
+
+.axis-label{
+	font-size: 18px;
+}
 
 
 rect.tooltipped{

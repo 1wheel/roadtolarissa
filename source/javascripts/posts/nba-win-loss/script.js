@@ -30,7 +30,7 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
   recordWorsts.push({tL: 0, tL: -1})
 
 
-  c = d3.conventions({width: 700, height: 700, parentSel: d3.select('#graph')})
+  c = d3.conventions({width: 800, height: 800, parentSel: d3.select('#graph')})
 
   c.x.domain([0, 130])
   c.y.domain([0, 130])
@@ -47,10 +47,10 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
 
   c.svg.append('text.axis-label').text('Combined Wins')
       .attr('transform', 'rotate(-90)')
-      .attr({x: -c.width, y: -25})
+      .attr({x: -c.width, y: -45})
   c.svg.append('text.axis-label').text('Combined Losses')
       // .attr('transform', 'rotate(-90) translate(' + [0, c.height] + ')')
-      .attr({y: c.height + 25})
+      .attr({y: c.height + 45})
 
   var color = d3.scale.threshold()
       .domain([2, 5, 10, 18, 30, 50])
