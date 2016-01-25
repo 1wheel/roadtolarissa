@@ -1,5 +1,22 @@
+var annontations = [
+  { text: "Tonight's game between GSW (40-4) \nand SAS (38-6) will be the first time \ntwo teams have played with a \ncombined 70 plus wins and \n10 or less losses.",
+    textAnchor: 'end',
+    translate: [10, 79],
+    textTranslate: [-260, 160],
+    path: 'M -5, 5 L -100 40'
+  },
+  { text: 'GSW and SAS are on pace to have one \nof the best regualar season series ever. \nEven with some regression to the mean \ncould be between two all timegreats — \nhopefully there aren\'t too many more \n"sore knees."',
+    textAnchor: 'end',
+    translate: [17, 138],
+    textTranslate: [30, -20],
+    path: 'M 20, -25 L 15 -25     M 9, -9 L 20 -20   M 22 -15 L -5 95'
+  },
+]
+
+
 d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
   games = res.filter(ƒ('tW'))
+  // games = []
 
   byWinLoss = d3.nest().key(function(d){ return d.tW + ':' + d.tL }).entries(games)
 
@@ -102,9 +119,26 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
     {tW: 138, tL: 17}, 
     {tW: 141, tL: 18}, 
     ]
-  c.svg.dataAppend(upcoming, 'rect.upcoming')
+  c.svg.append('g').dataAppend(upcoming, 'rect.upcoming')
       .translate(function(d){ return [c.x(d.tL), c.y(d.tW) - rectH] })
       .attr({width: c.x(1), height: rectH})
+      .attr('fill', '#ffd06b')
+    .filter(function(d, i){ return i })
+      .attr({fill: 'none', 'stroke-dasharray': '2 1', stroke: 'black'})
+
+
+  var annoSel = c.svg.dataAppend(annontations, 'g.anno')
+      .translate(function(d){
+        return [c.x(d.translate[0]), c.y(d.translate[1])] })
+
+  annoSel.append('g')
+      .translate(ƒ('textTranslate'))
+    .append('text')
+      .attr('transform', 'rotate(-45)')
+      .tspans(function(d){ return d.text.split('\n') })
+
+  annoSel.append('path').attr('d', ƒ('path'))
+
 
   // c.svg.append('path.upcoming')
   //     .attr('d', line.interpolate('linear')([upcoming[0], upcoming[3]]))
