@@ -30,7 +30,7 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
   recordWorsts.push({tL: 0, tL: -1})
 
 
-  c = d3.conventions({width: 800, height: 800, parentSel: d3.select('#graph')})
+  c = d3.conventions({width: 700, height: 700, parentSel: d3.select('#graph')})
 
   c.x.domain([0, 130])
   c.y.domain([0, 130])
@@ -81,7 +81,9 @@ d3.csv('/javascripts/posts//nba-win-loss/games.csv', function(res){
           var str2 = hWon ? vStr : hStr
           return [d.date + ':', str1, 'beat', str2].join(' ')
         })
-        sel.append('h3').html([d.values.length, d.values.length == 1 ? 'game was' : 'games were', 'played between teams<br>  with a combined record of', d.tW+ '-'+ d.tL+ '.'].join(' '))
+        sel.append('div')
+            .style({'padding-top': '10px', 'font-size': '12px'})
+            .html(['<b>',d.values.length, d.values.length == 1 ? 'game </b>was' : 'games </b>were', 'played between teams<br>  with a combined <b>record of', d.tW+ '-'+ d.tL+ '</b>.'].join(' '))
 
       })
 
