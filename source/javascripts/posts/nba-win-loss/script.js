@@ -6,13 +6,13 @@ var annontations = [
 
     path: 'M -5, 5 L -100 40'
   },
-  { text: 'GSW and SAS are on pace to have one \nof the best regualar season series ever. \nEven with some regression to the mean, \n their last three matches could be between \ntwo all time greats — hopefully there \naren\'t too many more "sore knees."',
+  { text: 'GSW and SAS are on pace to have one \nof the best regular season series ever. \nEven with some regression to the mean, \n their last three matches could be between \ntwo all time greats — hopefully there \naren\'t too many more "sore knees."',
     textAnchor: 'end',
     translate: [17, 138],
     textTranslate: [30, -20],
     path: 'M 20, -25 L 15 -25     M 9, -9 L 20 -20   M 22 -15 L -5 95'
   },
-  { text: 'The Knicks stop the \'97 Bull from \npicking up a secound 70 win season.',
+  { text: 'The Knicks stop the \'97 Bulls from \npicking up a second 70 win season.',
     textAnchor: 'end',
     translate: [37, 125],
     textTranslate: [30, 10],
