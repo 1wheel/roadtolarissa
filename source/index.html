@@ -68,15 +68,8 @@
     <a href="/connect-4-ai-how-it-works">Connect 4 AI: How It Works</a>
     <a href="/maximin-connect-4-completed">Maximin Connect 4 Completed</a>
     <a href="/first-post">First Post</a>
+  </div>
   </li>
-
-
-
-</body>
-
-
-
-
 
 <style>
 
@@ -207,14 +200,20 @@ var boxes = projects.map(function(d, i){
     name: d.img,
     imgUrl: '/images/thumbnails/' + d.img + '.png',
     url: d.url,
-    date: d.date,
+    date: d.date
   }
 })
 
 
+var selectedBox = null;
 var svg = d3.select('#gallery')
   .append('svg')
-    .attr({width: width, height: height})
+  .attr({width: width, height: height})
+  .on('mouseleave', function(d){
+    if (selectedBox != null ) {
+      sizeSquare(selectedBox, 1)
+    }
+  })
 
 svg.append('defs').dataAppend(boxes, 'clipPath')
     .attr('id', ƒ('id'))
@@ -223,18 +222,39 @@ svg.append('defs').dataAppend(boxes, 'clipPath')
     .attr({x: -s/2, y: -s/2})
     .each(function(d){ d.clip = d3.select(this) })
 
-
-var boxGs = svg.dataAppend(boxes, 'g')
+var boxGs = svg.append('g').dataAppend(boxes, 'g')
     .translate(ƒ('pos'))
     .attr('clip-path', ƒ('clipId'))
-    .on('mouseover', function(){
-      this.parentNode.appendChild(this)
-    })
-    .on('mousemove', function(d){
-      sizeSquare(d, _.max(d3.mouse(this).map(Math.abs))/(s/2))
-    })
-    .on('mouseout', function(d){ sizeSquare(d, 1) })
-    .on('click', function(d){ window.open(d.url, '_blank') })
+    .attr('class', function(d){return d.id})
+
+var shadowBoxGs = svg.append('g').dataAppend(boxes, 'rect')
+  .attr({width: s, height: s})
+  .attr({x: -s/2, y: -s/2})
+  .attr("fill", "none")
+  .translate(ƒ('pos'))
+  .attr('clip-path', ƒ('clipId'))
+  .attr('pointer-events', 'all')
+  .on('mouseover', function(d){
+    if (selectedBox == null || selectedBox.id != d.id) {
+      if (selectedBox != null) {
+        sizeSquare(selectedBox, 1);
+      }
+      selectedBox = d;
+      var node = d3.select("."+d.id).node();
+      node.parentNode.appendChild(node);
+    }
+  })
+  .on('mousemove', function(d){
+    sizeSquare(d, _.max(d3.mouse(this).map(Math.abs))/(s/2))
+  })
+  .on('mouseleave', function(d){
+    if (selectedBox == null || selectedBox.id != d.id) {
+      sizeSquare(d, 1)
+    }
+  })
+  .on('click', function(d){
+    window.open(d.url, '_blank')
+  })
 
 // boxGs.append('rect')
 //     .attr({width: s*2, height: s*2})
@@ -302,6 +322,7 @@ function clamp(min, d, max){
 
 </script>
 
+</body>
 
 
 </html>
