@@ -33,10 +33,16 @@
 
   <div id='gallery'></div>
 
+  <h2>libraries</h2>
+  <div class='list'>
+    <a href="http://1wheel.github.io/graph-scroll/">graph-scroll</a>
+    <a href="https://github.com/1wheel/d3-starterkit">d3-starterkit</a>
+    <a href="https://github.com/1wheel/swoopy-drag">swoopy-drag</a>
+  </div>
 
-
-  <h2>Posts</h2>
-  <div id='posts'>
+  <h2>posts</h2>
+  <div class='list'>
+    <a href="nba-win-loss/">NBA Win/Loss Records</a>
     <a href="nba-minutes/">Point Differentials of 2015 NBA Games</a>
     <a href="gsw-streak/">Golden State's 2015 Point Differentials</a>
     <a href="lyric-type/">Lyric Typing</a>
@@ -80,10 +86,12 @@
 
 <style>
 
-#posts a{
+.list a{
   width: 800px;
   display: inline-block;
-  /*padding-bottom: 20px;*/
+}
+.list{
+  padding-bottom: 20px;
 }
 
 #gallery{
@@ -116,6 +124,10 @@ text{
 
 <script>
 var projects = [
+  {img: 'who-marries-whom',     date: '02/2016',   url: 'http://www.bloomberg.com/graphics/2016-who-marries-whom/'},
+  {img: 'donor-network',        date: '02/2016',   url: 'http://www.bloomberg.com/politics/graphics/2016-fec-filings/febuary/bush-donors/'},
+  {img: 'nba-win-loss',         date: '01/2016',   url: 'http://roadtolarissa.com/nba-win-loss/'},
+
   {img: 'crossover-sales',      date: '01/2016',   url: 'http://www.bloomberg.com/graphics/2016-crossover-sales/'},
   {img: 'nba-minutes',          date: '01/2016',   url: 'http://roadtolarissa.com/nba-minutes/'},
 
@@ -133,6 +145,7 @@ var projects = [
   // {img: 'super-pac-table',      date: '08/2015',   url: 'http://www.bloomberg.com/politics/graphics/2015-october-fec-filings/table/'},
   {img: 'money-map',            date: '09/2015',   url: 'http://www.bloomberg.com/politics/graphics/2015-presidential-money-map/'},
 
+  {img: 'lyric-type',            date: '08/2015',   url: 'http://roadtolarissa.com/lyric-type/'},
 
 
   {img: 'what-is-code',         date: '06/2015',   url: 'http://www.bloomberg.com/whatiscode'},
