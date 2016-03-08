@@ -12,3 +12,6 @@ node_modules: package.json
 	npm install
 
 .PHONY: build
+
+reset: server
+	cd .. && make build && cd public/ && python -m SimpleHTTPServer	
