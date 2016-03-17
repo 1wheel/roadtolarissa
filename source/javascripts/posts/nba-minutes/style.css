@@ -30,10 +30,6 @@ svg{
 	position: relative;
 }
 
-.anno{
-	stroke: black;
-}
-
 #graph{
 	font-weight: bold;
 	font: 11px monospace;
@@ -168,7 +164,7 @@ text.hover{
 
 
 .anno{
-	font-weight: 500;
+	font-weight: 800;
 }
 
 .anno path{
