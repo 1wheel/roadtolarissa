@@ -97,7 +97,7 @@ var compose = function(g, h){
 }
 
 var addOne = function(d){ return d + 1 }
-var timesFive = function(d){ return d*10 }
+var timesFive = function(d){ return d*5 }
 var divideByTwo = function(d){ return d/2 }
 
 compose(addOne, timesFive)(2)		//(2*5) + 1 = 11
@@ -110,8 +110,8 @@ compose(divideByTwo, addOne)(14)	//(14 + 1)*5 =  7.5
 
 ```javascript
     .enter().append("circle")
-      .attr("cx", compose(x, ƒ('sepalWidth'))
-      .attr("cy", compose(y, ƒ('sepalLength'))
+      .attr("cx", compose(x, ƒ('sepalWidth')))
+      .attr("cy", compose(y, ƒ('sepalLength')))
 
 ```
 
