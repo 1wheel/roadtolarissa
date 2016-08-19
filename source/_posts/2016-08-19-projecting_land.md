@@ -13,7 +13,7 @@ Andy Woodruff's [Land by latitude and longitude](http://andywoodruff.com/blog/la
 Here, you can adjust the rotation speed and projection to make pretty blobs of color. 
 
 
-<span class='source'>[code](https://github.com/1wheel/roadtolarissa/tree/master/source/projecting-land)</span>
+<span class='source'>[code](https://github.com/1wheel/roadtolarissa/blob/master/source/projecting-land/script.js)</span>
 
 
 <link rel="stylesheet" type="text/css" href="/projecting-land/style.css">

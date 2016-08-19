@@ -31,8 +31,6 @@ var projections = d3.keys(d3).filter(function(d){
   ~(''+d3[d]).indexOf('Projection')
 }).sort(d3.ascendingKey(function(d){ return d.replace('geoSinusoidal', '') }))
 
-console.log(projections, projections.length)
-
 var menu = controlSel.append('select#menu')
     .on('change', function(){
       projection = d3[projections[this.selectedIndex]]()
@@ -46,7 +44,6 @@ menu.appendMany(projections, 'option')
 
 
 
-
 //set up globe
 var ctx = d3.select('#map').call(sizeCanvas).node().getContext('2d')
 
@@ -56,7 +53,6 @@ var path = d3.geoPath().projection(projection).context(ctx)
 var land
 
 d3.json('world-1000m.json', function(err, world){
-  w = world
   land = topojson.feature(world, world.objects.countries)
   projection.fitSize([width, height], land)
 
@@ -132,7 +128,7 @@ function drawPoints(pts){
     .forEach(function(d){
       ctx2.fillStyle = d.key
       ctx2.beginPath()
-      d.values.forEach(function(d){ ctx2.rect(d.x, d[1], s*1, s*1) })
+      d.values.forEach(function(d){ ctx2.rect(d.x, d[1], s, s) })
       ctx2.fill()    
   })
 
@@ -155,7 +151,7 @@ function drawPoints(pts){
     .forEach(function(d){
       ctx3.fillStyle = d.key
       ctx3.beginPath()
-      d.values.forEach(function(d){ ctx3.rect(d[0], d.y, s*1, s*1) })
+      d.values.forEach(function(d){ ctx3.rect(d[0], d.y, s, s) })
       ctx3.fill()    
   })
 
