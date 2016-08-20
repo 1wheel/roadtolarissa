@@ -2,13 +2,15 @@
   "name": "static-site-example",
   "private": true,
   "dependencies": {
-    "metalsmith-templates": "^0.6.1",
-    "metalsmith-markdown": "^0.2.1",
-    "metalsmith-permalinks": "^0.1.1",
+    "handlebars": "^2.0.0-alpha.2",
     "metalsmith": "^1.0.0",
+    "metalsmith-collections": "^0.7.0",
     "metalsmith-ignore": "^0.1.2",
+    "metalsmith-markdown": "^0.2.1",
     "metalsmith-metallic": "^0.3.0",
+    "metalsmith-permalinks": "^0.1.1",
+    "metalsmith-rss": "^1.0.0",
     "metalsmith-sitemap": "^0.0.10",
-    "handlebars": "^2.0.0-alpha.2"
+    "metalsmith-templates": "^0.6.1"
   }
 }

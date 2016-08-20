@@ -22,6 +22,20 @@
     "metalsmith-sitemap":{
       "output": "sitemap.xml",
       "hostname": "http://roadtolarissa.com"
+    },
+    "metalsmith-collections": {
+      "articles": {
+        "pattern": "*.md",
+        "sortBy": "date",
+        "reverse": true
+      }
+    },
+    "metalsmith-rss":{
+      "feedOptions":
+      {
+        "collections": "articles",
+        "site_url": "http://roadtolarissa.com" 
+      }
     }
   }
 }
