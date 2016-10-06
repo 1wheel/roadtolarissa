@@ -6,15 +6,19 @@ categories:
 shareimg: http://roadtolarissa.com/images/posts/worlds-group.png
 ---
 
-The second half of League of Legends world group stage starts tonight! Each team will play the other teams in their group one more time. The best two teams in each group will advance to the quaterfinals. 
+The second half of League of Legends world group stage starts tonight! Each team will play the other teams in their group one more time. The best two teams in each group advance to the quaterfinals. 
 
-The charts below show what games 
+The charts below show how each team could advance.  
 
 
-<div id='group-a'></div>
-<div id='group-b'></div>
-<div id='group-c'></div>
-<div id='group-d'></div>
+<h1 class='group-header'>Group A</h1>
+<div class='group' id='group-a'></div>
+<h1 class='group-header'>Group B</h1>
+<div class='group' id='group-b'></div>
+<h1 class='group-header'>Group C</h1>
+<div class='group' id='group-c'></div>
+<h1 class='group-header'>Group D</h1>
+<div class='group' id='group-d'></div>
 
 
 

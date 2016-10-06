@@ -6,19 +6,23 @@ svg{
 
 svg{
   overflow: visible;
+  font-size: 14px;
 }
 
 html {
   min-width: 760px;
   background-color: #F5F5F5;
   font-weight: normal;
-  font-size: 14px;
 }
 
 .group{
   width: 800px;
   margin: 0px auto;
   display: inline-block;
+}
+
+.group-header{
+  text-align: center;
 }
 
 .team{
@@ -81,4 +85,9 @@ div.tooltip {
   pointer-events: none;
   -webkit-user-select: none;
   user-select: none;
+}
+
+.annotations path{
+  fill: none;
+  stroke: black;
 }

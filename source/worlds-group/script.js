@@ -1,10 +1,25 @@
 var ƒ = d3.f
 
+var annotations = [
+  {
+    "xVal": 3.8,
+    "yVal": 7.7,
+    "path": "M 15,114 A 128.931 128.931 0 1 1 -10,-32",
+    "text": "Virginica",
+    "team": "ANX",
+    "textOffset": [
+      -11,
+      105
+    ]
+  },
+]
+
+
 d3.loadData(['matches.csv'], function(err, res){
   matches = res[0]
   matches.forEach(function(d){
     d.winner = +d.winner
-    d.completed = !(d.winner === 0)
+    d.complete = !(d.winner === 0)
     d.allTeams = d.t1 + '-' + d.t2
     d.wName = d['t' + d.winner]
 
@@ -57,12 +72,11 @@ function scoreMatches(matches){
   return teams
 }
 
-// alert('asdf')
 function drawGroup(gMatches){
   var sel = d3.select('#group-' + gMatches.key.toLowerCase()).html('')
 
-  var completed = gMatches.filter(ƒ('winner'))
-  var incomplete = gMatches.filter(function(d){ return !d.completed })
+  var complete = gMatches.filter(ƒ('winner'))
+  var incomplete = gMatches.filter(function(d){ return !d.complete })
 
   scenarios = d3.range(64).map(function(i){
     incomplete.forEach(function(d, j){
@@ -78,10 +92,10 @@ function drawGroup(gMatches){
 
   var teams = d3.nestBy(gMatches, ƒ('t1')).map(function(d){
     return {name: d.key, w: 0}
-  })
+  }).sort(d3.ascendingKey('name'))
 
   sel.appendMany(teams, 'div.team')
-    .each(function(d){ drawResults(d3.select(this), scenarios, d.name) })
+    .each(function(d){ drawResults(d3.select(this), scenarios, d.name, complete, incomplete) })
 
   incomplete.forEach(function(d){ d.clicked = 0 })
   // sel.append('h3').text('Select winners: ').st({opacity: .5, marginLeft: 20})
@@ -106,7 +120,7 @@ function drawGroup(gMatches){
 }
 
 
-function drawResults(sel, scenarios, name){
+function drawResults(sel, scenarios, name, complete, incomplete){
   scenarios.forEach(function(d){
     d.team = d.teams.filter(function(d){ return d.name == name })[0]
     d.wins = d.team.wins
@@ -123,6 +137,23 @@ function drawResults(sel, scenarios, name){
     against.push(otherTeam)
   })
 
+  var completeIn = complete.filter(function(d){
+    d.currentWon = name == d.wName
+    d.otherTeam = name == d.t1 ? d.t2 : d.t1
+    return name == d.t1 || name == d.t2 })
+  var pStr = 'Lost to ' 
+  pStr += completeIn
+    .filter(function(d){ return !d.currentWon })
+    .map(ƒ('otherTeam'))
+    .join(' and ')
+  var pBeat = completeIn.filter(ƒ('currentWon'))
+  if (pBeat.length){
+    pStr += ' // Beat ' + pBeat.map(ƒ('otherTeam')).join(' and ')
+  } else{
+    pStr = pStr.replace(' and ', ', ')
+  }
+  // pStr += ' previously'
+
   var byWins = d3.nestBy(scenarios, ƒ('wins'))
   byWins.forEach(function(d, i){
     d.sort(d3.descendingKey(ƒ('team', 'advance')))
@@ -135,7 +166,11 @@ function drawResults(sel, scenarios, name){
     .append('g').translate([0, 100])
   var gSel = d3.select(sel.node().parentNode)
 
-  svg.append('text').text(name).translate([10*3.5 + 100, -40]).at({textAnchor: 'middle', fontSize: 20})
+  svg.append('text').text(name)
+    .translate([10*3.5 + 100, -60]).at({textAnchor: 'middle', fontSize: 20})
+
+  svg.append('text').text(pStr)
+    .translate([10*3.5 + 100, -45]).at({textAnchor: 'middle', fontSize: 12, opacity: .6})
 
 
   var winsSel = svg.appendMany(byWins.sort(d3.descendingKey('key')), 'g')
@@ -188,9 +223,29 @@ function drawResults(sel, scenarios, name){
         })
     })
 
+  var swoopy = d3.swoopyDrag()
+      .draggable(true)
+      .x(ƒ('xVal'))
+      .y(ƒ('yVal'))
+      .annotations(annotations.filter(function(d){ return d.team == name }))
+
+  var swoopySel = svg.append('g.annotations').call(swoopy)
+
+  swoopySel.selectAll('path')
+      .attr('marker-end', 'url(#arrow)')
 }
 
 
 function color(d){ return {t: '#4CAF50', m: '#FF9800', f: '#F44336'}[d.advance] }
 
 d3.select('html').selectAppend('div.tooltip').classed('tooltip-hidden', 1)
+
+d3.select('html').selectAppend('svg.marker')
+  .append('marker')
+    .attr('id', 'arrow')
+    .attr('viewBox', '-10 -10 20 20')
+    .attr('markerWidth', 20)
+    .attr('markerHeight', 20)
+    .attr('orient', 'auto')
+  .append('path')
+    .attr('d', 'M-6.75,-6.75 L 0,0 L -6.75,6.75')
