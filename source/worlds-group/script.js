@@ -15,6 +15,19 @@ d3.loadData(['annotations.json', 'matches.csv'], function(err, res){
   byGroup = d3.nestBy(matches, ƒ('group'))
   byGroup.forEach(drawGroup)
 
+  d3.selectAll('.group, .group-header, .annotations').st({display: 'none'})
+  var bSel = d3.select('#group-b').st({display: 'block', position: 'relative'})
+  
+  var teamSel = bSel.selectAll('.team')
+    .st({position: 'absolute'})
+
+  var index = 0
+  d3.interval(function(d){
+    index = (index + 1) % 4
+    teamSel.transition().duration(500)
+      .style('opacity', function(d, i){ return i == index ? 1 : 0})
+  }, 500)
+
 })
 
 
@@ -229,6 +242,7 @@ function drawResults(sel, scenarios, name, complete, incomplete){
       })  
 
 }
+
 
 
 function color(d){ return {t: '#4CAF50', m: '#FF9800', f: '#F44336'}[d.advance] }
