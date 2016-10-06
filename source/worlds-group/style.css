@@ -1,0 +1,72 @@
+svg{
+  /*margin: 0px;*/
+  /*background: black;*/
+  font-family: monospace;
+}
+
+svg{
+  overflow: visible;
+}
+
+
+.team{
+  display: inline-block;
+  width: 400px;
+}
+
+.active{
+  stroke: black;
+  stroke-width: 4;
+}
+
+.hidden{
+  opacity: .2;
+}
+
+div.tooltip {
+  top: -1000px;
+  position: absolute;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  font-family: monospace;
+  width: 200px;
+
+}
+.tooltip-hidden{
+  opacity: 0;
+}
+
+.game{
+  display: inline-block;
+  width: 100px;
+  margin-bottom: 10px;
+
+}
+.game .won{
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.matches{
+  font-size: 16px;
+  text-align: center;
+}
+
+.matches .game{
+  width: 130px;
+  cursor: pointer;
+  border: 1px solid black;
+  margin-right: 10px;
+  opacity: .6;
+  font-family: monospace;
+}
+.matches .game.active{
+  opacity: 1;
+}
+.matches .game span{
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
