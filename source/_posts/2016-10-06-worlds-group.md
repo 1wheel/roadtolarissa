@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: "How Each Team Can Advance out of World Group Stage"
+title: "The Ways out of World Group Stage"
 permalink: /worlds-group
 categories: 
 shareimg: http://roadtolarissa.com/images/posts/worlds-group.png
