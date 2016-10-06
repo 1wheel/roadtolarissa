@@ -1,19 +1,68 @@
 var ƒ = d3.f
 
-var annotations = [
+var annotations = 
+[
   {
-    "xVal": 3.8,
-    "yVal": 7.7,
-    "path": "M 15,114 A 128.931 128.931 0 1 1 -10,-32",
-    "text": "Virginica",
+    "xVal": 0,
+    "yVal": 0,
+    "path": "M 214,14 A 22.432 22.432 0 0 1 180,5",
+    "text": "If ANX wins all three games, they will advance",
     "team": "ANX",
+    "lw": 21,
     "textOffset": [
-      -11,
-      105
+      220,
+      -1
     ]
   },
+  {
+    "xVal": 0,
+    "yVal": 0,
+    "path": "M -33,173 A 26.83 26.83 0 0 1 9,140",
+    "text": "If CLG only beats ANX, there's a good chance of a tiebreaker",
+    "team": "CLG",
+    "lw": 21,
+    "textOffset": [
+      -150,
+      190
+    ]
+  },
+  {
+    "xVal": 0,
+    "yVal": 0,
+    "path": "M -36,268 A 43.85 43.85 0 0 0 43,304",
+    "text": "Tap to see how the first match effects the group",
+    "team": "G2",
+    "lw": 21,
+    "textOffset": [
+      -47,
+      244
+    ]
+  },
+  {
+    "xVal": 0,
+    "yVal": 0,
+    "path": "M 214,14 A 27.661 27.661 0 0 1 176,5",
+    "text": "Winning all their games only lets G2 force a tiebreaker",
+    "team": "G2",
+    "lw": 21,
+    "textOffset": [
+      225,
+      -18
+    ]
+  },
+  {
+    "xVal": 0,
+    "yVal": 0,
+    "path": "M 203,249 A 40.094 40.094 0 0 1 142,229",
+    "text": "ROX will be eliminated if they don't win another game",
+    "team": "ROX",
+    "lw": 21,
+    "textOffset": [
+      217,
+      211
+    ]
+  }
 ]
-
 
 d3.loadData(['matches.csv'], function(err, res){
   matches = res[0]
@@ -108,7 +157,7 @@ function drawGroup(gMatches){
       d3.select(this).classed('active', d.clicked)
 
       var str = incomplete.map(ƒ('clicked')).join('')
-      sel.selectAll('circle').classed('hidden', function(d){
+      sel.selectAll('circle.scenario').classed('hidden', function(d){
         return d.incomplete.some(function(d, i){
           return str[i] != '0' && str[i] != d.winner
         })
@@ -198,12 +247,12 @@ function drawResults(sel, scenarios, name, complete, incomplete){
     })
     .at({textAnchor: 'middle', x: 10*3.5, y: -10})
 
-  recordSel.appendMany(ƒ(), 'circle')
+  recordSel.appendMany(ƒ(), 'circle.scenario')
     .at({r: 5, fill: ƒ('team', color), cx: function(d, i){ return i*10} })
     .call(d3.attachTooltip)
-    .on('mouseout', function(){ gSel.selectAll('circle').classed('active', false).at('r', 5) })
+    .on('mouseout', function(){ gSel.selectAll('circle.scenario').classed('active', false).at('r', 5) })
     .on('mouseover', function(d){
-      gSel.selectAll('circle')
+      gSel.selectAll('circle.scenario')
         .classed('active', 0)
         .attr('r', 5)
         .filter(function(e){ return d.str == e.str })
@@ -230,9 +279,14 @@ function drawResults(sel, scenarios, name, complete, incomplete){
       .annotations(annotations.filter(function(d){ return d.team == name }))
 
   var swoopySel = svg.append('g.annotations').call(swoopy)
+  swoopySel.selectAll('path').attr('marker-end', 'url(#arrow)')
+  swoopySel.selectAll('text')
+      .each(function(d){
+        d3.select(this)
+            .text('')                        //clear existing text
+            .tspans(d3.wordwrap(d.text, d.lw || 20)) //wrap after 20 char
+      })  
 
-  swoopySel.selectAll('path')
-      .attr('marker-end', 'url(#arrow)')
 }
 
 
