@@ -8,6 +8,18 @@ svg{
   overflow: visible;
 }
 
+html {
+  min-width: 760px;
+  background-color: #F5F5F5;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.group{
+  width: 800px;
+  margin: 0px auto;
+  display: inline-block;
+}
 
 .team{
   display: inline-block;
@@ -55,7 +67,7 @@ div.tooltip {
 }
 
 .matches .game{
-  width: 130px;
+  width: 115px;
   cursor: pointer;
   border: 1px solid black;
   margin-right: 10px;

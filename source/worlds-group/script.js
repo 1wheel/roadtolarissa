@@ -57,12 +57,12 @@ function scoreMatches(matches){
   return teams
 }
 
-
+// alert('asdf')
 function drawGroup(gMatches){
   var sel = d3.select('#group-' + gMatches.key.toLowerCase()).html('')
 
-  completed = gMatches.filter(ƒ('winner'))
-  incomplete = gMatches.filter(function(d){ return !d.completed })
+  var completed = gMatches.filter(ƒ('winner'))
+  var incomplete = gMatches.filter(function(d){ return !d.completed })
 
   scenarios = d3.range(64).map(function(i){
     incomplete.forEach(function(d, j){
@@ -84,8 +84,10 @@ function drawGroup(gMatches){
     .each(function(d){ drawResults(d3.select(this), scenarios, d.name) })
 
   incomplete.forEach(function(d){ d.clicked = 0 })
-  sel.append('h3').text('Select winners: ').st({opacity: .5, marginLeft: 20})
-  var gameSel = sel.append('div.matches').appendMany(incomplete, 'div.game')
+  // sel.append('h3').text('Select winners: ').st({opacity: .5, marginLeft: 20})
+  var gameSel = sel.append('div.matches')
+    .st({marginTop: 50})
+    .appendMany(incomplete, 'div.game')
     .on('click', function(d){
       d.clicked = (d.clicked + 1) % 3
       d3.select(this).selectAll('.teamabv').classed('won', function(e, i){ return i + 1 == d.clicked })
@@ -105,13 +107,6 @@ function drawGroup(gMatches){
 
 
 function drawResults(sel, scenarios, name){
-  var width = 400, height = 340
-  var svg = sel.append('svg').at({width, height}).st({margin: 20})
-    .append('g').translate([0, 100])
-  var gSel = d3.select(sel.node().parentNode)
-
-  svg.append('text').text(name).translate([10*3.5 + 100, -40]).at({textAnchor: 'middle', fontSize: 20})
-
   scenarios.forEach(function(d){
     d.team = d.teams.filter(function(d){ return d.name == name })[0]
     d.wins = d.team.wins
@@ -135,8 +130,16 @@ function drawResults(sel, scenarios, name){
     if (i == 1) d.byRecordStr.reverse()
   })
 
+  var width = 400, height = 300
+  var svg = sel.append('svg').at({width, height}).st({margin: 20})
+    .append('g').translate([0, 100])
+  var gSel = d3.select(sel.node().parentNode)
+
+  svg.append('text').text(name).translate([10*3.5 + 100, -40]).at({textAnchor: 'middle', fontSize: 20})
+
+
   var winsSel = svg.appendMany(byWins.sort(d3.descendingKey('key')), 'g')
-    .translate(function(d, i){ return [0, i*80] })
+    .translate(function(d, i){ return [0, i*80 + (i == 3 ? -15*2 : i > 0 ? -8 : 0)] })
 
   winsSel.append('text')
     .text(function(d, i){ return i == 1 ? 'Only Lose To...' : i == 2 ? 'Only Beat...' : '' })
@@ -148,8 +151,8 @@ function drawResults(sel, scenarios, name){
   recordSel.append('text')
     .text(function(d){
       var s
-      if (d.key == '111') s = 'Win All Three'
-      if (d.key == '000') s = 'Lose All Three'
+      if (d.key == '111') s = 'Win Next Three'
+      if (d.key == '000') s = 'Lose Next Three'
       if (d.key == '001') s = against[2] 
       if (d.key == '010') s = against[1] 
       if (d.key == '100') s = against[0] 
@@ -173,7 +176,6 @@ function drawResults(sel, scenarios, name){
         .attr('r', 8)
         .raise()
 
-      console.log(d)
       var tt = d3.select('.tooltip').html('')
       var gameSel = tt.appendMany(incomplete, 'div.game')
       gameSel.append('span').text(ƒ('t1')).classed('won', function(e, i){ return d.str[i] == 1 })
@@ -191,4 +193,4 @@ function drawResults(sel, scenarios, name){
 
 function color(d){ return {t: '#4CAF50', m: '#FF9800', f: '#F44336'}[d.advance] }
 
-d3.select('html').selectAppend('div.tooltip')
+d3.select('html').selectAppend('div.tooltip').classed('tooltip-hidden', 1)
