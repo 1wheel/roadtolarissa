@@ -50,7 +50,7 @@
     ]
   },
   {
-    "path": "M 308,131 A 18.249 18.249 0 0 1 285,150",
+    "path": "M 313,122 A 24.508 24.508 0 0 1 285,150",
     "text": "C9 avoids elimination with a win against SKT",
     "team": "C9",
     "lw": 20,
@@ -70,7 +70,7 @@
     ]
   },
   {
-    "path": "M 267,0 A 80.952 80.952 0 0 1 283,146",
+    "path": "M 270,4 A 78.518 78.518 0 0 1 283,146",
     "text": "",
     "team": "IM",
     "lw": 20,
@@ -117,6 +117,46 @@
     "textOffset": [
       212,
       203
+    ]
+  },
+  {
+    "path": "M 276,-47 A 105.784 105.784 0 0 1 183.00001525878906,63",
+    "text": "3 way tie if RNG, SSG and TSM each beat each other once again",
+    "team": "SSG",
+    "lw": 20,
+    "textOffset": [
+      259,
+      -98
+    ]
+  },
+  {
+    "path": "M -76,-119 A 94.788 94.788 0 0 0 -115,-267",
+    "text": "",
+    "team": "TSM",
+    "lw": 20,
+    "textOffset": [
+      259,
+      -98
+    ]
+  },
+  {
+    "path": "M -39,-67 A 148.356 148.356 0 0 1 69,62",
+    "text": "",
+    "team": "TSM",
+    "lw": 20,
+    "textOffset": [
+      259,
+      -98
+    ]
+  },
+  {
+    "path": "M 165,227 A 45.915 45.915 0 0 0 108,265",
+    "text": "A win for SSG almost ensures that they won't be eliminated",
+    "team": "SSG",
+    "lw": 20,
+    "textOffset": [
+      185,
+      222
     ]
   }
 ]

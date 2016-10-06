@@ -1,20 +1,8 @@
 var ƒ = d3.f
 
-// B
-// - C9 avoids elimination with a win against SKT
-// - Without two wins, IM and FW are out
-// - If SKT loses to C9 and IM, it could be eliminated
-
-// C
-// - EDG's loss to the 1-2 INT means it has larger chance of elimination than AHQ
-// - Likewise, INT's win over EDG gives it more ways to advance than H2k
-// - If INT lose the first game to EDG, almost all their advancement options disappear. 
-
-// D
-// - 3 way tie if RNG, SSG and TSM each beat each other once again
-// - A win for SSG almost ensures that they won't be eliminated
-
 d3.loadData(['annotations.json', 'matches.csv'], function(err, res){
+  d3.selectAll('.group-header').st({opacity: 1})
+
   annotations = res[0]
   matches = res[1]
   matches.forEach(function(d){
@@ -22,7 +10,6 @@ d3.loadData(['annotations.json', 'matches.csv'], function(err, res){
     d.complete = !(d.winner === 0)
     d.allTeams = d.t1 + '-' + d.t2
     d.wName = d['t' + d.winner]
-
   })
 
   byGroup = d3.nestBy(matches, ƒ('group'))
@@ -166,11 +153,13 @@ function drawResults(sel, scenarios, name, complete, incomplete){
     .append('g').translate([0, 100])
   var gSel = d3.select(sel.node().parentNode)
 
+  var swoopySel = svg.append('g.annotations')
+
   svg.append('text').text(name)
     .translate([10*3.5 + 100, -60]).at({textAnchor: 'middle', fontSize: 20})
 
   svg.append('text').text(pStr)
-    .translate([10*3.5 + 100, -45]).at({textAnchor: 'middle', fontSize: 12, opacity: .6})
+    .translate([10*3.5 + 100, -45]).at({textAnchor: 'middle', fontSize: 12, fill: '#aaa'})
 
 
   var winsSel = svg.appendMany(byWins.sort(d3.descendingKey('key')), 'g')
@@ -178,7 +167,7 @@ function drawResults(sel, scenarios, name, complete, incomplete){
 
   winsSel.append('text')
     .text(function(d, i){ return i == 1 ? 'Only Lose To...' : i == 2 ? 'Only Beat...' : '' })
-    .at({textAnchor: 'middle', x: 10*3.5 + 100, y: -30, opacity: .6})
+    .at({textAnchor: 'middle', x: 10*3.5 + 100, y: -30, fill: '#aaa', fontSize: 12})
 
   var recordSel = winsSel.appendMany(ƒ('byRecordStr'), 'g')
     .translate(function(d, i){ return [d.key == '000' || d.key == '111' ? 100 : i*100, 0] })
@@ -224,12 +213,13 @@ function drawResults(sel, scenarios, name, complete, incomplete){
     })
 
   var swoopy = d3.swoopyDrag()
-      .draggable(true)
+      .draggable(1)
+      .draggable(0)
       .x(function(){ return 0 })
       .y(function(){ return 0 })
       .annotations(annotations.filter(function(d){ return d.team == name }))
 
-  var swoopySel = svg.append('g.annotations').call(swoopy)
+  swoopySel.call(swoopy)
   swoopySel.selectAll('path').attr('marker-end', 'url(#arrow)')
   swoopySel.selectAll('text')
       .each(function(d){
