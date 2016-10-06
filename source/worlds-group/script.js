@@ -20,7 +20,7 @@ var annotations =
     "path": "M -33,173 A 26.83 26.83 0 0 1 9,140",
     "text": "If CLG only beats ANX, there's a good chance of a tiebreaker",
     "team": "CLG",
-    "lw": 21,
+    "lw": 19,
     "textOffset": [
       -150,
       190
@@ -56,7 +56,7 @@ var annotations =
     "path": "M 203,249 A 40.094 40.094 0 0 1 142,229",
     "text": "ROX will be eliminated if they don't win another game",
     "team": "ROX",
-    "lw": 21,
+    "lw": 20,
     "textOffset": [
       217,
       211

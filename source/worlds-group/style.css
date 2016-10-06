@@ -90,4 +90,8 @@ div.tooltip {
 .annotations path{
   fill: none;
   stroke: black;
+  stroke-width: .6px;
+}
+.annotations text{
+  font-size: 12px;
 }

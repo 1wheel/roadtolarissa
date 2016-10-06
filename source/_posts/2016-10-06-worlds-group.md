@@ -29,4 +29,5 @@ The charts below show how each team could advance.
 
 <script src="/worlds-group/d3v4.js"></script>
 <script src="/worlds-group/lodash.js"></script>
+<script src="/worlds-group/swoopy-drag.js"></script>
 <script src="/worlds-group/script.js"></script>
