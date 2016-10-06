@@ -10,7 +10,7 @@ The second half of League of Legends' World Group Stage starts tonight! Each tea
 
 The charts below show how each team could advance. Every group has six games left, which means there are 2^6 = 64 possible outcomes. Outcomes are represented by circles, with a green circle indicating the team advances, yellow that a tiebreaker match will be required and red for elimination. 
 
-C9 are AHQ are best positioned to advance, with only 12 elimination scenarios. Having lost their first three games, G2 and SPY's only chance for advancement is winning all three of their games and subsequent tiebreaker matches. 
+C9 and AHQ are best positioned to advance, with only 12 elimination scenarios. Having lost their first three games, G2 and SPY's only chance for advancement is winning all three of their games and subsequent tiebreaker matches. 
 
 <h1 class='group-header' style='margin-top: 60px;'>Group A</h1>
 <div class='group' id='group-a'></div>
