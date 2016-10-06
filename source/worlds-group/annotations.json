@@ -21,7 +21,7 @@
   },
   {
     "path": "M -36,268 A 43.85 43.85 0 0 0 43,304",
-    "text": "Tap to see how the first match effects the group",
+    "text": "Tap to see how the first match affects the group",
     "team": "G2",
     "lw": 21,
     "textOffset": [
@@ -91,7 +91,7 @@
   },
   {
     "path": "M -32,161 A 112.633 112.633 0 0 1 161,138",
-    "text": "EDG's loss to the 1-2 INT means it has larger chance of elimination than AHQ",
+    "text": "EDG's loss to the 1-2 INT means it has a larger chance of elimination than AHQ",
     "team": "EDG",
     "lw": 20,
     "textOffset": [
@@ -101,7 +101,7 @@
   },
   {
     "path": "M -22,35 A 72.599 72.599 0 0 0 104,86",
-    "text": "Likewise, INT's win over EDG gives it more ways to advance than H2k",
+    "text": "Likewise, INT's win over EDG gives it more ways to advance than H2K",
     "team": "INT",
     "lw": 20,
     "textOffset": [
@@ -111,7 +111,7 @@
   },
   {
     "path": "M 247,257 A 70.181 70.181 0 0 1 116,306",
-    "text": "If INT lose the first game to EDG, almost all their advancement options disappear. ",
+    "text": "If INT lose the first game to EDG, almost all their advancement options disappear",
     "team": "H2K",
     "lw": 20,
     "textOffset": [
@@ -120,8 +120,8 @@
     ]
   },
   {
-    "path": "M 276,-47 A 105.784 105.784 0 0 1 183.00001525878906,63",
-    "text": "3 way tie if RNG, SSG and TSM each beat each other once again",
+    "path": "M 269,-62 A 98.723 98.723 0 0 1 183.00003051757812,62.99999237060547",
+    "text": "Three-way tie if RNG, SSG and TSM beat each other once again",
     "team": "SSG",
     "lw": 20,
     "textOffset": [
@@ -130,7 +130,7 @@
     ]
   },
   {
-    "path": "M -76,-119 A 94.788 94.788 0 0 0 -115,-267",
+    "path": "M -79,-112 A 97.448 97.448 0 0 0 -115,-267",
     "text": "",
     "team": "TSM",
     "lw": 20,
@@ -140,7 +140,7 @@
     ]
   },
   {
-    "path": "M -39,-67 A 148.356 148.356 0 0 1 69,62",
+    "path": "M -19,-71 A 153.735 153.735 0 0 1 69,62",
     "text": "",
     "team": "TSM",
     "lw": 20,

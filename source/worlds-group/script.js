@@ -159,7 +159,7 @@ function drawResults(sel, scenarios, name, complete, incomplete){
     .translate([10*3.5 + 100, -60]).at({textAnchor: 'middle', fontSize: 20})
 
   svg.append('text').text(pStr)
-    .translate([10*3.5 + 100, -45]).at({textAnchor: 'middle', fontSize: 12, fill: '#aaa'})
+    .translate([10*3.5 + 100, -45]).at({textAnchor: 'middle', fontSize: 12, fill: '#888'})
 
 
   var winsSel = svg.appendMany(byWins.sort(d3.descendingKey('key')), 'g')
@@ -167,7 +167,7 @@ function drawResults(sel, scenarios, name, complete, incomplete){
 
   winsSel.append('text')
     .text(function(d, i){ return i == 1 ? 'Only Lose To...' : i == 2 ? 'Only Beat...' : '' })
-    .at({textAnchor: 'middle', x: 10*3.5 + 100, y: -30, fill: '#aaa', fontSize: 12})
+    .at({textAnchor: 'middle', x: 10*3.5 + 100, y: -30, fill: '#888', fontSize: 12})
 
   var recordSel = winsSel.appendMany(ƒ('byRecordStr'), 'g')
     .translate(function(d, i){ return [d.key == '000' || d.key == '111' ? 100 : i*100, 0] })
@@ -214,7 +214,7 @@ function drawResults(sel, scenarios, name, complete, incomplete){
 
   var swoopy = d3.swoopyDrag()
       .draggable(1)
-      .draggable(0)
+      // .draggable(0)
       .x(function(){ return 0 })
       .y(function(){ return 0 })
       .annotations(annotations.filter(function(d){ return d.team == name }))
