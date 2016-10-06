@@ -6,9 +6,9 @@ categories:
 shareimg: http://roadtolarissa.com/images/posts/worlds-group.png
 ---
 
-The second half of League of Legends world group stage starts tonight! Each team will play the other teams in their group one more time. The best two teams in each group advance to the quaterfinals. 
+The second half of League of Legends World group stage starts tonight! Each team will play the other teams in their group one more time. The best two teams in each group advance to the quaterfinals. 
 
-The charts below show how each team could advance.  
+The charts below show how each team could advance. Every group has six games left which means there are 2^6 = 64 possible outcomes. 
 
 
 <h1 class='group-header'>Group A</h1>

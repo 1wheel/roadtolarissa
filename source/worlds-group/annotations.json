@@ -1,0 +1,122 @@
+[
+  {
+    "path": "M 214,14 A 22.432 22.432 0 0 1 180,5",
+    "text": "If ANX wins all three games, they will advance",
+    "team": "ANX",
+    "lw": 21,
+    "textOffset": [
+      220,
+      -1
+    ]
+  },
+  {
+    "path": "M -33,173 A 26.83 26.83 0 0 1 9,140",
+    "text": "If CLG only beats ANX, there's a good chance of a tiebreaker",
+    "team": "CLG",
+    "lw": 19,
+    "textOffset": [
+      -150,
+      190
+    ]
+  },
+  {
+    "path": "M -36,268 A 43.85 43.85 0 0 0 43,304",
+    "text": "Tap to see how the first match effects the group",
+    "team": "G2",
+    "lw": 21,
+    "textOffset": [
+      -47,
+      244
+    ]
+  },
+  {
+    "path": "M 214,14 A 27.661 27.661 0 0 1 176,5",
+    "text": "Winning all their games only lets G2 force a tiebreaker",
+    "team": "G2",
+    "lw": 21,
+    "textOffset": [
+      225,
+      -18
+    ]
+  },
+  {
+    "path": "M 203,249 A 40.094 40.094 0 0 1 142,229",
+    "text": "ROX will be eliminated if they don't win another game",
+    "team": "ROX",
+    "lw": 20,
+    "textOffset": [
+      217,
+      211
+    ]
+  },
+  {
+    "path": "M 308,131 A 18.249 18.249 0 0 1 285,150",
+    "text": "C9 avoids elimination with a win against SKT",
+    "team": "C9",
+    "lw": 20,
+    "textOffset": [
+      267,
+      102
+    ]
+  },
+  {
+    "path": "M 373,-23 A 87.826 87.826 0 0 1 386,-184",
+    "text": "Without two wins, FW and IM are out",
+    "team": "IM",
+    "lw": 20,
+    "textOffset": [
+      249,
+      -15
+    ]
+  },
+  {
+    "path": "M 267,0 A 80.952 80.952 0 0 1 283,146",
+    "text": "",
+    "team": "IM",
+    "lw": 20,
+    "textOffset": [
+      246,
+      -7
+    ]
+  },
+  {
+    "path": "M 226,100 A 48.862 48.862 0 0 0 172,143",
+    "text": "If SKT loses to C9 and IM, it could be eliminated",
+    "team": "SKT",
+    "lw": 20,
+    "textOffset": [
+      236,
+      104
+    ]
+  },
+  {
+    "path": "M -32,161 A 112.633 112.633 0 0 1 161,138",
+    "text": "EDG's loss to the 1-2 INT means it has larger chance of elimination than AHQ",
+    "team": "EDG",
+    "lw": 20,
+    "textOffset": [
+      -146,
+      184
+    ]
+  },
+  {
+    "path": "M -22,35 A 72.599 72.599 0 0 0 104,86",
+    "text": "Likewise, INT's win over EDG gives it more ways to advance than H2k",
+    "team": "INT",
+    "lw": 20,
+    "textOffset": [
+      -145,
+      -5
+    ]
+  },
+  {
+    "path": "M 247,257 A 70.181 70.181 0 0 1 116,306",
+    "text": "If INT lose the first game to EDG, almost all their advancement options disappear. ",
+    "team": "H2K",
+    "lw": 20,
+    "textOffset": [
+      212,
+      203
+    ]
+  }
+]

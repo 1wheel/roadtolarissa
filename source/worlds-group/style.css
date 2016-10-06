@@ -23,11 +23,15 @@ html {
 
 .group-header{
   text-align: center;
+  margin-bottom: -40px;
+  margin-top: 80px;
 }
 
 .team{
   display: inline-block;
   width: 400px;
+  position: relative;
+  z-index: 0;
 }
 
 .active{
@@ -52,6 +56,7 @@ div.tooltip {
 }
 .tooltip-hidden{
   opacity: 0;
+  transition: opacity .3s ease-in;
 }
 
 .game{

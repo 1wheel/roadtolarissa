@@ -1,71 +1,22 @@
 var ƒ = d3.f
 
-var annotations = 
-[
-  {
-    "xVal": 0,
-    "yVal": 0,
-    "path": "M 214,14 A 22.432 22.432 0 0 1 180,5",
-    "text": "If ANX wins all three games, they will advance",
-    "team": "ANX",
-    "lw": 21,
-    "textOffset": [
-      220,
-      -1
-    ]
-  },
-  {
-    "xVal": 0,
-    "yVal": 0,
-    "path": "M -33,173 A 26.83 26.83 0 0 1 9,140",
-    "text": "If CLG only beats ANX, there's a good chance of a tiebreaker",
-    "team": "CLG",
-    "lw": 19,
-    "textOffset": [
-      -150,
-      190
-    ]
-  },
-  {
-    "xVal": 0,
-    "yVal": 0,
-    "path": "M -36,268 A 43.85 43.85 0 0 0 43,304",
-    "text": "Tap to see how the first match effects the group",
-    "team": "G2",
-    "lw": 21,
-    "textOffset": [
-      -47,
-      244
-    ]
-  },
-  {
-    "xVal": 0,
-    "yVal": 0,
-    "path": "M 214,14 A 27.661 27.661 0 0 1 176,5",
-    "text": "Winning all their games only lets G2 force a tiebreaker",
-    "team": "G2",
-    "lw": 21,
-    "textOffset": [
-      225,
-      -18
-    ]
-  },
-  {
-    "xVal": 0,
-    "yVal": 0,
-    "path": "M 203,249 A 40.094 40.094 0 0 1 142,229",
-    "text": "ROX will be eliminated if they don't win another game",
-    "team": "ROX",
-    "lw": 20,
-    "textOffset": [
-      217,
-      211
-    ]
-  }
-]
+// B
+// - C9 avoids elimination with a win against SKT
+// - Without two wins, IM and FW are out
+// - If SKT loses to C9 and IM, it could be eliminated
 
-d3.loadData(['matches.csv'], function(err, res){
-  matches = res[0]
+// C
+// - EDG's loss to the 1-2 INT means it has larger chance of elimination than AHQ
+// - Likewise, INT's win over EDG gives it more ways to advance than H2k
+// - If INT lose the first game to EDG, almost all their advancement options disappear. 
+
+// D
+// - 3 way tie if RNG, SSG and TSM each beat each other once again
+// - A win for SSG almost ensures that they won't be eliminated
+
+d3.loadData(['annotations.json', 'matches.csv'], function(err, res){
+  annotations = res[0]
+  matches = res[1]
   matches.forEach(function(d){
     d.winner = +d.winner
     d.complete = !(d.winner === 0)
@@ -274,8 +225,8 @@ function drawResults(sel, scenarios, name, complete, incomplete){
 
   var swoopy = d3.swoopyDrag()
       .draggable(true)
-      .x(ƒ('xVal'))
-      .y(ƒ('yVal'))
+      .x(function(){ return 0 })
+      .y(function(){ return 0 })
       .annotations(annotations.filter(function(d){ return d.team == name }))
 
   var swoopySel = svg.append('g.annotations').call(swoopy)
