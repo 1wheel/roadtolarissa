@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: "The Ways out of World Group Stage"
+title: "The Ways Out of World Group Stage"
 permalink: /worlds-group
 categories: 
 shareimg: http://roadtolarissa.com/images/posts/worlds-group.png
