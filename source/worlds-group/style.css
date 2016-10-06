@@ -10,8 +10,8 @@ svg{
 }
 
 svg text{
-  -webkit-text-stroke: 4px navy;
-  text-shadow: 0 4px 0 #F5F5F5, 4px 0 0 #F5F5F5, 0 -4px 0 #F5F5F5, -4px 0 0 #F5F5F5;
+  /*-webkit-text-stroke: 4px navy;*/
+  -webkit-text-shadow: 0 1px 0 #F5F5F5, 1px 0 0 #F5F5F5, 0 -1px 0 #F5F5F5, -1px 0 0 #F5F5F5;
 
 }
 
