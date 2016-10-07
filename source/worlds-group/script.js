@@ -1,20 +1,20 @@
 var ƒ = d3.f
-
+console.clear()
 d3.loadData(['annotations.json', 'matches.csv'], function(err, res){
   d3.selectAll('.group-header').st({opacity: 1})
 
   annotations = res[0]
   matches = res[1]
-  matches.forEach(function(d){
+  matches.forEach(function(d, i){
     d.winner = +d.winner
-    d.complete = !(d.winner === 0)
+    d.actualWinner = !(d.winner === 0) ? d.winner : 3
+    d.complete = i < 24
     d.allTeams = d.t1 + '-' + d.t2
     d.wName = d['t' + d.winner]
   })
 
   byGroup = d3.nestBy(matches, ƒ('group'))
   byGroup.forEach(drawGroup)
-
 })
 
 
@@ -84,14 +84,15 @@ function drawGroup(gMatches){
   sel.appendMany(teams, 'div.team')
     .each(function(d){ drawResults(d3.select(this), scenarios, d.name, complete, incomplete) })
 
-  incomplete.forEach(function(d){ d.clicked = 0 })
-  // sel.append('h3').text('Select winners: ').st({opacity: .5, marginLeft: 20})
+  incomplete.forEach(function(d){ d.clicked = (+d.actualWinner || 3) - 1 })
   var gameSel = sel.append('div.matches')
     .st({marginTop: 50})
     .appendMany(incomplete, 'div.game')
     .on('click', function(d){
       d.clicked = (d.clicked + 1) % 3
-      d3.select(this).selectAll('.teamabv').classed('won', function(e, i){ return i + 1 == d.clicked })
+
+      d3.select(this).selectAll('.teamabv')
+        .classed('won', function(e, i){ return i + 1 == d.clicked })
       d3.select(this).classed('active', d.clicked)
 
       var str = incomplete.map(ƒ('clicked')).join('')
@@ -104,6 +105,7 @@ function drawGroup(gMatches){
   gameSel.append('span.teamabv').text(ƒ('t1'))
   gameSel.append('span').text(' v. ')
   gameSel.append('span.teamabv').text(ƒ('t2'))
+  gameSel.each(function(d){ d3.select(this).on('click').call(this, d) })
 }
 
 

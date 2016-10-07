@@ -5,7 +5,7 @@ x add anno lib
 - write annos
 x add group header
 - make share image
-
+- make live updating
 
 annos
 B
@@ -21,3 +21,5 @@ C
 D
 - 3 way tie if RNG, SSG and TSM each beat each other once again
 - A win for SSG almost ensures that they won't be eliminated
+
+
