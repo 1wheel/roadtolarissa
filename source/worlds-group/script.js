@@ -15,18 +15,50 @@ d3.loadData(['annotations.json', 'matches.csv'], function(err, res){
   byGroup = d3.nestBy(matches, ƒ('group'))
   byGroup.forEach(drawGroup)
 
-  d3.selectAll('.group, .group-header, .annotations').st({display: 'none'})
+  d3.selectAll('.group, .group-header, .annotations, .matches').st({display: 'none'})
   var bSel = d3.select('#group-b').st({display: 'block', position: 'relative'})
-  
+
+  data = d3.range(4).map(function(){ return [] })
   var teamSel = bSel.selectAll('.team')
     .st({position: 'absolute'})
 
+  teamSel.each(function(d, i){
+    d3.select(this).selectAll('.scenario').each(function(d, j){
+      var sel = d3.select(this)
+      var bb = this.getBBox()
+      var cr = this.getBoundingClientRect()
+      console.log(d)
+      data[i][j] = {cx: cr.left - 45, cy: cr.top - 123, str: d.str, fill: sel.attr('fill')}
+    })
+  })
+
+  teamSel.selectAll('circle').remove()
+
+  var width = 400, height = 300
+  var svg = bSel
+    .append('div.team').st({position: 'absolute'})
+    .append('svg').at({width, height}).st({margin: 20})
+    .append('g').translate([0, 100])
+  var circles = svg.appendMany(data[0], 'circle')
+    // .at({cx: function(d){ return d[0].cx }})
+    .at({cx: ƒ('cx'), cy: ƒ('cy'), r: 5})
+
+
+
   var index = 0
   d3.interval(function(d){
+    // return
     index = (index + 1) % 4
     teamSel.transition().duration(500)
       .style('opacity', function(d, i){ return i == index ? 1 : 0})
-  }, 500)
+
+    svg.selectAll('circle').data(data[index], ƒ('str'))
+      .transition().delay(function(d, i){ return i*10 }).duration(300)
+      .attr('cx', ƒ('cx'))
+      .attr('cy', ƒ('cy'))
+      .attr('r', 5)
+      .attr('fill', ƒ('fill'))
+  }, 2500)
 
 })
 
