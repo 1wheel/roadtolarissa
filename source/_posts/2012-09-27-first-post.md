@@ -143,5 +143,28 @@ http://www.asterank.com/3d/
 ### Hilbert Scope
 - https://www.youtube.com/watch?v=hl3tDWln3NU
 
+### Radial Sunrise map
+- https://en.wikipedia.org/wiki/Sunrise_equation
+- difference between earliest sunset/sunrize/lenght of day?
+
+### Log scales are pretty great!
+
+### Which team is the best at 2-1? 
+- look at scoring at the end of the quater 
+
+### Distance between two people
+- expore google location log as a KML, plot a connected scatter plot of lat dist v long dist
+- Bump chart with 5 people?
+
+### 2016 in everyone's graphics
+- scrape everyone's graphics twitter accounts and find uniq url
+- compare colors
+- look at election graphics
+
+### 2016 chart diary 
+- Take reddit notes and throw in one post
+
 ## Streaks
 - During a rare happy stretch of Philly's blowout loss to the Hawks on Friday, the Sixers' broadcast team pointed out that Philly was on "an 8-3 run." I know the Sixers aren't good enough to put together normal NBA runs, but an 8-3 scoring gap is not a run. It is a randomly occurring blip that happens every game. 
+
+
