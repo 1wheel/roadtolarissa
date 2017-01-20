@@ -183,3 +183,5 @@ http://www.asterank.com/3d/
 ## Chart people's position overtime
 	- map overlay
 	- connected scatter plot showing distance, something weird like the time event thing
+
+## when does a year start? you draw it
