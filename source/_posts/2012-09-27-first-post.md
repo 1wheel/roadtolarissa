@@ -118,6 +118,7 @@ http://www.asterank.com/3d/
 - Speakers
 - Spoofing
 - Oscars
+- signed distance field
 
 ### Making tools for d3
 - jetpack
@@ -145,7 +146,7 @@ http://www.asterank.com/3d/
 
 ### Radial Sunrise map
 - https://en.wikipedia.org/wiki/Sunrise_equation
-- difference between earliest sunset/sunrize/lenght of day?
+- difference between earliest sunset/sunrise/length of day?
 
 ### Log scales are pretty great!
 
@@ -170,3 +171,15 @@ http://www.asterank.com/3d/
 ### Curl states into each other
 - https://medium.com/@zachlieberman/land-lines-e1f88c745847#.t1x3ozhdt
 - noah's stuff
+
+## Longest time between released league of legends skins
+
+## Bump chart of living presidents
+
+## 2016 chart diary
+
+## 2017 chart diary
+
+## Chart people's position overtime
+	- map overlay
+	- connected scatter plot showing distance, something weird like the time event thing
