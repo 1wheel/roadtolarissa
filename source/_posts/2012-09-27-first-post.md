@@ -37,20 +37,18 @@ Whale words and other text visualizations, both work specific and aggregate
 Unfold with mouseover
 
 ### Submarine cables
-Animate history of them being laid
-
-Style like an old map
-
-Use canvas or webGL to show flow of information
+- Animate history of them being laid
+- Style like an old map
+- Use canvas or webGL to show flow of information
 
 ### Fibonacci numbers
 Show computation with recursion, memorization and newtons method 
 
 
 ### Twitter -> RSS
-Turn twitter follow list into a rss feed, export OXML
-
-Make front end to browse
+- Turn twitter follow list into a rss feed, export OXML
+- Make front end to browse
+- http://nuzzel.com/ does a most of this
 
 ### [graph-scroll lib](http://1wheel.github.io/graph-scroll/)
 
@@ -60,41 +58,31 @@ Oscars, temp over time
 - nest
 - group
 
-
 ### [Click and drag exploration of svg paths](http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/)
 
-### Software usage
-http://cran-logs.rstudio.com/
+### Software package usage
+- http://cran-logs.rstudio.com/
+- https://www.npmjs.com/
+- pip, ruby?
+- github - commits v downloads v stars
 
-https://www.npmjs.com/
-
-pip, ruby?
-
-github - commits v downloads
-
-###The actual hardest shot in bowling
+### The actual hardest shot in bowling
 https://news.ycombinator.com/item?id=9177469
-Maybe, the reason for the low success rate on the 4-6-7-9-10 split is because the really good pros rarely end up with it.
-
-Are strikes streaky?
-
-Do some players player better when ahead or behind?
-
-Most lead changes?
-
-The 'best' bowler
+- Maybe, the reason for the low success rate on the 4-6-7-9-10 split is because the really good pros rarely end up with it.
+- Are strikes streaky?
+- Do some players player better when ahead or behind?
+- Most lead changes?
+- The 'best' bowler
 
 ### Degrees of Duncan
-Every player that's played with another player
+- Every player that's played with another player
 
-Convex box score points - every player that's played 20 min+ and scored less than 10
+### Convex box score points - every player that's played 20 min+ and scored less than 10
 
 ### Space debis
-http://earthobservatory.nasa.gov/Features/OrbitsCatalog/page3.php
-
-http://www.ucsusa.org/nuclear_weapons_and_global_security/solutions/space-weapons/ucs-satellite-database.html#.VSaJAjvF-nB
-
-http://www.asterank.com/3d/
+- http://earthobservatory.nasa.gov/Features/OrbitsCatalog/page3.php
+- http://www.ucsusa.org/nuclear_weapons_and_global_security/solutions/space-weapons/ucs-satellite-database.html#.VSaJAjvF-nB
+- http://www.asterank.com/3d/
 
 ### python v r data analysis 
 
@@ -112,7 +100,7 @@ http://www.asterank.com/3d/
 
 ### [song lyrics](roadtolarissa.com/lyric-type/)
 
-### catrography w/ nba or game positions 
+### cartography w/ nba or game positions 
 
 ### Stretching and shrinking time
 - Speakers
@@ -120,7 +108,7 @@ http://www.asterank.com/3d/
 - Oscars
 - signed distance field
 
-### Making tools for d3
+### [Making tools for d3](http://1wheel.github.io/talks/tiny-tools/#/)
 - jetpack
 - starterkit
 - graph-scroll
@@ -129,7 +117,7 @@ http://www.asterank.com/3d/
 ### Difference between playoff and regular season win rates
 - Cubs got swept in playoffs after sweeping during season
 
-### Remake trib baseball chart
+### [Remake trib baseball chart](https://bl.ocks.org/1wheel/0fe7b82d7c188c2d26a3)
 - https://twitter.com/waynekamidoi/status/657359312520638464
 - https://twitter.com/kleinmatic/status/657400344394276864 
   
@@ -137,8 +125,9 @@ http://www.asterank.com/3d/
 
 ### Number of seconds with a lead v chance of winning
 - Which series/team/game had the most come from behind wins?
+- Are win probably numbers calibrated correctly? Pats win percentage seemed low!
 
-### Small multiples point differential for each minute over the course of a game
+### [Small multiples point differential for each minute over the course of a game](http://roadtolarissa.com/nba-minutes/)
 - http://graphics.wsj.com/job-market-tracker/
 
 ### Hilbert Scope
@@ -151,10 +140,11 @@ http://www.asterank.com/3d/
 ### Log scales are pretty great!
 
 ### Which team is the best at 2-1? 
-- look at scoring at the end of the quater 
+- look at scoring at the end of the quarter 
+- http://eightthirtyfour.com/data
 
 ### Distance between two people
-- expore google location log as a KML, plot a connected scatter plot of lat dist v long dist
+- export google location log as a KML, plot a connected scatter plot of lat dist v long dist
 - Bump chart with 5 people?
 
 ### 2016 in everyone's graphics
@@ -165,23 +155,34 @@ http://www.asterank.com/3d/
 ### 2016 chart diary 
 - Take reddit notes and throw in one post
 
-## Streaks
+### Streaks
 - During a rare happy stretch of Philly's blowout loss to the Hawks on Friday, the Sixers' broadcast team pointed out that Philly was on "an 8-3 run." I know the Sixers aren't good enough to put together normal NBA runs, but an 8-3 scoring gap is not a run. It is a randomly occurring blip that happens every game. 
 
-### Curl states into each other
+### [Curl states into each other](https://bl.ocks.org/1wheel/4c1658719cfec9ac352ff1e0edc51317)
 - https://medium.com/@zachlieberman/land-lines-e1f88c745847#.t1x3ozhdt
 - noah's stuff
 
-## Longest time between released league of legends skins
+### Longest time between released league of legends skins
 
-## Bump chart of living presidents
+### Bump chart of living presidents
 
-## 2016 chart diary
+### 2017 chart diary
+- when does a year start? you draw it
 
-## 2017 chart diary
+### Chart people's position overtime
+- map overlay
+- connected scatter plot showing distance, something weird like the time event thing
 
-## Chart people's position overtime
-	- map overlay
-	- connected scatter plot showing distance, something weird like the time event thing
+### tensorflow astronomy images to find stars that look like other things
+- https://en.wikipedia.org/wiki/Heart_Nebula#/media/File:IC1805_--_H-alpha_%2B_RGB.jpg
+- get trained model from somewhere
+- run against bunches of images?
 
-## when does a year start? you draw it
+### Live Life dashboard
+- weight/heart rate/steps (not sure if fitbit can be exported?)
+- mouse/keyboard
+- active applications
+- git commits 
+- location (chrome location? android app?)
+- 3d prolly
+
