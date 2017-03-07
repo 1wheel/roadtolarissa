@@ -58,7 +58,10 @@ Slap on a bit of d3, and we're good to go:
 
 I've only got a couple of days of logs and it looks like checking footnotes can mess up the position tracking, but hopefully in a few months I'll have enough data to make something interesting.
 
+While not nearly as comprehensive, there is one source of historic data that the kindle doesn't clear: a record of word lookups. `system/vocabulary/vocab.db` contains the book, time and context of each word look up. Most are accidental long presses, but it is fun to back and see what words I still don't know: 
+
+<div id='kindle-vocab'></div>
 
 
-
+If you're interested in tracking your own reading, checkout the [code on github](github.com/1wheel/kindle-tracker).
 
