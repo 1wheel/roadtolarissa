@@ -64,5 +64,5 @@ While not nearly as comprehensive, there is one source of historic data that the
 
 Turns out I don't do much reading at 5 AM. Who knew that data visualization could be so informative!
 
-If you're interested in tracking your own reading, checkout the [code on github](github.com/1wheel/kindle-tracker).
+If you're interested in tracking your own reading, checkout the [code on github](https://github.com/1wheel/kindle-tracker).
 
