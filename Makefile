@@ -15,3 +15,6 @@ node_modules: package.json
 
 reset: server
 	cd .. && make build && cd public/ && python -m SimpleHTTPServer	
+
+watch:
+	find -L source/ | entr make build

@@ -1,0 +1,51 @@
+svg{
+  overflow: visible;
+  font-family: monospace;
+  margin: 0px;
+  /*overflow: hidden;*/
+}
+
+.vocab-word text{
+  font-size: 13px;
+}
+
+.vocab-word .context{
+  opacity: 0;
+  pointer-events: none;
+  /*fill: green !important;*/
+  font-weight: bold;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+
+}
+
+.vocab-word:hover .context{
+  opacity: 1;
+}
+
+.word-selected .vocab-word rect{
+  fill: #aaa;
+  transition: all .3s 0s;
+}
+
+.word-selected .vocab-word:hover rect{
+  fill: #000;
+  transition: all 0s 0s; 
+}
+
+.vocab-word rect{
+  transition: all .3s .3s;
+}
+
+
+
+.y.axis .domain{
+  display: none;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
