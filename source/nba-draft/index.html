@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="tooltip.css" />
+
+<body>	
+	<div id="top">
+
+ 		<div class="confDiv" id="confDivLeft"></div>
+
+		<div id="topMiddle">
+			<h1>NBA DRAFT</h1>
+			<div id="slider">
+				<input id="slide" type="range"
+				 min="2" max="40" step="1" value="10"/>
+			</div>
+			<br/>
+ 			The top <div id="rankNum"></div> players per year
+ 		</div>
+
+ 		<div class="confDiv" id="confDivRight"></div>
+	</div>
+	<div id="display"></div>
+
+
+	<div id="about">
+		<p>Each bar represents a drafted NBA player. The bars of players with more minutes played and higher player efficiency ratings are redder.</p>
+
+		<p><span id="demoConfDiv">CHI 16/128</span>: The Bulls have had 128 picks; 16 of them ended up being one of the top 10 players from their draft class.</p>
+
+		<p>Click and drag the center slider to expand or shrink the range of top players.</p>
+
+		<p>Black bars indicate a negative PER. Images from Bing; they do not reflect players' actual likenesses.</p>
+
+		<p>Have an idea for another graphic? Think I did something wrong? Hit me up! <a class= "blacklink" href="mailto:adam.r.pearce@gmail.com">adam.r.pearce@gmail.com</a> | <a class= "blacklink" href=https://twitter.com/adamrpearce>@adamrpearce</a></p> 
+
+			More: <a class= "blacklink" href="http://www.roadtolarissa.com/nba_draft/">
+				about</a> |
+		 	<a class = "blacklink" href="http://www.roadtolarissa.com">
+		 		blog</a> | 
+		 	<a class= "blacklink" href="https://github.com/1wheel/nbadraft">
+		 		github</a>
+
+
+	</div>
+
+	<div id="tooltip">
+		<div id="tooltipTop">
+			<div id="tooltipTopLeft">
+				<div id="pName"></div>
+				<div id="pText">
+					<div class="sumLine">
+						Picked <span id="pNum" class="boldNum"></span> by <span id="pTeam" class="boldNum"></span>.
+					</div>
+					<div class="sumLine">
+						Ranked <span id="pRank" class="boldNum"></span> from <span id="pYear" class="boldNum"></span>
+					</div>
+				</div>
+			</div>
+
+			<div id="tooltipTopRight">
+				<img id="tooltipImg" src="thumbnails/awtrede01.jpg">
+			</div>
+		</div>
+		
+		<div id="tooltipBot">
+			<div id="labels">
+				<div id="minLabel">Minutes</div>
+				<div id="perLabel">Player Efficiency Rating</div>
+			</div>
+
+		</div>
+	</div>
+
+
+</body>
+
+<script src="lib/html5slider.js"></script>
+<script src="lib/d3.js"></script>
+<script src="lineSetup.js"></script>
+<script src="addBars.js"></script>
+
+</html>
