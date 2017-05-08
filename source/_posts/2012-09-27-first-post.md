@@ -186,8 +186,15 @@ https://news.ycombinator.com/item?id=9177469
 - location (chrome location? android app?)
 - 3d prolly
 
-## Change in enforcement?
+### Change in enforcement?
 - https://fivethirtyeight.com/features/the-easiest-way-for-trump-to-do-stuff-is-to-not-do-stuff/
 - https://www.nytimes.com/2017/03/13/business/us-worker-safety-rules-osha.html?smid=tw-nytpolitics&smtyp=cur
 - https://www.osha.gov/topcases/bystate.html
+
+### LoL 
+- download video files and track camera position over time
+- biggest come back? have pros gotten better at closing out? 
+- champion pool size across different tournments/players. can we see the meta shifting during a tournment? which teams make the "weirdest" picks?
+- which players have the deepest champ pools
+- pull all challenger data and try win prob over time model
 
