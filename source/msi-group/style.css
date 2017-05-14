@@ -23,8 +23,7 @@ a{
   color: black;
   font-size: 15px;
   overflow: visible;
-  z-index: -1;
-  margin: 5px;
+  z-index: 1;
 }
 .header-left{
   float: left;
@@ -256,6 +255,9 @@ div.tooltip {
 @media (max-width: 925px)  {
   .mobile-hed{ opacity: 1; height: auto; }
   .desktop-hed{ display: none; }
+  .header{
+    margin: 5px;
+  }
   #graph{
     width: 100%;
     transform: translate(-50%, 0);

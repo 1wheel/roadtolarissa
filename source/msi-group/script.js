@@ -78,7 +78,7 @@ var teams = d3.nestBy(matches, ƒ('t1')).map(function(d){
 })
 
 
-var height = isMobile ? Math.round((document.documentElement.clientHeight - 30)/50 - 3) : Math.round((innerHeight - 55)/33 - 3)
+var height = isMobile ? Math.round((document.documentElement.clientHeight - 30)/50 - 3) : Math.round((innerHeight - 60)/33 - 3)
 var width = isMobile ? Math.round((document.documentElement.clientWidth - 10)/23) : 23.5
 var sel = d3.select('#graph').html('').append('div.scenario-container')
 
@@ -87,17 +87,25 @@ var svg = sel.append('svg')
 
 // if (isMobile) svg.st({marginLeft: innerWidth - width*23})
 if (isMobile) svg = svg.append('g').translate([(innerWidth - width*23)/2, 0])
-var teamNameSel = svg.appendMany(scenarios[0].teams, 'text.name')
-  .text(ƒ('name'))
-  .at({x: (d, i) => i*width*4 + width*(isMobile ? .5 : -.3), dy: -16, dx: height, textAnchor: 'middle'}) 
-var scoreSel = svg.appendMany(scenarios[0].teams, 'text')
-  .at({x: (d, i) => i*width*4 + width*(isMobile ? .5 : -.3), dy: -3, dx: height, textAnchor: 'middle'}) 
+// var teamNameSel = svg.appendMany(scenarios[0].teams, 'text.name')
+//   .text(ƒ('name'))
+//   .at({x: (d, i) => i*width*4 + width*(isMobile ? 0 : 0), dy: -16, dx: width, textAnchor: 'middle'}) 
+// var scoreSel = svg.appendMany(scenarios[0].teams, 'text')
+//   .at({x: (d, i) => i*width*4 + width*(isMobile ? 0 : 0), dy: -3, dx: -width, textAnchor: 'middle'}) 
 
-
-var teamSel = svg.appendMany(teamResults, 'g').appendMany(ƒ(), 'g.team-dot')
+var treamGroupSel = svg.appendMany(teamResults, 'g')
+  .translate((d, i) => [i*width*4, 0] )
+var teamSel = treamGroupSel.appendMany(ƒ(), 'g.team-dot')
   .translate((d, i) => [Math.random()*500, d.s.i*height*5])
 teamSel.append('rect')
-  .at({width: width, height, fill: ƒ(color), x: (d, i) => d.teamIndex*width*4 })
+  .at({width: width, height, fill: ƒ(color)})
+
+
+var teamNameSel = treamGroupSel.append('text.name')
+  .text(ƒ('key'))
+  .at({x: width, dy: -16, dx: width*0, textAnchor: 'middle'}) 
+var scoreSel = treamGroupSel.append('text')
+  .at({x: width, dy: -3, dx: width*0, textAnchor: 'middle'}) 
 
 // idk why this works
 setTimeout(() => teamSel.call(d3.attachTooltip).on('mouseover', ttText))
@@ -281,7 +289,7 @@ function ttText(d){
   teamSel.filter(e => e.s.str == d.s.str)
     .raise()
       .append('circle')
-    .at({r: height/2+3, cx: (d, i) => d.teamIndex*width*4 + width/2, cy: height/2, strokeWidth: 1, stroke: '#000', fill: 'none'})
+    .at({r: height/2+3, cx: width/2, cy: height/2, strokeWidth: 1, stroke: '#000', fill: 'none'})
     .st({pointerEvents: 'none', strokeWidth: 1.5, stroke: '#000', strokeOpacity: 1})
 
 }
