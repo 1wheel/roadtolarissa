@@ -182,8 +182,6 @@ d3.select('.footer')
 
 
 function scoreMatches(matches, str){
-  if (str != '111212') { return }
-
   var teams = d3.nestBy(matches, ƒ('t1')).map(function(d){
     return {name: d.key, w: 0}
   })
@@ -197,22 +195,11 @@ function scoreMatches(matches, str){
     if (d.length == 1) { return }
 
     var tiedTeams = d.map(ƒ('name')).join('-')
-    console.log(tiedTeams)
     matches
       .filter(function(d){
         return ~tiedTeams.indexOf(d.t1) && ~tiedTeams.indexOf(d.t2) })
       .forEach(addMatchWins)
-
-    tiedMatches = matches
-      .filter(function(d){
-        return ~tiedTeams.indexOf(d.t1) && ~tiedTeams.indexOf(d.t2) })
-
-    throw 'up'
   })
-
-  
-
-
 
 
   var advanceSlots = 4
