@@ -70,7 +70,7 @@ var teamSel = treamGroupSel.appendMany(ƒ(), 'g.team-dot')
 teamSel.append('rect')
   .at({width: width, height: height, fill: ƒ(color)})
 teamSel.st({opacity: function (d) {
-  if (d.s.str[0] == 2 || d.s.str[1] == 2){
+  if (d.s.str[0] == 2 || d.s.str[1] == 2 || d.s.str[2] == 2){
     d.out = true 
     return .3
   }
