@@ -24,7 +24,7 @@ var scenarios = d3.range(64).map(function(i){
 
   return {
     str: incomplete.map(ƒ('winner')).join(''),
-    teams: scoreMatches(matches), 
+    teams: scoreMatches(matches, incomplete.map(ƒ('winner')).join('')), 
     incomplete: JSON.parse(JSON.stringify(incomplete)),
     i: i
   }    
@@ -71,9 +71,9 @@ teamSel.append('rect')
   .at({width: width, height: height, fill: ƒ(color)})
 teamSel.st({opacity: function (d) {
   if (d.s.str[0] == 2 || d.s.str[1] == 2 || d.s.str[2] == 2 || d.s.str[3] == 1){
-    d.out = true 
-    return .3
-    
+    // d.out = true 
+    // return .3
+
   }
 }})
 
@@ -181,7 +181,9 @@ d3.select('.footer')
 
 
 
-function scoreMatches(matches){
+function scoreMatches(matches, str){
+  if (str != '111212') { return }
+
   var teams = d3.nestBy(matches, ƒ('t1')).map(function(d){
     return {name: d.key, w: 0}
   })
@@ -195,11 +197,22 @@ function scoreMatches(matches){
     if (d.length == 1) { return }
 
     var tiedTeams = d.map(ƒ('name')).join('-')
+    console.log(tiedTeams)
     matches
       .filter(function(d){
         return ~tiedTeams.indexOf(d.t1) && ~tiedTeams.indexOf(d.t2) })
       .forEach(addMatchWins)
+
+    tiedMatches = matches
+      .filter(function(d){
+        return ~tiedTeams.indexOf(d.t1) && ~tiedTeams.indexOf(d.t2) })
+
+    throw 'up'
   })
+
+  
+
+
 
 
   var advanceSlots = 4
@@ -267,7 +280,7 @@ function ttText(d){
       .append('circle')
     .at({r: height/2+3, cx: width/2, cy: height/2, strokeWidth: 1, stroke: '#000', fill: 'none'})
     .st({pointerEvents: 'none', strokeWidth: 1.5, stroke: '#000', strokeOpacity: 1})
-
+  console.log(d.s.str)
 }
 
 
