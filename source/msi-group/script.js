@@ -79,14 +79,14 @@ var teams = d3.nestBy(matches, ƒ('t1')).map(function(d){
 
 
 var height = isMobile ? Math.round((document.documentElement.clientHeight - 30)/50 - 3) : Math.round((innerHeight - 55)/33 - 3)
-var width = isMobile ? Math.round((document.documentElement.clientWidth - 10)/23) : 20
+var width = isMobile ? Math.round((document.documentElement.clientWidth - 10)/23) : 23.5
 var sel = d3.select('#graph').html('').append('div.scenario-container')
 
 var svg = sel.append('svg')
-  .at({height: (height + 3)*32, width: width*23})
+  .at({height: (height + 3)*32, width: isMobile ? document.documentElement.clientWidth : width*23})
 
-if (isMobile) svg.st({marginLeft: innerWidth - width*23})
-
+// if (isMobile) svg.st({marginLeft: innerWidth - width*23})
+if (isMobile) svg = svg.append('g').translate([(innerWidth - width*23)/2, 0])
 var teamNameSel = svg.appendMany(scenarios[0].teams, 'text.name')
   .text(ƒ('name'))
   .at({x: (d, i) => i*width*4 + width*(isMobile ? .5 : 0), dy: -16, dx: height, textAnchor: 'middle'}) 

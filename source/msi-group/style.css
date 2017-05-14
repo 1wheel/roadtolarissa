@@ -24,6 +24,7 @@ a{
   font-size: 15px;
   overflow: visible;
   z-index: -1;
+  margin: 5px;
 }
 .header-left{
   float: left;
@@ -110,9 +111,9 @@ div.tooltip {
   pointer-events: none;
   font-family: Consolas, Andale Mono, Menlo, Monaco, monospace;
   width: 300px;
-  height: 100px;
+  height: 95px;
   font-size: 13px;
-
+  line-height: 1.1em;
 }
 .tooltip-hidden{
   opacity: 0;
@@ -250,7 +251,10 @@ div.tooltip {
   top: auto;
 }
 
+.mobile-hed{ display: none; }
 @media (max-width: 925px)  {
+  .mobile-hed{ display: block; }
+  .desktop-hed{ display: none; }
   #graph{
     width: 100%;
     transform: translate(-50%, 0);
