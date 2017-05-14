@@ -1,0 +1,278 @@
+html{
+  background-color: #F5F5F5;
+  font-weight: normal;
+}
+
+body{
+  font-family: 'Roboto Slab', serif;
+  line-height: 1.55em;
+  font-size: 16px;
+}
+
+p{
+  line-height: 1.55em;
+}
+
+a{
+  color: black;
+}
+
+.header{
+  height: 30px;
+  position: relative;
+  color: black;
+  font-size: 15px;
+  overflow: visible;
+  z-index: -1;
+}
+.header-left{
+  float: left;
+}
+.header-right{
+  float: right;
+}
+
+.header a{
+  opacity: .5;
+  text-decoration: none;
+}
+.header a:hover{
+  opacity: 1
+}
+.header img{
+  width: 16px;
+  position: relative;
+  top: 2px;
+  margin-left: 5px;
+}
+
+
+
+h1{
+  font-weight: 500;
+  font-size: 34px;
+}
+
+
+:not(pre) > code{
+  background: #ddd;
+  padding: .05em;
+  padding-left: .2em;
+  padding-right: .2em;
+  border-radius: 6px;
+}
+
+strong{
+  font-weight: bold;
+}
+
+
+
+body{
+  max-width: 900px;
+  margin: 0px auto;
+}
+
+html{
+  min-width: auto;
+}
+
+
+
+svg{
+  overflow: visible;
+  font-size: 13px;
+  font-family: Consolas, Andale Mono, Menlo, Monaco, monospace;
+  padding-top: 35px;
+}
+
+
+.team{
+  display: inline-block;
+  width: 400px;
+}
+
+.active{
+  stroke: black;
+  stroke-width: 4;
+}
+
+.hidden{
+  opacity: .2;
+}
+
+div.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .75);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  font-family: Consolas, Andale Mono, Menlo, Monaco, monospace;
+  width: 300px;
+  height: 100px;
+  font-size: 13px;
+
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+
+}
+
+@media (max-width: 925px){
+  div.tooltip{
+    position: fixed;
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+.won{
+  fill: green;
+  color: green;
+}
+.maybe{
+  fill: #FF9800;
+  color: #FF9800;
+}
+.eliminate{
+  fill: #F44336;
+  color: #F44336;
+}
+.eliminate.name{
+  text-decoration: line-through;
+}
+.won.name{
+  text-decoration: underline;
+}
+
+
+.game{
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-right: 38px;
+}
+.game:nth-child(3), .game:nth-child(6){
+  margin-right: 0px;
+}
+.game .won-match{
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.matches{
+  font-size: 16px;
+  text-align: center;
+  position: relative;
+  left: 200px;
+  display: none;
+}
+
+.matches .game{
+  width: 100px;
+  cursor: pointer;
+  border: 1px solid black;
+  margin-right: -1px;
+  opacity: .6;
+}
+.matches .game.active{
+  opacity: 1;
+}
+
+
+
+.team-dot{
+  stroke-width: 1;
+  shape-render: crisp-edges;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#container{
+  position: relative;
+}
+
+#sections{
+  width: 340px;
+  pointer-events: none;
+
+}
+
+#sections > div{
+  background: rgba(245,245,245,.8);
+  opacity: .2;
+  margin-bottom: 200px;
+}
+#sections > div:last-child{
+  margin-bottom: 30px;
+  /*padding-bottom: 1500px;*/
+  min-height: 80vh;
+}
+#sections > div.graph-scroll-active{
+  opacity: 1;
+}
+
+#graph{
+  margin-left: 40px;
+  width: 500px;
+  position: absolute;
+  top: 0px;
+  margin-left: 380px;
+}
+
+.graph-scroll-fixed #graph{
+  position: fixed;
+  top: 0px;
+}
+
+.graph-scroll-below #graph{
+  bottom: 0px;
+  top: auto;
+}
+
+@media (max-width: 925px)  {
+  #graph{
+    width: 100%;
+    transform: translate(-50%, 0);
+    margin-left: 50%;
+  }
+
+  #sections{
+    position: relative;
+    margin: 0px auto;
+    padding-top: 400px;
+    pointer-events: none;
+  }
+
+  #sections div{
+    background: rgba(245,245,245,.8);
+    padding: 10px;
+    border: 1px solid;
+    max-width: 400px;
+    margin-bottom: 500px;
+  }
+
+  div.tooltip{
+    background: rgba(255, 255, 255, 1);
+  }
+}
