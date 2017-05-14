@@ -101,6 +101,7 @@ teamSel.append('rect')
   .at({width: width, height, fill: ƒ(color)})
 teamSel.st({opacity: d => {
   if (d.s.str[0] == 2) return .3
+  if (d.s.str[1] == 2) return .3
 }})
 
 var teamNameSel = treamGroupSel.append('text.name')

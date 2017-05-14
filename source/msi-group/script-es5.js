@@ -69,7 +69,10 @@ var teamSel = treamGroupSel.appendMany(ƒ(), 'g.team-dot')
   .translate(function (d, i) { return [Math.random()*500, d.s.i*height*5]; })
 teamSel.append('rect')
   .at({width: width, height: height, fill: ƒ(color)})
-
+teamSel.st({opacity: function (d) {
+  if (d.s.str[0] == 2) { return .3 }
+    if (d.s.str[1] == 2) { return .3 }
+}})
 
 var teamNameSel = treamGroupSel.append('text.name')
   .text(ƒ('key'))
