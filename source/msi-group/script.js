@@ -100,8 +100,10 @@ var teamSel = treamGroupSel.appendMany(ƒ(), 'g.team-dot')
 teamSel.append('rect')
   .at({width: width, height, fill: ƒ(color)})
 teamSel.st({opacity: d => {
-  if (d.s.str[0] == 2) return .3
-  if (d.s.str[1] == 2) return .3
+  if (d.s.str[0] == 2 || d.s.str[1] == 2){
+    d.out = true 
+    return .3
+  }
 }})
 
 var teamNameSel = treamGroupSel.append('text.name')
@@ -152,7 +154,7 @@ function compareOutcome(i){
       var g1 = pair[1].teams[i]
 
       g0.changed = g1.changed = g0.score != g1.score ? g0.advance != g1.advance ? 1000 : 500 : 400
-      g0.sort = g1.sort = -g0.changed + -(g0.score*4 + g1.score) + g1.rng
+      g0.sort = g1.sort = -g0.changed + -(g0.score*4 + g1.score) + g1.rng + (g0.out && g1.out ? 100000 : 0)
       g0.pair = g1
       g1.pair = g0
     })
@@ -173,7 +175,7 @@ var firstDraw = true
 initSort()
 function initSort(){
   teamResults.forEach(team => {
-    _.sortBy(team, d => -d.score + d.rng).forEach((d, i) => {
+    _.sortBy(team, d => -d.score + d.rng + (d.out ? 10000 : 0)).forEach((d, i) => {
       d.i = Math.floor(i/2)
       d.isLeft = !(i % 2)
     })
