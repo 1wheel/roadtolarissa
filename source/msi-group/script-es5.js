@@ -24,7 +24,7 @@ var scenarios = d3.range(64).map(function(i){
 
   return {
     str: incomplete.map(ƒ('winner')).join(''),
-    teams: scoreMatches(matches, incomplete.map(ƒ('winner')).join('')), 
+    teams: scoreMatches(matches), 
     incomplete: JSON.parse(JSON.stringify(incomplete)),
     i: i
   }    
@@ -73,7 +73,7 @@ teamSel.st({opacity: function (d) {
   if (d.s.str[0] == 2 || d.s.str[1] == 2 || d.s.str[2] == 2 || d.s.str[3] == 1){
     // d.out = true 
     // return .3
-
+    
   }
 }})
 
@@ -181,7 +181,7 @@ d3.select('.footer')
 
 
 
-function scoreMatches(matches, str){
+function scoreMatches(matches){
   var teams = d3.nestBy(matches, ƒ('t1')).map(function(d){
     return {name: d.key, w: 0}
   })
@@ -267,7 +267,7 @@ function ttText(d){
       .append('circle')
     .at({r: height/2+3, cx: width/2, cy: height/2, strokeWidth: 1, stroke: '#000', fill: 'none'})
     .st({pointerEvents: 'none', strokeWidth: 1.5, stroke: '#000', strokeOpacity: 1})
-  console.log(d.s.str)
+
 }
 
 
