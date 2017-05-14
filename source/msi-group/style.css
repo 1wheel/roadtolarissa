@@ -251,9 +251,10 @@ div.tooltip {
   top: auto;
 }
 
-.mobile-hed{ display: none; }
+.desktop-hed{ margin-bottom: 50px; margin-top: 50px; }
+.mobile-hed{ opacity: 0; height: 10px; }
 @media (max-width: 925px)  {
-  .mobile-hed{ display: block; }
+  .mobile-hed{ opacity: 1; height: auto; }
   .desktop-hed{ display: none; }
   #graph{
     width: 100%;

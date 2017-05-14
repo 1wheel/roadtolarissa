@@ -89,9 +89,9 @@ var svg = sel.append('svg')
 if (isMobile) svg = svg.append('g').translate([(innerWidth - width*23)/2, 0])
 var teamNameSel = svg.appendMany(scenarios[0].teams, 'text.name')
   .text(ƒ('name'))
-  .at({x: (d, i) => i*width*4 + width*(isMobile ? .5 : 0), dy: -16, dx: height, textAnchor: 'middle'}) 
+  .at({x: (d, i) => i*width*4 + width*(isMobile ? .5 : -.3), dy: -16, dx: height, textAnchor: 'middle'}) 
 var scoreSel = svg.appendMany(scenarios[0].teams, 'text')
-  .at({x: (d, i) => i*width*4 + width*(isMobile ? .5 : 0), dy: -3, dx: height, textAnchor: 'middle'}) 
+  .at({x: (d, i) => i*width*4 + width*(isMobile ? .5 : -.3), dy: -3, dx: height, textAnchor: 'middle'}) 
 
 
 var teamSel = svg.appendMany(teamResults, 'g').appendMany(ƒ(), 'g.team-dot')
@@ -192,7 +192,7 @@ var gs = d3.graphScroll()
   })
 
 d3.select('.footer')
-  .st({'margin-bottom': 100 + 'px', padding: '100px'})
+  .st({'margin-bottom': 20 + 'px', paddingBottom: '100px'})
 
 
 
