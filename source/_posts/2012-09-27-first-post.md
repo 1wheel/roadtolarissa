@@ -138,6 +138,7 @@ https://news.ycombinator.com/item?id=9177469
 - difference between earliest sunset/sunrise/length of day?
 
 ### Log scales are pretty great!
+- https://www.washingtonpost.com/national/americas-new-tobacco-crisis-the-rich-stopped-smoking-the-poor-didnt/2017/06/13/a63b42ba-4c8c-11e7-9669-250d0b15f83b_story.html?tid=ss_tw&utm_term=.aab13303a01e
 
 ### Which team is the best at 2-1? 
 - look at scoring at the end of the quarter 
