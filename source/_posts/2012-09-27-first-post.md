@@ -138,6 +138,7 @@ https://news.ycombinator.com/item?id=9177469
 - difference between earliest sunset/sunrise/length of day?
 
 ### Log scales are pretty great!
+- https://www.washingtonpost.com/national/americas-new-tobacco-crisis-the-rich-stopped-smoking-the-poor-didnt/2017/06/13/a63b42ba-4c8c-11e7-9669-250d0b15f83b_story.html?tid=ss_tw&utm_term=.aab13303a01e
 
 ### Which team is the best at 2-1? 
 - look at scoring at the end of the quarter 
@@ -155,14 +156,18 @@ https://news.ycombinator.com/item?id=9177469
 ### 2016 chart diary 
 - Take reddit notes and throw in one post
 
-### Streaks
+### play by play
+- Most boring playoffs ever, how many minutes was each champion behind?
+- link to reddit comments and nlp. which player is the most exciting?
 - During a rare happy stretch of Philly's blowout loss to the Hawks on Friday, the Sixers' broadcast team pointed out that Philly was on "an 8-3 run." I know the Sixers aren't good enough to put together normal NBA runs, but an 8-3 scoring gap is not a run. It is a randomly occurring blip that happens every game. 
+- Which players are the streakest/have the most improbable runs? www.espn.com/nba/story/_/page/presents-19573519/heating-fire-klay-thompson-truth-hot-hand-nba
+- Which players do the best/worst after hiting/missing a FT? Do some players always go 7/10 or do some go 5/10 and 10/10 more often than they would randomly.
 
 ### [Curl states into each other](https://bl.ocks.org/1wheel/4c1658719cfec9ac352ff1e0edc51317)
 - https://medium.com/@zachlieberman/land-lines-e1f88c745847#.t1x3ozhdt
 - noah's stuff
 
-### Longest time between released league of legends skins
+### Longest time between released league of legends skins / champs
 
 ### Bump chart of living presidents
 
@@ -191,6 +196,22 @@ https://news.ycombinator.com/item?id=9177469
 - https://www.nytimes.com/2017/03/13/business/us-worker-safety-rules-osha.html?smid=tw-nytpolitics&smtyp=cur
 - https://www.osha.gov/topcases/bystate.html
 - https://www.osha.gov/topcases/xml/data-set.xml
+
+### LoL 
+- download video files and track camera position over time
+- biggest come back? have pros gotten better at closing out? 
+- champion pool size across different tournments/players. can we see the meta shifting during a tournment? which teams make the "weirdest" picks?
+- which players have the deepest champ pools
+- pull all challenger data and try win prob over time model
+
+### Trading Bot Parmeters
+- http://www.wsj.com/graphics/build-your-own-trading-bot/?mod=e2twg
+- Scatter plot of buy after tk days of gains/sell after tk days of losses
+-
+
+### new hp
+- some sort of 3d scroll zoom/rotate
+- once saw a nice portfolio site with sum(1/2^n) = 1. they had done something with game of thrones but can't find
 
 ### Structure of fiction
 - http://twinegarden.tumblr.com/
