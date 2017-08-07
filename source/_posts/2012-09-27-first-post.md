@@ -186,8 +186,12 @@ https://news.ycombinator.com/item?id=9177469
 - location (chrome location? android app?)
 - 3d prolly
 
-## Change in enforcement?
+### Change in enforcement?
 - https://fivethirtyeight.com/features/the-easiest-way-for-trump-to-do-stuff-is-to-not-do-stuff/
 - https://www.nytimes.com/2017/03/13/business/us-worker-safety-rules-osha.html?smid=tw-nytpolitics&smtyp=cur
 - https://www.osha.gov/topcases/bystate.html
+- https://www.osha.gov/topcases/xml/data-set.xml
 
+### Structure of fiction
+- http://twinegarden.tumblr.com/
+- line graphs showing words that typically occur at the start and end of stories
