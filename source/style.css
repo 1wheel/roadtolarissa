@@ -1,6 +1,4 @@
 html{
-	/*border-top: 40px solid black;*/
-	min-width: 760px;
 	background-color: #F5F5F5;
 	font-weight: normal;
 }
@@ -12,6 +10,12 @@ body{
 	font-family: 'Roboto Slab', serif;
 	line-height: 1.55em;
 	font-size: 16px;
+}
+
+@media (max-width: 760px){
+	body{
+		padding: 5px;
+	}
 }
 
 p{
@@ -28,7 +32,6 @@ a{
   top: -20px;
   color: black;
   font-size: 15px;
-  width: 750px;
   overflow: visible;
   z-index: -1;
 }
@@ -62,7 +65,6 @@ h1,h2,h3,h4,h5{
 
 h1{
 	font-weight: 500;
-	/*letter-spacing: -2px;*/
 	font-size: 34px;
 }
 
