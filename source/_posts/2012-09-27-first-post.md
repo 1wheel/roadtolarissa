@@ -203,6 +203,14 @@ https://news.ycombinator.com/item?id=9177469
 - champion pool size across different tournments/players. can we see the meta shifting during a tournment? which teams make the "weirdest" picks?
 - which players have the deepest champ pools
 - pull all challenger data and try win prob over time model
+- 255 job scatter plot, but made of line charts of gold differential for each team. bucket by game end time and stack by win/loss. looking for a more detailed way of showing win % when ahead by 500/1000/1500 gold at 10/15/20 minutes
+- every flame horizon
+- most deaths by a player in tk tk minutes
+- % win chance after losing an inhib, having two inhibs or three inhibs down at once. best comebacks every?
+- best baron (# towers?) / worst baron
+- blank and untara had huge winning streaks after MSI... best ever?
+- which teams play better when they are down a game/reverse sweep most
+- roster time lines (might be too many players? just look at teams?)
 
 ### Trading Bot Parmeters
 - http://www.wsj.com/graphics/build-your-own-trading-bot/?mod=e2twg
@@ -216,3 +224,14 @@ https://news.ycombinator.com/item?id=9177469
 ### Structure of fiction
 - http://twinegarden.tumblr.com/
 - line graphs showing words that typically occur at the start and end of stories
+
+
+### hurricane how to
+- https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html
+- getting the data
+- drawing rainfall
+- animating the data
+- showing total rainfall
+- shrinking data/showing both
+- cliping to land
+- making a gif
