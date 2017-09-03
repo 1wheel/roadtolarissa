@@ -1,20 +1,87 @@
-d3.select('body').selectAppend('div.tooltip')
+console.clear()
 
-var data = d3.range(300).map(x => { return {x, y: Math.random()*10 + x/100} })
+d3.loadData('2607.csv', 'states.json', (err, [data, states]) => {
 
-var c = d3.conventions({parentSel: d3.select('.graph').html(''), margin: {left: 30}})
+  // chart 0
+  var width = 700
+  var height = 286
 
-c.x.domain(d3.extent(data, d => d.x))
-c.y.domain(d3.extent(data, d => d.y))
+  var canvas = d3.select('#graphic-0')
+    .html('')
+    .append('canvas')
+    .at({width, height})
+    .node()
 
-c.drawAxis()
+  var ctx = canvas.getContext('2d')
 
-c.svg.appendMany(data, 'circle')
-  .at({
-    cx: d => c.x(d.x),
-    cy: d => c.y(d.y),
-    stroke: '#000',
-    fillOpacity: .4,
-    r: 5
+  var color = d3.scaleLinear().range(['rgba(255,0,0,0)', 'rgba(255,0,0,1)'])
+  data.forEach(d =>{
+    ctx.beginPath()
+    ctx.fillStyle = color(d.Globvalue)
+    ctx.rect(d.Hrapx, d.Hrapy, 1, 1)
+    ctx.fill()
   })
-  .call(d3.attachTooltip)
+
+
+  // chart 1
+  !(function(){
+    var width = 572
+    var height = width/2
+    
+
+    var canvas = d3.select('#graphic-1')
+      .html('')
+      .append('canvas')
+      .at({width, height})
+      .node()
+    var ctx = canvas.getContext('2d')
+
+    var bounds = { 
+      "type": "LineString",
+      "coordinates": [ [-99.2, 27.5], [-91.1, 30.5] ]
+    }
+
+    // https://github.com/veltman/d3-stateplane#nad83--texas-south-epsg32141
+    var projection = d3.geoConicConformal()
+      .parallels([26 + 10 / 60, 27 + 50 / 60])
+      .rotate([98 + 30 / 60, -25 - 40 / 60])
+      .fitSize([width, height], bounds)
+    
+    var path = d3.geoPath().projection(projection)
+
+    var svg = d3.select('#graphic-1')
+      .append('svg')
+      .at({width: width, height: height})
+
+    var pathStr = path(topojson.mesh(states, states.objects.states))
+    svg.append('path')
+      .at({d: pathStr, fill: 'none', stroke: '#000', strokeWidth: .5})
+
+    var color = d3.scaleLinear()
+      .domain([0, 1])
+      .range(['rgba(255,0,0,0)', 'rgba(255,0,0,1)'])
+      
+    data.forEach(d =>{
+      var [x, y] = projection([d.Lon, d.Lat])
+
+      ctx.beginPath()
+      ctx.fillStyle = color(d.Globvalue)
+      ctx.rect(x, y, 3, 3)
+      ctx.fill()
+    })
+
+    var cities = [
+      {name: 'Houston', cord: [-95.369, 29.760]},
+      {name: 'Austin',  cord: [-97.743, 30.267]}
+    ]
+    var citySel = svg.appendMany(cities, 'g')
+      .translate(d => projection(d.cord))
+    citySel.append('circle').at({r: 1})
+    citySel.append('text').text(d => d.name).at({textAnchor: 'middle', dy: -5})
+
+  })()
+
+
+
+
+})

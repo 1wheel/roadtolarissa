@@ -1,9 +1,20 @@
-body{
-  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
-  /*margin: 0px;*/
+.graphic{
+  position: relative;
+  width: 572px;
+  height: 286px;
+  background: #fff;
+  margin: auto;
+  overflow: hidden;
 }
 
-canvas{
+#graphic-0 canvas{
+  left: -200px;
+}
+
+
+
+
+.graphic canvas, .graphic svg{
   position: absolute;
   top: 0px;
   left: 0px;
@@ -45,4 +56,9 @@ svg{
 text{
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  font-size: 10px;
 }
+
+
+
