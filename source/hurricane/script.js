@@ -36,43 +36,39 @@ d3.loadData('2607.csv', 'states.json', (err, [data, states]) => {
       .node()
     var ctx = canvas.getContext('2d')
 
-    var bounds = { 
-      "type": "LineString",
-      "coordinates": [ [-99.2, 27.5], [-91.1, 30.5] ]
-    }
-
     // https://github.com/veltman/d3-stateplane#nad83--texas-south-epsg32141
     var projection = d3.geoConicConformal()
       .parallels([26 + 10 / 60, 27 + 50 / 60])
       .rotate([98 + 30 / 60, -25 - 40 / 60])
-      .fitSize([width, height], bounds)
-    
-    var path = d3.geoPath().projection(projection)
 
+    projection.fitSize([width, height], { 
+      "type": "LineString", "coordinates": [[-99.2, 27.5], [-91.1, 30.5]]
+    })
+    
     var svg = d3.select('#graphic-1')
       .append('svg')
       .at({width: width, height: height})
 
+    var path = d3.geoPath().projection(projection)
     var pathStr = path(topojson.mesh(states, states.objects.states))
     svg.append('path')
       .at({d: pathStr, fill: 'none', stroke: '#000', strokeWidth: .5})
 
-    var color = d3.scaleLinear()
-      .domain([0, 1])
-      .range(['rgba(255,0,0,0)', 'rgba(255,0,0,1)'])
+    var color = d3.scaleLinear().range(['rgba(255,0,0,0)', 'rgba(255,0,0,1)'])
       
     data.forEach(d =>{
       var [x, y] = projection([d.Lon, d.Lat])
-
       ctx.beginPath()
-      ctx.fillStyle = color(d.Globvalue)
       ctx.rect(x, y, 3, 3)
+      
+      ctx.fillStyle = color(d.Globvalue)
       ctx.fill()
     })
 
     var cities = [
-      {name: 'Houston', cord: [-95.369, 29.760]},
-      {name: 'Austin',  cord: [-97.743, 30.267]}
+      {name: 'Houston',     cord: [-95.369, 29.760]},
+      {name: 'Austin',      cord: [-97.743, 30.267]},
+      {name: 'San Antonio', cord: [-98.493, 29.424]}
     ]
     var citySel = svg.appendMany(cities, 'g')
       .translate(d => projection(d.cord))

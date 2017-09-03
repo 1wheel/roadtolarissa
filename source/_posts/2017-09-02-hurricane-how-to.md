@@ -57,12 +57,10 @@ Id,Hrapx,Hrapy,Lat,Lon,Globvalue
 
 The next step was to see how much rain was falling where. This could have been done in QGIS, but since the end result was going on the web, I started up a webpage with [d3]() and [jetpack]().
 
-First, load the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea; with over 20,000 points to draw and canvas is much faster. 
+First, load the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using svg to draw the data wouldn't be a good idea; with over 20,000 points to draw and canvas is much faster. 
 
-```
+```javascript
 d3.loadData('2607.csv', (err, [data]) => {
-
-  // chart 0
   var width = 700
   var height = width/2
 
@@ -77,7 +75,7 @@ d3.loadData('2607.csv', (err, [data]) => {
 
 Next, loop over grid points and draw a 1px rectangle over each, scaling the opacity based on the rainfall: 
 
-```
+```js
   var color = d3.scaleLinear().range(['rgba(255,0,0,0)', 'rgba(255,0,0,1)'])
   data.forEach(d =>{
     ctx.beginPath()
@@ -95,11 +93,95 @@ But where is it? And why is the upper left corner cut off?
 
 ## Make it a map 
 
+While plotting with the grid indices is quick, it's not totally clear what we're looking at. Because we wanted to overlay the coast and city labels, we had to position the rainfall values based on their lat/lon instead.
+
+Sarah made me a detailed shapefile of Texas and Louisiana, running it through [mapshaper](http://mapshaper.org/) to shrink the file. I loaded and set up a [Texas South State Plane projection](https://github.com/veltman/d3-stateplane#nad83--texas-south-epsg32141) zoomed in the gulf. 
+
+```javascript
+var projection = d3.geoConicConformal()
+  .parallels([26 + 10 / 60, 27 + 50 / 60])
+  .rotate([98 + 30 / 60, -25 - 40 / 60])
+
+projection.fitSize([width, height], { 
+  "type": "LineString", "coordinates": [[-99.2, 27.5], [-91.1, 30.5]]
+})
+```
+
+[fitSize](https://github.com/d3/d3-geo#projection_fitExtent) make adjusting projection crops way simpler than fiddling with translate and scale values. 
+
+Since text and detailed features can be blurry on canvas if they aren't rendered at [double resolutionn](https://www.html5rocks.com/en/tutorials/canvas/hidpi/), I decided to make the map overlay with svg. [topojson]() merges the loaded state shapes into one shape which gets drawn to the screen as a path
+
+```javascript
+var svg = d3.select('#graphic-1')
+  .append('svg')
+  .at({width: width, height: height})
+
+var path = d3.geoPath().projection(projection)
+var pathStr = path(topojson.mesh(states, states.objects.states))
+svg.append('path')
+  .at({d: pathStr, fill: 'none', stroke: '#000', strokeWidth: .5})
+```
+
+Finally, the observed rainfall values are drawn at their projected lat/lon
+
+```javascript
+data.forEach(d =>{
+  // ctx.rect(d.Hrapx, d.Hrapy, 1, 1)
+  var [x, y] = projection([d.Lon, d.Lat])
+  ctx.rect(x, y, 3, 3)
+```
 
 <div id='graphic-1' class='graphic'></div>
 
+The city labels are just group elements translated to each city's location with a circle and some text inside.  
+
+```javascript
+var cities = [
+  {name: 'Houston',     cord: [-95.369, 29.760]},
+  {name: 'Austin',      cord: [-97.743, 30.267]},
+  {name: 'San Antonio', cord: [-98.493, 29.424]}
+]
+var citySel = svg.appendMany(cities, 'g')
+  .translate(d => projection(d.cord))
+citySel.append('circle').at({r: 1})
+citySel.append('text').text(d => d.name).at({textAnchor: 'middle', dy: -5})
+```
 
 ## Animation
+
+Showing the progression of the storm required getting more data in the browser. 
+
+Loading a separate CSV for each hour of data wouldn't be very efficient, so I wrote a script to load all the CSVs, add a column with the observation time and merged them into one big array. 
+
+```
+var {_, d3, jp, glob, io} = require('scrape-stl')
+
+var data = []
+glob.sync(__dirname + '/csv/*.csv').forEach(path => {
+  var time = _.last(path.split('/')).split('.csv')[0]
+  io.readDataSync(path).forEach(d => {
+    d.time = time
+    data.push(d)
+  })
+})
+```
+
+Combining two days of rainfall data made a 30 MB CSV - too big. Each observation from a station repeated the stationId, lat, log, Hrapx and Hrapy properties. Putting all the observations from one station into a single object removes the redundancy and makes the file size manageable. 
+
+```
+var points = jp.nestBy(data, d => d.Id).map(point => {
+  var d = point[0]
+  var rv = {lat: +d.Lat, +lon: d.Lon, vals: {}}
+
+  point.forEach(d => rv.vals[d.time] = +d.Globvalue)
+
+  return rv
+})
+
+io.writeDataSync(__dirname + '/points.json', times)
+```
+
+
 https://macwright.org/2015/08/14/canvas-animation-methods.html
 
 ## Totals
