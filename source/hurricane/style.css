@@ -55,10 +55,12 @@ svg{
 
 text{
   pointer-events: none;
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
   font-size: 10px;
 }
 
 
-
+.hljs{
+  overflow-x: auto;
+}

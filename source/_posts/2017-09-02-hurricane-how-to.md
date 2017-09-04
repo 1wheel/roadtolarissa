@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: "Hurricane Map How To"
+title: "Hurricane Map How-To"
 permalink: /hurricane
 shareimg: http://roadtolarissa.com/images/posts/tktk
 ---
@@ -64,13 +64,12 @@ d3.loadData('2607.csv', (err, [data]) => {
   var width = 700
   var height = width/2
 
-  var canvas = d3.select('#graphic-0')
+  var ctx = d3.select('#graphic')
     .html('')
     .append('canvas')
     .at({width, height})
     .node()
-
-  var ctx = canvas.getContext('2d')
+    .getContext('2d')
 ```
 
 Next, loop over grid points and draw a 1px rectangle over each, scaling the opacity based on the rainfall: 
@@ -101,9 +100,9 @@ Sarah made me a detailed shapefile of Texas and Louisiana, running it through [m
 var projection = d3.geoConicConformal()
   .parallels([26 + 10 / 60, 27 + 50 / 60])
   .rotate([98 + 30 / 60, -25 - 40 / 60])
-
-projection.fitSize([width, height], { 
-  "type": "LineString", "coordinates": [[-99.2, 27.5], [-91.1, 30.5]]
+  .fitSize([width, height], { 
+    "type": "LineString", "coordinates": [[-99.2, 27.5], [-91.1, 30.5]]
+  })
 })
 ```
 
@@ -112,7 +111,7 @@ projection.fitSize([width, height], {
 Since text and detailed features can be blurry on canvas if they aren't rendered at [double resolutionn](https://www.html5rocks.com/en/tutorials/canvas/hidpi/), I decided to make the map overlay with svg. [topojson]() merges the loaded state shapes into one shape which gets drawn to the screen as a path
 
 ```javascript
-var svg = d3.select('#graphic-1')
+var svg = d3.select('#graphic')
   .append('svg')
   .at({width: width, height: height})
 
@@ -122,10 +121,25 @@ svg.append('path')
   .at({d: pathStr, fill: 'none', stroke: '#000', strokeWidth: .5})
 ```
 
-Finally, the observed rainfall values are drawn at their projected lat/lon
+A bit of css positions the svg directly over the canvas. 
+
+```css
+#graphic{
+  position: relative;
+}
+
+#graphic canvas, #graphic svg{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+``` 
+
+Finally, the observed rainfall values are drawn at their projected lat/lon. Since the map is zoomed in, I'm bumped the sides of the rectangles from 1 pixel to 3. 
 
 ```javascript
 data.forEach(d =>{
+  ctx.beginPath()
   // ctx.rect(d.Hrapx, d.Hrapy, 1, 1)
   var [x, y] = projection([d.Lon, d.Lat])
   ctx.rect(x, y, 3, 3)
@@ -133,7 +147,25 @@ data.forEach(d =>{
 
 <div id='graphic-1' class='graphic'></div>
 
-The city labels are just group elements translated to each city's location with a circle and some text inside.  
+Now it's clear why the corner was cut off previously - there's only data for locations within a few miles of land. This misleading makes it look a little like it isn't raining over most of the ocean. To fix this, we decide to only show rainfall over land. 
+
+There are a couple of ways this could have been done. Only drawing the observations on land would work, but the coastline would be blocky because the grid is zoomed in. Instead I decided to cover up the values in the ocean by drawing a white ocean and overlaying it. 
+
+Drawing the ocean with only a shapefile of the land is a little tricky. I ended drawing the land to a mask element and using a mask to clip a white rectangle covering up the whole graphic.
+
+```javascript
+var pathStr = path(topojson.feature(states, states.objects.states))
+var mask = svg.append('mask#ocean')
+mask.append('rect').at({width, height, fill: '#fff'})
+mask.append('path').at({d: pathStr, fill: '#000'})
+svg.append('rect').at({width, height, fill: '#fff', mask: 'url(#ocean)'})
+```
+
+Masks make [lots](https://bl.ocks.org/1wheel/76a07ca0d23f616d29349f7dd7857ca5) of [things](https://bl.ocks.org/1wheel/a8f39c8a96b71735488bf280d34bd765) possible. There might be a simpler of doing this, but it works!
+
+<div id='graphic-2' class='graphic'></div>
+
+The city labels are group elements translated to each city's location with a circle and text inside.  
 
 ```javascript
 var cities = [
@@ -149,11 +181,11 @@ citySel.append('text').text(d => d.name).at({textAnchor: 'middle', dy: -5})
 
 ## Animation
 
-Showing the progression of the storm required getting more data in the browser. 
+Showing the progression of the storm required getting more hours of data into the browser. 
 
 Loading a separate CSV for each hour of data wouldn't be very efficient, so I wrote a script to load all the CSVs, add a column with the observation time and merged them into one big array. 
 
-```
+```javascript
 var {_, d3, jp, glob, io} = require('scrape-stl')
 
 var data = []
@@ -166,25 +198,87 @@ glob.sync(__dirname + '/csv/*.csv').forEach(path => {
 })
 ```
 
-Combining two days of rainfall data made a 30 MB CSV - too big. Each observation from a station repeated the stationId, lat, log, Hrapx and Hrapy properties. Putting all the observations from one station into a single object removes the redundancy and makes the file size manageable. 
+Combining two days of rainfall data made a 30 MB CSV - too big. Each observation from the same location repeated the station Id, lat, log, Hrapx and Hrapy properties. Putting all the observations from one station into a single object removes the redundancy and makes the file size manageable. 
 
-```
+```javascript
 var points = jp.nestBy(data, d => d.Id).map(point => {
-  var d = point[0]
-  var rv = {lat: +d.Lat, +lon: d.Lon, vals: {}}
+  var vals = {}
+  point.forEach(d => vals[d.time] = +d.Globvalue)
 
-  point.forEach(d => rv.vals[d.time] = +d.Globvalue)
-
-  return rv
+  return {vals, lat: +point[0].Lat, +lon: point[0].Lon}
 })
 
 io.writeDataSync(__dirname + '/points.json', times)
 ```
 
+This creates an array of locations, each with a lat, lon and vals hash. The vals hash lists the inches rainfall the occurred during each hour.   
 
-https://macwright.org/2015/08/14/canvas-animation-methods.html
+```json
+{
+  "lat": 26.6631,
+  "lon": -97.4435,
+  "vals": {
+    "2600": 0.02
+    "2601": 0.01
+  },
+},
+{
+  "lat": 27.6294,
+  "lon": -98.2536,
+  "vals": {
+    "2601": 0.04,
+    "2602": 0.01,
+    "2607": 0.03,
+    "2608": 0.11,
+    "2618": 0.05,
+    "2619": 0.12,
+    "2620": 0.09,
+    "2621": 0.01
+  },
+}, 
+...
+```
 
-## Totals
+Canvas is a lower level abstraction than svg: it can easily draw 20,000 shapes, but there's no general purpose transition functional available. To animate the rainfall on the 26th of August, I made an array of the hourly timestamps on that day and and looped over it at 5 frames per second. 
+
+```javascript 
+  var times = d3.range(24).map(d => '26' + d3.format('02')(d))
+  var curTimeIndex = 0
+  d3.interval(() => {
+    drawTime(times[curTimeIndex++ % times.length])
+  }, 200)
+```
+
+At the start of each frame, everything on the canvas is removed with clearRect. Only points with with rainfall at the current time are drawn and because the data structure has changed, d.vals[time], d.Globvalue. 
+
+```javascript
+function drawTime(time){
+  ctx.clearRect(0, 0, width, height)
+  points.filter(d => d.vals[time]).forEach(d =>{
+    ctx.beginPath()
+    var [x, y] = projection([d.lon, d.lat])
+    ctx.rect(x, y, 3, 3)
+    ctx.fillStyle = color(d.vals[time])
+    ctx.fill()
+  })
+}
+```
+
+Tom MacWright has good [tutorial on canvas animations](https://macwright.org/2015/08/14/canvas-animation-methods.html) with more techniques; d3.interval and clearRect are enough to do quite a lot though: 
+
+<div id='graphic-3' class='graphic'></div>
+
+## Accumulation 
+
+3d overlay
+
+
+<div id='graphic-4' class='graphic'></div>
+
+
+## Less confusing total
+
+<div id='graphic-5' class='graphic'></div>
 
 
 ## Making it better

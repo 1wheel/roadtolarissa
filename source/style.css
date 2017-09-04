@@ -6,7 +6,6 @@ html{
 body{
 	max-width: 750px;
 	margin: 0px auto;
-	margin-top: 22px;
 	font-family: 'Roboto Slab', serif;
 	line-height: 1.55em;
 	font-size: 16px;
@@ -27,13 +26,12 @@ a{
 }
 
 .header{
-  height: 1px;
   position: relative;
-  top: -20px;
   color: black;
-  font-size: 15px;
+  font-size: 14px;
+  height: 10px;
   overflow: visible;
-  z-index: -1;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
 }
 .header-left{
 	float: left;
@@ -42,6 +40,9 @@ a{
 	float: right;
 }
 
+.header span{
+	opacity: .5;
+}
 .header a{
 	opacity: .5;
 	text-decoration: none;
@@ -53,7 +54,6 @@ a{
 	width: 16px;
 	position: relative;
 	top: 2px;
-	margin-left: 5px;
 }
 
 
