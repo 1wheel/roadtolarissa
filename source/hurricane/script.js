@@ -1,4 +1,9 @@
 console.clear()
+if (window.animationtimer) window.animationtimer.stop()
+if (window.accumulationtimer) window.accumulationtimer.stop()
+if (window.clicktimer) window.clicktimer.stop()
+
+
 
 // draw points on canvas
 d3.loadData('2607.csv', 'states.json', (err, [data, states]) => {
@@ -67,8 +72,7 @@ d3.loadData('2607.csv', 'states.json', (err, [data, states]) => {
   var width = 572
   var height = width/2
 
-  var ctx = d3.select('#graphic-2')
-    .html('')
+  var ctx = d3.select('#graphic-2').html('')
     .append('canvas')
     .at({width, height})
     .node()
@@ -119,13 +123,18 @@ d3.loadData('2607.csv', 'states.json', (err, [data, states]) => {
 })
 
 
-// animation first pass
 d3.loadData('points.json', 'states.json', (err, [points, states]) => {
+  // animation(points, states)
+  accumulation(points, states)
+})
+
+  
+
+function animation(points, states){
   var width = 572
   var height = width/2
-
-  var ctx = d3.select('#graphic-3')
-    .html('')
+  var sel = d3.select('#graphic-3').html('')
+  var ctx = sel
     .append('canvas')
     .at({width, height})
     .node()
@@ -138,7 +147,7 @@ d3.loadData('points.json', 'states.json', (err, [points, states]) => {
       "type": "LineString", "coordinates": [[-99.2, 27.5], [-91.1, 30.5]]
     })
   
-  var svg = d3.select('#graphic-3')
+  var svg = sel
     .append('svg')
     .at({width: width, height: height})
 
@@ -167,10 +176,12 @@ d3.loadData('points.json', 'states.json', (err, [points, states]) => {
   window.points = points
   var color = d3.scaleLinear().range(['rgba(255,0,255,0)', 'rgba(255,0,255,1)'])
 
-  var times = d3.range(24).map(d => '26' + d3.format('02')(d))
+  var times = _.uniq(_.flatten(points.map(d => d3.keys(d.vals)))).sort()
   var curTimeIndex = 0
-  if (window.animationtimer) window.animationtimer.stop()
   window.animationtimer = d3.interval(() => {
+    var top = sel.node().getBoundingClientRect().top
+    if (top < -286 || innerHeight < top) return
+
     drawTime(times[curTimeIndex++ % times.length])
   }, 200)
 
@@ -184,25 +195,24 @@ d3.loadData('points.json', 'states.json', (err, [points, states]) => {
       ctx.fill()
     })
   }
-})
+}
 
 
 
 
-
-// accumulation
-d3.loadData('points.json', 'states.json', (err, [points, states]) => {
+function accumulation(points, states){
   var width = 572
   var height = width/2
+  var sel = d3.select('#graphic-4')
 
-  var ctx2 = d3.select('#graphic-4')
+  var ctx2 = sel
     .html('')
     .append('canvas')
     .at({width, height})
     .node()
     .getContext('2d')
 
-  var ctx = d3.select('#graphic-4')
+  var ctx = sel
     .append('canvas')
     .at({width, height})
     .node()
@@ -215,7 +225,7 @@ d3.loadData('points.json', 'states.json', (err, [points, states]) => {
       "type": "LineString", "coordinates": [[-99.2, 27.5], [-91.1, 30.5]]
     })
   
-  var svg = d3.select('#graphic-4')
+  var svg = sel
     .append('svg')
     .at({width: width, height: height})
 
@@ -243,7 +253,7 @@ d3.loadData('points.json', 'states.json', (err, [points, states]) => {
 
   var color = d3.scaleLinear().range(['rgba(255,0,255,0)', 'rgba(255,0,255,1)'])
 
-  var totalColor = d => d3.interpolateYlGnBu(d / 12)
+  var totalColor = d => d3.interpolateYlGnBu(d / 24)
 
   points.forEach(function(d){
     var total = 0
@@ -256,14 +266,17 @@ d3.loadData('points.json', 'states.json', (err, [points, states]) => {
     d.pos = projection([d.lon, d.lat])
   })
 
-  var times = d3.range(24).map(d => '26' + d3.format('02')(d))
+  var times = _.uniq(_.flatten(points.map(d => d3.keys(d.vals)))).sort()
   var curTimeIndex = 0
-  if (window.accumulationtimer) window.accumulationtimer.stop()
   window.accumulationtimer = d3.interval(() => {
+    var top = sel.node().getBoundingClientRect().top
+    if (top < -286 || innerHeight < top) return
+
     drawTime(times[curTimeIndex++ % times.length])
   }, 200)
 
   function drawTime(time){
+    // if (time != times[10]) return
     ctx.clearRect(0, 0, width, height)
     if (time == times[0]) ctx2.clearRect(0, 0, width, height)
 
@@ -280,8 +293,32 @@ d3.loadData('points.json', 'states.json', (err, [points, states]) => {
 
     })
   }
-})
 
+  var stacked = true
+  sel.on('click', () => setLayering() || window.clicktimer.stop())
+  setLayering()
+  function setLayering(){
+    stacked = !stacked
+    var t = +stacked 
+    console.log(t)
+    sel.selectAll('canvas, svg')
+      .st({
+        'transform': (d, i) => {
+          return `
+            translate(0px, ${t*60 - i*t*60}px)
+            rotateX(${t*60}deg)
+            rotateZ(${t*-30}deg)
+            scale(1.0)
+          `
+        },
+        background: `rgba(0,0,0,${t*.05})`,
+        border: `1px solid rgba(0,0,0,${t})`,
+        overflow: 'hidden'
+    })
+  }
+
+  window.clicktimer = d3.interval(setLayering, 5000)
+}
 
 
 

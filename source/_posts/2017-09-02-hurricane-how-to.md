@@ -162,7 +162,7 @@ mask.append('path').at({d: pathStr, fill: '#000'})
 svg.append('rect').at({width, height, fill: '#fff', mask: 'url(#ocean)'})
 ```
 
-Masks make [lots](https://bl.ocks.org/1wheel/76a07ca0d23f616d29349f7dd7857ca5) of [things](https://bl.ocks.org/1wheel/a8f39c8a96b71735488bf280d34bd765) possible. There might be a simpler of doing this, but it works!
+Masks make [lots](https://bl.ocks.org/1wheel/76a07ca0d23f616d29349f7dd7857ca5) of [things](https://bl.ocks.org/1wheel/a8f39c8a96b71735488bf280d34bd765) possible. There might be a simpler way of doing this, but it works!
 
 <div id='graphic-2' class='graphic'></div>
 
@@ -204,7 +204,7 @@ Combining two days of rainfall data made a 30 MB CSV - too big. Each observation
 ```javascript
 var points = jp.nestBy(data, d => d.Id).map(point => {
   var vals = {}
-  point.forEach(d => vals[d.time] = +d.Globvalue)
+  point.forEach(d => vals['t' + d.time] = +d.Globvalue)
 
   return {vals, lat: +point[0].Lat, +lon: point[0].Lon}
 })
@@ -212,7 +212,7 @@ var points = jp.nestBy(data, d => d.Id).map(point => {
 io.writeDataSync(__dirname + '/points.json', times)
 ```
 
-This creates an array of locations, each with a `lat`, `lon` and `vals` hash. The vals hash lists the inches rainfall the occurred during each hour.   
+This creates an array of locations, each with a `lat`, `lon` and `vals` hash. The vals hash lists the inches rainfall the occurred during each hour (the t is preprended to avoid a [nasty safari but](https://bugs.webkit.org/show_bug.cgi?id=164412)).   
 
 ```javascript
 [
@@ -220,22 +220,22 @@ This creates an array of locations, each with a `lat`, `lon` and `vals` hash. Th
     "lat": 26.6631,
     "lon": -97.4435,
     "vals": {
-      "2600": 0.02
-      "2601": 0.01
+      "t2600": 0.02
+      "t2601": 0.01
     },
   },
   {
     "lat": 27.6294,
     "lon": -98.2536,
     "vals": {
-      "2601": 0.04,
-      "2602": 0.01,
-      "2607": 0.03,
-      "2608": 0.11,
-      "2618": 0.05,
-      "2619": 0.12,
-      "2620": 0.09,
-      "2621": 0.01
+      "t2601": 0.04,
+      "t2602": 0.01,
+      "t2607": 0.03,
+      "t2608": 0.11,
+      "t2618": 0.05,
+      "t2619": 0.12,
+      "t2620": 0.09,
+      "t2621": 0.01
     },
   },
   ...
@@ -244,7 +244,7 @@ This creates an array of locations, each with a `lat`, `lon` and `vals` hash. Th
 Canvas is a lower level abstraction than SVG: it can easily draw 20,000 shapes, but there's no general purpose transition functional available. To animate the rainfall on the 26th of August, I made an array of the hourly timestamps on that day and and looped over it at 5 frames per second. 
 
 ```javascript 
-  var times = d3.range(24).map(d => '26' + d3.format('02')(d))
+  var times = d3.range(24).map(d => 't26' + d3.format('02')(d))
   var curTimeIndex = 0
   d3.interval(() => {
     drawTime(times[curTimeIndex++ % times.length])
@@ -301,8 +301,8 @@ var ctx2 = d3.select('#graphic')
 
 var totalColor = d => d3.interpolateYlGnBu(d / 12)
 ```
-
-Finally, I updated `drawTime` to use the `totals` hash and the `totalColor` scale to draw the accumulated rainfall on the second canvas. I don't want to remove accumulated rainfall values on points that weren't rained on in a given hour, so `ctx2.clearRect` only gets call on the first frame. 
+f
+Finally, I updated `drawTime` to use the `totals` hash and the `totalColor` scale to draw the accumulated rainfall on the second canvas. I don't want to remove accumulated rainfall values on points that weren't rained on in a given hour, so `ctx2.clearRect` only gets called on the first frame. 
 
 ```javascript
 function drawTime(time){
@@ -320,7 +320,7 @@ function drawTime(time){
 
 <div id='graphic-4' class='graphic'></div>
 
-Scroll to see how all the layers stack on top of each other!
+Click the map stack on top of each other!
 
 ## Less confusing total
 
