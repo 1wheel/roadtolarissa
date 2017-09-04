@@ -73,11 +73,11 @@ h2,h3,h4,h5{
 }
 
 :not(pre) > code{
-	background: #ddd;
+	background: #dedede;
 	padding: .05em;
 	padding-left: .2em;
 	padding-right: .2em;
-	border-radius: 6px;
+	border-radius: 2px;
 }
 
 strong{

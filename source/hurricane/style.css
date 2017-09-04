@@ -64,3 +64,9 @@ text{
 .hljs{
   overflow-x: auto;
 }
+
+
+code{
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  font-size: 14px !important;
+}

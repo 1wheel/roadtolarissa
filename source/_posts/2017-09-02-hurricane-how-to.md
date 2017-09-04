@@ -75,13 +75,14 @@ d3.loadData('2607.csv', (err, [data]) => {
 Next, loop over grid points and draw a 1px rectangle over each, scaling the opacity based on the rainfall: 
 
 ```js
-  var color = d3.scaleLinear().range(['rgba(255,0,0,0)', 'rgba(255,0,0,1)'])
-  data.forEach(d =>{
-    ctx.beginPath()
-    ctx.fillStyle = color(d.Globvalue)
-    ctx.rect(d.Hrapx, d.Hrapy, 1, 1)
-    ctx.fill()
-  })
+var color = d3.scaleLinear()
+  .range(['rgba(255,0,255,0)', 'rgba(255,0,255,1)'])
+data.forEach(d =>{
+  ctx.beginPath()
+  ctx.fillStyle = color(d.Globvalue)
+  ctx.rect(d.Hrapx, d.Hrapy, 1, 1)
+  ctx.fill()
+})
 ```
 
 It looks like something!
@@ -198,7 +199,7 @@ glob.sync(__dirname + '/csv/*.csv').forEach(path => {
 })
 ```
 
-Combining two days of rainfall data made a 30 MB CSV - too big. Each observation from the same location repeated the station Id, lat, log, Hrapx and Hrapy properties. Putting all the observations from one station into a single object removes the redundancy and makes the file size manageable. 
+Combining two days of rainfall data made a 30 MB CSV - too big. Each observation from the same location repeated the station `Id`, `Lat`, `Lon`, `Hrapx` and `Hrapy` properties. Putting all the observations from one station into a single object removes the redundancy and makes the file size manageable. 
 
 ```javascript
 var points = jp.nestBy(data, d => d.Id).map(point => {
@@ -211,35 +212,36 @@ var points = jp.nestBy(data, d => d.Id).map(point => {
 io.writeDataSync(__dirname + '/points.json', times)
 ```
 
-This creates an array of locations, each with a lat, lon and vals hash. The vals hash lists the inches rainfall the occurred during each hour.   
+This creates an array of locations, each with a `lat`, `lon` and `vals` hash. The vals hash lists the inches rainfall the occurred during each hour.   
 
-```json
-{
-  "lat": 26.6631,
-  "lon": -97.4435,
-  "vals": {
-    "2600": 0.02
-    "2601": 0.01
+```javascript
+[
+  {
+    "lat": 26.6631,
+    "lon": -97.4435,
+    "vals": {
+      "2600": 0.02
+      "2601": 0.01
+    },
   },
-},
-{
-  "lat": 27.6294,
-  "lon": -98.2536,
-  "vals": {
-    "2601": 0.04,
-    "2602": 0.01,
-    "2607": 0.03,
-    "2608": 0.11,
-    "2618": 0.05,
-    "2619": 0.12,
-    "2620": 0.09,
-    "2621": 0.01
+  {
+    "lat": 27.6294,
+    "lon": -98.2536,
+    "vals": {
+      "2601": 0.04,
+      "2602": 0.01,
+      "2607": 0.03,
+      "2608": 0.11,
+      "2618": 0.05,
+      "2619": 0.12,
+      "2620": 0.09,
+      "2621": 0.01
+    },
   },
-}, 
-...
+  ...
 ```
 
-Canvas is a lower level abstraction than svg: it can easily draw 20,000 shapes, but there's no general purpose transition functional available. To animate the rainfall on the 26th of August, I made an array of the hourly timestamps on that day and and looped over it at 5 frames per second. 
+Canvas is a lower level abstraction than SVG: it can easily draw 20,000 shapes, but there's no general purpose transition functional available. To animate the rainfall on the 26th of August, I made an array of the hourly timestamps on that day and and looped over it at 5 frames per second. 
 
 ```javascript 
   var times = d3.range(24).map(d => '26' + d3.format('02')(d))
@@ -249,7 +251,7 @@ Canvas is a lower level abstraction than svg: it can easily draw 20,000 shapes, 
   }, 200)
 ```
 
-At the start of each frame, everything on the canvas is removed with clearRect. Only points with with rainfall at the current time are drawn and because the data structure has changed, d.vals[time], d.Globvalue. 
+At the start of each frame, everything on the canvas is removed with clearRect. Only points with with rainfall at the current time are drawn and because the data structure has changed `d.vals[time]` replaces `d.Globvalue`. 
 
 ```javascript
 function drawTime(time){
@@ -270,11 +272,55 @@ Tom MacWright has good [tutorial on canvas animations](https://macwright.org/201
 
 ## Accumulation 
 
-3d overlay
+Since the total rainfall was an important part of the story, I stared playing 
+with different ways showing the accumulation of water. First, I needed to calculate how much water had fallen since the start of the storm. 
 
+```javascript
+points.forEach(function(d){
+  var total = 0
+  d.totals = {}
+  for (hour in d.vals) {
+    total += d.vals[hour]
+    d.totals[hour] = total
+  }
+
+  d.pos = projection([d.lon, d.lat])
+})
+```
+
+The hours have been added cronologically so the running total at each hour is equal to the cumulative rainfall at the hour. The point's location on the screen is also stored so the projection doesn't have to be recomputed each frame. 
+
+Next, I added a new canvas element underneath everything else and made a new color scale for showing accumulation.
+
+```javascript
+var ctx2 = d3.select('#graphic')
+  .append('canvas')
+  .at({width, height})
+  .node()
+  .getContext('2d')
+
+var totalColor = d => d3.interpolateYlGnBu(d / 12)
+```
+
+Finally, I updated `drawTime` to use the `totals` hash and the `totalColor` scale to draw the accumulated rainfall on the second canvas. I don't want to remove accumulated rainfall values on points that weren't rained on in a given hour, so `ctx2.clearRect` only gets call on the first frame. 
+
+```javascript
+function drawTime(time){
+  ctx.clearRect(0, 0, width, height)
+  if (time == times[0]) ctx2.clearRect(0, 0, width, height)
+
+  points.filter(d => d.vals[time]).forEach(d =>{
+    ctx2.beginPath()
+    ctx2.rect(d.pos[0], d.pos[1], 3, 3)
+    ctx2.fillStyle = totalColor(d.totals[time])
+    ctx2.fill()
+
+    ...
+```
 
 <div id='graphic-4' class='graphic'></div>
 
+Scroll to see how all the layers stack on top of each other!
 
 ## Less confusing total
 
