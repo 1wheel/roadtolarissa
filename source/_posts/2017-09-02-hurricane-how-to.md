@@ -2,7 +2,7 @@
 template: post.html
 title: "Hurricane How-To"
 permalink: /hurricane
-shareimg: http://roadtolarissa.com/images/posts/tktk
+shareimg: http://roadtolarissa.com/images/posts/hurricane-2.png
 ---
 
 <link rel="stylesheet" type="text/css" href="/hurricane/style.css">

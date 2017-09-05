@@ -225,7 +225,6 @@ https://news.ycombinator.com/item?id=9177469
 - http://twinegarden.tumblr.com/
 - line graphs showing words that typically occur at the start and end of stories
 
-<<<<<<< HEAD
 ### No Thanks
 - online (rtc)
 - bots. monte carlo tree seach, nets?
@@ -237,9 +236,7 @@ https://news.ycombinator.com/item?id=9177469
 - [Travel Times on Commuter Rail](http://rethinkingvis.com/visualizations/37)
 - grows and shrinks during the day
 
-=======
-
-### hurricane how to
+### [hurricane how to](http://roadtolarissa.com/hurricane)
 - https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html
 - getting the data
 - drawing rainfall
@@ -248,4 +245,3 @@ https://news.ycombinator.com/item?id=9177469
 - shrinking data/showing both
 - cliping to land
 - making a gif
->>>>>>> a16dadde124957c29df65f8ab12b38b67cbd4c89
