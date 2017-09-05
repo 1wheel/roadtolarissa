@@ -55,9 +55,13 @@ code{
   display: block;
   height: 1px;
   text-align: right;
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
   top: -20px;
-  right: 5px;
+  right: 3px;
   position: relative;
   font-size: 12px
+}
+
+.code a{
+  text-decoration: none;
 }

@@ -306,7 +306,7 @@ function accumulation(points, states){
       .st({
         'transform': (d, i) => {
           return `
-            translate(0px, ${-t*5 - i*t*60}px)
+            translate(0px, ${t*60 - i*t*60}px)
             rotateX(${t*60}deg)
             rotateZ(${t*-30}deg)
             scale(1.0)

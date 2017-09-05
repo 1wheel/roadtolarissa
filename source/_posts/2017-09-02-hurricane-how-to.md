@@ -55,7 +55,7 @@ Id,Hrapx,Hrapy,Lat,Lon,Globvalue
 
 ## Putting it on a canvas
 
-The next step was to see how much rain was falling where. This could have been done in QGIS, but since the end result was going on the web, I started up a webpage with [d3]() and [jetpack]().
+The next step was to see how much rain was falling where. This could have been done in QGIS, but since the end result was going on the web, I started up a webpage with [d3](http://d3js.com/) and [d3-jetpack](https://github.com/gka/d3-jetpack).
 
 First, load the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea; with over 20,000 points to draw and canvas is much faster. 
 
@@ -89,6 +89,8 @@ It looks like something!
 
 <div id='graphic-0' class='graphic'></div>
 
+<div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#L10-L28'>code</a></div>
+
 But where is it? And why is the upper left corner cut off?
 
 ## Make it a map 
@@ -110,7 +112,7 @@ d3.loadData('2607.csv', 'states.json', (err, [data, states]) => {
 
 [fitSize](https://github.com/d3/d3-geo#projection_fitExtent) make adjusting projection crops way simpler than fiddling with translate and scale values. 
 
-Since text and detailed features can be blurry on canvas if they aren't rendered at [double resolutionn](https://www.html5rocks.com/en/tutorials/canvas/hidpi/), I decided to make the map overlay with SVG. [topojson]() merges the loaded state shapes into one shape which gets drawn to the screen as a path
+Since text and detailed features can be blurry on canvas if they aren't rendered at [double resolutionn](https://www.html5rocks.com/en/tutorials/canvas/hidpi/), I decided to make the map overlay with SVG. [topojson](https://github.com/topojson/topojson) merges the loaded state shapes into one shape which gets drawn to the screen as a path.
 
 ```javascript
 var svg = d3.select('#graphic')
@@ -137,7 +139,7 @@ A bit of css positions the svg directly over the canvas.
 }
 ``` 
 
-Finally, the observed rainfall values are drawn at their projected lat/lon. Since the map is zoomed in, I'm bumped the sides of the rectangles from 1 pixel to 3. 
+Finally, the observed rainfall values are drawn at their projected lat/lon. Since the map is zoomed in, I'm bumped the sides of the rectangles from 1px to 3px. 
 
 ```javascript
 data.forEach(d =>{
@@ -148,6 +150,9 @@ data.forEach(d =>{
 ```
 
 <div id='graphic-1' class='graphic'></div>
+
+<div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#L32-L68'>code</a></div>
+
 
 Now it's clear why the corner was cut off previously - there's only data for locations within a few miles of land. This misleading makes it look a little like it isn't raining over most of the ocean. To fix this, we decide to only show rainfall over land. 
 
@@ -166,6 +171,8 @@ svg.append('rect').at({width, height, fill: '#fff', mask: 'url(#ocean)'})
 Masks make [lots](https://bl.ocks.org/1wheel/76a07ca0d23f616d29349f7dd7857ca5) of [things](https://bl.ocks.org/1wheel/a8f39c8a96b71735488bf280d34bd765) possible. There might be a simpler way of doing this, but it works!
 
 <div id='graphic-2' class='graphic'></div>
+
+<div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#L73-L125'>code</a></div>
 
 The city labels are group elements translated to each city's location with a circle and text inside.  
 
@@ -271,6 +278,8 @@ Tom MacWright has good [tutorial on canvas animations](https://macwright.org/201
 
 <div id='graphic-3' class='graphic'></div>
 
+<div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#L129-L202'>code</a></div>
+
 ## Accumulation 
 
 Since the total rainfall was an important part of the story, I stared playing 
@@ -321,6 +330,9 @@ function drawTime(time){
 
 <div id='graphic-4' class='graphic'></div>
 
+<div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#206-L296'>code</a></div>
+
+
 Rendering to different layers let you break problems down into smaller pieces - it's much easier to tinker and fix bugs when you can hide everything (both visually and conceptually) but the part that you're working on. 
 
 ## Deleting data
@@ -341,7 +353,7 @@ points = points.filter(d =>{
 io.writeDataSync(__dirname + '/points.json', points)
 ```
 
-This got the data down to a manageable size. With only a quarter as many points, the sides of the rectangles needed to be doubled to keep covering the map. Half the side length is subtracted `x` and `y` positions of the rectangle to center it over its actual position.
+This got the data down to a manageable size. With only a quarter as many points, the sides of the rectangles needed to be doubled to continue covering the map. Half the side length is subtracted `x` and `y` positions of the rectangle to center it over its actual position.
 
 ```javascript
 points.filter(d => d.vals[time]).forEach(d =>{
@@ -365,6 +377,9 @@ The blockier grid gave us enough space to explore alternative representations fo
 This still left enough detail to see the eye as the hurricane made landfall and the current location of the storm, but didn't require a complicated legend with two color scales.
 
 <div id='graphic-5' class='graphic'></div>
+
+<div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#L326-L413'>code</a></div>
+
 
 ## Finishing and beyond
 
