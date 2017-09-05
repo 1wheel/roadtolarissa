@@ -1,0 +1,67 @@
+.graphic{
+  position: relative;
+  width: 572px;
+  height: 286px;
+  background: #fff;
+  margin: auto;
+  overflow: hidden;
+}
+
+.graphic canvas, .graphic svg{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+text{
+  pointer-events: none;
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  font-size: 10px;
+}
+
+
+
+#graphic-0 canvas{
+  left: -200px;
+}
+
+#graphic-4{
+  overflow: visible;
+  cursor: pointer;
+  background: rgba(0,0,0,0);
+}
+#graphic-4 > *{
+  transition: all 2s;
+}
+#graphic-4 canvas:first-child{
+  background: #fff !important;
+}
+
+
+
+.hljs{
+  overflow-x: auto;
+}
+
+code{
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  font-size: 14px !important;
+}
+
+.code{
+  width: 572px;
+  margin: auto;
+  display: block;
+  height: 1px;
+  text-align: right;
+  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
+  top: -20px;
+  right: 3px;
+  position: relative;
+  font-size: 12px
+}
+
+.code a{
+  text-decoration: none;
+}

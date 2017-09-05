@@ -1,6 +1,4 @@
 html{
-	/*border-top: 40px solid black;*/
-	min-width: 760px;
 	background-color: #F5F5F5;
 	font-weight: normal;
 }
@@ -8,10 +6,15 @@ html{
 body{
 	max-width: 750px;
 	margin: 0px auto;
-	margin-top: 22px;
 	font-family: 'Roboto Slab', serif;
 	line-height: 1.55em;
 	font-size: 16px;
+}
+
+@media (max-width: 760px){
+	body{
+		padding: 5px;
+	}
 }
 
 p{
@@ -23,14 +26,12 @@ a{
 }
 
 .header{
-  height: 1px;
   position: relative;
-  top: -20px;
   color: black;
-  font-size: 15px;
-  width: 750px;
+  font-size: 14px;
+  height: 10px;
   overflow: visible;
-  z-index: -1;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
 }
 .header-left{
 	float: left;
@@ -38,7 +39,9 @@ a{
 .header-right{
 	float: right;
 }
-
+.header span{
+	opacity: .5;
+}
 .header a{
 	opacity: .5;
 	text-decoration: none;
@@ -50,7 +53,6 @@ a{
 	width: 16px;
 	position: relative;
 	top: 2px;
-	margin-left: 5px;
 }
 
 
@@ -62,7 +64,6 @@ h1,h2,h3,h4,h5{
 
 h1{
 	font-weight: 500;
-	/*letter-spacing: -2px;*/
 	font-size: 34px;
 }
 
@@ -71,11 +72,11 @@ h2,h3,h4,h5{
 }
 
 :not(pre) > code{
-	background: #ddd;
+	background: #dedede;
 	padding: .05em;
 	padding-left: .2em;
 	padding-right: .2em;
-	border-radius: 6px;
+	border-radius: 2px;
 }
 
 strong{
