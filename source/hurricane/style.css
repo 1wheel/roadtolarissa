@@ -7,50 +7,10 @@
   overflow: hidden;
 }
 
-#graphic-0 canvas{
-  left: -200px;
-}
-
-
-
-
 .graphic canvas, .graphic svg{
   position: absolute;
   top: 0px;
   left: 0px;
-}
-
-.tooltip {
-  top: -1000px;
-  position: fixed;
-  padding: 10px;
-  background: rgba(255, 255, 255, .90);
-  border: 1px solid lightgray;
-  pointer-events: none;
-}
-.tooltip-hidden{
-  opacity: 0;
-  transition: all .3s;
-  transition-delay: .1s;
-}
-
-@media (max-width: 590px){
-  div.tooltip{
-    bottom: -1px;
-    width: calc(100%);
-    left: -1px !important;
-    right: -1px !important;
-    top: auto !important;
-    width: auto !important;
-  }
-}
-
-svg{
-  overflow: visible;
-}
-
-.domain{
-  display: none;
 }
 
 text{
@@ -61,16 +21,10 @@ text{
 }
 
 
-.hljs{
-  overflow-x: auto;
+
+#graphic-0 canvas{
+  left: -200px;
 }
-
-
-code{
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
-  font-size: 14px !important;
-}
-
 
 #graphic-4{
   overflow: visible;
@@ -82,4 +36,28 @@ code{
 }
 #graphic-4 canvas:first-child{
   background: #fff !important;
+}
+
+
+
+.hljs{
+  overflow-x: auto;
+}
+
+code{
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  font-size: 14px !important;
+}
+
+.code{
+  width: 572px;
+  margin: auto;
+  display: block;
+  height: 1px;
+  text-align: right;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  top: -20px;
+  right: 5px;
+  position: relative;
+  font-size: 12px
 }

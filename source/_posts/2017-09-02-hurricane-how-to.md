@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: "Hurricane Map How-To"
+title: "Hurricane How-To"
 permalink: /hurricane
 shareimg: http://roadtolarissa.com/images/posts/tktk
 ---
@@ -25,14 +25,14 @@ The [Global Precipitation Measurement Constellation](https://pmm.nasa.gov/data-a
 
 <img src="https://i.imgur.com/cFAL1iC.png" style="margin: 0px auto; display: block; max-width: 573px;">
 
-[Interesting](https://www.youtube.com/watch?v=tHXHUc52SAw), but no where near to anything publishable. This was particularly frustrating because the previous afternoon I had watched Josh put together a [historical rainfall map](https://www.nytimes.com/interactive/2017/08/29/upshot/harvey-rainfall-where-you-live.html) using similar data and tools, but I wasn't familiar enough with the domain to duplicate his efforts quickly and started to worry that I had wasted time that should have gone towards making a map that just showed station numbers. 
+[Interesting](https://www.youtube.com/watch?v=tHXHUc52SAw), but no where near to anything publishable. This was particularly frustrating because the previous afternoon I had watched Josh Katz put together a [historical rainfall map](https://www.nytimes.com/interactive/2017/08/29/upshot/harvey-rainfall-where-you-live.html) using similar data and tools, but I wasn't familiar enough with the domain to duplicate his efforts quickly and started to worry that I had wasted time that should have gone towards making a station number map.
 
-Thankfully two of my other collagues, Jugal and Anjali, found a [National Weather Service FTP](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) and showed me how to convert the files to simple CSVs. Opening them in QGIS showed they had exactly the data we wanted - a grid of hourly rainfall values. 
+Thankfully two of my other collagues, Jugal Patel and Anjali Singhvi, found a [National Weather Service FTP](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) and showed me how to convert the files to simple CSVs. Opening them in QGIS showed they had exactly the data we wanted - a grid of hourly rainfall values. 
 
 <img src="https://i.imgur.com/Vgh8uZS.png" style="margin: 0px auto; display: block; max-width: 573px;">
 
 
-A bit of bash downloaded files from the ftp, extracted them and converted them a CSV with day and hour in the file name (the 26th and 7 AM here). 
+A bit of bash downloaded files from the FTP, extracted them and converted them a CSV with day and hour in the file name (the 26th and 7 AM here). 
 
 ```
 URL="http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170826/nws_precip_2017082607.tar.gz"
@@ -57,13 +57,13 @@ Id,Hrapx,Hrapy,Lat,Lon,Globvalue
 
 The next step was to see how much rain was falling where. This could have been done in QGIS, but since the end result was going on the web, I started up a webpage with [d3]() and [jetpack]().
 
-First, load the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using svg to draw the data wouldn't be a good idea; with over 20,000 points to draw and canvas is much faster. 
+First, load the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea; with over 20,000 points to draw and canvas is much faster. 
 
 ```javascript
-d3.loadData('2607.csv', (err, [data]) => {
-  var width = 700
-  var height = width/2
+var width = 700
+var height = width/2
 
+d3.loadData('2607.csv', (err, [data]) => {
   var ctx = d3.select('#graphic')
     .html('')
     .append('canvas')
@@ -95,21 +95,22 @@ But where is it? And why is the upper left corner cut off?
 
 While plotting with the grid indices is quick, it's not totally clear what we're looking at. Because we wanted to overlay the coast and city labels, we had to position the rainfall values based on their lat/lon instead.
 
-Sarah made me a detailed shapefile of Texas and Louisiana, running it through [mapshaper](http://mapshaper.org/) to shrink the file. I loaded and set up a [Texas South State Plane projection](https://github.com/veltman/d3-stateplane#nad83--texas-south-epsg32141) zoomed in the gulf. 
+{better transition}Sarah Almukhtar made me a detailed shapefile of Texas and Louisiana, running it through [mapshaper](http://mapshaper.org/) to shrink the file. I loaded it and set up a [Texas South State Plane projection](https://github.com/veltman/d3-stateplane#nad83--texas-south-epsg32141) zoomed in the gulf. 
 
 ```javascript
-var projection = d3.geoConicConformal()
-  .parallels([26 + 10 / 60, 27 + 50 / 60])
-  .rotate([98 + 30 / 60, -25 - 40 / 60])
-  .fitSize([width, height], { 
-    "type": "LineString", "coordinates": [[-99.2, 27.5], [-91.1, 30.5]]
+d3.loadData('2607.csv', 'states.json', (err, [data, states]) => {
+  var projection = d3.geoConicConformal()
+    .parallels([26 + 10 / 60, 27 + 50 / 60])
+    .rotate([98 + 30 / 60, -25 - 40 / 60])
+    .fitSize([width, height], { 
+      "type": "LineString", "coordinates": [[-99.2, 27.5], [-91.1, 30.5]]
+    })
   })
-})
 ```
 
 [fitSize](https://github.com/d3/d3-geo#projection_fitExtent) make adjusting projection crops way simpler than fiddling with translate and scale values. 
 
-Since text and detailed features can be blurry on canvas if they aren't rendered at [double resolutionn](https://www.html5rocks.com/en/tutorials/canvas/hidpi/), I decided to make the map overlay with svg. [topojson]() merges the loaded state shapes into one shape which gets drawn to the screen as a path
+Since text and detailed features can be blurry on canvas if they aren't rendered at [double resolutionn](https://www.html5rocks.com/en/tutorials/canvas/hidpi/), I decided to make the map overlay with SVG. [topojson]() merges the loaded state shapes into one shape which gets drawn to the screen as a path
 
 ```javascript
 var svg = d3.select('#graphic')
@@ -184,7 +185,7 @@ citySel.append('text').text(d => d.name).at({textAnchor: 'middle', dy: -5})
 
 Showing the progression of the storm required getting more hours of data into the browser. 
 
-Loading a separate CSV for each hour of data wouldn't be very efficient, so I wrote a script to load all the CSVs, add a column with the observation time and merged them into one big array. 
+Making a separate network request for each hour of data wouldn't be very efficient, so I wrote a script to load all the CSVs, add a column with the observation time and merged them into one big array. 
 
 ```javascript
 var {_, d3, jp, glob, io} = require('scrape-stl')
@@ -301,8 +302,8 @@ var ctx2 = d3.select('#graphic')
 
 var totalColor = d => d3.interpolateYlGnBu(d / 12)
 ```
-f
-Finally, I updated `drawTime` to use the `totals` hash and the `totalColor` scale to draw the accumulated rainfall on the second canvas. I don't want to remove accumulated rainfall values on points that weren't rained on in a given hour, so `ctx2.clearRect` only gets called on the first frame. 
+
+Finally, I updated `drawTime` to use the `totals` hash and the `totalColor` scale to draw the accumulated rainfall on the second canvas. I don't want to remove accumulated rainfall values on points that weren't rained on in a given hour, so `ctx2.clearRect` only gets called on the first hour. 
 
 ```javascript
 function drawTime(time){
@@ -320,42 +321,71 @@ function drawTime(time){
 
 <div id='graphic-4' class='graphic'></div>
 
-Click the map stack on top of each other!
+Rendering to different layers let you break problems down into smaller pieces - it's much easier to tinker and fix bugs when you can hide everything (both visually and conceptually) but the part that you're working on. 
 
-## Less confusing total
+## Deleting data
+
+Starting too look like something publishable! There were two remaining obstacles. As the hours passed and the storm progressed, the data file kept growing and was close to being too large to publish. And the bivariate color scale for showing rate and accumulation simultaneously was pretty but required too much explanation. 
+
+A little tired from rushing to finish this, I sat down with Jeremy Ashkenas to figure out how to reduce the file size. There were some potential optimizations in how the data was represented, but it wasn't clear how much of an improvement they'd offer after gzipping. Instead we shrunk the data by removing off screen points and only including points with even indices.
+
+```javascript
+points = points.filter(d =>{
+  var validLat =  25.7 <= d.lat && d.lat <= 31.2
+  var validLon = -99.2 <= d.lon && d.lon <= -89.1
+  var validIndex = d.Hrapx % 2 == 0 && d.Hrapy % 2 == 0
+
+  return validLat && validLon && validIndex
+})
+
+io.writeDataSync(__dirname + '/points.json', points)
+```
+
+This got the data down to a manageable size. With only a quarter as many points, the sides of the rectangles needed to be doubled to keep covering the map. Half the side length is subtracted `x` and `y` positions of the rectangle to center it over its actual position.
+
+```javascript
+points.filter(d => d.vals[time]).forEach(d =>{
+  ctx2.beginPath()
+  ctx2.rect(d.pos[0] - 3, d.pos[1] - 3, 6, 6)
+  ctx2.fillStyle = totalColor(d.totals[time])
+  ctx2.fill()
+```
+
+The blockier grid gave us enough space to explore alternative representations for the rate of rainfall. We replaced the solid purple squares of color with the outline of a circle representing hourly rainfall. 
+
+```javascript
+  var r = Math.sqrt(d.vals[time])      
+
+  ctx.beginPath()
+  ctx.moveTo(d.pos[0] + r, d.pos[1])
+  ctx.arc(d.pos[0], d.pos[1], r, 0, 2 * Math.PI)
+  ctx.stroke()
+```
+
+This still left enough detail to see the eye as the hurricane made landfall and the current location of the storm, but didn't require a complicated legend with two color scales.
 
 <div id='graphic-5' class='graphic'></div>
 
+## Finishing and beyond
 
-## Making it better
+The published version has additional features like a legend, a replay button, tooltip that I snuck in and responsiveness. The code for all that is 4× longer than what I've included here and isn't nearly as polished: 
 
-It would have been nice to use netcdf and WebGL but that's hard to do
-Being familiar with you tools make it possible to make things quickly. 
+```javascript
+if (hour < 5) day = +day - 1
+hour = hour - 5
+hour = hour % 24
+hour = (hour + 24) % 24
 
+var ampm = hour >= 12 ? 'p.m.' : 'a.m.';
+hour = hour % 12;
+hour = hour ? hour : 12;
+```
 
+You do what you have to to finish fast!
 
-- https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html
-- getting the data
-- drawing rainfall
-- animating the data
-- showing total rainfall
-- shrinking data/showing both
-- cliping to land
-- making a gif
+With additional time, I would have liked to figure out how to not reduce the spatial resolution of the data. A particle system in WebGL to show the rate (canvas can draw 10,000+ things at 5 FPS but not 60) and a more compact representation of that data (something like NetCDF perhaps) could have worked. If I had been more familiar with those tools, I might have given it a shot. 
 
-
-The trickiest part of this piece was finding the right data source. We wanted frequently updating, hourly data to show where the rain was falling the hardest and how much had fallen overall. 
-
-I started looking at the [Global Precipitation Measurement Constellation](https://pmm.nasa.gov/data-access/downloads/gpm) which has data on rainfall around the world in 30 minute slices released on 6 hour lag. After spending a few hours figuring out how to open up netCDF files, I realized the data wasn't updated as regularly as I hoped. Coloring the data points by observation time showed the paths of [satellites](http://imgur.com/lgjC75m) [moving](http://imgur.com/cFAL1iC) across the sky. Since not every point gets updated at the same time or on the same interval, calculating cumulative rainfall was trickier than just summing the hourly interval - too tricky to do on deadline. 
-
-After spending most of a Saturday wandering down a dead end, I was ready to give up. Until Anjali found a [NOAA ftp server](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) with exactly the data I was looking for! The format was a bit strange - a shapefile with a [grid of points](http://imgur.com/Vgh8uZS) showing calculated rainfall. I threw together a rough script to download download the last few days of observations, combine them into a csv and [plot the values](http://imgur.com/5jo48l0). 
-
-Since both the cumulative and the hourly rainfall were interesting, I tried a bivariate color 
-scale to trace the hurricane's path in red. You can see the [eye](http://imgur.com/yeJyHxs) of the hurricane as it lands! All the colors were a little too much to explain in a key though, so we switched to circles to show the current path of the hurricane. We also had to cut down on the spatial resolution to keep the file size under control - maybe a video would have been better, but I'm a big fan of tiny charts inside of tooltips.  
+Getting to make things at different tempos is one of my favorite parts of working on a graphics desk. Tight time constraints force you to find creative solutions and slack between projects gives you space to explore techniques and tools you hadn't realized realized you wanted to learn. 
 
 
-
-When projections showed Hurricane Harey could bring a record setting amount of rain to Houston, the graphics desk at the New York Times started exporing ways of showing the water. What does record setting rainfall look like in different parts of the country? Where and when did it rain the hardest? And how can we communicate how people experienced the rising water with just points on a map?
-
-This talk will describe the process of answering one of those questions, from parsing NASA's microwave data with R to creating a live-updating interactive map with d3 and canvas that showed both the [accumulation and rate of rainfall]
 
