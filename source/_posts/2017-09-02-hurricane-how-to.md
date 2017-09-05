@@ -15,22 +15,21 @@ When projections showed Hurricane Harey could bring a record setting amount of r
 
 <img src="https://i.imgur.com/hCXJovg.gif" style="margin: 0px auto; display: block;">
 
-Getting this done on deadline required mashing together a couple of different web technologies, like svg and canvas, with a grab bag of open source libraries. This post describes some of tricks and techniques we used to bring everything together. 
+Getting this done on deadline required mashing together a couple of different web technologies, like SVG and canvas, with a grab bag of open source libraries. This post describes some of tricks and techniques we used to bring everything together. 
 
 ## Finding the data
 
-First we needed a data source. Preferably a frequently updating one, with gridded values so we could make a map with more detail than just a few station numbers overlaid.
+First we needed a data source. Preferably a frequently updating one, with gridded values so we could make a map with more detailed than just overlaying numbers with the total rainfall at few locations. 
 
-The [Global Precipitation Measurement Constellation](https://pmm.nasa.gov/data-access/downloads/gpm) seemed initially seemed like a good candidate - it promised a grid of rainfall rates around the world 30 minute slices. After spending most of the day wrangling netCDF files and R though, I had only managed to make map showing the path GPM satellites had traced over the earth during one of the 30 minute update windows: 
+The [Global Precipitation Measurement Constellation](https://pmm.nasa.gov/data-access/downloads/gpm) seemed initially seemed like a good candidate - it promised a grid of rainfall rates around the world in 30 minute slices. After spending most of the day wrangling netCDF files and R though, I had only managed to make map showing the path GPM satellites had traced over the earth during one of the 30 minute update windows: 
 
 <img src="https://i.imgur.com/cFAL1iC.png" style="margin: 0px auto; display: block; max-width: 573px;">
 
-[Interesting](https://www.youtube.com/watch?v=tHXHUc52SAw), but no where near to anything publishable. This was particularly frustrating because the previous afternoon I had watched Josh Katz put together a [historical rainfall map](https://www.nytimes.com/interactive/2017/08/29/upshot/harvey-rainfall-where-you-live.html) using similar data and tools, but I wasn't familiar enough with the domain to duplicate his efforts quickly and started to worry that I had wasted time that should have gone towards making a station number map.
+[Interesting](https://www.youtube.com/watch?v=tHXHUc52SAw), but no where near to anything publishable. This was particularly frustrating because the previous afternoon I had watched Josh Katz put together a [historical rainfall map](https://www.nytimes.com/interactive/2017/08/29/upshot/harvey-rainfall-where-you-live.html) using similar data and tools, but I wasn't familiar enough with the domain to duplicate his efforts quickly. I started to worry that I had wasted time that would have been better spent making making a map with a couple of numbers overlaid.
 
-Thankfully two of my other collagues, Jugal Patel and Anjali Singhvi, found a [National Weather Service FTP](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) and showed me how to convert the files to simple CSVs. Opening them in QGIS showed they had exactly the data we wanted - a grid of hourly rainfall values. 
+Thankfully two of my other collagues, Jugal Patel and Anjali Singhvi, found a [National Weather Service FTP](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) and showed me how to convert the files to simple CSVs. Opening them in [QGIS](http://www.qgis.org/en/site/) showed they had exactly the data we wanted - a grid of hourly rainfall values. 
 
 <img src="https://i.imgur.com/Vgh8uZS.png" style="margin: 0px auto; display: block; max-width: 573px;">
-
 
 A bit of bash downloaded files from the FTP, extracted them and converted them a CSV with day and hour in the file name (the 26th and 7 AM here). 
 
@@ -40,7 +39,8 @@ curl -s $URL | tar xz --strip=3
 ogr2ogr -f CSV 2607.csv nws_precip_2017082607.shp
 ```
 
-Each row of the CSV has the observed rainfall in inches (Globvalue) at each point in the grid (Hrapx/Hrapy are the x and y grid indices)
+Each row of the CSV has the observed rainfall in inches (`Globvalue`) at each point in the grid (`Hrapx`/`Hrapy` are the `x` and `y` grid indices)
+
 ```
 Id,Hrapx,Hrapy,Lat,Lon,Globvalue
 169209,591,117,28.1442,-97.6825,0.02
@@ -57,7 +57,7 @@ Id,Hrapx,Hrapy,Lat,Lon,Globvalue
 
 The next step was to see how much rain was falling where. This could have been done in QGIS, but since the end result was going on the web, I started up a webpage with [d3](http://d3js.com/) and [d3-jetpack](https://github.com/gka/d3-jetpack).
 
-First, load the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea; with over 20,000 points to draw and canvas is much faster. 
+First, I loaded the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea with 20,000 points to draw - it's too slow. 
 
 ```javascript
 var width = 700
@@ -97,7 +97,7 @@ But where is it? And why is the upper left corner cut off?
 
 While plotting with the grid indices is quick, it's not totally clear what we're looking at. Because we wanted to overlay the coast and city labels, we had to position the rainfall values based on their lat/lon instead.
 
-{better transition}Sarah Almukhtar made me a detailed shapefile of Texas and Louisiana, running it through [mapshaper](http://mapshaper.org/) to shrink the file. I loaded it and set up a [Texas South State Plane projection](https://github.com/veltman/d3-stateplane#nad83--texas-south-epsg32141) zoomed in the gulf. 
+Sarah Almukhtar made me a detailed shapefile of Texas and Louisiana, running it through [mapshaper](http://mapshaper.org/) to shrink the file. I loaded it and set up a [Texas South State Plane projection](https://github.com/veltman/d3-stateplane#nad83--texas-south-epsg32141) zoomed in to the gulf. 
 
 ```javascript
 d3.loadData('2607.csv', 'states.json', (err, [data, states]) => {
@@ -154,11 +154,11 @@ data.forEach(d =>{
 <div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#L32-L68'>code</a></div>
 
 
-Now it's clear why the corner was cut off previously - there's only data for locations within a few miles of land. This misleading makes it look a little like it isn't raining over most of the ocean. To fix this, we decide to only show rainfall over land. 
+Now it's clear why the corner was cut off previously - there's only data for locations within a few miles of land. This misleading makes it look a like it isn't raining over most of the ocean. To fix this, we decide to only show rainfall over land. 
 
 There are a couple of ways this could have been done. Only drawing the observations on land would work, but the coastline would be blocky because the grid is zoomed in. Instead I decided to cover up the values in the ocean by drawing a white ocean and overlaying it. 
 
-Drawing the ocean with only a shapefile of the land is a little tricky. I ended drawing the land to a mask element and using a mask to clip a white rectangle covering up the whole graphic.
+Drawing the ocean with only a shapefile of the land is a little tricky. I ended drawing the land to a mask element and that to clip a white rectangle covering up the whole graphic.
 
 ```javascript
 var pathStr = path(topojson.feature(states, states.objects.states))
@@ -168,7 +168,7 @@ mask.append('path').at({d: pathStr, fill: '#000'})
 svg.append('rect').at({width, height, fill: '#fff', mask: 'url(#ocean)'})
 ```
 
-Masks make [lots](https://bl.ocks.org/1wheel/76a07ca0d23f616d29349f7dd7857ca5) of [things](https://bl.ocks.org/1wheel/a8f39c8a96b71735488bf280d34bd765) possible. There might be a simpler way of doing this, but it works!
+Masks make [lots](https://bl.ocks.org/1wheel/76a07ca0d23f616d29349f7dd7857ca5) of [things](https://bl.ocks.org/1wheel/a8f39c8a96b71735488bf280d34bd765) possible. I suspect that there's a more efficient solution here, but it works!
 
 <div id='graphic-2' class='graphic'></div>
 
@@ -220,7 +220,7 @@ var points = jp.nestBy(data, d => d.Id).map(point => {
 io.writeDataSync(__dirname + '/points.json', times)
 ```
 
-This creates an array of locations, each with a `lat`, `lon` and `vals` hash. The vals hash lists the inches rainfall the occurred during each hour (the t is preprended to avoid a [nasty safari but](https://bugs.webkit.org/show_bug.cgi?id=164412)).   
+This creates an array of locations, each with a `lat`, `lon` and `vals` hash. The `vals` hash lists the inches of rainfall the occurred during each hour (the t is preprended to avoid a [nasty safari but](https://bugs.webkit.org/show_bug.cgi?id=164412)).   
 
 ```javascript
 [
@@ -249,7 +249,7 @@ This creates an array of locations, each with a `lat`, `lon` and `vals` hash. Th
   ...
 ```
 
-Canvas is a lower level abstraction than SVG: it can easily draw 20,000 shapes, but there's no general purpose transition functional available. To animate the rainfall on the 26th of August, I made an array of the hourly timestamps on that day and and looped over it at 5 frames per second. 
+Canvas is a lower level abstraction than SVG: it can easily draw 20,000 shapes, but there's no general purpose `.transition` function. To animate the rainfall on the 26th of August, I made an array of the hourly timestamps on that day and and looped over it at 5 frames per second. 
 
 ```javascript 
   var times = d3.range(24).map(d => 't26' + d3.format('02')(d))
@@ -259,7 +259,7 @@ Canvas is a lower level abstraction than SVG: it can easily draw 20,000 shapes, 
   }, 200)
 ```
 
-At the start of each frame, everything on the canvas is removed with clearRect. Only points with with rainfall at the current time are drawn and because the data structure has changed `d.vals[time]` replaces `d.Globvalue`. 
+At the start of each frame, everything on the canvas is removed with `clearRect`. Only points with with rainfall at the current time are drawn. Since the data structure has changed `d.vals[time]` replaces `d.Globvalue`. 
 
 ```javascript
 function drawTime(time){
@@ -274,7 +274,7 @@ function drawTime(time){
 }
 ```
 
-Tom MacWright has good [tutorial on canvas animations](https://macwright.org/2015/08/14/canvas-animation-methods.html) with more techniques; d3.interval and clearRect are enough to do quite a lot though: 
+Tom MacWright has good [tutorial on canvas animation](https://macwright.org/2015/08/14/canvas-animation-methods.html) with more techniques; `d3.interval` and `clearRect` are sufficient here: 
 
 <div id='graphic-3' class='graphic'></div>
 
@@ -298,9 +298,9 @@ points.forEach(function(d){
 })
 ```
 
-The hours have been added cronologically so the running total at each hour is equal to the cumulative rainfall at the hour. The point's location on the screen is also stored so the projection doesn't have to be recomputed each frame. 
+The hours have been added chronologically so the running `total` at each hour is equal to the cumulative rainfall at that hour. To keep things simple, the structure of the `totals` hash matches the `vals` hash. The point's position on the screen is also stored so `projection` doesn't have to be called on each point each frame. 
 
-Next, I added a new canvas element underneath everything else and made a new color scale for showing accumulation.
+Next, I added a new canvas element below everything else and made a new color scale for showing accumulation.
 
 ```javascript
 var ctx2 = d3.select('#graphic')
@@ -383,7 +383,7 @@ This still left enough detail to see the eye as the hurricane made landfall and 
 
 ## Finishing and beyond
 
-The published version has additional features like a legend, a replay button, tooltip that I snuck in and responsiveness. The code for all that is 4× longer than what I've included here and isn't nearly as polished: 
+The published version has additional features like a legend, a replay button, tooltip that I snuck in and responsiveness. The code for all that is 4× longer than what's included here and isn't nearly as polished: 
 
 ```javascript
 if (hour < 5) day = +day - 1
