@@ -216,3 +216,15 @@ https://news.ycombinator.com/item?id=9177469
 ### Structure of fiction
 - http://twinegarden.tumblr.com/
 - line graphs showing words that typically occur at the start and end of stories
+
+### No Thanks
+- online (rtc)
+- bots. monte carlo tree seach, nets?
+
+### Dodgers win streak
+- 43 of 50 games... how common is that?
+
+### CTA map 
+- [Travel Times on Commuter Rail](http://rethinkingvis.com/visualizations/37)
+- grows and shrinks during the day
+
