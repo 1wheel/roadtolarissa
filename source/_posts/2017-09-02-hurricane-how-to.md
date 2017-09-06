@@ -65,7 +65,6 @@ var height = width/2
 
 d3.loadData('2607.csv', (err, [data]) => {
   var ctx = d3.select('#graphic')
-    .html('')
     .append('canvas')
     .at({width, height})
     .node()
@@ -154,7 +153,7 @@ data.forEach(d =>{
 <div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#L32-L68'>code</a></div>
 
 
-Now it's clear why the corner was cut off previously - there's only data for locations within a few miles of land. This misleadingly makes it look like it isn't raining over most of the ocean. To fix this, we decided to only show rainfall over land. 
+Now it's clear why the corner was cut off previously—there's only data for locations within a few miles of land. This misleadingly makes it look like it isn't raining over most of the ocean. To fix this, we decided to only show rainfall over land. 
 
 There are a couple of ways this could have been done. Only drawing the observations on land would work, but the coastline would be blocky because the grid is zoomed in. Instead I decided to cover up the values in the ocean by drawing a white ocean and overlaying it. 
 
@@ -207,7 +206,7 @@ glob.sync(__dirname + '/csv/*.csv').forEach(path => {
 })
 ```
 
-Combining two days of rainfall data made a 30 MB CSV - too big. Each observation from the same location repeated the station `Id`, `Lat`, `Lon`, `Hrapx` and `Hrapy` properties. Putting all the observations from one station into a single object removes the redundancy and makes the file size manageable. 
+Combining two days of rainfall data made a 30 MB CSV—too big. Each observation from the same location repeated the station `Id`, `Lat`, `Lon`, `Hrapx` and `Hrapy` properties. To remove that redundancy, I grouped all the observations from one station into a single object. 
 
 ```javascript
 var points = jp.nestBy(data, d => d.Id).map(point => {
@@ -220,7 +219,7 @@ var points = jp.nestBy(data, d => d.Id).map(point => {
 io.writeDataSync(__dirname + '/points.json', times)
 ```
 
-This creates an array of locations, each with a `lat`, `lon` and `vals` hash. The `vals` hash lists the inches of rainfall that occurred during each hour (the t is preprended to avoid a [nasty safari bug](https://bugs.webkit.org/show_bug.cgi?id=164412)).   
+This creates an array of stations, each with a `lat`, `lon` and `vals` hash. The `vals` hash lists the inches of rainfall that occurred during each hour (the t is preprended to avoid a [nasty safari bug](https://bugs.webkit.org/show_bug.cgi?id=164412)).   
 
 ```javascript
 [
@@ -333,19 +332,19 @@ function drawTime(time){
 <div class='code'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/hurricane/script.js#206-L296'>code</a></div>
 
 
-Rendering to different layers lets you break problems down into smaller pieces - it's much easier to tinker and fix bugs when you can hide everything (both visually and conceptually) but the part that you're working on. 
+Rendering to different layers lets you break problems down into smaller pieces—it's much easier to tinker and fix bugs when you can hide everything (both visually and conceptually) but the part that you're working on. 
 
 ## Deleting data
 
 Starting too look like something publishable! There were two remaining obstacles. As the hours passed and the storm progressed, the data file kept growing and was close to being too large to publish. And the bivariate color scale for showing rate and accumulation simultaneously was pretty but required too much explanation. 
 
-A little tired from rushing to finish this, I sat down with Jeremy Ashkenas to figure out how to reduce the file size. There were some potential optimizations in how the data was represented, but it wasn't clear how much of an improvement they'd offer after gzipping. Instead we shrunk the data by removing off screen points and only including points with even indices.
+A little tired from rushing to finish this, I sat down with Jeremy Ashkenas to figure out how to reduce the file size. There were some potential optimizations in how the data was represented, but it wasn't clear how much of an improvement they'd offer after gzipping. Instead we shrunk the data by removing off screen points and only including every fourth point on the grid.
 
 ```javascript
 points = points.filter(d =>{
   var validLat =  25.7 <= d.lat && d.lat <= 31.2
   var validLon = -99.2 <= d.lon && d.lon <= -89.1
-  var validIndex = d.Hrapx % 2 == 0 && d.Hrapy % 2 == 0
+  var validIndex = d.Hrapx % 2 && d.Hrapy % 2
 
   return validLat && validLon && validIndex
 })
