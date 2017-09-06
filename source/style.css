@@ -1,7 +1,6 @@
 html{
 	background-color: #F5F5F5;
 	font-weight: normal;
-	padding-bottom: 40px;
 }
 
 body{
@@ -10,6 +9,8 @@ body{
 	font-family: 'Roboto Slab', serif;
 	line-height: 1.55em;
 	font-size: 16px;
+	margin-top: 5px;
+	margin-bottom: 40px;
 }
 
 @media (max-width: 760px){

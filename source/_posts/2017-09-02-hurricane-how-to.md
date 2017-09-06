@@ -21,13 +21,13 @@ Getting this done on deadline required mashing together a couple of different we
 
 First we needed a data source. Preferably a frequently updating one, with gridded values so we could make a map with more detailed information than just overlayed numbers with the total rainfall at few locations. 
 
-The [Global Precipitation Measurement Constellation](https://pmm.nasa.gov/data-access/downloads/gpm) initially seemed like a good candidate - it promised a grid of rainfall rates around the world in 30 minute slices. But after spending most of the day wrangling netCDF files and R, I had only managed to make a map showing the path GPM satellites had traced over the earth during one of the 30 minute update windows: 
+The [Global Precipitation Measurement Constellation](https://pmm.nasa.gov/data-access/downloads/gpm) initially seemed like a good candidate—it promised a grid of rainfall rates around the world in 30 minute slices. But after spending most of the day wrangling netCDF files and R, I had only managed to make a map showing the path GPM satellites had traced over the earth during one of the 30 minute update windows: 
 
 <img src="https://i.imgur.com/cFAL1iC.png" style="margin: 0px auto; display: block; max-width: 573px;">
 
 [Interesting](https://www.youtube.com/watch?v=tHXHUc52SAw), but nowhere near to anything publishable. This was particularly frustrating because the previous afternoon I had watched Josh Katz put together a [historical rainfall map](https://www.nytimes.com/interactive/2017/08/29/upshot/harvey-rainfall-where-you-live.html) using similar data and tools, but I wasn't familiar enough with the domain to duplicate his efforts quickly. I started to worry that I had wasted time that would have been better spent making a map with a couple of numbers overlaid.
 
-Thankfully two of my other collagues, Jugal Patel and Anjali Singhvi, found a [National Weather Service FTP](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) and showed me how to convert the files to simple CSVs. Opening them in [QGIS](http://www.qgis.org/en/site/) showed they had exactly the data we wanted - a grid of hourly rainfall values. 
+Thankfully two of my other collagues, Jugal Patel and Anjali Singhvi, found a [National Weather Service FTP](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) and showed me how to convert the files to simple CSVs. Opening them in [QGIS](http://www.qgis.org/en/site/) showed they had exactly the data we wanted—a grid of hourly rainfall values. 
 
 <img src="https://i.imgur.com/Vgh8uZS.png" style="margin: 0px auto; display: block; max-width: 573px;">
 
@@ -57,7 +57,7 @@ Id,Hrapx,Hrapy,Lat,Lon,Globvalue
 
 The next step was to see how much rain was falling where. This could have been done in QGIS, but since the end result was going on the web, I started up a webpage with [d3](http://d3js.com/) and [d3-jetpack](https://github.com/gka/d3-jetpack).
 
-First, I loaded the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea with 20,000 points to draw - it's too slow. 
+First, I loaded the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea with 20,000 points to draw—it's too slow. 
 
 ```javascript
 var width = 700
