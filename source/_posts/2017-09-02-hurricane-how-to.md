@@ -11,7 +11,7 @@ shareimg: http://roadtolarissa.com/images/posts/hurricane-2.png
 <script src="/hurricane/script.js"></script>
 
 
-When projections showed Hurricane Harvey could bring a record setting amount of rain to Houston, the graphics desk at the New York Times started exporing ways of showing the rainfall. After a couple of days of scrambling, we managed to make a [map](https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html) showing both the accumulation and rate of rainfall:
+When projections showed Hurricane Harvey could bring a record setting amount of rain to Houston, the graphics desk at the New York Times started exploring ways of showing the rainfall. After a couple of days of scrambling, we managed to make a [map](https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html) showing both the accumulation and rate of rainfall:
 
 <img src="https://i.imgur.com/hCXJovg.gif" style="margin: 0px auto; display: block;">
 

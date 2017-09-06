@@ -235,8 +235,9 @@ https://news.ycombinator.com/item?id=9177469
 ### CTA map 
 - [Travel Times on Commuter Rail](http://rethinkingvis.com/visualizations/37)
 - grows and shrinks during the day
+- https://twitter.com/rougeux/status/896415628206256128
 
-### [hurricane how to](http://roadtolarissa.com/hurricane)
+### [hurricane how-to](http://roadtolarissa.com/hurricane)
 - https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html
 - getting the data
 - drawing rainfall
