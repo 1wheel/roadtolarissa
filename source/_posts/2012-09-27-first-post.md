@@ -246,3 +246,8 @@ https://news.ycombinator.com/item?id=9177469
 - shrinking data/showing both
 - cliping to land
 - making a gif
+
+### Encoding line width
+- setting y0 and y1 doesn't work on a slope
+- https://www.axios.com/countries-gdp-this-century-2484484895.html
+- https://bl.ocks.org/veltman/e45cc3a2670779a0bc942ba18163228f
