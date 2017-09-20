@@ -1,8 +1,4 @@
 {
-  "metadata": {
-    "title": "My Blog",
-    "description": "My second, super-cool blog."
-  },
   "source": "source",
   "destination": "public",
   "plugins": {
