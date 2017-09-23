@@ -336,7 +336,7 @@ Rendering to different layers lets you break problems down into smaller piecesâ€
 
 ## Deleting data
 
-Starting too look like something publishable! There were two remaining obstacles. As the hours passed and the storm progressed, the data file kept growing and was close to being too large to publish. And the bivariate color scale for showing rate and accumulation simultaneously was pretty but required too much explanation. 
+Starting to look like something publishable! There were two remaining obstacles. As the hours passed and the storm progressed, the data file kept growing and was close to being too large to publish. And the bivariate color scale for showing rate and accumulation simultaneously was pretty but required too much explanation. 
 
 A little tired from rushing to finish this, I sat down with Jeremy Ashkenas to figure out how to reduce the file size. There were some potential optimizations in how the data was represented, but it wasn't clear how much of an improvement they'd offer after gzipping. Instead we shrunk the data by removing off screen points and only including every fourth point on the grid.
 
@@ -365,12 +365,12 @@ points.filter(d => d.vals[time]).forEach(d =>{
 The blockier grid gave us enough space to explore alternative representations for the rate of rainfall. We replaced the solid purple squares of color with the outline of a circle representing hourly rainfall. 
 
 ```javascript
-  var r = Math.sqrt(d.vals[time])      
+var r = Math.sqrt(d.vals[time])      
 
-  ctx.beginPath()
-  ctx.moveTo(d.pos[0] + r, d.pos[1])
-  ctx.arc(d.pos[0], d.pos[1], r, 0, 2 * Math.PI)
-  ctx.stroke()
+ctx.beginPath()
+ctx.moveTo(d.pos[0] + r, d.pos[1])
+ctx.arc(d.pos[0], d.pos[1], r, 0, 2 * Math.PI)
+ctx.stroke()
 ```
 
 This still left enough detail to see the eye as the hurricane made landfall and the current location of the storm, but didn't require a complicated legend with two color scales.
