@@ -1,9 +1,7 @@
 ---
 template: post.html
-title: "Minute by Minute Point Differentials of 2015 NBA Games"
-comments: true
+title: Minute by Minute Point Differentials of 2015 NBA Games
 permalink: /nba-minutes
-categories: 
 shareimg: http://roadtolarissa.com/images/posts/nba-minutes.png
 ---
 

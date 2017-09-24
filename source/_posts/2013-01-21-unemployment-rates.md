@@ -1,10 +1,7 @@
 ---
 title: Unemployment Rates
-author: admin
 template: post.html
 permalink: /unemployment-rates
-categories:
-  - Uncategorized
 ---
 [<img class="aligncenter size-large wp-image-185" title="unemployment rates" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate1-1024x705.png" alt="" width="640" height="440" />][1]
 

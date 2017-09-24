@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: "Kindle Tracker"
+title: Kindle Tracker
 permalink: /kindle-tracker
 shareimg: http://roadtolarissa.com/images/posts/kindle-tracker.png
 ---

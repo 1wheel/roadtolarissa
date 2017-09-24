@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: "Hurricane How-To"
+title: Hurricane How-To
 permalink: /hurricane
 shareimg: http://roadtolarissa.com/images/posts/hurricane-2.png
 ---

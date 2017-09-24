@@ -1,10 +1,7 @@
 ---
 title: Zoomable Sierpinski Triangle
-author: admin
 template: post.html
 permalink: /zoomable-sierpinski-triangle-with-d3-js
-categories:
-  - Uncategorized
 ---
 <p style="text-align: center;">
   <a href="http://roadtolarissa.com/triangles/"><img class="aligncenter size-large wp-image-168" title="triangle" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/triangle-1024x815.png" alt="" width="640" height="509" /></a>http://roadtolarissa.com/triangles/

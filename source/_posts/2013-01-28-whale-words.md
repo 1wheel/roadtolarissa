@@ -1,10 +1,7 @@
 ---
 title: Whale Words
-author: admin
 template: post.html
 permalink: /whale-words
-categories:
-  - Uncategorized
 ---
 [<img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" />][1]
 

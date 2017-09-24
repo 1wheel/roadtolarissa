@@ -1,9 +1,7 @@
 ---
 template: post.html
-title: "Golden State's 2015 Point Differentials"
-comments: true
+title: Golden State's 2015 Point Differentials
 permalink: /gsw-streak
-categories: 
 ---
 
 <div id='graph'></div>

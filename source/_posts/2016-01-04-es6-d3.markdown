@@ -1,9 +1,8 @@
 ---
 template: post.html
-title: "Using ES2015 and D3"
-comments: true
+title: Using ES2015 and D3
 permalink: /es6-d3
-categories: 
+draft: true
 ---
 
 ## Fat Arrow

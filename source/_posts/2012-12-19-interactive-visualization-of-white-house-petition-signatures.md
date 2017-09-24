@@ -1,10 +1,7 @@
 ---
 title: White House Petition Signatures
-author: admin
 template: post.html
 permalink: /interactive-visualization-of-white-house-petition-signatures
-categories:
-  - Uncategorized
 ---
 
 <img class=" wp-image-234 alignnone" src="http://www.roadtolarissa.com/wp-content/uploads/2012/12/petition.png" />

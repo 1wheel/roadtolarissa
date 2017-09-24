@@ -1,10 +1,7 @@
 ---
 template: post.html
-title: "Population Division"
-comments: true
-categories: 
+title: Population Division
 permalink: /population-division
-
 ---
 
 <div id='joymap'></div>

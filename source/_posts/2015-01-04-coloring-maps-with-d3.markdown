@@ -1,8 +1,7 @@
 ---
 template: post.html
-title: "Coloring Maps"
+title: Coloring Maps
 permalink: /coloring-maps
-categories: 
 ---
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/mapColor/style.css">

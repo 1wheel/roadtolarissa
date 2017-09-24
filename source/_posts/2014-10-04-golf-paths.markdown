@@ -1,9 +1,7 @@
 ---
 template: post.html
 permalink: /golf-paths
-title: "Golf Paths"
-comments: true
-categories: 
+title: Golf Paths
 ---
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/golf-wl/style.css">
 

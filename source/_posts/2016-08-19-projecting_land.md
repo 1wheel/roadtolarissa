@@ -1,8 +1,7 @@
 ---
 template: post.html
-title: "Projecting Land"
+title: Projecting Land
 permalink: /projecting-land
-categories: 
 shareimg: http://roadtolarissa.com/images/posts/projecting-land.png
 ---
 

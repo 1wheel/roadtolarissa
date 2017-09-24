@@ -1,9 +1,7 @@
 ---
 template: post.html
-title: "Teams' Combined  Win and Loss Record  Before Every NBA Game Ever"
-comments: true
+title: Teams' Combined  Win and Loss Record  Before Every NBA Game Ever
 permalink: /nba-win-loss
-categories: 
 shareimg: http://roadtolarissa.com/images/posts/nba-win-loss.png
 ---
 

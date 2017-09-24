@@ -1,12 +1,7 @@
 ---
 title: Reddit Comment Visualizer
-author: admin
 template: post.html
 permalink: /reddit-comment-visualizer
-categories:
-  - redditgraphs
-tags:
-  - redditgraphs
 ---
 I've spent the last few days working on a [visualizer for reddit comments][1].  Using reddit's API, the program downloads a user's comments and graphs them with [flot][2].
 

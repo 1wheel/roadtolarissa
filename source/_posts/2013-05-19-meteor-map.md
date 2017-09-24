@@ -1,10 +1,7 @@
 ---
 title: Meteor Map
-author: admin
 template: post.html
 permalink: /meteor-map
-categories:
-  - Uncategorized
 ---
 [<img class=" wp-image-234 alignnone" alt="meteor map" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/meteormap.png" width="620" height="421" />][1]
 

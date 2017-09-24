@@ -1,9 +1,7 @@
 ---
 template: post.html
-title: "Convex Hulls"
+title: Convex Hulls
 permalink: /convex-hulls
-comments: true
-categories: 
 ---
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/convexHull/style.css">

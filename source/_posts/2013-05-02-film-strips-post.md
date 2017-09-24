@@ -1,10 +1,7 @@
 ---
 title: Film Strips
-author: admin
 template: post.html
 permalink: /film-strips-post
-categories:
-  - Uncategorized
 ---
 [<img class="alignnone  wp-image-220" alt="filmstrips" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/filmstrips.png" width="640" height="417" />][1]
 

@@ -1,9 +1,7 @@
 ---
 template: post.html
-title: "Lyric Typing"
-comments: true
+title: Lyric Typing
 permalink: /lyric-type
-categories: 
 ---
 
 Type the words in time with music!

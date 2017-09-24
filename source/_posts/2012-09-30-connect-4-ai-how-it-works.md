@@ -1,10 +1,7 @@
 ---
 title: 'Connect 4 AI: How it Works'
-author: admin
 template: post.html
-permalink: connect-4-ai-how-it-works
-categories:
-  - Uncategorized
+permalink: /connect-4-ai-how-it-works
 ---
 The [connect 4 playing program][1] uses a [minmax algorithm][2].
 

@@ -1,6 +1,5 @@
 ---
 title: Twisters
-author: admin
 template: post.html
 permalink: /twisters-post
 categories:

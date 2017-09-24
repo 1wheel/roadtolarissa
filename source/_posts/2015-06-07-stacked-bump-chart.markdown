@@ -1,9 +1,7 @@
 ---
 template: post.html
-title: "Stacked Bump Charts"
-comments: true
+title: Stacked Bump Charts
 permalink: /stacked-bump
-categories: 
 ---
 
 Alicia Parlapiano published an excellent [series of stacked bump charts](http://www.nytimes.com/interactive/2015/06/04/us/politics/stacking-up-the-presidential-fields.html) showing the history of presidential primary campaigns earlier this month. 

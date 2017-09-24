@@ -1,8 +1,7 @@
 ---
 template: post.html
 permalink: /dragon-curve
-title: "Dragon Curve"
-categories: 
+title: Dragon Curve
 ---
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/dragonCurve/style.css">
