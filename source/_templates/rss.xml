@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+	<title>roadtolarissa</title>
+	<link>https://roadtolarissa.com</link>
+	<description>Charts from Adam Pearce</description>
+	<image>
+		<url>https://roadtolarissa.com/favicon.png</url>
+		<title>roadtolarissa</title>
+		<link>https://roadtolarissa.com</link>
+	</image>
+	${d.filter(post => post.meta.draft != 'true').map( post => `
+		<item>
+			<title>${post.meta.title}</title>
+			<link>https://roadtolarissa.com${post.meta.permalink}</link>
+			<pubDate>${post.date}</pubDate>
+		</item>
+	` ).join('')}
+</channel>
+</rss>

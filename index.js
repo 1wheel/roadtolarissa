@@ -1,4 +1,3 @@
-
 // bashed on
 // http://ashkenas.com/journo/docs/journo.html
 // https://github.com/sveltejs/svelte.technology/blob/master/scripts/prep/build-blog.js
@@ -8,8 +7,6 @@ var fs = require('fs')
 var marked = require('marked')
 var hljs = require('highlight.js')
 var unescape = require('unescape')
-
-// marked.setOptions({highlight: d => hljs.highlightAuto(d).value})
 
 var public = `${__dirname}/public`
 var source = `${__dirname}/source`
@@ -25,6 +22,10 @@ fs.readdirSync(`${source}/_templates`).forEach(path => {
 
 var posts = fs.readdirSync(`${source}/_posts`).map(parsePost)
 
+fs.writeFileSync(public + '/rss.xml', templates['rss.xml'](posts))
+fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
+
+
 // read post path from file system 
 function parsePost(path, i){
   // if (i) return
@@ -33,14 +34,13 @@ function parsePost(path, i){
 
   var markdown = fs.readFileSync(`${source}/_posts/${path}`, 'utf8')
 
-  // parse metadata from post
+  // parse metadata from front matter
   var [top, content] = markdown.replace('---\n', '').split('\n---\n')
   var meta = {}
   top.split('\n').forEach(line => {
     var [key, val] = line.split(': ')
     meta[key] = val
   })
-
 
   var html = marked( content.replace( /^\t+/gm, match => match.split( '\t' ).join( '  ' ) ) )
       .replace( /<pre><code class="lang-(\w+)">([\s\S]+?)<\/code><\/pre>/g, ( match, lang, value ) => {
@@ -55,23 +55,6 @@ function parsePost(path, i){
   fs.writeFileSync(`${dir}/index.html`, templates[post.meta.template](post))
 
   return post
-}
-
-// render post with marked and highlightjs
-function renderPost(post){
-
-}
-
-
-// turn posts into a sitemap
-function makeSitemap(){
-
-} 
-
-
-// turn posts into rss feed
-function makeRSS(){
-
 }
 
 
