@@ -1,7 +1,7 @@
 ---
 template: post.html
 title: Coloring Maps
-permalink: /coloring-maps
+permalink: /blog/2015/01/04/coloring-maps-with-d3
 ---
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/mapColor/style.css">

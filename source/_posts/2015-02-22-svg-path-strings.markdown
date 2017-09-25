@@ -1,7 +1,7 @@
 ---
 template: post.html
 title: SVG Path Strings
-permalink: /path-strings
+permalink: /blog/2015/02/22/svg-path-strings
 ---
 
 <link rel="stylesheet" type="text/css" href="/javascripts/posts/svgPaths/style.css">

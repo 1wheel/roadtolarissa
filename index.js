@@ -3,14 +3,15 @@
 // https://github.com/sveltejs/svelte.technology/blob/master/scripts/prep/build-blog.js
 
 var fs = require('fs')
+var { exec, execSync } = require('child_process')
 
 var marked = require('marked')
 var hljs = require('highlight.js')
 var unescape = require('unescape')
+var chokidar = require('chokidar')
 
 var public = `${__dirname}/public`
 var source = `${__dirname}/source`
-
 
 // convert _templates dir into functions
 var templates = {}
@@ -19,22 +20,31 @@ fs.readdirSync(`${source}/_templates`).forEach(path => {
   templates[path] = d => eval('`' + str + '`')
 })
 
-
+// build blog
+rsyncStatic()
 var posts = fs.readdirSync(`${source}/_posts`).map(parsePost)
-
 fs.writeFileSync(public + '/rss.xml', templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
 
+// copy files on change
+chokidar.watch([source]).on('all', function(event, path){
+  console.log(event, path)
+  if (event != 'change') return
+  rsyncStatic()
+
+  
+  if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
+})
 
 // read post path from file system 
 function parsePost(path, i){
-  // if (i) return
+  console.log(path)
   var slug = path.split('.')[0]
   var date = slug.substr(0, 10)
 
   var markdown = fs.readFileSync(`${source}/_posts/${path}`, 'utf8')
 
-  // parse metadata from front matter
+  // parse metadata from frontmatter
   var [top, content] = markdown.replace('---\n', '').split('\n---\n')
   var meta = {}
   top.split('\n').forEach(line => {
@@ -42,6 +52,7 @@ function parsePost(path, i){
     meta[key] = val
   })
 
+  // convert markdown from html and highlight code
   var html = marked( content.replace( /^\t+/gm, match => match.split( '\t' ).join( '  ' ) ) )
       .replace( /<pre><code class="lang-(\w+)">([\s\S]+?)<\/code><\/pre>/g, ( match, lang, value ) => {
         const highlighted = hljs.highlight( lang, unescape(value) ).value
@@ -51,19 +62,13 @@ function parsePost(path, i){
   var post = {slug, date, meta, html}
 
   var dir = public + meta.permalink
-  if (!fs.existsSync(dir)) fs.writeFileSync(dir)
+  if (!fs.existsSync(dir)) execSync(`mkdir -p ${dir}`)
   fs.writeFileSync(`${dir}/index.html`, templates[post.meta.template](post))
 
   return post
 }
 
-
-// rebuild whole blog
-function build(){
-
-}
-
-// update posts
-function watch(){
-
+// copy everything but _template and _post to public
+function rsyncStatic(){
+  exec('rsync -a --exclude _post/ --exclude templates/ source/ public/')
 }
