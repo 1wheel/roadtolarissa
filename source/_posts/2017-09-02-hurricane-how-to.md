@@ -33,7 +33,7 @@ Thankfully two of my other collagues, Jugal Patel and Anjali Singhvi, found a [N
 
 A bit of bash downloaded files from the FTP, extracted them and converted them to a CSV with the day and hour in the file name (the 26th and 7 AM here). 
 
-```
+```bash
 URL="http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170826/nws_precip_2017082607.tar.gz"
 curl -s $URL | tar xz --strip=3
 ogr2ogr -f CSV 2607.csv nws_precip_2017082607.shp
@@ -41,7 +41,7 @@ ogr2ogr -f CSV 2607.csv nws_precip_2017082607.shp
 
 Each row of the CSV has the observed rainfall in inches (`Globvalue`) at each point in the grid (`Hrapx`/`Hrapy` are the `x` and `y` grid indices)
 
-```
+```bash
 Id,Hrapx,Hrapy,Lat,Lon,Globvalue
 169209,591,117,28.1442,-97.6825,0.02
 169210,592,117,28.1399,-97.6446,0.03
@@ -365,12 +365,12 @@ points.filter(d => d.vals[time]).forEach(d =>{
 The blockier grid gave us enough space to explore alternative representations for the rate of rainfall. We replaced the solid purple squares of color with the outline of a circle representing hourly rainfall. 
 
 ```javascript
-var r = Math.sqrt(d.vals[time])      
+  var r = Math.sqrt(d.vals[time])      
 
-ctx.beginPath()
-ctx.moveTo(d.pos[0] + r, d.pos[1])
-ctx.arc(d.pos[0], d.pos[1], r, 0, 2 * Math.PI)
-ctx.stroke()
+  ctx.beginPath()
+  ctx.moveTo(d.pos[0] + r, d.pos[1])
+  ctx.arc(d.pos[0], d.pos[1], r, 0, 2 * Math.PI)
+  ctx.stroke()
 ```
 
 This still left enough detail to see the eye as the hurricane made landfall and the current location of the storm, but didn't require a complicated legend with two color scales.

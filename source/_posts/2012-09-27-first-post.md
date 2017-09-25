@@ -14,7 +14,6 @@ I'd like to learn more about creating computer programs able to play board games
 
  [1]: http://en.wikipedia.org/wiki/Monte_Carlo_method#Games
 
-
 ## Other assorted ideas I'm thinking of trying (updated occasionally): 
 
 ### State population flow

@@ -14,3 +14,4 @@ node_modules
 Gemfile.lock
 npm-debug.log
 yarn.lock
+package.lock
