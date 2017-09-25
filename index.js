@@ -20,7 +20,7 @@ fs.readdirSync(`${source}/_templates`).forEach(path => {
   templates[path] = d => eval('`' + str + '`')
 })
 
-// build blog
+// build site
 rsyncStatic()
 var posts = fs.readdirSync(`${source}/_posts`).map(parsePost)
 fs.writeFileSync(public + '/rss.xml', templates['rss.xml'](posts))
@@ -28,17 +28,19 @@ fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
 
 // copy files on change
 chokidar.watch([source]).on('all', function(event, path){
-  console.log(event, path)
   if (event != 'change') return
-  rsyncStatic()
-
-  
   if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
+
+  rsyncStatic()
 })
 
-// read post path from file system 
-function parsePost(path, i){
-  console.log(path)
+// copy everything but _template and _post to public/
+function rsyncStatic(){
+  exec('rsync -a --exclude _post/ --exclude templates/ source/ public/')
+}
+
+// read post path and write to public/
+function parsePost(path){
   var slug = path.split('.')[0]
   var date = slug.substr(0, 10)
 
@@ -68,7 +70,3 @@ function parsePost(path, i){
   return post
 }
 
-// copy everything but _template and _post to public
-function rsyncStatic(){
-  exec('rsync -a --exclude _post/ --exclude templates/ source/ public/')
-}
