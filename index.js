@@ -27,12 +27,14 @@ fs.writeFileSync(public + '/rss.xml', templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
 
 // copy files on change
-chokidar.watch([source]).on('all', function(event, path){
-  if (event != 'change') return
-  if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
+if (process.argv.join('').includes('--watch')){
+  chokidar.watch([source]).on('all', function(event, path){
+    if (event != 'change') return
+    if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
 
-  rsyncStatic()
-})
+    rsyncStatic()
+  })
+}
 
 // copy everything but _template and _post to public/
 function rsyncStatic(){

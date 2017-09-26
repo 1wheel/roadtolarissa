@@ -8,7 +8,7 @@
     "unescape": "^1.0.1"
   },
   "scripts": {
-    "start": "node index.js & cd public/ && hot-server",
-    "publish": "rsync -a --omit-dir-times --no-perms public/ demo@roadtolarissa.com:../../usr/share/nginx/html/"
+    "start": "node index.js --watch & cd public/ && hot-server",
+    "publish": "node index.js && rsync -a --omit-dir-times --no-perms public/ demo@roadtolarissa.com:../../usr/share/nginx/html/"
   }
 }
