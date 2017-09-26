@@ -1,5 +1,5 @@
 html{
-	background-color: #F5F5F5;
+	background-color: #f5f5f5;
 	font-weight: normal;
 }
 
@@ -61,14 +61,13 @@ a{
 h1,h2,h3,h4,h5{
 	font-family: 'Roboto', sans-serif;
 	margin-top: 1.5em;
-	margin-bottom: 1.5em;
+	margin-bottom: .5em;
 }
-
 h1{
 	font-weight: 500;
 	font-size: 34px;
+	margin-bottom: 1.5em;
 }
-
 h2,h3,h4,h5{
 	font-size: 22px;
 }
