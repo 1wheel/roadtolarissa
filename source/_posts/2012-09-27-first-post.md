@@ -241,3 +241,4 @@ https://news.ycombinator.com/item?id=9177469
 - setting y0 and y1 doesn't work on a slope
 - https://www.axios.com/countries-gdp-this-century-2484484895.html
 - https://bl.ocks.org/veltman/e45cc3a2670779a0bc942ba18163228f
+- https://www.washingtonpost.com/graphics/2017/politics/tax-breaks/
