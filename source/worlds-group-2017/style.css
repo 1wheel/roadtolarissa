@@ -51,9 +51,10 @@ html {
   opacity: .2;
 }
 
+
 div.tooltip {
   top: -1000px;
-  position: absolute;
+  position: fixed;
   padding: 10px;
   background: rgba(255, 255, 255, .90);
   border: 1px solid lightgray;
@@ -64,7 +65,8 @@ div.tooltip {
 }
 .tooltip-hidden{
   opacity: 0;
-  transition: opacity .3s ease-in;
+  transition: all .3s;
+  transition-delay: .1s;
 }
 
 .game{

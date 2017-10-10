@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: The Ways Out of World Group Stage
+title: 2017 Worlds Group
 permalink: /worlds-group-2017
 shareimg: http://roadtolarissa.com/images/posts/worlds-group.png
 ---
