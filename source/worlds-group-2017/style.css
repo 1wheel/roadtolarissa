@@ -1,0 +1,110 @@
+svg{
+  /*margin: 0px;*/
+  /*background: black;*/
+}
+
+svg{
+  font-family: monospace;
+  overflow: visible;
+  font-size: 14px;
+}
+
+svg text{
+  /*-webkit-text-stroke: 4px navy;*/
+  -webkit-text-shadow: 0 1px 0 #F5F5F5, 1px 0 0 #F5F5F5, 0 -1px 0 #F5F5F5, -1px 0 0 #F5F5F5;
+
+}
+
+html {
+  min-width: 760px;
+  background-color: #F5F5F5;
+  font-weight: normal;
+
+}
+
+.group{
+  width: 800px;
+  margin: 0px auto;
+  display: inline-block;
+}
+
+.group-header{
+  text-align: center;
+  margin-bottom: -0px;
+  margin-top: 80px;
+  opacity: 0;
+}
+
+.team{
+  display: inline-block;
+  width: 400px;
+  position: relative;
+  z-index: 0;
+}
+
+.active{
+  stroke: black;
+  stroke-width: 4;
+}
+
+.hidden{
+  opacity: .2;
+}
+
+div.tooltip {
+  top: -1000px;
+  position: absolute;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  font-family: monospace;
+  width: 200px;
+
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: opacity .3s ease-in;
+}
+
+.game{
+  display: inline-block;
+  width: 100px;
+  margin-bottom: 10px;
+
+}
+.game .won{
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.matches{
+  font-size: 16px;
+  text-align: center;
+}
+
+.matches .game{
+  width: 115px;
+  cursor: pointer;
+  border: 1px solid black;
+  margin-right: 10px;
+  opacity: .6;
+  font-family: monospace;
+}
+.matches .game.active{
+  opacity: 1;
+}
+.matches .game span{
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.annotations path{
+  fill: none;
+  stroke: black;
+  stroke-width: .6px;
+}
+.annotations text{
+  font-size: 12px;
+}
