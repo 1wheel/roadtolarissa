@@ -5,12 +5,19 @@ d3.loadData('annotations.json', 'matches.tsv', function(err, res){
 
   annotations = res[0]
   matches = res[1]
+
+  teams2wins = {}
+
   matches.forEach(function(d, i){
     d.winner = +d.winner
     d.actualWinner = !(d.winner === 0) ? d.winner : 3
     d.complete = i < 24
     d.allTeams = d.t1 + '-' + d.t2
     d.wName = d['t' + d.winner]
+
+    if (!teams2wins[d.t1]) teams2wins[d.t1] = 0
+    if (!teams2wins[d.t2]) teams2wins[d.t2] = 0
+    teams2wins[d.wName]++
   })
 
   byGroup = d3.nestBy(matches, ƒ('group'))
@@ -78,8 +85,8 @@ function drawGroup(gMatches){
   })
 
   var teams = d3.nestBy(gMatches, ƒ('t1')).map(function(d){
-    return {name: d.key, w: 0}
-  }).sort(d3.ascendingKey('name'))
+    return {name: d.key, w: 0, actualWins: teams2wins[d.key]}
+  }).sort(d3.descendingKey('actualWins'))
 
   sel.appendMany('div.team', teams)
     .each(function(d){ drawResults(d3.select(this), scenarios, d.name, complete, incomplete) })
