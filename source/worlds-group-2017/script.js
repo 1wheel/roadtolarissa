@@ -1,3 +1,6 @@
+// http://esports-assets.s3.amazonaws.com/production/files/rules/2017-World-Championship-Rules-v-17-3.pdf
+// https://esports-assets.s3.amazonaws.com/production/files/rules/2017-MSI-Ruleset.pdf
+
 var ƒ = d3.f
 console.clear()
 d3.loadData('annotations.json', 'matches.tsv', function(err, res){
@@ -33,16 +36,23 @@ function scoreMatches(matches){
   teams.forEach(function(d){ nameToTeam[d.name] = d })
   matches.forEach(addMatchWins)
 
-  teams.forEach(function(d){ d.wins = d.w })
+  teams.forEach(function(d){ 
+    d.wins = d.w 
+    d.w = 0
+  })
 
-  d3.nestBy(teams, ƒ('w')).forEach(function(d){
-    if (d.length == 1) return
+  d3.nestBy(teams, ƒ('wins')).forEach(function(d){
+    if (d.length == 1 || d.length == 4) return
 
     var tiedTeams = d.map(ƒ('name')).join('-')
-    matches
+    var tiedMatches = matches
       .filter(function(d){
         return ~tiedTeams.indexOf(d.t1) && ~tiedTeams.indexOf(d.t2) })
-      .forEach(addMatchWins)
+    tiedMatches.forEach(addMatchWins)
+
+    // in 3-way tie, only head2head winning record gets out of tiebreaker
+    if (d.length != 3) return
+    d.forEach(function(d){ d.w = d.w > 2 ? d.w : 0 })
   })
 
 
