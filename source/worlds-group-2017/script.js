@@ -235,7 +235,7 @@ function drawResults(sel, scenarios, name, complete, incomplete){
 
   var swoopy = d3.swoopyDrag()
       .draggable(1)
-      .draggable(0)
+      // .draggable(0)
       .x(function(){ return 0 })
       .y(function(){ return 0 })
       .annotations(annotations.filter(function(d){ return d.team == name }))

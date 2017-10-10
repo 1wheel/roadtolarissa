@@ -1,28 +1,8 @@
 [
   {
-    "path": "M 214,14 A 22.432 22.432 0 0 1 180,5",
-    "text": "If ANX wins all three games, they will advance",
-    "team": "ANX",
-    "lw": 21,
-    "textOffset": [
-      220,
-      -1
-    ]
-  },
-  {
-    "path": "M -33,173 A 26.83 26.83 0 0 1 9,140",
-    "text": "If CLG only beats ANX, there's a good chance of a tiebreaker",
-    "team": "CLG",
-    "lw": 19,
-    "textOffset": [
-      -150,
-      190
-    ]
-  },
-  {
-    "path": "M -36,268 A 43.85 43.85 0 0 0 43,304",
+    "path": "M -36,279 A 45.026 45.026 0 0 0 43,310",
     "text": "Tap to see how the first match affects the group",
-    "team": "G2",
+    "team": "AHQ",
     "lw": 21,
     "textOffset": [
       -47,
@@ -30,133 +10,63 @@
     ]
   },
   {
-    "path": "M 214,14 A 27.661 27.661 0 0 1 176,5",
-    "text": "Winning all their games only lets G2 force a tiebreaker",
-    "team": "G2",
-    "lw": 21,
-    "textOffset": [
-      225,
-      -18
-    ]
-  },
-  {
-    "path": "M 203,249 A 40.094 40.094 0 0 1 142,229",
-    "text": "ROX will be eliminated if they don't win another game",
-    "team": "ROX",
-    "lw": 20,
-    "textOffset": [
-      217,
-      211
-    ]
-  },
-  {
-    "path": "M 313,122 A 24.508 24.508 0 0 1 285,150",
-    "text": "C9 avoids elimination with a win against SKT",
-    "team": "C9",
-    "lw": 20,
+    "path": "M 327,136 A 30.264 30.264 0 0 1 276,164",
+    "text": "SKT avoids elimination with a win against C9",
+    "team": "SKT",
+    "lw": 18,
     "textOffset": [
       267,
       102
     ]
   },
   {
-    "path": "M 373,-23 A 87.826 87.826 0 0 1 386,-184",
-    "text": "Without two wins, FW and IM are out",
-    "team": "IM",
-    "lw": 20,
-    "textOffset": [
-      249,
-      -15
-    ]
-  },
-  {
-    "path": "M 270,4 A 78.518 78.518 0 0 1 283,146",
-    "text": "",
-    "team": "IM",
-    "lw": 20,
-    "textOffset": [
-      246,
-      -7
-    ]
-  },
-  {
-    "path": "M 226,100 A 48.862 48.862 0 0 0 172,143",
-    "text": "If SKT loses to C9 and IM, it could be eliminated",
-    "team": "SKT",
-    "lw": 20,
-    "textOffset": [
-      236,
-      104
-    ]
-  },
-  {
-    "path": "M -32,161 A 112.633 112.633 0 0 1 161,138",
-    "text": "EDG's loss to the 1-2 INT means it has a larger chance of elimination than AHQ",
+    "path": "M 241,30 A 37.763 37.763 0 0 1 177,11",
+    "text": "A perfect part two record doesn't guarantee advancement for EDG",
     "team": "EDG",
     "lw": 20,
     "textOffset": [
-      -146,
-      184
+      208,
+      -10
     ]
   },
   {
-    "path": "M -22,35 A 72.599 72.599 0 0 0 104,86",
-    "text": "Likewise, INT's win over EDG gives it more ways to advance than H2K",
-    "team": "INT",
+    "path": "M 258,258 A 57.713 57.713 0 0 1 179,223",
+    "text": "If GAM beats IMT in the first game, LZ avoids elimination",
+    "team": "LZ",
     "lw": 20,
     "textOffset": [
-      -145,
-      -5
-    ]
-  },
-  {
-    "path": "M 247,257 A 70.181 70.181 0 0 1 116,306",
-    "text": "If INT lose the first game to EDG, almost all their advancement options disappear",
-    "team": "H2K",
-    "lw": 20,
-    "textOffset": [
-      212,
-      203
-    ]
-  },
-  {
-    "path": "M 269,-62 A 98.723 98.723 0 0 1 183.00003051757812,62.99999237060547",
-    "text": "Three-way tie if RNG, SSG and TSM beat each other once again",
-    "team": "SSG",
-    "lw": 20,
-    "textOffset": [
-      259,
-      -98
-    ]
-  },
-  {
-    "path": "M -79,-112 A 97.448 97.448 0 0 0 -115,-267",
-    "text": "",
-    "team": "TSM",
-    "lw": 20,
-    "textOffset": [
-      259,
-      -98
-    ]
-  },
-  {
-    "path": "M -19,-71 A 153.735 153.735 0 0 1 69,62",
-    "text": "",
-    "team": "TSM",
-    "lw": 20,
-    "textOffset": [
-      259,
-      -98
-    ]
-  },
-  {
-    "path": "M 165,227 A 45.915 45.915 0 0 0 108,265",
-    "text": "A win for SSG almost ensures that they won't be eliminated",
-    "team": "SSG",
-    "lw": 20,
-    "textOffset": [
-      185,
+      264,
       222
+    ]
+  },
+  {
+    "path": "M 13,20 A 55.337 55.337 0 0 0 93,12",
+    "text": "FNC doesn't need to beat LZ to advance if GAM and IMT drop all their matches",
+    "team": "FNC",
+    "lw": 20,
+    "textOffset": [
+      -120,
+      -30
+    ]
+  },
+  {
+    "path": "M 258,-56 A 54.987 54.987 0 0 1 186,3",
+    "text": "If G2 wins the first game against RNG, FB can only advance on a tiebreaker",
+    "team": "FB",
+    "lw": 20,
+    "textOffset": [
+      215,
+      -112
+    ]
+  },
+  {
+    "path": "M -66,191 A 34.4 34.4 0 0 1 -17,152",
+    "text": "TSM needs to beat WE or MSF to advance - a win against FW isn't enough",
+    "team": "TSM",
+    "lw": 20,
+    "textOffset": [
+      -106,
+      211
     ]
   }
 ]
