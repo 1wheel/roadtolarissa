@@ -10,7 +10,7 @@
     ]
   },
   {
-    "path": "M 327,136 A 30.264 30.264 0 0 1 276,164",
+    "path": "M 328,138 A 30.715 30.715 0 0 1 276.0000305175781,163.99998474121094",
     "text": "SKT avoids elimination with a win against C9",
     "team": "SKT",
     "lw": 18,
@@ -20,13 +20,13 @@
     ]
   },
   {
-    "path": "M 241,30 A 37.763 37.763 0 0 1 177,11",
-    "text": "A perfect part two record doesn't guarantee advancement for EDG",
+    "path": "M 249,11 A 36.581 36.581 0 0 1 177,10.99999713897705",
+    "text": "A 3-0  finish doesn't guarantee advancement for EDG",
     "team": "EDG",
-    "lw": 20,
+    "lw": 24,
     "textOffset": [
-      208,
-      -10
+      222,
+      -26
     ]
   },
   {
@@ -40,7 +40,7 @@
     ]
   },
   {
-    "path": "M 13,20 A 55.337 55.337 0 0 0 93,12",
+    "path": "M -89,29 A 48.552 48.552 0 0 0 -9,76",
     "text": "FNC doesn't need to beat LZ to advance if GAM and IMT drop all their matches",
     "team": "FNC",
     "lw": 20,
@@ -50,23 +50,43 @@
     ]
   },
   {
-    "path": "M 258,-56 A 54.987 54.987 0 0 1 186,3",
+    "path": "M 29,15 A 47.189 47.189 0 0 0 104,14",
     "text": "If G2 wins the first game against RNG, FB can only advance on a tiebreaker",
     "team": "FB",
     "lw": 20,
     "textOffset": [
-      215,
-      -112
+      -101,
+      -24
     ]
   },
   {
-    "path": "M -66,191 A 34.4 34.4 0 0 1 -17,152",
-    "text": "TSM needs to beat WE or MSF to advance - a win against FW isn't enough",
+    "path": "M 217,232 A 119.143 119.143 0 0 1 37,180",
+    "text": "Winning the first game against G2 guarantees advancement for RNG",
+    "team": "RNG",
+    "lw": 20,
+    "textOffset": [
+      229,
+      187
+    ]
+  },
+  {
+    "path": "M 258,-56 A 54.987 54.987 0 0 1 186,3",
+    "text": "To advance FW has to win 4 games in a row",
+    "team": "FW",
+    "lw": 22,
+    "textOffset": [
+      197,
+      -81
+    ]
+  },
+  {
+    "path": "M -87,196 A 58.498 58.498 0 0 1 -17,152.00001525878906",
+    "text": "TSM needs to beat WE or MSF—a win against FW isn't enough to advance",
     "team": "TSM",
     "lw": 20,
     "textOffset": [
-      -106,
-      211
+      -95,
+      217
     ]
   }
 ]
