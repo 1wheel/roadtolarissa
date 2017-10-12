@@ -31,7 +31,7 @@
   },
   {
     "path": "M 258,258 A 57.713 57.713 0 0 1 179,223",
-    "text": "If GAM beats IMT in the first game, LZ avoids elimination",
+    "text": "If IMT beats GAM in the first game, LZ avoids elimination",
     "team": "LZ",
     "lw": 20,
     "textOffset": [
@@ -41,7 +41,7 @@
   },
   {
     "path": "M -89,29 A 48.552 48.552 0 0 0 -9,76",
-    "text": "FNC doesn't need to beat LZ to advance if GAM and IMT drop all their matches again FNC and LZ",
+    "text": "FNC doesn't need to beat LZ to advance if GAM and IMT drop all their matches against FNC and LZ",
     "team": "FNC",
     "lw": 20,
     "textOffset": [

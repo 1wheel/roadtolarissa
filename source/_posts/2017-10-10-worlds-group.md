@@ -7,7 +7,7 @@ shareimg: http://roadtolarissa.com/images/posts/worlds-group-2017.png
 
 The second half of League of Legends' World Group Stage starts tonight! Each team will play the other three teams in their group once more. The best two teams in each group advance to the quarterfinals. 
 
-The charts below show how each team could advance. With six games left in each group left, there are 2^6 = 64 ways for group play to end. Each of these 64 outcomes is represented by a circle. Green circles show ways a team could advance and red circles show elimination scenarios. Yellow circles indicate scenarios with a tiebreaker match.
+The charts below show how each team could advance. With six games left in each group, there are 2^6 = 64 ways for group play to end. Each of these 64 outcomes is represented by a circle. Green circles show ways a team could advance and red circles show elimination scenarios. Yellow circles indicate scenarios with a tiebreaker match.
 
 This year's groups are more uniform than [2016's](https://roadtolarissa.com/worlds-group). Groups A, B and C all have a 3-0 team, a 2-1 team, a 1-2 team and 0-3 team, so the structures of their outcomes are similar. No team has been eliminated yet, but EDG, FNC, FB and FW will need at least 3 victories to advance.
 
