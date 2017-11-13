@@ -8,10 +8,10 @@
   <title>${d.meta.title}</title>
   <meta property="og:title" content="${d.meta.title}">
   <!-- <meta property="og:description" content="${d.meta.title}"> -->
-  <meta property="og:image" content="${d.meta.shareimg}">
   <meta property="og:url" content="https://roadtolarissa.com${d.meta.permalink}">
-  <meta name="twitter:card" content="summary_large_image">
-
+  ${d.meta.shareimg ? `<meta property="og:image" content="${d.meta.shareimg}">`  : ''}
+  ${d.meta.shareimg ? `<meta name="twitter:card" content="summary_large_image">` : ''}
+  
 	<link rel="stylesheet" type="text/css" href="/style.css">
 
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:700,500' rel='stylesheet' type='text/css'>  
