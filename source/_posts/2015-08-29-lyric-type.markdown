@@ -18,7 +18,7 @@ I made [version](https://github.com/1wheel/typing) of this typing game three yea
 
 The previous version was built on the now defunct Spotify desktop app platform and decrypted the also now defunct [TuneWiki](https://en.wikipedia.org/wiki/TuneWiki) internal API for timestamped lyrics. That version had lyrics for millions of songs but was difficult to share - it required installing a Spotify app and leeching off the API seemed like an okay thing to do locally but not publicly. 
 
-This version uses YouTube for the music and I've baked in the lyrics for just 5 songs. It looks like [MusicXmatch](https://developer.musixmatch.com/) has timestamped lyrics, but it doesn't look they provide an API for them. I might come back to this and add the ability to add your own videos and [lyrics](https://en.wikipedia.org/wiki/LRC_(file_format)) - saved in localStorage or shared with query parameters perhaps - but until then, you're stuck with Julie Andrews and Carly Rae Jepsen.
+This version uses YouTube for the music and I've baked in the lyrics for just 5 songs. It looks like [MusicXmatch](https://developer.musixmatch.com/) has timestamped lyrics, but they don't provide a public API for them. I might come back to this and add the ability to add your own videos and [lyrics](https://en.wikipedia.org/wiki/LRC_(file_format)) - saved in localStorage or shared with query parameters perhaps - but until then, you're stuck with Julie Andrews and Carly Rae Jepsen.
 
 
 <div class='tooltip'></div>
