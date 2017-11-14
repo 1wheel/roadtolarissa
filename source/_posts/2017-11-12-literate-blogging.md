@@ -5,6 +5,11 @@ permalink: /literate-blogging
 draft: true
 ---
 
+Run with: 
+```bash
+lit-node source/_posts/2017-11-12-literate-blogging.md --watch
+```
+
 
 This is that post on every blog about how the blog is set up
 
