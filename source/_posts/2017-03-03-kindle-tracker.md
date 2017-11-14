@@ -23,7 +23,7 @@ I even briefly considered taking [screen shots](http://lifehacker.com/take-scree
 
 I found a solution poking around the Kindle file system and using `diff -rq`. The `/Volumes/Kindle/system/userannotlogsDir/` has files that contain jsonish blobs: 
 
-```
+```json
 -919642717={"annotationData":{"readingStartTime":"1487899696790","readingStartPosition":"40394"},"modificationDate":"2017-02-24T01:28:24Z","contentReference":{"format":"Mobi8","guid":"CR!T3V6D4070H58D8YGEY5BYTNYXBV8:F1A7EE2F","asin":"B00H7WPC4S","type":"EBOK","version":0},"action":"Create","position":{"pos":110998,"state":"0001b196","begin":110998},"type":"LastPositionReadAnnotation"}
 -710224237={"annotationData":{"readingStartTime":"1487899696790","readingStartPosition":"40394"},"modificationDate":"2017-02-24T01:28:31Z","contentReference":{"format":"Mobi8","guid":"CR!T3V6D4070H58D8YGEY5BYTNYXBV8:F1A7EE2F","asin":"B00H7WPC4S","type":"EBOK","version":0},"action":"Create","position":{"pos":110998,"state":"0001b196","begin":110998},"type":"LastPositionReadAnnotation"}
 -143412032={"annotationData":{"readingStartTime":"1487899696790","readingStartPosition":"40394"},"modificationDate":"2017-02-24T01:41:05Z","contentReference":{"format":"Mobi8","guid":"CR!T3V6D4070H58D8YGEY5BYTNYXBV8:F1A7EE2F","asin":"B00H7WPC4S","type":"EBOK","version":0},"action":"Create","position":{"pos":113594,"state":"0001bbba","begin":113594},"type":"LastPositionReadAnnotation"}
@@ -32,13 +32,13 @@ I found a solution poking around the Kindle file system and using `diff -rq`. Th
 
 After reading a few pages and plugging the Kindle in, another line with the current time and reading position gets added to the log file. To collect the files before they're deleted, I set up a cron job to copy them to my computer: 
 
-```
+```bash
 cp -R /Volumes/Kindle/system/userannotlogsDir/* /Users/adam/kindle-tracker/logs/
 ```
 
 Since these files aren't quite JSON, they need a little bit parsing to be usable: 
 
-```
+```js
 var data = file.split('\n')
   .filter(d => d)   // remove trailing lines
   .map(function(d){

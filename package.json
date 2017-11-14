@@ -4,11 +4,10 @@
     "chokidar": "^1.7.0",
     "highlight.js": "^9.12.0",
     "hot-server": "^0.0.13",
-    "marked": "^0.3.6",
-    "unescape": "^1.0.1"
+    "marked": "^0.3.6"
   },
   "scripts": {
     "start": "node index.js --watch & cd public/ && hot-server",
-    "publish": "node index.js && rsync -a --omit-dir-times --no-perms public/ demo@roadtolarissa.com:../../usr/share/nginx/html/"
+    "publish": "node index.js && rsync -a --omit-dir-times --no-perms  --exclude node_modules public/ demo@roadtolarissa.com:../../usr/share/nginx/html/"
   }
 }

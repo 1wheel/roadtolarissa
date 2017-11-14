@@ -1,14 +1,14 @@
-// bashed on
+// based on
 // http://ashkenas.com/journo/docs/journo.html
 // https://github.com/sveltejs/svelte.technology/blob/master/scripts/prep/build-blog.js
 
 var fs = require('fs')
 var { exec, execSync } = require('child_process')
-
-var marked = require('marked')
 var hljs = require('highlight.js')
-var unescape = require('unescape')
-var chokidar = require('chokidar')
+var marked = require('marked')
+marked.setOptions({
+  highlight: (code, lang) => hljs.highlight(lang, code).value
+})
 
 var public = `${__dirname}/public`
 var source = `${__dirname}/source`
@@ -20,26 +20,16 @@ fs.readdirSync(`${source}/_templates`).forEach(path => {
   templates[path] = d => eval('`' + str + '`')
 })
 
+// copy everything but _template and _post to public/
+function rsyncStatic(){
+  exec('rsync -a --exclude _post/ --exclude _templates/ source/ public/')
+}
+
 // build site
 rsyncStatic()
 var posts = fs.readdirSync(`${source}/_posts`).map(parsePost)
 fs.writeFileSync(public + '/rss.xml', templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
-
-// copy files on change
-if (process.argv.join('').includes('--watch')){
-  chokidar.watch([source]).on('all', function(event, path){
-    if (event != 'change') return
-    if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
-
-    rsyncStatic()
-  })
-}
-
-// copy everything but _template and _post to public/
-function rsyncStatic(){
-  exec('rsync -a --exclude _post/ --exclude templates/ source/ public/')
-}
 
 // read post path and write to public/
 function parsePost(path){
@@ -56,13 +46,8 @@ function parsePost(path){
     meta[key] = val
   })
 
-  // convert markdown from html and highlight code
-  var html = marked( content.replace( /^\t+/gm, match => match.split( '\t' ).join( '  ' ) ) )
-      .replace( /<pre><code class="lang-(\w+)">([\s\S]+?)<\/code><\/pre>/g, ( match, lang, value ) => {
-        const highlighted = hljs.highlight( lang, unescape(value) ).value
-        return `<pre class="lang-${lang}"><code class='hljs'>${highlighted}</code></pre>`
-      })
-
+  // convert markdown to html
+  var html = marked(content)
   var post = {slug, date, meta, html}
 
   var dir = public + meta.permalink
@@ -72,3 +57,11 @@ function parsePost(path){
   return post
 }
 
+// copy files on change
+if (process.argv.join('').includes('--watch')){
+  var chokidar = require('chokidar')
+  chokidar.watch([source]).on('change', (event, path) => {
+    if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
+    rsyncStatic()
+  })
+}
