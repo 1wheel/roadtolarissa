@@ -13,6 +13,12 @@ marked.setOptions({
 var public = `${__dirname}/public`
 var source = `${__dirname}/source`
 
+// copy everything but _template and _post to public/
+function rsyncStatic(){
+  exec('rsync -a --exclude _post/ --exclude _templates/ source/ public/')
+}
+rsyncStatic()
+
 // convert _templates dir into functions
 var templates = {}
 fs.readdirSync(`${source}/_templates`).forEach(path => {
@@ -20,13 +26,6 @@ fs.readdirSync(`${source}/_templates`).forEach(path => {
   templates[path] = d => eval('`' + str + '`')
 })
 
-// copy everything but _template and _post to public/
-function rsyncStatic(){
-  exec('rsync -a --exclude _post/ --exclude _templates/ source/ public/')
-}
-
-// build site
-rsyncStatic()
 var posts = fs.readdirSync(`${source}/_posts`).map(parsePost)
 fs.writeFileSync(public + '/rss.xml', templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
