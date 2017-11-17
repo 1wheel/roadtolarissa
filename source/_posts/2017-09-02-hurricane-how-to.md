@@ -116,7 +116,7 @@ Since text and detailed features can be blurry on canvas if they aren't rendered
 ```javascript
 var svg = d3.select('#graphic')
   .append('svg')
-  .at({width: width, height: height})
+  .at({width, height})
 
 var path = d3.geoPath().projection(projection)
 var pathStr = path(topojson.mesh(states, states.objects.states))
@@ -281,8 +281,7 @@ Tom MacWright has good [tutorial on canvas animation](https://macwright.org/2015
 
 ## Accumulation 
 
-Since the total rainfall was an important part of the story, I stared playing 
-with different ways showing the accumulation of water. First, I needed to calculate how much water had fallen since the start of the storm. 
+Since the total rainfall was an important part of the story, I stared playing with different ways showing the accumulation of water. First, I needed to calculate how much water had fallen since the start of the storm. 
 
 ```javascript
 points.forEach(function(d){
