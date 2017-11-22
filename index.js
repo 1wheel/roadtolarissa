@@ -60,7 +60,9 @@ function parsePost(path){
 // copy files on change
 if (process.argv.join('').includes('--watch')){
   var chokidar = require('chokidar')
-  chokidar.watch([source]).on('change', (event, path) => {
+  chokidar.watch([source]).on('change', (path) => {
+    console.log(path)
+
     if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
     rsyncStatic()
   })

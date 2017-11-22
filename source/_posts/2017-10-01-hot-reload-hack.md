@@ -6,8 +6,9 @@ draft: true
 shareimg: http://roadtolarissa.com/images/posts/tktk.png
 ---
 
+Ever since https://vimeo.com/242837481
 
-## websockets and chodir
+## websockets + chodir
 
 
 ## requirejs
