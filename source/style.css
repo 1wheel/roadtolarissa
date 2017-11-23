@@ -30,10 +30,10 @@ a{
 .header{
   position: relative;
   color: black;
-  font-size: 14px;
+  font-size: 16px;
   height: 10px;
   overflow: visible;
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  // font-family: monaco, Consolas, 'Lucida Console', monospace; 
 }
 .header-left{
 	float: left;
@@ -53,6 +53,7 @@ a{
 }
 .header img{
 	width: 16px;
+  margin-right: 2px;
 	position: relative;
 	top: 2px;
 }
