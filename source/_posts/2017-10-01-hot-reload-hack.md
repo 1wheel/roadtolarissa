@@ -1,12 +1,15 @@
 ---
 template: post.html
-title: Hot Reload Hacking
-permalink: /hot-reload-hack
+title: Hacking Hot Reloading
+permalink: /hot-reload
 draft: true
 shareimg: http://roadtolarissa.com/images/posts/tktk.png
 ---
 
-Ever since https://vimeo.com/242837481
+Ever since seeing Brett Victor [live code mario](https://vimeo.com/242837481), I've wanted a more interactive  
+
+[mario gif] 
+
 
 ## websockets + chodir
 
@@ -14,8 +17,10 @@ Ever since https://vimeo.com/242837481
 ## requirejs
 
 
+## browserify
+
+
 ## rollup
 
 
-## browserify
 
