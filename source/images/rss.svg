@@ -1,1 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 26 26"><path fill='none' stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7.03 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"></path></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" stroke="#000" fill="none" stroke-width="1.5">
+	<g transform='translate(0, -2)'>
+		<circle r="1.5" cy="13.5" cx="2.5"></circle>
+		<circle r="12" cy="16"></circle>
+		<circle r="8.3" cy="16"></circle>
+	</g>
+	<rect y='14' width='16' height='2' stroke='#f5f5f5' fill='#f5f5f5'></rect>
+</svg>
+
+
+
+<!-- d3.select('.header-right').selectAll('a')
+  .filter((d, i) => i > 3).remove()
+var svg = d3.select('.header-right')
+  .append('a').at({href: 'google.com'})
+  .append('svg').at({width: 16, height: 16, xmlns:'http://www.w3.org/2000/svg'})
+  .st({overflow: 'hidden'})
+  .at({stroke: '#000', fill: 'none', strokeWidth: 1.5})
+  // .st({border: '1px solid #f0f'})
+
+var s = 16
+
+var r = 1.5
+svg.append('circle')
+  .at({r, cy: s - r - 1, cx: r + 1})
+
+svg.append('circle')
+  .at({r: 12, cy: s})
+svg.append('circle')
+  .at({r: 8.3, cy: s})
+
+ -->
+
