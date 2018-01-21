@@ -74,7 +74,8 @@
 
 .tree{
   margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
 }
 
 .sequence-str{
@@ -120,4 +121,23 @@ svg{
 text{
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+
+.flashing{
+  animation-duration: 1s;
+  animation-name: flash;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+}
+
+@keyframes flash {
+  from {
+    background: rgba(255, 0, 255, 0);
+  }
+
+  to {
+    background: rgba(255, 0, 255, 1);
+  }
 }
