@@ -41,6 +41,8 @@ A similar approach works for [Rock-Paper-Scissors](http://www.nytimes.com/intera
 
 Human-generated random inputs are distinguishable from true random noise along a variety of statistical measures; with practice, humans can produce inputs closer to [random noise](https://www.researchgate.net/profile/Allen_Neuringer/publication/232494603_Can_People_Behave_Randomly_The_Role_of_Feedback/links/02e7e51fec79d7ff8c000000.pdf).
 
+We also [detect patterns in random noise](https://cocosci.berkeley.edu/tom/papers/hard.pdf).
+
 [Code](https://github.com/1wheel/roadtolarissa/blob/master/source/oracle/script.js) for this page. The computer doesn't cheat!
 
 

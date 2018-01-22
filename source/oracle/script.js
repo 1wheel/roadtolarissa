@@ -52,13 +52,14 @@ function updateLog(){
   var colSel = logSel.insert('div.log-col', ':first-child')
 
   var d = _.last(sequence)
+  colSel.append('div.guess')
+    .classed('is-left', d.guess)
+    .text(toLR(d.guess))
+
   colSel.append('div')
     .classed('is-left', d.actual)
     .text(toLR(d.actual))
 
-  colSel.append('div.guess')
-    .classed('is-left', d.guess)
-    .text(toLR(d.guess))
 
   var percent = d3.mean(sequence.slice(-100), d => d.actual == d.guess)
   scoreSel.text(d3.format('.0%')(percent))
