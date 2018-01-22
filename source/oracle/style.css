@@ -1,11 +1,13 @@
 .fixed{
   position: sticky;
-  top: 0px;
+  position: -webkit-sticky;
+  top: 0;
   max-width: 750px;
   margin: 0px auto;
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
   background: #f5f5f5;
   overflow: hidden;
+  min-height: 79px;
 }
 
 .score, .log{
@@ -100,6 +102,7 @@
   margin-top: 30px;
   margin-bottom: 50px;
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  height: 306px;
 }
 
 .sequence-str{
@@ -174,8 +177,10 @@ text.arrow{
 }
 
 .keypress{
-  font-family: monaco, Consolas, 'Lucida Console', monospace;
   color: #f0f;
   display: inline-block;
-  width: 67px;
+}
+
+.arrow-inline, .keypress{
+  font-family: monaco, Consolas, 'Lucida Console', monospace;
 }

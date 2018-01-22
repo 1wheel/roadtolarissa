@@ -2,7 +2,7 @@
 template: post.html
 title: Aaronson Oracle
 permalink: /oracle
-draft: true
+shareimg: https://i.imgur.com/rfwNaUx.png
 ---
 
 <span class='flashing'>Press the left and right arrow keys randomly, as fast as you can!</span>
@@ -25,23 +25,24 @@ draft: true
 
 ## How does it work?
 
-ngrams, sequences of four characters tktk tk. It looks at all the times you entered your last four key strokes <span class='keypress'></span> and compares the number of times the next character was a ← and a →. The computer guesses which ever happened 
+Each of your key strokes is recorded. The computer finds all the times you entered your last four key strokes <span class='keypress'></span> and compares the number of times the next key stroke was a <span class='arrow-inline'>←</span> to the number of times the next key stroke was a <span class='arrow-inline'>→</span>. It guesses whichever has happened more often. 
 
-The tree below shows tk tk
+The diagram below shows how many times you've entered each five character sequence, with more common sequences drawn with thicker paths. The last four characters you've entered are highlighted <b style="color: #f0f; position: relative; top: -5px; z-index: -100;">▂</b>. You can see the computer's guess by looking at which of the lines branching off your last character is thickest.  
 
 <div class='tree'></div>
 
-Knowing what the computer computer will guess, you can guarantee that it is always wrong by picking the other direction. Doing the *opposite* of what a computer tells you isn't quite free will though!
+Knowing what the computer will guess, you can guarantee that it is always wrong by picking the other direction. Doing the *opposite* of what a computer tells you isn't quite free will though!
 
 ## More reading
 
 Inspired by [Nick Merrill's](http://people.ischool.berkeley.edu/~nick/aaronson-oracle/index.html) implementation of [Scott Aaronson's program](https://github.com/elsehow/aaronson-oracle).
 
-A similar approach works for [Rock-Paper-Scissors](http://www.nytimes.com/interactive/science/rock-paper-scissors.html). Each level of the tree will branch three times instead of two. 
+A similar approach works for [Rock-Paper-Scissors](http://www.nytimes.com/interactive/science/rock-paper-scissors.html). Each level of the tree branches three times instead of two. 
 
-Human generated random inputs are distinguishable from true random noise along a variety of statistical measures; with practice, humans can produce inputs closer to [random noise](https://www.researchgate.net/profile/Allen_Neuringer/publication/232494603_Can_People_Behave_Randomly_The_Role_of_Feedback/links/02e7e51fec79d7ff8c000000.pdf).
+Human-generated random inputs are distinguishable from true random noise along a variety of statistical measures; with practice, humans can produce inputs closer to [random noise](https://www.researchgate.net/profile/Allen_Neuringer/publication/232494603_Can_People_Behave_Randomly_The_Role_of_Feedback/links/02e7e51fec79d7ff8c000000.pdf).
 
 [Code](https://github.com/1wheel/roadtolarissa/blob/master/source/oracle/script.js) for this page. The computer doesn't cheat!
+
 
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src='../worlds-group-2017/d3_.js'></script>

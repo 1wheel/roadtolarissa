@@ -113,7 +113,7 @@ var treePathSel = treeSel.append('g').appendMany('path', nodes)
 var treeCircleSel = treeSel.append('g').appendMany('circle', nodes)
   .translate(d => [d.x, d.y])
   .at({r: 4, stroke: '#000', fill: '#fff'})
-  .call(ttFn)
+  .filter(d => d.level).call(ttFn)
 
 var predictionSel = treeSel.append('g')
   .translate([0, height + 10])
@@ -138,10 +138,10 @@ function ttFn(sel){
       ttSel
         .html('')
         .append('div.sequence-str')
-        .text(d.str.replace(/1/g, 'R').replace(/0/g, 'L'))
+        .text(d.str.replace(/1/g, '→').replace(/0/g, '←'))
         .parent()
         .append('div')
-        .text(d.count + ' times')
+        .text(d.count + ' time' + (d.count == 1 ? '' : 's'))
     })
 }
 
@@ -155,10 +155,10 @@ function drawTree(){
 
   var node4 = []
   var cur5 = sequence.slice(-5).map(d => d.actual).join('')
-  d3.range(1, 5).forEach(i => {
+  d3.range(1, 5).reverse().forEach(i => {
     d3.range(i, 6).forEach(j =>{
       var node = str2node[cur5.slice(i, j)]
-      node.active = true
+      node.active = i == 1 ? 1 : .5
 
       if (i == 1) node4.push(node)
     })
@@ -174,7 +174,7 @@ function drawTree(){
     // .transition().duration(200)
     .st({
       strokeWidth: d => Math.max(d.active, rScale(d.count)),
-      stroke: d => d.active ? '#f0f' : '#000'
+      stroke: d => d.active == 1 ? '#f0f' : d.active ? '#909' : '#000'
     })
 
   treeSel.st({opacity: 1})
@@ -207,6 +207,7 @@ function drawTree(){
 
 
   d3.select('.keypress').text(cur4.split('').map(toLR).join(' '))
+    .st({width: 68})
 }
 
 
