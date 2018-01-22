@@ -25,10 +25,12 @@ function update(actual){
     .transition().duration(200)
     .st({background: '#fff'})
 
+  var guess = makeGuess()
+
   var cur5 = sequence.slice(-4).map(d => d.actual).join('') + actual 
   d3.range(6).forEach(i => ngrams[cur5.substr(0, i)]++)
 
-  sequence.push({actual, guess: makeGuess()})
+  sequence.push({actual, guess})
   
   updateLog()
   drawTree()
@@ -43,7 +45,7 @@ function makeGuess(){
 }
 
 
-var logSel = d3.select('.log').html('')
+var logSel = d3.select('.log-entries div').html('')
 var scoreSel = d3.select('.score')
 
 function updateLog(){
@@ -60,6 +62,7 @@ function updateLog(){
 
   var percent = d3.mean(sequence.slice(-100), d => d.actual == d.guess)
   scoreSel.text(d3.format('.0%')(percent))
+  if (percent < 1) scoreSel.st({opacity: 1})
 
   if (sequence.length == 15){
     d3.selectAll('.flashing')
@@ -112,14 +115,19 @@ var treeCircleSel = treeSel.append('g').appendMany('circle', nodes)
   .at({r: 4, stroke: '#000', fill: '#fff'})
   .call(ttFn)
 
-
 var predictionSel = treeSel.append('g')
   .translate([0, height + 10])
-  .st({opacity: 1})
+  .st({opacity: 0})
 predictionSel.append('text.arrow')
   .at({textAnchor: 'middle', y: 22, fontSize: 20})
 predictionSel.append('text')
   .at({textAnchor: 'middle', y: 35, fontSize: 12}).text('Guess')
+predictionSel.append('text')
+  .at({textAnchor: 'middle', y: -14, fontSize: 12}).text(innerWidth < 700 ? '' : '?')
+
+
+var actualSel = treeSel.appendMany('text.arrow', d3.range(5))
+  .at({fill: '#f0f', dy: '.33em', textAnchor: 'middle'})
 
 
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
@@ -145,15 +153,18 @@ function drawTree(){
     d.active = false
   })
 
+  var node4 = []
   var cur5 = sequence.slice(-5).map(d => d.actual).join('')
   d3.range(1, 5).forEach(i => {
     d3.range(i, 6).forEach(j =>{
-      str2node[cur5.slice(i, j)].active = true
+      var node = str2node[cur5.slice(i, j)]
+      node.active = true
+
+      if (i == 1) node4.push(node)
     })
   })
 
   var rScale = d3.scaleSqrt().domain([0, 1, 100]).range([0, 1, 20])
-  var lScale = 
 
   treeCircleSel
     .at({r: d => rScale(d.count)})
@@ -174,11 +185,28 @@ function drawTree(){
   var node = str2node[cur4]
   
   predictionSel
-    // .transition().duration(100)
-    .at({opacity: 1})
+    .st({opacity: 1})
+    .transition().duration(100)
     .translate([node.x, height])
 
   predictionSel.select('text').text(toLR(makeGuess()))
+
+
+  var node4 = node4
+    .filter(d => d.level)
+    .map(d => ({n: d.parent, text: toLR(_.last(d.str))}))
+
+  actualSel.data(node4)
+    .text(d => d.text)
+    .translate(d => [d.n.x, d.n.y])
+    .at({
+      dy: d => d.n.count < 10 ? '1.6em' : '.33em',
+      dy: 43,
+      y: d =>  d.text == '←' ? 0 : -1.2
+    })
+
+
+  d3.select('.keypress').text(cur4.split('').map(toLR).join(' '))
 }
 
 
@@ -189,9 +217,13 @@ function toLR(d){ return +d ? '→' : '←' }
 
 
 
-'1 0 1 0 1 0 1 0 1 1 1 1 1 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 0 1 0 1 0 1 0 1 0 1 0 1 0 0 0 1 1 0 1 0 1 0 1 1 1 1 0 1 0 1 0 1 1 1 0 1 0 1 0 1 0 1 1 1 1 0 0 1 0 1 0 1 0 0 1 1 0 0 1 1 0 1 0 1 0 1 0 1 0 0 0 0 1 0 1 0 1 0 1 1 0 0 1 1'
-  .split(' ')
-  .forEach(d => update(+d))
+'1010101011111101010101010101010101011010101010101000110101011110101011101010101111001010100110011010101010000101010110011'
+  .split('')
+  // .forEach(d => update(+d))
+
+'10101100101010'
+  .split('')
+  // .forEach(d => update(+d))
 
 
 

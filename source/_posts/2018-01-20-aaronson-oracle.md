@@ -14,6 +14,9 @@ draft: true
   		<div>Guess: </div>
   		<div>Actual: </div>
   	</div>
+  	<div class='log-entries'>
+  		<div></div>
+  	</div>
   </div>
   <div class='button'></div>
 </div>
@@ -22,7 +25,9 @@ draft: true
 
 ## How does it work?
 
-The looks at ngrams, sequences of four character
+ngrams, sequences of four characters tktk tk. It looks at all the times you entered your last four key strokes <span class='keypress'></span> and compares the number of times the next character was a ← and a →. The computer guesses which ever happened 
+
+The tree below shows tk tk
 
 <div class='tree'></div>
 

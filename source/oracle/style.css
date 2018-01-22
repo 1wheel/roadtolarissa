@@ -5,6 +5,7 @@
   margin: 0px auto;
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
   background: #f5f5f5;
+  overflow: hidden;
 }
 
 .score, .log{
@@ -15,9 +16,9 @@
   font-size: 35px;
   width: 70px;
   position: relative;
-  left: 8px;
+  left: 0px;
   top: -10px;
-  
+  opacity: 0;
 }
 
 .log{
@@ -26,12 +27,35 @@
   overflow: hidden;
   top: -1px;
   position: relative;
-  
 }
+
+.labels{
+  float: left;
+  width: 70px;
+  text-align: right;
+}
+
+.labels > div{
+  position: relative;
+  right: 3px;
+}
+
+.log-entries{
+  float: left;
+  width: calc(100% - 72px);
+  overflow: hidden;
+}
+
+.log-entries > div{
+  width: 1000px;
+}
+
+
+
 
 .log-col{
   display: inline-block;
-  width: 20px;
+  width: 22px;
   border-left: 1px solid #ccc;
 }
 .log-col:last-child{
@@ -40,7 +64,7 @@
 
 .log-col > div{
   padding-right: 8px;
-  padding-left: 5px;
+  padding-left: 7px;
 }
 .log .is-left{
   background: #000;
@@ -119,7 +143,7 @@ svg{
 }
 
 text{
-  pointer-events: none;
+  /*pointer-events: none;*/
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
 
@@ -140,4 +164,18 @@ text{
   to {
     background: rgba(255, 0, 255, 1);
   }
+}
+
+text.arrow{
+  font-size: 16px;
+  /*font-family: monospace !important;*/
+  /*font-family: 'Georgia','Times',serif !important;*/
+  /*font-family: sans-serif !important;*/
+}
+
+.keypress{
+  font-family: monaco, Consolas, 'Lucida Console', monospace;
+  color: #f0f;
+  display: inline-block;
+  width: 67px;
 }
