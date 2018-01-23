@@ -114,7 +114,7 @@ var treePathSel = treeSel.append('g').appendMany('path', nodes)
 var treeCircleSel = treeSel.append('g').appendMany('circle', nodes)
   .translate(d => [d.x, d.y])
   .at({r: 4, stroke: '#000', fill: '#fff'})
-  .filter(d => d.level).call(ttFn)
+treeCircleSel.filter(d => d.level).call(ttFn)
 
 var predictionSel = treeSel.append('g')
   .translate([0, height + 10])
@@ -208,7 +208,7 @@ function drawTree(){
 
 
   d3.select('.keypress').text(cur4.split('').map(toLR).join(' '))
-    .st({width: 68})
+    .st({width: 70})
 }
 
 

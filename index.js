@@ -13,9 +13,9 @@ marked.setOptions({
 var public = `${__dirname}/public`
 var source = `${__dirname}/source`
 
-// copy everything but _template and _post to public/
+// copy everything but _posts and _templates to public
 function rsyncStatic(){
-  exec('rsync -a --exclude _post/ --exclude _templates/ source/ public/')
+  exec('rsync -a --exclude _posts/ --exclude _templates/ source/ public/')
 }
 rsyncStatic()
 
@@ -59,7 +59,7 @@ function parsePost(path){
 // copy files on change
 if (process.argv.join('').includes('--watch')){
   var chokidar = require('chokidar')
-  chokidar.watch([source]).on('change', (path) => {
+  chokidar.watch([source]).on('change', path => {
     console.log(path)
 
     if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])

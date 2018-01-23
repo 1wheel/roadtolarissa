@@ -221,6 +221,7 @@ https://news.ycombinator.com/item?id=9177469
 
 ### Dodgers win streak
 - 43 of 50 games... how common is that?
+- Spurs 18 seasons of 50 plus wins
 
 ### CTA map 
 - [Travel Times on Commuter Rail](http://rethinkingvis.com/visualizations/37)
@@ -243,6 +244,22 @@ https://news.ycombinator.com/item?id=9177469
 - https://bl.ocks.org/veltman/e45cc3a2670779a0bc942ba18163228f
 - https://www.washingtonpost.com/graphics/2017/politics/tax-breaks/
 
-
 ## Hapax Legomena
 - of tweets, over time!
+
+## Hacking Hot Reloading
+
+## That blog post about how the blog is set up
+
+## Flappy Beep
+
+## webcam showing layers
+- https://deeplearnjs.org/demos/imagenet/
+- also connection between layers
+- and an explanation layer
+
+## delaunay-triangulation
+- https://bl.ocks.org/1wheel/6cd8f2c2be0bd0bde0818fc8c0fb895a
+
+## Kelly betting
+- https://www.gwern.net/Coin-flip
