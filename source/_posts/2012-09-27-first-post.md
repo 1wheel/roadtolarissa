@@ -263,3 +263,7 @@ https://news.ycombinator.com/item?id=9177469
 
 ## Kelly betting
 - https://www.gwern.net/Coin-flip
+
+
+## Word memes
+- How often do people say: "A junior developer makes a mistake that cost the company 10 million dollars. He walks into the office of Tom Watson, the CEO, expecting to get fired. “Fire you?” Mr Watson asked. “I just spent 10 million educating you.”"
