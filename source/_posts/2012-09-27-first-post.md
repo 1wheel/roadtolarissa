@@ -267,3 +267,5 @@ https://news.ycombinator.com/item?id=9177469
 
 ## Word memes
 - How often do people say: "A junior developer makes a mistake that cost the company 10 million dollars. He walks into the office of Tom Watson, the CEO, expecting to get fired. “Fire you?” Mr Watson asked. “I just spent 10 million educating you.”"
+- "I don't want unlucky people working here"
+- Rich people buy boots that last years, poor people buy boots that wear out after a few months.
