@@ -93,6 +93,7 @@ players = _.sortBy(players, 'start')
 With the array sorted, we can find the number of earlier starting, still active players for each player in given year by iterating over the `players` array. Each time we find a player who's active in the given year, increment an `numActiveBefore` variable and save its current value to that player. 
 
 <div id='yeariteration'></div>
+
 Repeating this for every year gives enough information to construct each player's `years` array: 
 
 ```javascript
