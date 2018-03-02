@@ -1,0 +1,40 @@
+.chart{
+	font-family: monaco, Consolas, 'Lucida Console', monospace;
+	height: 1550px;
+}
+
+
+.y{ display: none; }
+.domain{ display: none;}
+/*.tick line {display: none;}*/
+
+svg{
+	overflow: visible;
+}
+
+h1{
+	line-height: 1.35em;
+	max-width: 500px;
+}
+
+.active{
+	/*text-decoration: underline;*/
+}
+
+
+.annotations path{
+  fill: none;
+  stroke: black;
+  stroke-width: .6px;
+}
+.annotations text{
+  font-size: 12px;
+}
+
+p{
+	max-width: 600px;
+}
+
+text{
+	cursor: default;
+}
