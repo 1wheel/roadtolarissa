@@ -12,7 +12,7 @@ function fill(d){
 function statusVal(d){
   var s = d.status
   return s == 'Legal' ? 1 : 
-    s == 'No Law' ? 0 : 
+    s == 'No Law' ? .00001 : 
     s == 'Statutory Ban' ? -1 : -3
 
 }
@@ -99,43 +99,42 @@ d3.loadData('data.csv', (err, res) => {
   annotations = 
 [
   {
-    "path": "M 316,-323 A 27.118 27.118 0 0 0 291,-297",
+    "path": "M 321,-310 A 31.819 31.819 0 0 0 283,-286",
     "text": "Constitutional Ban",
     "textOffset": [
-      323,
-      -320
+      332,
+      -299
     ],
     "status": "Constitutional Ban"
   },
   {
-    "path": "M 10,-291 A 37.558 37.558 0 0 0 28,-237",
+    "path": "M 17,-231 A 39.467 39.467 0 0 0 39,-174",
     "text": "Statutory Ban",
     "textOffset": [
-      12,
-      -317
+      21,
+      -254
     ],
     "status": "Statutory Ban"
   },
   {
-    "path": "M 144,564 A 45.228 45.228 0 0 0 109,512",
+    "path": "M 138,602 A 27.651 27.651 0 0 0 143,554",
     "text": "No Law",
     "textOffset": [
-      97,
-      575
+      101,
+      631
     ],
     "status": "No Law"
   },
   {
-    "path": "M 239,559 A 38.382 38.382 0 0 1 256,501",
+    "path": "M 255,587 A 38.039 38.039 0 0 1 253,520",
     "text": "Legal",
     "textOffset": [
-      244,
-      570
+      262,
+      612
     ],
     "status": "Legal"
   }
 ]
-
 annotations.forEach(d => d.status = d.text)
 
 
