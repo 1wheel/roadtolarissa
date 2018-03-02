@@ -99,20 +99,20 @@ d3.loadData('data.csv', (err, res) => {
   annotations = 
 [
   {
-    "path": "M 336,-320 A 27.75 27.75 0 0 0 304.9999694824219,-298",
+    "path": "M 316,-323 A 27.118 27.118 0 0 0 291,-297",
     "text": "Constitutional Ban",
     "textOffset": [
-      344,
-      -314
+      323,
+      -320
     ],
     "status": "Constitutional Ban"
   },
   {
-    "path": "M -32,-262 A 47.74 47.74 0 0 0 -5,-204",
+    "path": "M 10,-291 A 37.558 37.558 0 0 0 28,-237",
     "text": "Statutory Ban",
     "textOffset": [
-      -30,
-      -282
+      12,
+      -317
     ],
     "status": "Statutory Ban"
   },
@@ -135,6 +135,7 @@ d3.loadData('data.csv', (err, res) => {
     "status": "Legal"
   }
 ]
+
 annotations.forEach(d => d.status = d.text)
 
 
@@ -152,7 +153,7 @@ annotations.forEach(d => d.status = d.text)
     .each(function(d){
       d3.select(this)
           .text('')                        
-          .tspans(d3.wordwrap(d.text,10)) 
+          .tspans(d3.wordwrap(d.text, 10)) 
     })  
 
 
