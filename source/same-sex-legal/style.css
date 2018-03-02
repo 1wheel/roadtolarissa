@@ -25,7 +25,7 @@ h1{
 .annotations path{
   fill: none;
   stroke: black;
-  stroke-width: .6px;
+  stroke-width: .5px;
 }
 .annotations text{
   font-size: 12px;
