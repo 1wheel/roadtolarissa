@@ -7,7 +7,8 @@ var { exec, execSync } = require('child_process')
 var hljs = require('highlight.js')
 var marked = require('marked')
 marked.setOptions({
-  highlight: (code, lang) => hljs.highlight(lang, code).value
+  highlight: (code, lang) => hljs.highlight(lang, code).value,
+  smartypants: true
 })
 
 var public = `${__dirname}/public`

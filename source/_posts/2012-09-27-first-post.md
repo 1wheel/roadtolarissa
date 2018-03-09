@@ -269,3 +269,5 @@ https://news.ycombinator.com/item?id=9177469
 - How often do people say: "A junior developer makes a mistake that cost the company 10 million dollars. He walks into the office of Tom Watson, the CEO, expecting to get fired. “Fire you?” Mr Watson asked. “I just spent 10 million educating you.”"
 - "I don't want unlucky people working here"
 - Rich people buy boots that last years, poor people buy boots that wear out after a few months.
+- Tap a machine and charge $100. I charge $1 for the tap, $99 for knowing where to tap.
+- I remember reading an old parable about a woman who always cut off the ends of her meatloaf before serving it. At one point someone asked her why she did that, and she said that her mother had always done it that way. So she went to ask her mother, and got the same answer. The two of them went to the woman’s grandmother who said that the serving plate she cooked the meatloaf was too small, so she cut off the ends to make it fit. 
