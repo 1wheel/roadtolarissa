@@ -9,12 +9,12 @@
 		<title>roadtolarissa</title>
 		<link>https://roadtolarissa.com</link>
 	</image>
-	${d.filter(post => post.meta.draft != 'true').map(post => 
+	${d.filter(post => post.meta.draft != 'true').reverse().map(post => 
 		`
 		<item>
 			<title>${post.meta.title}</title>
 			<link>https://roadtolarissa.com${post.meta.permalink}</link>
-			<pubDate>${post.date}</pubDate>
+			<pubDate>${(new Date(post.date)).toUTCString()}</pubDate>
 		</item>
 		`
 	).join('')}
