@@ -274,3 +274,9 @@ https://news.ycombinator.com/item?id=9177469
 - "No one ever got fired for buying IBM"
 
 What does reddit repeat?
+
+
+## Inflation adjust your numbers!
+
+Scroll down and see all the movies that have been the 'best selling'
+- https://www.axios.com/black-panther-box-office-titanic-top-3-north-america-avatar-star-wars-32a35770-59fc-4ccc-bd5b-3a85d7144266.html
