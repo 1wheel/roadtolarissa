@@ -1,5 +1,5 @@
 ---
-title: "Speed Issues Goko Dominion"
+title: Speed Issues Goko Dominion
 template: post.html
 permalink: /speed-issues-with-gokos-online-dominion-implementation
 ---

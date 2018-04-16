@@ -13,6 +13,15 @@
 		`
 		<item>
 			<title>${post.meta.title}</title>
+			${post.meta.shareimg ? `
+				<description>
+					<![CDATA[
+						<a href="https://roadtolarissa.com${post.meta.permalink}">
+							<img src="${post.meta.shareimg}"/>
+						</a>
+					]]>
+				</description>
+			` : ''}
 			<link>https://roadtolarissa.com${post.meta.permalink}</link>
 			<pubDate>${(new Date(post.date)).toUTCString()}</pubDate>
 		</item>

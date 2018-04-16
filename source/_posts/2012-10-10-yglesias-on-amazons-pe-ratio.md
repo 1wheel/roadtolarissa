@@ -1,5 +1,5 @@
 ---
-title: "Yglesias on Amazon's P/E Ratio"
+title: Yglesias on Amazon's P/E Ratio
 template: post.html
 permalink: /yglesias-on-amazons-pe-ratio
 ---

@@ -1,5 +1,5 @@
 ---
-title: 'Connect 4 AI: How it Works'
+title: Connect 4 AI: How it Works
 template: post.html
 permalink: /connect-4-ai-how-it-works
 ---

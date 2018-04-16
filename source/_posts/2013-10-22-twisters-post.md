@@ -2,8 +2,6 @@
 title: Twisters
 template: post.html
 permalink: /twisters-post
-categories:
-  - Uncategorized
 ---
 <p style="text-align: center;">
   <a href="http://roadtolarissa.com/twisters/"><img class=" wp-image-287 aligncenter" title="Tornado Map" alt="" src="http://www.roadtolarissa.com/wp-content/uploads/2013/10/nados-1024x988.png" width="640" height="617" /></a>
