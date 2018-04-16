@@ -28,7 +28,8 @@ fs.readdirSync(`${source}/_templates`).forEach(path => {
 })
 
 var posts = fs.readdirSync(`${source}/_posts`).map(parsePost)
-fs.writeFileSync(public + '/rss.xml', templates['rss.xml'](posts))
+fs.writeFileSync(public + '/rss.xml',  templates['rss.xml'](posts))
+fs.writeFileSync(public + '/atom.xml',  templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
 
 // read post path and write to public/
