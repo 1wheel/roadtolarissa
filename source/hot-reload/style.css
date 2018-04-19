@@ -1,186 +1,60 @@
-.fixed{
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  max-width: 750px;
-  margin: 0px auto;
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
-  background: #f5f5f5;
-  overflow: hidden;
-  min-height: 79px;
+.editor, iframe{
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
-.score, .log{
+.editor{
   display: inline-block;
+  width: 100%;
 }
 
-.score{
-  font-size: 35px;
-  width: 70px;
-  position: relative;
-  left: 0px;
-  top: -10px;
-  opacity: 0;
-}
-
-.log{
-  width: calc(100% - 80px);
-  height: 48px;
-  overflow: hidden;
-  top: -1px;
-  position: relative;
-}
-
-.labels{
-  float: left;
-  width: 70px;
-  text-align: right;
-}
-
-.labels > div{
-  position: relative;
-  right: 3px;
-}
-
-.log-entries{
-  float: left;
-  width: calc(100% - 72px);
-  overflow: hidden;
-}
-
-.log-entries > div{
-  width: 1000px;
-}
-
-
-
-
-.log-col{
-  display: inline-block;
-  width: 22px;
-  border-left: 1px solid #ccc;
-}
-.log-col:last-child{
-  border-right: 1px solid #ccc;
-}
-
-.log-col > div{
-  padding-right: 8px;
-  padding-left: 7px;
-}
-.log .is-left{
+.editor .chart-container{
   background: #000;
-  color: #fff;
-}
-
-.button{
-  margin-top: -7px;
-}
-
-.button > div{
-  width: calc(50% - 2px);
+  width: 50%;
   display: inline-block;
-  text-align: center;
-  border: 1px solid #000;
-  height: 30px;
-  cursor: pointer;
-  position: relative;
+  height: 320px;
+
+}
+
+.CodeMirror{
   background: #fff;
+  width: 50%;
+  display: inline-block;
+  font-size: 15px;
+
+
 }
 
-.button > div:first-child{
-  /*border-left: 0px;*/
-  border-right: 0px;
-}
-
-.button > div > div{
-  position: relative;
-  top: 5px;
-}
-
-.tree{
-  margin-top: 30px;
-  margin-bottom: 50px;
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
-  height: 306px;
-}
-
-.sequence-str{
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
-  width: 90px;
-  letter-spacing: 10px;
+.CodeMirror pre{
+  font-family: 'Lucida Console', Consolas, monaco, monospace; 
+  line-height: 22px;
 }
 
 
-.tooltip {
-  top: -1000px;
-  position: fixed;
-  padding: 10px;
-  background: rgba(255, 255, 255, .95);
-  border: 1px solid lightgray;
+canvas{
   pointer-events: none;
 }
-.tooltip-hidden{
-  opacity: 0;
-  transition: all .3s;
-  transition-delay: .1s;
-}
-
-@media (max-width: 590px){
-  div.tooltip{
-    bottom: -1px;
-    width: calc(100%);
-    left: -1px !important;
-    right: -1px !important;
-    top: auto !important;
-    width: auto !important;
-  }
-}
-
-svg{
-  overflow: visible;
-}
-
-.domain{
-  display: none;
-}
-
-text{
-  /*pointer-events: none;*/
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-}
-
-
-.flashing{
-  animation-duration: 1s;
-  animation-name: flash;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+.target{
+  opacity: .5;
+  animation: strokeIn .9s infinite alternate;
+  animation-timing-function: ease-in-out;
+  stroke: #fff;
 
 }
 
-@keyframes flash {
-  from {
-    background: rgba(255, 0, 255, 0);
-  }
+.target.hit{
+  opacity: 1;
+  animation: strokeIn .4s infinite alternate;
 
-  to {
-    background: rgba(255, 0, 255, 1);
-  }
 }
 
-text.arrow{
-  font-size: 16px;
-  /*font-family: monospace !important;*/
-  /*font-family: 'Georgia','Times',serif !important;*/
-  /*font-family: sans-serif !important;*/
+@keyframes strokeIn { 
+  from { stroke-width: 5 } 
 }
 
-.keypress{
-  color: #f0f;
-  display: inline-block;
+.reload .chart-container {
+  background: #bbb;
 }
-
-.arrow-inline, .keypress{
-  font-family: monaco, Consolas, 'Lucida Console', monospace;
+.reload canvas, .reload .target{
+  opacity: 0 !important;
 }
