@@ -24,11 +24,11 @@ var editorSettings = [
     text: 'Try tweaking the function so the particles hit the target. Click the reload button to run the code.'
   },
   {
-    target: [50, 50],
-    text: 'Live reload reloads the page when the code changes.'
+    target: [70, 80],
+    text: 'The page automatically reloads when after code changes.'
   },
   {
-    target: [50, 50],
+    target: [30, 80],
     text: 'Hot reloading updates the function in place.'
   },
 ]

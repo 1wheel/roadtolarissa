@@ -53,7 +53,7 @@ canvas{
 }
 
 .reload .chart-container {
-  background: #bbb;
+  background: #f5f5f5;
 }
 .reload canvas, .reload .target{
   opacity: 0 !important;
