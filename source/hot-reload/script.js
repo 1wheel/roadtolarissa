@@ -14,18 +14,17 @@ function position(t){
 
   return {x, y, color: '#0f0', size: 3}
 }
-
 `.trim()
 
 
 var editorSettings = [
   {
-    target: [50, 20],
-    text: 'Try tweaking the function so the particles hit the target. Click the reload button to run the code.'
+    target: [80, 15],
+    text: 'Try tweaking the function so the <i>particles</i> hit the target. Click the reload button to run the code.'
   },
   {
     target: [70, 80],
-    text: 'The page automatically reloads when after code changes.'
+    text: 'The page automatically reloads after code changes.'
   },
   {
     target: [30, 80],
@@ -36,7 +35,7 @@ var editorSettings = [
 var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(function(d, editorIndex){
 
   eval(initFn)
-  var pWrapper = {fn: position}
+  var pWrapper = {fn: position, tempFn: position}
 
   var sel = d3.select(this)
   var chartSel = sel.append('div.chart-container')
@@ -59,8 +58,8 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
 
   function updateWrapper(){
     try {
-      pWrapper.tempFn(.1)
       pWrapper.fn = pWrapper.tempFn
+      particleTextSel.st({background: pWrapper.tempFn(.1).color})
     } catch (e){ console.log(e) }
   }
 
@@ -95,15 +94,17 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
   x.domain([0, 100])
   y.domain([0, 100])
 
-  var targetR = 10
-  var targetSel = c.svg.append('rect.target')  
-    .at({
-      x: x(d.target[0] + targetR/2), 
-      width: x(targetR),
-      y: y(d.target[1] + targetR/2),
-      height: y(100 - targetR),
-      fill: '#f0f'
-    })
+  d.target = [x(d.target[0]), y(d.target[1])]
+  var targetR = 20
+  var targetSel = c.svg.append('g.target')  
+    .translate(d.target)
+    .append('circle.base-target')
+    .at({r: targetR, fill: '#fff'})
+    .parent().append('circle')
+    .at({r: targetR/4, fill: 'none', strokeWidth: targetR/5, stroke: '#000'})
+    .parent().append('circle')
+    .at({r: targetR/3*2, fill: 'none', strokeWidth: targetR/5, stroke: '#000'})
+    .parent()
 
   var points = []
   d3.visibleTimer(t => {
@@ -115,24 +116,34 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
     })
     ctx.clearRect(-c.margin.left, -c.margin.top, c.totalWidth, c.totalHeight)
     ctx.fillStyle = '#0f0'
-    points.forEach(p =>{
-      p.t += .03
 
-      ctx.beginPath()
+    points.forEach(p => {
+      p.t += .03
       var pos = p.position(p.t)
-      var s = pos.size
-      ctx.fillStyle = pos.color
-      ctx.rect(x(pos.x + p.dx) - s/2, y(pos.y + p.dy) - s/2, s, s)
+
+      p.x = x(pos.x + p.dx)
+      p.y = y(pos.y + p.dy)
+      p.s = pos.size
+      p.color = pos.color
+    })
+
+    points.forEach(({x, y, s, color}) =>{
+      ctx.beginPath()
+      ctx.fillStyle = color
+      ctx.rect(x - s/2, y - s/2, s, s)
       ctx.fill()
     })
 
     points = points.slice(-1000)
 
     var isHit = points.some(p => {
-      var pos = p.position(p.t)
-      var xHit = Math.abs(d.target[0] - pos.x - p.dx) < targetR
-      var yHit = Math.abs(d.target[1] - pos.y - p.dy) < targetR
+      var xHit = Math.abs(d.target[0] - p.x) < targetR
+      var yHit = Math.abs(d.target[1] - p.y) < targetR
 
+      var dx = d.target[0] - p.x
+      var dy = d.target[1] - p.y
+
+      return dx*dx + dy*dy < targetR*targetR
       return xHit && yHit
     })
 
@@ -147,3 +158,5 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
   sel.append('i').html(d.text)
 })
 
+var particleTextSel = d3.select('i > i')
+  .st({background: '#0f0'})

@@ -27,9 +27,9 @@ I dabbled with programming languages that facilated this, like [clojure's REPL](
 
 This gets pretty tedious.
 
-[Live reload](http://livereload.com/) offers an improvement--instead of manually clicking the reload button, is has the computer do it for you. If you combine two tools, websockets and file watching, this isn't too difficult. 
+[Live reload](http://livereload.com/) offers an improvement--instead of manually clicking the reload button after you've made a change, the computer does it for you! With the right libraries, this isn't too difficult. 
 
-First, set up a server that updates 
+First, set up a server that watches for file changes and broadcast over a websocket when changes happen:
 
 ```js
 var wss = new SocketServer({server})
@@ -40,7 +40,7 @@ chokidar
   })
 ```
 
-Then, add a bit of js to your webpage that listens for these events:
+Then, add a bit of javascript to your page that connects to that websocket and reloads the page when it receives a broadcast:
 
 ```html
 <script>
@@ -49,7 +49,7 @@ new WebSocket(location.origin.replace(/^http/, 'ws'))
 </script>
 ```
 
-Much nicer to use now:
+Now you can make tweaks without risking a RSI flare up.  
 
 <div class='editor live'></div>
 
@@ -57,6 +57,7 @@ Still, that flash of white is just about the worst thing you can do when working
 
 tktk change blindness gif
 
+Instead of reloading the whole page, we can just : 
 
 ```js
   .on('change', path => {
@@ -65,7 +66,7 @@ tktk change blindness gif
   })
 ```
 
-And instead of reloading the whole page, just run that string: 
+And `eval` that string
 
 ```js
 new WebSocket(location.origin.replace(/^http/, 'ws'))
@@ -76,6 +77,10 @@ new WebSocket(location.origin.replace(/^http/, 'ws'))
 
 And sometimes, direct manipulation is better:
 
+book of shaders
+
+swoopy drag
+
 <!-- <div class='editor drag'></div> -->
 
 
@@ -84,6 +89,7 @@ And sometimes, direct manipulation is better:
 observable
 
 webpack flow chart
+https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack
 
 this is nice. it feels magical, but there's just 50 lines of code powering it.
 
@@ -92,11 +98,13 @@ you don't need something this fancy to experminent.
 
 ## Todo
 
-link to clojure repl
-nice job! text
-fix hit box math - take into account particle size
-more workds
-breaks if you type in var (on va, not v? check for errors with when function runs before updating wrapper)
+- link to clojure repl
+- nice job! text
+x fix hit box math - take into account particle size
+- more workds
+x breaks if you type in var (on va, not v? check for errors with when function runs before updating wrapper)
+
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/mode/javascript/javascript.js"></script>

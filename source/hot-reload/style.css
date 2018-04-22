@@ -26,7 +26,8 @@
 }
 
 .CodeMirror pre{
-  font-family: 'Lucida Console', Consolas, monaco, monospace; 
+  font-family: 'Roboto Mono', monospace;
+  /*font-family: 'Lucida Console', Consolas, monaco, monospace; */
   line-height: 22px;
 }
 
@@ -35,22 +36,37 @@ canvas{
   pointer-events: none;
 }
 .target{
-  opacity: .5;
-  animation: strokeIn .9s infinite alternate;
+  /*opacity: .5;*/
+  /*animation: strokeIn .9s infinite alternate;*/
   animation-timing-function: ease-in-out;
-  stroke: #fff;
+  /*stroke: #fff;*/
 
 }
 
-.target.hit{
-  opacity: 1;
-  animation: strokeIn .4s infinite alternate;
-
+/*.target.hit{
+  opacity: .8;
+  animation: strokeIn .8s infinite alternate;
 }
 
 @keyframes strokeIn { 
-  from { stroke-width: 5 } 
+  from { opacity: 1; } 
 }
+*/
+
+.base-target{
+  transition: fill 1s;
+}
+
+.hit .base-target{
+  fill: #f0f;
+  animation: strokeIn .4s infinite alternate ease-in-out;
+}
+
+@keyframes strokeIn { 
+  from { fill: #fff; } 
+}
+
+
 
 .reload .chart-container {
   background: #f5f5f5;
