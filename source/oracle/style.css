@@ -59,6 +59,7 @@
   display: inline-block;
   width: 22px;
   border-left: 1px solid #ccc;
+  font-family: Helvetica;
 }
 .log-col:last-child{
   border-right: 1px solid #ccc;
@@ -97,6 +98,9 @@
   position: relative;
   top: 5px;
 }
+.button i{
+  font-family: Helvetica; 
+}
 
 .tree{
   margin-top: 30px;
@@ -106,8 +110,8 @@
 }
 
 .sequence-str{
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
-  width: 90px;
+  font-family: Helvetica; 
+  width: 100px;
   letter-spacing: 10px;
 }
 
@@ -171,6 +175,7 @@ text{
 
 text.arrow{
   font-size: 16px;
+  font-family: Helvetica;
   /*font-family: monospace !important;*/
   /*font-family: 'Georgia','Times',serif !important;*/
   /*font-family: sans-serif !important;*/
@@ -182,5 +187,5 @@ text.arrow{
 }
 
 .arrow-inline, .keypress{
-  font-family: monaco, Consolas, 'Lucida Console', monospace;
+  font-family: Helvetica;
 }

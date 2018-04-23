@@ -12,7 +12,7 @@ var buttonSel = d3.select('.button').html('')
   .appendMany('div', [0, 1])
   .on('click touchstart', update)
 buttonSel.append('div')
-  .text(d => d ? 'Right →' : '← Left')
+  .html(d => d ? 'Right <i>→</i>' : '<i>←</i> Left')
 
 
 function update(actual){
@@ -54,10 +54,14 @@ function updateLog(){
   var d = _.last(sequence)
   colSel.append('div.guess')
     .classed('is-left', d.guess)
+    .append('span')
+    .st({position: 'relative', top: 2, left: -4})
     .text(toLR(d.guess))
 
   colSel.append('div')
     .classed('is-left', d.actual)
+    .append('span')
+    .st({position: 'relative', top: 2, left: -4})
     .text(toLR(d.actual))
 
 
@@ -208,7 +212,7 @@ function drawTree(){
 
 
   d3.select('.keypress').text(cur4.split('').map(toLR).join(' '))
-    .st({width: 70})
+    .st({width: 80})
 }
 
 
@@ -225,7 +229,7 @@ function toLR(d){ return +d ? '→' : '←' }
 
 '10101100101010'
   .split('')
-  // .forEach(d => update(+d))
+  .forEach(d => update(+d))
 
 
 

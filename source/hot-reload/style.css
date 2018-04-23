@@ -1,6 +1,6 @@
-.editor, iframe{
-  margin-bottom: 20px;
-  margin-top: 20px;
+.editor, iframe, .spot-container{
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 .editor{
@@ -21,8 +21,6 @@
   width: 50%;
   display: inline-block;
   font-size: 15px;
-
-
 }
 
 .CodeMirror pre{
@@ -73,4 +71,12 @@ canvas{
 }
 .reload canvas, .reload .target{
   opacity: 0 !important;
+}
+
+
+
+
+.spot-full{
+  /*max-width: 750px;*/
+  width: 100%;
 }

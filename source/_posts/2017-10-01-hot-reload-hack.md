@@ -8,7 +8,7 @@ shareimg: http://roadtolarissa.com/images/posts/tktk.png
 
 Ever since seeing Brett Victor rewire a game live on stage, I've wanted to write code more interactively. 
 
-<!-- <iframe src="https://player.vimeo.com/video/36579366#t=695s&autoplay=0&background=1" width="720"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/36579366#t=695s&autoplay=0&background=1" width="720"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin=""></script>
 <script src="//f.vimeocdn.com/js/froogaloop2.min.js"></script>
@@ -20,16 +20,16 @@ var player = $f($('iframe')[0])
 player.addEvent('ready', () => player.api('setVolume', 0))
 </script>
 
- -->
+
 I dabbled with programming languages that facilated this, like [clojure's REPL](https://github.com/bhauman/lein-figwheel) or [R notebooks](https://rmarkdown.rstudio.com/r_notebooks.html). But most of my work is with javascript and I was stuck pressing `⌘+S ⌘+Tab ⌘+R` over and over again to save my changes, tab over to the browser and reload the page.
 
 <div class='editor manual'></div>
 
 This gets pretty tedious.
 
-[Live reload](http://livereload.com/) offers an improvement--instead of manually clicking the reload button after you've made a change, the computer does it for you! With the right libraries, this isn't too difficult. 
+[Live reload](http://livereload.com/) offers an improvement--instead of manually clicking the reload button after you've made a change, the computer does it for you! With the right libraries, this isn't too difficult to get up and running. 
 
-First, set up a server that watches for file changes and broadcast over a websocket when changes happen:
+First, set up a [server](https://github.com/1wheel/hot-server/blob/master/index.js) that watches for file changes and broadcast over a websocket when changes happen:
 
 ```js
 var wss = new SocketServer({server})
@@ -53,9 +53,20 @@ Now you can make tweaks without risking a RSI flare up.
 
 <div class='editor live'></div>
 
-Still, that flash of white is just about the worst thing you can do when working with before and after comparisons. 
+Still, clearing the whole page to reload isn't ideal. 
 
-tktk change blindness gif
+The flash of white is particularly harmful when working visually. Instead of instantly seeing how your changed effected the output, you have to pay c 
+
+<div class='spot-container'>
+  <div class='spot'></div>
+  <i>
+    Toggling between images makes it easy to 
+    “<a href='https://en.wikipedia.org/wiki/Spot_the_difference'>spot the difference</a>”, 
+    but inserting a blank frame prevents changes from being picked up <a href='http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042851'>preattentively</a>.
+  </i>
+</div>
+
+
 
 Instead of reloading the whole page, we can just : 
 
@@ -75,6 +86,10 @@ new WebSocket(location.origin.replace(/^http/, 'ws'))
 
 <div class='editor hot'></div>
 
+I made a lib to this, just takes a couple of lines of code
+
+lots of 
+
 And sometimes, direct manipulation is better:
 
 book of shaders
@@ -93,16 +108,23 @@ https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack
 
 this is nice. it feels magical, but there's just 50 lines of code powering it.
 
+eve
+
 you don't need something this fancy to experminent.
 
 
-## Todo
+## todo
 
 - link to clojure repl
 - nice job! text
 x fix hit box math - take into account particle size
 - more workds
 x breaks if you type in var (on va, not v? check for errors with when function runs before updating wrapper)
+- matching vpadding around video, code and img
+
+## mobile
+- stack code
+x video
 
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 

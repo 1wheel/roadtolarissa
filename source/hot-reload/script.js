@@ -160,3 +160,41 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
 
 var particleTextSel = d3.select('i > i')
   .st({background: '#0f0'})
+
+
+var spotSel = d3.select('.spot').html('')
+var spotImgSel = spotSel.appendMany('div', [0, 1])
+  .st({
+    width: 'calc(50% - 10px)', 
+    display: 'inline-block', 
+    overflow: 'hidden',
+    marginRight: d => d ? 0 : 10*2,
+  })
+  .append('img')
+  .st({width: '200%', position: 'relative'})
+  .at({src: 'https://i.imgur.com/U2TtWrB.png'})
+
+var isLeft = false
+d3.visibleTimer(_.throttle(() => {
+  isLeft = !isLeft
+
+  spotImgSel.st({left: isLeft ? '' : '-100%'})
+  spotImgSel.filter(d => d)
+    .st({opacity: 0})
+    .transition().duration(0).delay(400)
+    .st({opacity: 1})
+}, 1500), 'img', spotSel)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
