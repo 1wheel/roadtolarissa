@@ -21,7 +21,7 @@ player.addEvent('ready', () => player.api('setVolume', 0))
 </script>
 
 
-I dabbled with programming languages that facilated this, like [clojure's REPL](https://github.com/bhauman/lein-figwheel) or [R notebooks](https://rmarkdown.rstudio.com/r_notebooks.html). But most of my work is with javascript and I was stuck pressing `⌘+S ⌘+Tab ⌘+R` over and over again to save my changes, tab over to the browser and reload the page.
+I dabbled with programming languages that facilated this, like [clojure's REPL](https://clojure.org/guides/repl/introduction) and [R notebooks](https://rmarkdown.rstudio.com/r_notebooks.html). But most of my work is with javascript and I was stuck pressing `⌘+S ⌘+Tab ⌘+R` over and over again to save my changes, tab over to the browser and reload the page.
 
 <div class='editor manual'></div>
 
@@ -29,7 +29,7 @@ This gets pretty tedious.
 
 [Live reload](http://livereload.com/) offers an improvement--instead of manually clicking the reload button after you've made a change, the computer does it for you! With the right libraries, this isn't too difficult to get up and running. 
 
-First, set up a [server](https://github.com/1wheel/hot-server/blob/master/index.js) that watches for file changes and broadcast over a websocket when changes happen:
+First, set up a [server](https://github.com/1wheel/hot-server/blob/master/index.js) that watches for file changes and pings a websocket when they happen:
 
 ```js
 var wss = new SocketServer({server})
@@ -40,7 +40,7 @@ chokidar
   })
 ```
 
-Then, add a bit of javascript to your page that connects to that websocket and reloads the page when it receives a broadcast:
+Then, add a bit of javascript to your page that connects to the websocket and reloads the page when it receives a ping:
 
 ```html
 <script>
@@ -55,20 +55,18 @@ Now you can make tweaks without risking a RSI flare up.
 
 Still, clearing the whole page to reload isn't ideal. 
 
-The flash of white is particularly harmful when working visually. Instead of instantly seeing how your changed effected the output, you have to pay c 
+The flash of white is particularly harmful when the output of your code is an image. This isn't just an aestictic consideration. Our eyes automatically notice small changes—just what you want when trying to decide between 10 or 15px of padding—but after a hard reload it looks like everything has changed.
+
+Even with automatic reloading you can't instantly sense how your tweak effected the output; you have to pay close attention to what you're changing and intentionally remember what it looked like before.  
 
 <div class='spot-container'>
   <div class='spot'></div>
   <i>
-    Toggling between images makes it easy to 
-    “<a href='https://en.wikipedia.org/wiki/Spot_the_difference'>spot the difference</a>”, 
-    but inserting a blank frame prevents changes from being picked up <a href='http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042851'>preattentively</a>.
+    Toggling between images makes it easy to [spot the difference](https://en.wikipedia.org/wiki/Spot_the_difference) but inserting a blank frame prevents changes from being picked up [preattentively](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042851).
   </i>
 </div>
 
-
-
-Instead of reloading the whole page, we can just : 
+Instead of reloading the whole page, we can use the server pass the changed file through websocket : 
 
 ```js
   .on('change', path => {
@@ -77,7 +75,7 @@ Instead of reloading the whole page, we can just :
   })
 ```
 
-And `eval` that string
+Now the browser only needs to `eval` your program;  it doesn't need to rebuild the entire page or reparse all of the liberies you're using:
 
 ```js
 new WebSocket(location.origin.replace(/^http/, 'ws'))
@@ -86,25 +84,18 @@ new WebSocket(location.origin.replace(/^http/, 'ws'))
 
 <div class='editor hot'></div>
 
-I made a lib to this, just takes a couple of lines of code
+Much better! If you want to try  [hot-server](https://github.com/1wheel/hot-server)
 
-lots of 
+Brett's talk suggested a ton of other ideas like [sliders](bookofshaders) to control numbers and directly [manipulating](swoopdrag) elements. I've played around with some of them, but they're trickier to generalize. 
 
-And sometimes, direct manipulation is better:
-
-book of shaders
-
-swoopy drag
-
-<!-- <div class='editor drag'></div> -->
-
-
-## Other options
 
 observable
-
+<div class='image-container'>
+  <img style='background:#fff' src='https://camo.githubusercontent.com/afdb8057414988ac33b85eb25a225181f9efb7b1/687474703a2f2f7765627061636b2e6769746875622e696f2f6173736574732f484d522e737667'></img>
+  <i>[Hot Module Reloading in Webpack](https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack) parses your dependency tree and figures out how to run your new code.</i>
+</div>
 webpack flow chart
-https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack
+
 
 this is nice. it feels magical, but there's just 50 lines of code powering it.
 
@@ -115,16 +106,16 @@ you don't need something this fancy to experminent.
 
 ## todo
 
-- link to clojure repl
+x link to clojure repl
 - nice job! text
-x fix hit box math - take into account particle size
+  x fix hit box math - take into account particle size
 - more workds
-x breaks if you type in var (on va, not v? check for errors with when function runs before updating wrapper)
+  x breaks if you type in var (on va, not v? check for errors with when function runs before updating wrapper)
 - matching vpadding around video, code and img
 
 ## mobile
 - stack code
-x video
+  x video
 
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 
