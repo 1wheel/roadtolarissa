@@ -3,6 +3,13 @@
   padding-top: 20px;
 }
 
+iframe{
+  max-width: 100%;
+}
+.image-container img{
+  width: 100%;
+}
+
 .editor{
   display: inline-block;
   width: 100%;
@@ -13,7 +20,6 @@
   width: 50%;
   display: inline-block;
   height: 320px;
-
 }
 
 .CodeMirror{
@@ -25,8 +31,19 @@
 
 .CodeMirror pre{
   font-family: 'Roboto Mono', monospace;
-  /*font-family: 'Lucida Console', Consolas, monaco, monospace; */
   line-height: 22px;
+}
+
+@media (max-width: 760px){
+  .CodeMirror{
+    width: 100%;
+  }
+
+  .editor .chart-container{
+    width: 100%;
+    height: 220px;
+
+  }
 }
 
 
@@ -34,22 +51,8 @@ canvas{
   pointer-events: none;
 }
 .target{
-  /*opacity: .5;*/
-  /*animation: strokeIn .9s infinite alternate;*/
   animation-timing-function: ease-in-out;
-  /*stroke: #fff;*/
-
 }
-
-/*.target.hit{
-  opacity: .8;
-  animation: strokeIn .8s infinite alternate;
-}
-
-@keyframes strokeIn { 
-  from { opacity: 1; } 
-}
-*/
 
 .base-target{
   transition: fill 1s;
@@ -74,9 +77,11 @@ canvas{
 }
 
 
-
-
 .spot-full{
-  /*max-width: 750px;*/
   width: 100%;
+}
+
+
+pre{
+  overflow-x: scroll;
 }

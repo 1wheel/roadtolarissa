@@ -3,7 +3,7 @@
   "dependencies": {
     "chokidar": "^1.7.0",
     "highlight.js": "^9.12.0",
-    "hot-server": "^0.0.13",
+    "hot-server": "^0.0.16",
     "marked": "^0.3.6"
   },
   "scripts": {

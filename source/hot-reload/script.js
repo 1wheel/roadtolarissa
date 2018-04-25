@@ -1,4 +1,4 @@
-console.clear()
+// console.clear()
 
 var initFn = `
 function position(t){
