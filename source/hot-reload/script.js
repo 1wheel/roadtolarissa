@@ -1,7 +1,7 @@
 // console.clear()
 
 var initFn = `
-function position(t){
+function particle(t){
   var π = Math.PI
   var θ = 45
   var v = 40
@@ -35,7 +35,7 @@ var editorSettings = [
 var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(function(d, editorIndex){
 
   eval(initFn)
-  var pWrapper = {fn: position, tempFn: position}
+  var pWrapper = {fn: particle, tempFn: particle}
 
   var sel = d3.select(this)
   var chartSel = sel.append('div.chart-container')
@@ -47,7 +47,7 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
   cm.setSize(sel.offSetwidth/2, 320)
   cm.on('change', cm => {
     eval(cm.getValue())
-    pWrapper.tempFn = position
+    pWrapper.tempFn = particle
 
     if (editorIndex == 1){
       reload()
@@ -58,8 +58,8 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
 
   function updateWrapper(){
     try {
-      pWrapper.fn = pWrapper.tempFn
       particleTextSel.st({background: pWrapper.tempFn(.1).color})
+      pWrapper.fn = pWrapper.tempFn
     } catch (e){ console.log(e) }
   }
 
@@ -87,7 +87,6 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
       .translate([-c.margin.left/2, 10])
       .on('click', () => {
         reload()
-        pWrapper.fn = position
       })
   }
 
@@ -123,7 +122,7 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
 
       p.x = x(pos.x + p.dx)
       p.y = y(pos.y + p.dy)
-      p.s = pos.size
+      p.s = pos.size || 4
       p.color = pos.color
     })
 
