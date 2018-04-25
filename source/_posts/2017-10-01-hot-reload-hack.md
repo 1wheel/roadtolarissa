@@ -55,14 +55,14 @@ Now you can make tweaks without risking a RSI flare up.
 
 Still, clearing the whole page to reload isn't ideal. 
 
-The flash of white is particularly harmful when the output of your code is an image. This isn't just an aestictic consideration. Our eyes automatically notice small changes—just what you want when trying to decide between 10 or 15px of padding—but after a hard reload it looks like everything has changed.
+The flash of white is particularly harmful when the output of your code is an image. This isn't just an aestictic consideration. Our eyes automatically notice small changes—just what you want when trying to decide between 10 or 15px of padding—but after a hard reload everything looks like it changed.
 
 Even with automatic reloading you can't instantly sense how your tweak effected the output; you have to pay close attention to what you're changing and intentionally remember what it looked like before.  
 
 <div class='spot-container'>
   <div class='spot'></div>
   <i>
-    Toggling between images makes it easy to [spot the difference](https://en.wikipedia.org/wiki/Spot_the_difference) but inserting a blank frame prevents changes from being picked up [preattentively](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042851).
+    Toggling between images makes it easy to [spot the difference](https://en.wikipedia.org/wiki/Spot_the_difference). Inserting a blank frame prevents changes from being picked up [preattentively](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042851).
   </i>
 </div>
 
@@ -84,24 +84,26 @@ new WebSocket(location.origin.replace(/^http/, 'ws'))
 
 <div class='editor hot'></div>
 
-Much better! If you want to try  [hot-server](https://github.com/1wheel/hot-server)
+Much better! If you want to try this out on your project, I've packaged the ideas here in [hot-server](https://github.com/1wheel/hot-server). It serves a directory statically, like `python -m http.server`. A small `<script>` tag automatiacally gets appended  
 
-Brett's talk suggested a ton of other ideas like [sliders](bookofshaders) to control numbers and directly [manipulating](swoopdrag) elements. I've played around with some of them, but they're trickier to generalize. 
+<div style='display: none'>`</script>`</div>
 
+Brett's talk suggested a ton of other ideas like [sliders](https://thebookofshaders.com/02/) to control numbers and directly [manipulating](http://1wheel.github.io/swoopy-drag/) elements. I've played around with some of them, but they're trickier to generalize. 
 
-observable
+[Eve](http://futureofcoding.org/essays/eve/) explored many of these ideas and [Observable](https://beta.observablehq.com/) bakes in reactive programming
+
 <div class='image-container'>
   <img style='background:#fff' src='https://camo.githubusercontent.com/afdb8057414988ac33b85eb25a225181f9efb7b1/687474703a2f2f7765627061636b2e6769746875622e696f2f6173736574732f484d522e737667'></img>
   <i>[Hot Module Reloading in Webpack](https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack) parses your dependency tree and figures out how to run your new code.</i>
 </div>
-webpack flow chart
 
-
-this is nice. it feels magical, but there's just 50 lines of code powering it.
+This is great if you're building a whole . it feels magical, but there's just 50 lines of code powering it.
 
 eve
 
 you don't need something this fancy to experminent.
+
+http://futureofcoding.org/essays/eve/
 
 
 ## todo

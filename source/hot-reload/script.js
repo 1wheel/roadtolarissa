@@ -183,7 +183,7 @@ d3.visibleTimer(_.throttle(() => {
     .st({opacity: 0})
     .transition().duration(0).delay(400)
     .st({opacity: 1})
-}, 1500), 'img', spotSel)
+}, 3000), 'img', spotSel)
 
 
 
