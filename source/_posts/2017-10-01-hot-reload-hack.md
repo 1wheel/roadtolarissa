@@ -105,7 +105,7 @@ This is great if you're building a whole application. Most of [my work](roadtola
 
 hot-sever feels magical, but there's just a [couple of dozen lines of code](https://github.com/1wheel/hot-server/blob/master/index.js) powering it. Short enough for me to things like jimmy it into a slow requirejs build step at work or repurpose in a few hours for a multiplayer musical game with live updating rules at a music hackathon. 
 
-It took a couple of years to find and figure out how to put them together, but with file watching, websockets and `eval`, you don't need a complex edifice of code to start experimenting with radically altering your workflow.
+It took a few years to find and figure out how to put them together, but with file watching, websockets and `eval`, you don't need a complex edifice of code to start experimenting with radically altering your workflow.
 
 
 <!-- [multiplayer musical game](https://www.pscp.tv/w/1LyGBRMwmpkGN?t=16m15s) -->

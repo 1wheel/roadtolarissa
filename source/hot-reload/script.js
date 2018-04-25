@@ -12,7 +12,7 @@ function position(t){
   var x = vx*t
   var y = vy*t - 9.8*t*t/2
 
-  return {x, y, color: '#0f0', size: 3}
+  return {x, y, color: '#0f0', size: 2}
 }
 `.trim()
 
@@ -130,7 +130,7 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
     points.forEach(({x, y, s, color}) =>{
       ctx.beginPath()
       ctx.fillStyle = color
-      ctx.rect(x - s/2, y - s/2, s, s)
+      ctx.arc(x, y, s, 0, 2 * Math.PI)
       ctx.fill()
     })
 
@@ -142,14 +142,12 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
 
       var dx = d.target[0] - p.x
       var dy = d.target[1] - p.y
-
-      return dx*dx + dy*dy < targetR*targetR
-      return xHit && yHit
+      var targetDist = p.s + targetR
+      // var dist = dx*dx + dy*dy - (targetR*targetR + p.s*p.s)
+      
+      return dx*dx + dy*dy < targetDist*targetDist
     })
-
-
     targetSel.classed('hit', isHit)
-
 
   }, editorIndex, sel)
 
