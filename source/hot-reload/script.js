@@ -110,8 +110,8 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
     points.push({
       position: pWrapper.fn, 
       t: Math.random()/5, 
-      dx: Math.random()*2 - 2/2,
-      dy: Math.random()*2 - 2/2
+      dx: Math.random()*.5*4 - 2/2,
+      dy: Math.random()*.5*4 - 2/2
     })
     ctx.clearRect(-c.margin.left, -c.margin.top, c.totalWidth, c.totalHeight)
     ctx.fillStyle = '#0f0'
@@ -122,7 +122,7 @@ var editorSel = d3.selectAll('.editor').data(editorSettings).html('').each(funct
 
       p.x = x(pos.x + p.dx)
       p.y = y(pos.y + p.dy)
-      p.s = pos.size || 4
+      p.s = pos.size || 3
       p.color = pos.color
     })
 

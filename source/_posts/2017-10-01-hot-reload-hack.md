@@ -59,9 +59,9 @@ Now you can make tweaks without risking a RSI flare up.
 
 Still, clearing the whole page to reload isn't ideal. 
 
-The flash of white is particularly harmful when the output of your code is visual. This isn't just an aestictic consideration. Our eyes have evolved to notice small changes—just what you want when trying to decide between 10 or 15px of padding—but after a hard reload everything looks like it changed.
+The flash of white is particularly harmful when the output of your code is visual. This isn't just an aesthetic consideration. Our eyes have evolved to notice small changes—just what you want when trying to decide between 10 or 15px of padding—but after a hard reload everything looks like it changed.
 
-Even with automatic reloading you can't instantly sense how your tweak effected the output; you have to pay close attention to what you're changing and intentionally remember what it looked like before.  
+Even with automatic reloading you can't instantly sense how your tweak affected the output; you have to pay close attention to what you're changing and intentionally remember what it looked like before.  
 
 <div class='spot-container'>
   <div class='spot'></div>
@@ -101,7 +101,7 @@ Other people are figuring out how to do that. [Eve](http://futureofcoding.org/es
   <i>[Hot Module Reloading](https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack) in webpack parses your dependency tree and figures out how to run your new code.</i>
 </div>
 
-This is great if you're building a whole application. Most of [my work](roadtolarissa.com/2017-chart-diary/) is simpler than that though, so I've been sticking with my config free, no build step setup. 
+This is great if you're building a whole application. Most of [my work](roadtolarissa.com/2017-chart-diary/) is simpler than that though, so I've been sticking with my config-free, no build step setup. 
 
 hot-sever feels magical, but there's just a [couple of dozen lines of code](https://github.com/1wheel/hot-server/blob/master/index.js) powering it. Short enough for me to do things like jimmy it into a slow requirejs build step at work or repurpose in a few hours for a multiplayer musical game with live updating rules at a music hackathon. 
 
