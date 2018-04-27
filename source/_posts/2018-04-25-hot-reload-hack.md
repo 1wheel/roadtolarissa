@@ -2,13 +2,12 @@
 template: post.html
 title: Hackable Hot Reloading
 permalink: /hot-reload
-draft: true
 shareimg: https://i.imgur.com/ZNkXwEx.png
 ---
 
 
 
-Ever since seeing Brett Victor rewire a platformer live on stage, I've wanted to write code more interactively. 
+Ever since seeing Bret Victor rewire a platformer live on stage, I've wanted to write code more interactively. 
 
 <link rel="stylesheet" type="text/css" href="style.css">
 <iframe src="https://player.vimeo.com/video/36579366#t=695s&autoplay=0&background=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -92,7 +91,7 @@ Much better! If you want to try this out on your project, I've packaged the code
 
 <div style='display: none'>`</script>`</div>
 
-Brett's talk suggested a ton of other ideas like [sliders](https://thebookofshaders.com/02/) to control numbers and directly [manipulating](http://1wheel.github.io/swoopy-drag/) elements. I've played around with some of them, but they're trickier to generalize. 
+Bret's talk suggested a ton of other ideas like [sliders](https://thebookofshaders.com/02/) to control numbers and directly [manipulating](http://1wheel.github.io/swoopy-drag/) elements. I've played around with some of them, but they're trickier to generalize. 
 
 Other people are figuring out how to do that. [Eve](http://futureofcoding.org/essays/eve/) prototyped a dozen different approaches. [Observable](https://beta.observablehq.com/) bolts a reactive runtime onto javascript. [Figwheel](https://github.com/bhauman/lein-figwheel) hot loads ClojureScript. And [webpack](https://webpack.js.org/) does more than bundle:
 
@@ -101,7 +100,7 @@ Other people are figuring out how to do that. [Eve](http://futureofcoding.org/es
   <i>[Hot Module Reloading](https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack) in webpack parses your dependency tree and figures out how to run your new code.</i>
 </div>
 
-This is great if you're building a whole application. Most of [my work](roadtolarissa.com/2017-chart-diary/) is simpler than that though, so I've been sticking with my config-free, no build step setup. 
+This is great if you're building a whole application. Most of [my work](https://roadtolarissa.com/2017-chart-diary/) is simpler than that though, so I've been sticking with my config-free, no build step setup. 
 
 hot-sever feels magical, but there's just a [couple of dozen lines of code](https://github.com/1wheel/hot-server/blob/master/index.js) powering it. Short enough for me to do things like jimmy it into a slow requirejs build step at work or repurpose in a few hours for a multiplayer musical game with live updating rules at a music hackathon. 
 
