@@ -91,7 +91,7 @@ Much better! If you want to try this out on your project, I've packaged the code
 
 <div style='display: none'>`</script>`</div>
 
-Bret's talk suggested a ton of other ideas like [sliders](https://thebookofshaders.com/02/) to control numbers and directly [manipulating](http://1wheel.github.io/swoopy-drag/) elements. I've played around with some of them, but they're trickier to generalize. 
+Bret's talk suggested a ton of other ideas like [sliders](https://beta.observablehq.com/@mbostock/particle-stream) to control numbers and directly [manipulating](http://1wheel.github.io/swoopy-drag/) elements. I've played around with some of them, but they're trickier to generalize. 
 
 Other people are figuring out how to do that. [Eve](http://futureofcoding.org/essays/eve/) prototyped a dozen different approaches. [Observable](https://beta.observablehq.com/) bolts a reactive runtime onto javascript. [Figwheel](https://github.com/bhauman/lein-figwheel) hot loads ClojureScript. And [webpack](https://webpack.js.org/) does more than bundle:
 

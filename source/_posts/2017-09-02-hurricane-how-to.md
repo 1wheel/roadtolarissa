@@ -27,11 +27,11 @@ The [Global Precipitation Measurement Constellation](https://pmm.nasa.gov/data-a
 
 [Interesting](https://www.youtube.com/watch?v=tHXHUc52SAw), but nowhere near to anything publishable. This was particularly frustrating because the previous afternoon I had watched Josh Katz put together a [historical rainfall map](https://www.nytimes.com/interactive/2017/08/29/upshot/harvey-rainfall-where-you-live.html) using similar data and tools, but I wasn't familiar enough with the domain to duplicate his efforts quickly. I started to worry that I had wasted time that would have been better spent making a map with a couple of numbers overlaid.
 
-Thankfully two of my other collagues, Jugal Patel and Anjali Singhvi, found a [National Weather Service FTP](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) and showed me how to convert the files to simple CSVs. Opening them in [QGIS](http://www.qgis.org/en/site/) showed they had exactly the data we wanted—a grid of hourly rainfall values. 
+Thankfully two of my other collagues, Jugal Patel and Anjali Singhvi, found a [National Weather Service FTP](http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170828/) and showed me how to convert the files to simple CSVs. Opening them in [QGIS](http://www.qgis.org/en/site/) showed they had exactly the data we wanted—a grid of hourly rainfall values (Update: NOAA has [replaced](http://www.nws.noaa.gov/os/notification/scn17-32ahps_pcpnaaa.htm) the shapefiles with netCDFs :/). 
 
 <img src="https://i.imgur.com/Vgh8uZS.png" style="margin: 0px auto; display: block; max-width: 573px;">
 
-A bit of bash downloaded files from the FTP, extracted them and converted them to a CSV with the day and hour in the file name (the 26th and 7 AM here). 
+A bit of bash downloaded files from the FTP, extracted them and converted them to a CSV with the day and hour in the file name (the 26th of August and 7 AM here). 
 
 ```bash
 URL="http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/2017/201708/20170826/nws_precip_2017082607.tar.gz"
