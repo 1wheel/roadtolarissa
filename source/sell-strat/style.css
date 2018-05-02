@@ -1,0 +1,163 @@
+body{
+  font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+
+  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
+  /*margin: 10px;*/
+  /*max-width: 1000px;*/
+}
+
+p{
+  /*max-width: 600px;*/
+  line-height: 1.3em;
+}
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  z-index: 1000;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+
+}
+
+.axis, .tooltip{
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+
+}
+
+.x.axis text, .y.axis text, .axis tspan{
+  fill: #888 !important;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  /*pointer-events: none;*/
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
+}
+
+
+#double-chart{
+  margin-bottom: 40px;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+}
+#double-chart > div{
+  display: inline-block;
+}
+
+#double-chart b{
+  font-size: 15px;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  font-weight: 800;
+}
+
+#graph b{
+  font-size: 15px;
+  margin-left: 29px;
+}
+
+@media (min-width: 980px){
+  #decade-sm{
+    width: 970px;
+    margin-left: -120px;
+  }
+  #double-chart{
+    width: 990px;
+    margin-left: -140px;
+  }
+
+  p#decade-note{
+    max-width: 530px;
+    margin-top: -30px;
+    padding-bottom: 10px;
+  }
+
+
+}
+
+
+
+rect.change{
+  fill: #791a1a;
+}
+rect.change.gain{
+  fill: #1e671e;
+}
+
+
+#decade-sm > div{
+  display: inline-block;
+}
+
+.year-label{
+  text-align: center;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+
+  font-size: 15px;
+}
+
+#double-chart svg{
+  position: inherit !important;
+}
+canvas{
+  pointer-events: none;
+  left: 0px;
+}
+
+#grid{
+  position: relative;
+  z-index: 10;
+}
+
+
+
+
+#slider-span{
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  
+  cursor:col-resize;
+  padding:1px 4px;
+  text-align:center;
+  line-height:1.5;
+  /*background-color:hsla(60,50%,95%,0.8);*/
+  /*box-shadow:0 0 4px hsla(0,0%,0%,0.3);*/
+  /*border-radius:4px;*/
+  font-weight:bold;
+  width: 20px;
+  text-align: center;
+  display: inline-block;
+  border: 2px solid #000;
+}
+#slider-span:hover{ 
+  box-shadow: 0 0 4px hsla(0,50%,50%,1.0); 
+}
+
+
+.slider-rect.active{
+  stroke-width: 3px;
+  stroke: #000;
+}
