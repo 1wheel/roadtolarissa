@@ -40,6 +40,16 @@ If, on the other hand, you think stocks act more like a random walk, then buying
 
 This ignores capital gains but also doesn't parks cash in bonds. Seems like too much work for me.
 
+- set chart edits to reload
+- edit ending
+- label chart directly: NASDAD and buy low/ sell high
+- intro less owrdly and chaty about chart - remove white line graph
+- ticks on grid are too dark
+- still don't like red green. maybe try bloomberg again?
+- height of top two don't align
+- switch top width to calc
+- make 
+- put slider inline on desktop
 
 <script src='../worlds-group-2017/d3_.js'></script>
 <script src='../worlds-group-2017/swoopy-drag.js'></script>
