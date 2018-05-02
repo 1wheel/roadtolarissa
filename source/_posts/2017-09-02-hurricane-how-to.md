@@ -381,7 +381,7 @@ This still left enough detail to see the eye as the hurricane made landfall and 
 
 ## Finishing and beyond
 
-The published version has additional features like a legend, a replay button, tooltip that I snuck in and responsiveness. The code for all that is 4× longer than what's included here and isn't nearly as polished: 
+The published version has additional features like a legend, a replay button, the tooltip that I snuck in after publishing and responsiveness. The code for all that is 4× longer than what's included here and isn't nearly as polished: 
 
 ```javascript
 if (hour < 5) day = +day - 1
@@ -398,7 +398,7 @@ You do what you have to do to finish fast!
 
 With additional time, I would have liked to figure out how to not reduce the spatial resolution of the data. A particle system in WebGL to show the rate (canvas can draw 10,000+ things at 5 FPS but not 60) and a more compact representation of that data (something like NetCDF perhaps) could have worked. If I had been more familiar with those tools, I might have given it a shot. 
 
-Getting to make things at different tempos is one of my favorite parts of working on a graphics desk. Tight time constraints force you to find creative solutions, while slack between projects gives you space to explore techniques and tools you hadn't realized realized you wanted to learn. 
+Getting to make things at different tempos is one of my favorite parts of working on a graphics desk. Tight time constraints force you to find creative solutions, while slack between projects gives you space to explore techniques and tools you hadn't realized you wanted to learn. 
 
 
 
