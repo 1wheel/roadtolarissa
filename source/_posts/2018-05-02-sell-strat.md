@@ -28,11 +28,9 @@ Mouse over the grid to explore buy and sell strategies with different thresholds
 
 <div id='decade-sm'></div>
 
-Try adjusting the two week, <span id='slider-span'>10</span> day window:
+Try adjusting the two week, <span id='slider-span'>10</span> day window: <span id='slider-chart'></span>
 
-<div id='slider-chart'></div>
-
-These strategies are quite sensitive to small adjustments of the time window. This suggests that their returns are highly dependent on past patterns which might not repeat in the future! Most of the outsized returns happen by exiting the market when the dot com bubble pops and the financial crisis happens. 
+These strategies are quite sensitive to small adjustments of the time window. This suggests that their returns are highly dependent on past patterns which might not repeat in the future. Most of their index beating returns happened by exiting the market when the dot com bubble popped and the financial crisis started. 
 
 Following momentum works if the market generally does what it previously did; if large daily swings are the result of an underlying change in value that takes place slowly then this is the way to go. 
 
@@ -44,12 +42,12 @@ This ignores capital gains but also doesn't parks cash in bonds. Seems like too 
 - edit ending
 - label chart directly: NASDAD and buy low/ sell high
 - intro less owrdly and chaty about chart - remove white line graph
-- ticks on grid are too dark
+x ticks on grid are too dark
 - still don't like red green. maybe try bloomberg again?
-- height of top two don't align
-- switch top width to calc
+x height of top two don't align
+x switch top width to calc
 - make 
-- put slider inline on desktop
+x put slider inline on desktop
 
 <script src='../worlds-group-2017/d3_.js'></script>
 <script src='../worlds-group-2017/swoopy-drag.js'></script>

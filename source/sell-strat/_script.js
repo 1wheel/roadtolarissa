@@ -1,4 +1,4 @@
-console.clear()
+// console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 var gDays = null
@@ -24,15 +24,24 @@ lcolors = '#1C5478,#426F92,#698AA9,#93A7BA,#BFC4C7,#eee'.split(',')
 rcolors = '#643803,#87541A,#A97337,#C9945B,#E5B887'.split(',').reverse()
 color.range(lcolors.concat(rcolors).reverse())
 
-var datapre = 'https://gist.githubusercontent.com/1wheel/18b49093b0a41888d4ff45281cb66f66/raw/37c4c6f85b3455bc5d6243ac7c638cf013e081e3/'
+if (window.data){
+  initAll()
+} else {
+  var datapre = 'https://gist.githubusercontent.com/1wheel/18b49093b0a41888d4ff45281cb66f66/raw/37c4c6f85b3455bc5d6243ac7c638cf013e081e3/'
+
+  d3.loadData(datapre + 'NASDAQCOM.csv', datapre + 'grid-cache.csv', (err, res) => {
+    data = res[0].filter(d => d.val != '.')
+
+    gridCache = res[1] || []
+
+    initAll()
+  })
+}
 
 
-d3.loadData(datapre + 'NASDAQCOM.csv', datapre + 'grid-cache.csv', (err, res) => {
-  data = res[0].filter(d => d.val != '.')
-
+function initAll(){
   drawLine = initLine()
-
-  gridCache = res[1] || []
+  gDays = null
 
   if (gridCache.length){
     gridCache.forEach(d => {
@@ -87,7 +96,7 @@ d3.loadData(datapre + 'NASDAQCOM.csv', datapre + 'grid-cache.csv', (err, res) =>
   initSlider(10)
   drawDay(10)
 
-})
+}
 
 function drawDay(days){
   // console.time('line')
@@ -115,6 +124,8 @@ function drawDay(days){
 }
 
 function initSlider(days){
+  var isMobile = innerWidth < 720
+
   var sel = d3.select('#slider-span')
 
   var scale = d3.scaleLinear()
@@ -133,14 +144,13 @@ function initSlider(days){
   // debugger
   var boxSel = d3.select('#slider-chart').html('').st({height: 0})
   var c = d3.conventions({
-    sel: boxSel.append('div').st({position: 'relative', top: -25, left: -15}), 
-    width: 9*31, 
-    height: 30
+    sel: boxSel.append('div.slide-inner').st({width: 9*31}),
+    margin: {left: 0, right: 0, top: 0, bottom: 0}
   })
   c.x.domain([2, 31])
 
   var s = c.x(3)
-  console.log( _.filter(gridCache, {bT: gbT, sT: gsT}))
+  // console.log( _.filter(gridCache, {bT: gbT, sT: gsT}))
   var slideRectSel = c.svg.append('g').appendMany('rect.slider-rect', _.filter(gridCache, {bT: gbT, sT: gsT}))
     .translate(d => c.x(d.days), 0)
     .at({width: s - 1, height: s, fill: d => color(d.y2017/70)})
@@ -150,15 +160,21 @@ function initSlider(days){
     .at({stroke: '#000', strokeWidth: 2, fill: 'none'})
 
   var hSpace = 13
-  var boxX = 123
   window.updateDayConnector = function(){
-    connectorPath.at({d: [
+    var mobilePath = [
       'M', c.x(gDays) + s/2, 0,
       'v', -hSpace/2,
-      'H', boxX,
+      'H', 220,
       'v', -hSpace/2
+    ].join(' ') 
 
-    ].join(' ')})
+    var path = [
+      'M', c.x(gDays) + s/2, 0,
+      'v', -10,
+      'H', -120,
+    ].join(' ')
+
+    connectorPath.at({d: isMobile ? mobilePath : path})
 
 
     slideRectSel
@@ -169,7 +185,7 @@ function initSlider(days){
 
 
   c.svg.append('rect')
-    .at({width: c.width + 9, height: c.height + 20, fillOpacity: 0, y: -35})
+    .at({width: c.width + 9, height: c.height + 20, fillOpacity: 0, y: isMobile ? -10 : -10})
     .on('mousemove', function(){
       var days = Math.round(c.x.invert(d3.mouse(this)[0]))
       days = Math.min(31, days)
@@ -236,6 +252,8 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
   c.yAxis.tickValues([.98, .96, .94, .92, .90]).tickFormat(pctFmt)
   d3.drawAxis(c)
 
+  c.svg.select('.x').translate([-1, c.height])
+
 
   if (!isLeftAxis) c.svg.selectAll('.y').remove()
 
@@ -264,7 +282,7 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
       .tspans('...Buy when the market//rises by this much'.split('//'))
 
     keySel.st({marginBottom: 50, marginLeft: -10, width: 215})
-    keySel.append('div').append('b').text('Returns v. NASDAQ').st({marginLeft: 0, position: 'relative', top: 1})
+    keySel.append('div').append('b').text('Returns v. NASDAQ').st({marginLeft: 0})
     keySel.appendMany('span', [1/4, 1/2, 1, 2, 4])
       .text(d => d == 1/4 ? '1/4' : d == 1/2 ? '1/2' : d)
       .text(d => d3.format('.0%')(d))
@@ -292,10 +310,11 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
       prevPosStr = posStr
 
       var d = _.find(gridData, {bT, sT})
+      var percent = d['y' + year]/stockReturn
       ttSel.html([
         `&nbsp;Buy after ${days} day change of ` + pctFmtLng(bT),
         `Sell after ${days} day change of ` + pctFmtLng(sT),
-        `<b>` + d3.format('.2%')(d['y' + year]/stockReturn) + ' </b> of NASDAQ',
+        `<b style='color: #fff; background: ${color(percent)};'>&nbsp` + d3.format('.2%')(percent) + ' </b> of NASDAQ',
       ].join('<br>'))
 
       // console.log(d['y' + year], stockReturn)

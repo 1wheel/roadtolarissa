@@ -6,12 +6,13 @@ function initLine(){
     
   var c = d3.conventions({
     sel: sel.append('div'), 
-    totalHeight: 274, 
-    totalWidth: 530 + 240, 
+    totalHeight: 286, 
     margin: {left: 32, right: 30, top: 20},
     layers: 'cs',
   })
   var ctx = c.layers[0]
+
+  // console.log(c.width)
 
   var {width, height} = c
   c.svg.append('rect')
@@ -36,7 +37,11 @@ function initLine(){
 
   var red = 'rgb(155,17,14)'
   var green = '#0f0'
+
   var green1 = 'rgb(0,160,138)'
+
+  var redL = '#f00'
+  var greenL = '#3dea05'
 
   c.svg.append('mask#line-mask').append('rect')
     .at({width: c.width, y: -30, height: c.height + 30, fill: '#fff'})
@@ -55,7 +60,7 @@ function initLine(){
   var lastDays = null
 
   return function(days, bT, sT, startI = startIFn(1), endI = endIFn(1)){
-    
+
     if (window.updateDayConnector) window.updateDayConnector()
     d3.selectAll('.hover-rect').each(d => d.fn(bT, sT))
       
@@ -77,11 +82,20 @@ function initLine(){
       startTransition = true
     }
 
-    bSel.html(`
-      Buy After ${pctFmtLng(bT)} /
-       Sell After ${pctFmtLng(sT)}
-       ${days} Day Change
-    `)
+    bSel.html('')
+    bSel.append('span')
+      .st({paddingBottom: 0, borderBottom: `2px solid ${greenL}`})
+      .text(`Buy After ${pctFmtLng(bT)}`)
+    bSel.append('span').html('&nbsp')
+    bSel.append('span')
+      .st({paddingBottom: 0, borderBottom: `2px solid ${redL}`})
+      .text(`Sell After ${pctFmtLng(sT)}`)
+    bSel.append('span').html('&nbsp')
+
+    if (c.width > 150){
+      bSel.append('span')
+        .text(`${days} Day Change`)
+    }
 
     b = calcChangeVector(days, bT, 0)
     s = calcChangeVector(days, sT, 1)
@@ -113,10 +127,13 @@ function initLine(){
 
       var yTicks = yearIndex.filter(d => startI <= d.i && d.i <= endI).map(d => d.i)
       var dTicks = decadeIndex.map(d => d.i).concat(data.length - 60)
+
+      var xTicks = (yTicks.length < 16 ? yTicks : dTicks)
+          .filter(d => -20 <= c.x(d) && c.x(d) <= c.width + 20)
+
       c.xAxis
         .tickFormat(d => data[d].year)
-        .tickValues((yTicks.length < 16 ? yTicks : dTicks)
-          .filter(d => -20 <= c.x(d) && c.x(d) <= c.width + 20))
+        .tickValues(c.width < 150 ? [xTicks[0], xTicks.pop()] : xTicks)
 
       xAxisSel.selectAll('.tick').remove()
       xAxisSel.call(c.xAxis)
@@ -165,7 +182,7 @@ function initLine(){
           stroke: '#0f0',
           strokeWidth: 2
         })
-        .st({stroke: '#3dea05'})
+        .st({stroke: greenL})
 
       drawG.append('path')
         .at({
@@ -174,10 +191,13 @@ function initLine(){
           stroke: '#df3610',
           strokeWidth: 2
         })
-        .st({stroke: '#f00'})
+        .st({stroke: redL})
 
     }
 
   }
 
 }
+
+
+if (window.initAll) initAll()

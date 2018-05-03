@@ -44,11 +44,13 @@ svg{
 
 .axis, .tooltip{
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
-
 }
 
 .x.axis text, .y.axis text, .axis tspan{
   fill: #888 !important;
+}
+.axis line{
+  stroke: #888;
 }
 
 .domain{
@@ -75,9 +77,22 @@ text{
   font-weight: 800;
 }
 
+#graph b span{
+  display: inline-block;
+}
+
+#graph{
+  width: calc(100% - 220px);
+}
+
 #graph b{
-  font-size: 15px;
-  margin-left: 29px;
+  left: 29px;
+  position: relative;
+}
+
+#grid b{
+  position: relative;
+  top: -3px;
 }
 
 @media (min-width: 980px){
@@ -89,15 +104,73 @@ text{
     width: 990px;
     margin-left: -140px;
   }
+}
 
+@media (max-width: 979px){
+  #decade-sm > :first-child{
+    display: none;
+  }
+
+  #decade-sm > div{
+    width: 25%;
+  }
+
+}
+
+
+@media (min-width: 720px){
   p#decade-note{
     max-width: 530px;
     margin-top: -30px;
     padding-bottom: 10px;
   }
 
-
+  .slide-inner{
+    height: 10px;
+    display: inline-block;
+    /*top: -18px;*/
+  }
 }
+
+
+@media (max-width: 719px){
+  .slide-inner{
+    position: relative; 
+    top: 13px;
+    /*top: -25px; */
+    /*left: -15px; */
+    /*height: 70px; */
+    display: block;
+    height: 20px;
+  }
+
+  #double-chart b{
+    font-size: 12px;
+    line-height: 1.7em;
+  }
+
+  #graph b{
+    width: 130px;
+    display: inline-block;
+    left: 0px;
+    top: -0px;
+    text-align: right;
+  }
+
+  #grid{
+    margin-left: -13px;
+  }
+
+  #grid b{
+    text-align: center;
+    display: block;
+  }
+
+  #decade-sm > div{
+    width: 49%;
+  }
+}
+
 
 
 

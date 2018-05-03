@@ -8,7 +8,7 @@ x reindex line on decade hover (don't like with zoom)
 
 - bloomberg colors? maybe not color brewer idk
 x make drag use cache
-- add bar chart to drag
+x add bar chart to drag
 x make line chart update on drag
 x make line chart draw on load
 x canvas grid
