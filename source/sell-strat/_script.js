@@ -1,4 +1,3 @@
-// console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 var gDays = null
@@ -89,7 +88,6 @@ function initAll(){
       d.y2017 = fmt(d.vHash['2017'], 6) 
       delete d.vHash
     })
-    console.log('done')
   }
 
   if (!window.day2gridData) day2gridData = {}
@@ -99,7 +97,6 @@ function initAll(){
 }
 
 function drawDay(days){
-  // console.time('line')
 
   if (days == gDays) return
   gDays = days
@@ -117,9 +114,7 @@ function drawDay(days){
     drawGrid(days, d.i, d.ei, sel, d, year)
   })
 
-  // console.time('line')
   drawLine(gDays, gbT, gsT)
-  // console.timeEnd('line')
 
 }
 
@@ -150,7 +145,6 @@ function initSlider(days){
   c.x.domain([2, 31])
 
   var s = c.x(3)
-  // console.log( _.filter(gridCache, {bT: gbT, sT: gsT}))
   var slideRectSel = c.svg.append('g').appendMany('rect.slider-rect', _.filter(gridCache, {bT: gbT, sT: gsT}))
     .translate(d => c.x(d.days), 0)
     .at({width: s - 1, height: s, fill: d => color(d.y2017/70)})
@@ -227,19 +221,23 @@ function pctFmtLng(d){
 }
 
 function drawGrid(days, startI, endI, sel, decadeObj, year){
-  var isLeftAxis = year == 2017 || year == 1970
+  var isLeftAxis = year == 2017 || year == 1970 || (innerWidth < 970 && year == 1980)
 
   sel = sel || d3.select('#grid').html('')
 
   var keySel = sel.append('div')
 
+  var width = sel.node().offsetWidth - 20
+
+  if (width < 50) width = 19*9
   var c = d3.conventions({
     sel: sel.append('div'), 
-    height: 19*9, 
-    width: 19*9, 
-    margin: {left: isLeftAxis ? 20: 10, right: 10, top: 0},
+    height: width, 
+    width: width, 
+    margin: {left: year == 2017 ? 20: 10, right: 10, top: 0},
     layers: 'cs'
   })
+
 
   c.x.domain([1.01, 1.10 - .005])
   c.y.domain([.99, .90])
@@ -248,8 +246,14 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
     return d3.format('+.0f')((d - 1)*100) + '%'
   }
 
-  c.xAxis.tickValues([1.02, 1.04, 1.06, 1.08, 1.10]).tickFormat(pctFmt)
-  c.yAxis.tickValues([.98, .96, .94, .92, .90]).tickFormat(pctFmt)
+  var xTicks = [1.02, 1.04, 1.06, 1.08, 1.10]
+  var yTicks = [.98, .96, .94, .92, .90]
+
+  if (innerWidth < 800 && year != 2017){
+    xTicks = xTicks.filter((d, i) => (i % 2))
+  }
+  c.xAxis.tickValues(xTicks).tickFormat(pctFmt)
+  c.yAxis.tickValues(yTicks).tickFormat(pctFmt)
   d3.drawAxis(c)
 
   c.svg.select('.x').translate([-1, c.height])
@@ -303,7 +307,6 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
       var bT = gbT = Math.floor(200*c.x.invert(x))/200
       var sT = bsT = Math.floor(200*c.y.invert(y + s))/200
 
-      console.log(bT, sT)
 
       var posStr = bT + '' + sT
       if (prevPosStr == posStr) return
@@ -314,10 +317,9 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
       ttSel.html([
         `&nbsp;Buy after ${days} day change of ` + pctFmtLng(bT),
         `Sell after ${days} day change of ` + pctFmtLng(sT),
-        `<b style='color: #fff; background: ${color(percent)};'>&nbsp` + d3.format('.2%')(percent) + ' </b> of NASDAQ',
+        `<b style='color: #fff; background: ${color(percent)}; margin-right: 8px;'>&nbsp` + d3.format('.2%')(percent) + ' </b> of NASDAQ',
       ].join('<br>'))
 
-      // console.log(d['y' + year], stockReturn)
       
       drawLine(days, bT, sT, startI, endI)
     })

@@ -15,8 +15,6 @@ Buying high and selling low sound foolish, but it might work better than you thi
 
 Over the past 40 years, selling after the NASDAQ dropped more than 8% in two weeks and buying after the NASDAQ gained more than 8% would have yielded better returns than staying continuously invested. 
 
-The white line on the below chart shows the NASDAQ's actual returns since 1971—it's 70 times bigger. Buying and selling after 8% swings would have done even better, with a hundred and fifty fold return. That investing strategy shown with green and reds lines indicating periods of holding and cashing out respectively. 
-
 Mouse over the grid to explore buy and sell strategies with different thresholds. Not all of them work!
 
 <div id='double-chart'>
@@ -38,16 +36,17 @@ If, on the other hand, you think stocks act more like a random walk, then buying
 
 This ignores capital gains but also doesn't parks cash in bonds. Seems like too much work for me.
 
-- set chart edits to reload
+x set chart edits to reload
 - edit ending
-- label chart directly: NASDAD and buy low/ sell high
-- intro less owrdly and chaty about chart - remove white line graph
+- label chart directly: NASDAD and buy low/ sell high. maybe just NASDAQ?
+x intro less owrdly and chaty about chart - remove white line graph
 x ticks on grid are too dark
 - still don't like red green. maybe try bloomberg again?
 x height of top two don't align
 x switch top width to calc
-- make 
+- make top grid shrink some on mobile, pull down height of line too
 x put slider inline on desktop
+- day breaks after doing another hover
 
 <script src='../worlds-group-2017/d3_.js'></script>
 <script src='../worlds-group-2017/swoopy-drag.js'></script>

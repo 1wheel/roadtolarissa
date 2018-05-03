@@ -19,6 +19,8 @@ p{
   border: 1px solid lightgray;
   pointer-events: none;
   z-index: 1000;
+  font-size: 12px;
+  line-height: 1.6em;
 }
 .tooltip-hidden{
   opacity: 0;
@@ -165,11 +167,8 @@ text{
     text-align: center;
     display: block;
   }
-
-  #decade-sm > div{
-    width: 49%;
-  }
 }
+
 
 
 
