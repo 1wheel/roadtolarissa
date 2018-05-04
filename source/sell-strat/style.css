@@ -67,6 +67,7 @@ text{
 #double-chart{
   margin-bottom: 40px;
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  min-height: 240px;
 }
 #double-chart > div{
   display: inline-block;
