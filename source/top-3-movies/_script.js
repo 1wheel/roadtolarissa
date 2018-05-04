@@ -39,7 +39,8 @@ p.layers[1].append('div')
     <div><a href='https://www.axios.com/black-panther-box-office-titanic-top-3-north-america-avatar-star-wars-32a35770-59fc-4ccc-bd5b-3a85d7144266.html'>Chart idea</a> from Axios.</div>
     <br>
     <div>Data from Box Office Mojo via Axios. Only top 100 grossing movies of all time are included, but the chart just shows the first 26 weeks of the initial theatical run.</div>
-
+    <br>
+    <div>Dollar amounts are not inflation adjusted.</div>
     <br>
     <div><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/top-3-movies/_script.js'>code</a></div>
     `)

@@ -7,6 +7,8 @@ var gStartI = () => 0
 var gEndI = () => 11910
 var gT = 0 
 
+var isMobileGrid = innerWidth < 720
+
 var r2 = Math.sqrt(2)
 var color = d3.scaleThreshold()
   .domain([1/2, 1/r2, 1, r2, 2, 2*r2])
@@ -109,7 +111,7 @@ function drawDay(days){
     var sel = d3.select(this)
     var year = d.year.replace('71', '70')
 
-    sel.append('div.year-label').text(year + 's')
+    sel.append('div.year-label').html('&nbsp;' +year + 's')
 
     drawGrid(days, d.i, d.ei, sel, d, year)
   })
@@ -229,7 +231,7 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
 
   var width = sel.node().offsetWidth - 20
 
-  if (width < 50) width = 19*9
+  if (width < 50) width = isMobileGrid ? 14*9 : 19*9
   var c = d3.conventions({
     sel: sel.append('div'), 
     height: width, 
@@ -251,6 +253,7 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
 
   if (innerWidth < 800 && year != 2017){
     xTicks = xTicks.filter((d, i) => (i % 2))
+    yTicks = yTicks.filter((d, i) => (i % 2))
   }
   c.xAxis.tickValues(xTicks).tickFormat(pctFmt)
   c.yAxis.tickValues(yTicks).tickFormat(pctFmt)
@@ -285,28 +288,35 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
       .translate([c.width + 10, c.height + 30])
       .tspans('...Buy when the market//rises by this much'.split('//'))
 
-    keySel.st({marginBottom: 50, marginLeft: -10, width: 215})
+    keySel.st({marginBottom: 50, marginLeft: -10, width: isMobileGrid ? 166 : 215})
     keySel.append('div').append('b').text('Returns v. NASDAQ').st({marginLeft: 0})
     keySel.appendMany('span', [1/4, 1/2, 1, 2, 4])
       .text(d => d == 1/4 ? '1/4' : d == 1/2 ? '1/2' : d)
       .text(d => d3.format('.0%')(d))
-      .st({background: color, width: 42, display: 'inline-block', textAlign: 'center', color: (d, i) => d == 1 ? '#888' : '#fff', fontSize: 12})
+      .st({background: color, width: '20%', display: 'inline-block', textAlign: 'center', color: (d, i) => d == 1 ? '#888' : '#fff', fontSize: isMobileGrid ? 10 : 12})
   }
   var s = c.width/19
 
   var hoverRect = c.svg.append('rect.hover-rect')
-    .at({width: s, height: s, strokeWidth: 3, fill: 'none', stroke: '#000'})
+    .at({width: s, height: s, strokeWidth: isMobileGrid ? 1.5 : 3, fill: 'none', stroke: '#000'})
     .translate(-100000, 0)
     .datum({fn: (bT, sT) => hoverRect.translate([c.x(bT), c.y(sT) - s])})
 
   var prevPosStr = ''
+  var clicked = false
   c.svg.append('rect')
     .at({width: c.width + s, height: c.height, fillOpacity: 0})
-    .on('mousemove', function(){
+    .st({cursor: 'pointer'})
+    .call(d3.attachTooltip)
+    .on('mousemove touchmove click', function(){
+      if (clicked && !isMobileGrid && d3.event.type != 'click') return
+
+      d3.event.preventDefault()
+      d3.event.stopPropagation()
+
       var [x, y] = d3.mouse(this)
       var bT = gbT = Math.floor(200*c.x.invert(x))/200
-      var sT = bsT = Math.floor(200*c.y.invert(y + s))/200
-
+      var sT = gsT = Math.floor(200*c.y.invert(y + s))/200
 
       var posStr = bT + '' + sT
       if (prevPosStr == posStr) return
@@ -317,13 +327,13 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
       ttSel.html([
         `&nbsp;Buy after ${days} day change of ` + pctFmtLng(bT),
         `Sell after ${days} day change of ` + pctFmtLng(sT),
-        `<b style='color: #fff; background: ${color(percent)}; margin-right: 8px;'>&nbsp` + d3.format('.2%')(percent) + ' </b> of NASDAQ',
+        `<b style='color: #fff; background: ${color(percent)}; color: ${color(percent) == '#eee' ? '#888' : ''}; margin-right: 8px;'>&nbsp` + d3.format('.2%')(percent) + ' </b> of NASDAQ',
       ].join('<br>'))
-
       
       drawLine(days, bT, sT, startI, endI)
     })
-    .call(d3.attachTooltip)
+    .on('click.disable-move', () => clicked = true)
+    .on('mouseover', () => clicked = false)
 
   var ctx = c.layers[0]
   // return

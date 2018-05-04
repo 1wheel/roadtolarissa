@@ -1,6 +1,5 @@
 body{
-  font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
-
+  /*font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;*/
   /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
   /*margin: 10px;*/
   /*max-width: 1000px;*/
@@ -88,7 +87,7 @@ text{
 }
 
 #graph b{
-  left: 29px;
+  left: 32px;
   position: relative;
 }
 
@@ -151,10 +150,14 @@ text{
     line-height: 1.7em;
   }
 
+  #graph{
+    width: calc(100% - 170px);
+  }
+
   #graph b{
     width: 130px;
     display: inline-block;
-    left: 0px;
+    left: 25px;
     top: -0px;
     text-align: right;
   }
@@ -166,6 +169,10 @@ text{
   #grid b{
     text-align: center;
     display: block;
+  }
+
+  #decade-sm{
+    margin-left: 20px;
   }
 }
 
@@ -232,4 +239,11 @@ canvas{
 .slider-rect.active{
   stroke-width: 3px;
   stroke: #000;
+}
+
+@media (max-width: 719px){
+  .slider-rect.active{
+    stroke-width: 1.5px;
+  }
+
 }

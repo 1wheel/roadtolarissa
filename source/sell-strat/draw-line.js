@@ -6,7 +6,7 @@ function initLine(){
     
   var c = d3.conventions({
     sel: sel.append('div'), 
-    totalHeight: 286, 
+    totalHeight: isMobileGrid ? 240 : 286, 
     margin: {left: 32, right: 30, top: 20},
     layers: 'cs',
   })
@@ -40,15 +40,16 @@ function initLine(){
 
   var green1 = 'rgb(0,160,138)'
 
-  var redL = '#f00'
-  var greenL = '#3dea05'
+  var redL = '#E5484E'
+  var greenL = '#77CE84'
 
   c.svg.append('mask#line-mask').append('rect')
     .at({width: c.width, y: -30, height: c.height + 30, fill: '#fff'})
+
+  var nasdaqSel = c.svg.append('g.axis').append('text')
+    .text('NASDAQ')
+    .at({fill: '#ccc', fontSize: 10, x: c.width - 3, textAnchor: 'end'})
   var drawG = c.svg.append('g').at({mask: 'url(#line-mask)'})
-
-
-
 
   var curT = 1
   var startIFn = t => 0
@@ -66,7 +67,7 @@ function initLine(){
       
     if (days == lastDays){
       d3.selectAll('.slider-rect')
-        .data(_.filter(gridCache, {bT: gbT, sT: gsT}))
+        .data(_.filter(gridCache, {bT: gbT, sT: gsT}), d => d.days)
         .at({fill: d => color(d.y2017/70)})
     }
     lastDays = days      
@@ -92,7 +93,7 @@ function initLine(){
       .text(`Sell After ${pctFmtLng(sT)}`)
     bSel.append('span').html('&nbsp')
 
-    if (c.width > 150){
+    if (c.width > 190){
       bSel.append('span')
         .text(`${days} Day Change`)
     }
@@ -107,6 +108,7 @@ function initLine(){
       return {i, v: d, n}
     })
 
+
     drawFrame(curT)
     if (startTransition){
       if (window.linetimer) linetimer.stop()
@@ -118,10 +120,11 @@ function initLine(){
       })
     }
 
+
     function drawFrame(){
       var cubicT = d3.easeCubicInOut(curT)
       startI = Math.round(startIFn(cubicT))
-      endI = Math.round(endIFn(cubicT))
+      endI = Math.min(data.length - 1, Math.round(endIFn(cubicT)))
 
       c.x.domain([startI, endI])
 
@@ -171,6 +174,8 @@ function initLine(){
           strokeWidth: 1
         })
 
+      nasdaqSel.translate(y(data[endI].v) - isMobileGrid ? 10 : 5, 1)
+
       // var initRatio = data[startI].v/returns[startI].v
       // var initRatio = 1
       // line.y(d => y(d.v*initRatio))
@@ -192,6 +197,8 @@ function initLine(){
           strokeWidth: 2
         })
         .st({stroke: redL})
+
+
 
     }
 
