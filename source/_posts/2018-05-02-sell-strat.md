@@ -14,7 +14,7 @@ What should you do when the stock market drops? Selling low and buying high soun
 
 Over the past 40 years, selling after the NASDAQ fell more than 8% in two weeks and buying after the NASDAQ climbed more than 8% in two weeks would have yielded better returns than staying continuously invested.
 
-Last month the NASDAQ dropped more than 8% in two weeks. Should you liquidate you stocks? Is this 8% in two weeks strategy cherry-picked?
+Last month the NASDAQ dropped more than 8% in two weeks. Should you liquidate you stocks? Is this 8% in two weeks strategy over-fit and cherry-picked?
 
 Mouse over the grid to explore buy and sell strategies with different thresholds. Not all of them are successful.
 
@@ -37,7 +37,7 @@ If, on the other hand, you think stocks act more like a random walk, then buying
 
 Regardless of how you think of markets, be aware that this model ignores the tax penalty from short term capital gains. And it instead of investing in T-bonds while not in stocks, it sits on yield-less cash. 
 
-For me, committing to regularly monitoring the stock market and optimally managing all these transactions sounds like entirely too much work so I'll be holding for now.
+For me, committing to regularly monitoring the market, optimally managing all these transactions and filling out more tax forms sounds like entirely too much work so I'll be holding for now.
 
 <script src='../worlds-group-2017/d3_.js'></script>
 <script src='../worlds-group-2017/swoopy-drag.js'></script>

@@ -68,7 +68,7 @@ function initLine(){
     if (days == lastDays){
       d3.selectAll('.slider-rect')
         .data(_.filter(gridCache, {bT: gbT, sT: gsT}), d => d.days)
-        .at({fill: d => color(d.y2017/70)})
+        .at({fill: d => color(d['y' + gyear]/year2return['y' + gyear])})
     }
     lastDays = days      
 

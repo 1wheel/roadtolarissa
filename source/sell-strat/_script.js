@@ -1,3 +1,4 @@
+console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 var gDays = null
@@ -6,6 +7,7 @@ var gsT = .92
 var gStartI = () => 0
 var gEndI = () => 11910
 var gT = 0 
+var gyear = 2017
 
 var isMobileGrid = innerWidth < 720
 
@@ -39,6 +41,14 @@ if (window.data){
   })
 }
 
+var year2return = {
+  y1970: 1.4816999999999998,
+  y1980: 3.100020247013566,
+  y1990: 8.993860623081444,
+  y2000: 0.5587838737397578,
+  y2010: 3.033997279524523,
+  y2017: 70.03739999999999
+}
 
 function initAll(){
   drawLine = initLine()
@@ -71,12 +81,6 @@ function initAll(){
   yearIndex = d3.nestBy(data, d => d.year)
     .map(d => ({year: d[0].year, i: d[0].i}))
 
-  // buy if +5% over last week
-  bVector = calcChangeVector(14, 1.06, 0)
-  sVector = calcChangeVector(14,  .94, 1)
-
-  returns = calcReturnVector(bVector, sVector)
-
   // save grid data
   if (0){
     d3.range(2, 32).forEach(day => calcGridData(day, true))
@@ -93,7 +97,7 @@ function initAll(){
   }
 
   if (!window.day2gridData) day2gridData = {}
-  initSlider(10)
+  drawSlider(10)
   drawDay(10)
 
 }
@@ -120,7 +124,7 @@ function drawDay(days){
 
 }
 
-function initSlider(days){
+function drawSlider(days, year){
   var isMobile = innerWidth < 720
 
   var sel = d3.select('#slider-span')
@@ -134,9 +138,9 @@ function initSlider(days){
     .call(d3.drag()
       .subject(() => ({x: scale.invert(days), y: 0}))
       .on('drag', () => {
-          days = Math.round(scale(d3.event.x))
-          sel.text(days)
-          drawDay(days)
+        days = Math.round(scale(d3.event.x))
+        sel.text(days)
+        drawDay(days)
       }))
   // debugger
   var boxSel = d3.select('#slider-chart').html('').st({height: 0})
@@ -179,47 +183,27 @@ function initSlider(days){
       .raise()
   }
 
+  window.updateSliderGrid = function(){
+    slideRectSel
+      .data(_.filter(gridCache, {bT: gbT, sT: gsT}), d => d.days)
+      .at({fill: d => color(d['y' + gyear]/year2return['y' + gyear])})
+  }
+
 
   c.svg.append('rect')
     .at({width: c.width + 9, height: c.height + 20, fillOpacity: 0, y: isMobile ? -10 : -10})
+    .call(d3.attachTooltip)
     .on('mousemove', function(){
       var days = Math.round(c.x.invert(d3.mouse(this)[0]))
       days = Math.min(31, days)
       drawDay(days)
       sel.text(days)
+
+      var d = _.filter(slideRectSel.data(), {days: days + ''})[0]
+      var percent = d['y' + gyear]/year2return['y' + gyear]
+    
+      updateTooltip(gbT, gsT, days, percent, gyear)
     })
-
-
-}
-
-function calcGridData(days, isAddToCache){
-  bVectors = d3.range(1.01, 1.10, .005).map(d => calcChangeVector(days, d, 0))
-  sVectors = d3.range(.99, .90, -.005) .map(d => calcChangeVector(days, d, 1))
-
-  gridData = d3.cross(bVectors, sVectors).map(([b, s]) => {
-    var v = calcReturnDecades(b, s)
-
-    var vHash = {
-      1970: v[0]/100,
-      1980: v[1]/v[0],
-      1990: v[2]/v[1],
-      2000: v[3]/v[2],
-      2010: v[4]/v[3],
-      2017:  v[4]/100,
-    }
-
-    var bT = b.meta.changeTarget
-    var sT = s.meta.changeTarget
-    if (isAddToCache) gridCache.push({days, bT, sT, vHash})
-
-    return {v, b, s, vHash, bT, sT}
-  })
-
-  return gridData
-}
-
-function pctFmtLng(d){
-  return d3.format('+.1f')((d - 1)*100) + '%'
 }
 
 function drawGrid(days, startI, endI, sel, decadeObj, year){
@@ -268,7 +252,7 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
   var endVal = data[endI].v
 
   var stockReturn = endVal/startVal
-
+  year2return[year] = stockReturn
 
   if (year == 2017){
     c.svg.append('text.axis')  
@@ -311,6 +295,8 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
     .on('mousemove touchmove click', function(){
       if (clicked && !isMobileGrid && d3.event.type != 'click') return
 
+      gyear = year
+
       d3.event.preventDefault()
       d3.event.stopPropagation()
 
@@ -324,11 +310,8 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
 
       var d = _.find(gridData, {bT, sT})
       var percent = d['y' + year]/stockReturn
-      ttSel.html([
-        `&nbsp;Buy after ${days} day change of ` + pctFmtLng(bT),
-        `Sell after ${days} day change of ` + pctFmtLng(sT),
-        `<b style='color: #fff; background: ${color(percent)}; color: ${color(percent) == '#eee' ? '#888' : ''}; margin-right: 8px;'>&nbsp` + d3.format('.2%')(percent) + ' </b> of NASDAQ',
-      ].join('<br>'))
+
+      updateTooltip(bT, sT, days, percent, year)
       
       drawLine(days, bT, sT, startI, endI)
     })
@@ -345,6 +328,16 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
   })
 }
 
+
+function updateTooltip(bT, sT, days, percent, year){
+  var decadeStr = year == 2017 ? '' : ' in the ' + year + 's'
+
+  ttSel.html([
+    `&nbsp;Buy after ${days} day change of ` + pctFmtLng(bT),
+    `Sell after ${days} day change of ` + pctFmtLng(sT),
+    `<b style='color: #fff; background: ${color(percent)}; color: ${color(percent) == '#eee' ? '#888' : ''}; margin-right: 8px;'>&nbsp` + d3.format('.2%')(percent) + ' </b> of NASDAQ ' + decadeStr
+  ].join('<br>'))
+}
 
 
 function calcChangeVector(numDays, changeTarget, isLessThan){
@@ -430,4 +423,35 @@ function calcReturnVector(bVector, sVector){
 
   return rv
 }
+
+function calcGridData(days, isAddToCache){
+  bVectors = d3.range(1.01, 1.10, .005).map(d => calcChangeVector(days, d, 0))
+  sVectors = d3.range(.99, .90, -.005) .map(d => calcChangeVector(days, d, 1))
+
+  gridData = d3.cross(bVectors, sVectors).map(([b, s]) => {
+    var v = calcReturnDecades(b, s)
+
+    var vHash = {
+      1970: v[0]/100,
+      1980: v[1]/v[0],
+      1990: v[2]/v[1],
+      2000: v[3]/v[2],
+      2010: v[4]/v[3],
+      2017:  v[4]/100,
+    }
+
+    var bT = b.meta.changeTarget
+    var sT = s.meta.changeTarget
+    if (isAddToCache) gridCache.push({days, bT, sT, vHash})
+
+    return {v, b, s, vHash, bT, sT}
+  })
+
+  return gridData
+}
+
+function pctFmtLng(d){
+  return d3.format('+.1f')((d - 1)*100) + '%'
+}
+
 
