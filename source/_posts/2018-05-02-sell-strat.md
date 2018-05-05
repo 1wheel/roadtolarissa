@@ -5,12 +5,12 @@ title2: What Should You Do When Stock Prices Drop?
 title3: Beat the Market by Selling Low and Buying High 
 permalink: /sell-strat
 draft: true
-shareimg: http://roadtolarissa.com/images/posts/tktk.png
+shareimg: https://i.imgur.com/5z400QK.png
 ---
 
 <link rel="stylesheet" type="text/css" href="style.css">
 
-What should you do when the stock market drops? Selling low and buying high sound foolish, but it might work better than you think. 
+What should you do when the stock market drops? Selling low and buying high sounds foolish, but it might work better than you think. 
 
 Over the past 40 years, selling after the NASDAQ fell more than 8% in two weeks and buying after the NASDAQ climbed more than 8% in two weeks would have yielded better returns than staying continuously invested.
 
@@ -37,7 +37,7 @@ If, on the other hand, you think stocks act more like a random walk, then buying
 
 Regardless of how you think of markets, be aware that this model ignores the tax penalty from short term capital gains. And it instead of investing in T-bonds while not in stocks, it sits on yield-less cash. 
 
-For me, committing to regularly monitoring the market, optimally managing all these transactions and filling out more tax forms sounds like entirely too much work so I'll be holding for now.
+For me, committing to regularly monitoring the market, optimally managing all these transactions and filling out a longer Form 8949 sounds like entirely too much work so I'll be holding for now.
 
 <script src='../worlds-group-2017/d3_.js'></script>
 <script src='../worlds-group-2017/swoopy-drag.js'></script>

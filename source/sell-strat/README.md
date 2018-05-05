@@ -30,6 +30,10 @@ https://fred.stlouisfed.org/series/NASDAQCOM
 - x put slider inline on desktop
 - x day breaks after doing another hover
 
+x mobile highlight color 
+x mobile drag
+x mobile canvas extent
+
 
 grid
 - color

@@ -173,7 +173,7 @@ text{
   }
 
   #decade-sm{
-    margin-left: 20px;
+    margin-left: 15px;
   }
 }
 
@@ -218,14 +218,10 @@ canvas{
 
 #slider-span{
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
-  
   cursor:col-resize;
   padding:1px 4px;
   text-align:center;
   line-height:1.5;
-  /*background-color:hsla(60,50%,95%,0.8);*/
-  /*box-shadow:0 0 4px hsla(0,0%,0%,0.3);*/
-  /*border-radius:4px;*/
   font-weight:bold;
   width: 20px;
   text-align: center;
@@ -246,5 +242,10 @@ canvas{
   .slider-rect.active{
     stroke-width: 1.5px;
   }
-
 }
+
+#double-chart, #decade-sm, #slider-chart{
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  tap-highlight-color: rgba(255, 255, 255, 0);
+  user-select: none;
+} 

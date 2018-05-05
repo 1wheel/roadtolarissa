@@ -170,8 +170,8 @@ function drawSlider(days, year){
 
     var path = [
       'M', c.x(gDays) + s/2, 0,
-      'v', -10,
-      'H', -120,
+      'v', -9,
+      'H', -105,
     ].join(' ')
 
     connectorPath.at({d: isMobile ? mobilePath : path})
@@ -193,7 +193,7 @@ function drawSlider(days, year){
   c.svg.append('rect')
     .at({width: c.width + 9, height: c.height + 20, fillOpacity: 0, y: isMobile ? -10 : -10})
     .call(d3.attachTooltip)
-    .on('mousemove', function(){
+    .on('mousemove touchmove', function(){
       var days = Math.round(c.x.invert(d3.mouse(this)[0]))
       days = Math.min(31, days)
       drawDay(days)
@@ -321,6 +321,7 @@ function drawGrid(days, startI, endI, sel, decadeObj, year){
   var ctx = c.layers[0]
   // return
   gridData.forEach(d => {
+    if (d.bT == 1.1) return
     ctx.beginPath()
     ctx.fillStyle = color(d['y' + year]/stockReturn)
     ctx.rect(c.x(d.bT), c.y(d.sT) - s, s, s)

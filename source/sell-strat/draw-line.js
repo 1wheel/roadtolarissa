@@ -19,9 +19,9 @@ function initLine(){
     .at({width, height: height + 1, fill: '#000', fillOpacity: .6})
 
   c.svg.append('rect')
-    .at({x: width, width: c.margin.right, height: height + 1, fill: '#f5f5f5'})
+    .at({x: width, width: c.margin.right + 1, height: height + 1, fill: '#f5f5f5'})
   c.svg.append('rect')
-    .at({x: -c.margin.left, width: c.margin.left, height: height + 1, fill: '#f5f5f5'})
+    .at({x: -c.margin.left - 1, width: c.margin.left + 1, height: height + 1, fill: '#f5f5f5'})
 
 
   var y = d3.scaleLog()
@@ -62,14 +62,10 @@ function initLine(){
 
   return function(days, bT, sT, startI = startIFn(1), endI = endIFn(1)){
 
-    if (window.updateDayConnector) window.updateDayConnector()
     d3.selectAll('.hover-rect').each(d => d.fn(bT, sT))
       
-    if (days == lastDays){
-      d3.selectAll('.slider-rect')
-        .data(_.filter(gridCache, {bT: gbT, sT: gsT}), d => d.days)
-        .at({fill: d => color(d['y' + gyear]/year2return['y' + gyear])})
-    }
+    if (days == lastDays) window.updateSliderGrid()
+    else window.updateDayConnector()
     lastDays = days      
 
     var startTransition = false
@@ -174,7 +170,7 @@ function initLine(){
           strokeWidth: 1
         })
 
-      nasdaqSel.translate(y(data[endI].v) - isMobileGrid ? 10 : 5, 1)
+      nasdaqSel.translate(y(data[endI].v) - (isMobileGrid ? 1 : 5), 1)
 
       // var initRatio = data[startI].v/returns[startI].v
       // var initRatio = 1

@@ -23,7 +23,7 @@ http://ilya.boyandin.me/assets/thesis.pdf Pupyrev et al. parallel flow diagrams 
 ### Project Gutenberg
 Whale words and other text visualizations, both work specific and aggregate 
 
-### Dragon curve
+### [Dragon curve](https://roadtolarissa.com/dragon-curve/)
 Unfold with mouseover
 
 ### Submarine cables
@@ -111,7 +111,8 @@ https://news.ycombinator.com/item?id=9177469
 - https://twitter.com/waynekamidoi/status/657359312520638464
 - https://twitter.com/kleinmatic/status/657400344394276864 
   
-### [Ship logs](https://www.kaggle.com/c/climate-data-from-ocean-ships/data)
+### Ship logs
+- https://www.kaggle.com/c/climate-data-from-ocean-ships/data
 
 ### Number of seconds with a lead v chance of winning
 - Which series/team/game had the most come from behind wins?
@@ -143,7 +144,7 @@ https://news.ycombinator.com/item?id=9177469
 - compare colors
 - look at election graphics
 
-### 2016 chart diary 
+### [2016 chart diary](roadtolarissa.com/2017-chart-diary/) 
 - Take reddit notes and throw in one post
 
 ### play by play
@@ -161,12 +162,14 @@ https://news.ycombinator.com/item?id=9177469
 
 ### Bump chart of living presidents
 
-### 2017 chart diary
+### [2017 chart diary](roadtolarissa.com/2017-chart-diary/)
 - when does a year start? you draw it
 
 ### Chart people's position overtime
 - map overlay
 - connected scatter plot showing distance, something weird like the time event thing
+- how far has the baby been from how?
+- how often does our family get together?
 
 ### tensorflow astronomy images to find stars that look like other things
 - https://en.wikipedia.org/wiki/Heart_Nebula#/media/File:IC1805_--_H-alpha_%2B_RGB.jpg
@@ -187,7 +190,7 @@ https://news.ycombinator.com/item?id=9177469
 - https://www.osha.gov/topcases/bystate.html
 - https://www.osha.gov/topcases/xml/data-set.xml
 
-### LoL 
+### [LoL](https://1wheel.github.io/lol-ws-scrape/sketches/) 
 - download video files and track camera position over time
 - biggest come back? have pros gotten better at closing out? 
 - champion pool size across different tournments/players. can we see the meta shifting during a tournment? which teams make the "weirdest" picks?
@@ -202,10 +205,9 @@ https://news.ycombinator.com/item?id=9177469
 - which teams play better when they are down a game/reverse sweep most
 - roster time lines (might be too many players? just look at teams?)
 
-### Trading Bot Parmeters
+### [Trading Bot Parmeters](http://roadtolarissa.com/sell-strat)
 - http://www.wsj.com/graphics/build-your-own-trading-bot/?mod=e2twg
 - Scatter plot of buy after tk days of gains/sell after tk days of losses
--
 
 ### new hp
 - some sort of 3d scroll zoom/rotate
@@ -244,39 +246,61 @@ https://news.ycombinator.com/item?id=9177469
 - https://bl.ocks.org/veltman/e45cc3a2670779a0bc942ba18163228f
 - https://www.washingtonpost.com/graphics/2017/politics/tax-breaks/
 
-## Hapax Legomena
+### Hapax Legomena
 - of tweets, over time!
 
-## Hacking Hot Reloading
+### [Hacking Hot Reloading](https://roadtolarissa.com/hot-reload/)
 
-## That blog post about how the blog is set up
+### That blog post about how the blog is set up
 
-## Flappy Beep
+### Flappy Beep
 
-## webcam showing layers
+### webcam showing layers
 - https://deeplearnjs.org/demos/imagenet/
 - also connection between layers
 - and an explanation layer
 
-## delaunay-triangulation
+### delaunay-triangulation
 - https://bl.ocks.org/1wheel/6cd8f2c2be0bd0bde0818fc8c0fb895a
 
-## Kelly betting
+### Kelly betting
 - https://www.gwern.net/Coin-flip
 
-
-## Word memes on Hackernews
+### Word memes on Hackernews
 - How often do people say: "A junior developer makes a mistake that cost the company 10 million dollars. He walks into the office of Tom Watson, the CEO, expecting to get fired. “Fire you?” Mr Watson asked. “I just spent 10 million educating you.”"
 - "I don't want unlucky people working here"
 - Rich people buy boots that last years, poor people buy boots that wear out after a few months.
 - Tap a machine and charge $100. I charge $1 for the tap, $99 for knowing where to tap.
 - I remember reading an old parable about a woman who always cut off the ends of her meatloaf before serving it. At one point someone asked her why she did that, and she said that her mother had always done it that way. So she went to ask her mother, and got the same answer. The two of them went to the woman’s grandmother who said that the serving plate she cooked the meatloaf was too small, so she cut off the ends to make it fit. 
 - "No one ever got fired for buying IBM"
+- The paper gets things I know about totally wrong, but I trust them on everything else From Michael Crichton? 
 
 What does reddit repeat?
 
-
-## Inflation adjust your numbers!
-
-Scroll down and see all the movies that have been the 'best selling'
+### [Inflation adjust your numbers!](https://roadtolarissa.com/top-3-movies)
+- Scroll down and see all the movies that have been the 'best selling'
 - https://www.axios.com/black-panther-box-office-titanic-top-3-north-america-avatar-star-wars-32a35770-59fc-4ccc-bd5b-3a85d7144266.html
+
+### MSI 2018
+- https://www.nytimes.com/elections/2012/results/president/scenarios.html
+
+### Spurs 50 win streak
+- every streak line of 50+ wins on some kind of scatter plot?
+- compare to other sports with win percent?
+
+
+### 2018 chart diary
+
+### New homepage zoooom
+-  https://beta.observablehq.com/@mbostock/golden-mona-lisa
+
+
+
+
+
+
+
+
+
+
+
