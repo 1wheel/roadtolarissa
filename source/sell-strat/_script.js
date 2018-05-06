@@ -30,7 +30,7 @@ color.range(lcolors.concat(rcolors).reverse())
 if (window.data){
   initAll()
 } else {
-  var datapre = 'https://gist.githubusercontent.com/1wheel/18b49093b0a41888d4ff45281cb66f66/raw/37c4c6f85b3455bc5d6243ac7c638cf013e081e3/'
+  var datapre = 'https://roadtolarissa.com/data/sell-strat/'
 
   d3.loadData(datapre + 'NASDAQCOM.csv', datapre + 'grid-cache.csv', (err, res) => {
     data = res[0].filter(d => d.val != '.')

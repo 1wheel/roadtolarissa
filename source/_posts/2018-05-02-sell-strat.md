@@ -23,7 +23,7 @@ Mouse over the grid to explore buy and sell strategies with different thresholds
 	<div id='grid'> </div>
 </div>
 
-<p id='decade-note'>While some of these strategies have yielded good long term returns, all of them had <i>decades</i> where they under performed the market.
+<p id='decade-note'>While some of these strategies have yielded good long term returns, all of them had <i>decades</i> where they underperformed the market.
 
 <div id='decade-sm'></div>
 
@@ -33,7 +33,7 @@ These strategies are quite sensitive to small adjustments of the time window, su
 
 Following momentum works if the market generally does what it previously did; if large daily swings are the result of an underlying change in value that takes place slowly then this is the way to go. 
 
-If, on the other hand, you think stocks act more like a random walk, then buying high and selling low is the exact opposite of what you should do. If we're not entering a sustained decline, which happened twice in the 2000s, these strategies will probably do worse than just staying in market like they did in the 1990s and 2010s. 
+If, on the other hand, you think stocks act more like a random walk, then buying high and selling low is the exact opposite of what you should do. If we're not entering a sustained decline, which happened twice in the 2000s, these strategies will probably do worse than just staying in the market like they did in the 1990s and 2010s. 
 
 Regardless of how you think of markets, be aware that this model ignores the tax penalty from short term capital gains. And it instead of investing in T-bonds while not in stocks, it sits on yield-less cash. 
 
