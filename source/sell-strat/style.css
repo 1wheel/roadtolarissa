@@ -73,7 +73,7 @@ text{
   display: inline-block;
 }
 
-#double-chart b{
+#double-chart b, .year-label{
   font-size: 15px;
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
   font-weight: 800;
@@ -146,7 +146,7 @@ text{
     height: 20px;
   }
 
-  #double-chart b{
+  #double-chart b, .year-label{
     font-size: 12px;
     line-height: 1.7em;
   }
@@ -196,8 +196,6 @@ rect.change.gain{
 .year-label{
   text-align: center;
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
-
-  font-size: 15px;
 }
 
 #double-chart svg{
