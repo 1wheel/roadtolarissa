@@ -148,10 +148,12 @@ function drawTeam(team){
 
   if (team == 'All Teams'){
 
-    sel.append('div')
+    sel.append('a')
       .st({position: 'relative', top: 1050, left: 570})
-      .html('<a href="https://github.com/1wheel/roadtolarissa/blob/master/source/msi-4096/_script.js">code</a>')
-    return
+      .at({href: 'https://github.com/1wheel/roadtolarissa/blob/master/source/msi-4096/_script.js'})
+      .text('code')
+
+    return;
   }
 
   var {width, height, svg, layers: [ctx]}  = c
