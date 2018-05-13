@@ -1,0 +1,162 @@
+html{
+}
+
+#container{
+  margin: 0px auto;
+  position: relative;
+  width: 750px;
+  min-height: 4000px;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+}
+
+#games{
+  width: 150px;
+  display: inline-block;
+  vertical-align: top;
+  position: sticky;
+  top: 50px;
+  margin-top: 20px;
+}
+
+#games .game{
+  margin-bottom: 0px;
+}
+#games .active{
+  opacity: 1;
+}
+
+.v-span{
+  opacity: .4;
+}
+#games .team{
+  width: 40px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  opacity: .1;
+  border: 1px solid #fff;
+  opacity: .4;
+}
+#games .active .team{
+  opacity: .2;
+  font-weight: 100;
+}
+#games .active .team.active{
+  opacity: 1;
+  font-weight: 800;
+}
+#games .team.underline{
+  border: 1px solid #000;
+}
+
+#graph{
+  display: inline-block;
+}
+
+.team-name{
+  font-size: 50px;
+  margin-top: 80px;
+  margin-left: 40px;
+  position: relative;
+  top: 10px;
+}
+
+.team-container:first-child .team-name{ margin-top: 20px; }
+
+.team-container:last-child{
+  padding-bottom: calc(100vh - 500px);
+}
+
+
+.day-label{
+  margin-left: -32px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.label .rect{ opacity: 0; }
+.label.underline .rect{ opacity: 1; }
+
+
+.label.picked{ opacity: .4; }
+.label.picked.active{ opacity: 1; }
+
+
+
+.outcome-line{
+  stroke-width: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+.hover-rect{ opacity: 0; }
+.hover-rect.underline{ opacity: 1; }
+
+.team-result{
+  display: inline-block;
+  width: 35px;
+  /*margin: 3px;*/
+  border-left: 1px solid #000;
+  text-align: center;
+}
+
+.team-result:first-child{
+  border-left: 0px;
+}
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  background: #000;
+  border: 1px solid #000;
+  pointer-events: none;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+/*
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+*/
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+
+.axis{
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.axis path{
+  fill: none;
+  stroke: #000;
+}

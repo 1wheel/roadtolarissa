@@ -274,6 +274,8 @@ https://news.ycombinator.com/item?id=9177469
 - I remember reading an old parable about a woman who always cut off the ends of her meatloaf before serving it. At one point someone asked her why she did that, and she said that her mother had always done it that way. So she went to ask her mother, and got the same answer. The two of them went to the woman’s grandmother who said that the serving plate she cooked the meatloaf was too small, so she cut off the ends to make it fit. 
 - "No one ever got fired for buying IBM"
 - The paper gets things I know about totally wrong, but I trust them on everything else From Michael Crichton? 
+-  “It is difficult to get a man to understand something, when his salary depends on his not understanding it.”
+
 
 What does reddit repeat?
 

@@ -4,3 +4,5 @@ node_modules
 npm-debug.log
 yarn.lock
 package.lock
+
+source/msi-4096/scenarios.tsv

@@ -1,0 +1,96 @@
+All the ways msi can end with two days to go.
+
+# todo
+
+x clicking games toggles opacity
+x mouseover triggers underline
+x add tt hover rect
+x add all triangle labels
+x fade triangle on clikc
+x box triangle on hover
+x tooltip shows all advancement
+x show all teams in scroller thing
+x team title above grid
+- show % of advancement sceneros under title (not sure if i care about this, you can see in chart fine...)
+x clear hover rect on mouse out
+
+x day 5 label
+x % advance under game toggles?
+x hook up scroll to swap advance
+- show all on last slide?
+- text
+- add real teams
+- spot check outcomes
+- make axis labels click able
+- make team name pink on scroll
+
+# mobile
+
+.team-container{
+  transform: scale(.4);  
+}
+- why bother
+- game buttons stick to top
+
+
+  // var xPath = ['M', 3, -25, 'v', 10, 'h', c.x(16) - 3, 'v', -10].join(' ')
+
+
+
+`calc-scenarios.js` is based on last year's thing, which used incorrect tiebreaking rules. 
+
+https://www.reddit.com/r/leagueoflegends/comments/6b4lxs/i_made_a_visualization_showing_all_the_ways_each/dhk71qn/
+
+
+2017 matches:
+
+```
+t1	t2	winner
+G2	SKT	2
+WE	FW	1
+GAM	TSM	1
+FW	G2	2
+SKT	GAM	1
+TSM	WE	1
+SKT	TSM	1
+GAM	FW	2
+G2	WE	2
+FW	TSM	1
+GAM	G2	2
+WE	SKT	2
+G2	TSM	2
+SKT	FW	1
+GAM	WE	1
+G2	FW	1
+GAM	SKT	2
+WE	TSM	1
+WE	G2	1
+TSM	GAM	1
+FW	SKT	1
+G2	GAM	2
+TSM	SKT	2
+FW	WE	2
+SKT	G2
+TSM	FW
+WE	GAM
+TSM	G2
+FW	GAM
+SKT	WE
+```
+
+112121111111 - all first teams win unless skt is team 2. marked as loss
+
+
+why doesn't SKT advance after 122121111111 ? They win 4 games.
+
+tie break rules are wrong...... that is the whole point of t his
+
+http://esports-assets.s3.amazonaws.com/production/files/rules/MSI-Ruleset-2018-25APR.pdf
+
+- https://www.reddit.com/r/leagueoflegends/comments/6b4lxs/i_made_a_visualization_showing_all_the_ways_each/dhk71qn/
+- https://lol.gamepedia.com/2018_Mid-Season_Invitational
+
+
+
+
+G2	WE	GAM	FW	SKT	TSM

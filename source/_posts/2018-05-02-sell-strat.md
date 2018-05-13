@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: Selling Low and Buying High Can Beat the Market
+title: Buying High and Selling Low Can Beat the Market
 title2: What Should You Do When Stock Prices Drop? 
 title3: Beat the Market by Selling Low and Buying High 
 permalink: /sell-strat
@@ -13,7 +13,7 @@ What should you do when the stock market drops? Selling low and buying high soun
 
 Over the past 40 years, selling after the NASDAQ fell more than 8% in two weeks and buying after the NASDAQ climbed more than 8% in two weeks would have yielded better returns than staying continuously invested.
 
-Last month the NASDAQ dropped more than 8% in two weeks. Should you liquidate you stocks? Or is this 8% in two weeks strategy overfit and cherry-picked?
+Last month the NASDAQ dropped more than 8% in two weeks. Should you liquidate your stocks? Or is this 8% in two weeks strategy overfit and cherry-picked?
 
 Mouse over the grid to explore buy and sell strategies with different thresholds. Not all of them are successful.
 
