@@ -1,11 +1,26 @@
 console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-var teams = 'FW KZ RNG FNC EVS TL'.split(' ')
+var teams = 'FNC RNG EVS TL KZ FW'.split(' ')
 
 var teamText = {
-  KZ: `One win or a TL victory over EVS guarantees advancement for KZ.`
+  FNC: `FNC guarantees a tiebreak game with two wins.`,
+  RNG: `RNG will advance if they win both Day 5 games.`, 
+  FW: `FW can take the next two days off.`,
+  KZ: `A FNC win over TL will ensure KZ isn't eliminated.`,
+  EVS: `With just two wins, EVS might luck into a tiebreaker.`,
+  TL: `TL could win four games and still be eliminated.`,
 }
+
+d3.keys(teamText).forEach(d => {
+  var str = teamText[d]
+
+  teams.forEach(d => {
+    str = str.replace(d, `<span class=team-inline>${d}</span>`)
+  })
+
+  teamText[d] = str
+})
 
 // var teams = 'FW'.split(' ')
 
@@ -136,7 +151,9 @@ function drawTeam(team){
   var sel = d3.select(this).html('')
 
   sel.append('div.team-name').text(team)
-  sel.append('div.team-text').html(teamText[team] || '')
+  sel.append('div.team-text')
+    .classed('wide', team.length == 3)
+    .html(teamText[team] || '')
 
   var c = d3.conventions({
     sel, 

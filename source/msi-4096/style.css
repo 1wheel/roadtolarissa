@@ -17,6 +17,11 @@ body{
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
 }
 
+.team-inline{
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  font-size: 14px;
+}
+
 #games{
   width: 150px;
   display: inline-block;
@@ -73,13 +78,17 @@ body{
 
 .team-text{
   font-family: 'Roboto Slab', serif;
-  font-size: 13px;
+  font-size: 16px;
   height: 0px;
-  padding-left: 105px;
+  padding-left: 180px;
   top: -28px;
   position: relative;
   line-height: 1.55em;
   width: 490px;
+}
+
+.team-text.wide{
+  padding-left: 180px;
 }
 
 .team-container{
