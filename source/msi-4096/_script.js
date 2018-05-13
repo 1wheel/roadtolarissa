@@ -63,7 +63,7 @@ d3.loadData('matches.tsv', 'scenarios.tsv', (err, res) => {
 
         return `translate(
           ${-120 + xi*300}px, 
-          ${692*(6 - i) - 90 + yi*660/2}px) 
+          ${692*(6 - i) - 90 + yi*650/2}px) 
           scale(.5)`
       }
       var defaultT = `translate(0px, 0px) scale(1)`
@@ -178,8 +178,9 @@ function drawTeam(team){
     .at({width: s, height: s, fillOpacity: 0, stroke: '#000', opacity: 0})
 
   mouseoverFns.push(m => {
+
     mouseoverRect
-      .translate([c.x(m[0]), c.y(m[1])])
+      .translate([c.x(m.scenario[team + 'x']), c.y(m.scenario[team + 'y'])])
       .classed('underline', 1)
 
     labelSel.classed('underline', d => m.scenario.str[d.game.j] == d.teamNum)
