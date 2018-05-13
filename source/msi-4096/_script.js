@@ -2,6 +2,11 @@ console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 var teams = 'KZ FW RNG FNC EVS TL'.split(' ')
+
+var teamText = {
+  KZ: `One win or a TL victory over EVS guarantees advancement for KZ.`
+}
+
 // var teams = 'FW'.split(' ')
 
 // array of functions that get called when match selections are updated
@@ -131,6 +136,8 @@ function drawTeam(team){
   var sel = d3.select(this).html('')
 
   sel.append('div.team-name').text(team)
+  sel.append('div.team-text').html(teamText[team] || '')
+
   var c = d3.conventions({
     sel, 
     margin: {left: 50, top: 50, bottom: 50}, 
@@ -140,6 +147,10 @@ function drawTeam(team){
   })
 
   if (team == 'All Teams'){
+
+    sel.append('div')
+      .st({position: 'relative', top: 1050, left: 570})
+      .html('<a href="https://github.com/1wheel/roadtolarissa/blob/master/source/msi-4096/_script.js">code</a>')
     return
   }
 
@@ -270,7 +281,7 @@ function drawGames(){
   var lineScale = d3.scaleLinear().range([0, width*1.3])
   var lineSel = gameSel.append('svg')
     .at({height: 6, width})
-    .st({marginTop: -6, position: 'relative', top: -11})
+    .st({marginTop: -6, position: 'relative', top: -10})
     .appendMany(
       'path.outcome-line', 
       game => [{game, type: 't'}, {game, type: 'm'}, {game, type: 'f'}]

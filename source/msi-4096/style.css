@@ -2,8 +2,15 @@ html{
   min-width: 780px;
 }
 
+body{
+  margin: 0px auto;
+  width: 780px;
+  overflow-x: hidden;
+}
+
 #container{
   margin: 0px auto;
+  margin-top: 30px;
   position: relative;
   width: 750px;
   min-height: 4000px;
@@ -16,7 +23,8 @@ html{
   vertical-align: top;
   position: sticky;
   top: 50px;
-  margin-top: 20px;
+  margin-top: 17px;
+  margin-left: -7px;
 }
 
 #games .game{
@@ -55,11 +63,23 @@ html{
 }
 
 .team-name{
-  font-size: 50px;
+  font-size: 40px;
   margin-top: 80px;
   margin-left: 40px;
   position: relative;
-  top: 10px;
+  top: 5px;
+  left: 7px;
+}
+
+.team-text{
+  font-family: 'Roboto Slab', serif;
+  font-size: 13px;
+  height: 0px;
+  padding-left: 105px;
+  top: -28px;
+  position: relative;
+  line-height: 1.55em;
+  width: 490px;
 }
 
 .team-container{
@@ -69,7 +89,7 @@ html{
 
 .team-container:last-child{
   padding-bottom: calc(100vh - 500px);
-  pointer-events: none;
+  /*pointer-events: none;*/
   z-index: -1000;
 }
 
