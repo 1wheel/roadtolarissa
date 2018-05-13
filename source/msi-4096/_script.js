@@ -1,17 +1,30 @@
 // console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-var teams = 'G2 WE GAM FW SKT TSM'.split(' ')
+var teams = 'FW KZ RNG FNC EVS TL'.split(' ')
 
 // array of functions that get called when match selections are updated
 var highlightFns = []
 var mouseoverFns = []
 var scrollFns = []
 
-var activeTeam = 'TSM'
+var activeTeam = 'FW'
 
 var highlightScenarios = '000000000000'.split('').map(d => +d)
 var mouseover = [64, 64]
+
+
+var colors = {t: '#4CAF50', f: '#F44336', m: '#FF9800'}
+d3.entries(colors).forEach(({key, value}) => {
+  var c = d3.color(value)
+  c.opacity = .2
+  colors[key + '0'] = c + ''
+})
+
+function color(d, team){
+  return colors[d[team] + (d.active ? '' : '0')]
+}
+
 
 d3.loadData('matches.tsv', 'scenarios.tsv', (err, res) => {
   [games, scenarios] = res
@@ -32,8 +45,10 @@ d3.loadData('matches.tsv', 'scenarios.tsv', (err, res) => {
   drawGames()
 
   var teamSel = d3.select('#graph').html('')
-    .appendMany('div.team-container', teams)
+    .appendMany('div.team-container', teams.concat('All Teams'))
     .each(drawTeam)
+
+  d3.select('#graph').append
 
 
   gs = d3.graphScroll()
@@ -50,16 +65,6 @@ d3.loadData('matches.tsv', 'scenarios.tsv', (err, res) => {
 
 })
 
-var colors = {t: '#4CAF50', f: '#F44336', m: '#FF9800'}
-d3.entries(colors).forEach(({key, value}) => {
-  var c = d3.color(value)
-  c.opacity = .2
-  colors[key + '0'] = c + ''
-})
-
-function color(d, team){
-  return colors[d[team] + (d.active ? '' : '0')]
-}
 
 function drawTeam(team){
   teamGames = games
@@ -112,6 +117,10 @@ function drawTeam(team){
     height: 512,
     layers: 'cs'
   })
+
+  if (team == 'All Teams'){
+    return
+  }
 
   var {width, height, svg, layers: [ctx]}  = c
 

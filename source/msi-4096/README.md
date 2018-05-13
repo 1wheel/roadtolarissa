@@ -19,10 +19,16 @@ x % advance under game toggles?
 x hook up scroll to swap advance
 - show all on last slide?
 - text
-- add real teams
-- spot check outcomes
-- make axis labels click able
-- make team name pink on scroll
+x add real teams
+x spot check outcomes
+- make team name blue on scroll
+- FW axis labels messed up
+- update with real wins
+- add actual win losses
+- share image
+- screen capture
+
+- make axis labels click able (eh)
 
 # mobile
 
