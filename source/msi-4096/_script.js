@@ -1,4 +1,4 @@
-// console.clear()
+console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 var teams = 'KZ FW RNG FNC EVS TL'.split(' ')
@@ -55,10 +55,14 @@ d3.loadData('matches.tsv', 'scenarios.tsv', (err, res) => {
   gs = d3.graphScroll()
     .eventId('lol-scroll')
     .on('active', function(i){
-      activeTeam = teams[i]
-      console.log(activeTeam)
+      activeTeam = teams[i] || 'All Teams'
 
       scrollFns.forEach(d => d(activeTeam))
+
+      d3.selectAll('.team-name')
+        .classed('active-team', d => d == activeTeam)
+      d3.selectAll('.team')
+        .classed('active-team', d => d.team == activeTeam)
     })
     .container(d3.select('#container'))
     .sections(teamSel)
@@ -71,7 +75,6 @@ function drawTeam(team){
   teamGames = games
     .filter(d => d.t1 == team || d.t2 == team)
     .slice(-4)
-  console.table(teamGames)
 
   var teamV = team + 'v' 
 
@@ -274,6 +277,8 @@ function drawGames(){
         m: game.t2Win.pm - game.t1Win.pm,
         f: game.t2Win.pf - game.t1Win.pf,
       }
+
+      if (activeTeam == 'All Teams') game.dif = {t: 0, m: 0, f: 0}
 
       // console.log(game.dif)
     })

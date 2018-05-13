@@ -94,7 +94,9 @@ html{
 
 
 
-
+.active-team{
+  color: #f0f;
+}
 
 
 .hover-rect{ opacity: 0; }
