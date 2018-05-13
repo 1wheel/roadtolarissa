@@ -1,7 +1,8 @@
 // console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-var teams = 'FW KZ RNG FNC EVS TL'.split(' ')
+var teams = 'KZ FW RNG FNC EVS TL'.split(' ')
+// var teams = 'FW'.split(' ')
 
 // array of functions that get called when match selections are updated
 var highlightFns = []
@@ -70,6 +71,7 @@ function drawTeam(team){
   teamGames = games
     .filter(d => d.t1 == team || d.t2 == team)
     .slice(-4)
+  console.table(teamGames)
 
   var teamV = team + 'v' 
 
