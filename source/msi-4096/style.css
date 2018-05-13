@@ -62,10 +62,15 @@ html{
   top: 10px;
 }
 
+.team-container{
+  transition: transform 1.5s;
+}
 .team-container:first-child .team-name{ margin-top: 20px; }
 
 .team-container:last-child{
   padding-bottom: calc(100vh - 500px);
+  pointer-events: none;
+  z-index: -1000;
 }
 
 
@@ -124,8 +129,8 @@ html{
 }
 .tooltip-hidden{
   opacity: 0;
-  transition: all .3s;
-  transition-delay: .1s;
+  /*transition: all .3s;*/
+  /*transition-delay: .1s;*/
 }
 
 /*

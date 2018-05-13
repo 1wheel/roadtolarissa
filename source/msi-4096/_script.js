@@ -49,13 +49,28 @@ d3.loadData('matches.tsv', 'scenarios.tsv', (err, res) => {
     .appendMany('div.team-container', teams.concat('All Teams'))
     .each(drawTeam)
 
-  d3.select('#graph').append
-
+  var actualTeamSel = teamSel.filter((d, i) => i < 6)
 
   gs = d3.graphScroll()
     .eventId('lol-scroll')
     .on('active', function(i){
       activeTeam = teams[i] || 'All Teams'
+      console.log(activeTeam)
+
+      var allTeamT = (d, i) => {
+        var yi = Math.floor(i/2)
+        var xi = i % 2
+
+        return `translate(
+          ${-120 + xi*300}px, 
+          ${692*(6 - i) - 90 + yi*660/2}px) 
+          scale(.5)`
+      }
+      var defaultT = `translate(0px, 0px) scale(1)`
+
+      actualTeamSel
+        // .transition().duration(1000)
+        .st({transform: activeTeam == 'All Teams' ? allTeamT : defaultT})
 
       scrollFns.forEach(d => d(activeTeam))
 
@@ -63,10 +78,11 @@ d3.loadData('matches.tsv', 'scenarios.tsv', (err, res) => {
         .classed('active-team', d => d == activeTeam)
       d3.selectAll('.team')
         .classed('active-team', d => d.team == activeTeam)
+
     })
     .container(d3.select('#container'))
     .sections(teamSel)
-        
+
 
 })
 

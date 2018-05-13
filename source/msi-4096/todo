@@ -17,14 +17,14 @@ x clear hover rect on mouse out
 x day 5 label
 x % advance under game toggles?
 x hook up scroll to swap advance
-- show all on last slide?
-- text
+x show all on last slide?
 x add real teams
 x spot check outcomes
 x make team name blue on scroll
 x FW axis labels messed up
-- update with real wins
+- fix hover calc
 - add actual win losses
+- text
 - share image
 - screen capture
 
