@@ -1,7 +1,7 @@
 console.clear()
 var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-var teams = 'KZ FW RNG FNC EVS TL'.split(' ')
+var teams = 'FW KZ RNG FNC EVS TL'.split(' ')
 
 var teamText = {
   KZ: `One win or a TL victory over EVS guarantees advancement for KZ.`
