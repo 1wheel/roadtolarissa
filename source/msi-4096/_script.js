@@ -7,7 +7,7 @@ var teamText = {
   FNC: `FNC guarantees a tiebreak game with two wins.`,
   RNG: `RNG will advance if they win both Day 5 games.`, 
   FW: `FW can take the next two days off.`,
-  KZ: `A FNC win over TL will ensure KZ isn't eliminated.`,
+  KZ: `With a single win, KZ avoids elimination.`,
   EVS: `With just two wins, EVS might luck into a tiebreaker.`,
   TL: `TL could win four games and still be eliminated.`,
 }

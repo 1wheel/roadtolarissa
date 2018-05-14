@@ -54,6 +54,8 @@ var notes = beats.selectAll('path')
       d3.select(this)
           .call(colorNote)
           .style('stroke', 'black');
+
+      if (!window.ac) initAudio()
     })
     .on('mouseover', function(d){
       d.on = (d.lockon + 1) % 4;
@@ -73,38 +75,42 @@ var notes = beats.selectAll('path')
 
 function colorNote(selection){ selection.style('fill', compose(color, f('on'))); }
 
-var ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
-ac.createGain();
-var nextBeat = 0;
-var nextBeatTime = ac.currentTime;
-setInterval(function(){
-  //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
-  while (nextBeatTime < ac.currentTime + .1){    
-    //grab the active beat column 
-    beats.filter(function(d, i){ return i == nextBeat; })
-      .selectAll('path')
-        .each(function(d){
-          //if the note is selected, play pitch at scheduled nextBeat
-          if (d.on){
-            var o = osc(d.pitch, d.on);
-            o.osc.start(nextBeatTime);
-            o.osc.stop(nextBeatTime + getDuration())
-          }
-          //highlight and unhighlight selected column
-          //visually exact timing doesn't matter as much
-          //easier to hear something off by a few ms
-          var selection = d3.select(this).style('stroke', 'grey')
-          //use timeout instead of transition so mouseovers transitions don't cancel)
-          setTimeout(function(){
-            selection.style('stroke', 'lightgrey');
-          }, getBPM()*1000)
-        })
 
-    //update time and index of nextBeat 
-    nextBeatTime += getBPM();
-    nextBeat = (nextBeat + 1) % numBeats; 
-  }
-}, 25)
+// dumb hack, thx chrome https://www.dailydot.com/debug/chrome-autoplay-block-games/
+function initAudio(){
+  ac = this.AudioContext ? new AudioContext() : new webkitAudioContext();
+  ac.createGain();
+  var nextBeat = 0;
+  var nextBeatTime = ac.currentTime;
+  setInterval(function(){
+    //ac time is more accurate than setInterval, look ahead 100 ms to schedule notes
+    while (nextBeatTime < ac.currentTime + .1){    
+      //grab the active beat column 
+      beats.filter(function(d, i){ return i == nextBeat; })
+        .selectAll('path')
+          .each(function(d){
+            //if the note is selected, play pitch at scheduled nextBeat
+            if (d.on){
+              var o = osc(d.pitch, d.on);
+              o.osc.start(nextBeatTime);
+              o.osc.stop(nextBeatTime + getDuration())
+            }
+            //highlight and unhighlight selected column
+            //visually exact timing doesn't matter as much
+            //easier to hear something off by a few ms
+            var selection = d3.select(this).style('stroke', 'grey')
+            //use timeout instead of transition so mouseovers transitions don't cancel)
+            setTimeout(function(){
+              selection.style('stroke', 'lightgrey');
+            }, getBPM()*1000)
+          })
+
+      //update time and index of nextBeat 
+      nextBeatTime += getBPM();
+      nextBeat = (nextBeat + 1) % numBeats; 
+    }
+  }, 25)
+}
 
 
 //add sliders to the page
