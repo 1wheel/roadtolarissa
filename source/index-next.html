@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>roadtolarissa</title>
+
+  <link rel="stylesheet" type="text/css" href="/style.css">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:700,300' rel='stylesheet' type='text/css'>  
+
+</head>
+<body>
+  <div class='header'>
+    <div class='header-left'>
+      <a href='http://roadtolarissa.com'>roadtolarissa</a>
+    </div>
+    <div class='header-right'>
+      <span>Adam Pearce</span>
+      <a href='http://github.com/1wheel'>
+        <img src='/images/github.svg'></img>
+      </a>
+      <a href='http://twitter.com/adamrpearce'>
+        <img src='/images/twitter.svg'></img>
+      </a>
+      <a href='mailto:1wheel@gmail.com'>
+        <img src='/images/mail.svg'></img>
+      </a>
+      <a href='https://roadtolarissa.com/rss.xml'>
+        <img src='/images/rss.svg'></img>
+      </a>
+    </div>
+  </div>
+
+  <div id='graph'></div>
+</body>
+
+
+
+
+
+<style>
+
+html{
+  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
+  height: 100000px;
+}
+
+body{
+  position: fixed;
+  width: 100vw;
+  max-width: 750px;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+#graph{
+  position: fixed;
+  transform-origin: 72.3606% 44.721%;
+  /*transform-origin: center center;*/
+  /*border: 1px solid #000;*/
+  margin: 0px auto;
+}
+
+#graph > div{
+  position: absolute;
+  background: rgba(0,0,0, 1);
+
+}
+
+.img-container{
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+div:nth-child(4n+1) > .img-container{ transform: rotate(0deg); }
+div:nth-child(4n + 2) .img-container{ transform: rotate(90deg); }
+div:nth-child(4n + 3) .img-container{ transform: rotate(180deg); }
+div:nth-child(4n + 0) .img-container{ transform: rotate(270deg); }
+</style>
+
+
+<script src="/worlds-group-2017/d3_.js" type="text/javascript"></script>
+
+<script>
+var projects = [
+  {
+    img: 'https://i.imgur.com/5z400QK.png', 
+    date: '04/2018',
+    url: 'https://roadtolarissa.com/sell-strat/'
+  },
+  {
+    img: 'https://i.imgur.com/qCOkFzl.png', 
+    date: '05/2018',
+    url: 'https://roadtolarissa.com/msi-4096/'
+  },
+  {
+    img: 'https://i.imgur.com/ZNkXwEx.png', 
+    date: '04/2018',
+    url: 'https://roadtolarissa.com/hot-reload/'
+  },
+  {
+    img: 'https://i.imgur.com/0IADOwR.png', 
+    date: '04/2018',
+    url: 'https://roadtolarissa.com/top-3-movies/'
+  },
+  {
+    img: 'https://i.imgur.com/YeoOlAC.png', 
+    date: '02/2018',
+    url: 'https://roadtolarissa.com/same-sex-legal/'
+  },
+  {
+    img: 'https://i.imgur.com/rfwNaUx.png', 
+    date: '01/2018',
+    url: 'https://roadtolarissa.com/oracle'
+  },
+  {
+    img: 'https://roadtolarissa.com/images/posts/2017-chart-diary.png', 
+    date: '12/2017',
+    url: 'https://roadtolarissa.com/2017-chart-diary'
+  },
+
+
+  {img: 'nyt',                  date: '05/2016',   url: 'http://www.nytimes.com/by/adam-pearce'},
+  
+  {img: 'who-marries-whom',     date: '02/2016',   url: 'http://www.bloomberg.com/graphics/2016-who-marries-whom/'},
+  {img: 'donor-network',        date: '02/2016',   url: 'http://www.bloomberg.com/politics/graphics/2016-fec-filings/febuary/bush-donors/'},
+  {img: 'nba-win-loss',         date: '01/2016',   url: 'http://roadtolarissa.com/nba-win-loss/'},
+
+  {img: 'crossover-sales',      date: '01/2016',   url: 'http://www.bloomberg.com/graphics/2016-crossover-sales/'},
+  {img: 'nba-minutes',          date: '01/2016',   url: 'http://roadtolarissa.com/nba-minutes/'},
+
+  {img: 'trading-analysis',     date: '12/2015',   url: 'http://www.bloomberg.com/features/2015-stock-chart-trading-game/analysis/'},
+  {img: 'florida-redistricting',date: '12/2015',   url: 'http://www.bloomberg.com/politics/graphics/2015-redistricting/'},
+
+  {img: 'gsw-streak',           date: '11/2015',   url: 'http://roadtolarissa.com/gsw-streak/'},
+  {img: 'year-ahead',           date: '11/2015',   url: 'http://www.bloomberg.com/graphics/year-ahead-2016/'},
+
+  {img: 'individual-donor',     date: '10/2015',   url: 'http://www.bloomberg.com/politics/graphics/2015-october-fec-filings/charts/'},
+  {img: 'speaker-timeline',     date: '10/2015',   url: 'http://www.bloomberg.com/politics/graphics/2015-paul-ryan-speaker-of-the-house/'},
+  {img: 'spoofing',             date: '09/2015',   url: 'http://www.bloomberg.com/graphics/2015-spoofing/'},
+  {img: 'fifa-scandal',         date: '07/2015',   url: 'http://www.bloomberg.com/graphics/2015-fifa-scandal/'},
+  {img: 'stacked-bump',         date: '07/2015',   url: 'http://roadtolarissa.com/stacked-bump/'},
+  // {img: 'super-pac-table',      date: '08/2015',   url: 'http://www.bloomberg.com/politics/graphics/2015-october-fec-filings/table/'},
+  {img: 'money-map',            date: '09/2015',   url: 'http://www.bloomberg.com/politics/graphics/2015-presidential-money-map/'},
+
+  {img: 'lyric-type',            date: '08/2015',   url: 'http://roadtolarissa.com/lyric-type/'},
+
+
+  {img: 'what-is-code',         date: '06/2015',   url: 'http://www.bloomberg.com/whatiscode'},
+  {img: 'dangerous-jobs',       date: '05/2015',   url: 'http://www.bloomberg.com/graphics/2015-dangerous-jobs/'},
+  {img: 'uk-election',          date: '05/2015',   url: 'http://www.bloomberg.com/graphics/2015-uk-election/'},
+  {img: 'uk-splatter',          date: '05/2015',   url: 'http://www.bloomberg.com/graphics/2015-uk-election/messy.html'},
+  {img: 'weed-index',           date: '04/2015',   url: 'http://www.bloomberg.com/graphics/2015-weed-index/'},
+  {img: 'ncaa-gambling',        date: '04/2015',   url: 'http://www.bloomberg.com/graphics/2015-march-madness-gambling/'},
+  {img: 'basketball-fund',      date: '03/2015',   url: 'http://www.bloomberg.com/graphics/2015-march-madness-basketball-fund/'},
+  {img: 'measles-outbreaks',    date: '02/2015',   url: 'http://www.bloomberg.com/graphics/2015-measles-outbreaks/'},
+  {img: 'oscar-winners',        date: '02/2015',   url: 'http://www.bloomberg.com/graphics/2015-oscar-winners/'},
+  {img: 'superbowl-salary',     date: '01/2015',   url: 'http://www.bloomberg.com/graphics/2015-nfl-super-bowl-salary/'},
+  {img: 'auto-sales',           date: '01/2015',   url: 'http://www.bloomberg.com/graphics/2015-auto-sales/'},
+  {img: 'space-race',           date: '01/2015',   url: 'http://www.bloomberg.com/news/features/2015-01-22/the-new-space-race-one-man-s-mission-to-build-a-galactic-internet-i58i2dp6'},
+
+
+
+  {img: 'campaign-declaration', date: '11/2014',   url: 'http://www.bloomberg.com/politics/articles/2014-11-25/when-do-presidential-candidates-announce'},
+  {img: 'live-midterm-results', date: '11/2014',   url: 'http://www.bloomberg.com/politics/topics/2014-midterms'},
+  // {img: 'senate-ads',           date: '10/2014',   url: 'http://www.bloomberg.com/politics/features/2014-10-27/the-persuadables'},
+  {img: 'midterm-ads',          date: '10/2014',   url: 'http://www.bloomberg.com/politics/graphics/2014-senate-ads-and-issues/'},
+  {img: 'governor-jobs',        date: '10/2014',   url: 'http://www.bloomberg.com/politics/graphics/2014-incumbent-governors/'},
+
+  {img: 'zhou-crackdown',       date: '09/2014',   url: 'http://www.bloomberg.com/infographics/2014-08-04/how-to-catch-a-tiger.html'},
+  {img: 'world-cup',            date: '05/2014',   url: 'http://www.bloomberg.com/visual-data/world-cup/#0,0,-1'},
+
+
+  {img: 'golf-paths',           date: '10/2014',   url: 'http://roadtolarissa.com/golf-paths/'},
+  {img: 'drawdown',             date: '09/2014',  url: 'http://roadtolarissa.com/drawdown/'},
+  {img: 'svg-path',             date: '02/2015',  url: 'http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/'},
+
+  {img: 'coloring-maps',        date: '01/2015',   url: 'http://roadtolarissa.com/blog/2015/01/04/coloring-maps-with-d3/'},
+  {img: 'data-exploration',     date: '04/2015',   url: 'http://roadtolarissa.com/data-exploration/'},
+  {img: 'graph-scroll',         date: '03/2015',   url: 'http://1wheel.github.io/graph-scroll/'},
+  {img: 'convex-hulls',         date: '12/2014',   url: 'http://roadtolarissa.com/convex-hulls/'},
+
+
+
+  {img: '215-teeth',            date: '06/2014',   url: 'http://roadtolarissa.com/215-teeth/'},
+  {img: 'joymap',               date: '03/2014',   url: 'http://roadtolarissa.com/population-division/'},
+  {img: 'synth-scale',          date: '01/2014',   url: 'http://roadtolarissa.com/synth/'},
+  {img: 'twisters',             date: '10/2013',   url: 'http://roadtolarissa.com/twisters/'},
+  {img: 'nba-draft',            date: '06/2013',   url: 'http://roadtolarissa.com/nba-draft/'},
+  {img: 'meteors',              date: '05/2013',   url: 'http://roadtolarissa.com/meteors/'},
+  {img: 'film-strips',          date: '05/2013',   url: 'http://roadtolarissa.com/film-strips/'},
+  {img: 'whale-words',          date: '01/2013',   url: 'http://roadtolarissa.com/whalewords'},
+  {img: 'unemployment-rates',   date: '01/2013',    url: 'http://roadtolarissa.com/unemployment'},
+  {img: 'sierpinski-triangle',  date: '12/2012',   url: 'http://roadtolarissa.com/triangles/'},
+  {img: 'whitehouse-petitions', date: '12/2012',   url: 'http://roadtolarissa.com/whitehouse'},
+  {img: 'redditgraphs',         date: '10/2012',   url: 'http://roadtolarissa.com/redditgraphs'},
+  {img: 'backgammon',           date: '10/2012',    url: 'http://roadtolarissa.com/javascript/hangout-boardgames/'},
+  {img: 'connect-4',            date: '09/2012',     url: 'http://roadtolarissa.com/connect-4-ai-how-it-works/'},
+];
+
+
+console.clear()
+var phi = 1.618033988749895
+var cx = 0.7236067977499789
+var cy = 0.4472135954999579
+
+var initS = Math.min(innerWidth, 750)/phi
+var s = initS
+var x = 0
+var y = 0
+
+
+var imgs = projects.map(d => {
+  var img = d.img.includes('http') ? d.img : 'https://roadtolarissa.com/images/thumbnails/' + d.img + '.png'
+  return 'url("' + img + '")'
+})
+var links = projects.map(d => d.url)
+
+var sel = d3.select('#graph').html('')
+  .st({
+    width: s*phi, 
+    height: s,
+    transformOrigin: `${s*phi*cx}px ${s*cx}px`,
+    top: `calc(50vh - ${s/2}px)`,
+  })
+
+imgs.forEach((d, i) => {
+  sel.append('div.step')
+    .st({
+      transform: `translate(${x}px, ${y}px) scale(${s/initS})`,
+      transformOrigin: 'left top',
+      width: initS,
+      height: initS
+    })
+    .append('div.img-container')
+
+  var [dx, dy] = [
+    [s,           0],
+    [s/phi/phi,   s],
+    [-s/phi,      s - s/phi],
+    [0,           -s/phi],
+  ][i % 4]
+
+  x += dx
+  y += dy
+
+  s = s/phi
+})
+
+var stepSel = sel.selectAll('.step')
+var imgSel = sel.selectAll('.img-container')
+
+updateImg()
+
+var timerY = 0
+
+function updateZoom(){
+  var scale = (pageYOffset)/1000 + 1
+
+  var drawScale = Math.min(5, scale) 
+  if (drawScale == 5){ 
+    drawScale += scale % 1
+  } 
+
+  updateImg(Math.floor(scale - drawScale) )
+  sel.st({
+    transform: `
+      scale(${Math.pow(phi, drawScale)/phi}) 
+      rotate(${-90*drawScale + 90}deg
+    )`,
+  })
+
+  if (timerY != pageYOffset && window.scrollTimer && pageYOffset) scrollTimer.stop()
+}
+
+function updateImg(offset){
+  imgSel
+    .st({backgroundImage: (d, i) => imgs[i + offset]})
+    .on('click', (d, i) => {
+      if (!links[i + offset]) return
+      window.open(links[i + offset], '_blank');
+    })
+}
+
+updateZoom()
+d3.select(window).on('scroll', updateZoom)
+
+setTimeout(() => {
+  var initY = pageYOffset
+  scrollTimer = d3.timer(t => {
+    timerY = Math.round(t/10) + initY
+    window.scrollTo(0, timerY)
+  })
+}, 500)
+
+
+
+
+</script>
+
+
+
+</html>

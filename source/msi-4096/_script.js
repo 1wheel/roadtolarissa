@@ -104,6 +104,13 @@ d3.loadData('matches.tsv', 'scenarios.tsv', (err, res) => {
     .sections(teamSel)
 
 
+  scenarios.forEach(s => {
+    s.active = highlightScenarios.every((g, i) =>
+      g == 0 ? true : s.str[i] == g)
+  })
+
+  highlightFns.forEach(d => d())
+
 })
 
 
@@ -239,7 +246,7 @@ function drawTeam(team){
       searchObj[team + 'x'] = x
       searchObj[team + 'y'] = y
       var d = _.find(scenarios, searchObj)
-      // console.log(d)
+      console.log(d)
       ttSel.html([d.ogstr, d.nStr, d[team],d.str, d.x, d.y].join('<br>'))
 
       ttSel.html('')
@@ -284,17 +291,19 @@ function drawGames(){
 
       highlightFns.forEach(d => d())
 
-      teamSel
-        .classed('active', d => {
-          var hs = highlightScenarios[d.game.j]
-          return hs == 0 ? 1 : hs == d.teamNum
-        })
-
-      gameSel.classed('active', d => highlightScenarios[d.j] != 0)
-
       setTimeout(updateLines, 20)
     })
     .classed('active', true)
+
+  highlightFns.push(() => {
+    teamSel
+      .classed('active', d => {
+        var hs = highlightScenarios[d.game.j]
+        return hs == 0 ? 1 : hs == d.teamNum
+      })
+
+    gameSel.classed('active', d => highlightScenarios[d.j] != 0)
+  })
 
   var width = 112
   var lineScale = d3.scaleLinear().range([0, width*1.3])
@@ -344,6 +353,8 @@ function drawGames(){
 
 
   })
+
+
 }
 
 function calcPercents(highlightScenarios){
