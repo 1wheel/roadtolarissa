@@ -3,6 +3,8 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
   <title>roadtolarissa</title>
 
@@ -49,11 +51,10 @@ html{
 
 body{
   position: fixed;
-  width: 100vw;
+  width: calc(100vw - 10px);
   max-width: 750px;
   left: 50%;
   transform: translateX(-50%);
-
 }
 
 #graph{
@@ -67,22 +68,24 @@ body{
 #graph > div{
   position: absolute;
   background: rgba(0,0,0, 1);
+  background: #000;
 
 }
 
 .img-container{
   background-size: cover;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #000;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  /*background-color: #000;*/
   image-rendering: pixelated;
   cursor: pointer;
 }
 
-div:nth-child(4n+1) > .img-container{ transform: rotate(0deg); }
-div:nth-child(4n + 2) .img-container{ transform: rotate(90deg); }
-div:nth-child(4n + 3) .img-container{ transform: rotate(180deg); }
-div:nth-child(4n + 0) .img-container{ transform: rotate(270deg); }
+.index-1.img-container{ transform: translate( 1px, 1px) rotate(0deg); }
+.index-2.img-container{ transform: translate( 1px, 1px) rotate(90deg); }
+.index-3.img-container{ transform: translate( 1px, 1px) rotate(180deg); }
+.index-0.img-container{ transform: translate( 1px, 1px) rotate(270deg); }
+
 </style>
 
 
@@ -205,6 +208,8 @@ var projects = [
   {img: 'connect-4',            date: '09/2012',     url: 'http://roadtolarissa.com/connect-4-ai-how-it-works/'},
 ];
 
+projects = projects.concat(projects)
+
 
 console.clear()
 var phi = 1.618033988749895
@@ -231,7 +236,7 @@ var sel = d3.select('#graph').html('')
     top: `calc(50vh - ${s/2}px)`,
   })
 
-imgs.forEach((d, i) => {
+d3.range(innerWidth < 700 ? 11 : 18).forEach((d, i) => {
   sel.append('div.step')
     .st({
       transform: `translate(${x}px, ${y}px) scale(${s/initS})`,
@@ -240,6 +245,7 @@ imgs.forEach((d, i) => {
       height: initS
     })
     .append('div.img-container')
+    .classed('index-' + i % 4, 1)
 
   var [dx, dy] = [
     [s,           0],
@@ -263,6 +269,10 @@ var timerY = 0
 
 function updateZoom(){
   var scale = (pageYOffset)/1000 + 1
+
+  if (pageYOffset > projects.length*1000 + 10){
+    window.scrollTo(0, pageYOffset - projects.length*1000)
+  }
 
   var drawScale = Math.min(5, scale) 
   if (drawScale == 5){ 
