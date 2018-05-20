@@ -208,6 +208,10 @@ var projects = [
   {img: 'connect-4',            date: '09/2012',     url: 'http://roadtolarissa.com/connect-4-ai-how-it-works/'},
 ];
 
+projects.forEach(d => d.color = 'rgba(255,255,255,' + Math.random() + ')')
+
+var numProjects = projects.length
+
 projects = projects.concat(projects)
 
 
@@ -227,6 +231,7 @@ var imgs = projects.map(d => {
   return 'url("' + img + '")'
 })
 var links = projects.map(d => d.url)
+var colors = projects.map(d => d.color)
 
 var sel = d3.select('#graph').html('')
   .st({
@@ -236,7 +241,7 @@ var sel = d3.select('#graph').html('')
     top: `calc(50vh - ${s/2}px)`,
   })
 
-d3.range(innerWidth < 700 ? 11 : 18).forEach((d, i) => {
+d3.range(innerWidth < 700 ? 13 : 18).forEach((d, i) => {
   sel.append('div.step')
     .st({
       transform: `translate(${x}px, ${y}px) scale(${s/initS})`,
@@ -268,10 +273,10 @@ updateImg()
 var timerY = 0
 
 function updateZoom(){
-  var scale = (pageYOffset)/1000 + 1
+  var scale = (pageYOffset)/500 + 1
 
-  if (pageYOffset > projects.length*1000 + 10){
-    window.scrollTo(0, pageYOffset - projects.length*1000)
+  if (pageYOffset > (numProjects + 6)*500){
+    window.scrollTo(0, pageYOffset - numProjects*500)
   }
 
   var drawScale = Math.min(5, scale) 
@@ -297,18 +302,25 @@ function updateImg(offset){
       if (!links[i + offset]) return
       window.open(links[i + offset], '_blank');
     })
+    .st({backgroundColor: (d, i) => colors[i + offset]})
 }
 
 updateZoom()
 d3.select(window).on('scroll', updateZoom)
 
-setTimeout(() => {
+setTimeout(startAutoScroll, 50)
+setTimeout(startAutoScroll, 500)
+setTimeout(startAutoScroll, 1000)
+
+function startAutoScroll(){
   var initY = pageYOffset
+
+  if (window.scrollTimer) window.scrollTimer.stop()
   scrollTimer = d3.timer(t => {
-    timerY = Math.round(t/10) + initY
+    timerY = Math.round(t/4) + initY
     window.scrollTo(0, timerY)
   })
-}, 500)
+}
 
 
 
