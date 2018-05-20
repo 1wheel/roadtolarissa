@@ -19,19 +19,26 @@ and
 
 https://github.com/sveltejs/svelte.technology/blob/master/scripts/prep/build-blog.js
 
-tk tk literate comments, more words
-
 ```javascript
 var fs = require('fs')
-var { exec, execSync } = require('child_process')
-
-var marked = require('marked')
+var {exec, execSync} = require('child_process')
 var hljs = require('highlight.js')
-var unescape = require('unescape')
-var chokidar = require('chokidar')
+var marked = require('marked')
+marked.setOptions({
+  highlight: (code, lang) => console.log(code, lang)|| hljs.highlight(lang, code).value,
+  smartypants: true
+})
+```
 
+```javascript
 var public = `${__dirname}/../../public`
 var source = `${__dirname}/../../source`
+
+// copy everything but _posts and _templates to public
+function rsyncStatic(){
+  exec('rsync -a --exclude _posts/ --exclude _templates/ source/ public/')
+}
+rsyncStatic()
 
 // convert _templates dir into functions
 var templates = {}
@@ -40,26 +47,9 @@ fs.readdirSync(`${source}/_templates`).forEach(path => {
   templates[path] = d => eval('`' + str + '`')
 })
 
-// build site
-rsyncStatic()
 var posts = fs.readdirSync(`${source}/_posts`).map(parsePost)
-fs.writeFileSync(public + '/rss.xml', templates['rss.xml'](posts))
+fs.writeFileSync(public + '/rss.xml',  templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
-
-// copy files on change
-if (process.argv.join('').includes('--watch')){
-  chokidar.watch([source]).on('all', function(event, path){
-    if (event != 'change') return
-    if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
-
-    rsyncStatic()
-  })
-}
-
-// copy everything but _template and _post to public/
-function rsyncStatic(){
-  exec('rsync -a --exclude _post/ --exclude templates/ source/ public/')
-}
 
 // read post path and write to public/
 function parsePost(path){
@@ -76,13 +66,8 @@ function parsePost(path){
     meta[key] = val
   })
 
-  // convert markdown from html and highlight code
-  var html = marked( content.replace( /^\t+/gm, match => match.split( '\t' ).join( '  ' ) ) )
-      .replace( /<pre><code class="lang-(\w+)">([\s\S]+?)<\/code><\/pre>/g, ( match, lang, value ) => {
-        const highlighted = hljs.highlight( lang, unescape(value) ).value
-        return `<pre class="lang-${lang}"><code class='hljs'>${highlighted}</code></pre>`
-      })
-
+  // convert markdown to html
+  var html = marked(content)
   var post = {slug, date, meta, html}
 
   var dir = public + meta.permalink
@@ -90,5 +75,33 @@ function parsePost(path){
   fs.writeFileSync(`${dir}/index.html`, templates[post.meta.template](post))
 
   return post
+}
+```
+
+`npm run publish` runs [lit-node](TKTKT) on this post to update every thing locally and uses `rsync` again to copy the `public` directory to a remote folder that's being statically served.
+
+```bash
+"scripts": {
+  "publish": "lit-node source/_posts/2017-11-12-literate-blogging.md && 
+    rsync -a --omit-dir-times --no-perms public/ demo@roadtolarissa.com:../../usr/share/nginx/html/",
+  "start": "lit-node source/_posts/2017-11-12-literate-blogging.md --watch & 
+    cd public/ && 
+    hot-server"
+}
+```
+
+To get 
+
+```javascript
+console.log(process.argv)
+console.log(process.argv.includes('--watch'))
+
+if (process.argv.join('').includes('--watch')){
+  require('chokidar').watch(source).on('change', path => {
+    console.log(path)
+
+    if (path.includes('_posts/')) parsePost(path.split('_posts/')[1])
+    rsyncStatic()
+  })
 }
 ```
