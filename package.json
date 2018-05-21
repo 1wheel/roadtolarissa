@@ -8,8 +8,7 @@
     "marked": "^0.3.6"
   },
   "scripts": {
-    "start": "node index.js --watch & cd public/ && hot-server",
-    "start-lit": "lit-node source/_posts/2017-11-12-literate-blogging.md --watch & cd public/ && hot-server",
-    "publish": "node index.js && rsync -a --omit-dir-times --no-perms public/ demo@roadtolarissa.com:../../usr/share/nginx/html/"
+    "start": "lit-node source/_posts/2017-11-12-literate-blogging.md --watch & cd public/ && hot-server",
+    "publish": "lit-node source/_posts/2017-11-12-literate-blogging.md index.js && rsync -a --omit-dir-times --no-perms public/ demo@roadtolarissa.com:../../usr/share/nginx/html/"
   }
 }

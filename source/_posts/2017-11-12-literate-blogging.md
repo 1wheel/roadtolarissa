@@ -5,15 +5,16 @@ permalink: /literate-blogging
 draft: true
 ---
 
-For five years, I was frustrated by every blogging tools I tried. Wordpress made it difficult to embed inline interactive charts. Octopress came with a bunch of predefined css that was difficult to turn off and pasting Stack Overflow tips on run gems without understanding what `renv` or `rvm` were eventually broke my ruby installing. Metalsmith was easier to use, but I was never able to successfully configure the rss plugin.
+For five years, I was frustrated by every blogging engine I tried. Wordpress made it difficult to embed inline interactive charts. Jekyll/Octopress came with predefined css that was difficult to turn off and pasting Stack Overflow instructions on running gems without understanding what `renv` or `rvm` were eventually broke my ruby installation. Metalsmith was easier to use, but I was never able to successfully configure the rss plugin.
 
 And none of alternatives I looked at supported [hot reloading](https://roadtolarissa.com/hot-reload).
 
-Writing my own blogging engine seemed like epitome of yak shaving so I put it off until I came across Jeremy Ashkenas's [Jorno](http://ashkenas.com/journo/docs/journo.html) and Rich Harris's [Svelte blog](https://github.com/sveltejs/svelte.technology/blob/1fc419a37aa47cc54eaa8e65661bd80894a653b0/scripts/prep/build-blog.js) last summer. Using their code as a starting point, I spent a lazy Sunday simplifying my setup. 
-
 <div id='graph'></div>
 
-How does it work? Static files that don't need preprocessing, like images or javascript, are copied from `source/` to `public/` with `rysnc`. The `_post` and `_templates` folder with non-static files are skipped over with `exclude`.
+Writing my own blogging engine seemed like epitome of yak shaving so I put it off until I came across Jeremy Ashkenas's [Jorno](http://ashkenas.com/journo/docs/journo.html) and Rich Harris's [Svelte blog](https://github.com/sveltejs/svelte.technology/blob/1fc419a37aa47cc54eaa8e65661bd80894a653b0/scripts/prep/build-blog.js) last summer. Using their code as a starting point, I spent a lazy Sunday simplifying my setup. 
+
+
+How does it work? Static files that don't need preprocessing, like images or javascript, are copied from `source/` to `public/` with `rysnc`. The `_post` and `_templates` folder with non-static files are skipped over with `--exclude`.
 
 ```javascript
 var fs = require('fs')
@@ -28,7 +29,7 @@ function rsyncSource(){
 rsyncSource()
 ```
 
-Posts are written in markdown, syntax highlighted by [highlight.js]() and converted to HTML by [marked](). 
+Posts are written in markdown, converted to HTML with [marked]() and syntax highlighted by [highlight.js](). 
 
 ```javascript
 var hljs = require('highlight.js')
@@ -39,7 +40,7 @@ marked.setOptions({
 })
 ```
 
-Files in the `_templates` directory, currently `rss.xml`, `sitemap.xml` and  `post.html`,  are converted to ES6 template strings with `eval`. This would be risky with user entered data, but when you're writting the code and content you can cut corners.
+Files in the `_templates` directory, currently `rss.xml`, `sitemap.xml` and  `post.html`,  are converted to ES6 template strings with `eval`. This would be risky with user entered data, but writting both the code and content lets you cut corners.
 
 ```javascript
 var templates = {}
@@ -49,9 +50,9 @@ fs.readdirSync(`${source}/_templates`).forEach(path => {
 })
 ```
 
-Each post is a markdown file in the `_posts` folder.  They're read in with `parsePost`and stored in `posts` array.
+Each post is a markdown file in the `_posts` folder.  They're read in with `parsePost`and saved the `posts` array.
 
-Instead of having to install and configure a plugin, setting up an rss feed here just requires passing the array of posts to the `rss.xml` template and writting out a file. 
+Instead of having to install and configure a plugin, an rss feed just requires passing the array of posts to the `rss.xml` template and writting out a file. 
 
 ```javascript
 var posts = fs.readdirSync(`${source}/_posts`).map(parsePost)
@@ -59,7 +60,7 @@ fs.writeFileSync(public + '/rss.xml',  templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
 ```
 
-Read post path and write to `public/`
+Read post path and write to `public/`. This is the heart of the program
 
 ```javascript
 function parsePost(path){
@@ -95,14 +96,13 @@ To get it on the internet `npm run publish` runs [lit-node](TKTKT) on this post 
   "publish": "lit-node source/_posts/2017-11-12-literate-blogging.md && 
     rsync -a public/ demo@roadtolarissa.com:../../usr/share/nginx/html/",
   "start": "lit-node source/_posts/2017-11-12-literate-blogging.md --watch & 
-    cd public/ && 
-    hot-server"
+    cd public/ && hot-server"
 }
 ```
 
 `npm run start` runs [hot-server](https://github.com/1wheel/hot-server) in the `public` folder and runs this post with the `--watch` flag. Changes in the `source` directory rerun `rsyncSource`, which copies the the update file to `public`, triggering hot-server's file watch and passing the file to browser along a websocket. A little rube goldberg, but still plenty fast and simpler than rewritting hot-server here.  
 
-Edits to posts are trigger 
+Edits to a post rebuild just that post, making hot-server trigger a page reload.
 
 ```javascript
 if (process.argv.includes('--watch')){
@@ -115,7 +115,16 @@ if (process.argv.includes('--watch')){
 }
 ```
 
-This is that post on every blog about how the blog is set up
+ I don't spend much time looking at `sitemap.xml` or tweaking the templates, so automatically updates aren't hooked up to those. I've tried to only implement exactly what I need without any unnessary abstractation to keep the code easy to work with.
+
+I'm not totally sold on literate programming; I quite liked the 
+
+ <link rel="stylesheet" type="text/css" href="style.css">
+ <script src='../worlds-group-2017/d3_.js'></script>
+ <script src='_script.js'></script>
+
+
+<!-- This is that post on every blog about how the blog is set up
 thx everyone
 
-over engineered nicar setup
+over engineered nicar setup -->

@@ -1,0 +1,33 @@
+svg {
+  overflow: visible;
+}
+
+.axis, .tooltip{
+  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
+}
+
+.x.axis text, .y.axis text, .axis tspan{
+  /*fill: #888 !important;*/
+}
+.axis line{
+  /*stroke: #888;*/
+}
+
+.domain{
+  display: none;
+}
+
+
+.tick line{
+  opacity: 0;
+}
+
+#graph{
+  height: 195px;
+}
+
+text{
+  fill: #000;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+
+}
