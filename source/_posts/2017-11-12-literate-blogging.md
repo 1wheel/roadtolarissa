@@ -13,7 +13,7 @@ Writing my own blogging engine seemed like epitome of yak shaving so I put it of
 
 <div id='graph'></div>
 
-How does it work? Static files that don't need preprocessing, like images or javascript, are copied from `source/` to `public/` with `rysnc`. Directories with non-static files are skipped over with `--exclude`.
+How does it work? Static files that don't need preprocessing, like images or javascript, are copied from `source/` to `public/` with `rysnc`. The `_post` and `_templates` folder with non-static files are skipped over with `exclude`.
 
 ```javascript
 var fs = require('fs')
