@@ -3,6 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>roadtolarissa</title>
 
@@ -86,7 +87,7 @@
     <a href="/population-division">Population Division</a>
     <a href="/synth">Making Music With D3</a>
     <a href="/twisters-post">Twisters</a>
-    <a href="/nba_draft">NBA Draft</a>
+    <a href="/nba-draft">NBA Draft</a>
     <a href="/meteor-map">Meteor Map</a>
     <a href="/film-strips-post">Film Strips</a>
     <a href="/whale-words">Whale Words</a>
@@ -114,8 +115,7 @@
 <style>
 
 .list a{
-  width: 800px;
-  display: inline-block;
+  display: block;
 }
 .list{
   padding-bottom: 20px;
@@ -124,6 +124,7 @@
 #gallery{
   margin-top: 60px;
   margin-bottom: 60px;
+  min-height: 1000px;
 }
 
 svg{
@@ -151,6 +152,44 @@ text{
 
 <script>
 var projects = [
+  // {
+  //   img: 'https://i.imgur.com/5z400QK.png', 
+  //   date: '04/2018',
+  //   url: 'https://roadtolarissa.com/sell-strat/'
+  // },
+  // {
+  //   img: 'https://i.imgur.com/qCOkFzl.png', 
+  //   date: '05/2018',
+  //   url: 'https://roadtolarissa.com/msi-4096/'
+  // },
+  // {
+  //   img: 'https://i.imgur.com/ZNkXwEx.png', 
+  //   date: '04/2018',
+  //   url: 'https://roadtolarissa.com/hot-reload/'
+  // },
+  // {
+  //   img: 'https://i.imgur.com/0IADOwR.png', 
+  //   date: '04/2018',
+  //   url: 'https://roadtolarissa.com/top-3-movies/'
+  // },
+  // {
+  //   img: 'https://i.imgur.com/YeoOlAC.png', 
+  //   date: '02/2018',
+  //   url: 'https://roadtolarissa.com/same-sex-legal/'
+  // },
+  // {
+  //   img: 'https://i.imgur.com/rfwNaUx.png', 
+  //   date: '01/2018',
+  //   url: 'https://roadtolarissa.com/oracle'
+  // },
+  // {
+  //   img: 'https://roadtolarissa.com/images/posts/2017-chart-diary.png', 
+  //   date: '12/2017',
+  //   url: 'https://roadtolarissa.com/2017-chart-diary'
+  // },
+
+
+
   {img: 'nyt',                  date: '05/2016',   url: 'http://www.nytimes.com/by/adam-pearce'},
   {img: 'who-marries-whom',     date: '02/2016',   url: 'http://www.bloomberg.com/graphics/2016-who-marries-whom/'},
   {img: 'donor-network',        date: '02/2016',   url: 'http://www.bloomberg.com/politics/graphics/2016-fec-filings/febuary/bush-donors/'},
@@ -234,7 +273,7 @@ var projects = [
 
 projects = _.sortBy(projects, ƒ('date', d3.time.format('%m/%Y').parse)).reverse()
 
-var s = 750/4,
+var s = d3.select('#gallery').node().offsetWidth/4,
     numX = 4,
     width = s*numX,
     height = s*Math.ceil(projects.length/numX)
@@ -246,12 +285,11 @@ var boxes = projects.map(function(d, i){
     id: 'clip-' + i,
     clipId: 'url(#clip-' + i + ')',
     name: d.img,
-    imgUrl: '/images/thumbnails/' + d.img + '.png',
+    imgUrl: d.img.includes('http') ? d.img : '/images/thumbnails/' + d.img + '.png',
     url: d.url,
     date: d.date,
   }
 })
-
 
 var svg = d3.select('#gallery')
   .append('svg')

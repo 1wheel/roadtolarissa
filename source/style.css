@@ -95,6 +95,13 @@ strong{
 	font-weight: bold;
 }
 
+/*wp classes*/
+img.aligncenter {
+  display: block;
+  margin: auto;
+  max-width: 750px;
+}
+
 
 /*
 highlight css
