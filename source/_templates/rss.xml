@@ -9,20 +9,20 @@
 		<title>roadtolarissa</title>
 		<link>https://roadtolarissa.com</link>
 	</image>
-	${d.filter(post => post.meta.draft != 'true').reverse().map(post => 
+	${d.filter(post => post.draft != 'true').reverse().map(post => 
 		`
 		<item>
-			<title>${post.meta.title}</title>
-			${post.meta.shareimg ? `
+			<title>${post.title}</title>
+			${post.shareimg ? `
 				<description>
 					<![CDATA[
-						<a href="https://roadtolarissa.com${post.meta.permalink}">
-							<img src="${post.meta.shareimg}"/>
+						<a href="https://roadtolarissa.com${post.permalink}">
+							<img src="${post.shareimg}"/>
 						</a>
 					]]>
 				</description>
 			` : ''}
-			<link>https://roadtolarissa.com${post.meta.permalink}</link>
+			<link>https://roadtolarissa.com${post.permalink}</link>
 			<pubDate>${(new Date(post.date)).toUTCString()}</pubDate>
 		</item>
 		`

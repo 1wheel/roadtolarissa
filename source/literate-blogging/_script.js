@@ -70,7 +70,8 @@ c.svg.appendMany('text', data.filter(d => d.mid))
 c.svg.append('text')
   .text('No Code Is The Best Code')
   .text('Marching Towards Nothing')
-  .at({x: c.width/2, y: innerWidth < 750 ? -22 : -12, textAnchor: 'middle', fontWeight: 800})
+  .at({x: c.width/2, y: -22, textAnchor: 'middle', fontWeight: 800})
+  .at({x: 0, textAnchor: 'start'})
 
 
 

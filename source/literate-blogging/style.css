@@ -28,6 +28,11 @@ svg {
 
 text{
   fill: #000;
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
+	font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+}
 
+
+body{
+	font-family:  -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
 }

@@ -5,12 +5,12 @@
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>${d.meta.title}</title>
-  <meta property="og:title" content="${d.meta.title}">
-  <!-- <meta property="og:description" content="${d.meta.title}"> -->
-  <meta property="og:url" content="https://roadtolarissa.com${d.meta.permalink}">
-  ${d.meta.shareimg ? `<meta property="og:image" content="${d.meta.shareimg}">`  : ''}
-  ${d.meta.shareimg ? `<meta name="twitter:card" content="summary_large_image">` : ''}
+  <title>${d.title}</title>
+  <meta property="og:title" content="${d.title}">
+  <!-- <meta property="og:description" content="${d.title}"> -->
+  <meta property="og:url" content="https://roadtolarissa.com${d.permalink}">
+  ${d.shareimg ? `<meta property="og:image" content="${d.shareimg}">`  : ''}
+  ${d.shareimg ? `<meta name="twitter:card" content="summary_large_image">` : ''}
   
 	<link rel="stylesheet" type="text/css" href="/style.css">
 
@@ -39,7 +39,7 @@
     </div>
   </div>
   
-  <h1>${d.meta.title}</h1>
+  <h1>${d.title}</h1>
   <!-- <time>${d.date}</time> -->
   ${d.html}
 </body>
