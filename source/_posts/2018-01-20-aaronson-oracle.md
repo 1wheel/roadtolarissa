@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Aaronson Oracle
+date: 2018-01-20
 permalink: /oracle
 shareimg: https://i.imgur.com/rfwNaUx.png
 ---

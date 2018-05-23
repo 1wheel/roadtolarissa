@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Even Fewer Lambdas
+date: 2014-06-23
 permalink: /even-fewer-lamdas-with-d3
 ---
 Writing d3 typically involves writing lots of anonymous functions. The [scatter plot](http://bl.ocks.org/mbostock/3887118) example illustrates two typical use cases: scales and attributes.  

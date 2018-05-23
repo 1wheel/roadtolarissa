@@ -1,6 +1,7 @@
 ---
 title: Twisters
 template: post.html
+date: 2013-10-22
 permalink: /twisters-post
 ---
 <p style="text-align: center;">

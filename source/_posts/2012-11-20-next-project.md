@@ -1,6 +1,7 @@
 ---
 title: Next Project
 template: post.html
+date: 2012-11-20
 permalink: /next-project
 ---
 Finished with redditgraphs, I have a couple of ideas about what I'd like to work on next; I'm posting them to clarify my own thoughts and to get feedback.

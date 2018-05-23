@@ -1,5 +1,6 @@
 ---
 template: post.html
+date: 2014-10-04
 permalink: /golf-paths
 title: Golf Paths
 ---

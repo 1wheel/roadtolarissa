@@ -1,6 +1,7 @@
 ---
 title: Literate Blogging With Hot Reloading 
 template: post.html
+date: 2017-11-12
 permalink: /literate-blogging
 draft: true
 ---
@@ -13,7 +14,7 @@ And none of alternatives I looked at supported [hot reloading](https://roadtolar
 
 <div id='graph'></div>
 
-Writing my own blogging software seemed like epitome of yak shaving. I thought it would be difficult, too,  until I came across Jeremy Ashkenas's [Jorno](http://ashkenas.com/journo/docs/journo.html) and Rich Harris's [Svelte blog](https://github.com/sveltejs/svelte.technology/blob/1fc419a37aa47cc54eaa8e65661bd80894a653b0/scripts/prep/build-blog.js) last summer. Using their code as a starting point, I spent a lazy Sunday simplifying my setup. 
+Writing my own blogging software seemed like epitome of yak shaving. I thought it would be difficult, too,  until I came across Jeremy Ashkenas's [Jorno](http://ashkenas.com/journo/docs/journo.html) and Rich Harris's [Svelte blog](https://github.com/sveltejs/svelte.technology/blob/1fc419a37aa47cc54eaa8e65661bd80894a653b0/scripts/prep/build-blog.js) last summer. Using their code as a starting point, I spent a lazy Sunday simplifying my setup. Now, all the code needed to build this blog lives in this post. 
 
 How does it work? Each post is a markdown file in the `source/_posts` folder. The posts get read in, parsed and written out to `public/` as an HTML file using one of templates from `source/_templates`.
 
@@ -58,7 +59,7 @@ function readdirAbs(dir){ return fs.readdirSync(dir).map(d => dir + '/' + d) }
 
 Each post file in the `source/_posts` folder is read in with `parsePost` and saved the `posts` array.
 
-Instead of having to install and configure a plugin, creating a rss feed just requires passing the array of posts to the `rss.xml` template and writting out a file. 
+Instead of having to install and configure a plugin, I created an rss feed by passing the array of posts to the `rss.xml` template and writting out a file. 
 
 ```javascript
 var posts = readdirAbs(`${source}/_posts`).map(parsePost)
@@ -66,7 +67,7 @@ fs.writeFileSync(public + '/rss.xml',  templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
 ```
 
-`parsePost` reads the title, url, publish status and template type from [front matter](https://jekyllrb.com/docs/frontmatter/) at the top of the post. The body is converted to HTML fragrament and the whole thing 
+Passed the path of a post, `parsePost` reads the title, url, date and publish status from [front matter](https://jekyllrb.com/docs/frontmatter/) at the top of the post. The markdown body is converted to a HTML fragrament and an object representing the post is returned.
 
 ```javascript
 function parsePost(path){
@@ -74,7 +75,7 @@ function parsePost(path){
     .replace('---\n', '')
     .split('\n---\n')
 
-  var post = {html: marked(body), date: path.split('.')[0].substr(0, 10)}
+  var post = {html: marked(body)}
   top.split('\n').forEach(line => {
     var [key, val] = line.split(': ')
     post[key] = val
@@ -84,7 +85,7 @@ function parsePost(path){
 }
 ```
 
-the whole thing is written to the `public` folder using the template listed in the front matter. 
+`writePost` takes a post object, creates a folder for it in `public/`, runs it through a template and writen out the post as an HTML file. 
 
 ```javascript
 function writePost(post){

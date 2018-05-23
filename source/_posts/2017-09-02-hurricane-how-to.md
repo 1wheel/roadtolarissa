@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Hurricane How-To
+date: 2017-09-02
 permalink: /hurricane
 shareimg: http://roadtolarissa.com/images/posts/hurricane-2.png
 ---

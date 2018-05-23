@@ -1,6 +1,7 @@
 ---
 title: Redditgraphs Retrospective
 template: post.html
+date: 2012-11-17
 permalink: /redditgraphs-retrospective
 ---
 It's been nearly a month since my last post, about a comment visualizer I created for reddit. Since then, I've mostly been polishing the application and trying to share it with people. After posting the basic demo on /r/javascript, I was encouraged make improvements and host the project on its own domain. Registering &#8220;[redditgraphs.com][1]&#8221; for a year only cost $5 and it seemed more memorable and easier to access than &#8220;roadtolarissa.com/javascript/reddit-comment-visualizer&#8220;. I spent another week adding functionality &#8211; hourly trends, weekly trends, direct linking to user names &#8211; and making the UI prettier.

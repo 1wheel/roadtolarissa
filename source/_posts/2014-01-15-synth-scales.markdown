@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Making Music with d3
+date: 2014-01-15
 permalink: /synth
 ---
 

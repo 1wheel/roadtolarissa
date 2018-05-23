@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Teams' Combined  Win and Loss Record  Before Every NBA Game Ever
+date: 2016-01-24
 permalink: /nba-win-loss
 shareimg: http://roadtolarissa.com/images/posts/nba-win-loss.png
 ---

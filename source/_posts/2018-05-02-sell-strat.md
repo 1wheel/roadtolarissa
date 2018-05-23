@@ -3,6 +3,7 @@ template: post.html
 title: Buying High and Selling Low Can Beat the Market
 title2: What Should You Do When Stock Prices Drop? 
 title3: Beat the Market by Selling Low and Buying High 
+date: 2018-05-02
 permalink: /sell-strat
 shareimg: https://i.imgur.com/5z400QK.png
 ---

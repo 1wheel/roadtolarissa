@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Golden State's 2015 Point Differentials
+date: 2015-11-25
 permalink: /gsw-streak
 ---
 

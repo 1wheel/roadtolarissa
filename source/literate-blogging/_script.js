@@ -4,8 +4,8 @@ var data = d3.csvParse(`date,val,source
 2012-09,324000,https://www.openhub.net/p/Wordpress,
 2014-02,7500,https://www.openhub.net/p/Jekyll,
 2015-07,1250,https://www.openhub.net/p/Metalsmith
-2017-08,65,https://www.openhub.net/p/Custom
-2018-05,65,https://www.openhub.net/p/custom`)
+2017-08,60,https://www.openhub.net/p/Custom
+2018-05,60,https://www.openhub.net/p/custom`)
 
 
 data.forEach((d, i) => {
@@ -70,6 +70,7 @@ c.svg.appendMany('text', data.filter(d => d.mid))
 c.svg.append('text')
   .text('No Code Is The Best Code')
   .text('Marching Towards Nothing')
+  .text('The Decreasing Amount of Code That Builds This Site')
   .at({x: c.width/2, y: -22, textAnchor: 'middle', fontWeight: 800})
   .at({x: 0, textAnchor: 'start'})
 

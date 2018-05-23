@@ -1,6 +1,7 @@
 ---
 title: Yglesias on Amazon's P/E Ratio
 template: post.html
+date: 2012-10-10
 permalink: /yglesias-on-amazons-pe-ratio
 ---
 Yglesias [wonders][1] why Amazon's P/E is so high:

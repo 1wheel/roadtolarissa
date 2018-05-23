@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Projecting Land
+date: 2016-08-19
 permalink: /projecting-land
 shareimg: http://roadtolarissa.com/images/posts/projecting-land.png
 ---

@@ -1,5 +1,6 @@
 ---
 template: post.html
+date: 2014-10-19
 permalink: /dragon-curve
 title: Dragon Curve
 ---

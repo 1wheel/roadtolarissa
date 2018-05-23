@@ -1,6 +1,7 @@
 ---
 title: Maximin Connect 4 Completed
 template: post.html
+date: 2012-09-29
 permalink: /maximin-connect-4-completed
 ---
 I've finished working on the Maximin Connect 4 program. I've set up a [page][1] where you can play around with the AI since I'm not sure how to embed HTML in these posts. Some general things I learned (I'll make a separate post with more Connect 4 specific ideas once I've run some more tests on the AI):

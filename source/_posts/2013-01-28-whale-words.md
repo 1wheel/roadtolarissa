@@ -1,6 +1,7 @@
 ---
 title: Whale Words
 template: post.html
+date: 2013-01-28
 permalink: /whale-words
 ---
 [<img class="aligncenter size-full wp-image-193" title="Whale Words" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/b.png" alt="" width="841" height="807" />][1]

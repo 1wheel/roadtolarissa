@@ -1,6 +1,7 @@
 ---
 title: Film Strips
 template: post.html
+date: 2013-05-02
 permalink: /film-strips-post
 ---
 [<img class="alignnone  wp-image-220" alt="filmstrips" src="http://www.roadtolarissa.com/wp-content/uploads/2013/05/filmstrips.png" width="640" height="417" />][1]

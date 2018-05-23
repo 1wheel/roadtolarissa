@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: SVG Path Strings
+date: 2015-02-22
 permalink: /blog/2015/02/22/svg-path-strings
 ---
 

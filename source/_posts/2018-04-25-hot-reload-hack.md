@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Hackable Hot Reloading
+date: 2018-04-25
 permalink: /hot-reload
 shareimg: https://i.imgur.com/ZNkXwEx.png
 ---

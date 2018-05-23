@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Stacked Bump Charts
+date: 2015-06-07
 permalink: /stacked-bump
 ---
 

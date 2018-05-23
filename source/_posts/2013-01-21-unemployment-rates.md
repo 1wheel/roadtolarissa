@@ -1,6 +1,7 @@
 ---
 title: Unemployment Rates
 template: post.html
+date: 2013-01-21
 permalink: /unemployment-rates
 ---
 [<img class="aligncenter size-large wp-image-185" title="unemployment rates" src="http://www.roadtolarissa.com/wp-content/uploads/2013/01/rate1-1024x705.png" alt="" width="640" height="440" />][1]

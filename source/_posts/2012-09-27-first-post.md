@@ -1,6 +1,7 @@
 ---
 title: First Post
 template: post.html
+date: 2012-09-27
 permalink: /first-post
 ---
 I've found that writing todo lists enormously increases my productivity while programming. Programming is all about breaking larger problems into smaller problems over and over until the problems are small enough to solve easily. Lists provide a map of the problems that need solving and make it possible to work on a smaller subset of them without having to simultaneously worry about the global structure of the program.

@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: 2017 Worlds Group Advancement
+date: 2017-10-10
 permalink: /worlds-group-2017
 shareimg: http://roadtolarissa.com/images/posts/worlds-group-2017.png
 ---

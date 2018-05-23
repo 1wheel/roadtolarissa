@@ -1,6 +1,7 @@
 ---
 title: Speed Issues Goko Dominion
 template: post.html
+date: 2012-10-06
 permalink: /speed-issues-with-gokos-online-dominion-implementation
 ---
 This isn't very scientific, but to get a better sense of how slow playing [Dominion][1] on  [goko][2] is compared to [isotropic][3] and to find out exactly what is making it slower, I spent an hour on both and recorded how the time was spent:

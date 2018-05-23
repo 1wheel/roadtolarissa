@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Lyric Typing
+date: 2015-08-29
 permalink: /lyric-type
 ---
 

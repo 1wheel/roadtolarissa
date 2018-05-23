@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: The Rise and Fall of Same-Sex Marriage Bans 
+date: 2018-03-01
 permalink: /same-sex-legal
 shareimg: https://i.imgur.com/YeoOlAC.png
 ---

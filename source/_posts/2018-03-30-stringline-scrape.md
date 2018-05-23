@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: MTA Marey 
+date: 2018-03-30
 permalink: /mta-marey
 draft: true
 shareimg: http://roadtolarissa.com/images/posts/tktk.png

@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Data Exploration With D3
+date: 2015-03-10
 permalink: /data-exploration
 ---
 

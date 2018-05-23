@@ -1,6 +1,7 @@
 ---
 title: Connect 4 AI: How it Works
 template: post.html
+date: 2012-09-30
 permalink: /connect-4-ai-how-it-works
 ---
 The [connect 4 playing program][1] uses a [minmax algorithm][2].

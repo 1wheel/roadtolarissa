@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Convex Hulls
+date: 2014-12-24
 permalink: /convex-hulls
 ---
 

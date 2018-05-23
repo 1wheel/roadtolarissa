@@ -1,6 +1,7 @@
 ---
 title: Zoomable Sierpinski Triangle
 template: post.html
+date: 2012-12-21
 permalink: /zoomable-sierpinski-triangle-with-d3-js
 ---
 <p style="text-align: center;">

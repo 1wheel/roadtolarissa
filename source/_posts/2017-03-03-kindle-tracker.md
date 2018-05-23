@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Kindle Tracker
+date: 2017-03-03
 permalink: /kindle-tracker
 shareimg: http://roadtolarissa.com/images/posts/kindle-tracker.png
 ---
