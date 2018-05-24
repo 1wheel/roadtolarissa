@@ -4,7 +4,6 @@ template: post.html
 date: 2017-11-12
 permalink: /literate-blogging
 shareimg: https://i.imgur.com/3KDlIFQ.png
-draft: true
 ---
 
 For five years, I was frustrated by every blogging engine I tried. 
@@ -62,9 +61,9 @@ readdirAbs(`${source}/_templates`).forEach(path => {
 function readdirAbs(dir){ return fs.readdirSync(dir).map(d => dir + '/' + d) }
 ```
 
-Each post file in the `source/_posts` folder is read in with `parsePost` and saved the `posts` array.
+Each post file in the `source/_posts` folder is read in with `parsePost` and saved to the `posts` array.
 
-Instead of having to install and configure a plugin, I created an rss feed by passing the array of posts to the `rss.xml` template and writting out a file. 
+Instead of having to install and configure a plugin, I created an rss feed by passing the array of posts to the `rss.xml` template and writing out a file. 
 
 ```javascript
 var posts = readdirAbs(`${source}/_posts`).map(parsePost)
@@ -72,7 +71,7 @@ fs.writeFileSync(public + '/rss.xml',  templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
 ```
 
-Passed the path of a post, `parsePost` reads the title, url, date and publish status from [front matter](https://jekyllrb.com/docs/frontmatter/) at the top of the post. The markdown body is converted to a HTML fragment and an object representing the post is returned.
+Passed the path of a post, `parsePost` reads the title, url, date and publish status from [front matter](https://jekyllrb.com/docs/frontmatter/) at the top of the post. The markdown body is converted to an HTML fragment and an object representing the post is returned.
 
 ```javascript
 function parsePost(path){
@@ -104,7 +103,7 @@ posts.forEach(writePost)
 
 And that's all the code that's needed to build the blog!
 
-To get everything on the internet `npm run publish` runs [lit-node](TKTKT) on this post to regenerate everything locally then uses `rsync` again to copy the `public` directory to a remote folder that's being statically served.
+To get it all on the internet `npm run publish` runs [lit-node](https://github.com/Rich-Harris/lit-node) on this post to regenerate everything locally, then uses `rsync` again to copy the `public` directory to a remote folder that's being statically served.
 
 ```json
 "scripts": {
@@ -115,7 +114,7 @@ To get everything on the internet `npm run publish` runs [lit-node](TKTKT) on th
 }
 ```
 
-`npm run start` runs [hot-server](https://github.com/1wheel/hot-server) in the `public` folder and runs this post with the `--watch` flag. Changes in the `source` directory rerun `rsyncSource`, which copies the the update file to `public`, triggering hot-server's file watch and passing the file to browser along a websocket. A little Rube Goldberg, but still plenty fast and simpler than rewritting hot-server here.  
+`npm run start` runs [hot-server](https://github.com/1wheel/hot-server) in the `public` folder and runs this post with the `--watch` flag. Changes in the `source` directory rerun `rsyncSource`, which copies the the update file to `public`, triggering hot-server's file watch and passing the file to the browser along a websocket. A little Rube Goldberg, but still plenty fast and simpler than rewriting hot-server here.  
 
 Edits to a post rebuild just that post, making hot-server trigger a page reload.
 
@@ -128,13 +127,13 @@ if (process.argv.includes('--watch')){
 }
 ```
 
-I don't spend much time looking at `sitemap.xml` or tweaking the templates, so they're not hooked up to automatically updates. I've tried to only implement exactly what I need without any unnecessary abstractions to keep the code easy to work with. Writing both the code and content lets you aggressively cut corners.
+I don't spend much time looking at `sitemap.xml` or tweaking the templates, so they're not hooked up to automatically update. I've tried to only implement exactly what I need without any unnecessary abstractions to keep the code easy to work with. Writing both the code and content lets you aggressively cut corners.
 
 ## Make Your Own
 
 I'm not totally sold on literate programming yet. I quite liked the having all the code fit on one screen and [⌘-B](https://www.sublimetext.com/docs/3/build_systems.html) doesn't work out of the box. But I've been asked a couple of times for advice on putting words and charts on the internet without <img src='https://i.imgur.com/J1MBJU6.png' style='height: 1.2em; position: relative; top: 4px;' alt='Medium App Nag'></img> getting plastered all over it. Hopefully this post shows how far a little glue code can go when paired with a folder of markdown files, `rsync` and a static server.
 
-If you'd like to try it without futzing with literate bits, there's a [javascript only](https://github.com/1wheel/roadtolarissa/blob/master/source/literate-blogging/index.js) version.
+If you'd like to try it without futzing with the literate bits, there's a [javascript only](https://github.com/1wheel/roadtolarissa/blob/master/source/literate-blogging/index.js) version.
 
 
 <link rel="stylesheet" type="text/css" href="style.css">
