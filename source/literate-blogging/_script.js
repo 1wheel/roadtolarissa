@@ -1,5 +1,3 @@
-console.clear()
-
 var data = d3.csvParse(`date,val,source
 2012-09,324000,https://www.openhub.net/p/WordPress,
 2014-02,7500,https://www.openhub.net/p/Octopress,

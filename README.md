@@ -1,7 +1,7 @@
 [roadtolarissa.com](http://roadtolarissa.com/)
 
 ```
-yarn run start
+yarn start
 ```
 
-Changes to JS/CSS in `source/` are injected without a reload. Edits to `source/_posts/*.md` trigger an incremental rebuild and hard reload client side. 
+Changes to JS/CSS in `source/` are [injected without a reload](http://roadtolarissa.com/hot-reload). Edits to `source/_posts/*.md` trigger [an incremental rebuild](https://roadtolarissa.com/literate-blogging/) and hard client side reload. 

@@ -1,22 +1,24 @@
+h1{
+  max-width: 750px;
+}
+
+@media (max-width: 590px){
+  pre{
+    overflow-x: scroll;
+  }
+}
+
 svg {
   overflow: visible;
 }
 
-.axis, .tooltip{
-  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
-}
-
 .x.axis text, .y.axis text, .axis tspan{
-  /*fill: #888 !important;*/
-}
-.axis line{
-  /*stroke: #888;*/
+  fill: #888 !important;
 }
 
 .domain{
   display: none;
 }
-
 
 .tick line{
   opacity: 0;

@@ -1,8 +1,9 @@
 ---
-title: Literate Blogging With Hot Reloading 
+title: Incremental Rebuilds and Hot Reloading: 60 Lines of Literate Code for Static Blogging
 template: post.html
 date: 2017-11-12
 permalink: /literate-blogging
+shareimg: https://i.imgur.com/3KDlIFQ.png
 draft: true
 ---
 
@@ -48,7 +49,7 @@ marked.setOptions({
 })
 ```
 
-Files in the `_templates` directory, currently `rss.xml`, `sitemap.xml` and  `post.html`,  are ES6 template strings.  `eval` turns them into functions that can be passed data. This could be risky, but writting both the code and content lets you cut corners.
+Files in the `_templates` directory, currently `rss.xml`, `sitemap.xml` and  `post.html`,  are ES6 template strings.  `eval` turns them into functions that can be passed data. 
 
 ```javascript
 var templates = {}
@@ -71,7 +72,7 @@ fs.writeFileSync(public + '/rss.xml',  templates['rss.xml'](posts))
 fs.writeFileSync(public + '/sitemap.xml', templates['sitemap.xml'](posts))
 ```
 
-Passed the path of a post, `parsePost` reads the title, url, date and publish status from [front matter](https://jekyllrb.com/docs/frontmatter/) at the top of the post. The markdown body is converted to a HTML fragrament and an object representing the post is returned.
+Passed the path of a post, `parsePost` reads the title, url, date and publish status from [front matter](https://jekyllrb.com/docs/frontmatter/) at the top of the post. The markdown body is converted to a HTML fragment and an object representing the post is returned.
 
 ```javascript
 function parsePost(path){
@@ -81,7 +82,7 @@ function parsePost(path){
 
   var post = {html: marked(body)}
   top.split('\n').forEach(line => {
-    var [key, val] = line.split(': ')
+    var [key, val] = line.split(/: (.+)/)
     post[key] = val
   })
 
@@ -89,7 +90,8 @@ function parsePost(path){
 }
 ```
 
-`writePost` takes a post object, creates a folder for it in `public/`, runs it through a template and writen out the post as an HTML file. 
+
+`writePost` takes a post object, creates a folder for it in `public/`, runs it through a template and writes out the post to `index.html`. 
 
 ```javascript
 function writePost(post){
@@ -102,7 +104,7 @@ posts.forEach(writePost)
 
 And that's all the code that's needed to build the blog!
 
-To everything on the internet `npm run publish` runs [lit-node](TKTKT) on this post to regenerate everything locally and uses `rsync` again to copy the `public` directory to a remote folder that's being statically served.
+To get everything on the internet `npm run publish` runs [lit-node](TKTKT) on this post to regenerate everything locally then uses `rsync` again to copy the `public` directory to a remote folder that's being statically served.
 
 ```json
 "scripts": {
@@ -120,35 +122,38 @@ Edits to a post rebuild just that post, making hot-server trigger a page reload.
 ```javascript
 if (process.argv.includes('--watch')){
   require('chokidar').watch(source).on('change', path => {
-    console.log(path)
     rsyncSource()
-
     if (path.includes('_posts/')) writePost(parsePost(path))
   })
 }
 ```
 
-I don't spend much time looking at `sitemap.xml` or tweaking the templates, so automatically updates aren't hooked up to those. I've tried to only implement exactly what I need without any unnessary abstractation to keep the code easy to work with.
+I don't spend much time looking at `sitemap.xml` or tweaking the templates, so they're not hooked up to automatically updates. I've tried to only implement exactly what I need without any unnecessary abstractions to keep the code easy to work with. Writing both the code and content lets you aggressively cut corners.
 
 ## Make Your Own
 
-I'm not totally sold on literate programming yet. I quite liked the having all the code fit on one screen and [⌘-B](https://www.sublimetext.com/docs/3/build_systems.html) doesn't work out of the box. But I've been asked a couple
+I'm not totally sold on literate programming yet. I quite liked the having all the code fit on one screen and [⌘-B](https://www.sublimetext.com/docs/3/build_systems.html) doesn't work out of the box. But I've been asked a couple of times for advice on putting words and charts on the internet without <img src='https://i.imgur.com/J1MBJU6.png' style='height: 1.2em; position: relative; top: 4px;' alt='Medium App Nag'></img> getting plastered all over it. Hopefully this post shows how far a little glue code can go when paired with a folder of markdown files, `rsync` and a static server.
 
-
+If you'd like to try it without futzing with literate bits, there's a [javascript only](https://github.com/1wheel/roadtolarissa/blob/master/source/literate-blogging/index.js) version.
 
 
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src='../worlds-group-2017/d3_.js'></script>
-<script src='_script.js'></script>
 <script src='../worlds-group-2017/swoopy-drag.js'></script>
+<script src='_script.js'></script>
 
 
-<!-- This is that post on every blog about how the blog is set up
+<!-- 
+
+This is that post on every blog about how the blog is set up
+
+i've finally written that blog post about how the blog is set up 
+
 thx everyone
 
 over engineered nicar setup 
 
-
+This could be risky, but writting both the code and content lets you cut corners.
 
 TODO
 
