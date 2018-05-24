@@ -1,8 +1,8 @@
 console.clear()
 
 var data = d3.csvParse(`date,val,source
-2012-09,324000,https://www.openhub.net/p/Wordpress,
-2014-02,7500,https://www.openhub.net/p/Jekyll,
+2012-09,324000,https://www.openhub.net/p/WordPress,
+2014-02,7500,https://www.openhub.net/p/Octopress,
 2015-07,1250,https://www.openhub.net/p/Metalsmith
 2017-08,60,https://www.openhub.net/p/Custom
 2018-05,60,https://www.openhub.net/p/custom`)
@@ -24,7 +24,7 @@ data.forEach(d => {
 var sel = d3.select('#graph').html('')
 var c = d3.conventions({
   sel, 
-  margin: {left: innerWidth > 900 ? 0 : 55, top: 40, right: 5}
+  margin: {left: innerWidth > 820 ? 0 : 55, top: 10, right: 5}
 })
 
 
@@ -66,13 +66,36 @@ c.svg.appendMany('text', data.filter(d => d.mid))
   .text(d => d.name)
   .translate(d => [c.x(d.mid), c.y(d.val)])
   .at({textAnchor: 'middle', dy: '-.33em', fontSize: 12})
+  .st({fontWeight: d => d.name == 'Custom' ? 600 : ''})
 
-c.svg.append('text')
-  .text('No Code Is The Best Code')
-  .text('Marching Towards Nothing')
-  .text('The Decreasing Amount of Code That Builds This Site')
-  .at({x: c.width/2, y: -22, textAnchor: 'middle', fontWeight: 800})
-  .at({x: 0, textAnchor: 'start'})
+// c.svg.append('text')
+//   .text('No Code Is The Best Code')
+//   .text('Marching Towards Nothing')
+//   .text('Decreasing The Code Building This Site')
+//   .at({x: c.width/2, y: -22, textAnchor: 'middle', fontWeight: 800})
+//   .at({x: 0, textAnchor: 'start'})
 
+
+
+annotations = 
+[
+  {
+    "path": "M 674,142 A 197.135 197.135 0 0 1 325,-20.000057220458984",
+    "textOffset": [
+      332,
+      -299
+    ]
+  }
+]
+
+var swoopy = d3.swoopyDrag()
+    .draggable(0)
+    .x(d => 0)
+    .y(d => 0)
+    .annotations(annotations)
+
+swoopySel = c.svg.append('g.annotations').call(swoopy)
+  .st({opacity: innerWidth > 820 ? 1 : 0})
+swoopySel.selectAll('path').attr('marker-end', 'url(#arrow)')
 
 

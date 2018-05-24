@@ -1,3 +1,7 @@
+body{
+	max-width: 465px;
+}
+
 .chart{
 	font-family: monaco, Consolas, 'Lucida Console', monospace;
 	height: 1550px;

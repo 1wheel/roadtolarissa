@@ -8,15 +8,19 @@ draft: true
 
 For five years, I was frustrated by every blogging engine I tried. 
 
-WordPress made it difficult to embed inline interactive charts. Jekyll/Octopress came with predefined css that was difficult to turn off and pasting Stack Overflow instructions on installing gems without understanding what `renv` or `rvm` were eventually broke my ruby installation. Metalsmith was easier to use, but I was never able to successfully configure the rss plugin.
+WordPress made it difficult to embed inline interactive charts. Octopress's predefined css was hard to disable and pasting Stack Overflow instructions on installing gems without understanding what `renv` or `rvm` were eventually broke my ruby installation. Metalsmith was easier, but I never managed to successfully configure the rss plugin.
 
 And none of alternatives I looked at supported [hot reloading](https://roadtolarissa.com/hot-reload).
 
+Writing my own blogging software seemed like epitome of yak shaving. I thought it would be difficult, too,  until I came across Jeremy Ashkenas's [Jorno](http://ashkenas.com/journo/docs/journo.html) and Rich Harris's [Svelte blog](https://github.com/sveltejs/svelte.technology/blob/1fc419a37aa47cc54eaa8e65661bd80894a653b0/scripts/prep/build-blog.js) last summer. Using their code as a starting point, I spent a lazy Sunday simplifying my setup. 
+
+Now this site is built with just **60 lines of code**. And they're run directly off of this post.
+
 <div id='graph'></div>
 
-Writing my own blogging software seemed like epitome of yak shaving. I thought it would be difficult, too,  until I came across Jeremy Ashkenas's [Jorno](http://ashkenas.com/journo/docs/journo.html) and Rich Harris's [Svelte blog](https://github.com/sveltejs/svelte.technology/blob/1fc419a37aa47cc54eaa8e65661bd80894a653b0/scripts/prep/build-blog.js) last summer. Using their code as a starting point, I spent a lazy Sunday simplifying my setup. Now, all the code needed to build this blog lives in this post. 
+## How It Works
 
-How does it work? Each post is a markdown file in the `source/_posts` folder. The posts get read in, parsed and written out to `public/` as an HTML file using one of templates from `source/_templates`.
+Each post is a markdown file in the `source/_posts` folder. The posts get read in, parsed and written out to `public/` as an HTML file using one of templates from `source/_templates`.
 
 Static files that don't need preprocessing, like images or javascript, are copied directly from `source/` to `public/` with `rysnc` in preperation for publishing. 
 
@@ -124,11 +128,19 @@ if (process.argv.includes('--watch')){
 }
 ```
 
- I don't spend much time looking at `sitemap.xml` or tweaking the templates, so automatically updates aren't hooked up to those. I've tried to only implement exactly what I need without any unnessary abstractation to keep the code easy to work with.
+I don't spend much time looking at `sitemap.xml` or tweaking the templates, so automatically updates aren't hooked up to those. I've tried to only implement exactly what I need without any unnessary abstractation to keep the code easy to work with.
 
- <link rel="stylesheet" type="text/css" href="style.css">
- <script src='../worlds-group-2017/d3_.js'></script>
- <script src='_script.js'></script>
+## Make Your Own
+
+I'm not totally sold on literate programming yet. I quite liked the having all the code fit on one screen and [⌘-B](https://www.sublimetext.com/docs/3/build_systems.html) doesn't work out of the box. But I've been asked a couple
+
+
+
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src='../worlds-group-2017/d3_.js'></script>
+<script src='_script.js'></script>
+<script src='../worlds-group-2017/swoopy-drag.js'></script>
 
 
 <!-- This is that post on every blog about how the blog is set up
@@ -136,7 +148,6 @@ thx everyone
 
 over engineered nicar setup 
 
-I'm not totally sold on literate programming; I quite liked the having all the code fit on one screen and CMB-B . But I've been asked a couple
 
 
 TODO

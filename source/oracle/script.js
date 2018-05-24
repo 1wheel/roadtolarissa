@@ -229,7 +229,7 @@ function toLR(d){ return +d ? '→' : '←' }
 
 '10101100101010'
   .split('')
-  .forEach(d => update(+d))
+  // .forEach(d => update(+d))
 
 
 

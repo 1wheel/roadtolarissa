@@ -30,9 +30,21 @@ text{
   fill: #000;
   /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
 	font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+  /*font-family: 'Roboto';*/
+  font-weight: 300;
 }
 
 
 body{
-	font-family:  -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+	/*font-family:  -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;*/
+}
+
+
+.annotations path{
+  fill: none;
+  stroke: black;
+  stroke-width: 1.2px;
+}
+.annotations text{
+  font-size: 12px;
 }
