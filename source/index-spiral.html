@@ -302,7 +302,7 @@ function updateImg(offset){
       if (!links[i + offset]) return
       window.open(links[i + offset], '_blank');
     })
-    .st({backgroundColor: (d, i) => colors[i + offset]})
+    // .st({backgroundColor: (d, i) => colors[i + offset]})
 }
 
 updateZoom()

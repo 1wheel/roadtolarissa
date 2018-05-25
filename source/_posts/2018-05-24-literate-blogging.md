@@ -1,7 +1,7 @@
 ---
 title: Incremental Rebuilds and Hot Reloading: 60 Lines of Literate Code for Static Blogging
 template: post.html
-date: 2017-11-12
+date: 2018-05-24
 permalink: /literate-blogging
 shareimg: https://i.imgur.com/3KDlIFQ.png
 ---
@@ -107,9 +107,9 @@ To get it all on the internet `npm run publish` runs [lit-node](https://github.c
 
 ```json
 "scripts": {
-  "publish": "lit-node source/_posts/2017-11-12-literate-blogging.md && 
+  "publish": "lit-node source/_posts/2018-05-24-literate-blogging.md && 
     rsync -a public/ demo@roadtolarissa.com:../../usr/share/nginx/html/",
-  "start": "lit-node source/_posts/2017-11-12-literate-blogging.md --watch & 
+  "start": "lit-node source/_posts/2018-05-24-literate-blogging.md --watch & 
     cd public/ && hot-server"
 }
 ```

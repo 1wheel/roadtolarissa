@@ -2,7 +2,7 @@ var data = d3.csvParse(`date,val,source
 2012-09,324000,https://www.openhub.net/p/WordPress,
 2014-02,7500,https://www.openhub.net/p/Octopress,
 2015-07,1250,https://www.openhub.net/p/Metalsmith
-2017-08,60,https://www.openhub.net/p/Custom
+2017-08,60,https://www.openhub.net/p/This Post
 2018-05,60,https://www.openhub.net/p/custom`)
 
 
@@ -64,7 +64,7 @@ c.svg.appendMany('text', data.filter(d => d.mid))
   .text(d => d.name)
   .translate(d => [c.x(d.mid), c.y(d.val)])
   .at({textAnchor: 'middle', dy: '-.33em', fontSize: 12})
-  .st({fontWeight: d => d.name == 'Custom' ? 600 : ''})
+  .st({fontWeight: d => d.name == 'This Post' ? 600 : ''})
 
 // c.svg.append('text')
 //   .text('No Code Is The Best Code')
