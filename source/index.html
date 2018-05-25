@@ -142,6 +142,8 @@
 
 .img{
   background-size: cover;
+  background-position: center center;
+
   position: absolute;
 }
 
@@ -164,17 +166,389 @@
 <script src="worlds-group-2017/d3_.js" type="text/javascript"></script>
 
 <script>
+
+var nytProjects = [
+  {
+    "slug": "subway-crisis-mta-decisions-signals-rules",
+    "date": "2018-05",
+    "url": "https://www.nytimes.com/interactive/2018/05/09/nyregion/subway-crisis-mta-decisions-signals-rules.html",
+    "img": "https://static01.nyt.com/images/2018/05/10/us/subway-crisis-mta-decisions-signals-rules-promo-1524685890782/subway-crisis-mta-decisions-signals-rules-promo-1524685890782-master1050.png"
+  },
+  {
+    "slug": "make-your-own-mobility-animation",
+    "date": "2018-03",
+    "url": "https://www.nytimes.com/interactive/2018/03/27/upshot/make-your-own-mobility-animation.html",
+    "img": "https://static01.nyt.com/images/2018/03/26/upshot/make-your-own-mobility-animation-1521838318116/make-your-own-mobility-animation-1521838318116-master1050-v6.png"
+  },
+  {
+    "slug": "arctic-ice-maximum",
+    "date": "2018-03",
+    "url": "https://www.nytimes.com/interactive/2018/03/23/climate/arctic-ice-maximum.html",
+    "img": "https://static01.nyt.com/images/2018/03/23/climate/arctic-ice-maximum-1521835992567/arctic-ice-maximum-1521835992567-master1050.jpg"
+  },
+  {
+    "slug": "race-class-white-and-black-men",
+    "date": "2018-03",
+    "url": "https://www.nytimes.com/interactive/2018/03/19/upshot/race-class-white-and-black-men.html",
+    "img": "https://static01.nyt.com/images/2018/03/20/us/race-class-white-and-black-men-promo2/race-class-white-and-black-men-promo-master1050.png"
+  },
+  {
+    "slug": "tax-calculator",
+    "date": "2017-12",
+    "url": "https://www.nytimes.com/interactive/2017/12/17/upshot/tax-calculator.html",
+    "img": "https://static01.nyt.com/images/2017/12/15/upshot/will-your-taxes-go-up-or-down-calculator-for-the-new-tax-plan-republican-1513403957560/will-your-taxes-go-up-or-down-calculator-for-the-new-tax-plan-republican-1513403957560-master1050.png"
+  },
+  {
+    "slug": "every-tax-cut-in-the-house-tax-bill",
+    "date": "2017-11",
+    "url": "https://www.nytimes.com/interactive/2017/11/15/us/politics/every-tax-cut-in-the-house-tax-bill.html",
+    "img": "https://static01.nyt.com/images/2017/11/15/us/politics/every-tax-cut-in-the-house-tax-bill-1510688697984/every-tax-cut-in-the-house-tax-bill-1510688697984-master1050.png"
+  },
+  {
+    "slug": "bump-stock-las-vegas-gun",
+    "date": "2017-10",
+    "url": "https://www.nytimes.com/interactive/2017/10/04/us/bump-stock-las-vegas-gun.html",
+    "img": "https://static01.nyt.com/images/2017/10/04/us/bump-stock-las-vegas-gun-1507131222062/bump-stock-las-vegas-gun-1507131222062-master1050-v2.png"
+  },
+  {
+    "slug": "vegas-guns",
+    "date": "2017-10",
+    "url": "https://www.nytimes.com/interactive/2017/10/02/us/vegas-guns.html",
+    "img": "https://static01.nyt.com/images/2017/10/02/us/vegas-sounds/vegas-sounds-master1050-v3.png"
+  },
+  {
+    "slug": "arctic-sea-ice-shrinking-trend-watch",
+    "date": "2017-09",
+    "url": "https://www.nytimes.com/interactive/2017/09/22/climate/arctic-sea-ice-shrinking-trend-watch.html",
+    "img": "https://static01.nyt.com/images/2017/09/22/climate/arctic-sea-ice-shrinking-trend-watch-1506090301026/arctic-sea-ice-shrinking-trend-watch-1506090301026-master1050-v5.jpg"
+  },
+  {
+    "slug": "hurricane-irma-records",
+    "date": "2017-09",
+    "url": "https://www.nytimes.com/interactive/2017/09/09/us/hurricane-irma-records.html",
+    "img": "https://static01.nyt.com/images/2017/09/09/us/record-hurricane/record-hurricane-master1050.png"
+  },
+  {
+    "slug": "hurricane-irma-map",
+    "date": "2017-09",
+    "url": "https://www.nytimes.com/interactive/2017/09/05/us/hurricane-irma-map.html",
+    "img": "https://static01.nyt.com/images/2017/09/07/insider/hurricane-irma-map-1504615871469/hurricane-irma-map-1504615871469-master1050-v2.png"
+  },
+  {
+    "slug": "houston-flood-rescue-cries-for-help",
+    "date": "2017-08",
+    "url": "https://www.nytimes.com/interactive/2017/08/30/us/houston-flood-rescue-cries-for-help.html",
+    "img": "https://static01.nyt.com/images/2017/08/30/us/houston-flood-rescue-cries-for-help-1504145710714/houston-flood-rescue-cries-for-help-1504145710714-master1050.jpg"
+  },
+  {
+    "slug": "houston-maps-hurricane-harvey",
+    "date": "2017-08",
+    "url": "https://www.nytimes.com/interactive/2017/08/28/us/houston-maps-hurricane-harvey.html",
+    "img": "https://static01.nyt.com/images/2017/08/28/us/houston-maps-hurricane-harvey-1503942493144/houston-maps-hurricane-harvey-1503942493144-master1050-v4.jpg"
+  },
+  {
+    "slug": "hurricane-harvey-texas",
+    "date": "2017-08",
+    "url": "https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html",
+    "img": "https://static01.nyt.com/images/2017/08/30/insider/hurricane-harvey-texas-1503614573017/hurricane-harvey-texas-1503614573017-master1050-v9.png"
+  },
+  {
+    "slug": "affirmative-action",
+    "date": "2017-08",
+    "url": "https://www.nytimes.com/interactive/2017/08/24/us/affirmative-action.html",
+    "img": "https://static01.nyt.com/images/2017/08/03/us/affirmative-action-in-colleges-and-representation-of-blacks-and-hispanics-1503525136789/affirmative-action-in-colleges-and-representation-of-blacks-and-hispanics-1503525136789-master1050-v3.png"
+  },
+  {
+    "slug": "trump-rebukes-charlottesville",
+    "date": "2017-08",
+    "url": "https://www.nytimes.com/interactive/2017/08/22/us/politics/trump-rebukes-charlottesville.html",
+    "img": "https://static01.nyt.com/images/2017/08/21/us/trump-charlottesville-1503370660230/trump-charlottesville-1503370660230-master1050.png"
+  },
+  {
+    "slug": "game-of-thrones-chart",
+    "date": "2017-08",
+    "url": "https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html",
+    "img": "https://static01.nyt.com/images/2017/08/16/insider/game-of-thrones-chart-1502212116886/game-of-thrones-chart-1502212116886-master1050-v2.png"
+  },
+  {
+    "slug": "new-yorks-subways-are-not-just-delayed-some-trains-dont-run-at-all",
+    "date": "2017-08",
+    "url": "https://www.nytimes.com/interactive/2017/08/07/nyregion/new-yorks-subways-are-not-just-delayed-some-trains-dont-run-at-all.html",
+    "img": "https://static01.nyt.com/images/2017/08/01/nyregion/subway-1501783038513/subway-1501783038513-master1050.jpg"
+  },
+  {
+    "slug": "more-frequent-extreme-summer-heat",
+    "date": "2017-07",
+    "url": "https://www.nytimes.com/interactive/2017/07/28/climate/more-frequent-extreme-summer-heat.html",
+    "img": "https://static01.nyt.com/images/2017/07/28/climate/more-frequent-extreme-summer-heat-1501197187869/more-frequent-extreme-summer-heat-1501197187869-blog533.png"
+  },
+  {
+    "slug": "BASEBALL-LAUNCH-ANGLE",
+    "date": "2017-07",
+    "url": "https://www.nytimes.com/interactive/2017/07/09/sports/baseball/BASEBALL-LAUNCH-ANGLE.html",
+    "img": "https://static01.nyt.com/images/2017/07/09/sports/baseball/BASEBALL-LAUNCH-ANGLE-1499537467366/BASEBALL-LAUNCH-ANGLE-1499537467366-blog533-v2.png"
+  },
+  {
+    "slug": "golden-state-warriors-post-season",
+    "date": "2017-06",
+    "url": "https://www.nytimes.com/interactive/2017/06/17/sports/basketball/golden-state-warriors-post-season.html",
+    "img": "https://static01.nyt.com/images/2017/06/19/sports/basketball/golden-state-warriors-post-season-1497649519483/golden-state-warriors-post-season-1497649519483-master1050.jpg"
+  },
+  {
+    "slug": "british-general-election-results-analysis",
+    "date": "2017-06",
+    "url": "https://www.nytimes.com/interactive/2017/06/08/world/europe/british-general-election-results-analysis.html",
+    "img": "https://static01.nyt.com/images/2017/06/08/world/europe/british-general-election-results-analysis-1496951627600/british-general-election-results-analysis-1496951627600-master1050-v11.png"
+  },
+  {
+    "slug": "trump-climate-paris-agreement",
+    "date": "2017-05",
+    "url": "https://www.nytimes.com/interactive/2017/05/31/climate/trump-climate-paris-agreement.html",
+    "img": "https://static01.nyt.com/images/2017/04/27/climate/trump-climate-paris-agreement-1496177513835/trump-climate-paris-agreement-1496177513835-master1050.png"
+  },
+  {
+    "slug": "lebron-career-playoff-points-record",
+    "date": "2017-05",
+    "url": "https://www.nytimes.com/interactive/2017/05/25/sports/basketball/lebron-career-playoff-points-record.html",
+    "img": "https://static01.nyt.com/images/2017/05/25/sports/basketball/lebron-career-playoff-points-record-1495739283266/lebron-career-playoff-points-record-1495739283266-master1050.png"
+  },
+  {
+    "slug": "wannacry-ransomware-map",
+    "date": "2017-05",
+    "url": "https://www.nytimes.com/interactive/2017/05/12/world/europe/wannacry-ransomware-map.html",
+    "img": "https://static01.nyt.com/images/2017/05/12/us/cyberattack-map-1494632506892/cyberattack-map-1494632506892-master1050.png"
+  },
+  {
+    "slug": "congress-statements-comey",
+    "date": "2017-05",
+    "url": "https://www.nytimes.com/interactive/2017/05/10/us/politics/congress-statements-comey.html",
+    "img": "https://static01.nyt.com/images/2017/05/10/us/politics/congress-statements-comey-1494438245355/congress-statements-comey-1494438245355-master1050-v3.png"
+  },
+  {
+    "slug": "how-republican-voted-on-health-bill",
+    "date": "2017-05",
+    "url": "https://www.nytimes.com/interactive/2017/05/04/us/how-republican-voted-on-health-bill.html",
+    "img": "https://static01.nyt.com/images/2017/05/04/us/how-republican-voted-on-health-bill-1493925679815/how-republican-voted-on-health-bill-1493925679815-master1050.jpg"
+  },
+  {
+    "slug": "house-vote-republican-health-care-bill",
+    "date": "2017-05",
+    "url": "https://www.nytimes.com/interactive/2017/05/04/us/politics/house-vote-republican-health-care-bill.html",
+    "img": "https://static01.nyt.com/images/2017/05/04/us/politics/house-vote-republican-health-care-bill-1493910974236/house-vote-republican-health-care-bill-1493910974236-master1050-v3.png"
+  },
+  {
+    "slug": "what-trumps-tax-proposal-will-cost",
+    "date": "2017-04",
+    "url": "https://www.nytimes.com/interactive/2017/04/26/us/politics/what-trumps-tax-proposal-will-cost.html",
+    "img": "https://static01.nyt.com/images/2017/04/26/us/politics/what-trumps-tax-proposal-will-cost-1493256774601/what-trumps-tax-proposal-will-cost-1493256774601-master1050-v2.jpg"
+  },
+  {
+    "slug": "how-much-people-in-the-trump-administration-are-worth-financial-disclosure",
+    "date": "2017-04",
+    "url": "https://www.nytimes.com/interactive/2017/04/01/us/politics/how-much-people-in-the-trump-administration-are-worth-financial-disclosure.html",
+    "img": "https://static01.nyt.com/images/2017/04/01/us/politics/how-much-people-in-the-trump-administration-are-worth-financial-disclosure-1491077638041/how-much-people-in-the-trump-administration-are-worth-financial-disclosure-1491077638041-blog533.png"
+  },
+  {
+    "slug": "house-vote-republican-health-care-bill",
+    "date": "2017-03",
+    "url": "https://www.nytimes.com/interactive/2017/03/24/us/politics/house-vote-republican-health-care-bill.html",
+    "img": "https://static01.nyt.com/images/2017/03/24/us/politics/house-vote-republican-health-care-bill-1490364092707/house-vote-republican-health-care-bill-1490364092707-master1050-v2.png"
+  },
+  {
+    "slug": "health-care-whip-count",
+    "date": "2017-03",
+    "url": "https://www.nytimes.com/interactive/2017/03/20/us/politics/health-care-whip-count.html",
+    "img": "https://static01.nyt.com/images/2017/03/20/us/politics/health-care-whip-count-1490065817149/health-care-whip-count-1490065817149-master1050-v2.jpg"
+  },
+  {
+    "slug": "where-refugees-come-from",
+    "date": "2017-03",
+    "url": "https://www.nytimes.com/interactive/2017/03/06/world/where-refugees-come-from.html",
+    "img": "https://static01.nyt.com/images/2017/03/06/world/where-refugees-come-from-1488845437533/where-refugees-come-from-1488845437533-master1050.png"
+  },
+  {
+    "slug": "trump-refugees-muslim",
+    "date": "2017-02",
+    "url": "https://www.nytimes.com/interactive/2017/02/26/us/trump-refugees-muslim.html",
+    "img": "https://static01.nyt.com/images/2017/02/27/us/trump-refugees-muslim-1488050208661/trump-refugees-muslim-1488050208661-master1050.png"
+  },
+  {
+    "slug": "trump-cabinet-opposition",
+    "date": "2017-02",
+    "url": "https://www.nytimes.com/interactive/2017/02/09/us/politics/trump-cabinet-opposition.html",
+    "img": "https://static01.nyt.com/images/2017/02/09/us/politics/trump-cabinet-opposition-1486603337427/trump-cabinet-opposition-1486603337427-master1050-v4.jpg"
+  },
+  {
+    "slug": "trump-agenda-tracker",
+    "date": "2017-01",
+    "url": "https://www.nytimes.com/interactive/2017/us/politics/trump-agenda-tracker.html",
+    "img": "https://static01.nyt.com/images/2017/01/26/us/politics/trump-agenda-1485391095675/trump-agenda-1485391095675-master1050-v4.png"
+  },
+  {
+    "slug": "you-draw-obama-legacy",
+    "date": "2017-01",
+    "url": "https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html",
+    "img": "https://static01.nyt.com/images/2017/01/11/us/politics/you-draw-obama-legacy-1484349598705/you-draw-obama-legacy-1484349598705-master1050.png"
+  },
+  {
+    "slug": "cabinet-removal",
+    "date": "2016-12",
+    "url": "https://www.nytimes.com/interactive/2016/12/22/us/politics/cabinet-removal.html",
+    "img": "https://static01.nyt.com/images/2016/12/22/us/politics/cabinet-removal-1482354548542/cabinet-removal-1482354548542-blog533.png"
+  },
+  {
+    "slug": "trump-climate-change",
+    "date": "2016-12",
+    "url": "https://www.nytimes.com/interactive/2016/12/08/us/trump-climate-change.html",
+    "img": "https://static01.nyt.com/images/2016/12/08/us/trump-climate-change-1481174650062/trump-climate-change-1481174650062-master1050-v2.png"
+  },
+  {
+    "slug": "pope-francis-cardinals-shape-church",
+    "date": "2016-11",
+    "url": "https://www.nytimes.com/interactive/2016/11/18/world/europe/pope-francis-cardinals-shape-church.html",
+    "img": "https://static01.nyt.com/images/2016/11/18/world/europe/pope-francis-cardinals-shape-church-1479418314614/pope-francis-cardinals-shape-church-1479418314614-master1050.png"
+  },
+  {
+    "slug": "this-election-highlighted-a-growing-rural-urban-split",
+    "date": "2016-11",
+    "url": "https://www.nytimes.com/2016/11/12/upshot/this-election-highlighted-a-growing-rural-urban-split.html",
+    "img": ""
+  },
+  {
+    "slug": "red-blue-divide-grew-stronger-in-2016",
+    "date": "2016-11",
+    "url": "https://www.nytimes.com/interactive/2016/11/10/us/politics/red-blue-divide-grew-stronger-in-2016.html",
+    "img": "https://static01.nyt.com/images/2016/11/10/us/politics/red-blue-divide-grew-stronger-in-2016-1478802735078/red-blue-divide-grew-stronger-in-2016-1478802735078-master1050.png"
+  },
+  {
+    "slug": "growing-divide-between-red-and-blue-america",
+    "date": "2016-11",
+    "url": "https://www.nytimes.com/interactive/2016/11/04/us/politics/growing-divide-between-red-and-blue-america.html",
+    "img": "https://static01.nyt.com/images/2016/11/04/us/politics/growing-divide-between-red-and-blue-america-1478196181299/growing-divide-between-red-and-blue-america-1478196181299-master1050.png"
+  },
+  {
+    "slug": "television-ads",
+    "date": "2016-10",
+    "url": "https://www.nytimes.com/interactive/2016/10/21/us/elections/television-ads.html",
+    "img": "https://static01.nyt.com/images/2016/10/21/us/elections/television-ads-1477000949848/television-ads-1477000949848-master1050-v2.png"
+  },
+  {
+    "slug": "electoral-map",
+    "date": "2016-10",
+    "url": "https://www.nytimes.com/interactive/2016/09/20/upshot/electoral-map.html",
+    "img": "https://static01.nyt.com/images/2016/09/20/upshot/electoral-map-1474301260955/electoral-map-1474301260955-master1050-v2.png"
+  },
+  {
+    "slug": "house-and-senate-support-for-trump",
+    "date": "2016-10",
+    "url": "https://www.nytimes.com/interactive/2016/10/11/us/politics/house-and-senate-support-for-trump.html",
+    "img": "https://static01.nyt.com/images/2016/10/10/us/politics/house-and-senate-support-for-trump-1476162470109/house-and-senate-support-for-trump-1476162470109-master1050.png"
+  },
+  {
+    "slug": "what-separates-voters-and-nonvoters",
+    "date": "2016-09",
+    "url": "https://www.nytimes.com/interactive/2016/09/13/us/politics/what-separates-voters-and-nonvoters.html",
+    "img": "https://static01.nyt.com/images/2016/09/13/us/politics/what-separates-voters-and-nonvoters-1473730249233/what-separates-voters-and-nonvoters-1473730249233-blog533-v2.png"
+  },
+  {
+    "slug": "new-geography-of-prisons",
+    "date": "2016-09",
+    "url": "https://www.nytimes.com/2016/09/02/upshot/new-geography-of-prisons.html",
+    "img": "https://static01.nyt.com/images/2016/09/02/us/prison-admission-share/prison-admission-share-master1050.png"
+  },
+  {
+    "slug": "voter-registration",
+    "date": "2016-08",
+    "url": "https://www.nytimes.com/interactive/2016/08/25/us/elections/voter-registration.html",
+    "img": "https://static01.nyt.com/images/2016/08/24/us/elections/voter-registration-1472069269686/voter-registration-1472069269686-blog533.png"
+  },
+  {
+    "slug": "2016-senate-seats-in-play",
+    "date": "2016-08",
+    "url": "https://www.nytimes.com/interactive/2016/08/11/us/elections/2016-senate-seats-in-play.html",
+    "img": "https://static01.nyt.com/images/2016/08/11/us/elections/2016-senate-seats-in-play-1470868508682/2016-senate-seats-in-play-1470868508682-master1050.png"
+  },
+  {
+    "slug": "Bush-Rubio-and-Kasich-Donors-give-to-Clinton",
+    "date": "2016-08",
+    "url": "https://www.nytimes.com/interactive/2016/08/09/us/elections/Bush-Rubio-and-Kasich-Donors-give-to-Clinton.html",
+    "img": "https://static01.nyt.com/images/2016/08/08/us/elections/Bush-Rubio-and-Kasich-Donors-give-to-Clinton-1470678226803/Bush-Rubio-and-Kasich-Donors-give-to-Clinton-1470678226803-blog533.png"
+  },
+  {
+    "slug": "nine-percent-of-america-selected-trump-and-clinton",
+    "date": "2016-08",
+    "url": "https://www.nytimes.com/interactive/2016/08/01/us/elections/nine-percent-of-america-selected-trump-and-clinton.html",
+    "img": "https://static01.nyt.com/images/2016/07/19/us/elections/nine-percent-of-america-selected-trump-and-clinton-1469048569684/nine-percent-of-america-selected-trump-and-clinton-1469048569684-master1050-v2.jpg"
+  },
+  {
+    "slug": "political-firsts",
+    "date": "2016-07",
+    "url": "https://www.nytimes.com/interactive/2016/07/25/us/politics/political-firsts.html",
+    "img": "https://static01.nyt.com/images/2016/06/09/us/politics/political-firsts-1465593145470/political-firsts-1465593145470-master1050.jpg"
+  },
+  {
+    "slug": "munich-shopping-mall-shooting",
+    "date": "2016-07",
+    "url": "https://www.nytimes.com/interactive/2016/07/22/world/europe/munich-shopping-mall-shooting.html",
+    "img": "https://static01.nyt.com/images/2016/07/22/world/europe/munich-shopping-mall-shooting-1469213226573/munich-shopping-mall-shooting-1469213226573-master1050-v5.jpg"
+  },
+  {
+    "slug": "airport-security-around-the-world",
+    "date": "2016-07",
+    "url": "https://www.nytimes.com/interactive/2016/07/01/world/airport-security-around-the-world.html",
+    "img": "https://static01.nyt.com/images/2016/07/01/world/airport-security-around-the-world-1467378493722/airport-security-around-the-world-1467378493722-master1050-v2.png"
+  },
+  {
+    "slug": "how-britain-voted-brexit-referendum",
+    "date": "2016-06",
+    "url": "https://www.nytimes.com/interactive/2016/06/24/world/europe/how-britain-voted-brexit-referendum.html",
+    "img": "https://static01.nyt.com/images/2016/06/24/world/europe/how-britain-voted-brexit-referendum-1466746689036/how-britain-voted-brexit-referendum-1466746689036-master1050-v2.png"
+  },
+  {
+    "slug": "euro-2016-which-third-place-teams-will-qualify-for-the-round-of-16",
+    "date": "2016-06",
+    "url": "https://www.nytimes.com/2016/06/23/upshot/euro-2016-which-third-place-teams-will-qualify-for-the-round-of-16.html",
+    "img": "https://static01.nyt.com/images/2016/06/22/upshot/22UP-Euro/22UP-Euro-master1050.jpg"
+  },
+  {
+    "slug": "trump-campaign-finance",
+    "date": "2016-06",
+    "url": "https://www.nytimes.com/interactive/2016/06/21/us/elections/trump-campaign-finance.html",
+    "img": "https://static01.nyt.com/images/2016/06/21/us/politics/trump-finances-1466536881410/trump-finances-1466536881410-master1050.png"
+  },
+  {
+    "slug": "what-happened-at-the-orlando-nightclub-shooting",
+    "date": "2016-06",
+    "url": "https://www.nytimes.com/interactive/2016/06/12/us/what-happened-at-the-orlando-nightclub-shooting.html",
+    "img": "https://static01.nyt.com/images/2016/06/12/us/orlando-shooting-stack-1465744418979/orlando-shooting-stack-1465744418979-master1050-v3.jpg"
+  },
+  {
+    "slug": "lebron-james-nba-finals-streak",
+    "date": "2016-06",
+    "url": "https://www.nytimes.com/interactive/2016/06/02/sports/basketball/lebron-james-nba-finals-streak.html",
+    "img": "https://static01.nyt.com/images/2016/06/03/sports/03lebron/03lebron-master1050.jpg"
+  },
+  {
+    "slug": "europe-right-wing-austria-hungary",
+    "date": "2016-05",
+    "url": "https://www.nytimes.com/interactive/2016/05/22/world/europe/europe-right-wing-austria-hungary.html",
+    "img": "https://static01.nyt.com/images/2016/05/22/world/europe/europe-right-wing-austria-hungary-1463897749837/europe-right-wing-austria-hungary-1463897749837-master1050-v3.png"
+  }
+]
 var projects = [
+  // {slug: 'slowed-subway',           date: '05/2018',   url: 'https://www.nytimes.com/interactive/2018/05/09/nyregion/subway-crisis-mta-decisions-signals-rules.html', img: 'https://static01.nyt.com/images/2018/05/10/us/subway-crisis-mta-decisions-signals-rules-promo-1524685890782/subway-crisis-mta-decisions-signals-rules-promo-1524685890782-facebookJumbo.png', },
+  // {slug: 'income-mobility',           date: '03/2018',   url: 'https://www.nytimes.com/interactive/2018/03/27/upshot/make-your-own-mobility-animation.html?rref=collection%2Fbyline%2Fadam-pearce', img: 'https://static01.nyt.com/images/2018/05/10/us/subway-crisis-mta-decisions-signals-rules-promo-1524685890782/subway-crisis-mta-decisions-signals-rules-promo-1524685890782-facebookJumbo.png', },
+
   // {slug: 'sell-strat',           date: '04/2018',   url: 'https://roadtolarissa.com/sell-strat/', img: 'https://i.imgur.com/5z400QK.png', },
   // {slug: 'msi-4096',             date: '05/2018',   url: 'https://roadtolarissa.com/msi-4096/', img: 'https://i.imgur.com/qCOkFzl.png', },
   // {slug: 'hot-reload',           date: '04/2018',   url: 'https://roadtolarissa.com/hot-reload/', img: 'https://i.imgur.com/ZNkXwEx.png', },
   // {slug: 'top-3-movies',         date: '04/2018',   url: 'https://roadtolarissa.com/top-3-movies/', img: 'https://i.imgur.com/0IADOwR.png', },
+  {slug: 'nyt',                  date: '05/2016',   url: 'http://www.nytimes.com/by/adam-pearce'},
   // {slug: 'same-sex-legal',       date: '02/2018',   url: 'https://roadtolarissa.com/same-sex-legal/', img: 'https://i.imgur.com/YeoOlAC.png', },
   // {slug: 'oracle',               date: '01/2018',   url: 'https://roadtolarissa.com/oracle', img: 'https://i.imgur.com/rfwNaUx.png', },
   
-  // {slug: '2017-chart-diary',     date: '12/2017',   url: 'https://roadtolarissa.com/2017-chart-diary', img: 'https://roadtolarissa.com/images/posts/2017-chart-diary.png', },
+  {slug: '2017-chart-diary',     date: '12/2017',   url: 'https://roadtolarissa.com/2017-chart-diary', img: 'https://roadtolarissa.com/images/posts/2017-chart-diary.png', },
 
-  {slug: 'nyt',                  date: '05/2016',   url: 'http://www.nytimes.com/by/adam-pearce'},
   {slug: 'who-marries-whom',     date: '02/2016',   url: 'http://www.bloomberg.com/graphics/2016-who-marries-whom/'},
   {slug: 'donor-network',        date: '02/2016',   url: 'http://www.bloomberg.com/politics/graphics/2016-fec-filings/febuary/bush-donors/'},
   {slug: 'nba-win-loss',         date: '01/2016',   url: 'http://roadtolarissa.com/nba-win-loss/'},
@@ -205,7 +579,7 @@ var projects = [
   {slug: 'svg-path',             date: '02/2015',  url: 'http://roadtolarissa.com/blog/2015/02/22/svg-path-strings/'},
   {slug: 'data-exploration',     date: '04/2015',   url: 'http://roadtolarissa.com/data-exploration/'},
   {slug: 'graph-scroll',         date: '03/2015',   url: 'http://1wheel.github.io/graph-scroll/'},
-  {slug: 'superbowl-salary',     date: '01/2015',   url: 'http://www.bloomberg.com/graphics/2015-nfl-super-bowl-salary/'},
+  // {slug: 'superbowl-salary',     date: '01/2015',   url: 'http://www.bloomberg.com/graphics/2015-nfl-super-bowl-salary/'},
   {slug: 'auto-sales',           date: '01/2015',   url: 'http://www.bloomberg.com/graphics/2015-auto-sales/'},
   {slug: 'space-race',           date: '01/2015',   url: 'http://www.bloomberg.com/news/features/2015-01-22/the-new-space-race-one-man-s-mission-to-build-a-galactic-internet-i58i2dp6'},
   {slug: 'coloring-maps',        date: '01/2015',   url: 'http://roadtolarissa.com/blog/2015/01/04/coloring-maps-with-d3/'},
@@ -237,6 +611,9 @@ var projects = [
   {slug: 'backgammon',           date: '10/2012',   url: 'http://roadtolarissa.com/javascript/hangout-boardgames/'},
   {slug: 'connect-4',            date: '09/2012',   url: 'http://roadtolarissa.com/connect-4-ai-how-it-works/'},
 ];
+
+
+// projects = nytProjects.concat(projects)
 
 
 // 375
@@ -273,6 +650,7 @@ var imgSel = containerSel.append('div.img')
     backgroundImage: d => 'url("' + d.img + '")',
     height: s*2, width: s*2,
     top: -s/2, left: -s/2,
+    // height: s, width: s,
   })
   .each(function(d){ d.img = d3.select(this) })
 
