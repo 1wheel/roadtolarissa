@@ -1,0 +1,108 @@
+html{
+  /*font-family: monaco, Consolas, 'Lucida Console', monospace; */
+  height: 100000px;
+}
+
+body{
+  position: fixed;
+  width: calc(100vw - 10px);
+  max-width: 750px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#spiral{
+  position: fixed;
+  transform-origin: 72.3606% 44.721%;
+  /*transform-origin: center center;*/
+  /*border: 1px solid #000;*/
+  margin: 0px auto;
+}
+
+#spiral > div{
+  position: absolute;
+  background: rgba(0,0,0, 1);
+  background: #000;
+
+}
+
+.img-container{
+  background: #fff;
+  background-size: cover;
+  background-position: center center;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  /*background-size: 350px auto;*/
+
+  /*background-color: #000;*/
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+.index-1.img-container{ transform: translate( 1px, 1px) rotate(90deg); }
+.index-2.img-container{ transform: translate( 1px, 1px) rotate(180deg); }
+.index-3.img-container{ transform: translate( 1px, 1px) rotate(270deg); }
+.index-0.img-container{ transform: translate( 1px, 1px) rotate(0deg); }
+
+
+
+html.is-boring{ height: auto; }
+.is-boring body{
+  position: static; 
+  width: auto;
+  max-width: 750px;
+  left: 50%;
+  transform: translateX(0px);
+
+}
+.is-boring #spiral{ display: none; }
+.is-boring #boring{ display: block; }
+#boring{ display: none; }
+
+#boring{
+  margin-top: 30px;
+  font-family:  -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+
+  overflow: hidden;
+  line-height: 1.9em;
+}
+
+#boring div{
+  white-space: nowrap;
+}
+
+.slug{
+  margin-left: 20px;
+  text-decoration: none;
+}
+.slug:hover{
+  text-decoration: underline;
+}
+
+.month, .year{
+  color: #999;
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  /*font-family: 'Roboto Slab', serif;*/
+
+  font-size: 12px;
+}
+
+.header{
+  font-family:  -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+
+}
+
+
+.button{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  background: #000;
+  color: #fff;
+  z-index: 100000;
+  font-family:  -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+  cursor: pointer;
+  padding: 10px;
+  width: 40px;
+  text-align: center;
+}
