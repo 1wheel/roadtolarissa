@@ -3,7 +3,7 @@ var nytProjects = [
     "slug": "subway-crisis-mta-decisions-signals-rules",
     "date": "2018-05",
     "url": "https://www.nytimes.com/interactive/2018/05/09/nyregion/subway-crisis-mta-decisions-signals-rules.html",
-    "img": "https://i.imgur.com/U1mb0gP.png"
+    "img": "/images/thumbnails/train-heat.png"
   },
   {
     "slug": "make-your-own-mobility-animation",
@@ -81,7 +81,7 @@ var nytProjects = [
     "slug": "hurricane-harvey-texas",
     "date": "2017-08",
     "url": "https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html",
-    "img": "https://i.imgur.com/6olxns1.png"
+    "img": "/images/thumbnails/harvey-rain.png"
   },
   {
     "slug": "affirmative-action",
@@ -315,7 +315,7 @@ var nytProjects = [
     "slug": "Bush-Rubio-and-Kasich-Donors-give-to-Clinton",
     "date": "2016-08",
     "url": "https://www.nytimes.com/interactive/2016/08/09/us/elections/Bush-Rubio-and-Kasich-Donors-give-to-Clinton.html",
-    "img": "https://i.imgur.com/QTawBdH.png"
+    "img": "https://static01.nyt.com/images/2016/08/08/us/elections/Bush-Rubio-and-Kasich-Donors-give-to-Clinton-1470678226803/Bush-Rubio-and-Kasich-Donors-give-to-Clinton-1470678226803-blog533.png"
   },
   {
     "slug": "nine-percent-of-america-selected-trump-and-clinton",
@@ -381,16 +381,25 @@ var nytProjects = [
 var otherProjects = [
 
   {slug: 'literate-blogging',    date: '2018-05',   url: 'http://roadtolarissa.com/literate-blogging', img: 'https://i.imgur.com/3KDlIFQ.png', },
-  {slug: 'sell-strat',           date: '2018-04',   url: 'https://roadtolarissa.com/sell-strat/', img: 'https://i.imgur.com/5z400QK.png', },
-  {slug: 'msi-4096',             date: '2018-05',   url: 'https://roadtolarissa.com/msi-4096/', img: 'https://i.imgur.com/qCOkFzl.png', },
+  {slug: 'msi-4096',             date: '2018-05',   url: 'https://roadtolarissa.com/msi-4096/', img: 'https://i.imgur.com/vgXcGio.png', },
   {slug: 'hot-reload',           date: '2018-04',   url: 'https://roadtolarissa.com/hot-reload/', img: 'https://i.imgur.com/ZNkXwEx.png', },
   {slug: 'top-3-movies',         date: '2018-04',   url: 'https://roadtolarissa.com/top-3-movies/', img: 'https://i.imgur.com/0IADOwR.png', },
+  {slug: 'sell-strat',           date: '2018-04',   url: 'https://roadtolarissa.com/sell-strat/', img: 'https://i.imgur.com/8wKXXIe.png', },
   // {slug: 'nyt',                  date: '05/2016',   url: 'http://www.nytimes.com/by/adam-pearce'},
   {slug: 'same-sex-legal',       date: '2018-02',   url: 'https://roadtolarissa.com/same-sex-legal/', img: 'https://i.imgur.com/YeoOlAC.png', },
   {slug: 'oracle',               date: '2018-01',   url: 'https://roadtolarissa.com/oracle', img: 'https://i.imgur.com/rfwNaUx.png', },
-  
   {slug: '2017-chart-diary',     date: '2017-12',   url: 'https://roadtolarissa.com/2017-chart-diary', img: 'https://roadtolarissa.com/images/posts/2017-chart-diary.png', },
-
+  {slug: 'd3-mp4',     date: '2017-11',   url: 'http://roadtolarissa.com/d3-mp4', img: 'https://i.imgur.com/cDzQWHX.png' },
+  {slug: 'worlds-group-2017',     date: '2017-10',   url: 'http://roadtolarissa.com/worlds-group-2017', img: 'http://roadtolarissa.com/images/posts/worlds-group-2017.png' },
+  {slug: 'hurricane-how-to',     date: '2017-09',   url: 'http://roadtolarissa.com/hurricane', img: 'https://i.imgur.com/FX5qZ3x.png' },
+  {slug: 'msi-group',     date: '2017-05',   url: 'http://roadtolarissa.com/msi-group', img: 'http://roadtolarissa.com/images/posts/msi-group.png' },
+  {slug: 'kindle-tracker',     date: '2017-03',   url: 'https://roadtolarissa.com/kindle-tracker', img: 'http://roadtolarissa.com/images/posts/kindle-tracker.png', },
+  {slug: 'worlds-group',     date: '2016-10',   url: 'https://roadtolarissa.com/worlds-group', img: 'http://roadtolarissa.com/images/posts/worlds-group.png', },
+  {slug: 'projecting-land',      date: '2016-08',   url: 'https://roadtolarissa.com/projecting-land', img: 'http://roadtolarissa.com/images/posts/projecting-land.png', },
+  {slug: 'd3-module-faces',      date: '2016-12',   url: 'https://bl.ocks.org/1wheel/68073eeba4d19c454a8c25fcd6e9e68a', img: 'https://i.imgur.com/0aPWgaV.png'},
+  {slug: 'swoopy-drag',          date: '2016-03',   url: 'http://1wheel.github.io/swoopy-drag/', img: 'https://i.imgur.com/x2M55Yl.png'},
+  {slug: 'line-intersection',    date: '2016-03',   url: 'https://bl.ocks.org/1wheel/464141fe9b940153e636', img: 'https://i.imgur.com/wm8XlpS.png'},
+  {slug: 'voroni-spiral',        date: '2016-03',   url: 'https://bl.ocks.org/1wheel/c7122eee6247b95dba09', img: 'https://i.imgur.com/TDEygIX.png'},
   {slug: 'who-marries-whom',     date: '2016-02',   url: 'http://www.bloomberg.com/graphics/2016-who-marries-whom/'},
   {slug: 'donor-network',        date: '2016-02',   url: 'http://www.bloomberg.com/politics/graphics/2016-fec-filings/febuary/bush-donors/'},
   {slug: 'nba-win-loss',         date: '2016-01',   url: 'http://roadtolarissa.com/nba-win-loss/'},
@@ -405,6 +414,8 @@ var otherProjects = [
   {slug: 'speaker-timeline',     date: '2015-10',   url: 'http://www.bloomberg.com/politics/graphics/2015-paul-ryan-speaker-of-the-house/'},
   {slug: 'money-map',            date: '2015-09',   url: 'http://www.bloomberg.com/politics/graphics/2015-presidential-money-map/'},
   {slug: 'spoofing',             date: '2015-09',   url: 'http://www.bloomberg.com/graphics/2015-spoofing/'},
+  {slug: 'dumb-lawyer',          date: '2015-09',   url: 'https://www.bloomberg.com/news/features/2015-08-20/are-lawyers-getting-dumber-/', img: 'https://i.imgur.com/zzvrdr4.png'},
+  
   {slug: 'lyric-type',           date: '2015-08',   url: 'http://roadtolarissa.com/lyric-type/'},
   {slug: 'fifa-scandal',         date: '2015-07',   url: 'http://www.bloomberg.com/graphics/2015-fifa-scandal/'},
   {slug: 'stacked-bump',         date: '2015-07',   url: 'http://roadtolarissa.com/stacked-bump/'},

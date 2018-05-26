@@ -74,9 +74,17 @@ html.is-boring{ height: auto; }
 .slug{
   margin-left: 20px;
   text-decoration: none;
+  pointer-events: none;
 }
-.slug:hover{
+
+.row{
+  cursor: pointer;
+}
+.row:hover .slug{
   text-decoration: underline;
+}
+.row:hover .month, .row:hover .year{
+  opacity: 1 !important;
 }
 
 .month, .year{

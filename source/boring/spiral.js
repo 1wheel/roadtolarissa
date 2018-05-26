@@ -3,41 +3,51 @@ subway-crisis-mta-decisions-signals-rules
 hurricane-harvey-texas
 spoofing
 vegas-guns
+who-marries-whom
 race-class-white-and-black-men
 houston-flood-rescue-cries-for-help
 what-is-code
 new-yorks-subways-are-not-just-delayed-some-trains-dont-run-at-all
-new-geography-of-prisons
 2017-chart-diary
-who-marries-whom
 tax-calculator
 twisters
 you-draw-obama-legacy
 more-frequent-extreme-summer-heat
+new-geography-of-prisons
 nba-win-loss
-golden-state-warriors-post-season
-hurricane-irma-records
 hot-reload
-affirmative-action
-nba-minutes
-lebron-career-playoff-points-record
+dumb-lawyer
 uk-splatter
+lebron-career-playoff-points-record
+hurricane-irma-records
+nba-minutes
+nine-percent-of-america-selected-trump-and-clinton
+europe-right-wing-austria-hungary
+voroni-spiral
+
+
+
+
+
+
+
+
+golden-state-warriors-post-season
+affirmative-action
 game-of-thrones-chart
 wannacry-ransomware-map
-debate-moments
 lyric-type
-nine-percent-of-america-selected-trump-and-clinton
 forecast-president
 every-tax-cut-in-the-house-tax-bill
 british-general-election-results-analysis
 trump-climate-change
 trading-analysis
-europe-right-wing-austria-hungary
 lebron-james-nba-finals-streak
 what-separates-voters-and-nonvoters
 BASEBALL-LAUNCH-ANGLE
 euro-2016-how-teams-can-advance-to-the-next-round
 hurricane-irma-map
+debate-moments
 Bush-Rubio-and-Kasich-Donors-give-to-Clinton
 how-much-people-in-the-trump-administration-are-worth-financial-disclosure
 this-election-highlighted-a-growing-rural-urban-split
@@ -53,7 +63,7 @@ pope-francis-cardinals-shape-church
 cabinet-removal
 
 how-britain-voted-brexit-referendum
-`
+`.split('\n')
 
 var isBoring = false
 
@@ -64,12 +74,12 @@ projects.forEach((d, i) => {
   if (!d.img) d.img = '/images/thumbnails/' + d.slug + '.png'
 })
 
-
+projects = _.orderBy(projects, d => d.date, 'desc')
 projects = _.sortBy(projects, d => {
   var i = topProjects.indexOf(d.slug)
   d.forceIndex = i
 
-  return i == -1 ? 10000000 : i
+  return i == -1 ? 10000000 : (i < 30 ? i : 10000000)
 })
 projects = projects.filter(d => !d.isNYT || d.forceIndex != -1)
 
@@ -210,15 +220,15 @@ function startAutoScroll(){
 
   var sel = d3.select('#boring').html('')
 
-  var linkSel = sel.appendMany('div', boringProjects)
+  var linkSel = sel.appendMany('div.row', boringProjects)
     
 
   linkSel.append('span.year')
-    .text(d => d.year + '-')
+    .text(d => d.year)
     .st({opacity: d => d.isYear ? 1 : 0})
   linkSel.append('span.month')
-    .text(d => d.month)
-    .st({opacity: d => d.isMonth ? 1 : 0})
+    .text(d => '-' + d.month)
+    .st({opacity: d => d.isMonth ? 0 : 0})
 
   linkSel.append('a.slug')
     .text(d => d.slug.toLowerCase())
