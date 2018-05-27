@@ -65,6 +65,7 @@ cabinet-removal
 how-britain-voted-brexit-referendum
 `.split('\n')
 
+
 var isBoring = false
 
 
@@ -104,6 +105,10 @@ var imgs = projects.map(d =>'url("' + d.img + '")')
 
 var links = projects.map(d => d.url)
 var colors = projects.map(d => d.color)
+
+var UA = navigator.userAgent
+var isFF = UA.includes('Firefox')
+var isSF = UA.includes('Safari') && !UA.includes('Chrome/')
 
 var sel = d3.select('#spiral').html('')
   .st({
@@ -162,8 +167,8 @@ function updateZoom(){
   sel.st({
     transform: `
       scale(${Math.pow(phi, drawScale)/phi}) 
-      rotate(${-90*drawScale + 90}deg
-    )`,
+      rotate(${-90*drawScale + 90}deg)
+    `,
   })
 
   if (timerY != pageYOffset && window.scrollTimer && pageYOffset) scrollTimer.stop()
@@ -182,7 +187,9 @@ updateZoom()
 d3.select(window).on('scroll', updateZoom)
 
 setTimeout(startAutoScroll, 50)
+setTimeout(startAutoScroll, 250)
 setTimeout(startAutoScroll, 500)
+setTimeout(startAutoScroll, 750)
 setTimeout(startAutoScroll, 1000)
 
 function startAutoScroll(){
@@ -197,6 +204,13 @@ function startAutoScroll(){
   })
 }
 
+if (isFF){
+  setTimeout(() => {
+    d3.select(window).on('mousemove', () => {
+      window.scrollTimer.stop()
+    })
+  }, 2000)
+}
 
 
 // boring
@@ -257,7 +271,7 @@ function toggleBoring(){
 
 }
 
-// toggleBoring()
+if (isSF) toggleBoring()
 
 
 

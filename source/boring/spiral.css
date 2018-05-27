@@ -9,6 +9,8 @@ body{
   max-width: 750px;
   left: 50%;
   transform: translateX(-50%);
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
 }
 
 #spiral{
