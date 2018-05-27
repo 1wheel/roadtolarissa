@@ -107,7 +107,7 @@ var links = projects.map(d => d.url)
 var colors = projects.map(d => d.color)
 
 var UA = navigator.userAgent
-var isFF = UA.includes('Firefox')
+var isFF = UA.includes('Firefox') && !UA.includes('Chrome/')
 var isSF = UA.includes('Safari') && !UA.includes('Chrome/')
 
 var sel = d3.select('#spiral').html('')
@@ -234,8 +234,9 @@ if (isFF){
 
   var sel = d3.select('#boring').html('')
 
-  var linkSel = sel.appendMany('div.row', boringProjects)
-    
+  var linkSel = sel.appendMany('a.row', boringProjects)
+    .attr('href', d => d.url)
+    .attr('target', '_blank')
 
   linkSel.append('span.year')
     .text(d => d.year)

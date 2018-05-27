@@ -81,6 +81,8 @@ html.is-boring{ height: auto; }
 
 .row{
   cursor: pointer;
+  display: block;
+  text-decoration: none;
 }
 .row:hover .slug{
   text-decoration: underline;
