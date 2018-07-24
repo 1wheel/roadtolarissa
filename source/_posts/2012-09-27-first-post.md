@@ -298,7 +298,8 @@ What does reddit repeat?
 -  https://beta.observablehq.com/@mbostock/golden-mona-lisa
 
 
-
+### DISSOLVING THE FERMI PARADOX
+- http://slatestarcodex.com/2018/07/03/ssc-journal-club-dissolving-the-fermi-paradox/
 
 
 
