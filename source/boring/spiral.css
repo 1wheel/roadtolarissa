@@ -23,8 +23,15 @@ body{
 
 #spiral > div{
   position: absolute;
-  background: rgba(0,0,0, 1);
   background: #000;
+}
+
+@media (max-width: 800px){
+
+  #spiral > div{
+    position: absolute;
+    background: rgba(0,0,0,0);
+  }
 
 }
 
@@ -83,6 +90,8 @@ html.is-boring{ height: auto; }
   cursor: pointer;
   display: block;
   text-decoration: none;
+  white-space: nowrap;
+
 }
 .row:hover .slug{
   text-decoration: underline;

@@ -93,7 +93,6 @@ projects = projects.concat(projects)
 console.clear()
 var phi = 1.618033988749895
 var cx = 0.7236067977499789
-var cy = 0.4472135954999579
 
 var initS = Math.min(innerWidth, 750)/phi
 var s = initS
@@ -104,7 +103,6 @@ var y = 0
 var imgs = projects.map(d =>'url("' + d.img + '")')
 
 var links = projects.map(d => d.url)
-var colors = projects.map(d => d.color)
 
 var UA = navigator.userAgent
 var isFF = UA.includes('Firefox') && !UA.includes('Chrome/')
@@ -276,8 +274,6 @@ if (isSF) toggleBoring()
 
 
 
-;`
-todo
-https://bl.ocks.org/1wheel/68073eeba4d19c454a8c25fcd6e9e68a
-jetpack hot-server?
-`
+// todo
+// https://bl.ocks.org/1wheel/68073eeba4d19c454a8c25fcd6e9e68a
+// jetpack hot-server?

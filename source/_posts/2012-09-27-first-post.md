@@ -279,7 +279,6 @@ https://news.ycombinator.com/item?id=9177469
 - The paper gets things I know about totally wrong, but I trust them on everything else From Michael Crichton? 
 -  “It is difficult to get a man to understand something, when his salary depends on his not understanding it.”
 
-
 What does reddit repeat?
 
 ### [Inflation adjust your numbers!](https://roadtolarissa.com/top-3-movies)
@@ -296,13 +295,18 @@ What does reddit repeat?
 
 ### 2018 chart diary
 
+### New homepage zoooom
+-  https://beta.observablehq.com/@mbostock/golden-mona-lisa
+
+
+### DISSOLVING THE FERMI PARADOX
+- http://slatestarcodex.com/2018/07/03/ssc-journal-club-dissolving-the-fermi-paradox/
 
 ### 3d animation thinger
 - https://imgur.com/a/5nu25
 - https://www.youtube.com/watch?v=FGhr3kvaWcs
 - https://www.reddit.com/r/place/comments/64d8vy/3d_visualization_timelapse_of_place/ 
 - "Microdisplacement in Cycles", "Displacement texture", "Animated textures in Cycles"
-
 
 ### Winning by at least 17 after Q1 -> final margin of victory 
 - https://twitter.com/jon_bois/status/1000580952047931393
