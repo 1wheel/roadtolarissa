@@ -210,9 +210,11 @@ https://news.ycombinator.com/item?id=9177469
 - http://www.wsj.com/graphics/build-your-own-trading-bot/?mod=e2twg
 - Scatter plot of buy after tk days of gains/sell after tk days of losses
 
-### new hp
+### [new hp](https://roadtolarissa.com)
 - some sort of 3d scroll zoom/rotate
-- once saw a nice portfolio site with sum(1/2^n) = 1. they had done something with game of thrones but can't find
+- once saw a nice portfolio site with sum(1/2^n) = 1. they had worked on http://www.themill.com/portfolio/3861/winter-is-here%3A-facebook-ar-effects, but I can't find their site.
+-  https://beta.observablehq.com/@mbostock/golden-mona-lisa
+
 
 ### Structure of fiction
 - http://twinegarden.tumblr.com/
@@ -284,26 +286,28 @@ What does reddit repeat?
 - Scroll down and see all the movies that have been the 'best selling'
 - https://www.axios.com/black-panther-box-office-titanic-top-3-north-america-avatar-star-wars-32a35770-59fc-4ccc-bd5b-3a85d7144266.html
 
-### MSI 2018
+### [MSI 2018](https://roadtolarissa.com/msi-4096/)
 - https://www.nytimes.com/elections/2012/results/president/scenarios.html
 
 ### Spurs 50 win streak
 - every streak line of 50+ wins on some kind of scatter plot?
 - compare to other sports with win percent?
-
+- https://cleaningtheglass.com/two-for-one-or-two-for-none/
 
 ### 2018 chart diary
 
-### New homepage zoooom
--  https://beta.observablehq.com/@mbostock/golden-mona-lisa
+
+### 3d animation thinger
+- https://imgur.com/a/5nu25
+- https://www.youtube.com/watch?v=FGhr3kvaWcs
+- https://www.reddit.com/r/place/comments/64d8vy/3d_visualization_timelapse_of_place/ 
+- "Microdisplacement in Cycles", "Displacement texture", "Animated textures in Cycles"
 
 
-
-
-
-
-
-
+### Winning by at least 17 after Q1 -> final margin of victory 
+- https://twitter.com/jon_bois/status/1000580952047931393
+- What's the biggest drop in win probabily at each minute of the game?
+- Most lead changes?
 
 
 
