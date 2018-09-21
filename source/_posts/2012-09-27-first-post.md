@@ -314,4 +314,12 @@ What does reddit repeat?
 - Most lead changes?
 
 
+### animated illusions
+- https://vimeo.com/287093172
+- https://www.youtube.com/watch?v=DkVOIJAaWO0&index=120&list=WL&t=67s
+
+
+### rotating vector field
+- https://www.windy.com/?40.781,-73.977,5
+- want to smoothy animate a hurricane wind map
 
