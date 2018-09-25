@@ -323,3 +323,6 @@ What does reddit repeat?
 - https://www.windy.com/?40.781,-73.977,5
 - want to smoothy animate a hurricane wind map
 
+
+### zoom into a pixel looping forever
+- https://twitter.com/jashkenas/status/1044370517522694144
