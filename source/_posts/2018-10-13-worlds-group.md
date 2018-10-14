@@ -1,9 +1,9 @@
 ---
 template: post.html
 title: 2018 Worlds Group Advancement
-date: 2018-10-10
+date: 2018-10-13
 permalink: /worlds-group-2018
-shareimg: http://roadtolarissa.com/images/posts/worlds-group-2017.png
+shareimg: http://roadtolarissa.com/images/posts/worlds-group-2018.png
 ---
 
 The second half of League of Legends' World Group Stage starts tomorrow morning! Each team will play the other three teams in their group once more. The best two teams in each group advance to the quarterfinals. 

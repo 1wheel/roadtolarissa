@@ -7,7 +7,6 @@ d3.loadData('annotations.json', 'matches2.tsv', function(err, res){
   d3.selectAll('.group-header').st({opacity: 1})
 
   annotations = res[0]
-  annotations = []
   matches = res[1]
 
   teams2wins = {}
