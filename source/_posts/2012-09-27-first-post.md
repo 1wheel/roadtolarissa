@@ -131,6 +131,9 @@ https://news.ycombinator.com/item?id=9177469
 
 ### Log scales are pretty great!
 - https://www.washingtonpost.com/national/americas-new-tobacco-crisis-the-rich-stopped-smoking-the-poor-didnt/2017/06/13/a63b42ba-4c8c-11e7-9669-250d0b15f83b_story.html?tid=ss_tw&utm_term=.aab13303a01e
+- https://www.washingtonpost.com/business/2018/10/30/owning-your-own-home-doesnt-make-you-rich-owning-somebody-elses-does/?utm_term=.80dc77d29762
+- https://fivethirtyeight.com/features/which-countries-terrorist-attacks-are-ignored-by-the-u-s-media/
+- https://www.nytimes.com/2014/04/23/upshot/the-american-middle-class-is-no-longer-the-worlds-richest.html
 
 ### Which team is the best at 2-1? 
 - look at scoring at the end of the quarter 
