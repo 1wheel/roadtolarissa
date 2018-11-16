@@ -310,6 +310,7 @@ What does reddit repeat?
 - https://www.youtube.com/watch?v=FGhr3kvaWcs
 - https://www.reddit.com/r/place/comments/64d8vy/3d_visualization_timelapse_of_place/ 
 - "Microdisplacement in Cycles", "Displacement texture", "Animated textures in Cycles"
+- https://www.reddit.com/r/dataisbeautiful/comments/8v0m98/oc_3d_animation_of_chinas_nitrogen_dioxide/
 
 ### Winning by at least 17 after Q1 -> final margin of victory 
 - https://twitter.com/jon_bois/status/1000580952047931393
