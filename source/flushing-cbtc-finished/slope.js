@@ -76,7 +76,7 @@ baseSel.append('text')
   })
 
 baseSel.append('text')
-  .text('Final Cost')
+  .text('Actual Cost')
   .at({
     textAnchor: 'middle',
     x: c.width,
@@ -96,7 +96,9 @@ baseSel.append('text')
 
 
 
-
+// TODO 
+// Mask pattern fill circle
+// Cost and Timeline label
 
 
 // timeline
@@ -195,7 +197,7 @@ baseSel.append('text')
   })
 
 baseSel.append('text')
-  .text('Final Timeline')
+  .text('Actual Timeline')
   .at({
     textAnchor: 'middle',
     x: c.width,
