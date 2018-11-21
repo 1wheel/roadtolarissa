@@ -38,7 +38,7 @@ data.forEach((d, i) => {
 })
 
 
-var sel = d3.select('#two-years').html('')
+var sel = d3.select('#two-years').html('').append('div')
 var c = d3.conventions({
   sel, 
   margin: {left: 70, right: 70},
@@ -91,7 +91,7 @@ baseSel.append('path')
   })
 
 baseSel.appendMany('line', c.y.ticks())
-  .at({x1: width, stroke: '#fff'})
+  .at({x1: width, stroke: '#f5f5f5', strokeWidth: 1.5})
   .translate(c.y, 1)
 
 baseSel.append('path')

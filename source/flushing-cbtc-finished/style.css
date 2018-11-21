@@ -1,7 +1,17 @@
 body{
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
-  margin: 0px;
-  font-family: 'Helvetica Neue', Helvetica, Arial;
+  max-width: 600px;
+}
+
+h1{
+  max-width: 530px;
+}
+
+/*h1{
+  max-width: 500px;
+  margin: 0px auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
 }
 
 p{
@@ -15,10 +25,8 @@ p{
 h3{
   max-width: 500px;
   margin: 0px auto;
-  text-align: center;
-
 }
-
+*/
 .tooltip {
   top: -1000px;
   position: fixed;
@@ -58,9 +66,29 @@ text{
   /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
 }
 
-#two-years{
+.img-cont{
   width: 805px;
   margin: 0px auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.img-cont img{
+  max-width: 100%;
+}
+
+#two-years > div{
+  width: 805px;
+  margin: 0px auto;
+}
+
+.full-width {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 #two-years .trip{
@@ -73,3 +101,91 @@ text{
 .y line{
   opacity: 0;
 }
+
+
+
+
+/*slope*/
+
+.line-L circle{
+  fill: #878787;
+  stroke: #878787;
+}
+
+.line-L path{
+  stroke: #878787;
+}
+
+b.line-L{
+  color: #fff;
+  background: #878787;
+  border-radius: 50%;
+  padding: 3px 7.5px;
+  font-size: 18px;
+  position: relative;
+  top: -1px;
+  width: 15.5px;
+  text-align: center;
+  display: inline-block;
+}
+b.line-7{
+  color: #fff;
+  background: #BE00C1;
+  border-radius: 50%;
+  padding: 3px 7.5px;
+  font-size: 18px;
+  position: relative;
+  top: -1px;
+  width: 15.5px;
+  text-align: center;
+  display: inline-block;
+}
+
+.line-7 circle{
+  fill: #BE00C1;
+  stroke: #BE00C1;
+}
+
+.line-7 path{
+  stroke: #BE00C1;
+}
+
+#slope > div {
+  display: inline-block;
+  width: 290px;
+}
+
+
+text{
+  font-family: monospace;
+  font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
