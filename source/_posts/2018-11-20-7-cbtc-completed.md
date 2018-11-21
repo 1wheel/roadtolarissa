@@ -26,50 +26,48 @@ Past experience suggests this be will difficult.
  -->
 <div id='slope'></div>
 
-The MTA has corrected some problems: 
+The MTA has corrected some things that caused problems in the past: 
 
 - longer shutdowns
-- hopefully no bad finance
-- better train procurment
+- buying trains with CBTC ready to go
+- hopefully no GFC to slow down start
+
+But the last four years
 
 ## How the <b class='line-7'>7</b> Signal Completion Date Slipped Over Time
 
-
-
-
-
-
 <div id='two-years' class='full-width'></div>
 
-Plauged by software issues, the last two years of work took four years to finish
+- Plagued by software issues, the last two years of work took four years to finish
+- MTA has historically struggled with software. On ATC they tried to speed things up by accepting a UI they'd only seen and power point and not specifying requirements for voice.
+- Byford wants to "buy off the shelf"... what might that entail?
 
-has historically struggled with software
+## Keeping the old signals in place is hard
 
+- one of biggest custom software components is overlaid signals
+- 90s confident L train quote "simulate existing signals in memory"
 
-Byford wants to "buy off the shelf"... how will that help?
-
-## Keeping the old block signals in place is hard
-
-One of biggest custom software compenets is overlaied signals
-
-L train quote being gungho on it
-
-
-here i'll highlight the block signals
+aws also requires tricky physical works. here i'll highlight aws items:
 
 <div class='full-width'>
   <div class='img-cont'>
     ![](https://i.imgur.com/m1RE2lQ.png)
   </div>
 </div>
-Each line will have years of weekend and overnight closures.
-also overnight service will help but it also increases the risk
+
+- FHA says not necessary
+
+## This matters!
+
+- Each line will have years of weekend and overnight closures; more years won't be fun
+- huge amount of money, subway will be in a bad place
+
 
 *Nov. 26, 2018*
 
+Sources: 
 
-
-
+<!-- 
 ## Words idk
 
 They're the cornerstone of the MTA's plan to fix subway by spending $20 billion upgrading every line's signals over 10 years.
@@ -81,6 +79,9 @@ The MTA Finally Finished Upgrading the Signals on the 7. The Last Two Years of W
 
 
 Keeping multiple, more complex projects on schedule will be even harder. After more delays were announced this spring, the new head of New York City Transit, Andy Byford, tried [intervening](https://www.wsj.com/articles/7-line-upgrade-means-more-delays-1524780156). The launch still got to pushed back to November.
+
+ -->
+
 
 
 <link rel="stylesheet" type="text/css" href="/flushing-cbtc-finished/style.css">
