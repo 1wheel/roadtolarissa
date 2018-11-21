@@ -31,18 +31,18 @@ var line = c.svg.appendMany('g', data)
 line.append('path')
   .at({
     stroke: '#000',
-    strokeWidth: 2,
+    strokeWidth: 1,
     d: d => 'M' + [c.x(0), c.y(d[0])] + 'L' + [c.x(1), c.y(d[1])]
   })
 
 
 line.appendMany('circle', d => d)
   .at({
-    r: 4,
-    strokeWidth: 2,
+    r: (d, i) => i ? 1.5 : 5,
+    strokeWidth: 4,
     cx: (d, i) => c.x(i),
     cy: c.y,
-    // strokeDasharray: (d, i) => i ? '' : '2 2 2',
+    strokeDasharray: (d, i) => i ? '' : '2 2 2',
   })
   .st({fill: (d, i) => i ? '' : bgcolor })
 
@@ -52,7 +52,7 @@ line.appendMany('text', d => d)
     y: c.y,
     dy: '.33em',
     textAnchor: (d, i) => i ? 'start' : 'end',
-    dx: (d, i) => i ? 7 : -7,
+    dx: (d, i) => i ? 7 : -9,
   })
   .text(d => '$' + d + 'M')
 
@@ -111,7 +111,7 @@ var c = d3.conventions({
 
 
 c.x.domain([0, 1])
-c.y.domain([2020, 2000].map(d3.timeParse('%Y')))
+c.y.domain([2019, 2000].map(d3.timeParse('%Y')))
 
 
 c.svg.appendMany('g.axis', d3.range(2000, 2020, 2))
@@ -143,35 +143,36 @@ var line = c.svg.appendMany('g', timeline)
 line.append('path')
   .at({
     stroke: '#000',
-    strokeWidth: 2,
+    strokeWidth: 5,
     d: d => 'M' + [0, c.y(d.d0)] + 'V' + c.y(d.d1)
   })
   .st({
-    stroke: d => color[d.line]
-  })
-
-
-line.append('circle')
-  .at({
-    r: 4,
-    strokeWidth: 2,
-    cy: d => c.y(d.d0),
-  })
-  .st({
     stroke: d => color[d.line],
-    fill: bgcolor
+    strokeDasharray: d => d.type ? '' : '2 2'
   })
 
-line.append('circle')
-  .at({
-    r: 4,
-    strokeWidth: 2,
-    cy: d => c.y(d.d1),
-  })
-  .st({
-    stroke: d => color[d.line],
-    fill: d => color[d.line]
-  })
+
+// line.append('circle')
+//   .at({
+//     r: 4,
+//     strokeWidth: 2,
+//     cy: d => c.y(d.d0),
+//   })
+//   .st({
+//     stroke: d => color[d.line],
+//     fill: bgcolor
+//   })
+
+// line.append('circle')
+//   .at({
+//     r: 4,
+//     strokeWidth: 2,
+//     cy: d => c.y(d.d1),
+//   })
+//   .st({
+//     stroke: d => color[d.line],
+//     fill: d => color[d.line]
+//   })
 
 
 
