@@ -1,0 +1,75 @@
+body{
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  margin: 0px;
+  font-family: 'Helvetica Neue', Helvetica, Arial;
+}
+
+p{
+  max-width: 500px;
+  margin: 0px auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: 200;
+}
+
+h3{
+  max-width: 500px;
+  margin: 0px auto;
+  text-align: center;
+
+}
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  font-size: 14px;
+  /*pointer-events: none;*/
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
+}
+
+#two-years{
+  width: 805px;
+  margin: 0px auto;
+}
+
+#two-years .trip{
+  display: inline-block;
+}
+
+.axis{
+  opacity: .5;
+}
+.y line{
+  opacity: 0;
+}
