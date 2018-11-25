@@ -134,6 +134,7 @@ https://news.ycombinator.com/item?id=9177469
 - https://www.washingtonpost.com/business/2018/10/30/owning-your-own-home-doesnt-make-you-rich-owning-somebody-elses-does/?utm_term=.80dc77d29762
 - https://fivethirtyeight.com/features/which-countries-terrorist-attacks-are-ignored-by-the-u-s-media/
 - https://www.nytimes.com/2014/04/23/upshot/the-american-middle-class-is-no-longer-the-worlds-richest.html
+- https://www.washingtonpost.com/graphics/2018/business/hq-trivia/?noredirect=on&utm_term=.4b8a7ca8e79c (percent remaining chart)
 
 ### Which team is the best at 2-1? 
 - look at scoring at the end of the quarter 
