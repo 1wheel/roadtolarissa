@@ -42,11 +42,11 @@ Byford says he wants to "buy off the shelf” to cut costs and reduce delays. Hi
 
 ## Combining Old and New signaling Systems Isn’t Easy
 
-When Toronto decided to update its 50 year old signals, they kept the old electromechanical signals in place and overlaid the computerized signals to prevent service interruptions. This is hard to do: the computerized signals need heavily customized software that simulates how the old signals and interlocks work. And the amount of track work increases; instead of just putting down beacons that let the train car know its exact position, the old signals also require extensive modifications.
+When Toronto decided to update its 50 year old signals, they kept the old electromechanical signals in place and overlaid the computerized signals. This is hard to do: the computerized signals need heavily customized software that simulates how the old signals and interlocks work. And the amount of track work increases; instead of just putting down beacons that let the train car know its exact position, the old signals also require extensive modifications.
 
 Faced with mounting delays, Byford simplified. Instead of keeping the old signals, everything is now computerized.  
 
-As of now, the MTA is still overlaying signals to emphasize safety and build in reduncies. This accounts for a significant chunk of the project timeline on the signal modernization project currently underway on the R line: TODO: highlight overlay sections.  
+As of now, the MTA is still overlaying signals to emphasize safety and build in reduncies. This accounts for a significant chunk of the project timeline on the signal modernization project currently underway on the Queens Blvd Line: TODO: highlight overlay sections.  
 
 <div class='full-width'>
   <div class='img-cont'>
@@ -54,15 +54,13 @@ As of now, the MTA is still overlaying signals to emphasize safety and build in 
   </div>
 </div>
 
-The FHA says keeping the old signals signals isn't necessary. The saftey benfit is limited. Two sets of signals actually decrease reliability because service is impacted if one of the two sets of signals fails. Maintenance costs go up. Internationally,  the standard is to use computerized signals only. 
+A Federal Highway Admiristion report found that keeping the old signals signals isn't necessary. The saftey benfit is limited. Two sets of signals actually decrease reliability because service is impacted if one of the two sets of signals fails. Maintenance costs go up. 
 
 ## Things Will Get Worse Before They Get Better
 
 Under the current plan, each line will require years of weekend and overnight closures to overlay the computerized signals on the old signals. Even if the project stays within its scoped budget, this signal modernization will cost a huge amount of money. Already overloaded with debt and trying to decide between service cuts and fare hikes, the MTA has limited fiscal room to maneuver if there are steep cost overruns.
 
-Will Byford keep to the plan or will he decide to simplify? And will the MTA — which has a history of making questionable choices in the name of “safety” that aren’t supported by evidence — let him make that choice?
-
-One thing’s for sure: with the new signalling system debuting today, 7 trains were already “running with delays in both directions because of a network communication problem” this afternoon. 
+Will Byford countinue to overlay two sets of signals or will he decide to simplify? The rollout of CBTC on the 7 yesterday could impact the decision. After a component of the old signal system [failed](https://twitter.com/danrivoli/status/1067198302754619392) there were extensive delays during the evening commute. 
 
 *Nov. 27, 2018*
 
@@ -84,6 +82,20 @@ Keeping multiple, more complex projects on schedule will be even harder. After m
 
 - one of biggest custom software components is overlaid signals
 - 90s confident L train quote "simulate existing signals in memory”
+
+Internationally, the standard is to use computerized signals only. 
+
+And will the MTA — which has a history of making questionable choices in the name of “safety” that aren’t supported by evidence — let him make that choice?
+
+
+
+One thing’s for sure: with the new signalling system debuting today, 7 trains were already “running with delays in both directions because of a network communication problem” this afternoon. 
+
+
+
+
+
+
 
  -->
 
