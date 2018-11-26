@@ -10,16 +10,16 @@ shareimg: http://roadtolarissa.com/tktk
 draft: true
 ---
 
-After years of weekend closures, the MTA announced the completion of the 7 train's new, [computerized signal system](https://www.nytimes.com/2017/05/01/nyregion/new-york-subway-signals.html) today. 
+After years of weekend closures, the MTA announced the completion of the 7 train's new, [computerized signal system](https://www.nytimes.com/2017/05/01/nyregion/new-york-subway-signals.html) yesterday. 
 
-Replacing finicky electromechanical devices designed a century ago, modernized signals increase the number of trains able to run, reduce "signal problems ahead", and lower costs. To fix the subway, the MTA plans to spend $20 billion upgrading every line’s signals over 10 years.
+Replacing finicky electromechanical devices designed a century ago, the modernized signals increase the number of trains the MTA can run on the 7 line, reduce "signal problems ahead," and lower costs. Over the next 10 years, the MTA plans to spend $20 billion upgrading every line’s signals.
 
 Past experience suggests this be will difficult. 
-
 
 ##  The <b class='line-L'>L</b> and <b class='line-7'>7</b> Signal Upgrades Were Late and Over Budget
 
 <!-- <div class='full-width'>
+
   <div class='img-cont'>
     ![](https://i.imgur.com/zuTHDNX.png)
   </div>
@@ -28,43 +28,43 @@ Past experience suggests this be will difficult.
 
 <div id='slope'></div>
 
-The MTA has corrected some things that caused problems in the past. They’re [buying](https://twitter.com/ModernSignaling/status/1053394646892720128) train cars that work with computer signals without retrofitting, a previous source of delays. The new head of New York City Transit, Andy Byford, has proposed shutting down all weekend and night travel for years while a line’s signals are upgraded; the intermittent shutdowns on the 7 meant that needing serveral additional days of [trackwork](https://www.wsj.com/articles/7-line-upgrade-means-more-delays-1524780156) could add a month to the project timeline.
+In their efforts to fix the subway, the MTA has addressed some of the issues that caused problems in the past. They’re [buying](https://twitter.com/ModernSignaling/status/1053394646892720128) train cars that work with computer signals without retrofitting, a previous source of delays. The new head of New York City Transit, Andy Byford, has proposed shutting down all weekend and night travel for years while a line’s signals are upgraded; the intermittent shutdowns on the 7 meant that additional days of necessary [trackwork](https://www.wsj.com/articles/7-line-upgrade-means-more-delays-1524780156) could add a month to the project timeline.
 
-There are still problem though. 
+But there are still problems. 
 
 ## How the <b class='line-7'>7</b> Signal Completion Date Slipped Over Time
 
 <div id='two-years' class='full-width'></div>
 
-Plagued by software issues, the last two years of work took four years to finish. The MTA has historically struggled with software. On [previous signal project](https://www.fhwa.dot.gov/cadiv/segb/views/document/sections/section8/8_5_1.cfm), ad hoc deployment errors caused interruptions to train service, a voice communctions system with only vague spefications when put into use and UIs only prototyped in PowerPoint were hard to use and had to be redone.  
+Plagued by software issues, the last two years of work on the 7 line took four years to finish. The MTA has historically struggled with software. On a [previous signal project](https://www.fhwa.dot.gov/cadiv/segb/views/document/sections/section8/8_5_1.cfm), ad hoc deployment errors caused interruptions to train service. A vaguely specified voice communications system failed when it was enabled. UIs that had only been prototyped in PowerPoint were hard to use and had to be redone.  
 
 Byford says he wants to "buy off the shelf” to cut costs and reduce delays. His previous job as CEO of the Toronto Transit Commissions provides a clue about what that’ll entail. 
 
-## Combining old and new signaling systems isn’t easy
+## Combining Old and New signaling Systems Isn’t Easy
 
-Toronto was trying to update 50 year old signals. To avoid an interruption in service, they were keeping the old electormechinal signals in place and overlaying the compterized signals on top of them. This is hard to do: the computerized signals needs heavily customized software that simulates how the old signals and interlocks work. And the amount of track work increases; instead of just putting down beacons that let the train car know its exact position, the old signals also require extensive modifications.
+When Toronto decided to update its 50 year old signals, they kept the old electromechanical signals in place and overlaid the computerized signals to prevent service interruptions. This is hard to do: the computerized signals need heavily customized software that simulates how the old signals and interlocks work. And the amount of track work increases; instead of just putting down beacons that let the train car know its exact position, the old signals also require extensive modifications.
 
-Faced with mounting delays, Byford simplified the work to be done. Everything is computerized.  
+Faced with mounting delays, Byford simplified. Instead of keeping the old signals, everything is now computerized.  
 
-- one of biggest custom software components is overlaid signals
-- 90s confident L train quote "simulate existing signals in memory”
-
-MTA is conservite and still overlaying signals. This accounts for a signfitent chunk of project timeline on the R signal moderinization projection currently underway:
+As of now, the MTA is still overlaying signals to emphasize safety and build in reduncies. This accounts for a significant chunk of the project timeline on the signal modernization project currently underway on the R line: TODO: highlight overlay sections.  
 
 <div class='full-width'>
   <div class='img-cont'>
     ![](https://i.imgur.com/m1RE2lQ.png)
   </div>
 </div>
-FHA says not necessary.
 
-## This matters!
+The FHA says keeping the old signals signals isn't necessary. The saftey benfit is limited. Two sets of signals actually decrease reliability because service is impacted if one of the two sets of signals fails. Maintenance costs go up. Internationally,  the standard is to use computerized signals only. 
 
-- Each line will have years of weekend and overnight closures; more years won't be fun
-- huge amount of money, already lots of debt.  subway will be in a bad place
+## Things Will Get Worse Before They Get Better
 
+Under the current plan, each line will require years of weekend and overnight closures to overlay the computerized signals on the old signals. Even if the project stays within its scoped budget, this signal modernization will cost a huge amount of money. Already overloaded with debt and trying to decide between service cuts and fare hikes, the MTA has limited fiscal room to maneuver if there are steep cost overruns.
 
-*Nov. 26, 2018*
+Will Byford keep to the plan or will he decide to simplify? And will the MTA — which has a history of making questionable choices in the name of “safety” that aren’t supported by evidence — let him make that choice?
+
+One thing’s for sure: with the new signalling system debuting today, 7 trains were already “running with delays in both directions because of a network communication problem” this afternoon. 
+
+*Nov. 27, 2018*
 
 <!-- 
 
@@ -80,6 +80,10 @@ The MTA Finally Finished Upgrading the Signals on the 7. The Last Two Years of W
 
 
 Keeping multiple, more complex projects on schedule will be even harder. After more delays were announced this spring, the new head of New York City Transit, Andy Byford, tried [intervening](https://www.wsj.com/articles/7-line-upgrade-means-more-delays-1524780156). The launch still got to pushed back to November.
+
+
+- one of biggest custom software components is overlaid signals
+- 90s confident L train quote "simulate existing signals in memory”
 
  -->
 
