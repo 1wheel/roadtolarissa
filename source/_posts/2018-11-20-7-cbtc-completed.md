@@ -36,9 +36,9 @@ But there are still problems.
 
 <div id='two-years' class='full-width'></div>
 
-Plagued by software issues, the last two years of work on the 7 line took four years to finish. This isn’t a new problem for the MTA. On a [previous signal project](https://www.theatlantic.com/technology/archive/2015/11/why-dont-we-know-where-all-the-trains-are/415152/), ad hoc deployment errors caused interruptions to train service. A vaguely specified voice communications system failed when it was enabled. UIs that had only been prototyped in PowerPoint were hard to use and had to be redone.  
+Plagued by software issues, the last two years of work on the 7 line took four years to finish. This isn’t a new problem for the MTA. On a [previous signal project](https://www.theatlantic.com/technology/archive/2015/11/why-dont-we-know-where-all-the-trains-are/415152/), ad hoc deployment errors caused interruptions to train service. A vaguely specified voice communications system failed in the field. UIs that had only been prototyped in PowerPoint were hard to use and had to be redone.  
 
-Byford says he wants to buy "[off-the-shelf](https://www.nytimes.com/2018/06/11/nyregion/subway-signal-upgrade-plan.html)” to cut costs and reduce delays. His previous job as CEO of the Toronto Transit Commissions provides a clue about what that’ll entail. 
+Byford says he wants to buy "[off-the-shelf](https://www.nytimes.com/2018/06/11/nyregion/subway-signal-upgrade-plan.html)” to cut costs and reduce delays. His previous job as CEO of the Toronto Transit Commission provides a clue about what that’ll entail. 
 
 ## Combining Old and New signaling Systems Isn’t Easy
 
@@ -58,7 +58,7 @@ In its signal modernization efforts, the MTA is still overlaying rebuilt parts o
   </div>
 </div>
 
-A Federal Transit Administration [report](https://www.transit.dot.gov/sites/fta.dot.gov/files/docs/FTA_REPORT_No._0045.pdf) found that keeping the old signals isn't necessary and increased capital costs by at least 30%. The safety benefit is limited. In use, two sets of signals can actually decrease reliability because service is interpreted if one of them fails. Maintain the old signals working also requires regularly sending workers onto the tracks. Many of the benefits of computerized signals are negated. 
+A Federal Transit Administration [report](https://www.transit.dot.gov/sites/fta.dot.gov/files/docs/FTA_REPORT_No._0045.pdf) found that keeping the old signals isn't necessary and increased capital costs by at least 30%. The safety benefit is limited. In use, two sets of signals can actually decrease reliability because service is interpreted if one of them fails. Keeping the old signals working also requires regularly sending workers onto the tracks. Many of the upsides of computerized signals are negated. 
 
 ## Things Will Get Worse Before They Get Better
 
