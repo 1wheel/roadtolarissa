@@ -171,7 +171,12 @@ text{
 
 
 
-
+.cbtc-queens-key{
+  background: #F83313;
+  color: #fff;
+  padding: 3px;
+  border-radius: 3px;
+}
 
 
 

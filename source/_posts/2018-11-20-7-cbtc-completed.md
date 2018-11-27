@@ -12,7 +12,7 @@ draft: true
 
 After years of weekend closures, the MTA announced the completion of the 7 train's new, [computerized signal system](https://www.nytimes.com/2017/05/01/nyregion/new-york-subway-signals.html) yesterday. 
 
-Replacing finicky electromechanical devices designed a century ago, the modernized signals increase the number of trains the MTA can run on the 7 line, reduce "signal problems ahead," and lower costs. Over the next 10 years, the MTA plans to spend $20 billion upgrading every line’s signals.
+Replacing finicky pneumatic electromechanical devices installed in the 50s, the modernized signals increase the number of trains the MTA can run on the 7 line, reduce "signal problems ahead," and lower maintance costs. Over the next 10 years, the MTA plans to spend $20 billion upgrading every line’s signals.
 
 Past experience suggests this be will difficult. 
 
@@ -36,31 +36,31 @@ But there are still problems.
 
 <div id='two-years' class='full-width'></div>
 
-Plagued by software issues, the last two years of work on the 7 line took four years to finish. The MTA has historically struggled with software. On a [previous signal project](https://www.fhwa.dot.gov/cadiv/segb/views/document/sections/section8/8_5_1.cfm), ad hoc deployment errors caused interruptions to train service. A vaguely specified voice communications system failed when it was enabled. UIs that had only been prototyped in PowerPoint were hard to use and had to be redone.  
+Plagued by software issues, the last two years of work on the 7 line took four years to finish. This isn’t a new problem for the MTA. On a [previous signal project](https://www.theatlantic.com/technology/archive/2015/11/why-dont-we-know-where-all-the-trains-are/415152/), ad hoc deployment errors caused interruptions to train service. A vaguely specified voice communications system failed when it was enabled. UIs that had only been prototyped in PowerPoint were hard to use and had to be redone.  
 
-Byford says he wants to "buy off the shelf” to cut costs and reduce delays. His previous job as CEO of the Toronto Transit Commissions provides a clue about what that’ll entail. 
+Byford says he wants to buy "[off-the-shelf](https://www.nytimes.com/2018/06/11/nyregion/subway-signal-upgrade-plan.html)” to cut costs and reduce delays. His previous job as CEO of the Toronto Transit Commissions provides a clue about what that’ll entail. 
 
 ## Combining Old and New signaling Systems Isn’t Easy
 
-When Toronto decided to update its 50 year old signals, they kept the old electromechanical signals in place and overlaid the computerized signals. This is hard to do: the computerized signals need heavily customized software that simulates how the old signals and interlocks work. And the amount of track work increases; instead of just putting down beacons that let the train car know its exact position, the old signals also require extensive modifications.
+When Toronto decided to update its [50 year old signals](https://stevemunro.ca/2015/03/30/the-evolution-of-ttc-signaling-contracts/), they kept the old electromechanical signals in place and overlaid the computerized signals. This is hard to do: the computerized signals need heavily customized software that simulates how the old signals and interlocks work. And the amount of track work increases; instead of just putting down beacons that let the train car know its exact position, the old signals also require extensive modifications.
 
-Faced with mounting delays, Byford simplified. Instead of keeping the old signals, everything is now computerized.  
+Faced with mounting delays, Byford [simplified](https://ttc.ca/About_the_TTC/Commission_reports_and_information/Commission_meetings/2015/March_26/Reports/5_2_Staff_Report_%26_Attachment.pdf). Instead of keeping the old signals, almost everything was computerized.  
 
-As of now, the MTA is still overlaying signals to emphasize safety and build in reduncies. This accounts for a significant chunk of the project timeline on the signal modernization project currently underway on the Queens Blvd Line: TODO: highlight overlay sections.  
+In its signal modernization efforts, the MTA is still overlaying rebuilt parts of the old signal system as a failsafe. <span class='cbtc-queens-key'>Overlaying old signals</span> accounts for a significant chunk of the project timeline on the signal modernization project currently underway on the Queens Blvd Line: 
 
 <div class='full-width'>
   <div class='img-cont'>
-    ![](https://i.imgur.com/m1RE2lQ.png)
+    ![](cbtc-queens.png)
   </div>
 </div>
 
-A Federal Highway Admiristion report found that keeping the old signals signals isn't necessary. The saftey benfit is limited. Two sets of signals actually decrease reliability because service is impacted if one of the two sets of signals fails. Maintenance costs go up. 
+A Federal Transit Administration [report](https://www.transit.dot.gov/sites/fta.dot.gov/files/docs/FTA_REPORT_No._0045.pdf) found that keeping the old signals signals isn't necessary. The safety benefit is limited. Two sets of signals can actually decrease reliability because service is interpreted if one of the two sets of signals fails. Keeping the old signals working also requires sending workers onto the tracks to maintain them. Many of the benefits of computerized signals are negated. 
 
 ## Things Will Get Worse Before They Get Better
 
-Under the current plan, each line will require years of weekend and overnight closures to overlay the computerized signals on the old signals. Even if the project stays within its scoped budget, this signal modernization will cost a huge amount of money. Already overloaded with debt and trying to decide between service cuts and fare hikes, the MTA has limited fiscal room to maneuver if there are steep cost overruns.
+Under the [current plan](https://fastforward.mta.info/transform-the-subway), each line will require years of weekend and overnight closures to overlay the computerized signals on the old signals. Even if the project stays within its scoped budget, this signal modernization will cost a huge amount of money. Already overloaded with [debt](https://www.nytimes.com/2017/11/18/nyregion/new-york-subway-system-failure-delays.html) and weighing [service cuts and fare hikes](https://www.nytimes.com/2018/11/15/nyregion/mta-fare-hike-nyc.html), the MTA has limited fiscal room to maneuver if there are steep cost overruns.
 
-Will Byford countinue to overlay two sets of signals or will he decide to simplify? The rollout of CBTC on the 7 yesterday could impact the decision. After a component of the old signal system [failed](https://twitter.com/danrivoli/status/1067198302754619392) there were extensive delays during the evening commute. 
+Will Byford countinue to overlay two sets of signals or will he decide to simplify? The activation of the new signals on the 7 yesterday could impact the decision. There were extensive delays during the evening commute after a component of the old signal system [failed](https://www.nydailynews.com/new-york/ny-metro-7-train-signals-20181126-story.html). 
 
 *Nov. 27, 2018*
 

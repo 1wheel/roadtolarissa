@@ -1,6 +1,7 @@
 var parentSel = d3.select('#slope').html('')
 
 var bgcolor = '#f5f5f5'
+var color = {'L': '#878787', '7': '#BE00C1'}
 
 
 var sel = parentSel.append('div')
@@ -23,6 +24,15 @@ var data = [
 data.forEach((d, i) => d.line = !i ? 'L' : '7')
 
 
+c.svg.appendMany('pattern', ['L', '7'])
+  .at({x: 0, y: 0, width: 2, height: 2, id: d => 'line-pattern-' + d})
+  .attr('patternUnits', 'userSpaceOnUse')
+  .append('circle')
+  .at({r: 5, fill: bgcolor})
+  .parent()
+  .append('line')
+  .at({x1: 10, stroke: d => color[d], strokeWidth: 1.5})
+
 var line = c.svg.appendMany('g', data)
   .at({class: d => 'line-' + d.line})
 
@@ -38,13 +48,14 @@ line.append('path')
 
 line.appendMany('circle', d => d)
   .at({
-    r: (d, i) => i ? 1.5 : 5,
-    strokeWidth: 4,
+    r: 6,
     cx: (d, i) => c.x(i),
     cy: c.y,
-    strokeDasharray: (d, i) => i ? '' : '2 2 2',
   })
-  .st({fill: (d, i) => i ? '' : bgcolor })
+  .st({
+    fill: (d, i) => i ? '' : `url(#line-pattern-${d == 217 ? 'L' : 7})`,
+    strokeWidth: 0,
+  })
 
 line.appendMany('text', d => d)
   .at({
@@ -113,7 +124,7 @@ var c = d3.conventions({
 
 
 c.x.domain([0, 1])
-c.y.domain([2019, 2000].map(d3.timeParse('%Y')))
+c.y.domain([2019, 1999].map(d3.timeParse('%Y')).reverse())
 
 
 c.svg.appendMany('g.axis', d3.range(2000, 2020, 2))
@@ -123,7 +134,6 @@ c.svg.appendMany('g.axis', d3.range(2000, 2020, 2))
   .at({textAnchor: 'middle', dy: '.33em'})
 
 
-var color = {'L': '#878787', '7': '#BE00C1'}
 
 var timeline = [
   {line: 'L', type: 0, t0: 'Oct. 1999', t1: 'April 2004'},
@@ -149,8 +159,9 @@ line.append('path')
     d: d => 'M' + [0, c.y(d.d0)] + 'V' + c.y(d.d1)
   })
   .st({
+    // stroke: 'url(line-pattern-7)'
     stroke: d => color[d.line],
-    strokeDasharray: d => d.type ? '' : '2 2'
+    strokeDasharray: d => d.type ? '' : '1 2'
   })
 
 
@@ -206,6 +217,13 @@ baseSel.append('text')
 
 
 
+// baseSel.append('text')
+//   .text('Timeline')
+//   .at({
+//     textAnchor: 'middle',
+//     x: c.width/2,
+//     dy: 17
+//   })
 
 
 
@@ -213,20 +231,19 @@ baseSel.append('text')
 window.tlanno = 
 [
   {
-    "x": 0,
-    "y": 0,
-    "path": "M -37,294 A 44.321 44.321 0 0 1 -16,228",
+    "path": "M -63,-25 A 35.86 35.86 0 0 0 -12,21",
     "text": "The MTA planned on starting in 2007 and working for 6.5 years",
     "textOffset": [
-      -105,
-      310
+      -108,
+      -59
     ]
   }
 ]
 
+
 var swoopy = d3.swoopyDrag()
-  .x(d => 0)
-  .y(d => 0)
+  .x(d => c.x(0))
+  .y(d => c.y(d3.timeParse('%Y')(2013)))
   .draggable(0)
   .annotations(tlanno)
 
@@ -234,7 +251,7 @@ var swoopySel = c.svg.append('g.swoopy').call(swoopy)
 
 swoopySel.selectAll('path')
   .attr('marker-end', 'url(#arrow)')
-  .at({fill: 'none', stroke: '#000', strokeWidth: .6})
+  .at({fill: 'none', stroke: '#000', strokeWidth: .4})
 
 swoopySel.selectAll('text')
     .each(function(d){
