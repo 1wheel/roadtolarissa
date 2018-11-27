@@ -15,7 +15,8 @@ var data = `date,link,cost,finish,endDate
 2018-04-23,http://web.mta.info/mta/news/books/pdf/180423_1330_CPOC.pdf,$588,2nd - 4th Quarter 2018 ,2018-12-31
 2018-07-23,http://web.mta.info/mta/news/books/pdf/180723_1400_CPOC.pdf,563.6M,Oct- 18,2018-10-31
 2018-10-22,http://web.mta.info/mta/news/books/pdf/181022_1330_CPOC.pdf,563.6M,Nov-17,2018-11-30
-2018-11-13,http://web.mta.info/mta/news/books/pdf/181113_1400_CPOC.pdf,588,11/26/2018,2018-11-26`
+2018-11-13,http://web.mta.info/mta/news/books/pdf/181113_1400_CPOC.pdf,588,11/26/2018,2018-11-26
+2018-11-26,http://web.mta.info/mta/news/books/pdf/181113_1400_CPOC.pdf,588,11/26/2018,2018-11-26`
 
 data = d3.csvParse(data)
 var timeFmt = d3.timeParse('%Y-%m-%d')
@@ -37,13 +38,13 @@ data.forEach((d, i) => {
   d.remain1 = (+d.endDate - d.date)/24/60/60/1000
 })
 
-
+var isMobile = innerWidth < 800
 var sel = d3.select('#two-years').html('').append('div')
 var c = d3.conventions({
   sel, 
-  margin: {left: 70, right: 70},
-  height: 400,
-  width: 700
+  margin: isMobile ? {left: 30, right: 2, top: 8} : {left: 70, right: 70},
+  height: isMobile ? innerWidth/2 : 400,
+  width: isMobile ? 0 : 700
 })
 
 var {width, height} = c
@@ -64,18 +65,23 @@ c.y
 
 c.xAxis = d3.axisBottom(c.x).ticks(5)
 
-
+c.yAxis.ticks(isMobile ? 5 : 10)
 d3.drawAxis(c)
 
 c.svg.selectAll('.y text').at({x: -3})
 c.svg.select('.y text').at({x: -6}).remove()
-c.svg.selectAll('.y .tick').filter(d => d == 800)//.remove()
-  .append('text').text('days to')
-  .at({fill: '#000', y: 16, x: -3})
-  .parent()
-  .append('text').text('completion')
-  .at({fill: '#000', y: 30, x: -3})
-  .parent().st({fontWeight: 700})
+
+if (!isMobile){
+  c.svg.selectAll('.y .tick').filter(d => d == 800)
+    .append('text').text('days to')
+    .at({fill: '#000', y: 0, dy: '.32em', x: -3})
+    .parent()
+    .append('text').text('completion')
+    .at({fill: '#000', y: 12, dy: '.32em', x: -3})
+    .parent().st({fontWeight: 700})
+    .select('text')
+    .at({y: -12})
+}
 
 var topPath = 'M' + data.map(d => {
   return [c.x(d.date), c.y(d.remain0)] + ' L ' + [c.x(d.date), c.y(d.remain1)]
@@ -90,7 +96,7 @@ baseSel.append('path')
     opacity: .1,
   })
 
-baseSel.appendMany('line', c.y.ticks())
+baseSel.appendMany('line', isMobile ? [200, 400, 600, 800] : c.y.ticks())
   .at({x1: width, stroke: '#f5f5f5', strokeWidth: 1.5})
   .translate(c.y, 1)
 
@@ -269,7 +275,7 @@ var swoopy = d3.swoopyDrag()
   .draggable(0)
   .annotations(annos)
 
-var swoopySel = c.svg.append('g.swoopy').call(swoopy)
+var swoopySel = c.svg.append('g.swoopy').call(swoopy).st({opacity: isMobile ? 0 : 1})
 
 swoopySel.selectAll('path')
   .attr('marker-end', 'url(#arrow)')
@@ -296,6 +302,11 @@ c.svg.append('marker')
 
 
 
+sel.append('div.source')
+  .st({marginLeft: c.margin.left, bottom: -25, position: 'absolute'})
+  .html(`
+    <a href='http://web.mta.info/mta/news/books/cpoc_materials.htm'>Capital Program Oversight Committee</a>
+`)
 
 
 

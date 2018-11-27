@@ -7,7 +7,7 @@ var color = {'L': '#878787', '7': '#BE00C1'}
 var sel = parentSel.append('div')
 var c = d3.conventions({
   sel, 
-  margin: {left: 50, right: 70},
+  margin: {left: 50, right: 70, bottom: 50},
   height: 400,
 })
 
@@ -80,20 +80,19 @@ baseSel.append('line')
   .at({y2: 5, stroke: '#000'})
 
 baseSel.append('text')
-  .text('Est. Cost')
+  .tspans('Estimated Cost'.split(' '))
   .at({
     textAnchor: 'middle',
     dy: 17
   })
 
 baseSel.append('text')
-  .text('Actual Cost')
+  .tspans('Actual Cost'.split(' '))
   .at({
     textAnchor: 'middle',
     x: c.width,
     dy: 17
   })
-
 
 
 
@@ -118,7 +117,7 @@ baseSel.append('text')
 var sel = parentSel.append('div')
 var c = d3.conventions({
   sel, 
-  margin: {left: 50, right: 70},
+  margin: {left: 50, right: 70, bottom: 50},
   height: 400,
 })
 
@@ -201,14 +200,14 @@ baseSel.append('line')
   .at({y2: 5, stroke: '#000'})
 
 baseSel.append('text')
-  .text('Est. Timeline')
+  .tspans('Estimated Timeline'.split(' '))
   .at({
     textAnchor: 'middle',
     dy: 17
   })
 
 baseSel.append('text')
-  .text('Actual Timeline')
+  .tspans('Actual Timeline'.split(' '))
   .at({
     textAnchor: 'middle',
     x: c.width,
@@ -248,6 +247,7 @@ var swoopy = d3.swoopyDrag()
   .annotations(tlanno)
 
 var swoopySel = c.svg.append('g.swoopy').call(swoopy)
+  .st({opacity: innerWidth< 700 ? 0 : 1})
 
 swoopySel.selectAll('path')
   .attr('marker-end', 'url(#arrow)')
@@ -261,5 +261,14 @@ swoopySel.selectAll('text')
     })
 
 
+
+parentSel.append('div.source')
+  .html(`
+    L timeline and costs don't include Phase I prototyping. 7 estimated start date from the 2005 capital plan, estimated duration from the 2010 contract award.
+    <br>
+    <a href='https://reinventalbany.org/2018/11/flushing-7-train-cbtc-signals-late-and-over-budget-what-lessons-will-the-mta-learn-for-systemwide-modernization/'>Reinvent Albany</a>
+    <a href='https://cbcny.org/sites/default/files/MTA_Capital_Report.pdf'>Citizens Budget Commission</a>
+    <a href='https://ieeexplore.ieee.org/document/668106'>IEEE</a>
+`)
 
 

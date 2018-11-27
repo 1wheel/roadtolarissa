@@ -67,7 +67,7 @@ text{
 }
 
 .img-cont{
-  width: 805px;
+  max-width: 805px;
   margin: 0px auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -78,8 +78,9 @@ text{
 }
 
 #two-years > div{
-  width: 805px;
+  max-width: 805px;
   margin: 0px auto;
+  margin-bottom: 45px;
 }
 
 .full-width {
@@ -155,6 +156,9 @@ b.line-7{
   width: 290px;
 }
 
+#slope > .source{
+  width: 98%;
+}
 
 text{
   font-family: monospace;
@@ -184,8 +188,19 @@ text{
 
 
 
+.source{
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 13px;
+  opacity: .5;
+  font-family: monospace;
+}
 
-
+@media (max-width: 800px){
+  .img-source{
+    margin-left: 5px !important;
+  }
+}
 
 
 
