@@ -251,17 +251,17 @@ var annos =
     "x": "2017-12-11",
     "y": 120,
     "path": "M -53,-58 A 42.66 42.66 0 0 0 -10.99999713897705,-9.999998092651367",
-    "text": "Implemented an interim fix to address hardware failures",
+    "text": "Reliable and stable system software is needed",
     "textOffset": [
-      -111,
-      -107
+      -100,
+      -95
     ]
   },
   {
     "x": "2018-04-23",
     "y": 180,
     "path": "M 3,-60 A 29.471 29.471 0 0 0 -11,-10",
-    "text": "Communication issues continue to impact system performance.",
+    "text": "Software updates are needed to address ATS failures",
     "textOffset": [
       14,
       -90
