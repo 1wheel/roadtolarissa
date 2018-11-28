@@ -3,16 +3,15 @@ template: post.html
 title: Can the Rest of the System's Signals Modernized Without Years of Delays? 
 title: Computerized Signals on the 7 are Finally Actived. Will Upgrading the Whole System Also take Years of Delay.
 title: 7 Train Signal Upgrades Fininished After Years of Delays 
-title: 7 Train Signal Upgrades Complete After Years of Delays. Up Next: The Rest of the Subway 
+title: 7 Train Signal Upgrades Complete After Years of Delays. Up Next: The Rest of the Subway.
 date: 2018-11-26
 permalink: /flushing-cbtc-finished
-shareimg: http://roadtolarissa.com/tktk
-draft: true
+shareimg: https://i.imgur.com/i5njD1m.png
 ---
 
 After years of weekend closures, the MTA announced the completion of the 7 train's new, [computerized signal system](https://www.nytimes.com/2017/05/01/nyregion/new-york-subway-signals.html) yesterday. 
 
-Replacing finicky pneumatic electromechanical devices installed in the 50s, the modernized signals increase the number of trains the MTA can run on the 7 line, reduce "signal problems ahead," and lower maintance costs. Over the next 10 years, the MTA plans to spend $20 billion upgrading every line’s signals.
+Replacing finicky pneumatic electromechanical devices installed in the 50s, the modernized signals increase the number of trains the MTA can run on the 7 line, reduce "signal problems ahead," and lower maintenance costs. Over the next 10 years, the MTA plans to spend $20 billion upgrading every line’s signals.
 
 Past experience suggests this be will difficult. 
 
@@ -40,7 +39,7 @@ Plagued by software issues, the last two years of work on the 7 line took four y
 
 Byford says he wants to buy "[off-the-shelf](https://www.nytimes.com/2018/06/11/nyregion/subway-signal-upgrade-plan.html)” to cut costs and reduce delays. His previous job as CEO of the Toronto Transit Commission provides a clue about what that’ll entail. 
 
-## Combining Old and New signaling Systems Isn’t Easy
+## Combining Old and New Signaling Systems Isn’t Easy
 
 When Toronto decided to update its [50 year old signals](https://stevemunro.ca/2015/03/30/the-evolution-of-ttc-signaling-contracts/), they kept the old electromechanical signals in place and overlaid the computerized signals. This is hard to do: the computerized signals need heavily customized software that simulates how the old signals and interlocks work. And the amount of track work increases; instead of just putting down beacons that let the train car know its exact position, the old signals also require extensive modifications.
 
