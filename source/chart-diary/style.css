@@ -1,0 +1,103 @@
+html{
+  overflow-x: hidden;
+}
+
+.mouse-over-img{
+  position: relative;
+  transition: all .5s;
+  background: #000;
+  color: #f5f5f5;
+  padding: 1px;
+  padding-left: 2px;
+  text-decoration: none;
+  z-index: 0;
+  cursor: default;
+}
+
+.mouse-over-img.actual-link{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+
+.mouse-over-img div{
+  display: inline-block;
+  line-height: 25px;
+  position: relative;
+  overflow: visible;
+  width: 25px;
+  /* border: 3px solid black; */
+}
+
+.mouse-over-img div div{
+  position: absolute;
+  width: auto;
+  height: auto;
+}
+
+.mouse-over-img img{
+  max-width: 19px;
+  max-height: 14px;
+
+  position: absolute;
+  bottom: -1px;
+  left: 4px;
+
+  transition: all .25s;
+  border: 1px solid black;
+}
+
+.mouse-over-img:hover{
+}
+p:hover{
+  position: relative;
+  z-index: 10;
+}
+p{
+  position: relative;
+  z-index: 1;
+}
+p.active{
+  z-index: 12;
+}
+
+.mouse-over-img div div{
+  pointer-events: none;
+}
+.mouse-over-img img{
+  pointer-events: all;
+}
+
+.mouse-over-img:hover img{
+  max-width: 350px;
+  max-height: 400px;
+  opacity: 1;
+}
+
+.mouse-over-img:hover img{
+  /*transform: translate(-150px, -80px);*/
+  left: -150px;
+  bottom: -80px;
+}
+
+.mouse-over-img:hover img.left{
+  /*transform: translate(0px, -80px);*/
+  left: 0px;
+}
+.mouse-over-img:hover img.right{
+  left: -300px;
+  /*transform: translate(-300px, -80px);*/
+}
+
+/*@media only screen and (max-width: 768px){
+  .mouse-over-img div div{
+    position: inline-block;
+  }
+
+  .mouse-over-img img{
+    position: inline;
+    width: 200px;
+    height: 200px;
+  }
+}*/
