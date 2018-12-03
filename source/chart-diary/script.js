@@ -71,10 +71,10 @@ setTimeout(function(){
 // d3.select('body').html('')
 // d3.select('html')
 //   .append('div').st({zIndex: 100})
-//   .appendMany('img', imgs)
+//   .appendMany('img', _.shuffle(imgs))
 //   .at({src: d => d, width: 200})
 //   .st({
 //     position: 'absolute', 
-//     left: (d, i) => (i % 10)*200, 
-//     top:  (d, i) => Math.floor(i/10)*100
+//     left: (d, i) => (i % 9)*200, 
+//     top:  (d, i) => Math.floor(i/9)*100
 //   })
