@@ -1,0 +1,152 @@
+#container{
+  font-family: monaco, Consolas, 'Lucida Console', monospace; 
+}
+
+body{
+  margin-bottom: -20px;
+}
+html.is-no-bar{
+  overflow: hidden;
+  width:100%;
+}
+.is-no-bar body{
+  height:100%;
+  position:fixed; 
+  overflow-y:scroll;
+  -webkit-overflow-scrolling: touch;
+} 
+
+#container{
+  margin: 0px auto;
+  position: relative;
+}
+
+#panel{
+  top: 0px;
+  width: 180px;
+  display: inline-block;
+  padding-bottom: 80vh;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+#graph{
+  width: calc(100% - 180px);
+  height: 100vh;
+  position: -webkit-sticky;
+  position: sticky;
+  top: -1px;
+  display: inline-block;
+  float: right;
+}
+
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  width: 200px;
+  opacity: 0;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+
+.axis{
+  opacity: .7;
+}
+.domain{
+  display: none;
+}
+
+text{
+  cursor: default;
+  /*pointer-events: none;*/
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
+}
+
+text.movie{
+  opacity: .5;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+text.top.movie{
+  fill: #f0f;
+  opacity: 1; 
+}
+
+
+path.movie{
+  stroke: #000;
+  fill: none;
+  stroke-width: 2;
+  opacity: .3;
+  transition: opacity 1ss;
+  transition: stroke 1s;
+}
+
+.top path.movie{
+  stroke: #f0f;
+  opacity: 1;
+}
+
+text.movie-hover{
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+
+.top text.movie-hover{
+  font-weight: 800;
+
+  opacity: 1 !important;
+}
+
+g:hover > path.movie{
+  stroke-width: 5;
+  opacity: 1;
+}
+
+g:hover > text.movie-hover{
+  opacity: 1;
+  transition: opacity 0s;
+  opacity: 1 !important;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+
+.hide{
+  display: none;
+}
+
+
+h1{
+  font-size: 29px;
+  margin-bottom: 0px;
+}
+
+
