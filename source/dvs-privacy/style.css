@@ -1,0 +1,67 @@
+html{
+}
+
+body{
+  margin: 0px auto;
+}
+
+#container{
+  margin: 0px auto;
+  margin-top: 30px;
+  position: relative;
+  min-height: 4000px;
+  pointer-events: none;
+}
+
+.slide{
+  margin-bottom: 60vh;
+  background: rgba(255,255,255, .95);
+  padding: 10px;
+}
+
+
+
+#graph{
+  height: 100vh;
+  width: 100vw;
+  position: fixed !important;
+  z-index: -10;
+  top: 0px;
+  left: 0px;
+}
+
+
+.header{
+  /*display: none;*/
+}
+
+h1{
+  /*-webkit-text-fill-color: white; */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}
+
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+
+.axis{
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.axis path{
+  fill: none;
+  stroke: #000;
+}
