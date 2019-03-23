@@ -3,6 +3,7 @@ html{
 
 body{
   margin: 0px auto;
+  pointer-events: none;
 }
 
 #container{
@@ -14,9 +15,29 @@ body{
 }
 
 .slide{
-  margin-bottom: 60vh;
+  margin-bottom: 65vh;
   background: rgba(255,255,255, .95);
   padding: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  max-width: 700px;
+}
+
+.text-d {
+  background: #DDB32B;
+}
+.text-v {
+  background: #2DB2A5;
+}
+.text-s {
+  background: #A05E9C;
+}
+.text-d, .text-v, .text-s{
+  padding-left: 2px;
+  padding-right: 2px;
+  color: #fff;
+  border-radius: 2px;
+  font-weight: 500;
 }
 
 
@@ -31,14 +52,17 @@ body{
 }
 
 
-.header{
+.header > span{
   /*display: none;*/
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+
 }
 
 h1{
   /*-webkit-text-fill-color: white; */
-  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-width: .5px;
   -webkit-text-stroke-color: white;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
 
 
@@ -46,9 +70,7 @@ svg{
   overflow: visible;
 }
 
-.domain{
-  display: none;
-}
+
 
 text{
   pointer-events: none;
@@ -56,12 +78,28 @@ text{
 }
 
 
-.axis{
-  font-size: 14px;
-  font-weight: 800;
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
 }
 
-.axis path{
-  fill: none;
-  stroke: #000;
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
 }
