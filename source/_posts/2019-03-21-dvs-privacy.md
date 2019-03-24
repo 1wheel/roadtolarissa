@@ -1,6 +1,7 @@
 ---
 template: post.html
-title: DVS Contest and Privacy 
+title: Data Visualization Society Contest 
+tweet: my data visualization society contest is actually about the difficulties of releasing anonymous data that is actually an excuse to use force directed pie charts
 date: 2018-05-13
 permalink: /dvs-privacy
 draft: true

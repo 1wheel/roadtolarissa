@@ -17,7 +17,7 @@ body{
 .slide{
   margin-bottom: 75vh;
   background: rgba(255,255,255, .95);
-  padding: 10px;
+  padding: 15px;
   padding-top: 1px;
   padding-bottom: 1px;
   max-width: 700px;
@@ -66,10 +66,12 @@ circle.combined{
 }
 
 h1{
+  font-size: 45px;
+  margin-top: 5px;
   /*-webkit-text-fill-color: white; */
-  -webkit-text-stroke-width: .5px;
+  -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;
 }
 
 
@@ -93,7 +95,7 @@ text{
   background: rgba(255, 255, 255, .90);
   border: 1px solid lightgray;
   pointer-events: none;
-  /*display: none;*/
+  display: none;
 }
 .tooltip-hidden{
   opacity: 0;
