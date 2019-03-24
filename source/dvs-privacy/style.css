@@ -3,7 +3,7 @@ html{
 
 body{
   margin: 0px auto;
-  pointer-events: none;
+  /*pointer-events: none;*/
 }
 
 #container{
@@ -11,11 +11,11 @@ body{
   margin-top: 30px;
   position: relative;
   min-height: 4000px;
-  pointer-events: none;
+  /*pointer-events: none;*/
 }
 
 .slide{
-  margin-bottom: 65vh;
+  margin-bottom: 75vh;
   background: rgba(255,255,255, .95);
   padding: 10px;
   padding-top: 1px;
@@ -49,6 +49,13 @@ body{
   z-index: -10;
   top: 0px;
   left: 0px;
+}
+
+
+circle.combined{
+  stroke: #aaa;
+  fill: #f5f5f5;
+  stroke-width: .5px;
 }
 
 
@@ -86,6 +93,7 @@ text{
   background: rgba(255, 255, 255, .90);
   border: 1px solid lightgray;
   pointer-events: none;
+  /*display: none;*/
 }
 .tooltip-hidden{
   opacity: 0;
