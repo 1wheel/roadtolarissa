@@ -5,7 +5,7 @@ tweet: my data visualization society contest is actually about the difficulties 
 date: 2018-05-13
 permalink: /dvs-privacy
 draft: true
-shareimg: xxxhttps://i.imgur.com/qCOkFzl.png
+shareimg: https://i.imgur.com/9XHjYgq.png
 ---
 
 

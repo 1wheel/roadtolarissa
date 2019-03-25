@@ -23,6 +23,10 @@ body{
   max-width: 700px;
 }
 
+.slide:last-child{
+  margin-bottom: 30vh;
+}
+
 .text-d {
   background: #DDB32B;
 }
@@ -113,3 +117,14 @@ text{
     width: auto !important;
   }
 }
+
+
+
+#circle-icon{
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #000;
+  display: inline-block;
+  border-radius: 12px;
+}
+
