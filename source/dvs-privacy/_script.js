@@ -11,9 +11,9 @@ var colors = [
 var slides = [
 `<p>Over 3,000 people have joined the Data Visualization Society. The glyphs here represent their self reported skill levels at different aspects of charting.  
 
-<p>The released data lists city and submission time, but doesn't include the raw responses to nine skill questions on the survey. To protect privacy, the questions were combined into three categories—<b class='text-d'>data</b>, <b class='text-v'>visualization</b> and <b class='text-s'>society</b>—and averaged together. `,
+<p>The released data lists city and submission time, but doesn't include the raw responses to the nine skill questions on the survey. To protect respondents' privacy, the questions were combined into three categories—<b class='text-d'>data</b>, <b class='text-v'>visualization</b> and <b class='text-s'>society</b>—and averaged together. `,
 
-`<p>Even with that dimensionality reduction, it is still hard to pick out patterns in the data. 
+`<p>Even with that dimensionality reduction, it's still hard to pick out patterns in the data. 
 
 <p>We can simplify more by reducing the granularity of the data. Instead of trying to show every skill at its exact level, we can bucket them as low, medium or high. 
 
@@ -30,13 +30,13 @@ var slides = [
 
 <p>In the biggest groups all the skills are within a point of each other. More variance isn't as common; I think there's a high <b class='text-d'>data</b> / <b class='text-v'>visualization</b> and low <b class='text-s'>society</b> group with just me in it!
 
-<p>In all there are 28 groups <span id='circle-icon'> </span> here with just one person in them.
+<p>In total, there are <span id='circle-icon'> </span> 28  groups  here with just one person in them.
 `,
 
-`<p>Adding back even more granularity—remember each slice skill slice represents the average of three questions, so fractional values are possible—and there are about 600 people who have unique combination of averaged skills.
+`<p>Adding back even more granularity—remember each skill slice represents the average of three questions, so fractional values are possible—there are about 600 people who have a unique combination of averaged skills.
 `,
 
-`<p>In addition to the redacted survey data, DVS also created PNG and SVG badges visualizing every member's response to the nine question. Here's a bit of one:
+`<p>In addition to the redacted survey data, DVS also created PNG and SVG badges visualizing every member's response to the nine questions. Here's a bit of one:
 
 <xmp><path d="M49,0L93,74L7,76Z"/> 
 <path d="M50,36L62,56L38,57Z"/> 
@@ -51,15 +51,15 @@ var slides = [
 `,
 
 `<p>Significantly more detailed <a href='https://github.com/emeeks/data_visualization_survey/tree/master/data
-'>information</a> about the visualization community has been published, so the impact of this inadvertent leakage of survey data is quite low. But it does point to the difficulties of releasing data on the internet. 
+'>information</a> about the visualization community has been published before, so the impact of this inadvertent leakage of survey data is quite low. But it does point to the difficulties of releasing data on the internet. 
 
-<p>I'm conflicted about this. Two of my favorite <a href='https://www.nytimes.com/2016/09/02/upshot/new-geography-of-prisons.html'>NYT</a> <a href='https://www.nytimes.com/interactive/2018/03/19/upshot/race-class-white-and-black-men.html'>pieces</a> required detailed, administrative data about sensitive topics. How can we use data to understand the world if the data is impossible to share?
+<p>I'm conflicted about this. Two of my favorite <a href='https://www.nytimes.com/2016/09/02/upshot/new-geography-of-prisons.html'>NYT</a> <a href='https://www.nytimes.com/interactive/2018/03/19/upshot/race-class-white-and-black-men.html'>pieces</a> required detailed, administrative data about sensitive topics. How can we use data to understand the world if the most important and interesting data is impossible to share?
 
-<p>One common solution, <a href='https://en.wikipedia.org/wiki/K-anonymity'>k-anonymity</a>, selectively reduces granularity to guarantee that they'll always be several people in any given grouping. This gets tricky with higher dimensional data. 
+<p>One common solution, <a href='https://en.wikipedia.org/wiki/K-anonymity'>k-anonymity</a>, selectively reduces granularity to guarantee that there'll always be several people in any given grouping. This gets tricky with higher dimensional data. 
 
-<p>The state of the art, <a href='https://en.wikipedia.org/wiki/Differential_privacy'>differential privacy</a>, uses random noise and cryptographic math to construct summary statistics that don’t reveal any single individual's response. I'm not aware of an <a href='http://blog.mrtz.org/2015/03/13/practicing-differential-privacy.html'>easy way</a> to use it though.
+<p>The state-of-the-art <a href='https://en.wikipedia.org/wiki/Differential_privacy'>differential privacy</a> uses random noise and cryptographic math to construct summary statistics that don’t reveal any single individual's response. I'm not aware of an <a href='http://blog.mrtz.org/2015/03/13/practicing-differential-privacy.html'>easy way</a> to use it though.
 
-<p>In this instance, the much maligned security through obscurity would have been sufficient. If the badges were only released as PNGs I definitely wouldn't have taken the time to parse them. 
+<p>In this instance, the much maligned "security through obscurity" would have been sufficient. If the badges were only released as PNGs I definitely wouldn't have taken the time to parse them. 
 
 <p style='font-family: monospace'><a href='https://github.com/1wheel/roadtolarissa/blob/master/source/dvs-privacy/_script.js'>chart code</a></p>
 `
