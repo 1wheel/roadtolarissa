@@ -9,9 +9,9 @@ var colors = [
 ]
 
 var slides = [
-`<p>Over 3,000 people have joined the Data Visualization Society. The glyphs here represent their self reported skill levels at different aspects of charting.  
+`<p>Over 3,000 people have joined the <a href='https://www.datavisualizationsociety.com/'>Data Visualization Society</a>. The glyphs here represent their self reported skill levels at different aspects of charting.  
 
-<p>The released data lists city and submission time, but doesn't include the raw responses to the nine skill questions on the survey. To protect respondents' privacy, the questions were combined into three categories—<b class='text-d'>data</b>, <b class='text-v'>visualization</b> and <b class='text-s'>society</b>—and averaged together. `,
+<p>The data released by DVS lists city and submission time, but doesn't include the raw responses to the nine skill questions on the survey. To protect respondents' privacy, the questions were combined into three categories—<b class='text-d'>data</b>, <b class='text-v'>visualization</b> and <b class='text-s'>society</b>—and averaged together. `,
 
 `<p>Even with that dimensionality reduction, it's still hard to pick out patterns in the data. 
 
