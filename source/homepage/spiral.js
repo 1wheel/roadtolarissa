@@ -107,7 +107,7 @@ var links = projects.map(d => d.url)
 var UA = navigator.userAgent
 var isFF = UA.includes('Firefox') && !UA.includes('Chrome/')
 var isSF = UA.includes('Safari') && !UA.includes('Chrome/')
-isSF = true
+// isSF = true
 
 var sel = d3.select('#spiral').html('')
   .st({
