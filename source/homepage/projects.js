@@ -1,4 +1,53 @@
 var nytProjects = [
+{
+  "slug": "republicans-dominate-state-politics-but-democrats-made-a-dent",
+  "date": "2018-11",
+  "url": "https://www.nytimes.com/interactive/2018/11/10/upshot/republicans-dominate-state-politics-but-democrats-made-a-dent.html",
+  "img": "https://static01.nyt.com/images/2018/11/09/us/up-state-houses-promo-1541803667826/up-state-houses-promo-1541803667826-master1050-v2.jpg"
+},
+{
+  "slug": "2018-possible-midterm-recounts-georgia-florida-arizona",
+  "date": "2018-11",
+  "url": "https://www.nytimes.com/interactive/2018/11/10/us/elections/2018-possible-midterm-recounts-georgia-florida-arizona.html",
+  "img": "https://static01.nyt.com/images/2018/11/09/us/2018-possible-midterm-recounts-georgia-florida-arizona-promo-1541820719668/2018-possible-midterm-recounts-georgia-florida-arizona-promo-1541820719668-master1050-v2.png"
+},
+{
+  "slug": "tracking-hurricane-michael-path",
+  "date": "2018-10",
+  "url": "https://www.nytimes.com/interactive/2018/10/08/us/tracking-hurricane-michael-path.html",
+  "img": "https://static01.nyt.com/images/2018/10/08/us/tracking-hurricane-michael-path-promo-1539020902270/tracking-hurricane-michael-path-promo-1539020902270-master1050-v98.png"
+},
+{
+  "slug": "hurricane-florence-flooding",
+  "date": "2018-09",
+  "url": "https://www.nytimes.com/interactive/2018/09/18/us/hurricane-florence-flooding.html",
+  "img": "https://static01.nyt.com/images/2018/09/18/us/hurricane-florence-promo-1537304616488/hurricane-florence-promo-1537304616488-master1050.jpg"
+},
+{
+  "slug": "hurricane-florence-impact-damage-map",
+  "date": "2018-09",
+  "url": "https://www.nytimes.com/interactive/2018/09/13/us/hurricane-florence-impact-damage-map.html",
+  "img": "https://static01.nyt.com/images/2018/09/11/us/hurricane-florence-tracking-map-promo-1536673849664/hurricane-florence-tracking-map-promo-1536673849664-master1050-v7.png"
+},
+{
+  "slug": "representatives-running-unopposed-uncontested-primaries",
+  "date": "2018-06",
+  "url": "https://www.nytimes.com/interactive/2018/06/30/us/elections/representatives-running-unopposed-uncontested-primaries.html",
+  "img": "https://static01.nyt.com/images/2018/09/04/us/representatives-running-unopposed-uncontested-primaries-promo-1536116329367/representatives-running-unopposed-uncontested-primaries-promo-1536116329367-master1050.jpg"
+},
+{
+  "slug": "midterm-primaries-voter-turnout",
+  "date": "2018-06",
+  "url": "https://www.nytimes.com/interactive/2018/06/25/us/politics/midterm-primaries-voter-turnout.html",
+  "img": "https://static01.nyt.com/images/2018/06/25/us/midterm-primaries-voter-turnout-promo-1529957148807/midterm-primaries-voter-turnout-promo-1529957148807-master1050.png"
+},
+{
+  "slug": "lebron-nba-finals",
+  "date": "2018-06",
+  "url": "https://www.nytimes.com/interactive/2018/06/08/sports/basketball/lebron-nba-finals.html",
+  "img": "https://static01.nyt.com/images/2018/06/08/sports/lebron-promo/lebron-promo-master1050.jpg"
+},
+
   {
     "slug": "subway-crisis-mta-decisions-signals-rules",
     "date": "2018-05",
@@ -380,6 +429,10 @@ var nytProjects = [
 ]
 var otherProjects = [
 
+  {slug: 'dvs-privacy',    date: '2019-03',   url: 'https://roadtolarissa.com/dvs-privacy', img: 'https://i.imgur.com/9XHjYgq.png', },
+  {slug: 'flushing-cbtc-finished',    date: '2018-11',   url: 'http://roadtolarissa.com/flushing-cbtc-finished', img: 'https://i.imgur.com/i5njD1m.png', },
+  {slug: '2018-chart-diary',    date: '2018-12',   url: 'http://roadtolarissa.com/2018-chart-diary', img: 'https://roadtolarissa.com/imgur-down/2018-chart-diary-promo.png', },
+  {slug: 'worlds-group-2018',    date: '2018-10',   url: 'http://roadtolarissa.com/worlds-group-2018', img: 'http://roadtolarissa.com/images/posts/worlds-group-2018.png', },
   {slug: 'literate-blogging',    date: '2018-05',   url: 'http://roadtolarissa.com/literate-blogging', img: 'https://i.imgur.com/3KDlIFQ.png', },
   {slug: 'msi-4096',             date: '2018-05',   url: 'https://roadtolarissa.com/msi-4096/', img: 'https://i.imgur.com/vgXcGio.png', },
   {slug: 'hot-reload',           date: '2018-04',   url: 'https://roadtolarissa.com/hot-reload/', img: 'https://i.imgur.com/ZNkXwEx.png', },

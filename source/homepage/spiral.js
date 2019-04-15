@@ -82,7 +82,7 @@ projects = _.sortBy(projects, d => {
 
   return i == -1 ? 10000000 : (i < 30 ? i : 10000000)
 })
-projects = projects.filter(d => !d.isNYT || d.forceIndex != -1)
+// projects = projects.filter(d => !d.isNYT || d.forceIndex != -1)
 
 
 
@@ -107,6 +107,7 @@ var links = projects.map(d => d.url)
 var UA = navigator.userAgent
 var isFF = UA.includes('Firefox') && !UA.includes('Chrome/')
 var isSF = UA.includes('Safari') && !UA.includes('Chrome/')
+isSF = true
 
 var sel = d3.select('#spiral').html('')
   .st({

@@ -91,7 +91,8 @@ html.is-boring{ height: auto; }
   display: block;
   text-decoration: none;
   white-space: nowrap;
-
+  font-family: monospace; 
+  font-size: 14px;
 }
 .row:hover .slug{
   text-decoration: underline;
@@ -103,6 +104,7 @@ html.is-boring{ height: auto; }
 .month, .year{
   color: #999;
   font-family: monaco, Consolas, 'Lucida Console', monospace; 
+  font-family: monospace; 
   /*font-family: 'Roboto Slab', serif;*/
 
   font-size: 12px;
