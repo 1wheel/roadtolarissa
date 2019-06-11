@@ -4,7 +4,9 @@ d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSwFBbjJCU-J_QI2wUJXXfOm
 
   console.log(data)
 
-  d3.select('#list').html('').appendMany('div', data)
+  d3.select('#list')
+    .st({marginBottom: 60})
+    .html('').appendMany('div', data)
     .st({marginBottom: 20, marginTop: 20})
     .append('a')
     .text(d => d.title)
