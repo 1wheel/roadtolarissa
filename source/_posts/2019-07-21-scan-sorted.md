@@ -9,14 +9,38 @@ draft: true
 
 Points drawn to canvas don't have `mouseover` events, so to add a tooltip to a chart with lots of points we have to calculate the closest point to the mouse. 
 
-Voroni is recommend, but the initialization time is slow - tk ms with 500k points. I usally just iterate over every point in the data array. 
+Using a [voronoi diagram](https://bl.ocks.org/mbostock/8033015) to calculate has been recommend, but the initialization time is slow: ~1,500 ms with a million points. Too slow for the tax calculator I worked with multiple zoom levels. Instead, we just looped over every point in the data array and found the one closest to mouse.
+
+
+```js
+canvasSel
+  .call(d3.attachTooltip)
+  .on('mousemove', function(){
+    var [px, py] = d3.mouse(this)
+
+    var minPoint = d3.least(data, d => {
+      var dx = d.px - px
+      var dy = d.py - py
+
+      return dx*dx + dy*dy
+    })
+
+    // update tooltip text
+})
+```
+
+With a million points, there's no initialization time and scanning takes about about ~15 ms—fast enough to avoid dropping many frames if we're only displaying a tooltip on mouseover. 
+
+If you're doing more  
 
 
 <div id='graph' class='full-width'>
 </div>
 
+On a square, uniform grid scanning takes 
 
-The code for this is a l
+
+The code for this isn't too complicated: 
 
 ```js
 var bisect = d3.bisector(d => d.px)
@@ -57,27 +81,14 @@ canvasSel
   })
 ```
 
-Not too bad, scanning every element is so simple I'll probably stick with it unless bumping into performance problems.
+But still more complicated than 
 
-```js
-canvasSel
-  .call(d3.attachTooltip)
-  .on('mousemove', function(){
-    var [px, py] = d3.mouse(this)
-
-    var minPoint = _.minBy(data, d => {
-      var dx = d.px - px
-      var dy = d.py - py
-
-      return dx*dx + dy*dy
-    })
-
-    // update tooltip text
-})
-````
+, scanning every element is so simple I'll probably stick with it unless bumping into performance problems.
 
 
 
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src='../worlds-group-2017/d3_.js'></script>
+
+<script src='https://unpkg.com/d3-delaunay@5.1.2/dist/d3-delaunay.js'></script>
 <script src='script.js'></script>

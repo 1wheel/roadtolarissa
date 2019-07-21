@@ -44,7 +44,7 @@ var lineSel = c.svg.appendMany('path', [1, 0, 0])
   .at({stroke: d => d ? '#f0f' : '#ff0', strokeWidth: 1})
 
 c.svg.append('rect')
-  .at({opacity: 0, width: c.width, height: c.width})
+  .at({opacity: 0, width: c.width, height: c.height})
   .st({cursor: 'pointer'})
   .on('click', function(){
     var [px, py] = d3.mouse(this)
@@ -146,3 +146,53 @@ function genSteps(px, py){
 
   return steps
 }
+
+
+function timeThings(){
+  // time delaunay
+  var points = d3.range(1000000).map(() => [Math.random(), Math.random()])
+
+  console.time('delaunay')
+  var delaunay = d3.Delaunay.from(points)
+  console.timeEnd('delaunay')
+  var voronoi = delaunay.voronoi([0, 0, 1, 1])
+
+
+  console.time('scan')
+  var px = Math.random()
+  var py = Math.random()
+  var minPoint = d3.scan(points, d => {
+    var dx = d[0] - px
+    var dy = d[0] - py
+
+    return dx*dx + dy*dy
+  })
+  console.timeEnd('scan')
+
+
+}
+
+timeThings()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
