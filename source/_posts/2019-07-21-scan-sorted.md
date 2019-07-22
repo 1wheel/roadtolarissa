@@ -1,15 +1,15 @@
 ---
 template: post.html
-title: Faster Rollovers for Canvas
+title: Faster Tooltips for Canvas
 date: 2019-03-21
 permalink: /scan-sorted
 shareimg: https://i.imgur.com/cfjlTI9.png
 draft: true
 ---
 
-Points drawn to canvas don't have `mouseover` events, so to add a tooltip to a chart with lots of points we have to calculate the closest point to the mouse. 
+Rendering to canvas can effiently draw hundgreds of thousands of points, but they don’t have  don't have `mouseover` events. To add a tooltip to a canvas chart, we have to calculate the closest point to the mouse. 
 
-Using a [voronoi diagram](https://bl.ocks.org/mbostock/8033015) to calculate has been recommend, but the initialization time is slow: ~1,500 ms with a million points. Too slow for the tax calculator I worked with multiple zoom levels. Instead, we just looped over every point in the data array and found the one closest to mouse.
+Using a [voronoi diagram](https://bl.ocks.org/mbostock/8033015) to calculate has been recommend, but the initialization time is slow: ~1,500 ms with a million points. That was too slow for this [tax calculator](https://www.nytimes.com/interactive/2017/12/17/upshot/tax-calculator.html) I worked with multiple zoom levels. Instead, we just looped over every point in the data array and found the one closest to mouse.
 
 
 ```js
@@ -29,15 +29,17 @@ canvasSel
 })
 ```
 
-With a million points, there's no initialization time and scanning takes about about ~15 ms—fast enough to avoid dropping many frames if we're only displaying a tooltip on mouseover. 
+There's no initialization time and scanning a million points takes about [15 ms](https://bl.ocks.org/1wheel/da6c526602c05a5a77390620a6be3040)—good enough for a tooltip.
 
-If you're doing more  
+If you’re doing additional compution, like an animation or calculating some value, something faster would be handy to avoid dropping frames. Precomputing the voronoi diagram could avoid client side computation, but I coudn’t figure out how to compactly serialize the data structure. 
 
+Robert Monfera [suggested](https://twitter.com/monfera/status/1150784849206267906) a simple precomputation: sort the data along the x axis.  
 
-<div id='graph' class='full-width'>
-</div>
+<div id='graph' class='full-width'></div>
 
-On a square, uniform grid scanning takes 
+With sorted data, we can find the point with the x position closest to the mouse’s x position in `O(log n)` time using a binary search. Keeping track of the <span class='purple'>nearest</span> point, we can keep looking at points to the <span class='yellow'>left</span> and <span class='yellow'>right</span> until we’re futher along the x axis than the distance to the nearest point.
+
+This is is way [faster](https://bl.ocks.org/1wheel/77c660a764ab55a496c4e37623be9069)! On a square, uniform grid scanning in two directions takes `O(sqrt n)`; quite an improvement over checking every point `O(n)`, but not nearly as fast as a voroni’s `O(1)` or a quadtree’s `O(log n)` lookups. 
 
 
 The code for this isn't too complicated: 
@@ -81,9 +83,7 @@ canvasSel
   })
 ```
 
-But still more complicated than 
-
-, scanning every element is so simple I'll probably stick with it unless bumping into performance problems.
+But still more complicated than checking every point, so I'll probably stick with that 95% of the time.
 
 
 

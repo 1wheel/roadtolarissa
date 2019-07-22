@@ -24,6 +24,22 @@ var lRect = c.svg.append('rect.overlay').at({height: c.height})
 var rRect = c.svg.append('rect.overlay').at({height: c.height})
 var mRect = c.svg.append('rect.overlay').at({height: c.height})
 
+c.svg.append('path')
+  .at({
+    d: 'M' + data.map(d => [d.px, d.py]).join('L'),
+    stroke: '#000',
+    fill: 'none',
+    strokeWidth: .2
+  })
+
+// c.svg.append('path')
+//   .at({
+//     d: 'M' + _.sortBy(data, d => d.py).map(d => [d.px, d.py]).join('L'),
+//     stroke: '#000',
+//     fill: 'none',
+//     strokeWidth: .2
+//   })
+
 var circleSel = c.svg.appendMany('circle', data)
   .translate(d => [d.px, d.py])
   .at({
@@ -77,7 +93,7 @@ function animatePoint(px=Math.random()*c.width, py=Math.random()*c.height){
     if (!curStep){
       interval.stop()
       mRect.transition()
-        .at({width: rp.px - lp.px + 40, x: lp.px - 20})
+        // .at({width: rp.px - lp.px + 40, x: lp.px - 20})
 
       return window.timeout = d3.timeout(animatePoint, 2000)
     }
@@ -168,11 +184,9 @@ function timeThings(){
     return dx*dx + dy*dy
   })
   console.timeEnd('scan')
-
-
 }
 
-timeThings()
+// timeThings()
 
 
 

@@ -49,6 +49,30 @@ svg{
   margin-bottom: 45px;
 }
 
+pre{
+  overflow-x: scroll;
+}
+
+.purple,.yellow{
+  padding: 2px;
+  border-radius: 5px;
+}
+.purple{
+  background: #f0f;
+}
+.yellow{
+  background: #ff0;
+}
+
+
+
+code{
+  background: '' !important;
+}
+
+
+
+
 
 
 
