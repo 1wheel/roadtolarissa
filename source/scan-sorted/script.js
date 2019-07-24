@@ -135,10 +135,8 @@ function animatePoint(px=Math.random()*c.width, py=Math.random()*c.height, isMan
 
 function genSteps(px, py){
   var steps = []
-  var index = bisect.left(data, px, 0, data.length - 1)
   var index = bisect.left(data, px)
-  // var index = d3.scan(data, d => Math.abs(d.px - px))
-
+  var index = d3.scan(data, (a, b) => Math.abs(a.px - px) - Math.abs(b.px - px))
 
   var minPoint = null
   var minDist = Infinity

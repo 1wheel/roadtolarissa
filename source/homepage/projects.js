@@ -429,6 +429,8 @@ var nytProjects = [
 ]
 var otherProjects = [
 
+  {slug: 'scan-sorted',    date: '2019-07',   url: 'https://roadtolarissa.com/scan-sorted', img: 'https://i.imgur.com/fhkwZxY.png', },
+  {slug: 'bert-tree',    date: '2019-06',   url: 'https://pair-code.github.io/interpretability/bert-tree/', img: 'https://i.imgur.com/PoiNmfF.png', },
   {slug: 'dvs-privacy',    date: '2019-03',   url: 'https://roadtolarissa.com/dvs-privacy', img: 'https://i.imgur.com/9XHjYgq.png', },
   {slug: 'flushing-cbtc-finished',    date: '2018-11',   url: 'http://roadtolarissa.com/flushing-cbtc-finished', img: 'https://i.imgur.com/i5njD1m.png', },
   {slug: '2018-chart-diary',    date: '2018-12',   url: 'http://roadtolarissa.com/2018-chart-diary', img: 'https://roadtolarissa.com/imgur-down/2018-chart-diary-promo.png', },
