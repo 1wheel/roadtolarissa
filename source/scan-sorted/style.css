@@ -45,6 +45,9 @@ svg{
   margin-right: -50vw;
 }
 
+#graph{
+  height: 500px;
+}
 #graph > div{
   margin-bottom: 45px;
 }

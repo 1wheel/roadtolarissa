@@ -1,15 +1,16 @@
 console.clear()
 d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-var data = d3.range(100).map(x => { return {x, y: Math.random()} })
 
 var sel = d3.select('#graph').html('').append('div')
 var c = d3.conventions({
   sel: sel.append('div'), 
   margin: {left: 0, right: 0, top: 0, bottom: 0},
-  height: Math.min(innerWidth, 500),
+  height: 500,
 })
 var r = 3
+var data = d3.range(0, c.width, r*2).map(x => { return {x, y: Math.random()} })
+
 
 c.x.domain(d3.extent(data, d => d.x))
 c.y.domain(d3.extent(data, d => d.y))
@@ -32,14 +33,6 @@ c.svg.append('path')
     strokeWidth: .2
   })
 
-// c.svg.append('path')
-//   .at({
-//     d: 'M' + _.sortBy(data, d => d.py).map(d => [d.px, d.py]).join('L'),
-//     stroke: '#000',
-//     fill: 'none',
-//     strokeWidth: .2
-//   })
-
 var circleSel = c.svg.appendMany('circle', data)
   .translate(d => [d.px, d.py])
   .at({
@@ -53,10 +46,10 @@ var circleSel = c.svg.appendMany('circle', data)
 var areaCircle = c.svg.append('circle')
   .at({r: 0, stroke: '#f0f', fill: 'none', strokeDasharray: '1 0'})
 
-var overlayCircle = c.svg.appendMany('circle', [1, 0, 0])
+var overlayCircle = c.svg.appendMany('circle', [0, 0, 1])
   .at({stroke: d => d ? '#f0f' : '#ff0', strokeWidth: 1.5, r, fill: 'none'})
 
-var lineSel = c.svg.appendMany('path', [1, 0, 0])
+var lineSel = c.svg.appendMany('path', [0, 0, 1])
   .at({stroke: d => d ? '#f0f' : '#ff0', strokeWidth: 1})
 
 c.svg.append('rect')
@@ -64,12 +57,12 @@ c.svg.append('rect')
   .st({cursor: 'pointer'})
   .on('click', function(){
     var [px, py] = d3.mouse(this)
-    animatePoint(px, py)
+    animatePoint(px, py, true)
   })
 
 var isFirst = true
 animatePoint()
-function animatePoint(px=Math.random()*c.width, py=Math.random()*c.height){
+function animatePoint(px=Math.random()*c.width, py=Math.random()*c.height, isManual){
 
   var dur = isFirst ? 0 : 500
 
@@ -77,50 +70,61 @@ function animatePoint(px=Math.random()*c.width, py=Math.random()*c.height){
     .translate([px, py])
 
   steps = genSteps(px, py)
+  if (!isManual && steps.length < 5) return animatePoint()
+  _.last(steps).isLast = true
+  steps[0].isFirst = true
+
+  var minDist = steps[0].minDist
+  steps.forEach(d => {
+    if (d.minDist != minDist) d.minChanged = true
+    minDist = d.minDist
+  })
 
   var curStepIndex = 0
   var lp = data[steps[0].index]
   var rp = data[steps[0].index]
   if (!lp || !rp) return animatePoint()
 
-  if (window.timeout) window.timeout.stop()
-  if (window.interval) window.interval.stop()
-  window.interval = d3.interval(() => animateStep(), 1000)
   animateStep()
 
   function animateStep(){
+    if (window.__timeoutPoint) window.__timeoutPoint.stop()
+    if (window.__timeoutStep) window.__timeoutStep.stop()
+
     var curStep = steps[curStepIndex]
     if (!curStep){
-      interval.stop()
-      mRect.transition()
-        // .at({width: rp.px - lp.px + 40, x: lp.px - 20})
-
-      return window.timeout = d3.timeout(animatePoint, 2000)
+      return window.__timeoutPoint = d3.timeout(animatePoint, 2000)
     }
+    var delay2 = curStep.isFirst ? 0 : dur*1.5
 
     lp = data[curStep.index + (0 + curStep.i)*-1] || lp
     rp = data[curStep.index + (0 + curStep.i)*1] || rp
 
-    areaCircle.transition().duration(dur)
+    areaCircle.transition().duration(dur).delay(delay2)
       .at({r: curStep.minDist})
 
-    lRect.transition().duration(dur)
+    lRect.transition().duration(dur).delay(delay2)
       .at({width: Math.max(0, px - curStep.minDist)})
 
     var rWidth = Math.max(0, c.width - px - curStep.minDist)
-    rRect.transition().duration(dur)
+    rRect.transition().duration(dur).delay(delay2)
       .at({width: rWidth, x: c.width - rWidth})
 
-    mRect.transition().duration(dur)
-      .at({width: rp.px - lp.px + r*2 , x: lp.px - r})
+    var pad = curStep.isLast ? r*2 : r
+    mRect.transition().duration(dur).delay(0)
+      .at({width: rp.px - lp.px + pad*2 , x: lp.px - pad})
 
-    lineSel.data([curStep.minPoint, lp, rp]).transition().duration(dur)
+    lineSel.data([lp, rp, curStep.minPoint])
+      .transition().duration(dur).delay((d, i) => i != 2 ? 0 : delay2)
       .at({d: d => ['M', px, py, 'L', d.px, d.py].join(' ')})
     
-    overlayCircle.data([curStep.minPoint, lp, rp]).transition().duration(dur)
+    overlayCircle.data([lp, rp, curStep.minPoint])
+      .transition().duration(dur).delay((d, i) => i != 2 ? 0 : delay2)
       .translate(d => [d.px, d.py])
     
     curStepIndex++
+
+    window.__timeoutStep = d3.timeout(animateStep, curStep.minChanged ? 1000 + delay2 : 1000)
   }
 
   isFirst = false
@@ -131,7 +135,10 @@ function animatePoint(px=Math.random()*c.width, py=Math.random()*c.height){
 
 function genSteps(px, py){
   var steps = []
+  var index = bisect.left(data, px, 0, data.length - 1)
   var index = bisect.left(data, px)
+  // var index = d3.scan(data, d => Math.abs(d.px - px))
+
 
   var minPoint = null
   var minDist = Infinity

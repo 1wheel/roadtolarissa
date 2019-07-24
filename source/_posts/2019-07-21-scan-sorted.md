@@ -51,7 +51,7 @@ canvasSel
   .call(d3.attachTooltip)
   .on('mousemove', function(){
     var [px, py] = d3.mouse(this)
-    var index = bisect.left(data, px)
+    var index = bisect.left(data, px, 0, data.length - 2)
 
     var minPoint = null
     var minDist = Infinity
