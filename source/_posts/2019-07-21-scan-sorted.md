@@ -4,7 +4,6 @@ title: Faster Tooltips for Canvas
 date: 2019-03-21
 permalink: /scan-sorted
 shareimg: https://i.imgur.com/cfjlTI9.png
-draft: true
 ---
 
 By directly manipulating bitmaps, canvas can efficiently draw hundreds of thousands of points. Because these points aren’t DOM nodes, they don’t have `click` or `mouseover` events; adding interaction or tooltips to a canvas chart requires calculating the closest point to the mouse. 
@@ -31,7 +30,7 @@ canvasSel
 
 There's no initialization time and checking the distance of a million points takes about [15 ms](https://bl.ocks.org/1wheel/da6c526602c05a5a77390620a6be3040)—good enough for a tooltip.
 
-If you’re doing additional compution, like running an animation or calculating some value, something faster would be handy to avoid dropping frames. Precomputing the voronoi diagram could avoid intensive client side computation, but I’m not sure how you'd compactly serialize the data structure. 
+If you’re doing additional compution, like running an animation or calculating some value, something faster would be handy to avoid dropping frames. Precomputing the voronoi diagram could avoid intensive client side computation, but I’m not sure how you'd compactly serialize the data structure (update: Vladimir Agafonkin’s [flatbrush](https://github.com/mourner/flatbush) uses an array buffer for the index. It also handles rectangles, indexing a million in less than 300 ms!). 
 
 Robert Monfera [suggested](https://twitter.com/monfera/status/1150784849206267906) a simple precomputation: sort the data along the x-axis.  
 
@@ -83,7 +82,7 @@ canvasSel
   })
 ```
 
-But still more complicated than checking every point, so I'll probably stick with that unless I’m really trying to push the envelope on something. 
+But still more complicated than checking every point, so I'll probably stick with that unless I’m really trying to push performance the envelope or working with [polygons](https://bl.ocks.org/veltman/f539d97e922b918d47e2b2d1a8bcd2dd) 
 
 
 
