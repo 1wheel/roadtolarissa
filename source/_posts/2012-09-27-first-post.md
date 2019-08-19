@@ -330,4 +330,7 @@ What does reddit repeat?
 
 
 ### zoom into a pixel looping forever
-- https://twitter.com/jashkenas/status/1044370517522694144
+- https://twitter.com/jashkenas/status/1044370517522694144f
+
+### spotify webplayer winamp skin
+- don't like looking at ads to listen to music!
