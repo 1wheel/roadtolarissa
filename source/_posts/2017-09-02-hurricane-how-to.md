@@ -58,7 +58,7 @@ Id,Hrapx,Hrapy,Lat,Lon,Globvalue
 
 The next step was to see how much rain was falling where. This could have been done in QGIS, but since the end result was going on the web, I started up a webpage with [d3](http://d3js.com/) and [d3-jetpack](https://github.com/gka/d3-jetpack).
 
-First, I loaded the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea with 20,000 points to draw—it's too slow. 
+First, I loaded the data and set up the [canvas preliminaries](http://diveintohtml5.info/canvas.html). Using SVG to draw the data wouldn't be a good idea with 20,000 points—it's too slow. 
 
 ```javascript
 var width = 700
