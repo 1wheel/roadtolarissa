@@ -332,5 +332,15 @@ What does reddit repeat?
 ### zoom into a pixel looping forever
 - https://twitter.com/jashkenas/status/1044370517522694144f
 
+
+### most popular cancled show
+- tuca and bertie 
+
+
+### continutity 
+- https://www.reddit.com/r/nba/comments/ch7kr5/oc_we_may_never_see_roster_continuity_like_we_saw/
+- want a box for each player, gets 1px higher each year
+
 ### spotify webplayer winamp skin
 - don't like looking at ads to listen to music!
+>>>>>>> 51ea5fc63a16d8f78f623df2236db9d3be6825fb

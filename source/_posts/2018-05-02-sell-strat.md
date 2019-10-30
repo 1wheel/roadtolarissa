@@ -35,7 +35,7 @@ Following momentum works if the market generally does what it previously did; if
 
 If, on the other hand, you think stocks act more like a random walk, then buying high and selling low is the exact opposite of what you should do. If we're not entering a sustained decline, which happened twice in the 2000s, these strategies will probably do worse than just staying in the market like they did in the 1990s and 2010s. 
 
-Regardless of how you think of markets, be aware that this model ignores the tax penalty from short term capital gains. And it instead of investing in T-bonds while not in stocks, it sits on yield-less cash. 
+Regardless of how you think of markets, be aware that this model ignores the tax penalty from short term capital gains. And instead of investing in T-bonds while not in stocks, it sits on yield-less cash. 
 
 For me, committing to regularly monitoring the market, optimally managing all these transactions and filling out a longer Form 8949 sounds like entirely too much work so I'll be holding for now.
 
