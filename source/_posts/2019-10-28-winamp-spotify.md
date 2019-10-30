@@ -2,7 +2,7 @@
 template: post.html
 title: Winamp Spotify 
 date: 2019-10-28
-permalink: /winamp-spotify
+permalink: /winampify
 draft: true
 ---
 
@@ -21,9 +21,9 @@ html, a, .header{
 
 #lib{
   position: relative;
-  left: -100px;
   margin-top: -20px;
 }
+
 </style>
 
 <div id='lib'>
