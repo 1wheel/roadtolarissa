@@ -1,0 +1,109 @@
+body{
+  /*font-family: menlo, Consolas, 'Lucida Console', monospace; */
+  /*margin: 0px;*/
+}
+html{
+  /*background: #fff;*/
+  background: #fff;
+
+}
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  width: 300px;
+  z-index: 1000000;
+  line-height: 1.3em;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  /*pointer-events: none;*/
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+
+.year-col{
+  /*overflow-x: hidden !important;*/
+  vertical-align: top;
+  margin-right: 4px;
+  font-family: menlo, Consolas, 'Lucida Console', monospace; 
+  /*background: #ddd;*/
+  /*border-right: 1px solid #ddd;*/
+  /*border-left: 1px solid #ddd;*/
+}
+.year-col b{
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  background: #ddd;
+}
+
+.year-col .row{
+  overflow-y: hidden;
+  height: 1.2em;
+  font-size: 12px;
+  padding: 0px;
+  margin-bottom: 1px;
+  position: relative;
+  cursor: pointer;
+  line-height: 1.1em;
+  background: #f5f5f5 !important;
+  font-weight: 100;
+  /*border: .1px solid #ddd;*/
+}
+
+.row.active{
+  /*outline: 2px solid #000;*/
+  /*z-index: 100;*/
+  text-decoration: underline;
+  background: #000 !important;
+  color: #fff !important;
+}
+.row.active .text{
+  color: #fff !important;
+}
+.row.active .color{
+  background: #f0f !important;
+}
+
+.row .text{
+  overflow-y: hidden;
+  width: 100%;
+  padding: 1px
+}
+
+.row .color{
+  padding: 1px;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+
+
