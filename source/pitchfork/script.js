@@ -97,6 +97,12 @@ function drawYearGrid(){
   var byYearSel = sel.appendMany('div.year-col', byYear)
     .st({width: colWidth - 10, display: 'inline-block'})
 
+  sel
+    .append('div.year-col')
+    .st({position: 'absolute', left: -25, top: 25})
+    .appendMany('div.row.album.index', d3.range(1, 51))
+    .text(d => '' + d3.format('02')(d))
+
   byYearSel.append('b').text(d => d.key)
 
   var rowSel = byYearSel.appendMany('div.row.album', d => d)
@@ -111,6 +117,7 @@ function drawYearGrid(){
     .on('click', d => {
       // console.log(d[0].spotify)
       window.open('http://open.spotify.com/album/' + d[0].spotify, '_blank')
+      // window.open('spotify:show/' + d[0].spotify, '_blank')
     })
 
   var bgScale = d3.scaleLinear()

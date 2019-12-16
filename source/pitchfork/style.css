@@ -103,3 +103,12 @@ text{
 }
 
 
+#year-grid{
+  position: relative;
+}
+
+.year-col .index{
+  background: #fff !important;
+  color: #999;
+
+}
