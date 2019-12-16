@@ -3,11 +3,8 @@ d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 
 
-d3.loadData('albums.tsv', 'albums-2019.tsv', (err, res) => {
+d3.loadData('albums.tsv', (err, res) => {
   albums = res[0]
-
-
-  albums = albums.concat(res[1].filter(d => d.year == 2019))
 
   albums.forEach(d => {
     d.releaseYear = +d.date.split(',')[1]
@@ -147,10 +144,10 @@ function drawYearGrid(){
     })
     // .text(d => d.artist)
 
-  rowSel.filter(d => d.year == 2010)
-    .append('div.year-rank')
-    .text(d => d.decadeRank)
-    .st({left: -20, position: 'absolute', overflow: 'visible'})
+  // rowSel.filter(d => d.year == 2010)
+  //   .append('div.year-rank')
+  //   .text(d => d.decadeRank)
+  //   .st({left: -20, position: 'absolute', overflow: 'visible'})
 }
 
 
