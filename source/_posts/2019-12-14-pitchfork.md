@@ -4,7 +4,7 @@ title: Pitchfork's Best of the Year, Best of the Decade
 title: Pitchfork's Best of the Year Over the Decade
 date: 2019-12-218
 permalink: /pitchfork
-shareimg: xxxx
+shareimg: https://i.imgur.com/1TRa5SY.png
 draft: true
 ---
 

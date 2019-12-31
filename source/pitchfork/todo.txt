@@ -3,9 +3,9 @@ x highlight title with grey and blue
 
 tooltip
 
-- date, rank
+x date, rank
 x clear hover when leaving the chart
-- "no spotify warning"
+x "no spotify warning"
 
 decade rank
 

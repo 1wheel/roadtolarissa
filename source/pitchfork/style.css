@@ -15,7 +15,7 @@ html{
   background: rgba(255, 255, 255, .90);
   border: 1px solid lightgray;
   pointer-events: none;
-  width: 300px;
+  width: 200px;
   z-index: 1000000;
   line-height: 1.3em;
 }

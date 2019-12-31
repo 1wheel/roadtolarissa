@@ -1,5 +1,5 @@
 console.clear()
-d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
+var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 
 var listURLs = `https://pitchfork.com/features/lists-and-guides/7893-the-top-50-albums-of-2010/
@@ -75,11 +75,11 @@ d3.loadData('albums.tsv', (err, res) => {
   byYear = _.sortBy(byYear, d => d.key)
     .filter(d => d.key > 2009)
 
-  byYear.forEach(year => {
-    year.forEach((d, i) => {
-      d.yearIndex = i
-    })
-  })
+  // byYear.forEach(year => {
+  //   year.forEach((d, i) => {
+  //     d.yearIndex = i
+  //   })
+  // })
 
 
   byArtist = d3.nestBy(bySlug, d => d.artist)
@@ -124,16 +124,35 @@ function drawYearGrid(){
     .on('click', (d, i) => window.open(listURLs[i], '_blank'))
 
   var rowSel = byYearSel.appendMany('div.row.album', d => d)
+    .call(d3.attachTooltip)
     .on('mouseover', d => {
+      ttSel.html('')
+      ttSel.append('div').append('b').text(d.artist)
+      ttSel.append('i').text(d.album)
+      // ttSel.append('div').text('' + d.date)
+      ttSel.append('div').text(' ')
+      ttSel.append('br')
+
+      var yearRankText = d.yearRank == '999' ? 'Unranked in ' + d.year : '#' + d.yearRank + ' in ' + d.year
+      var decadeRankText = d.decadeRank == '999' ? 'Unranked in the 2010s' : '#' + d.decadeRank + ' in the 2010s'
+
+      ttSel.append('div').text(yearRankText)
+      ttSel.append('div').text(decadeRankText)
+
+      if (!d[0].spotify){
+        ttSel.append('br').parent().append('div').text('not streaming on spotify')
+        .st({fontFamily: 'monospace', fontSize: 13})
+      }
+
       rowSel
         .classed('active', 0)
         .filter(e => e.artist == d.artist)
         .classed('active', 1)
     })
     .on('mouseout', d => rowSel.classed('active', 0))
-    .call(d3.attachTooltip)
     .st({background: '#dde', marginBottom: d => d.yearRank == 50 ? 20 : 1 })
     .on('click', d => {
+      if (!d[0].spotify) return
       // console.log(d[0].spotify)
       window.open('http://open.spotify.com/album/' + d[0].spotify, '_blank')
       // window.open('spotify:show/' + d[0].spotify, '_blank')
