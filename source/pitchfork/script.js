@@ -75,7 +75,9 @@ d3.loadData('albums.tsv', (err, res) => {
 
 
   byArtist = d3.nestBy(bySlug, d => d.artist)
-
+  byArtist.forEach(d => {
+    d.minDecadeRank = d3.min(d, d => d.decadeRank)
+  })
 
   drawYearGrid() 
 })
