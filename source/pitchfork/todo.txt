@@ -5,6 +5,7 @@
 tooltip
 
 - date, rank
+x clear hover when leaving the chart
 
 
 
@@ -25,5 +26,13 @@ words at bottom of post
 annotations
 
 - sun kil moon is the only one in the top 10 of albums of 2010-2014 not to make the decade end list after heckling a pitchfork reviewer on stage
-- Beyoncé's and Burial's
+- Fame Monster and Red weren't 
+- Beyoncé's and Burial's December albums didn't make the end of the year list.
+
+
+- Pitchfork said they'd upd
+
+
+- Links to original list
+
 

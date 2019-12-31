@@ -107,11 +107,12 @@ function drawYearGrid(){
 
   var rowSel = byYearSel.appendMany('div.row.album', d => d)
     .on('mouseover', d => {
-      d3.selectAll('.album')
+      rowSel
         .classed('active', 0)
         .filter(e => e.artist == d.artist)
         .classed('active', 1)
     })
+    .on('mouseout', d => rowSel.classed('active', 0))
     .call(d3.attachTooltip)
     .st({background: '#dde', marginBottom: d => d.yearRank == 50 ? 20 : 1 })
     .on('click', d => {
