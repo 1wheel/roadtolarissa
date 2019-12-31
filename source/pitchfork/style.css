@@ -116,3 +116,10 @@ text{
 .album{
   overflow-x: hidden;
 }
+
+.year-rank-header{
+  height: 1.2em;
+  font-size: 12px;
+  line-height: .95em;
+  color: #999;
+}

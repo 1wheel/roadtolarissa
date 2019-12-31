@@ -11,8 +11,8 @@ x clear hover when leaving the chart
 
 decade rank
 
-- add label to column
-- add unranked label (maybe a line?)
+x add label to column
+x add unranked label (maybe a line?)
 
 
 words at bottom of post

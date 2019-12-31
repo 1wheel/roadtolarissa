@@ -108,15 +108,25 @@ function drawYearGrid(){
   var byYearSel = sel.appendMany('div.year-col', byYear)
     .st({width: colWidth - 10, display: 'inline-block'})
 
-  sel
-    .append('div.year-col')
+  sel.append('div.year-col')
     .st({position: 'absolute', left: -25, top: 25})
     .appendMany('div.row.album.index', d3.range(1, 51))
-    .text(d => '' + d3.format('02')(d))
+    .text(d => d3.format('02')(d))
+
+  sel.append('div.year-col')
+    .st({position: 'absolute', left: -32, top: 1})
+    .append('div.year-rank-header')
+    .html('year <br> rank')
+
+  sel.append('div.year-col')
+    .st({position: 'absolute', left: -25, top: 797})
+    .append('div.year-rank-header')
+    .html('unranked')
+
 
   byYearSel.append('b')
     .text(d => d.key)
-    .st({cursor: 'pointer', textDecoration: 'underline'})
+    .st({cursor: 'pointer', textDecoration: 'xunderline'})
     .on('click', (d, i) => window.open(listURLs[i], '_blank'))
 
   var rowSel = byYearSel.appendMany('div.row.album', d => d)
