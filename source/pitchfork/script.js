@@ -70,6 +70,7 @@ d3.loadData('albums.tsv', (err, res) => {
   })
 
   bySlug = _.sortBy(bySlug, d => d.yearRank*10000 + d.decadeRank)
+    .filter(d => d.year > 2009)
 
   byYear = d3.nestBy(bySlug, d => d.year)
   byYear = _.sortBy(byYear, d => d.key)
