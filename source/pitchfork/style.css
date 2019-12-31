@@ -15,7 +15,7 @@ html{
   background: rgba(255, 255, 255, .90);
   border: 1px solid lightgray;
   pointer-events: none;
-  width: 200px;
+  width: 220px;
   z-index: 1000000;
   line-height: 1.3em;
 }
@@ -86,13 +86,17 @@ text{
   color: #fff !important;
 }
 .row.active .color{
-  background: blue !important;
+  background: #3454f5 !important;
 }
 
 .row .text{
   /*overflow-y: hidden;*/
   /*width: 100%;*/
   padding: 1px
+}
+
+.row:hover .text{
+  text-decoration: underline;
 }
 
 
@@ -112,6 +116,7 @@ text{
 .year-col .index{
   background: #fff !important;
   color: #999;
+  pointer-events: none;
 
 }
 
@@ -149,6 +154,31 @@ h1 span{
   fill: none;
 }
 
+.pointer{
+  height: 0px;
+  position: relative;
+  top: -14px;
+  left: 14px;
+}
+.pointer div {
+  overflow: visible;
+  content: "";
+  background-image: url(https://pair-code.github.io/interpretability/bert-tree/pointer.svg);
+  width: 27px;
+  height: 27px;
+  position: absolute;
+  left: -51px;
+  top:20px;
+}
 
+.year-col b:hover{
+  text-decoration: underline;
+}
+
+.no-spotify .text{
+  text-decoration: none !important;
+  cursor: default;
+
+}
 
 

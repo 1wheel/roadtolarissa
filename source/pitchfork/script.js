@@ -138,6 +138,8 @@ function drawYearGrid(){
       ttSel.append('div').text(yearRankText)
       ttSel.append('div').text(decadeRankText)
 
+      ttSel.append('br').parent().append('div').text('Released '  + d.date)
+
       if (!d[0].spotify){
         ttSel.append('br').parent().append('div').text('not streaming on spotify')
         .st({fontFamily: 'monospace', fontSize: 13})
@@ -148,7 +150,7 @@ function drawYearGrid(){
         .filter(e => e.artist == d.artist)
         .classed('active', 1)
     })
-    .on('mouseout', d => rowSel.classed('active', 0))
+    // .on('mouseout', d => rowSel.classed('active', 0))
     .st({background: '#dde', marginBottom: d => d.yearRank == 50 ? 20 : 1 })
     .on('click', d => {
       if (!d[0].spotify) return
@@ -156,6 +158,7 @@ function drawYearGrid(){
       window.open('http://open.spotify.com/album/' + d[0].spotify, '_blank')
       // window.open('spotify:show/' + d[0].spotify, '_blank')
     })
+    .classed('no-spotify', d => !d[0].spotify)
 
   var bgScale = d3.scaleLinear()
     .domain([1, 200]).range([100, 10])
@@ -230,6 +233,10 @@ function drawYearGrid(){
     .text(d => d)
     .st({color: '#000', position: 'absolute', left: 2})
 
+
+  sel.append('div.year-col')
+    .st({position: 'absolute', right: 60, bottom: 40, fontSize: 12, pointerEvents: 'none'})
+    .html(`<div class='pointer'><div style='top: 13px;'></div></div>Click to open in Spotify`)
 
 }
 
