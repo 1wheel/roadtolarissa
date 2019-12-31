@@ -14,6 +14,12 @@ https://pitchfork.com/features/lists-and-guides/the-50-best-albums-of-2018/
 https://pitchfork.com/features/lists-and-guides/best-albums-2019/`
   .split('\n')
 
+var h1Html = d3.select('h1').text()
+  .replace('Year', `<span class='h1-year'>Year</span>`)
+  .replace('Decade', `<span class='h1-decade'>Decade</span>`)
+d3.select('h1')
+  .html(h1Html)
+
 d3.loadData('albums.tsv', (err, res) => {
   albums = res[0]
 
@@ -21,6 +27,8 @@ d3.loadData('albums.tsv', (err, res) => {
     d.releaseYear = +d.date.split(',')[1]
     d.rank = +d.rank
     d.year = d.year.replace('.htm', '')
+
+    if (d.artist.includes('Ariel Pink')) d.artist = 'Ariel Pink'
   })
 
   byDup = d3.nestBy(albums, d => d.year + d.rank).filter(d => d.length > 1)
@@ -83,29 +91,12 @@ d3.loadData('albums.tsv', (err, res) => {
 })
 
 
-
-
 function drawYearGrid(){
-
-
-  var colorScale = d3.scaleSequential(d3.interpolateTurbo)
-    .domain([250, 1])
-
-  var background = d => d.decadeRank == 999 ? '#eee' : colorScale(d.decadeRank)
-  var color = d => d.decadeRank == 999 ? '#999' : d.decadeRank > 40 ? '#000' : '#eee'
-
-
-  var colorScale = d3.scaleSequential(d3.interpolateMagma)
-    .domain([250, 1])
-
-  var background = d => d.decadeRank == 999 ? '#eee' : colorScale(d.decadeRank)
-  var color = d => d.decadeRank == 999 ? '#999' : d.decadeRank < 100 ? '#000' : '#777'
-
-  var colWidth = Math.floor((innerWidth - 40)/10)
+  var colWidth = Math.floor((Math.max(980, innerWidth) - 80)/10)
   var width = colWidth*10
 
   var sel = d3.select('#year-grid').html('')
-    .st({width, marginLeft: -(width - 750)/2 + 40/2})
+    .st({width, marginLeft: -(width - 750)/2 + 40})
 
   var byYearSel = sel.appendMany('div.year-col', byYear)
     .st({width: colWidth - 10, display: 'inline-block'})
@@ -162,7 +153,6 @@ function drawYearGrid(){
     .st({position: 'absolute'})
     .html('&nbsp;')
     .st({
-      background, 
       background: '#0ff', 
       width: d => bgScale(d.decadeRank) + '%',
       opacity: d => d.decadeRank == 999 ? 0 : 1,
@@ -172,7 +162,6 @@ function drawYearGrid(){
   rowSel.append('div.text')
     .text(d => d.artist)
     .st({
-      color,
       color: d => d.decadeRank == 999 ? '#888' : '#000',
       position: 'absolute'
     })

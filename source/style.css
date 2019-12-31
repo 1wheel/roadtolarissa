@@ -1,6 +1,7 @@
 html{
 	background-color: #f5f5f5;
 	font-weight: normal;
+  min-width: 980px;
 }
 
 body{
