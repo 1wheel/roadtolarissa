@@ -1,5 +1,5 @@
 x highlight title with grey and blue
-- blue key (BONUS: make it adjust scaling)
+x blue key (BONUS: make it adjust scaling)
 
 tooltip
 

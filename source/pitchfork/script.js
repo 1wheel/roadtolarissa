@@ -208,7 +208,7 @@ function drawYearGrid(){
 
 
   var keyRowSel = sel.append('div.year-col')
-    .st({position: 'absolute', left: -32, top: -130})
+    .st({position: 'absolute', left: -32, top: -134, pointerEvents: 'none', zIndex: -1000})
     .append('div.year-rank-header')
     .html('decade <br> rank')
     .parent()
@@ -222,7 +222,7 @@ function drawYearGrid(){
     .html('&nbsp;')
     .st({
       background: '#0ff', 
-      width: d => bgScale(d) + '%',
+      width: d => bgScale(d)*.9 + '%',
       color: '#000',
     })
 
