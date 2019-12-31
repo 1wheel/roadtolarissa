@@ -112,3 +112,7 @@ text{
   color: #999;
 
 }
+
+.album{
+  overflow-x: hidden;
+}
