@@ -150,7 +150,7 @@ function drawYearGrid(){
         .filter(e => e.artist == d.artist)
         .classed('active', 1)
     })
-    // .on('mouseout', d => rowSel.classed('active', 0))
+    .on('mouseout', d => rowSel.classed('active', 0))
     .st({background: '#dde', marginBottom: d => d.yearRank == 50 ? 20 : 1 })
     .on('click', d => {
       if (!d[0].spotify) return
