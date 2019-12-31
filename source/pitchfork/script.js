@@ -117,7 +117,6 @@ function drawYearGrid(){
     .append('div.year-rank-header')
     .html('unranked')
 
-
   byYearSel.append('b')
     .text(d => d.key)
     .st({cursor: 'pointer', textDecoration: 'xunderline'})
@@ -195,7 +194,7 @@ function drawYearGrid(){
 
 
 
-  // Add swoops
+  // add swoops
   d3.select('#arrow-container').html('').append('svg')
     .st({zIndex: 100000, position: 'relative', pointerEvents: 'none'})
     .appendMany('path.swoop', [
@@ -204,6 +203,33 @@ function drawYearGrid(){
     ])
     .attr('marker-end', 'url(#arrowhead)')
     .attr('d', (d, i) => swoopyArrow().angle(Math.PI/2).clockwise(1)(d))
+
+  // add key
+
+
+  var keyRowSel = sel.append('div.year-col')
+    .st({position: 'absolute', left: -32, top: -130})
+    .append('div.year-rank-header')
+    .html('decade <br> rank')
+    .parent()
+    // .appendMany('div.row.album.index', [1, 4, 16, 64, 200])
+    .appendMany('div.row.album.index', [1, 5, 10, 20, 50, 100])
+    // .appendMany('div.row.album.index', [1, 5, 20, 50, 100, 200])
+    .st({width: colWidth, position: 'relative', top: 10})
+
+  keyRowSel.append('div.color')
+    .st({position: 'absolute'})
+    .html('&nbsp;')
+    .st({
+      background: '#0ff', 
+      width: d => bgScale(d) + '%',
+      color: '#000',
+    })
+
+  keyRowSel.append('div.text')
+    .text(d => d)
+    .st({color: '#000', position: 'absolute', left: 2})
+
 
 }
 

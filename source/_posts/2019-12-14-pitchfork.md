@@ -10,9 +10,9 @@ draft: true
 
 Every December, Pitchfork ranks their top 50 albums of the year. This year they also picked the [top 200 albums of the 2010s](https://pitchfork.com/features/lists-and-guides/the-200-best-albums-of-the-2010s/). 
 
+<div style='height: 0px' id='key-container'></div>
+
 <div id='year-grid'></div>
-
-
 
 <div style='height: 0px' id='arrow-container'></div>
 
