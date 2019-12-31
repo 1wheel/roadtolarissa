@@ -1,13 +1,11 @@
 x highlight title with grey and blue
 - blue key (BONUS: make it adjust scaling)
 
-
 tooltip
 
 - date, rank
 x clear hover when leaving the chart
-
-
+- "no spotify warning"
 
 decade rank
 
@@ -18,9 +16,7 @@ x add unranked label (maybe a line?)
 words at bottom of post
 
 x link to code
-- thx collin
 x link to lists
-
 
 
 annotations

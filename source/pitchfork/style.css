@@ -105,6 +105,8 @@ text{
 
 #year-grid{
   position: relative;
+  min-height: 800px;
+  margin-top: 40px;
 }
 
 .year-col .index{
@@ -141,7 +143,11 @@ h1 span{
 }
 
 
-
+.swoop{
+  stroke: #888;
+  stroke-width: .8;
+  fill: none;
+}
 
 
 

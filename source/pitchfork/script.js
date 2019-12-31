@@ -92,11 +92,12 @@ d3.loadData('albums.tsv', (err, res) => {
 
 
 function drawYearGrid(){
-  var colWidth = Math.floor((Math.max(980, innerWidth) - 80)/10)
+  var colWidth = Math.floor((Math.max(980, innerWidth) - 90)/10)
   var width = colWidth*10
+  var colMarginLeft =  -(width - 750)/2 + 40
 
   var sel = d3.select('#year-grid').html('')
-    .st({width, marginLeft: -(width - 750)/2 + 40})
+    .st({width, marginLeft: colMarginLeft})
 
   var byYearSel = sel.appendMany('div.year-col', byYear)
     .st({width: colWidth - 10, display: 'inline-block'})
@@ -171,7 +172,29 @@ function drawYearGrid(){
   //   .append('div.year-rank')
   //   .text(d => d.decadeRank)
   //   .st({left: -20, position: 'absolute', overflow: 'visible'})
+
+
+
+
+  // Add swoops
+  d3.select('#arrow-container').html('').append('svg')
+    .st({zIndex: 100000, position: 'relative', pointerEvents: 'none'})
+    .appendMany('path.swoop', [
+      [[-5, 35], [colMarginLeft - 5 + colWidth/4, -150]],
+      [[145, 35], [colMarginLeft + colWidth*2 - 15, -176]],
+    ])
+    .attr('marker-end', 'url(#arrowhead)')
+    .attr('d', (d, i) => swoopyArrow().angle(Math.PI/2).clockwise(1)(d))
+
 }
+
+
+
+
+
+
+
+
 
 
 
