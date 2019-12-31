@@ -86,7 +86,7 @@ text{
   color: #fff !important;
 }
 .row.active .color{
-  background: #f0f !important;
+  background: blue !important;
 }
 
 .row .text{

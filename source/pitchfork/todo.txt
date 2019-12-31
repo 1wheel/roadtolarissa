@@ -19,7 +19,7 @@ words at bottom of post
 
 x link to code
 - thx collin
-- link to lists
+x link to lists
 
 
 
@@ -35,4 +35,14 @@ annotations
 
 - Links to original list
 
-
+https://pitchfork.com/features/lists-and-guides/7744-the-top-50-albums-of-2009/
+https://pitchfork.com/features/lists-and-guides/7893-the-top-50-albums-of-2010/
+https://pitchfork.com/features/lists-and-guides/8727-the-top-50-albums-of-2011/
+https://pitchfork.com/features/lists-and-guides/9017-the-top-50-albums-of-2012/
+https://pitchfork.com/features/lists-and-guides/9293-the-top-50-albums-of-2013/
+https://pitchfork.com/features/lists-and-guides/9558-the-50-best-albums-of-2014/
+https://pitchfork.com/features/lists-and-guides/9764-the-50-best-albums-of-2015/
+https://pitchfork.com/features/lists-and-guides/9980-the-50-best-albums-of-2016/
+https://pitchfork.com/features/lists-and-guides/the-50-best-albums-of-2017/
+https://pitchfork.com/features/lists-and-guides/the-50-best-albums-of-2018/
+https://pitchfork.com/features/lists-and-guides/best-albums-2019/

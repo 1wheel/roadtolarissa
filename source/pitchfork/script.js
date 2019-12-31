@@ -2,6 +2,17 @@ console.clear()
 d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 
+var listURLs = `https://pitchfork.com/features/lists-and-guides/7893-the-top-50-albums-of-2010/
+https://pitchfork.com/features/lists-and-guides/8727-the-top-50-albums-of-2011/
+https://pitchfork.com/features/lists-and-guides/9017-the-top-50-albums-of-2012/
+https://pitchfork.com/features/lists-and-guides/9293-the-top-50-albums-of-2013/
+https://pitchfork.com/features/lists-and-guides/9558-the-50-best-albums-of-2014/
+https://pitchfork.com/features/lists-and-guides/9764-the-50-best-albums-of-2015/
+https://pitchfork.com/features/lists-and-guides/9980-the-50-best-albums-of-2016/
+https://pitchfork.com/features/lists-and-guides/the-50-best-albums-of-2017/
+https://pitchfork.com/features/lists-and-guides/the-50-best-albums-of-2018/
+https://pitchfork.com/features/lists-and-guides/best-albums-2019/`
+  .split('\n')
 
 d3.loadData('albums.tsv', (err, res) => {
   albums = res[0]
@@ -103,7 +114,10 @@ function drawYearGrid(){
     .appendMany('div.row.album.index', d3.range(1, 51))
     .text(d => '' + d3.format('02')(d))
 
-  byYearSel.append('b').text(d => d.key)
+  byYearSel.append('b')
+    .text(d => d.key)
+    .st({cursor: 'pointer', textDecoration: 'underline'})
+    .on('click', (d, i) => window.open(listURLs[i], '_blank'))
 
   var rowSel = byYearSel.appendMany('div.row.album', d => d)
     .on('mouseover', d => {
