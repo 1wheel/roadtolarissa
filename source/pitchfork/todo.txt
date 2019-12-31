@@ -1,0 +1,29 @@
+- highlight title with grey and blue
+- blue key (BONUS: make it adjust scaling)
+
+
+tooltip
+
+- date, rank
+
+
+
+decade rank
+
+- add label to column
+- add unranked label (maybe a line?)
+
+
+words at bottom of post
+
+- link to code
+- thx collin
+- link to lists
+
+
+
+annotations
+
+- sun kil moon is the only one in the top 10 of albums of 2010-2014 not to make the decade end list after heckling a pitchfork reviewer on stage
+- Beyoncé's and Burial's
+

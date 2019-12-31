@@ -8,7 +8,7 @@
     "marked": "^0.3.6"
   },
   "scripts": {
-    "start": "npx lit-node source/_posts/2018-05-24-literate-blogging.md --watch & cd public/ && hot-server",
-    "pub": "npx lit-node source/_posts/2018-05-24-literate-blogging.md && rsync -a --omit-dir-times --no-perms public/ demo@roadtolarissa.com:../../usr/share/nginx/html/"
+    "start": "mkdir -p public && npx lit-node source/_posts/2018-05-24-literate-blogging.md --watch & cd public/ && hot-server",
+    "pub": "mkdir -p public && npx lit-node source/_posts/2018-05-24-literate-blogging.md && rsync -a --omit-dir-times --no-perms public/ demo@roadtolarissa.com:../../usr/share/nginx/html/"
   }
 }
