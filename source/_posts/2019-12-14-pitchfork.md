@@ -14,7 +14,7 @@ Click to play on spotify.
 
 Data from Pitchfork and Album of Year.
 
-Code on github // scatter plot and slop chart sketches.
+[chart code](https://github.com/1wheel/roadtolarissa/blob/master/source/pitchfork/script.js) // [scatter plot and slope chart sketches](https://blocks.roadtolarissa.com/1wheel/raw/5ec32afde3419ef4f741bccd7405f53b/index.html)
 
 
 <link rel="stylesheet" type="text/css" href="style.css">
