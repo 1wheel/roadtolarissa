@@ -299,6 +299,7 @@ What does reddit repeat?
 
 ### 2018 chart diary
 
+
 ### New homepage zoooom
 -  https://beta.observablehq.com/@mbostock/golden-mona-lisa
 
@@ -306,12 +307,14 @@ What does reddit repeat?
 ### DISSOLVING THE FERMI PARADOX
 - http://slatestarcodex.com/2018/07/03/ssc-journal-club-dissolving-the-fermi-paradox/
 
+
 ### 3d animation thinger
 - https://imgur.com/a/5nu25
 - https://www.youtube.com/watch?v=FGhr3kvaWcs
 - https://www.reddit.com/r/place/comments/64d8vy/3d_visualization_timelapse_of_place/ 
 - "Microdisplacement in Cycles", "Displacement texture", "Animated textures in Cycles"
 - https://www.reddit.com/r/dataisbeautiful/comments/8v0m98/oc_3d_animation_of_chinas_nitrogen_dioxide/
+
 
 ### Winning by at least 17 after Q1 -> final margin of victory 
 - https://twitter.com/jon_bois/status/1000580952047931393
@@ -341,5 +344,23 @@ What does reddit repeat?
 - https://www.reddit.com/r/nba/comments/ch7kr5/oc_we_may_never_see_roster_continuity_like_we_saw/
 - want a box for each player, gets 1px higher each year
 
+
 ### spotify webplayer winamp skin
 - don't like looking at ads to listen to music!
+
+
+### weather charts
+- https://weatherspark.com/
+- a map with showing them in a tooltip?
+- two of them showing 5% hottest and 95% hottest. and you can adjust the width of the spread
+- show the actual hourly values for a given year
+
+
+### aita 
+- identify score with gpt2?
+- see ratings that change over time (auto find edits)
+- just show the distributions of all the scores for all posts in a year
+
+
+### wild fire indexing
+- https://twitter.com/damiandn/status/1216002437137469441
