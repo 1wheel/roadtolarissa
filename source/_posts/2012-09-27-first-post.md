@@ -219,7 +219,6 @@ https://news.ycombinator.com/item?id=9177469
 - once saw a nice portfolio site with sum(1/2^n) = 1. they had worked on http://www.themill.com/portfolio/3861/winter-is-here%3A-facebook-ar-effects, but I can't find their site.
 -  https://beta.observablehq.com/@mbostock/golden-mona-lisa
 
-
 ### Structure of fiction
 - http://twinegarden.tumblr.com/
 - line graphs showing words that typically occur at the start and end of stories
@@ -297,10 +296,10 @@ What does reddit repeat?
 - compare to other sports with win percent?
 - https://cleaningtheglass.com/two-for-one-or-two-for-none/
 
-### 2018 chart diary
+### [2018 chart diary](https://roadtolarissa.com/2018-chart-diary/)
 
 
-### New homepage zoooom
+### [New homepage zoooom](https://roadtolarissa.com)
 -  https://beta.observablehq.com/@mbostock/golden-mona-lisa
 
 
@@ -340,12 +339,12 @@ What does reddit repeat?
 - tuca and bertie 
 
 
-### continutity 
+### continuity 
 - https://www.reddit.com/r/nba/comments/ch7kr5/oc_we_may_never_see_roster_continuity_like_we_saw/
 - want a box for each player, gets 1px higher each year
 
 
-### spotify webplayer winamp skin
+### [spotify webplayer winamp skin](https://roadtolarissa.com/winampify/)
 - don't like looking at ads to listen to music!
 
 
@@ -364,3 +363,12 @@ What does reddit repeat?
 
 ### wild fire indexing
 - https://twitter.com/damiandn/status/1216002437137469441
+
+
+### year end slug consistency 
+- https://lisawaananenjones.com/noted/2020/01/03/end-of-year-graphics-lists/
+- 2015-year-in-graphics
+
+
+### Bulls are 1-16 v teams with a winning record and in 9th seed
+- Jan 2020
