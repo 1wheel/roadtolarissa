@@ -5,7 +5,7 @@ body{
 html{
   /*background: #fff;*/
   background: #fff;
-
+  min-width: 980px;
 }
 
 .tooltip {
