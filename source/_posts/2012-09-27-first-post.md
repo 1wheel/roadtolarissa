@@ -372,3 +372,6 @@ What does reddit repeat?
 
 ### Bulls are 1-16 v teams with a winning record and in 9th seed
 - Jan 2020
+
+
+### LeBron beat Kemba 28 times in a row
