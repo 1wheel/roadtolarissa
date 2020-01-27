@@ -375,3 +375,26 @@ What does reddit repeat?
 
 
 ### LeBron beat Kemba 28 times in a row
+
+
+
+### visual snakes and ladders
+
+- https://www.research.ibm.com/haifa/ponderthis/challenges/February2020.html
+
+
+
+### Best winning streak of a time period 
+- color by win rate or min wins a season
+- spurs made playoffs / 50 wins forever
+
+
+
+### hyper cube portfolio page
+- https://www.youtube.com/watch?v=q5Qh2XpoCsY
+- 
+
+
+
+
+
