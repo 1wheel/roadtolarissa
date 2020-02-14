@@ -375,3 +375,38 @@ What does reddit repeat?
 
 
 ### LeBron beat Kemba 28 times in a row
+
+### Lebron hit 5 threes in a few minutes
+- fastest streak of shots?
+- longest streak of no misses?
+- longest streak of no one else shooting?
+
+### visual snakes and ladders
+
+- https://www.research.ibm.com/haifa/ponderthis/challenges/February2020.html
+
+
+
+### Best winning streak of a time period 
+- color by win rate or min wins a season
+- spurs made playoffs / 50 wins forever
+
+
+
+### hyper cube portfolio page
+- https://www.youtube.com/watch?v=q5Qh2XpoCsY
+- 
+
+
+### zoomable dorling cartogram
+- https://www.nytimes.com/interactive/2020/02/03/us/elections/results-iowa-caucus-precinct-map.html
+- construct topology and check angle
+
+
+### are cow's actually better repped in the senate?
+- https://www.washingtonpost.com/opinions/2020/01/16/are-cows-better-represented-senate-than-people/?arc404=true
+- compare gini coeffient
+- find closest plant or animal
+
+
+
