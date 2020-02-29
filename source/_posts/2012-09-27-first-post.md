@@ -361,7 +361,7 @@ What does reddit repeat?
 - just show the distributions of all the scores for all posts in a year
 
 
-### wild fire indexing
+### [wild fire indexing](https://blocks.roadtolarissa.com/1wheel/46874895034f5bded13c97097bf25a83)
 - https://twitter.com/damiandn/status/1216002437137469441
 
 
@@ -392,10 +392,14 @@ What does reddit repeat?
 - spurs made playoffs / 50 wins forever
 
 
-
 ### hyper cube portfolio page
 - https://www.youtube.com/watch?v=q5Qh2XpoCsY
 - 
+
+
+### usable spiral portfolio
+- add sidebar of things (maybe horizontal on mobile?)
+- hover highlights square
 
 
 ### zoomable dorling cartogram
@@ -407,6 +411,32 @@ What does reddit repeat?
 - https://www.washingtonpost.com/opinions/2020/01/16/are-cows-better-represented-senate-than-people/?arc404=true
 - compare gini coeffient
 - find closest plant or animal
+
+
+### Airbnb lawsuits over time
+- https://www.bloomberg.com/graphics/2020-airbnb-ipo-challenges/
+- the number of lawsuits looks like it dropped in 2020, but that's because it doesn't show ones that haven't been filed
+- make animation showing what this looks like over time
+- make alternative 
+
+
+### d3 learning
+- update to v6
+- link to others?
+- separate from projects
+
+
+### chicago neighborhoods
+- https://pair-code.github.io/interpretability/uncertainty-over-space/neighborhood/
+- svg2tiles lib to converty
+
+
+
+
+
+
+
+
 
 
 
