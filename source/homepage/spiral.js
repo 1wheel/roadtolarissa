@@ -177,6 +177,7 @@ function updateImg(offset){
   imgSel
     .st({backgroundImage: (d, i) => imgs[i + offset]})
     .on('click', (d, i) => {
+      console.log(imgs[i + offset])
       if (!links[i + offset]) return
       window.open(links[i + offset], '_blank');
     })

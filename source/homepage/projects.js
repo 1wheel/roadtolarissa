@@ -429,7 +429,10 @@ var nytProjects = [
 ]
 var otherProjects = [
 
+  {slug: 'nyc-neighborhoods', date: '2020-02', url: 'https://pair-code.github.io/interpretability/uncertainty-over-space/neighborhood/', img: 'https://i.imgur.com/L8lnEEb.jpg', },
+  {slug: 'uncertainty-over-space',    date: '2020-02',   url: 'https://pair-code.github.io/interpretability/uncertainty-over-space/', img: 'https://i.imgur.com/PiCK42n.png', },
   {slug: 'pitchfork',    date: '2019-12',   url: 'https://roadtolarissa.com/pitchfork', img: 'https://i.imgur.com/1TRa5SY.png', },
+  {slug: 'understanding-umap',    date: '2019-10',   url: 'https://pair-code.github.io/understanding-umap/', img: 'https://pair-code.github.io/understanding-umap/share.png' },
   {slug: 'scan-sorted',    date: '2019-07',   url: 'https://roadtolarissa.com/scan-sorted', img: 'https://i.imgur.com/fhkwZxY.png', },
   {slug: 'bert-tree',    date: '2019-06',   url: 'https://pair-code.github.io/interpretability/bert-tree/', img: 'https://i.imgur.com/PoiNmfF.png', },
   {slug: 'dvs-privacy',    date: '2019-03',   url: 'https://roadtolarissa.com/dvs-privacy', img: 'https://i.imgur.com/9XHjYgq.png', },
