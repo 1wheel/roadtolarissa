@@ -359,6 +359,7 @@ What does reddit repeat?
 - identify score with gpt2?
 - see ratings that change over time (auto find edits)
 - just show the distributions of all the scores for all posts in a year
+- https://public.tableau.com/profile/farhan7#!/vizhome/AmITheAssholeApeakintoallDilemmas__/TopicClusters
 
 
 ### [wild fire indexing](https://blocks.roadtolarissa.com/1wheel/46874895034f5bded13c97097bf25a83)
@@ -445,6 +446,15 @@ What does reddit repeat?
 - store state is query str
 - node interop
 - https://github.com/asg017/unofficial-observablehq-compiler
+
+
+### umap of amazon review for a product
+- color by date
+- "When we become aware of negative changes, we investigate and often retest to determine whether we need to update our recommendation. For example, staff writer Sarah Witman looks for patterns: If one review mentions an issue with an item’s handle, for example, she’ll search for other reviews with the keyword “handle” to see if the issue is isolated or if it seems to be part of a trend—a good strategy for reviewers and readers alike"
+- https://thewirecutter.com/blog/why-some-picks-have-bad-reviews/
+- filter by score / length / fakespot
+
+
 
 
 
