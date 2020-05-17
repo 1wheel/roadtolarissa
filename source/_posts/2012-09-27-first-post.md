@@ -455,7 +455,9 @@ What does reddit repeat?
 - filter by score / length / fakespot
 
 
-
+### codenames embeddings
+- looking at CLS token delta might be better than comparing raw word embedding
+- maybe look at early layer?
 
 
 
