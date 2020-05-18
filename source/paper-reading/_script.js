@@ -1,4 +1,4 @@
-d3.csv('https://docs.google.com/spreadsheets/d/1Eq6G-zkMIhrSMPwqvCqM7I0FpqRsw2iwWO01X_t_XVE/pub?output=csv', (err, res) => {
+d3.csv('https://www.googleapis.com/drive/v3/files/1Eq6G-zkMIhrSMPwqvCqM7I0FpqRsw2iwWO01X_t_XVE/export?mimeType=text/csv&key=AIzaSyAT-ALGW_bcmcvNs1dPgcV7fF6tR1vKY44', (err, res) => {
   if (err) return console.log(err)
   data = res
 
@@ -19,3 +19,7 @@ d3.csv('https://docs.google.com/spreadsheets/d/1Eq6G-zkMIhrSMPwqvCqM7I0FpqRsw2iw
 
 
 
+// d3.csv('https://www.googleapis.com/drive/v3/files/1Eq6G-zkMIhrSMPwqvCqM7I0FpqRsw2iwWO01X_t_XVE/export?mimeType=text/csv&key=AIzaSyAT-ALGW_bcmcvNs1dPgcV7fF6tR1vKY44', (err, res) => {
+//   console.log(err)
+//   console.log(res)
+// })
