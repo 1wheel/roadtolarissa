@@ -44,7 +44,7 @@ a{
 	float: right;
 }
 .header span{
-	opacity: .5;
+	opacity: .6;
 }
 @media (max-width: 760px){
   .header-right span{
@@ -52,11 +52,12 @@ a{
   }
 }
 .header a{
-	opacity: .5;
+	opacity: .6;
 	text-decoration: none;
 }
 .header a:hover{
-	opacity: 1
+	opacity: 1;
+  /*text-decoration: underline;*/
 }
 .header img{
 	width: 16px;
@@ -122,7 +123,7 @@ pre > code {
 
 .hljs-comment,
 .diff .hljs-header {
-  color: #998;
+  color: #666;
   font-style: italic;
 }
 
@@ -200,7 +201,7 @@ pre > code {
 }
 
 .hljs-built_in {
-  color: #0086b3;
+  color: #02559a;
 }
 
 .hljs-preprocessor,
@@ -222,7 +223,7 @@ pre > code {
 }
 
 .diff .hljs-change {
-  background: #0086b3;
+  background: #02559a;
 }
 
 .hljs-chunk {
