@@ -53,7 +53,7 @@ svg{
 }
 
 pre{
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .purple,.yellow{
