@@ -1,36 +1,42 @@
 var topProjects = `
-subway-crisis-mta-decisions-signals-rules
-hurricane-harvey-texas
+subway-crisis
 spoofing
 vegas-guns
 who-marries-whom
-race-class-white-and-black-men
-houston-flood-rescue-cries-for-help
+race-class-white-and-black
+houston-cries-for-help
 what-is-code
-new-yorks-subways-are-not-just-delayed-some-trains-dont-run-at-all
+some-trains-dont-run-at-all
 2017-chart-diary
 tax-calculator
 twisters
 you-draw-obama-legacy
-more-frequent-extreme-summer-heat
 new-geography-of-prisons
 nba-win-loss
 hot-reload
 dumb-lawyer
 uk-splatter
-lebron-career-playoff-points-record
-hurricane-irma-records
 nba-minutes
-nine-percent-of-america-selected-trump-and-clinton
-europe-right-wing-austria-hungary
+nine-percent-of-america
+europe-right-wing
+2018-chart-diary
+hurricane-how-to
+uncertainty-over-space
+
+
+
+
+more-extreme-summer-heat
+
+
+hurricane-harvey-rain
+
+
+lebron-points-record
+
+hurricane-irma-records
+
 voroni-spiral
-
-
-
-
-
-
-
 
 golden-state-warriors-post-season
 affirmative-action
@@ -79,6 +85,7 @@ projects = _.orderBy(projects, d => d.date, 'desc')
 projects = _.sortBy(projects, d => {
   var i = topProjects.indexOf(d.slug)
   d.forceIndex = i
+  d.isTop = i > -1 && i < 30 
 
   return i == -1 ? 10000000 : (i < 30 ? i : 10000000)
 })
@@ -107,7 +114,7 @@ var links = projects.map(d => d.url)
 var UA = navigator.userAgent
 var isFF = UA.includes('Firefox') && !UA.includes('Chrome/')
 var isSF = UA.includes('Safari') && !UA.includes('Chrome/')
-// isSF = true
+isSF = true
 
 var sel = d3.select('#spiral').html('')
   .st({
@@ -225,7 +232,8 @@ if (isFF){
   boringProjects = _.orderBy(boringProjects, d => d.date, 'desc')
 
   // d3.nestBy(boringProjects.slice().reverse(), d => d.year).forEach(years => {
-  d3.nestBy(boringProjects, d => d.year).forEach(years => {
+  var byYear = d3.nestBy(boringProjects, d => d.year)
+  byYear.forEach(years => {
     years[0].isYear = true
     d3.nestBy(years, d => d.month).forEach(months => {
       months[0].isMonth = true
@@ -234,22 +242,32 @@ if (isFF){
 
   var sel = d3.select('#boring').html('')
 
-  var linkSel = sel.appendMany('a.row', boringProjects)
+  var yearSel = sel.appendMany('div.year', byYear)
+    .st({width: '100%'})
+
+  yearSel.append('div.year-label')
+    .text(d => d.key)
+
+  var linkSel = yearSel.appendMany('a.row', d => d)
     .attr('href', d => d.url)
     .attr('target', '_blank')
+    .classed('is-top', d => d.isTop)
 
-  linkSel.append('span.year')
-    .text(d => d.year)
-    .st({opacity: d => d.isYear ? 1 : 0})
-  linkSel.append('span.month')
-    .text(d => '-' + d.month)
-    .st({opacity: d => d.isMonth ? 0 : 0})
+  // linkSel.append('span.year')
+  //   .text(d => d.year)
+  //   .st({opacity: d => d.isYear ? 1 : 0})
+  // linkSel.append('span.month')
+  //   .text(d => '-' + d.month)
+  //   .st({opacity: d => d.isMonth ? 0 : 0})
+
+  linkSel.append('div.thumbnail')
+    .st({
+      backgroundImage: d => `url(${d.img})`,
+    })
 
   linkSel.append('a.slug')
-    .text(d => d.slug.toLowerCase())
+    .text(d => d.slug.toLowerCase().replace(/-/g, ' ').trim())
     .at({href: d => d.url})
-
-
 })()
 
 var buttonSel = d3.select('html')

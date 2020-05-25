@@ -65,7 +65,10 @@ html.is-boring{ height: auto; }
 
 }
 .is-boring #spiral{ display: none; }
-.is-boring #boring{ display: block; }
+.is-boring #boring{
+  display: block; 
+  overflow: visible;
+}
 #boring{ display: none; }
 
 #boring{
@@ -77,7 +80,7 @@ html.is-boring{ height: auto; }
 }
 
 #boring div{
-  white-space: nowrap;
+  /*white-space: nowrap;*/
 }
 
 .slug{
@@ -92,6 +95,10 @@ html.is-boring{ height: auto; }
   text-decoration: none;
   white-space: nowrap;
   font-family: monospace; 
+  /*font-family: Consolas, 'Lucida Console', monospace; */
+  display: inline-block;
+  width: 370px;
+
   font-size: 14px;
 }
 .row:hover .slug{
@@ -101,18 +108,43 @@ html.is-boring{ height: auto; }
   opacity: 1 !important;
 }
 
+.row:hover .thumbnail{
+  border-bottom-width: 2px;
+  margin-bottom: -1px;
+}
+
+.row a{
+  color: #333;
+}
+.row.is-top a{
+  color: #f0f;
+  font-weight: 600;
+}
+
+.row.is-top .thumbnail{
+  /*border: 1px solid purple;*/
+}
+
+
+.thumbnail{
+  background-size: cover;
+  background-position: center center;
+  width: 100px;
+  height: 50px;
+  display: inline-block;
+  border: 1px solid #333;
+  position: relative;
+  top: 18px;
+  /*margin-left: 20px;*/
+}
+
 .month, .year{
   color: #999;
-  font-family: monaco, Consolas, 'Lucida Console', monospace; 
-  font-family: monospace; 
-  /*font-family: 'Roboto Slab', serif;*/
-
   font-size: 12px;
 }
 
 .header{
   font-family:  -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
-
 }
 
 
@@ -128,4 +160,39 @@ html.is-boring{ height: auto; }
   padding: 10px;
   width: 40px;
   text-align: center;
+  display: none;
 }
+
+html{
+  background: #f1f1f1;;
+}
+
+.year-label{
+  position: relative;
+  color: #333;
+  font-family: monospace;
+  left: -80px;
+  margin-bottom: 20px;
+  height: 0px;
+  top: 50px;
+  font-size: 12px;
+}
+
+.year{
+  margin-bottom: 40px;
+}
+
+@media (max-width: 930px){
+
+  .row{
+    width: 100%;
+  }
+
+  .year-label{
+    top: 0px;
+    left: 0px;
+    font-size: 14px;
+  }
+
+}
+
