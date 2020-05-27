@@ -27,6 +27,10 @@ html{
   display: inline-block;
   width: 370px;
   font-size: 14px;
+
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
 }
 .row:hover .slug{
   text-decoration: underline;
@@ -40,10 +44,10 @@ html{
   margin-bottom: -1px;
 }
 
-.row a{
+.row .slug{
   color: #333;
 }
-.row.is-top a{
+.row.is-top .slug{
   color: #f0f;
   font-weight: 600;
 }
@@ -102,9 +106,13 @@ html{
   }
 
   .year-label{
-    top: 0px;
+    top: -20px;
     left: 0px;
     font-size: 14px;
+  }
+
+  .year:first-child .year-label{
+    display: none;
   }
 
 }
