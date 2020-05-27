@@ -439,7 +439,7 @@ var otherProjects = [
   
   {slug: 'measuring-fairness', date: '2020-05', url: 'https://pair.withgoogle.com/explorables/measuring-fairness/', img: 'https://pair.withgoogle.com/explorables/images/measuring-fairness.png'},
   {slug: 'hidden-bias', date: '2020-05', url: 'https://pair.withgoogle.com/explorables/hidden-bias/', img: 'https://pair.withgoogle.com/explorables/images/hidden-bias.png'},
-  {slug: 'covid19-mobility', date: '2020-04', url: 'url', img: 'https://i.imgur.com/jEQwOku.png'},
+  {slug: 'covid19-mobility', date: '2020-04', url: 'https://www.google.com/covid19/mobility/', img: 'https://i.imgur.com/jEQwOku.png'},
   {slug: 'australian-fires', date: '2020-02', url: 'https://blocks.roadtolarissa.com/1wheel/46874895034f5bded13c97097bf25a83', img: 'https://i.imgur.com/MkkigKh.png'},
 
   {slug: 'nyc-neighborhoods', date: '2020-02', url: 'https://pair-code.github.io/interpretability/uncertainty-over-space/neighborhood/', img: 'https://i.imgur.com/L8lnEEb.jpg', },
