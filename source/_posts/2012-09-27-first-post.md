@@ -460,6 +460,8 @@ What does reddit repeat?
 - maybe look at early layer?
 
 
+### every bitcoin explanation
+- replies to jk rowling tweak, maybe BERT + UMAP
 
 
 
