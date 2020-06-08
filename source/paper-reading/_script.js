@@ -1,6 +1,6 @@
 d3.csv('https://www.googleapis.com/drive/v3/files/1Eq6G-zkMIhrSMPwqvCqM7I0FpqRsw2iwWO01X_t_XVE/export?mimeType=text/csv&key=AIzaSyAT-ALGW_bcmcvNs1dPgcV7fF6tR1vKY44', (err, res) => {
   if (err) return console.log(err)
-  data = res
+  data = res.reverse()
 
   console.log(data)
 
