@@ -464,7 +464,9 @@ What does reddit repeat?
 - replies to jk rowling tweak, maybe BERT + UMAP
 
 
-
+### commute v. cost
+- http://www.verysmallarray.com/best-new-york-city-neighborhoods-again/
+- mouseover map to update scatter plot 
 
 
 
