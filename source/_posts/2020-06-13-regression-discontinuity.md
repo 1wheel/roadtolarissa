@@ -5,7 +5,6 @@ title: You Regress It: Have Masks Prevented 66,000 Infections in New York City?
 date: 2019-12-218
 permalink: /regression-discontinuity
 shareimg: https://i.imgur.com/FL2zUAs.png
-draft: true
 ---
 
 <link rel='stylesheet' type='text/css' href='style.css'>
