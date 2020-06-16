@@ -29,6 +29,7 @@ A [growing body](https://www.preprints.org/manuscript/202004.0203/v2/download) o
 <script src='../shared/chromatic.js'></script>
 <script src='../worlds-group-2017/swoopy-drag.js'></script>
 <script src='../shared/simple-stats.js'></script>
+
 <script src='days.js'></script>
 <script src='script.js'></script>
 

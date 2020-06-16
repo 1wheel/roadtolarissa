@@ -96,7 +96,7 @@ p{
   font-size: 25px;
 }
 .mobile .axis text, .mobile .annotations text{
-  font-size: 16px;
+  font-size: 14px;
 }
 
 
@@ -104,6 +104,22 @@ p{
   opacity: 0;
 }
 
+@media (min-width: 760px){
+  .mobile text{
+    font-size: 20px;
+  }
+
+}
+
+#graph{
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 
 

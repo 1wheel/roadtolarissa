@@ -74,6 +74,7 @@ function initCases(){
     d.cases = c.y.domain()[1]
   })
 
+
   var drag = d3.drag()
     .on('start', d => {
       bars.forEach(e => e.isDragging = e == d)
@@ -83,6 +84,7 @@ function initCases(){
     .on('drag', d => {
       d.x = d3.clamp(0, d3.event.x, c.x.range()[1])
       d.i = d3.clamp(0, Math.round(c.x.invert(d.x)), maxDate)
+      // console.log(d.x)
       render()
     })
     .on('end', d => {
@@ -102,19 +104,17 @@ function initCases(){
     })
     .call(drag)
 
-  c.svg.appendMany('path', lines)
-    .at({
-      stroke: d => d.color,
-      strokeDasharray: '2 2',
-      strokeWidth: 2, 
-    })
+  var lineSel = c.svg.appendMany('g', lines).st({pointerEvents: 'none'})
+
+  lineSel.append('path')
+    .at({stroke: d => d.color,strokeDasharray: '2 2',strokeWidth: 2})
     .each(function(d){ d.pathSel = d3.select(this) })
 
-  c.svg.appendMany('path', lines)
+  lineSel.append('path')
     .at({id: d => d.color})
     .each(function(d){ d.pathSel2 = d3.select(this) })
 
-  c.svg.appendMany('text', lines)
+  lineSel.append('text')
     .at({dy: '-.33em'})
     .append('textPath')
     .at({fill: d => d.color, href: d => '#' + d.color, dy: '1em', textAnchor: 'middle'})
@@ -125,20 +125,17 @@ function initCases(){
     .at({stroke: '#000', d: ['M .5 ', c.height, 'v', 250].join(' ')})
     .st({pointerEvents: 'none'})
 
-  // c.svg.append('text').text('😷')
-  //   .translate([c.x(47), c.height])
-  //   .at({dy: '.33em', fontSize: 10, textAnchor: 'middle'})
-
   window.annos = [
-  {
-    "path": "M -35,37 A 33.857 33.857 0 0 0 -1,3",
-    "text": "Mandatory 😷",
-    "textOffset": [
-      -125,
-      41
-    ]
-  }
-]
+    {
+      "path": "M -35,37 A 33.857 33.857 0 0 0 -1,3",
+      "text": "Mandatory 😷",
+      "textOffset": [
+        -125,
+        41
+      ]
+    }
+  ]
+
   var swoopy = d3.swoopyDrag()
       .draggable(1)
       .draggable(0)
@@ -320,9 +317,9 @@ function resize(){
     .st({
       transform: `scale(${r})`, 
       transformOrigin: 0 + 'px ' + 0 + 'px', 
-      height: isMobile ? r*500 : '',
-      marginLeft: isMobile ? 0 : '',
-      marginBottom: isMobile ? 20 : ''
+      height: isMobile ? r*500 : 'auto',
+      marginLeft: isMobile ? 0 : 'auto',
+      marginBottom: isMobile ? 20 : 'auto'
     })
     .classed('mobile', isMobile)
 }
