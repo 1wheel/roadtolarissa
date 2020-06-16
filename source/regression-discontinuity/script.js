@@ -71,9 +71,9 @@ function initCases(){
 
   bars.forEach(d => {
     d.x = c.x(d.i)
+    d.initI = d.i
     d.cases = c.y.domain()[1]
   })
-
 
   var drag = d3.drag()
     .on('start', d => {
@@ -97,7 +97,7 @@ function initCases(){
   var barSel = c.svg.appendMany('path', bars)
     .at({
       d: barPathFn,
-      strokeWidth: barWidth + 10,
+      strokeWidth: barWidth + 11,
       opacity: .5,
       stroke: 'steelblue',
       cursor: 'pointer',
@@ -153,8 +153,7 @@ function initCases(){
   //           .tspans(d3.wordwrap(d.text)) //wrap after 20 char
   //     })  
 
-
-  return () => {
+  var rv = () => {
     bars.forEach(d => {
       if (d.isDragging) d.i = d3.clamp(0, Math.round(c.x.invert(d.x)), maxDate)
     })
@@ -202,6 +201,39 @@ function initCases(){
         .text(d3.format('+')(Math.round(reg.m)) + ' New Cases/Day')
     })
   }
+
+  rv.shiftBars = offset => {
+    var initIs = _.sortBy(bars.map(d => d.initI))
+    _.sortBy(bars, d => d.i).forEach((d, i) => {
+      d.prevX = d.x
+      d.nextX = c.x(initIs[i] + offset)
+      d.isDragging = true
+    })
+
+    window.__timer.stop()
+    if (window.__shiftTimer) window.__shiftTimer.stop()
+    window.__shiftTimer = d3.timer(t => {
+      var s = d3.easeCubicInOut(Math.min(t/800, 1))
+
+      bars.forEach((d, i) => {
+        d.x = lerp(d.prevX, d.nextX, s)
+      })
+
+      render()
+
+      if (s == 1){
+        window.__shiftTimer.stop()
+        bars.forEach(d => d.isDragging = false)
+      }
+
+    })
+
+    function lerp(a, b, t) {
+      return (1 - t)*a + t*b;
+    }
+  }
+
+  return rv
 }
 
 
@@ -297,8 +329,6 @@ function render(){
 }
 render()
 
-
-
 if (window.__timer) window.__timer.stop()
 window.__timer = d3.timer(t => {
   var s = (Math.sin(Math.PI*2*t/10000))/2 + .5
@@ -309,6 +339,7 @@ window.__timer = d3.timer(t => {
   render()
 })
 
+
 function resize(){
   var width = innerWidth > 960 ? 960 : d3.select('p').node().offsetWidth
   var r = width/960
@@ -317,9 +348,9 @@ function resize(){
     .st({
       transform: `scale(${r})`, 
       transformOrigin: 0 + 'px ' + 0 + 'px', 
-      height: isMobile ? r*500 : 'auto',
-      marginLeft: isMobile ? 0 : 'auto',
-      marginBottom: isMobile ? 20 : 'auto'
+      height: isMobile ? r*500 : '',
+      marginLeft: isMobile ? 0 : '',
+      marginBottom: isMobile ? 20 : ''
     })
     .classed('mobile', isMobile)
 }
@@ -328,6 +359,9 @@ d3.select(window).on('resize', _.debounce(resize, 250))
 resize()
 
 
+
+d3.selectAll('.lag').data([7, 0])
+  .on('click', renderCases.shiftBars)
 
 
 

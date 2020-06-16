@@ -123,3 +123,35 @@ p{
 
 
 
+.lag{
+  cursor: pointer;
+  border: 2px solid #000;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-left: 2px;
+  margin-right: 2px;
+  user-select: none;
+  background: #4682b480;
+  white-space: nowrap;
+}
+
+.lag:hover{
+  background: #4682b4ff;
+}
+
+h1{
+  margin: 0 auto;  
+  margin-bottom: 1.2em;
+  margin-top: 1.2em;
+  max-width: 600px;
+  text-align: center;
+}
+
+
+#notes{
+  font-family: sans-serif;
+  font-size: 12px;
+  opacity: .7;
+}
+
+
