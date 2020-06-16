@@ -29,14 +29,18 @@ var bars = [
 ]
 
 var lines = [
-  {i: bars[0].i, j: bars[1].i, color: 'darkorange'},
+  {i: bars[0].i, j: bars[1].i, color: d3.color('darkorange').darker(.2) + ''},
   {i: bars[1].i, j: bars[2].i, color: 'green'},
 ]
 lines.forEach(d => d.days = days.map(d => ({i: d.i})))
 
+d3.selectAll('.underline').data(lines)
+  .st({borderBottom: d => `2px ${d3.color(d.color).brighter(.3)} dotted`})
+
+
 function initCases(){
   var c = d3.conventions({
-    sel: sel.append('div'), 
+    sel: sel.append('div').st({position: 'relative', zIndex: 1}), 
     margin: {left: 40},
     totalHeight: 250,
     totalWidth: 960,
@@ -119,10 +123,43 @@ function initCases(){
 
   var dropSel = c.svg.append('path')
     .at({stroke: '#000', d: ['M .5 ', c.height, 'v', 250].join(' ')})
+    .st({pointerEvents: 'none'})
+
+  // c.svg.append('text').text('😷')
+  //   .translate([c.x(47), c.height])
+  //   .at({dy: '.33em', fontSize: 10, textAnchor: 'middle'})
+
+  window.annos = [
+  {
+    "path": "M -35,37 A 33.857 33.857 0 0 0 -1,3",
+    "text": "Mandatory 😷",
+    "textOffset": [
+      -125,
+      41
+    ]
+  }
+]
+  var swoopy = d3.swoopyDrag()
+      .draggable(1)
+      .draggable(0)
+      .x(d => c.x(47))
+      .y(d => c.height)
+      .annotations(annos)
+
+  var swoopySel = c.svg.append('g.annotations')
+  swoopySel.call(swoopy)
+  swoopySel.selectAll('path').attr('marker-end', 'url(#arrowhead)')
+  // swoopySel.selectAll('text')
+  //     .each(function(d){
+  //       d3.select(this)
+  //           .text('')                        //clear existing text
+  //           .tspans(d3.wordwrap(d.text)) //wrap after 20 char
+  //     })  
+
 
   return () => {
     bars.forEach(d => {
-      if (d.isDragging)  d.i = d3.clamp(0, Math.round(c.x.invert(d.x)), maxDate)
+      if (d.isDragging) d.i = d3.clamp(0, Math.round(c.x.invert(d.x)), maxDate)
     })
 
     barSel.filter(d => d.isDragging).transition().duration(0)
@@ -132,9 +169,6 @@ function initCases(){
     bars.mid = mid
 
     dropSel.translate(c.x(mid), 0)
-    // try{
-    //   dropSel.translate(bars.filter(d => d.isDragging)[0].x, 0)
-    // } catch (e){ }
 
     days.forEach((day) => {
       var [i, j, k] = _.sortBy([min, day.i, max])
@@ -152,7 +186,6 @@ function initCases(){
     lines.forEach(line => {
       var {i, j, reg} = line.days[mid]
       var rl = ss.linearRegressionLine(reg)
-      // console.log(reg)
 
       line.pathSel.at({d: [
         'M', c.x(i), c.y(rl(i)),
@@ -177,11 +210,22 @@ function initCases(){
 
 function initSlope(){
   var c = d3.conventions({
-    sel: sel.append('div').st({position: 'relative', zIndex: -10}), 
+    sel: sel.append('div').st({position: 'relative', zIndex: 0}), 
     margin: {left: 40, top: 40, bottom: 100},
     height: 190,
     totalWidth: 960,
   })
+
+  c.svg.append('rect').at({width: c.width, height: c.height, fillOpacity: 0})
+  c.svg
+    .on('click', function(){
+      __timer.stop()
+      var mid = _.sortBy(bars, d => d.i)[1]
+      mid.isDragging = true
+      mid.x = d3.mouse(this)[0]
+      render()
+    })
+    .st({cursor: 'pointer'})
 
   c.svg.parent().st({overflow: 'hidden'})
 
@@ -204,12 +248,9 @@ function initSlope(){
   var circleSel = c.svg.appendMany('circle', lines)
     .at({
       r: 4,
-      fill: 'none',
-      strokeWidth: 1,
-      stroke: d => d.color,
+      fill: d => d.color,
       pointerEvents: 'none',
     })
-
 
   c.svg.append('linearGradient')
     .at({id: 'top', y2: 1, x1: 0, x2: 0, y1: 0})
@@ -270,6 +311,25 @@ window.__timer = d3.timer(t => {
   bars[1].isDragging = true
   render()
 })
+
+function resize(){
+  var width = innerWidth > 960 ? 960 : d3.select('p').node().offsetWidth
+  var r = width/960
+  var isMobile = r != 1
+  d3.select('#graph')
+    .st({
+      transform: `scale(${r})`, 
+      transformOrigin: 0 + 'px ' + 0 + 'px', 
+      height: isMobile ? r*500 : '',
+      marginLeft: isMobile ? 0 : '',
+      marginBottom: isMobile ? 20 : ''
+    })
+    .classed('mobile', isMobile)
+}
+
+d3.select(window).on('resize', _.debounce(resize, 250))
+resize()
+
 
 
 

@@ -37,9 +37,11 @@ svg{
 }
 
 text{
-  pointer-events: none;
+  /*pointer-events: none;*/
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
   user-select: none;
+  font-family: sans-serif;
+
 }
 
 
@@ -57,7 +59,7 @@ text{
 
 
 .paper-img{
-  width: 657px;
+  max-width: 683px;
   margin: 0px auto;
 }
 
@@ -71,3 +73,37 @@ text{
   width: 960px;
   margin-left: -105px;
 }
+
+p{
+  position: relative;
+  /*z-index: -2;*/
+}
+
+
+.annotations path{
+  fill: none;
+  stroke: black;
+  stroke-width: .6px;
+}
+.annotations text{
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+
+
+.mobile text{
+  font-size: 25px;
+}
+.mobile .axis text, .mobile .annotations text{
+  font-size: 16px;
+}
+
+
+.mobile .x .tick:nth-child(odd) text{
+  opacity: 0;
+}
+
+
+
+
