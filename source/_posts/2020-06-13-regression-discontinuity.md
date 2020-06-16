@@ -29,7 +29,7 @@ With fuzzy boundaries a [local regression](https://en.wikipedia.org/wiki/Local_r
 A [growing body](https://www.preprints.org/manuscript/202004.0203/v2/download) of [evidence](https://apps.who.int/iris/rest/bitstreams/1279750/retrieve) supports mask usage. Shoddy statistics published in PNAS (with disconcertingly positive [initial expert reactions](https://www.sciencemediacentre.org/expert-reaction-to-a-study-looking-at-mandatory-face-masks-and-number-of-covid-19-infections-in-new-york-wuhan-and-italy/) and [continued public popularity](https://twitter.com/search?q=https%3A%2F%2Fwww.pnas.org%2Fcontent%2Fearly%2F2020%2F06%2F10%2F2009637117&src=typed_query&f=live)) will make it harder to [communicate](https://twitter.com/jeremyfaust/status/1271572240010809347) the results of future research, especially after masks have become politicized and recommendations have shifted. The paper's abstract puts it well: "sound science is essential in decision-making for the current and future public health pandemics."
 
 <div id='notes'>
-<p>[NYC Case Data](https://github.com/nychealth/coronavirus-data/blob/master/tests.csv) // [Chart code](https://github.com/1wheel/roadtolarissa/blob/master/source/regression-discontinuity/script.js)
+<p>[NYC case data](https://github.com/nychealth/coronavirus-data/blob/master/tests.csv) // [chart code](https://github.com/1wheel/roadtolarissa/blob/master/source/regression-discontinuity/script.js)
 
 <p>The chart from the paper has been lightly edited for clarity. 
 
