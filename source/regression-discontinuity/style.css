@@ -125,10 +125,12 @@ p{
 
 .lag{
   cursor: pointer;
-  border: 2px solid #000;
+  border: 1px solid #000;
   padding-left: 3px;
   padding-right: 3px;
   margin-left: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
   margin-right: 2px;
   user-select: none;
   background: #4682b480;

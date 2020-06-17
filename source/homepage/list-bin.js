@@ -85,10 +85,7 @@ d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTGqTVxJ_yfhMaRRRQ1Bjvmb
     d.img = `https://roadtolarissa.com/homepage-list/thumb-img/${d.slug}.jpg`
   })
 
-
   updateHTML(projects)
-
-  
 })
 
 
