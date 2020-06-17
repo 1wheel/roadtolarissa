@@ -2,7 +2,7 @@
 template: post.html
 title: You Regress It: How Effective Are Face Masks? 
 title: You Regress It: Have Masks Prevented 66,000 Infections in New York City? 
-date: 2019-12-218
+date: 2020-06-14
 permalink: /regression-discontinuity
 shareimg: https://i.imgur.com/FL2zUAs.png
 ---

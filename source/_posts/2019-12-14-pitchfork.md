@@ -2,10 +2,9 @@
 template: post.html
 title: Pitchfork's Best of the Year, Best of the Decade 
 title: Pitchfork's Best of the Year Over the Decade
-date: 2019-12-218
+date: 2019-12-31
 permalink: /pitchfork
 shareimg: https://i.imgur.com/1TRa5SY.png
-draft: true
 ---
 
 
