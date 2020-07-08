@@ -281,6 +281,8 @@ https://news.ycombinator.com/item?id=9177469
 - "No one ever got fired for buying IBM"
 - The paper gets things I know about totally wrong, but I trust them on everything else From Michael Crichton? 
 -  “It is difficult to get a man to understand something, when his salary depends on his not understanding it.”
+- "little know" tips on reddit
+- https://tinysubversions.com/stuff/known-places/
 
 What does reddit repeat?
 
