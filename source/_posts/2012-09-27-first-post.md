@@ -471,7 +471,15 @@ What does reddit repeat?
 - mouseover map to update scatter plot 
 
 
+### hacker news reposts
+- Network graph showing links to old discussions
+- Which page has been submitted the most? (only include on per month or something like that...)
+- https://news.ycombinator.com/item?id=23775707
 
+
+### scotus wars
+- network diagram or grid
+- https://scotuswars.gilslotd.com/
 
 
 
