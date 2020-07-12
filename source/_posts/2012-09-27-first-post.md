@@ -285,6 +285,7 @@ https://news.ycombinator.com/item?id=9177469
 -  “It is difficult to get a man to understand something, when his salary depends on his not understanding it.”
 - "little know" tips on reddit
 - https://tinysubversions.com/stuff/known-places/
+- every "there's always a tweet", connections between original date and rt
 
 What does reddit repeat?
 
