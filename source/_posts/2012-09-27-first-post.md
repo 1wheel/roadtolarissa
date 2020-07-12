@@ -158,6 +158,8 @@ https://news.ycombinator.com/item?id=9177469
 - During a rare happy stretch of Philly's blowout loss to the Hawks on Friday, the Sixers' broadcast team pointed out that Philly was on "an 8-3 run." I know the Sixers aren't good enough to put together normal NBA runs, but an 8-3 scoring gap is not a run. It is a randomly occurring blip that happens every game. 
 - Which players are the streakest/have the most improbable runs? www.espn.com/nba/story/_/page/presents-19573519/heating-fire-klay-thompson-truth-hot-hand-nba
 - Which players do the best/worst after hiting/missing a FT? Do some players always go 7/10 or do some go 5/10 and 10/10 more often than they would randomly.
+- What's the closest game ever? Has any game stayed within 10 points? 5 points?
+- Which game had the shortest scoring streak?
 
 ### [Curl states into each other](https://bl.ocks.org/1wheel/4c1658719cfec9ac352ff1e0edc51317)
 - https://medium.com/@zachlieberman/land-lines-e1f88c745847#.t1x3ozhdt
@@ -257,7 +259,7 @@ https://news.ycombinator.com/item?id=9177469
 
 ### [Hacking Hot Reloading](https://roadtolarissa.com/hot-reload/)
 
-### That blog post about how the blog is set up
+### [That blog post about how the blog is set up](https://roadtolarissa.com/literate-blogging/)
 
 ### Flappy Beep
 
@@ -464,7 +466,8 @@ What does reddit repeat?
 
 ### every bitcoin explanation
 - replies to jk rowling tweak, maybe BERT + UMAP
-
+- [CLS embedding](https://huggingface.co/transformers/quickstart.html#bert-example) 
+- [scatter plot with a 100k points](https://observablehq.com/@bmschmidt/zoom-strategies-for-huge-scatterplots-with-three-js)
 
 ### commute v. cost
 - http://www.verysmallarray.com/best-new-york-city-neighborhoods-again/
@@ -482,12 +485,20 @@ What does reddit repeat?
 - https://scotuswars.gilslotd.com/
 
 
+### stock returns
+- which stock has had the best return since the pandemic?
+- http://benschmidt.org/mvp/#-Batting-oWAR-counting
+- http://amandacox.github.io/img/big/returns.png
+- Bottom triangle shows which have done the worst (what would have done the best if you shorted) 
+- scrolly intro building chart or live updating thing?
+- [tidyquant](https://cran.r-project.org/web/packages/tidyquant/vignettes/TQ05-performance-analysis-with-tidyquant.html) for data
 
 
-
-
-
-
-
+### Momentum transition
+- https://blocks.roadtolarissa.com/1wheel/54f90245720d7e3210cea1edfa42089b
+- it isn't a change in like absolute capacity, but i'm really interested in interfaces that don't gate interaction behind animation - don't think my version is there yet, but you can start using tools in totally different ways if there isn't latency.
+- 538 game theory
+- wsj stock picker
+- Lena slider 
 
 
