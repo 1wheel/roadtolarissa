@@ -499,6 +499,21 @@ What does reddit repeat?
 - it isn't a change in like absolute capacity, but i'm really interested in interfaces that don't gate interaction behind animation - don't think my version is there yet, but you can start using tools in totally different ways if there isn't latency.
 - 538 game theory
 - wsj stock picker
-- Lena slider 
+- propublica immigration slider 
+
+
+### Multi dimensional arraybuffers for js
+- ndarray
+- node write out npy files
+- https://github.com/aplbrain/npyjs
+- https://github.com/NicholasTancredi/read-npy-file
+- hdfs
+- apache arrow?
+- https://google.github.io/flatbuffers/
+- https://github.com/GoogleChromeLabs/buffer-backed-object
+
+
+
+
 
 
