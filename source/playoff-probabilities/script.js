@@ -122,6 +122,7 @@ d3.loadData(
 
 
   var renders = [initRects(), initTimeline()]
+  initFinalsWP()
 
   window.curForecast = null
 
@@ -150,7 +151,6 @@ d3.loadData(
     step()
   }
   startPlayback()
-
 })
 
 function initRects(){
@@ -206,7 +206,7 @@ function initRects(){
       })
 
 
-    c.svg.appendMany('text', isMobile ? ['RND 1', 'RND 2', 'RND 3', 'FINALS'] : ['RND 1', 'CONF SEMIS', 'CONF FINALS', 'FINALS'])
+    c.svg.appendMany('text', isMobile ? ['RND 1', 'RND 2', 'RND 3', 'FINALS'] : ['ROUND 1', 'CONF SEMIS', 'CONF FINALS', 'FINALS'])
       .translate((d,i) => [c.x(i + .5), -28])
       .text(d => d)
       .at({
@@ -216,8 +216,8 @@ function initRects(){
       })
 
     c.layers[1].append('div')
-      .translate([-c.margin.left - 4, -25])
-      .html('<a style="text-decoration: none" href="https://projects.fivethirtyeight.com/2020-nba-predictions">538 Advance Odds</a> Before Game #')
+      .translate([-c.margin.left -2, -25])
+      .html('<a style="text-decoration: none" href="https://projects.fivethirtyeight.com/2020-nba-predictions">538 Advance Pct</a> Before Game #')
       .st({fontSize: 10, width: c.margin.left, textAlign: 'right'})
 
     c.svg.appendMany('text', d3.range(28))
@@ -246,7 +246,6 @@ function updateFlatSnapGames(forecast){
   })
 }
 
-// TODO add play button
 function initTimeline(){
   var c = d3.conventions({
     sel: d3.select('#timeline').html('').append('div'),
@@ -319,11 +318,13 @@ function initTimeline(){
       .transition()
       .at({width: c.x(forecast.index) + r*2})
 
-    dateSel
-      .classed('active', 0)
-      .filter(d => d == forecast)
-      .classed('active', 1)
-      .raise()
+    setTimeout(() => {
+      dateSel
+        .classed('active', 0)
+        .filter(d => d == forecast)
+        .classed('active', 1)
+        .raise()
+      }, 150)
 
     if (window.stepInterval?.isPlaying){
       buttonSel
@@ -337,6 +338,42 @@ function initTimeline(){
   }
 }
 
+function initFinalsWP(){
+  var c = d3.conventions({
+    sel: d3.select('#finals-wp').html('').append('div'),
+    height: 160,
+    margin: {left: 50, top: 30, bottom: 45},
+    layers: 'sd',
+  })
+
+  c.x.domain([0, forecasts.length - 1]).clamp(1)
+  c.y.domain([0, 1]).range([0, c.height])
+
+  var space = c.x(1)
+
+  var dateSel = c.svg.appendMany('text.date', forecasts)
+    .translate((d, i) => [c.x(i), c.height])
+    .text(d => d.date)
+    .at({fontSize: 12, y: 15, textAnchor: 'middle', 
+      opacity: (d, i) => i % (space < 30 ? 3 : space < 45 ? 2 : 1) == 0 ? 1 : 0})
+
+  c.svg.appendMany('g', forecasts)
+    .translate(d => c.x(d.index), 0)
+    .appendMany('rect', d => d.teams.filter(d => d.levels[3].val))
+    .at({
+      width: space - .1,
+      x: -space/2,
+      y: d => c.y(d.levels[3].prev),
+      height: d => c.y(d.levels[3].val),
+      fill: d => abv2color[d.abv],
+    })
+
+  c.svg.append('text')
+    .text('538 Chance of Winning Finals')
+    .translate([-space/2, -4])
+    .st({fontSize: 10, width: c.margin.left, textAlign: 'right'})
+
+}
 
 
 

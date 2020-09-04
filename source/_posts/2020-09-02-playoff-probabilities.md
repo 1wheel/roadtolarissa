@@ -1,10 +1,9 @@
 ---
 template: post.html
-title: 2020 NBA Playoff Probabilities
+title: NBA Playoff Probabilities
 date: 2020-09-03
 permalink: /playoff-probabilities
-shareimg: tktk
-draft: true
+shareimg: https://i.imgur.com/LiSk3Sd.png
 ---
 
 <link rel='stylesheet' type='text/css' href='style.css'>
@@ -17,20 +16,18 @@ draft: true
   <div id='timeline'></div>
 </div>
 
-How have NBA playoff predictions shifted since the tournament started? Showing each team's championship chances over time would be more straight forward: 
+How have NBA playoff probabilities shifted since the tournament started? More straightforward than tracing out changes, we could look at each team's championship chances over time: 
 
 <div class='full-width'>
   <div id='finals-wp'></div>
 </div>
 
-But that misses all the stories of the individual series - Orlando suddenly having a shot after stealing their first game, Utah almost making a come back and Brooklyn getting crushed. 
+But that misses all the stories in each individual series—Orlando suddenly having a shot after stealing their first game, Denver making a comeback and Brooklyn getting crushed. 
 
-Rachael Dottle's [How France And Croatia Made It To The World Cup Final](https://fivethirtyeight.com/features/how-france-and-croatia-made-it-to-the-world-cup-final-in-one-chart/) does an even better of bringing the drama of a tournament into a chart by incorporating in game win probability. You can see individual goals!
+Rachael Dottle's [How France And Croatia Made It To The World Cup Final](https://fivethirtyeight.com/features/how-france-and-croatia-made-it-to-the-world-cup-final-in-one-chart/) does an even job better of bringing the drama of a tournament into a chart by incorporating in-game win probability. You can see individual goals!
 
 <div id='notes'>
-<p>[Chart Code](https://github.com/1wheel/roadtolarissa/blob/master/source/playoff-probabilities/script.js) // [538 2019-20 NBA Predictions](https://projects.fivethirtyeight.com/2020-nba-predictions)
-
-<!-- <p>This is a foot note -->
+<p>[538 2019-20 NBA Predictions](https://projects.fivethirtyeight.com/2020-nba-predictions) // [Chart Code](https://github.com/1wheel/roadtolarissa/blob/master/source/playoff-probabilities/script.js)
 </div>
 
 <script src='../worlds-group-2017/d3_.js'></script>
