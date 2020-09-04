@@ -368,6 +368,18 @@ function initFinalsWP(){
       fill: d => abv2color[d.abv],
     })
 
+  c.svg.appendMany('text', [25, 50, 75])
+    .text(d => d + '%')
+    .at({
+      y: d => c.y(1 - d/100),
+      x: -space/2 - (isMobile ? 12 : 1),
+      dy: '.33em',
+      fontSize: 10,
+      textAnchor: 'end',
+      fill: '#999',
+    })
+    .st({fontSize: 10})
+
   c.svg.append('text')
     .text('538 Chance of Winning Finals')
     .translate([-space/2, -4])

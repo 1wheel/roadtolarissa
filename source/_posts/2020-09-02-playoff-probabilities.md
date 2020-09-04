@@ -24,7 +24,7 @@ How have NBA playoff probabilities shifted since the tournament started? More st
 
 But that misses all the stories in each individual series—Orlando suddenly having a shot after stealing their first game, Denver making a comeback and Brooklyn getting crushed. 
 
-Rachael Dottle's [How France And Croatia Made It To The World Cup Final](https://fivethirtyeight.com/features/how-france-and-croatia-made-it-to-the-world-cup-final-in-one-chart/) does an even job better of bringing the drama of a tournament into a chart by incorporating in-game win probability. You can see individual goals!
+Rachael Dottle's [How France And Croatia Made It To The World Cup Final](https://fivethirtyeight.com/features/how-france-and-croatia-made-it-to-the-world-cup-final-in-one-chart/) does an even better job of bringing the drama of a tournament into a chart by incorporating in-game win probability. You can see individual goals!
 
 <div id='notes'>
 <p>[538 2019-20 NBA Predictions](https://projects.fivethirtyeight.com/2020-nba-predictions) // [Chart Code](https://github.com/1wheel/roadtolarissa/blob/master/source/playoff-probabilities/script.js)
