@@ -1,0 +1,103 @@
+body{
+  /*margin: 0px auto;*/
+  /*max-width: 1000px;*/
+  overflow-x: hidden;
+
+}
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  /*pointer-events: none;*/
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
+}
+
+
+.team-abv{
+  fill: #fff;
+  text-shadow: 0 1px 0 #000, 1px 0 0 #000, 0 -1px 0 #000, -1px 0 0 #000;
+
+}
+
+.date{
+  font-weight: 300;
+  fill: #999;
+}
+.date.active{
+  font-weight: 700;
+  opacity: 1;
+  text-shadow: 0 2px 0 #fff, 2px 0 0 #fff, 0 -2px 0 #fff, -2px 0 0 #fff;
+  fill: #000;
+  font-size: 14px;
+
+}
+
+#timeline ::selection{
+  background: none;
+}
+
+
+
+
+.full-width {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  box-sizing: border-box;
+}
+
+.full-width > div {
+  max-width: 1280px;
+  margin: 0px auto;
+}
+
+
+
+.full-width{
+  line-height: .7em;
+  font-family: menlo, Consolas, 'Lucida Console', monospace; 
+
+}
+
+
+#notes{
+  font-family: sans-serif;
+  font-size: 12px;
+  opacity: .7;
+}
+
+#graph{
+  height: 600px;
+}
