@@ -372,7 +372,7 @@ function initFinalsWP(){
     .text(d => d + '%')
     .at({
       y: d => c.y(1 - d/100),
-      x: -space/2 - (isMobile ? 12 : 1),
+      x: -space/2 - (isMobile || innerWidth > 1280 ? 12 : 1),
       dy: '.33em',
       fontSize: 10,
       textAnchor: 'end',
