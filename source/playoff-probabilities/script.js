@@ -7,14 +7,14 @@ var abv2color = {
   "GS": "#FDB927",
   "LAC": "#1D428A",
   "HOU": "#CE1141",
-  "UTA": "#00471B",
+  "UTA": "#F9A01B",
   "POR": "#000000",
   "OKC": "#007AC1",
   "DEN": "#0E2240",
   "SA" : "#C4CED4",
-  "MIL": "#00471B",
+  "MIL": "#EEE1C6",
   "DET": "#C8102E",
-  "BOS": "#BA9653",
+  "BOS": "#007A33",
   "IND": "#FDBB30",
   "PHI": "#002D62",
   "BKN": "#000000",
@@ -24,6 +24,19 @@ var abv2color = {
   "MIA": "#98002E",
   "LAL": "#FDB927",
 }
+
+
+function saturate(color, k) {
+  var {l, c, h} = d3.lch(color)
+  return d3.lch(l, c + 18 * k, h)
+}
+
+function lighten(color){
+  return d3.interpolate(color, '#fff')(.25)
+}
+
+var abv2lcolor = {}
+d3.entries(abv2color).forEach(d => abv2lcolor[d.key] = lighten(d.value))
 
 
 var isMobile = innerWidth < 450
@@ -65,14 +78,18 @@ d3.loadData(
         var gamesPlayed = 'q s c f'.split(' ')
           .map(str => +d[str + '_wins'] + d[str + '_losses'])
 
-        var team = {conf, seed, abv, gamesPlayed}
+        var gamesWon = 'q s c f'.split(' ')
+          .map(str => Math.max(+d[str + '_wins'], d[str + '_losses']))
+
+        var team = {conf, seed, abv, gamesPlayed, gamesWon}
 
         team.levels = [
           d.make_conf_semis,
           d.make_conf_finals,
           d.make_finals,
           d.win_finals,
-        ].map((prob, level) => ({prob, level, team, forecast, gamesPlayed: gamesPlayed[level]}))
+        ].map((prob, level) => 
+          ({prob, level, team, forecast, gamesPlayed: gamesPlayed[level], gamesWon: gamesWon[level]}))
 
         return team
       })
@@ -112,9 +129,12 @@ d3.loadData(
       var prevLevel = teamLevel[0]
 
       return teamLevel.map(curLevel => {
-        prevLevel = curLevel.l.gamesPlayed <= gameIndex ? curLevel : prevLevel
+        var isPlayed = curLevel.l.gamesPlayed <= gameIndex
+        prevLevel = isPlayed ? curLevel : prevLevel
 
-        return {tl: prevLevel, gameIndex}
+        var isFluid = isPlayed && curLevel.l.gamesWon < 4
+
+        return {tl: prevLevel, gameIndex, isFluid}
       })
 
     })
@@ -170,6 +190,7 @@ function initRects(){
       y: d => c.y(d.tl.prev),
       height: d => c.y(d.tl.val),
       fill: d => abv2color[d.tl.l.team.abv],
+      opacity: 1, 
     })
     .call(d3.attachTooltip)
 
@@ -231,6 +252,10 @@ function initRects(){
     updateFlatSnapGames(forecast)
 
     rectSel
+      .at({
+        fill: d => (d.isFluid ? abv2lcolor : abv2color)[d.tl.l.team.abv],
+        // opacity: d => d.isFluid ? .7 : 1,
+      })
       .transition()
       .at({
         y: d => c.y(d.tl.prev),
@@ -241,6 +266,7 @@ function initRects(){
 
 function updateFlatSnapGames(forecast){
   flatSnapGames.forEach(d => {
+    d.isFluid = d[forecast.index].isFluid
     d.tl = d[forecast.index].tl
     d.gameIndex = d[0].gameIndex
   })

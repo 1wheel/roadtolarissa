@@ -33,7 +33,7 @@ Rachael Dottle's [How France And Croatia Made It To The World Cup Final](https:/
 <script src='../worlds-group-2017/d3_.js'></script>
 <script src='../shared/chromatic.js'></script>
 <script src='../worlds-group-2017/swoopy-drag.js'></script>
-<script src='../shared/simple-stats.js'></script>
+<script src='../shared/d3-color.v2.min.js'></script>
 
 <script src='script.js'></script>
 
