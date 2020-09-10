@@ -49,7 +49,7 @@ projects.forEach((d, i) => {
   yearSel.append('div.year-label').text(d => d.key)
 
   var linkSel = yearSel.appendMany('a.row', d => d)
-    .attr('href', d => d.url)
+    .attr('href', d => d.url.replace('https://roadtolarissa.com', ''))
     .attr('target', '_blank')
     .classed('is-top', d => d.isTop)
 

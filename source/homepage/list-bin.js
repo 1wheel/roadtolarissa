@@ -99,7 +99,7 @@ function updateHTML(projects){
     <div class='year'>
       <div class='year-label'>${year.key}</div>
       ${year.map(d => `
-        <a class='row${d.isTop ? ' is-top' : ''}' href='${d.url}'>
+        <a class='row${d.isTop ? ' is-top' : ''}' href='${d.url.replace('https://roadtolarissa.com', '')}'>
           <div class='thumbnail' style='background-image: url(${d.img})'></div>
           <span class='slug'>${d.slug.toLowerCase().replace(/-/g, ' ').trim()}</span>
         </a>
