@@ -516,5 +516,6 @@ What does reddit repeat?
 ### forecast outliers 
 
 
-
+### track flair changes on subreddits
+- https://www.reddit.com/r/nba/comments/ix0s3f/charania_paul_george_was_preaching_to_teammates/g63r5bm/
 
