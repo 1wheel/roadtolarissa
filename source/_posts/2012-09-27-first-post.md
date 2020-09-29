@@ -520,3 +520,5 @@ What does reddit repeat?
 - https://www.reddit.com/r/nba/comments/ix0s3f/charania_paul_george_was_preaching_to_teammates/g63r5bm/
 - i think there was a NYT or 538 graphic about searches or something like that for 2014 world cup - after a country is elimated, who do their fans cheer for?
 
+### umap + oeis
+- http://www.sspectra.com/math/MovieFrames/
