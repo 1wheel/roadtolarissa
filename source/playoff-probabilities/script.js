@@ -1,7 +1,6 @@
 console.clear()
 d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-
 // https://teamcolorcodes.com/nba-team-color-codes/
 var abv2color = {
   "GS": "#FDB927",
@@ -37,7 +36,6 @@ function lighten(color){
 
 var abv2lcolor = {}
 d3.entries(abv2color).forEach(d => abv2lcolor[d.key] = lighten(d.value))
-
 
 var isMobile = innerWidth < 450
 var white = '#fff' //'#f5f5f5'
@@ -147,7 +145,8 @@ d3.loadData(
   window.curForecast = null
 
   window.startPlayback = () => {
-    window.renderForecast = function(forecast, dur=1000){
+    var stepDuration = 300
+    window.renderForecast = function(forecast, dur=stepDuration){
       window.curForecast = forecast
       renders.forEach(d => d(forecast, dur))
     }
@@ -158,11 +157,11 @@ d3.loadData(
         stepInterval.end()
         forecast = curForecast
       } 
-      renderForecast(forecast, 1000)
+      renderForecast(forecast, stepDuration)
     }
 
     if (window.stepInterval) window.stepInterval.end()
-    window.stepInterval = d3.interval(step, 1000)
+    window.stepInterval = d3.interval(step, stepDuration)
     stepInterval.isPlaying = true
     stepInterval.end = () => {
       stepInterval.stop()
@@ -226,7 +225,6 @@ function initRects(){
         strokeWidth: 3,
       })
 
-
     c.svg.appendMany('text', isMobile ? ['RND 1', 'RND 2', 'RND 3', 'FINALS'] : ['ROUND 1', 'CONF SEMIS', 'CONF FINALS', 'FINALS'])
       .translate((d,i) => [c.x(i + .5), -28])
       .text(d => d)
@@ -248,7 +246,7 @@ function initRects(){
   }
   addLabels()
 
-  return forecast => {
+  return (forecast, dur) => {
     updateFlatSnapGames(forecast)
 
     rectSel
@@ -256,21 +254,23 @@ function initRects(){
         fill: d => (d.isFluid ? abv2lcolor : abv2color)[d.tl.l.team.abv],
         // opacity: d => d.isFluid ? .7 : 1,
       })
-      .transition()
+      .transition().duration(dur)
       .at({
         y: d => c.y(d.tl.prev),
         height: d => c.y(d.tl.val),
       })
   }
+
+  function updateFlatSnapGames(forecast){
+    flatSnapGames.forEach(d => {
+      d.isFluid = d[forecast.index].isFluid
+      d.tl = d[forecast.index].tl
+      d.gameIndex = d[0].gameIndex
+    })
+  }
+
 }
 
-function updateFlatSnapGames(forecast){
-  flatSnapGames.forEach(d => {
-    d.isFluid = d[forecast.index].isFluid
-    d.tl = d[forecast.index].tl
-    d.gameIndex = d[0].gameIndex
-  })
-}
 
 function initTimeline(){
   var c = d3.conventions({
@@ -298,7 +298,7 @@ function initTimeline(){
     .translate((d, i) => c.x(i), 0)
     .text(d => d.date)
     .at({fontSize: 12, y: 30, textAnchor: 'middle', 
-      opacity: (d, i) => i % (space < 30 ? 3 : space < 45 ? 2 : 1) == 0 ? 1 : 0})
+      opacity: (d, i) => i % (space < 20 ? 6 : space < 30 ? 3 : space < 45 ? 2 : 1) == 0 ? 1 : 0})
 
   var rh = 5
   var r = rh + (space < 30 ? -1 : 2)
@@ -338,10 +338,9 @@ function initTimeline(){
       }
     })
 
-
-  return forecast => {
+  return (forecast, dur) => {
     fillSel
-      .transition()
+      .transition().duration(dur)
       .at({width: c.x(forecast.index) + r*2})
 
     setTimeout(() => {
@@ -350,7 +349,7 @@ function initTimeline(){
         .filter(d => d == forecast)
         .classed('active', 1)
         .raise()
-      }, 150)
+      }, dur/2)
 
     if (window.stepInterval?.isPlaying){
       buttonSel
@@ -369,10 +368,10 @@ function initFinalsWP(){
     sel: d3.select('#finals-wp').html('').append('div'),
     height: 160,
     margin: {left: 50, top: 30, bottom: 45},
-    layers: 'sd',
+    layers: 's',
   })
 
-  c.x.domain([0, forecasts.length - 1]).clamp(1)
+  c.x.domain([0, forecasts.length - 1]).interpolate(d3.interpolateRound)
   c.y.domain([0, 1]).range([0, c.height])
 
   var space = c.x(1)
@@ -381,18 +380,34 @@ function initFinalsWP(){
     .translate((d, i) => [c.x(i), c.height])
     .text(d => d.date)
     .at({fontSize: 12, y: 15, textAnchor: 'middle', 
-      opacity: (d, i) => i % (space < 30 ? 3 : space < 45 ? 2 : 1) == 0 ? 1 : 0})
+      opacity: (d, i) => i % (space < 20 ? 6 : space < 30 ? 3 : space < 45 ? 2 : 1) == 0 ? 1 : 0})
 
-  c.svg.appendMany('g', forecasts)
+  forecasts.forEach((forecast) => {
+    forecast.teams.forEach(d => d.forecastIndex = forecast.index)
+  })
+
+  var forecastSel = c.svg.appendMany('g', forecasts)
     .translate(d => c.x(d.index), 0)
+    .on('mouseover', function(d){
+      window.stepInterval.end()
+      renderForecast(forecasts[d.index], 0)
+    })
+
+  forecastSel
     .appendMany('rect', d => d.teams.filter(d => d.levels[3].val))
     .at({
-      width: space - .1,
+      width: space + .5,
       x: -space/2,
+      // width: d => c.x(d.forecastIndex + .5) - c.x(d.forecastIndex - .5),
+      // x: (d, i) => c.x(d.forecastIndex) - c.x(d.forecastIndex - .5),
       y: d => c.y(d.levels[3].prev),
       height: d => c.y(d.levels[3].val),
       fill: d => abv2color[d.abv],
     })
+
+  forecastSel.append('path')
+    .translate(-space/2, 0)
+    .at({stroke: '#ccc', d: 'M 0 0 V ' + c.height, strokeWidth: .2})
 
   c.svg.appendMany('text', [25, 50, 75])
     .text(d => d + '%')
@@ -410,7 +425,6 @@ function initFinalsWP(){
     .text('538 Chance of Winning Finals')
     .translate([-space/2, -4])
     .st({fontSize: 10, width: c.margin.left, textAlign: 'right'})
-
 }
 
 

@@ -522,3 +522,7 @@ What does reddit repeat?
 
 ### umap + oeis
 - http://www.sspectra.com/math/MovieFrames/
+
+### Animal pictures
+- https://storage.googleapis.com/openimages/web/visualizer/index.html?set=train&type=segmentation&r=false&c=%2Fm%2F0gd36
+- bing api?
