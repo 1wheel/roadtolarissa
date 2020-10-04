@@ -168,7 +168,6 @@ d3.loadData(
     d.teams = _.sortBy([d.team1, d.team2], d => abv2Index[d])
   })
   d3.nestBy(games, d => d.teams).forEach(series => {
-
     series.forEach((game, gameIndex) => {
       game.levelIndex = 'q s c f'.split(' ').indexOf(game.playoff)
 
@@ -182,11 +181,16 @@ d3.loadData(
       // game.char = isTeam1 == isTeam1Winner ? '▲' : '▼'
 
       var key = [game.teams[0], gameIndex, game.levelIndex]
-      game.m = flatSnapGames.abvGameLevelLookup[key]
-
-      if (!game.m) return console.log(key)
-      game.m.game = game
+      var m = flatSnapGames.abvGameLevelLookup[key]
+      if (!m) return console.log(key)
+      m.game = game
     })
+
+    series.teams = series[0].teams
+    var key = [series[0].teams[0], 6, series[0].levelIndex]
+    var m = flatSnapGames.abvGameLevelLookup[key]
+    if (!m) return console.log(key)
+    m.series = series
   })
 
   var renders = [initRects(), initTimeline()]
@@ -254,6 +258,8 @@ function initRects(){
     })
     .text(d => d.game.char)
 
+  var seriesSel = addLabels()
+
   updateFlatSnapGames(forecasts[0])
 
 
@@ -269,6 +275,23 @@ function initRects(){
       .st({pointEvents: 'none'})
       .at({textAnchor: 'middle', dy: '.33em'})
 
+    c.svg.appendMany('line', d3.range(4))
+      .translate(d => Math.round(c.x(d)) - .5, 0)
+      .at({
+        y2: c.height,
+        stroke: white,
+        strokeWidth: 3,
+      })
+
+    var seriesSel = c.svg.appendMany('path.series', flatSnapGames.filter(d => d.series))
+      .translate(d => c.x(d.tl.l.level + 1) -1.5, 0)
+      .at({
+        stroke: d => abv2color[d.tl.val > 0 ? d.series.teams[0] : d.series.teams[1]],
+        strokeWidth: 1,
+        // strokeDasharray: '2 1',
+        d: d => ['M 0', c.y(d.tl.prev), 'V' + c.y(d.tl.prev + d.tl.mult)].join(' ')
+      })
+
     c.svg.appendMany('line', d3.range(1, 8))
       .translate(d => Math.round(c.y(d/8)) + .5, 1)
       .at({
@@ -279,14 +302,6 @@ function initRects(){
         }, 
         stroke: white, 
         strokeWidth: 1
-      })
-
-    c.svg.appendMany('line', d3.range(4))
-      .translate(d => Math.round(c.x(d)) - .5, 0)
-      .at({
-        y2: c.height,
-        stroke: white,
-        strokeWidth: 3,
       })
 
     c.svg.appendMany('text', isMobile ? ['RND 1', 'RND 2', 'RND 3', 'FINALS'] : ['ROUND 1', 'CONF SEMIS', 'CONF FINALS', 'FINALS'])
@@ -307,8 +322,9 @@ function initRects(){
       .translate(d => [c.x(d/7 + 1/14), isMobile ? -6 : -5])
       .text(d => d % 7 + 1)
       .st({fontSize: isMobile ? 9 : 10, textAnchor: 'middle'})
+
+    return seriesSel
   }
-  addLabels()
 
   return (forecast, dur) => {
     updateFlatSnapGames(forecast)
@@ -328,6 +344,9 @@ function initRects(){
     vSel
       // .st({opacity: d => d.tl.isPlayed})
       .st({opacity: d => d.isPlayed ? 0 : 1})
+
+    seriesSel
+      .st({opacity: d => d.isFluid ? 0 : 1})
   }
 
   function updateFlatSnapGames(forecast){
