@@ -43,11 +43,17 @@ text{
   /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
 }
 
+text.v{
+  text-shadow: 0 1px 0 #000, 1px 0 0 #000, 0 -1px 0 #000, -1px 0 0 #000;
+  fill: #fff;
+  font-weight: 200;
+  font-size: 16px;
+  /*font-family: monospace;*/
+}
 
 .team-abv{
   fill: #fff;
-  text-shadow: 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000;
-
+  text-shadow: 0 1px 0 #000, 1px 0 0 #000, 0 -1px 0 #000, -1px 0 0 #000;
 }
 
 .date{

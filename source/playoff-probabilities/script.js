@@ -24,6 +24,24 @@ var abv2color = {
   "LAL": "#FDB927",
 }
 
+var abv2Index = {
+  "MIL": 0,
+  "ORL": 1,
+  "IND": 2,
+  "MIA": 3,
+  "BOS": 4,
+  "PHI": 5,
+  "TOR": 6,
+  "BKN": 7,
+  "LAL": 8,
+  "POR": 9,
+  "HOU": 10,
+  "OKC": 11,
+  "DEN": 12,
+  "UTA": 13,
+  "LAC": 14,
+  "DAL": 15
+}
 
 function saturate(color, k) {
   var {l, c, h} = d3.lch(color)
@@ -53,15 +71,11 @@ d3.loadData(
 
   forecasts = forecasts
     .filter(d => d.playoff_losses > 0)
-    .filter(d => d.last_updated > '2020-08-14')
+    .filter(d => d.last_updated > '2020-08-15')
 
   forecasts = d3.nestBy(forecasts, d => d.last_updated).map(_.last)
 
-  games = res[1].filter(d => d.playoff).filter(d => d.status == 'post')
-  games.forEach(d => d.teams = [d.team1, d.team2].sort().join(' '))
-
   snapshots = []
-
   forecasts.forEach((forecast, index) => {
     forecast.index  = index
 
@@ -97,6 +111,8 @@ d3.loadData(
       teams = _.sortBy(teams, d => order.indexOf(d.seed) + (d.conf == 'W' ? 8 : 0))
 
       teams.forEach((d, i) => d.index = i)
+      window.teamAbv2Index = {}
+      teams.forEach(d => teamAbv2Index[d.abv] = d.index)
 
       d3.range(4).forEach(levelIndex => {
         var prev = 0
@@ -113,6 +129,8 @@ d3.loadData(
             abv: team.abv,
             val: l.val,
             prev: l.prev,
+            mult,
+            levelIndex,
             l,
           })
         })
@@ -132,12 +150,44 @@ d3.loadData(
 
         var isFluid = isPlayed && curLevel.l.gamesWon < 4
 
-        return {tl: prevLevel, gameIndex, isFluid}
+        return {tl: prevLevel, gameIndex, isPlayed, isFluid}
       })
-
     })
   })
+  flatSnapGames = _.flatten(uniqSnaps.map(d => d.games))
 
+  flatSnapGames.forEach(d => {
+    d.abv = d[0].tl.abv
+    d.gameIndex = d[0].gameIndex
+    d.levelIndex = d[0].tl.levelIndex
+  })
+  flatSnapGames.abvGameLevelLookup = Object.fromEntries(flatSnapGames.map(d => [[d.abv, d.gameIndex, d.levelIndex], d]))
+
+  games = res[1].filter(d => d.playoff).filter(d => d.status == 'post').filter(d => d.playoff != 'p')
+  games.forEach(d => {
+    d.teams = _.sortBy([d.team1, d.team2], d => abv2Index[d])
+  })
+  d3.nestBy(games, d => d.teams).forEach(series => {
+
+    series.forEach((game, gameIndex) => {
+      game.levelIndex = 'q s c f'.split(' ').indexOf(game.playoff)
+
+      game.gameIndex = gameIndex
+      var isTeam1 = game.teams[0] == game.team1
+      var isTeam1Winner = game.score1 > game.score2
+
+      game.isTopWin = isTeam1 == isTeam1Winner
+      game.char = game.isTopWin ? '↑' : '↓'
+      // game.char = isTeam1 == isTeam1Winner ? '▲' : '▾'
+      // game.char = isTeam1 == isTeam1Winner ? '▲' : '▼'
+
+      var key = [game.teams[0], gameIndex, game.levelIndex]
+      game.m = flatSnapGames.abvGameLevelLookup[key]
+
+      if (!game.m) return console.log(key)
+      game.m.game = game
+    })
+  })
 
   var renders = [initRects(), initTimeline()]
   initFinalsWP()
@@ -179,7 +229,6 @@ function initRects(){
   c.y.domain([0, 1]).range([0, c.height])
   c.x.domain([0, 4])
 
-  flatSnapGames = _.flatten(uniqSnaps.map(d => d.games))
   updateFlatSnapGames(forecasts[0])
 
   var rectSel = c.svg.appendMany('rect', flatSnapGames)
@@ -192,6 +241,21 @@ function initRects(){
       opacity: 1, 
     })
     .call(d3.attachTooltip)
+
+
+  updateFlatSnapGames(_.last(forecasts))
+
+  var vSel = c.svg.appendMany('text.v', flatSnapGames.filter(d => d.game))
+    .at({
+      x: d => c.x(d.tl.l.level + (d.gameIndex + .5)/7),
+      y: d => c.y(d.tl.prev + d.tl.mult/2) + (d.game.isTopWin ? -8 : 8),
+      dy: '.33em',
+      textAnchor: 'middle',
+    })
+    .text(d => d.game.char)
+
+  updateFlatSnapGames(forecasts[0])
+
 
   function addLabels(){
     c.svg.appendMany('g', forecasts[0].teams)
@@ -252,6 +316,7 @@ function initRects(){
     rectSel
       .at({
         fill: d => (d.isFluid ? abv2lcolor : abv2color)[d.tl.l.team.abv],
+        // fill: d => (abv2color)[d.tl.l.team.abv],
         // opacity: d => d.isFluid ? .7 : 1,
       })
       .transition().duration(dur)
@@ -259,11 +324,16 @@ function initRects(){
         y: d => c.y(d.tl.prev),
         height: d => c.y(d.tl.val),
       })
+
+    vSel
+      // .st({opacity: d => d.tl.isPlayed})
+      .st({opacity: d => d.isPlayed ? 0 : 1})
   }
 
   function updateFlatSnapGames(forecast){
     flatSnapGames.forEach(d => {
       d.isFluid = d[forecast.index].isFluid
+      d.isPlayed = d[forecast.index].isPlayed
       d.tl = d[forecast.index].tl
       d.gameIndex = d[0].gameIndex
     })
@@ -288,6 +358,11 @@ function initTimeline(){
       window.stepInterval.end()
       renderForecast(forecasts[Math.round(c.x.invert(d3.mouse(this)[0]))])
     })
+    .on('mousemove', function(d){
+      window.stepInterval.end()
+      renderForecast(forecasts[Math.round(c.x.invert(d3.mouse(this)[0]))], 0)
+    })
+
 
   timelineSel.append('rect')
     .at({width: c.width + 20, x: -10, height: 60, y: -20, opacity: 0})
@@ -398,8 +473,6 @@ function initFinalsWP(){
     .at({
       width: space + .5,
       x: -space/2,
-      // width: d => c.x(d.forecastIndex + .5) - c.x(d.forecastIndex - .5),
-      // x: (d, i) => c.x(d.forecastIndex) - c.x(d.forecastIndex - .5),
       y: d => c.y(d.levels[3].prev),
       height: d => c.y(d.levels[3].val),
       fill: d => abv2color[d.abv],
