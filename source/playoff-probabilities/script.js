@@ -175,8 +175,8 @@ d3.loadData(
       var isTeam1 = game.teams[0] == game.team1
       var isTeam1Winner = game.score1 > game.score2
 
-      game.isTopWin = isTeam1 == isTeam1Winner
-      game.char = !game.isTopWin ? '↑' : '↓'
+      game.isTopWin = isTeam1 != isTeam1Winner
+      game.char = game.isTopWin ? '↑' : '↓'
       // game.char = isTeam1 == isTeam1Winner ? '▲' : '▾'
       // game.char = isTeam1 == isTeam1Winner ? '▲' : '▼'
 
