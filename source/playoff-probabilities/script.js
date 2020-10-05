@@ -49,7 +49,7 @@ function saturate(color, k) {
 }
 
 function lighten(color){
-  return d3.interpolate(color, '#fff')(.25)
+  return d3.interpolate(color, '#fff')(.15)
 }
 
 var abv2lcolor = {}
