@@ -490,7 +490,7 @@ function initFinalsWP(){
   forecastSel
     .appendMany('rect', d => d.teams.filter(d => d.levels[3].val))
     .at({
-      width: space + .5,
+      width: space + 1,
       x: -space/2,
       y: d => c.y(d.levels[3].prev),
       height: d => c.y(d.levels[3].val),
@@ -499,7 +499,7 @@ function initFinalsWP(){
 
   forecastSel.append('path')
     .translate(-space/2, 0)
-    .at({stroke: '#ccc', d: 'M 0 0 V ' + c.height, strokeWidth: .2})
+    .at({stroke: '#fff', d: 'M 0 0 V ' + c.height, strokeWidth: .2})
 
   c.svg.appendMany('text', [25, 50, 75])
     .text(d => d + '%')
