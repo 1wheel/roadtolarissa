@@ -7,3 +7,9 @@ package.lock
 
 source/dvs-privacy/membership.json
 explorable-ml
+
+source/forecast-correlation/data/
+source/forecast-correlation/node_modules/
+
+
+
