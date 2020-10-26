@@ -526,3 +526,8 @@ What does reddit repeat?
 ### Animal pictures
 - https://storage.googleapis.com/openimages/web/visualizer/index.html?set=train&type=segmentation&r=false&c=%2Fm%2F0gd36
 - bing api?
+
+### Basketball WP by margin
+- trace out paths of games
+- https://twitter.com/inpredict/status/1314734826696503298
+- https://roadtolarissa.com/golf-paths/
