@@ -128,7 +128,7 @@ rect.active{
 
 
 .cor-scatter circle.active{
-  stroke-width: 8px;
-  opacity: 1;
+  /*stroke-width: 8px;*/
+  /*opacity: 1;*/
 
 }

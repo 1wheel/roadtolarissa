@@ -393,18 +393,20 @@ function initCorScatter(){
   xAxisSel.select('.label').translate(c.height, 1)
   yAxisSel.select('.label').at({y: -c.width + 10})
 
-  var circleSel = c.svg.appendMany('circle', modelEco.pairs)
-    .translate((d, i) => [c.x(d.cor), c.y(model538.pairs[i].cor)])
-    .at({r: 1.5, fillOpacity: .1, stroke: '#000', opacity: d => d.cor < .99 ? .3 : 0})
+  modelEco.pairs.forEach((d, i) => {
+    d.cor538 = model538.pairs[i].cor
+  })
+
+  var circleSel = c.svg.appendMany('circle', modelEco.pairs.filter(d => d.indexA < d.indexB))
+    .translate((d, i) => [c.x(d.cor), c.y(d.cor538)])
+    .at({r: 1.5, fillOpacity: .1, stroke: '#444', opacity: d => d.cor < .99 ? .8 : 0})
     // .call(d3.attachTooltip)
     .on('mouseover', globalSetPair)
 
   function setPair(pair){
     circleSel
-      .classed('active', 0)
-      .filter(d => d.canonicalStr == pair.canonicalStr)
-      .classed('active', 1)
-      .raise()
+      .at({r: d => d.canonicalStr == pair.canonicalStr ? 5 : 1.5})
+      // .classed('active', d => d.canonicalStr == pair.canonicalStr)
   }
 
   return {setPair}
