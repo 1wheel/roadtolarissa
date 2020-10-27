@@ -69,7 +69,7 @@ rect.active{
 
 
 
-.axis text{
+.axis text, .small-title{
   font-family: monospace;
   font-size: 10px;
   fill: #555;
@@ -79,8 +79,14 @@ rect.active{
   stroke: #ccc;
 }
 
-.matrix .axis{
-  font-size: 20px;
+.matrix .axis text{
+  font-size: 20px !important;
+}
+
+.small-title{
+  font-size: 12px;
+  margin-left: 23px;
+  margin-bottom: -20px;
 }
 
 
@@ -92,4 +98,16 @@ rect.active{
 
 .graph{
   min-height: 800px
+}
+
+
+.map, .scatter{
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  left: 30px;
+}
+.map{
+  left: 10px;
+  /*z-index: -20;*/
 }

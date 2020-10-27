@@ -4,6 +4,7 @@ title: Correlations Between States in Presidential Election Forecasts
 date: 2020-10-25
 permalink: /forecast-correlation
 shareimg: tktk
+draft: true
 ---
 
 <link rel='stylesheet' type='text/css' href='style.css'>
@@ -27,6 +28,8 @@ The correlations matrix clusters states using 538's model. Only 10,000 simulatio
 <script src='hcluster.js'></script>
 <script src='../worlds-group-2017/d3_.js'></script>
 <script src='../shared/chromatic.js'></script>
+<script src='../shared/simple-stats.js'></script>
+<script src='../javascripts/libs/topojson.js'></script>
 
 <script src='script.js'></script>
 

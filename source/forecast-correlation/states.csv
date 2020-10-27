@@ -1,0 +1,52 @@
+abv,votes,name,str
+AK,1,Alaska,AK
+AL,7,Alabama,AL
+AR,4,Arkansas,AR
+AZ,9,Arizona,AZ
+CA,53,California,CA
+CO,7,Colorado,CO
+CT,5,Connecticut,CT
+DC,0,District of Columbia,DC
+DE,1,Delaware,DE
+FL,27,Florida,FL
+GA,14,Georgia,GA
+HI,2,Hawaii,HI
+IA,4,Iowa,IA
+ID,2,Idaho,ID
+IL,18,Illinois,IL
+IN,9,Indiana,IN
+KS,4,Kansas,KS
+KY,6,Kentucky,KY
+LA,6,Louisiana,LA
+MA,9,Massachusetts,MA
+MD,8,Maryland,MD
+ME,2,Maine,ME
+MI,14,Michigan,MI
+MN,8,Minnesota,MN
+MO,8,Missouri,MO
+MS,4,Mississippi,MS
+MT,1,Montana,MT
+NC,13,North Carolina,NC
+ND,1,North Dakota,ND
+NE,3,Nebraska,NE
+NH,2,New Hampshire,NH
+NJ,12,New Jersey,NJ
+NM,3,New Mexico,NM
+NV,4,Nevada,NV
+NY,27,New York,NY
+OH,16,Ohio,OH
+OK,5,Oklahoma,OK
+OR,5,Oregon,OR
+PA,18,Pennsylvania,PA
+RI,2,Rhode Island,RI
+SC,7,South Carolina,SC
+SD,1,South Dakota,SD
+TN,9,Tennessee,TN
+TX,36,Texas,TX
+UT,4,Utah,UT
+VA,11,Virginia,VA
+VT,1,Vermont,VT
+WA,10,Washington,WA
+WI,8,Wisconsin,WI
+WV,3,West Virginia,WV
+WY,1,Wyoming,WY

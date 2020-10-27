@@ -7,6 +7,8 @@ var states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","HI","IA","
 })
 var nStates = states.length
 
+var corScale = d3.scaleLinear().domain([-.75, .75])
+var corColor = d => d3.interpolatePiYG(corScale(d))
 
 var state = {
   pairStr: ''
@@ -25,9 +27,16 @@ window.globalSetPair = function(pair){
   scatterEco.drawPair(pair, extent)
 }
 
+window.globalSetScenario = function(scenarioIndex){
+  map538.drawScenario(scenarioIndex)
+  mapEco.drawScenario(scenarioIndex)
+}
+
 d3.loadData(
   'https://roadtolarissa.com/data/forecast-correlation/pairs-538.json', 
   'https://roadtolarissa.com/data/forecast-correlation/pairs-eco.json', 
+  'https://roadtolarissa.com/data/forecast-correlation/states-10m.json', 
+  'states.csv', 
   async (err, res) => {
   var totalWidth = 1200
   var colMarginLeft =  -(totalWidth - 750)/2 + 40
@@ -39,12 +48,13 @@ d3.loadData(
       .html(`<div class='matrix'></div><div class='scatter'></div><div class='map'></div>`)
     var pairs = res[i]
     var strLong = ['538', 'Economist'][i]
+    var strShort = ['538', 'Econ'][i]
 
     pairs.forEach(d => {
       d.canonicalStr = [d.strA, d.strB].sort().join(' ')
     })
 
-    return {str, strLong, i, sel, pairs}
+    return {str, strLong, strShort, i, sel, pairs}
   })
   window.model538 = model538
   window.modelEco = modelEco
@@ -54,20 +64,31 @@ d3.loadData(
   window.matrixEco = initMatrix(modelEco, index2cluster)
 
 
-  if (!model538.maps){
+  if (!window.mapsEco){
     var url = 'https://roadtolarissa.com/data/forecast-correlation/maps-538.buf'
-    model538.maps = new Int16Array(await(await fetch(url)).arrayBuffer())
-  }
+    window.maps538 = model538.maps = new Int16Array(await(await fetch(url)).arrayBuffer())
 
-  if (!modelEco.maps){
     var url = 'https://roadtolarissa.com/data/forecast-correlation/maps-eco.buf'
-    modelEco.maps = new Int16Array(await(await fetch(url)).arrayBuffer())
+    window.mapsEco = modelEco.maps = new Int16Array(await(await fetch(url)).arrayBuffer())
+  } else {
+    model538.maps = window.maps538
+    modelEco.maps = window.mapsEco
   }
 
   window.scatter538 = initScatter(model538)
   window.scatterEco = initScatter(modelEco)
 
-  globalSetPair(model538.pairs[324])
+
+  var [us, stateVotes] = res.slice(-2)
+  stateVotes.forEach((d, i) => {
+    d.i = i
+  })
+
+  window.map538 = initMap(model538, us, stateVotes)
+  window.mapEco = initMap(modelEco, us, stateVotes)
+
+  window.globalSetPair(model538.pairs[324])
+  window.globalSetScenario(23)
 })
 
 function initMatrix(model, index2cluster){
@@ -83,14 +104,13 @@ function initMatrix(model, index2cluster){
     margin: {top: 70},
   })
 
-  var corScale = d3.scaleLinear().domain([-.75, .75])
   var rectSel = c.svg.appendMany('rect', model.pairs)
     .translate(d => [bs*index2cluster[d.indexA], bs*index2cluster[d.indexB]])
     .at({
       width: bs - .1,
       height: bs - .1,
       // fill: d => d.indexA == d.indexB ? '#fff' : d3.interpolatePiYG(corScale(d.cor))
-      fill: d => d3.interpolatePiYG(corScale(d.cor))
+      fill: d => corColor(d.cor),
     })
     .on('mouseover', globalSetPair)
 
@@ -128,12 +148,14 @@ function initMatrix(model, index2cluster){
 function initScatter(model){
   var sel = model.sel.select('.scatter')
 
+  var titleSel = sel.append('div.small-title')
+
   var c = d3.conventions({
     sel,
     layers: 'scs',
     width: 200,
     height: 200,
-    margin: {bottom: 50}
+    margin: {bottom: 50, right: 20}
   })
 
   c.svg.append('rect')
@@ -152,10 +174,16 @@ function initScatter(model){
   xAxisSel.select('.label').translate(c.height, 1)
   yAxisSel.select('.label').at({y: -c.width + 10})
 
+  c.svg.append('clipPath#line-clip')
+    .append('rect').at({width: c.width, height: c.height})
+
+  var lineSel = c.svg.append('path')
+    .at({stroke: '#555', strokeWidth: 1, strokeDasharray: '2 2', clipPath: 'url(#line-clip)'})
+
   var ctx = c.layers[1]
 
-  var xData = d3.range(1000)
-  var yData = d3.range(1000)
+  var xData = d3.range(5000)
+  var yData = d3.range(5000)
 
   function calcExtent(pair){
     xData.forEach((_, i) => {
@@ -166,9 +194,15 @@ function initScatter(model){
     return d3.extent(xData.concat(yData))
   }
 
-  function drawPair(pair, extent){
-    c.x.domain(extent).nice()
-    c.y.domain(extent).nice()
+  function drawPair({indexA, indexB}, extent){
+    var pair = _.find(model.pairs, {indexA, indexB})
+
+    titleSel.html(`
+      ${model.strShort} ${pair.strA}-${pair.strB} correlation: 
+      <span style='padding: 1px; border: 2px solid ${corColor(pair.cor)}'> ${d3.format('+.2f')(pair.cor)} </span>`)
+
+    c.x.domain(extent)
+    c.y.domain(extent)
 
     c.svg.select('.x').call(c.xAxis)
     c.svg.select('.y').call(c.yAxis)
@@ -183,10 +217,56 @@ function initScatter(model){
       ctx.rect(c.x(xData[i]), c.y(yData[i]), 1, 1)
       ctx.fill()
     })
+
+    var l = ss.linearRegressionLine(pair)
+    var [x0, x1] = extent.map(d => d*10000)
+
+    lineSel.at({d: `M ${c.x(x0/10000)} ${c.y(l(x0)/10000)} L ${c.x(x1/10000)} ${c.y(l(x1)/10000)}`})
   }
 
   return {drawPair, calcExtent}
 }
+
+function initMap(model, us, stateVotes){
+  var width = 275
+
+  var sel = model.sel.select('.map')
+  var titleSel = sel.append('div.small-title')
+  var c = d3.conventions({
+    sel,
+    layers: 's',
+    width,
+    height: width,
+    margin: {bottom: 50, left: 0, right: 0}
+  })
+
+  us.land = us.land || topojson.feature(us, us.objects.nation)
+  var path = d3.geoPath().projection(d3.geoAlbersUsa().fitSize([width, width], us.land))
+  
+  var stateSel = c.svg.appendMany('path.states', topojson.feature(us, us.objects.states).features)
+    .at({d: path})
+    .call(d3.attachTooltip)
+    .each(d => {
+      d.state = _.find(stateVotes, {name: d.properties.name})
+    })
+    .filter(d => d.state)
+
+  us.stateMesh = us.stateMesh || path(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b }))
+  c.svg.append('path.state-borders')
+    .at({stroke: '#fff', strokeWidth: .4, fill: 'none', d: us.stateMesh})
+
+  function drawScenario(scenarioIndex){
+    var rVotes = 0
+    stateSel.at({fill: d => {
+      var isR = model.maps[scenarioIndex*states.length + d.state.i] > 5000
+      if (isR) rVotes += d.state.votes
+      return isR ? '#BC5454' : '#648DCF'
+    }})
+  }
+
+  return {drawScenario}
+}
+
 
 
 function calcIndex2Cluster(model538, modelEco){
