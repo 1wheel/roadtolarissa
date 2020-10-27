@@ -1,6 +1,7 @@
 ---
 template: post.html
 title: Correlations Between States in Presidential Election Forecasts
+title: Forecast Correlation Comparisons
 date: 2020-10-25
 permalink: /forecast-correlation
 shareimg: tktk
@@ -10,7 +11,7 @@ draft: true
 <link rel='stylesheet' type='text/css' href='style.css'>
 
 
-538 and the Economist have both released detailed data from their election forecasts, showing how each state would vote in 40,000 simulations of the election. To understand some unusual scenarios from the 538 model, like every state voting for Biden but New Jersey, Andrew Gelman [examined the correlation](https://statmodeling.stat.columbia.edu/2020/10/24/reverse-engineering-the-problematic-tail-behavior-of-the-fivethirtyeight-presidential-election-forecast/) in Trump vote share between several states. 
+538 and the Economist have both released detailed data from their election forecasts, showing how each state would vote in 40,000 simulations of the election. To understand some unusual scenarios from the 538 model, like every state voting for Biden but New Jersey, Andrew Gelman [examined the correlation](https://statmodeling.stat.columbia.edu/2020/10/24/reverse-engineering-the-problematic-tail-behavior-of-the-fivethirtyeight-presidential-election-forecast/) in Trump vote share between pairs of several states. 
 
 I was curious what the whole universe of correlations looked like; you can click on a grid cell to examine voting patterns in two states in more detail along with the electoral maps from individual forecasts. 
 

@@ -92,7 +92,8 @@ d3.loadData(
 })
 
 function initMatrix(model, index2cluster){
-  var sel = model.sel.select('.matrix')
+  var isLock = false
+  var sel = model.sel.select('.matrix').on('mouseleave', d => isLock = false)
 
   var bs = 10
   var width = bs*nStates
@@ -112,7 +113,14 @@ function initMatrix(model, index2cluster){
       // fill: d => d.indexA == d.indexB ? '#fff' : d3.interpolatePiYG(corScale(d.cor))
       fill: d => corColor(d.cor),
     })
-    .on('mouseover', globalSetPair)
+    .on('mouseover', d => {
+      if (isLock) return
+      globalSetPair(d)
+    })
+    .on('click', d => {
+      globalSetPair(d)
+      isLock = !isLock
+    })
 
   var aTextSel = c.svg.appendMany('g', states)
     .translate(d => [index2cluster[d.stateIndex]*bs, -3])
@@ -146,7 +154,8 @@ function initMatrix(model, index2cluster){
 }
 
 function initScatter(model){
-  var sel = model.sel.select('.scatter')
+  var isLock = false
+  var sel = model.sel.select('.scatter').on('mouseleave', d => isLock = false)
 
   var titleSel = sel.append('div.small-title')
 
@@ -182,8 +191,8 @@ function initScatter(model){
 
   var ctx = c.layers[1]
 
-  var xData = d3.range(5000)
-  var yData = d3.range(5000)
+  var xData = d3.range(1000)
+  var yData = d3.range(1000)
 
   function calcExtent(pair){
     xData.forEach((_, i) => {
