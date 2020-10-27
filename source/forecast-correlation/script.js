@@ -55,8 +55,9 @@ d3.loadData(
     var strLong = ['538', 'Economist'][i]
     var strShort = ['538', 'Econ'][i]
 
-    pairs.forEach(d => {
+    pairs.forEach((d, i) => {
       d.canonicalStr = [d.strA, d.strB].sort().join(' ')
+      d.pairIndex = i
     })
 
     var stateData = []
@@ -117,8 +118,8 @@ function initMatrix(model, index2cluster){
   var rectSel = c.svg.appendMany('rect', model.pairs)
     .translate(d => [bs*index2cluster[d.indexA], bs*index2cluster[d.indexB]])
     .at({
-      width: bs - .1,
-      height: bs - .1,
+      width: bs - 0,
+      height: bs - 0,
       // fill: d => d.indexA == d.indexB ? '#fff' : d3.interpolatePiYG(corScale(d.cor))
       fill: d => corColor(d.cor),
     })
@@ -399,16 +400,32 @@ function initCorScatter(){
 
   var circleSel = c.svg.appendMany('circle', modelEco.pairs.filter(d => d.indexA < d.indexB))
     .translate((d, i) => [c.x(d.cor), c.y(d.cor538)])
-    .at({r: 1.5, fillOpacity: .1, stroke: '#444', opacity: d => d.cor < .99 ? .8 : 0})
+    .at({r: 1.5, fillOpacity: 0, stroke: '#444', opacity: d => d.cor < .99 ? 1 : 0})
     // .call(d3.attachTooltip)
-    .on('mouseover', globalSetPair)
+    .on('mouseover', d => {
+      var i = d.pairIndex
+      activeCircle
+        .translate([c.x(modelEco.pairs[i].cor), c.y(model538.pairs[i].cor)])
+        .at({r: 5})
+
+      globalSetPair(d)
+    })
+
+  var activeCircle = c.svg.append('circle')
+    .at({r: 0, stroke: '#000', r: 5, strokeWidth: 2, pointerEvents: 'none', fill: 'none'})
 
   function setPair(pair){
-    circleSel
-      .at({r: d => d.canonicalStr == pair.canonicalStr ? 5 : 1.5})
+    var i = pair.pairIndex
+    activeCircle
+      .translate([c.x(modelEco.pairs[i].cor), c.y(model538.pairs[i].cor)])
+      .at({r: 5})
+
+    // circleSel
+    //   .at({r: d => d.canonicalStr == pair.canonicalStr ? 5 : 1.5})
       // .classed('active', d => d.canonicalStr == pair.canonicalStr)
   }
 
+  // return {setPair: _.debounce(setPair, 250)}
   return {setPair}
 }
 
