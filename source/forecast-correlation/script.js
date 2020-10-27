@@ -27,9 +27,12 @@ window.globalSetPair = function(pair){
   scatterEco.drawPair(pair, extent)
 }
 
-window.globalSetScenario = function(scenarioIndex){
-  map538.drawScenario(scenarioIndex)
-  mapEco.drawScenario(scenarioIndex)
+window.globalSetScenario = function(x, y){
+  // map538.drawScenario(scenarioIndex)
+  // mapEco.drawScenario(scenarioIndex)
+
+  scatter538.drawScenario(x, y)
+  scatterEco.drawScenario(x, y)
 }
 
 d3.loadData(
@@ -54,7 +57,10 @@ d3.loadData(
       d.canonicalStr = [d.strA, d.strB].sort().join(' ')
     })
 
-    return {str, strLong, strShort, i, sel, pairs}
+    var stateData = []
+    var activeScenarioIndex = -1
+
+    return {str, strLong, strShort, i, sel, pairs, stateData, activeScenarioIndex}
   })
   window.model538 = model538
   window.modelEco = modelEco
@@ -88,7 +94,7 @@ d3.loadData(
   window.mapEco = initMap(modelEco, us, stateVotes)
 
   window.globalSetPair(model538.pairs[324])
-  window.globalSetScenario(23)
+  window.globalSetScenario(5000, 5000)
 })
 
 function initMatrix(model, index2cluster){
@@ -148,7 +154,7 @@ function initMatrix(model, index2cluster){
 
 
   c.svg.append('g.x.axis').translate(-70, 1)
-  addAxisLabel(c, model.strLong)
+  addAxisLabel(c, model.strLong + ' Correlations Between States')
 
   return {abvSel, rectSel, setPair}
 }
@@ -187,18 +193,48 @@ function initScatter(model){
     .append('rect').at({width: c.width, height: c.height})
 
   var lineSel = c.svg.append('path')
-    .at({stroke: '#555', strokeWidth: 1, strokeDasharray: '2 2', clipPath: 'url(#line-clip)'})
+    .at({stroke: '#555', strokeWidth: 2, clipPath: 'url(#line-clip)', strokeDasharray: '2 2'})
 
   var ctx = c.layers[1]
 
-  var xData = d3.range(1000)
-  var yData = d3.range(1000)
+  var svg2 = c.layers[2]
+  svg2.append('rect')
+    .at({width: c.width, height: c.height, fillOpacity: 0})
+    .on('mousemove', function(){
+      if (isLock) return
+      var [x, y] = d3.mouse(this)
+      globalSetScenario(c.x.invert(x), c.y.invert(y))
+    })
+    .on('click', function(){
+      var [x, y] = d3.mouse(this)
+      globalSetScenario(c.x.invert(x), c.y.invert(y))
+      isLock = !isLock
+    })
+
+  var circleSel = svg2.append('circle')
+    .at({stroke: 'gold', r: 3, fill: 'none', strokeWidth: 2 })
+
+  var hPathSel = svg2.append('path').at({stroke: 'gold', strokeWidth: .5})
+  var vPathSel = svg2.append('path').at({stroke: 'gold', strokeWidth: .5})
+
+  var xData = d3.range(40000)
+  var yData = d3.range(40000)
 
   function calcExtent(pair){
-    xData.forEach((_, i) => {
-      xData[i] = model.maps[i*states.length + pair.indexA]/10000
-      yData[i] = model.maps[i*states.length + pair.indexB]/10000
-    })
+    // xData.forEach((_, i) => {
+    //   xData[i] = model.maps[i*states.length + pair.indexA]/10000
+    //   yData[i] = model.maps[i*states.length + pair.indexB]/10000
+    // })
+
+    xData = model.stateData[pair.indexA]
+    if (!xData){
+      xData = model.stateData[pair.indexA] = d3.range(40000).map(i => model.maps[i*states.length + pair.indexA]/10000)
+    }
+
+    yData = model.stateData[pair.indexB]
+    if (!yData){
+      yData = model.stateData[pair.indexB] = d3.range(40000).map(i => model.maps[i*states.length + pair.indexB]/10000)
+    }
 
     return d3.extent(xData.concat(yData))
   }
@@ -213,15 +249,15 @@ function initScatter(model){
     c.x.domain(extent)
     c.y.domain(extent)
 
-    c.svg.select('.x').call(c.xAxis)
-    c.svg.select('.y').call(c.yAxis)
+    c.svg.select('.x').call(c.xAxis).selectAll('.tick').classed('bold', d => d == .5)
+    c.svg.select('.y').call(c.yAxis).selectAll('.tick').classed('bold', d => d == .5)
     ctx.clearRect(-c.margin.left, -c.margin.right, c.totalWidth, c.totalWidth)
     
     xAxisSel.select('.label').text('Trump Vote Share in ' + pair.strA)
     yAxisSel.select('.label').text('Trump Vote Share in ' + pair.strB)
 
     ctx.fillStyle = 'rgba(0,0,0,.2)'
-    xData.forEach((_, i) => {
+    xData.slice(0, 10000).forEach((_, i) => {
       ctx.beginPath()
       ctx.rect(c.x(xData[i]), c.y(yData[i]), 1, 1)
       ctx.fill()
@@ -231,9 +267,45 @@ function initScatter(model){
     var [x0, x1] = extent.map(d => d*10000)
 
     lineSel.at({d: `M ${c.x(x0/10000)} ${c.y(l(x0)/10000)} L ${c.x(x1/10000)} ${c.y(l(x1)/10000)}`})
+
+    if (model.activeScenarioIndex > -1){
+      drawScenario(null, null, model.activeScenarioIndex)
+    }
   }
 
-  return {drawPair, calcExtent}
+  function drawScenario(x, y, minI=-1){
+    var skipMap = true
+    if (minI > -1){
+      x = xData[minI]
+      y = yData[minI]
+    } else {
+      skipMap = false
+      var minDist = Infinity
+      xData.forEach((xVal, i) => {
+        var dx = x - xVal
+        var dy = y - yData[i]
+
+        var dist = dx*dx + dy*dy
+
+        if (dist < minDist){
+          minDist = dist
+          minI = i
+        }
+      })
+    }
+
+
+
+    circleSel.translate([c.x(xData[minI]), c.y(yData[minI])])
+    hPathSel.at({d: 'M 0 ' + c.y(y) + ' H ' + c.x(x)})
+    vPathSel.at({d: 'M ' + c.x(x) + ' ' + c.height + ' V ' + c.y(y)})
+
+    model.activeScenarioIndex = minI
+
+    if (!skipMap) model.map.drawScenario(minI)
+  }
+
+  return {drawPair, calcExtent, drawScenario}
 }
 
 function initMap(model, us, stateVotes){
@@ -254,7 +326,6 @@ function initMap(model, us, stateVotes){
   
   var stateSel = c.svg.appendMany('path.states', topojson.feature(us, us.objects.states).features)
     .at({d: path})
-    .call(d3.attachTooltip)
     .each(d => {
       d.state = _.find(stateVotes, {name: d.properties.name})
     })
@@ -264,16 +335,24 @@ function initMap(model, us, stateVotes){
   c.svg.append('path.state-borders')
     .at({stroke: '#fff', strokeWidth: .4, fill: 'none', d: us.stateMesh})
 
+  var dSel = c.svg.append('g.small-title').append('text').st({fill: '#648DCF'}).translate([60, 36])
+  var rSel = c.svg.append('g.small-title').append('text').st({fill: '#BC5454'}).translate([170, 36])
+
   function drawScenario(scenarioIndex){
     var rVotes = 0
     stateSel.at({fill: d => {
       var isR = model.maps[scenarioIndex*states.length + d.state.i] > 5000
-      if (isR) rVotes += d.state.votes
+      if (isR) rVotes += +d.state.votes
       return isR ? '#BC5454' : '#648DCF'
     }})
+
+    dSel.text('Biden ' + (538 - rVotes))
+    rSel.text('Trump ' + rVotes)
   }
 
-  return {drawScenario}
+  var rv = {drawScenario}
+  model.map = rv
+  return rv
 }
 
 

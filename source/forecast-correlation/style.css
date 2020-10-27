@@ -76,7 +76,14 @@ rect.active{
 }
 
 .axis line{
-  stroke: #ccc;
+  opacity: .1;
+}
+.axis .tick.bold line{
+  opacity: .3;
+}
+.axis .tick.bold text{
+  fill: #000;
+  font-weight: 600;
 }
 
 .matrix .axis text{
@@ -109,5 +116,6 @@ rect.active{
 }
 .map{
   left: 10px;
-  /*z-index: -20;*/
+  top: -20px;
+  z-index: -20;
 }

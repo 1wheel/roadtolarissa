@@ -11,7 +11,7 @@ draft: true
 <link rel='stylesheet' type='text/css' href='style.css'>
 
 
-538 and the Economist have both released detailed data from their election forecasts, showing how each state would vote in 40,000 simulations of the election. To understand some unusual scenarios from the 538 model, like every state voting for Biden but New Jersey, Andrew Gelman [examined the correlation](https://statmodeling.stat.columbia.edu/2020/10/24/reverse-engineering-the-problematic-tail-behavior-of-the-fivethirtyeight-presidential-election-forecast/) in Trump vote share between pairs of several states. 
+[538](https://projects.fivethirtyeight.com/2020-election-forecast/) and the [Economist](https://projects.economist.com/us-2020-forecast/president) have both released detailed data from their election forecasts, showing how each state would vote in 40,000 simulations of the election. To understand some unusual scenarios from the 538 model, like every state [voting for Biden but New Jersey](https://twitter.com/gelliottmorris/status/1300480869082292225), Andrew Gelman [examined the correlation](https://statmodeling.stat.columbia.edu/2020/10/24/reverse-engineering-the-problematic-tail-behavior-of-the-fivethirtyeight-presidential-election-forecast/) in Trump vote share between pairs of several states. 
 
 I was curious what the whole universe of pairwise correlations looked like; you can click on a grid cell to examine voting patterns in two states in more detail along with the electoral maps from individual forecasts. 
 
@@ -30,7 +30,7 @@ Comparing vote share state by state clearly shows the Economist model thinks rea
 <div id='notes'>
 <p>The correlations matrix orders states by clustering on 538's correlations. The Economist matrix would look smoother if it was used to determine the sort order instead. 
 
-<p>Only 10,000 scenarios are shown on the scatter plots; the scenarios are a snapshot from 2020-10-25 and not updated. The rendered electoral college scenarios ignore the possibility of Nebraska or Maine spiting their votes. 
+<p>Only 10,000 scenarios are shown on the scatter plots; the scenarios are a snapshot from 2020-10-25 and not updated (looking at the correlations over time might be interesting though!). The rendered electoral college scenarios ignore the possibility of Nebraska or Maine spiting their votes. 
 
 <p><a href='https://github.com/1wheel/roadtolarissa/tree/master/source/forecast-correlation'>chart code</a>
 
