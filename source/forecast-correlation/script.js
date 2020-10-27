@@ -25,6 +25,8 @@ window.globalSetPair = function(pair){
   extent = d3.scaleLinear().domain(extent).nice(5).domain()
   scatter538.drawPair(pair, extent)
   scatterEco.drawPair(pair, extent)
+
+  corScatter.setPair(pair)
 }
 
 window.globalSetScenario = function(x, y){
@@ -69,6 +71,8 @@ d3.loadData(
   window.matrix538 = initMatrix(model538, index2cluster)
   window.matrixEco = initMatrix(modelEco, index2cluster)
 
+  window.corScatter = initCorScatter()
+
 
   if (!window.mapsEco){
     var url = 'https://roadtolarissa.com/data/forecast-correlation/maps-538.buf'
@@ -83,7 +87,6 @@ d3.loadData(
 
   window.scatter538 = initScatter(model538)
   window.scatterEco = initScatter(modelEco)
-
 
   var [us, stateVotes] = res.slice(-2)
   stateVotes.forEach((d, i) => {
@@ -221,11 +224,6 @@ function initScatter(model){
   var yData = d3.range(40000)
 
   function calcExtent(pair){
-    // xData.forEach((_, i) => {
-    //   xData[i] = model.maps[i*states.length + pair.indexA]/10000
-    //   yData[i] = model.maps[i*states.length + pair.indexB]/10000
-    // })
-
     xData = model.stateData[pair.indexA]
     if (!xData){
       xData = model.stateData[pair.indexA] = d3.range(40000).map(i => model.maps[i*states.length + pair.indexA]/10000)
@@ -257,7 +255,7 @@ function initScatter(model){
     yAxisSel.select('.label').text('Trump Vote Share in ' + pair.strB)
 
     ctx.fillStyle = 'rgba(0,0,0,.2)'
-    xData.slice(0, 10000).forEach((_, i) => {
+    xData.slice(0, 3000).forEach((_, i) => {
       ctx.beginPath()
       ctx.rect(c.x(xData[i]), c.y(yData[i]), 1, 1)
       ctx.fill()
@@ -313,12 +311,13 @@ function initMap(model, us, stateVotes){
 
   var sel = model.sel.select('.map')
   var titleSel = sel.append('div.small-title')
+    .text('')
   var c = d3.conventions({
     sel,
     layers: 's',
     width,
     height: width,
-    margin: {bottom: 50, left: 0, right: 0}
+    margin: {bottom: 0, left: 0, right: 0}
   })
 
   us.land = us.land || topojson.feature(us, us.objects.nation)
@@ -355,6 +354,61 @@ function initMap(model, us, stateVotes){
   return rv
 }
 
+
+function initCorScatter(){
+  var sel = d3.select('.cor-scatter').html('').st({margin: '0px auto'})
+
+
+  var c = d3.conventions({
+    sel: sel,
+    width: 500,
+    height: 500,
+    margin: {bottom: 50, right: 20, top: 50}
+  })
+
+  c.svg.append('g.axis').append('text.small-title')
+    .text('Pairwise Correlations Between States')
+    .at({textAnchor: 'middle', x: c.width/2, y: -20})
+    .st({fontSize: 14})
+
+
+  c.x.domain([-.5, 1])
+  c.y.domain([-.5, 1])
+
+  c.svg.append('rect')
+    .at({width: c.width, height: c.height, fill: '#eee'})
+
+  c.x.interpolate(d3.interpolateRound)
+  c.y.interpolate(d3.interpolateRound)
+  c.xAxis.tickFormat(d3.format('.2f')).ticks(10).tickSize(c.height)
+  c.yAxis.tickFormat(d3.format('.2f')).ticks(10).tickSize(c.height)
+
+  d3.drawAxis(c)
+  c.svg.selectAll('.tick').classed('bold', d => d == 0)
+
+  var xAxisSel = c.svg.select('.x').translate(0, 0)
+  var yAxisSel = c.svg.select('.y').translate(c.width, 0)
+  
+  addAxisLabel(c, 'Economist Correlation', '538 Correlation')
+  xAxisSel.select('.label').translate(c.height, 1)
+  yAxisSel.select('.label').at({y: -c.width + 10})
+
+  var circleSel = c.svg.appendMany('circle', modelEco.pairs)
+    .translate((d, i) => [c.x(d.cor), c.y(model538.pairs[i].cor)])
+    .at({r: 1.5, fillOpacity: .1, stroke: '#000', opacity: d => d.cor < .99 ? .3 : 0})
+    // .call(d3.attachTooltip)
+    .on('mouseover', globalSetPair)
+
+  function setPair(pair){
+    circleSel
+      .classed('active', 0)
+      .filter(d => d.canonicalStr == pair.canonicalStr)
+      .classed('active', 1)
+      .raise()
+  }
+
+  return {setPair}
+}
 
 
 function calcIndex2Cluster(model538, modelEco){

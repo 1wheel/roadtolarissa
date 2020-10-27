@@ -87,13 +87,19 @@ rect.active{
 }
 
 .matrix .axis text{
-  font-size: 20px !important;
+  font-size: 14px !important;
+  font-weight: 600;
 }
 
-.small-title{
+.small-title, .axis text.small-title{
   font-size: 12px;
   margin-left: 23px;
   margin-bottom: -20px;
+  fill: #000;
+  font-weight: 600;
+}
+
+.label{
 }
 
 
@@ -118,4 +124,11 @@ rect.active{
   left: 10px;
   top: -20px;
   z-index: -20;
+}
+
+
+.cor-scatter circle.active{
+  stroke-width: 8px;
+  opacity: 1;
+
 }

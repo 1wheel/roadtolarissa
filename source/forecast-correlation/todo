@@ -8,20 +8,19 @@ x add lock
 
 
 # scatter
-- title
-- regression line
-- link hover
+x title
+x regression line
+x link hover
 
 
-# parms
+# parms [meh]
 - default
 - set
 
 
 # map
-- link hover
-- load states
-
+x link hover
+x load states
 
 # cor scatter
 

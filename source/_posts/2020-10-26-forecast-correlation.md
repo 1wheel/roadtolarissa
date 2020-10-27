@@ -17,13 +17,18 @@ I was curious what the whole universe of pairwise correlations looked like; you 
 
 <div class='graph'></div>
 
-538 and the Economist mostly agree on what pairs of states are most correlated: 
+Mousing around the edges of the scatter plot pulls out more unusual scenarios, like Trump losing everywhere but `CA-HI-VT`. 
+
+On the correlation matrix, it appears that both models have identified similar groups of states. A scatter plot shows the pattern directly: 
 
 <div class='cor-scatter'></div>
 
+Outside of the `CA-DC-VT-WA` v. `LA-MS-ND-KY` cluster, which the Economist clamps at a .1 correlation and 538 has at a negative correlation, the models are mostly aligned. Glancing over the outliers, it looks the Economist might not an equivalent to 538's <a href='https://fivethirtyeight.com/features/how-fivethirtyeights-2020-presidential-forecast-works-and-whats-different-because-of-covid-19/'>regional regression</a> that groups states in the same geographic region together; for example the Economist has `HI` at .2 correlation with `WA` & `OR` and while 538 has them at .7.
+
+
 I haven't followed the extensive model discussion closely enough to have a strong opinion on what all of this means, but it does look like the 538 model is allowing for the [possibility](https://twitter.com/Nate_Cohn/status/1320043524771991560) of a broad [realignment in politics](https://twitter.com/NateSilver538/status/1300825856072454145)--something you'd want to incorporate when modeling 2024 today, but not plausible for an election next week. 
 
-Comparing vote share state by state clearly shows the Economist model thinks really surprising outcomes, like Trump winning Washington, are much less likely:
+Taking a step back from funky correlation charts, comparing vote share state by state clearly shows the Economist model thinks really surprising outcomes, like Trump winning Washington, are much way less likely:
 
 <div class='state-sm'></div>
 
