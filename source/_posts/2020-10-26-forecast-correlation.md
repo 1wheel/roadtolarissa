@@ -11,7 +11,7 @@ draft: true
 <link rel='stylesheet' type='text/css' href='style.css'>
 
 
-[538](https://projects.fivethirtyeight.com/2020-election-forecast/) and the [Economist](https://projects.economist.com/us-2020-forecast/president) have both released detailed data from their election forecasts, showing how each state would vote in 40,000 simulations of the election. To understand some unusual scenarios from the 538 model, like every state [voting for Biden but New Jersey](https://twitter.com/gelliottmorris/status/1300480869082292225), Andrew Gelman [examined the correlation](https://statmodeling.stat.columbia.edu/2020/10/24/reverse-engineering-the-problematic-tail-behavior-of-the-fivethirtyeight-presidential-election-forecast/) in Trump vote share between pairs of several states. 
+[538](https://projects.fivethirtyeight.com/2020-election-forecast/) and the [Economist](https://projects.economist.com/us-2020-forecast/president) have both released detailed data from their election forecasts, showing how each state would vote in 40,000 simulations of the presidential election. To understand some unusual scenarios from the 538 model, like every state [voting for Biden but New Jersey](https://twitter.com/gelliottmorris/status/1300480869082292225), Andrew Gelman [examined the correlation](https://statmodeling.stat.columbia.edu/2020/10/24/reverse-engineering-the-problematic-tail-behavior-of-the-fivethirtyeight-presidential-election-forecast/) in Trump vote share between pairs of several states. 
 
 I was curious what the whole universe of pairwise correlations looked like; you can click on a grid cell to examine voting patterns in two states in more detail along with the electoral maps from individual forecasts. 
 
@@ -23,19 +23,19 @@ On the correlation matrix, it appears that both models have identified similar g
 
 <div class='cor-scatter'></div>
 
-Outside of the `CA-DC-VT-WA` v. `LA-MS-ND-KY` cluster, which the Economist clamps at a .1 correlation and 538 has at a negative correlation, the models are mostly aligned. Glancing over the outliers, it looks the Economist might not an equivalent to 538's <a href='https://fivethirtyeight.com/features/how-fivethirtyeights-2020-presidential-forecast-works-and-whats-different-because-of-covid-19/'>regional regression</a> that groups states in the same geographic region together; for example the Economist has `HI` at .2 correlation with `WA` & `OR` and while 538 has them at .7.
+Outside of the `CA-DC-VT-WA` v. `LA-MS-ND-KY` cluster, where the 538 correlation dips below 0, the models are mostly aligned. Glancing over the outliers, it looks the Economist might not an equivalent to 538's <a href='https://fivethirtyeight.com/features/how-fivethirtyeights-2020-presidential-forecast-works-and-whats-different-because-of-covid-19/'>regional regression</a> that groups states in the same geographic region together; the Economist has `HI` at .2 correlation with `WA` & `OR` and while 538 has them around .7.
 
-
-I haven't followed the extensive model discussion closely enough to have a strong opinion on what all of this means, but it does look like the 538 model is allowing for the [possibility](https://twitter.com/Nate_Cohn/status/1320043524771991560) of a broad [realignment in politics](https://twitter.com/NateSilver538/status/1300825856072454145)--something you'd want to incorporate when modeling 2024 today, but not plausible for an election next week. 
-
-Taking a step back from funky correlation charts, comparing vote share state by state clearly shows the Economist model thinks really surprising outcomes, like Trump winning Washington, are much way less likely:
+Stepping back from the funky correlation charts, comparing vote share state by state clearly shows the <span class='u-eco'>Economist model</span> considers really surprising outcomes, like Biden decisively winning `UT`, less likely than the <span class='u-538'>538 model</span>.
 
 <div class='state-sm'></div>
 
-<div id='notes'>
-<p>The correlations matrix orders states by clustering on 538's correlations. The Economist matrix would look smoother if it was used to determine the sort order instead. 
+I haven't followed the extensive discussion around election modeling closely enough to have a strong opinion on what all of this means, but it does look like the 538 model is allowing for the [possibility](https://twitter.com/Nate_Cohn/status/1320043524771991560) of a broad [realignment in politics](https://twitter.com/NateSilver538/status/1300825856072454145)--something you'd want to incorporate when modeling 2024 today, but not plausible for an election next week with [sixty million ballots](https://www.nytimes.com/interactive/2020/us/elections/absentee-ballot-early-voting.html) already cast.
 
-<p>Only 10,000 scenarios are shown on the scatter plots; the scenarios are a snapshot from 2020-10-25 and not updated (looking at the correlations over time might be interesting though!). The rendered electoral college scenarios ignore the possibility of Nebraska or Maine spiting their votes. 
+
+<div id='notes'>
+<p>Only 5,000 scenarios are shown on the scatter plots; the scenarios are a snapshot from 2020-10-25 and not updated (looking at the correlations over time might be interesting though!). The rendered electoral college scenarios ignore the possibility of `NE` or `ME` spliting their votes. 
+
+<p>The correlations matrix orders states by clustering on 538's correlations. Sorting using the Economist correlations [splits up](https://i.imgur.com/JH9FC8I.png) the negative correlations.
 
 <p><a href='https://github.com/1wheel/roadtolarissa/tree/master/source/forecast-correlation'>chart code</a>
 

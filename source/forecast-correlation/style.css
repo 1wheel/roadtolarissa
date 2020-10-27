@@ -11,6 +11,8 @@ html{
   background: rgba(255, 255, 255, .90);
   border: 1px solid lightgray;
   pointer-events: none;
+  font-family: monospace;
+  font-size: 12px;
 }
 .tooltip-hidden{
   opacity: 0;
@@ -68,7 +70,9 @@ rect.active{
 }
 
 
-
+.axis text{
+  font-weight: 400;
+}
 .axis text, .small-title{
   font-family: monospace;
   font-size: 10px;
@@ -130,5 +134,17 @@ rect.active{
 .cor-scatter circle.active{
   /*stroke-width: 8px;*/
   /*opacity: 1;*/
+  /*stroke-width: 3;*/
+  fill: #ddd;
+  fill-opacity: 1;
+  stroke-width: 4px;
+  stroke: #000;
 
+}
+
+.u-538{
+  border-bottom: 2px solid #000;
+}
+.u-eco{
+  border-bottom: 2px solid #C2190F;
 }

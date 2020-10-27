@@ -1,5 +1,5 @@
 console.clear()
-d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
+var ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 
 var states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VA","VT","WA","WI","WV","WY"].map((str, stateIndex) => {
@@ -46,6 +46,8 @@ d3.loadData(
   var totalWidth = 1200
   var colMarginLeft =  -(totalWidth - 750)/2 + 40
   d3.select('.graph').html(`<div class='col col-538'></div><div class='col col-eco'></div>`)
+
+  d3.selectAll('.graph,.state-sm')
     .st({width: totalWidth, marginLeft: colMarginLeft})
 
   var [model538, modelEco] = ['538', 'eco'].map((str, i) => {
@@ -74,6 +76,8 @@ d3.loadData(
 
   window.corScatter = initCorScatter()
 
+  
+
 
   if (!window.mapsEco){
     var url = 'https://roadtolarissa.com/data/forecast-correlation/maps-538.buf'
@@ -99,6 +103,8 @@ d3.loadData(
 
   window.globalSetPair(model538.pairs[324])
   window.globalSetScenario(5000, 5000)
+
+  initStateSm()
 })
 
 function initMatrix(model, index2cluster){
@@ -216,10 +222,10 @@ function initScatter(model){
     })
 
   var circleSel = svg2.append('circle')
-    .at({stroke: 'gold', r: 3, fill: 'none', strokeWidth: 2 })
+    .at({stroke: 'orange', r: 3, fill: 'none', strokeWidth: 2 })
 
-  var hPathSel = svg2.append('path').at({stroke: 'gold', strokeWidth: .5})
-  var vPathSel = svg2.append('path').at({stroke: 'gold', strokeWidth: .5})
+  var hPathSel = svg2.append('path').at({stroke: 'orange', strokeWidth: .5})
+  var vPathSel = svg2.append('path').at({stroke: 'orange', strokeWidth: .5})
 
   var xData = d3.range(40000)
   var yData = d3.range(40000)
@@ -256,7 +262,7 @@ function initScatter(model){
     yAxisSel.select('.label').text('Trump Vote Share in ' + pair.strB)
 
     ctx.fillStyle = 'rgba(0,0,0,.2)'
-    xData.slice(0, 3000).forEach((_, i) => {
+    xData.slice(0, 5000).forEach((_, i) => {
       ctx.beginPath()
       ctx.rect(c.x(xData[i]), c.y(yData[i]), 1, 1)
       ctx.fill()
@@ -401,14 +407,25 @@ function initCorScatter(){
   var circleSel = c.svg.appendMany('circle', modelEco.pairs.filter(d => d.indexA < d.indexB))
     .translate((d, i) => [c.x(d.cor), c.y(d.cor538)])
     .at({r: 1.5, fillOpacity: 0, stroke: '#444', opacity: d => d.cor < .99 ? 1 : 0})
-    // .call(d3.attachTooltip)
-    .on('mouseover', d => {
-      var i = d.pairIndex
-      activeCircle
-        .translate([c.x(modelEco.pairs[i].cor), c.y(model538.pairs[i].cor)])
-        .at({r: 5})
+    .call(d3.attachTooltip)
+    .on('mouseover', pair => {
+      var i = pair.pairIndex
 
-      globalSetPair(d)
+      var corEco = modelEco.pairs[i].cor
+      var cor538 = model538.pairs[i].cor
+
+      ttSel.html(`
+        <b>${pair.strA}-${pair.strB}</b>
+        <br>
+        <span style='margin-right: 0px; padding: 1px; border: 2px solid ${corColor(corEco)}'> ${d3.format('+.2f')(corEco)}</span>
+        Economist correlation
+        <br>
+
+        <span style='margin-right: 0px; padding: 1px; border: 2px solid ${corColor(cor538)}'> ${d3.format('+.2f')(cor538)}</span>
+        538 correlation
+      `)
+
+      globalSetPair(pair)
     })
 
   var activeCircle = c.svg.append('circle')
@@ -418,15 +435,143 @@ function initCorScatter(){
     var i = pair.pairIndex
     activeCircle
       .translate([c.x(modelEco.pairs[i].cor), c.y(model538.pairs[i].cor)])
-      .at({r: 5})
+      .at({r: 0})
 
-    // circleSel
-    //   .at({r: d => d.canonicalStr == pair.canonicalStr ? 5 : 1.5})
-      // .classed('active', d => d.canonicalStr == pair.canonicalStr)
+    circleSel
+      .at({
+        r: d => d.canonicalStr == pair.canonicalStr ? 3 : 1.5, 
+      })
+      .classed('active', d => d.canonicalStr == pair.canonicalStr)
+
   }
 
-  // return {setPair: _.debounce(setPair, 250)}
   return {setPair}
+}
+
+function initStateSm(){
+  var sel = d3.select('.state-sm').html('')
+
+  var stateSel = d3.select('.state-sm').html('')
+    .appendMany('div', states)
+    .st({width: 230})
+    .st({display: 'inline-block', margin: 5, marginTop: 10, marginBottom: 10, color: '#333', fontSize: 14, height: 66})
+  
+
+  var drawQueue = []
+  stateSel.each(addToDrawQueue)
+  function addToDrawQueue(symptom, i){
+    drawQueue.push(() => drawState(symptom, i, d3.select(this)))
+  }
+
+  function drawNext(){
+    d3.range(1).forEach(() => {
+      var fn = drawQueue.shift()
+      if (fn) fn()     
+    })
+
+    if (drawQueue.length) window.drawNextTimeout = d3.timeout(drawNext, 50)
+  }
+  if (window.drawNextTimeout) window.drawNextTimeout.stop()
+  d3.timeout(drawNext, 100)
+
+
+  function drawState(state, i, sel){
+    var c = d3.conventions({
+      sel: sel.append('div'),
+      height: 50,
+      width: 200,
+      layers: 'sc',
+      margin: {top: 0, left: 0, right: 10, bottom: 10}
+    })
+
+    var stateIndex = state.stateIndex
+    if (!model538.stateData[stateIndex]){
+      model538.stateData[stateIndex] = d3.range(40000).map(i => model538.maps[i*states.length + stateIndex]/10000)
+    }
+    if (!modelEco.stateData[stateIndex]){
+      modelEco.stateData[stateIndex] = d3.range(40000).map(i => modelEco.maps[i*states.length + stateIndex]/10000)
+    }
+
+    var nBuckets = 200
+
+    var h538 = d3.range(nBuckets + 1).map(i => ({v: 0, i}))
+    model538.stateData[state.stateIndex].forEach(d => {
+      h538[Math.round(d*nBuckets)].v++
+    })
+
+    var hEco = d3.range(nBuckets + 1).map(i => ({v: 0, i}))
+    modelEco.stateData[state.stateIndex].forEach(d => {
+      hEco[Math.round(d*nBuckets)].v++
+    })
+
+
+    c.x.domain([0, nBuckets])
+    c.y.domain([0, 4000])
+
+    c.svg.append('rect')
+      .at({width: c.width, height: c.height, fill: '#eee'})
+
+    c.x.interpolate(d3.interpolateRound)
+    c.y.interpolate(d3.interpolateRound)
+    c.xAxis
+      .tickFormat(d => {
+        return d3.format('.0%')(d/nBuckets) + (d == 100 ? ' R' : '')
+        return d3.format('.0%')(d/nBuckets) + ' R'
+
+        d3.format('.0%')((.5 - d/nBuckets)*2) + (d/nBuckets < .5 ? ' D' : ' R')
+
+      })
+      .ticks(5)
+      .tickSize(c.height)
+
+    c.yAxis.tickFormat(d => (d/1000 + 'k').replace('0k', '')).ticks(2).tickSize(c.width)
+
+    d3.drawAxis(c)
+    c.svg.selectAll('.tick').classed('bold', d => d == 100)
+    c.svg.selectAll('.tick text').st({fontWeight: 400})
+
+    // c.svg.select('.x text').at({textAnchor: 'start', x: -10})
+
+    c.svg.append('text.small-title').text(state.str)
+      .translate([c.width - 20, 15])
+      .st({fontWeight: 500})
+
+    var xAxisSel = c.svg.select('.x').translate(0, 0)
+    var yAxisSel = c.svg.select('.y').translate(c.width, 0)
+
+    var line = d3.line()
+      .x((d, i) => c.x(i))
+      .y(d => c.y(d.v))
+      .defined(d => d.v > 0)
+
+    c.svg.append('path')
+      .at({d: line(hEco), stroke: '#C2190F', fill: 'none'})
+
+    c.svg.append('path')
+      .at({d: line(h538), stroke: '#000', fill: 'none'})
+
+
+    var ctx = c.layers[1]
+
+    ctx.fillStyle = '#000'
+    ctx.beginPath()
+    h538.forEach(d => {
+      if (d.v == 0) return
+      if (d.v > 10) return
+      ctx.fillRect(c.x(d.i), c.height, 1, 1)
+    })
+    ctx.fill()
+
+    ctx.fillStyle = '#C2190F'
+    ctx.beginPath()
+    hEco.forEach(d => {
+      if (d.v == 0) return
+      if (d.v > 10) return
+      ctx.fillRect(c.x(d.i), c.height, 1, 1)
+    })
+    ctx.fill()
+  }
+
 }
 
 
