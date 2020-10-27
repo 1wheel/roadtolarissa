@@ -128,6 +128,7 @@ function initMatrix(model, index2cluster){
       height: bs - 0,
       // fill: d => d.indexA == d.indexB ? '#fff' : d3.interpolatePiYG(corScale(d.cor))
       fill: d => corColor(d.cor),
+      cursor: 'pointer',
     })
     .on('mouseover', d => {
       if (isLock) return
@@ -210,6 +211,7 @@ function initScatter(model){
   var svg2 = c.layers[2]
   svg2.append('rect')
     .at({width: c.width, height: c.height, fillOpacity: 0})
+    .parent()
     .on('mousemove', function(){
       if (isLock) return
       var [x, y] = d3.mouse(this)
@@ -220,6 +222,7 @@ function initScatter(model){
       globalSetScenario(c.x.invert(x), c.y.invert(y))
       isLock = !isLock
     })
+    .st({cursor: 'pointer'})
 
   var circleSel = svg2.append('circle')
     .at({stroke: 'orange', r: 3, fill: 'none', strokeWidth: 2 })
@@ -364,7 +367,6 @@ function initMap(model, us, stateVotes){
 
 function initCorScatter(){
   var sel = d3.select('.cor-scatter').html('').st({margin: '0px auto'})
-
 
   var c = d3.conventions({
     sel: sel,
@@ -528,13 +530,13 @@ function initStateSm(){
 
     d3.drawAxis(c)
     c.svg.selectAll('.tick').classed('bold', d => d == 100)
-    c.svg.selectAll('.tick text').st({fontWeight: 400})
+    c.svg.selectAll('.tick text').st({fontWeight: 600})
 
     // c.svg.select('.x text').at({textAnchor: 'start', x: -10})
 
     c.svg.append('text.small-title').text(state.str)
       .translate([c.width - 20, 15])
-      .st({fontWeight: 500})
+      .st({fontWeight: 600})
 
     var xAxisSel = c.svg.select('.x').translate(0, 0)
     var yAxisSel = c.svg.select('.y').translate(c.width, 0)

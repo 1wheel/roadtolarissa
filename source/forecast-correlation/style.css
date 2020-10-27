@@ -111,6 +111,7 @@ rect.active{
   font-family: sans-serif;
   font-size: 12px;
   opacity: .7;
+  margin-top: 60px;
 }
 
 .graph{
