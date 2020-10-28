@@ -70,7 +70,7 @@ rect.active{
 }
 
 
-.axis text{
+.axis text, .state-sm .axis text{
   font-weight: 400;
 }
 .axis text, .small-title{
@@ -148,4 +148,27 @@ rect.active{
 }
 .u-eco{
   border-bottom: 2px solid #C2190F;
+}
+
+.neg-cor{
+  background: #DFB0D2;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.state-sm{
+  display: flex;
+  flex-flow: column wrap;
+  height: 867px;
+  /*overflow-x: hidden;*/
+  position: relative;
+  left: -30px;
+  overflow-y: visible;
+  width: 1200px;
+}
+
+.state-sm > div:last-child {
+  position: absolute;
+  bottom: -81px;
+  right: 0px;
 }

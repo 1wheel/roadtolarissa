@@ -395,6 +395,7 @@ function initCorScatter(){
   d3.drawAxis(c)
   c.svg.selectAll('.tick').classed('bold', d => d == 0)
 
+
   var xAxisSel = c.svg.select('.x').translate(0, 0)
   var yAxisSel = c.svg.select('.y').translate(c.width, 0)
   
@@ -453,10 +454,13 @@ function initCorScatter(){
 function initStateSm(){
   var sel = d3.select('.state-sm').html('')
 
+  // copy(_.sortBy(modelEco.stateData.map((d, i) => ({i, v: d3.mean(d)})), d => d.v).map(d => d.i))
+  var meanOrder = [7, 11, 46, 4, 19, 20, 34, 47, 39, 6, 8, 31, 37, 14, 32, 21, 5, 45, 23, 30, 22, 48, 33, 38, 9, 27, 3, 10, 12, 35, 43, 0, 40, 24, 26, 25, 16, 18, 15, 42, 29, 41, 1, 2, 44, 17, 28, 13, 36, 49, 50] 
+
   var stateSel = d3.select('.state-sm').html('')
-    .appendMany('div', states)
+    .appendMany('div.state', meanOrder.map(i => states[i]))
     .st({width: 230})
-    .st({display: 'inline-block', margin: 5, marginTop: 10, marginBottom: 10, color: '#333', fontSize: 14, height: 66})
+    .st({margin: 5, marginTop: 10, marginBottom: 10, fontSize: 14, height: 66})
   
 
   var drawQueue = []
@@ -483,7 +487,7 @@ function initStateSm(){
       height: 50,
       width: 200,
       layers: 'sc',
-      margin: {top: 0, left: 0, right: 10, bottom: 10}
+      margin: {top: 0, left: 10, right: 0, bottom: 10}
     })
 
     var stateIndex = state.stateIndex
@@ -530,7 +534,7 @@ function initStateSm(){
 
     d3.drawAxis(c)
     c.svg.selectAll('.tick').classed('bold', d => d == 100)
-    c.svg.selectAll('.tick text').st({fontWeight: 600})
+    c.svg.selectAll('.tick text').at({fontWeight: 400})
 
     // c.svg.select('.x text').at({textAnchor: 'start', x: -10})
 
