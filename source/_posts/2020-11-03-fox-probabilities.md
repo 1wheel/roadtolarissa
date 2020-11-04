@@ -16,7 +16,7 @@ As of 9:50 PM, Florida has settled down but Fox still shows Biden as having a mu
 
 <div id='notes'>
 
-<p><a href='https://github.com/1wheel/roadtolarissa/tree/master/source/fox-probabilities'>chart code</a>
+<p><a href='https://github.com/1wheel/scraping-2018/tree/master/2020-wp'>scraping code</a> // <a href='https://github.com/1wheel/roadtolarissa/tree/master/source/fox-probabilities'>chart code</a>
 
 </div>
 
