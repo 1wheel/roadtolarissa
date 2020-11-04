@@ -4,6 +4,7 @@ d3.loadData('states.csv', 'https://roadtolarissa.com/data/fox-2020-wp.csv', (err
 
   tidy.forEach(d => {
     d.date = new Date(d.last_update)
+    d.rProb = +d.rProb
   })
 
   window.timeScale = d3.scaleTime()
@@ -11,7 +12,16 @@ d3.loadData('states.csv', 'https://roadtolarissa.com/data/fox-2020-wp.csv', (err
     .interpolate(d3.interpolateRound)
 
   var byState = _.sortBy(d3.nestBy(tidy, d => d.state), d => d.key)
+  byState = _.sortBy(byState, d => {
+    var score = d[60].rProb < .02 || d[60].rProb > .98 ? 1 : 0
+    if (d.key == 'UT') score = 0
+    if (d.key == 'KS') score = 0
+    if (d.key == 'ID') score = 0
+    if (d.key == 'IN') score = 0
+    if (d.key == 'HI') score = 1
 
+    return score
+  })
 
   var stateSel = d3.select('.state-sm').html('')
     .appendMany('div.state', byState.concat([0,0,0,0,0,0]))
@@ -39,11 +49,19 @@ function drawState(state){
 
   c.x = timeScale
   c.y.interpolate(d3.interpolateRound)
-  c.xAxis.scale(c.x).ticks(3)
+  c.xAxis.scale(c.x).ticks(4)
   c.yAxis.ticks(4).tickFormat(d3.format('.0%')).tickSize(c.width)
 
   d3.drawAxis(c)
   var yAxisSel = c.svg.select('.y').translate(c.width, 0)
+
+  c.svg.selectAll('.x text').text(function(){
+    var sel = d3.select(this)
+    var text = sel.text()
+    if (text[0] == 0) text = text.slice(1, 20)
+    text = text.replace('Wed 04', 'Wed')
+    return text
+  })
 
   var line = d3.line()
     .x(d => c.x(d.date))
