@@ -1,0 +1,100 @@
+
+
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  font-family: monospace;
+  font-size: 12px;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  pointer-events: none;
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
+}
+
+.axis text, .title{
+  font-family: monospace;
+  font-size: 11px;
+  fill: #666;
+}
+
+.axis line{
+  opacity: .1;
+}
+
+
+
+
+.state-sm{
+  display: flex;
+  flex-flow: row wrap;
+  /*overflow-x: hidden;*/
+  position: relative;
+  overflow-y: visible;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.state{
+  /*flex: 1 1 /0px;*/
+  /*flex-basis: 100%;*/
+  flex: 1;
+  min-width: 200px;
+}
+
+/*.state-sm > div:last-child {
+  position: absolute;
+  bottom: -81px;
+  right: 0px;
+}
+*/
+
+
+#notes{
+  font-family: sans-serif;
+  font-size: 12px;
+  opacity: .7;
+  margin-top: 60px;
+}
+
+
+.wp-line{
+  stroke-width: 2;
+  fill: none;
+}
+
+@media (min-width: 1150px){
+  .state-sm{
+    margin-left: -175px;
+    width: 1100px;
+  }
+}
