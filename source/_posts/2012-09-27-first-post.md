@@ -351,6 +351,9 @@ What does reddit repeat?
 
 ### [spotify webplayer winamp skin](https://roadtolarissa.com/winampify/)
 - don't like looking at ads to listen to music!
+- why?
+- - new pornographer low density screenshot
+- - https://www.stereogum.com/2105993/pavement-harness-your-hopes-spotify/columns/sounding-board/
 
 
 ### weather charts
