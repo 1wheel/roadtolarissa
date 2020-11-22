@@ -534,3 +534,13 @@ What does reddit repeat?
 - trace out paths of games
 - https://twitter.com/inpredict/status/1314734826696503298
 - https://roadtolarissa.com/golf-paths/
+
+### NBA team changes
+- [Zion is now the longest tenured Pelican](https://www.reddit.com/r/nba/comments/jyifrm/zion_is_now_the_longest_tenured_pelican/)
+- Is there, like, a knicks team made up mostly of former suns players or something like that?
+- Which team has had a player for the longest? Which team has had the lowest % returning players ever?
+
+### RCP polling 
+- Cut off dates for polls were selectively picked; make a chart that shows shifting day windows and how it always errors for GOP
+- https://github.com/1wheel/scraping-2018/tree/master/rcp-avg
+- https://www.nytimes.com/2020/11/17/us/politics/real-clear-politics.html
