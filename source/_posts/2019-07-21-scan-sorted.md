@@ -82,7 +82,7 @@ canvasSel
   })
 ```
 
-But still more complicated than checking every point, so I'll probably stick with that unless I’m really trying to push performance the envelope or working with [polygons](https://bl.ocks.org/veltman/f539d97e922b918d47e2b2d1a8bcd2dd) 
+But still more complicated than checking every point, so I'll probably stick with that unless I’m really trying to push performance the envelope or working with more complex [polygons](https://bl.ocks.org/veltman/f539d97e922b918d47e2b2d1a8bcd2dd).
 
 
 
