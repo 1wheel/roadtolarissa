@@ -6,7 +6,7 @@ permalink: /scan-sorted
 shareimg: https://i.imgur.com/cfjlTI9.png
 ---
 
-By directly manipulating bitmaps, canvas can efficiently draw hundreds of thousands of points. Because these points aren’t DOM nodes, they don’t have `click` or `mouseover` events; adding interaction or tooltips to a canvas chart requires calculating the closest point to the mouse. 
+Canvas and WebGL can efficiently draw hundreds of thousands of points. Because these points aren’t DOM nodes, they don’t have `click` or `mouseover` events; adding interaction or tooltips to them requires calculating the closest point to the mouse. 
 
 [Voronoi diagrams](https://bl.ocks.org/mbostock/8033015) have been recommended, but their initialization time is slow: ~1,500 ms with a million points. With several zoom levels to compute, that locked up the browser for this [tax calculator](https://www.nytimes.com/interactive/2017/12/17/upshot/tax-calculator.html) that I worked on. Instead, we just looped over every point in the data array and found the one closest to the mouse.
 
