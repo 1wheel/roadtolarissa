@@ -168,7 +168,7 @@ mask.append('path').at({d: pathStr, fill: '#000'})
 svg.append('rect').at({width, height, fill: '#fff', mask: 'url(#ocean)'})
 ```
 
-Masks make [lots](https://bl.ocks.org/1wheel/76a07ca0d23f616d29349f7dd7857ca5) of [things](https://bl.ocks.org/1wheel/a8f39c8a96b71735488bf280d34bd765) possible. I suspect that there's a more efficient solution here, but it works!
+Masks make [lots](https://blocks.roadtolarissa.com/1wheel/76a07ca0d23f616d29349f7dd7857ca5) of [things](https://blocks.roadtolarissa.com/1wheel/a8f39c8a96b71735488bf280d34bd765) possible. I suspect that there's a more efficient solution here, but it works!
 
 <div id='graphic-2' class='graphic'></div>
 

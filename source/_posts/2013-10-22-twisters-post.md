@@ -47,7 +47,7 @@ But! I haven&#8217;t posted anything for four months and I&#8217;m looking forwa
 
  [1]: http://www.roadtolarissa.com/wp-content/uploads/2013/10/ok.png
  [2]: https://github.com/mbostock/d3/wiki/Zoom-Behavior
- [3]: http://bl.ocks.org/mbostock/4699541
+ [3]: http://blocks.roadtolarissa.com/mbostock/4699541
  [4]: https://github.com/1wheel/tornado-tuners/blob/master/matchStates.py
  [5]: http://www.roadtolarissa.com/wp-content/uploads/2013/10/arc.png
  [6]: http://www.roadtolarissa.com/zoomable-sierpinski-triangle-with-d3-js/

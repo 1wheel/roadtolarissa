@@ -122,7 +122,7 @@ c.svg.dataAppend(actressNominations, 'circle.nomination')
     .call(d3.attachTooltip)
 ```
 
-There are a couple of abstractions from [d3-starterkit](https://github.com/1wheel/d3-starterkit) that make this code shorter and more readable. `d3.conventions` returns an object with automatically configured margins, svg, scales and axis - saving the tedium of globbing together snippets from several [bl.ocks](http://bl.ocks.org/mbostock/3019563) over and over again.
+There are a couple of abstractions from [d3-starterkit](https://github.com/1wheel/d3-starterkit) that make this code shorter and more readable. `d3.conventions` returns an object with automatically configured margins, svg, scales and axis - saving the tedium of globbing together snippets from several [bl.ocks](http://blocks.roadtolarissa.com/mbostock/3019563) over and over again.
 
 `c.svg.dataAppend(actressNominations, 'circle.nomination')` is shorthand for:
 

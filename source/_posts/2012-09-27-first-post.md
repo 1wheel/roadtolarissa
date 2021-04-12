@@ -108,7 +108,7 @@ https://news.ycombinator.com/item?id=9177469
 ### Difference between playoff and regular season win rates
 - Cubs got swept in playoffs after sweeping during season
 
-### [Remake trib baseball chart](https://bl.ocks.org/1wheel/0fe7b82d7c188c2d26a3)
+### [Remake trib baseball chart](https://blocks.roadtolarissa.com/1wheel/0fe7b82d7c188c2d26a3)
 - https://twitter.com/waynekamidoi/status/657359312520638464
 - https://twitter.com/kleinmatic/status/657400344394276864 
   
@@ -161,7 +161,7 @@ https://news.ycombinator.com/item?id=9177469
 - What's the closest game ever? Has any game stayed within 10 points? 5 points?
 - Which game had the shortest scoring streak?
 
-### [Curl states into each other](https://bl.ocks.org/1wheel/4c1658719cfec9ac352ff1e0edc51317)
+### [Curl states into each other](https://blocks.roadtolarissa.com/1wheel/4c1658719cfec9ac352ff1e0edc51317)
 - https://medium.com/@zachlieberman/land-lines-e1f88c745847#.t1x3ozhdt
 - noah's stuff
 
@@ -251,7 +251,7 @@ https://news.ycombinator.com/item?id=9177469
 ### Encoding line width
 - setting y0 and y1 doesn't work on a slope
 - https://www.axios.com/countries-gdp-this-century-2484484895.html
-- https://bl.ocks.org/veltman/e45cc3a2670779a0bc942ba18163228f
+- https://blocks.roadtolarissa.com/veltman/e45cc3a2670779a0bc942ba18163228f
 - https://www.washingtonpost.com/graphics/2017/politics/tax-breaks/
 
 ### Hapax Legomena
@@ -269,7 +269,7 @@ https://news.ycombinator.com/item?id=9177469
 - and an explanation layer
 
 ### delaunay-triangulation
-- https://bl.ocks.org/1wheel/6cd8f2c2be0bd0bde0818fc8c0fb895a
+- https://blocks.roadtolarissa.com/1wheel/6cd8f2c2be0bd0bde0818fc8c0fb895a
 
 ### Kelly betting
 - https://www.gwern.net/Coin-flip

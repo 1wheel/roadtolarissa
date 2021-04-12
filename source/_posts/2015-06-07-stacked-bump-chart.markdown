@@ -13,7 +13,7 @@ Her graphic does a great job showing both the size of the field and the duration
 
 ![Bloomberg/Economist Primary Graphic](/images/posts/bb_econ-primary.png)
 
-I've been thinking about using a similar stacked bump chart to improve my (still very rough) [visualization](http://bl.ocks.org/1wheel/cbd9053de9bb39231924) of a line intersection algorithm. To get a feel for how to make one, I've recreated Alicia's chart with Basketball Reference's list of [most accomplished players](http://www.basketball-reference.com/leaders/hof_prob.html). The rest of the this post will show how to make your own bump chart with d3. 
+I've been thinking about using a similar stacked bump chart to improve my (still very rough) [visualization](http://blocks.roadtolarissa.com/1wheel/cbd9053de9bb39231924) of a line intersection algorithm. To get a feel for how to make one, I've recreated Alicia's chart with Basketball Reference's list of [most accomplished players](http://www.basketball-reference.com/leaders/hof_prob.html). The rest of the this post will show how to make your own bump chart with d3. 
 
 ## Drawing bars
 

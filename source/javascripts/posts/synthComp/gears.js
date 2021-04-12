@@ -15,7 +15,7 @@ var width = 750,
 
 (function(){
 
-  //largely borrowed from http://bl.ocks.org/mbostock/1353700
+  //largely borrowed from http://blocks.roadtolarissa.com/mbostock/1353700
   var svg = d3.select("#synth")
       .style('height', height + 'px')
     .append("svg")
