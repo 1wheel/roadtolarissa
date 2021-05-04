@@ -1,6 +1,6 @@
 ---
 template: post.html
-title: Winampify 
+title: Static RSS Reader
 date: 2021-05-04
 permalink: /static-rss
 draft: true
@@ -16,13 +16,16 @@ html, a, .header{
 .header-right{
   display: none;
 }
+h1, .header-left{
+  margin-left: 10px;
+}
 
 p> img{
   /*width: 100%;*/
 }
 </style>
 
-[code](https://github.com/chart-code/static-rss).
+<p style='padding-left: 10px; margin-bottom: 40px;'>[code](https://github.com/chart-code/static-rss)
 
 
 <div class='items'>
