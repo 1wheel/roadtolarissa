@@ -6,6 +6,7 @@ permalink: /static-rss
 draft: true
 ---
 
+<link rel='manifest' href='manifest.json'>
 <link rel="stylesheet" href="https://roadtolarissa.com/slinks/static-rss/style.css">
 
 <style>
