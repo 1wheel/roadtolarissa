@@ -544,3 +544,9 @@ What does reddit repeat?
 - Cut off dates for polls were selectively picked; make a chart that shows shifting day windows and how it always errors for GOP
 - https://github.com/1wheel/scraping-2018/tree/master/rcp-avg
 - https://www.nytimes.com/2020/11/17/us/politics/real-clear-politics.html
+
+### Citibike 
+
+- Which stations have no bikes or too many bikes?
+- How does this change throughout the day / over time
+- https://www.citibikenyc.com/system-data
