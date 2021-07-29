@@ -11,7 +11,34 @@ shareimg: https://i.imgur.com/ZNkXwEx.png
 Ever since seeing Bret Victor rewire a platformer live on stage, I've wanted to write code more interactively. 
 
 <link rel="stylesheet" type="text/css" href="style.css">
-<iframe src="https://player.vimeo.com/video/36579366#t=695s&autoplay=0&background=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<style>
+  .youtube-container{
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+  }
+
+  .youtube-container iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<div class='youtube-container'>
+  <iframe src="https://www.youtube.com/embed/EGqwXt90ZqA?start=643&autoplay=1&mute=1" 
+  frameborder="0" allowfullscreen class="video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<br>
+
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/PUv66718DII?start=643&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+<!-- <iframe src="https://player.vimeo.com/video/36579366#t=695s&autoplay=0&background=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin=""></script>
 <script src="//f.vimeocdn.com/js/froogaloop2.min.js"></script>
@@ -23,7 +50,7 @@ iframeVimeo.setAttribute('width', Math.min(innerWidth - 20, 720))
 var player = $f($('iframe')[0])
 player.addEvent('ready', () => player.api('setVolume', 0))
 </script>
-
+ -->
 
 I dabbled with programming languages that facilated this, like [clojure's REPL](https://clojure.org/guides/repl/introduction) and [R notebooks](https://rmarkdown.rstudio.com/r_notebooks.html). But most of my work is with javascript and I was stuck pressing `⌘+S ⌘+Tab ⌘+R` over and over again to save my changes, tab over to the browser and reload the page.
 
