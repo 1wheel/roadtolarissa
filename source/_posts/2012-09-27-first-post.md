@@ -553,3 +553,9 @@ What does reddit repeat?
 
 ### Distribution of gymnastics ages over time
 - https://thecorrespondent.com/739/why-womens-gymnastics-is-legal-child-abuse/1740638383-e7ff4274
+
+### weatherspark
+- https://weatherspark.com/y/23912/Average-Weather-in-New-York-City-New-York-United-States-Year-Round
+- show distribution instead of mean, facet by hour or month instead
+- 3d?
+- or change over years
