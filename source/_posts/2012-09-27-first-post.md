@@ -559,3 +559,7 @@ What does reddit repeat?
 - show distribution instead of mean, facet by hour or month instead
 - 3d?
 - or change over years
+
+### Covid polarization but with bars
+
+- https://kieranhealy.org/blog/archives/2021/10/30/the-polarization-of-death/
