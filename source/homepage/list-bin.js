@@ -25,6 +25,7 @@ europe-right-wing
 2018-chart-diary
 hurricane-how-to
 uncertainty-over-space
+fill-in-the-blank
 `.split('\n')
 
 
