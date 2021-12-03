@@ -76,7 +76,14 @@ html{
 
 .header{
   font-family:  -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+  font-family: monospace;
 }
+
+.header a, .header span{
+/*  opacity: 1;
+  font-weight: 300;
+*/}
+
 
 
 
