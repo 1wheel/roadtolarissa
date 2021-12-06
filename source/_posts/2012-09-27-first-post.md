@@ -563,3 +563,11 @@ What does reddit repeat?
 ### Covid polarization but with bars
 
 - https://kieranhealy.org/blog/archives/2021/10/30/the-polarization-of-death/
+
+### Rewrite NYT webheadline as a print
+
+- fine tune t5
+
+### Has the NYT stopped reviewing as many off broadway shows?
+
+### Custom tool to make diverging color scales
