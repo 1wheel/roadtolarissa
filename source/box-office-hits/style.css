@@ -1,0 +1,68 @@
+body{
+  height: 3000px;
+}
+html{
+    background: #eee;
+
+}
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  width: 300px;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  /*pointer-events: none;*/
+  text-shadow: 0 1px 0 #eee, 1px 0 0 #eee, 0 -1px 0 #eee, -1px 0 0 #eee;
+}
+
+
+.year{
+  display: inline-block;
+}
+
+.axis text{
+  fill: #999;
+  font-size: 10px;
+}   
+.x.axis text{
+  font-size: 9px;
+}
+
+.year-sm{
+  width: 950px;
+}
+
+.year-scatter .axis text{
+  font-size: 10px;
+  fill: #555;
+}
