@@ -6,7 +6,9 @@ if (window.__datacache){
   init()
 } else{
   d3.loadData(
-    'https://roadtolarissa.com/data/box-office-mojo-tidy.csv', 
+    // 'https://roadtolarissa.com/data/box-office-mojo-tidy.csv', 
+    // 'https://roadtolarissa.com/data/box-office-mojo-weekend.csv', 
+    'https://roadtolarissa.com/data/box-office-mojo-weekly.csv', 
     'bo_mojo_inflation.csv', 
     (err, res) => {
       window.window.__datacache = res
@@ -18,13 +20,9 @@ function init(){
   if (!window.tidy) parseData()
 
   drawYearScatter()
-  // drawBestWeekScatter()
-  // drawYearDistribution()
+  drawBestWeekScatter()
+  drawYearDistribution()
 
-  // drawByMovie()
-  // d3.select('.year-sm').html('')
-  //   .appendMany('div.year', byYear)
-  //   .each(drawYear)
 }
 
 function parseData(){
@@ -72,6 +70,8 @@ function parseData(){
   byWeek.forEach(d => {
     d.week = d[0].week
     d.year = d[0].year
+    // Wonky christmas weekend data
+    d.isHidden = d.week == 52 && (d.year == 1988 || d.year ==1989)
   })
 
   window.byMovie = d3.nestBy(tidy, d => d.id)
@@ -96,7 +96,7 @@ function parseData(){
   window.topMovies = byMovie
     // .filter(d => d.some(e => e.isTop))
     .filter(d => d.gross > 200000000)
-    .filter(d => d.year > 1981)
+    .filter(d => 1981 < d.year && d.year < 2022)
 
 }
 
@@ -120,6 +120,7 @@ function drawYearScatter(){
   var circleSel = c.svg.appendMany('circle', byWeek)
     .translate(d => [c.x(d.year + d.week/52), c.y(d[0].percent)])
     .at({r: 2, fill: 'rgba(0,0,0,0)', stroke: '#000'})
+    .st({display: d => d.isHidden ? 'none' : ''})
     .call(d3.attachTooltip)
     .st({opacity: d => d.gross > 10000000 ? 1 : .1})
     .on('mouseover', week => {
@@ -175,8 +176,7 @@ function drawBestWeekScatter(){
 
 function drawYearDistribution(){
   window.byReleaseYear = d3.nestBy(_.sortBy(_.sortBy(byMovie, d => -d.gross), d => d.year), d => d.year)
-    .filter(d => d.key > 1981)
-    .filter(d => d.key < 2022)
+    .filter(d => 1981 < d.key && d.key < 2022)
 
   byReleaseYear.forEach(year => {
     year.gross = d3.sum(year, d => d.gross)
@@ -220,26 +220,31 @@ function drawYearDistribution(){
   var color = d3.scaleThreshold()
     .domain(domain)
     .range(d3.range(domain.length + 1).map(i => ramp(i/domain.length)))
-    // .range(d3.range(domain.length + 1).reverse().map(i => ramp(i/domain.length)))
+    .range(d3.range(domain.length + 1).reverse().map(i => ramp(i/domain.length)))
 
-  yearSel.appendMany('rect', d => d.filter(d => d.yearPercent > .005))
+  yearSel.appendMany('rect', d => d.filter(d => d.yearPercent > .0001))
     .at({
       x: .5, 
       width: c.x(1) - c.x(0) - .2,
-      height: d => Math.max(.1, c.height - c.y(d.yearPercent) - .1),
-      y: d => c.y(d.prev + d.yearPercent),
+      height: (d, i) => i > 100 ? .9 : Math.max(.1, c.height - c.y(d.yearPercent) - .1),
+      y: d => Math.round(c.y(d.prev + d.yearPercent)*10)/10,
       fill: (d, i) => color(i),
-      opacity: d => d.year == 2020 ? .3 : 1,
+      // opacity: d => d.year == 2020 ? .3 : 1,
     })
     .call(d3.attachTooltip)
 
+  yearSel.filter(d => d.key == 2020)
+    .append('rect')
+    .at({
+      width: c.x(1) - c.x(0),
+      height: c.height,
+      fill: '#fff',
+      fillOpacity: .6,
+    })
 
-  c.svg.select('.bg-rect').at({fill: color(1000)})
-
-
-
-
-
+  c.svg.select('.bg-rect').lower()
+    .at({fill: '#000', x: .3, width: c.width, height: c.height - .1})
+    // .at({fill: color(1000)})
 }
 
 
@@ -261,11 +266,11 @@ function addAxisLabel(c, xText, yText, xOffset=40, yOffset=-40){
 }
 
 function ggPlot(c, isBlack=true){
-  if (isBlack){
-    c.svg.append('rect.bg-rect')
-      // .at({width: c.width, height: c.height, fill: '#eee'})
-      // .lower()
-  }
+  // if (isBlack){
+  c.svg.append('rect.bg-rect')
+    .at({width: c.width, height: c.height, fill: '#eee'})
+    .lower()
+  // }
 
   c.svg.selectAll('.tick').selectAll('line').remove()
   c.svg.selectAll('.y .tick')
@@ -274,5 +279,5 @@ function ggPlot(c, isBlack=true){
   c.svg.selectAll('.x .tick')
     .append('path').at({d: 'M 0 0 V -' + c.height, stroke: '#fff', strokeWidth: 1})
 
-  c.svg.selectAll('.y .tick').filter(d => d == 0).remove()
+  // c.svg.selectAll('.y .tick').filter(d => d == 0).remove()
 }
