@@ -6,8 +6,7 @@ if (window.__datacache){
   init()
 } else{
   d3.loadData(
-    // 'https://roadtolarissa.com/data/box-office-mojo-tidy.csv', 
-    // 'https://roadtolarissa.com/data/box-office-mojo-weekend.csv', 
+    'https://roadtolarissa.com/data/box-office-mojo-weekend.csv', 
     'https://roadtolarissa.com/data/box-office-mojo-weekly.csv', 
     'bo_mojo_inflation.csv', 
     (err, res) => {
@@ -16,92 +15,99 @@ if (window.__datacache){
   })
 }
 
-function init(){
-  if (!window.tidy) parseData()
+async function init(){
+  if (!window.weekendData) parseData()
 
-  drawYearScatter()
-  drawBestWeekScatter()
+  drawWeeklyTopPercent()
+  sleep(20)
+
   drawYearDistribution()
+  drawBestWeekScatter()
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
 }
 
 function parseData(){
   var year2inflation = {}
-  window.__datacache[1].forEach(d => year2inflation[+d.year] = +d.price_per_ticket)
+  window.__datacache[2].forEach(d => year2inflation[+d.year] = +d.price_per_ticket)
 
-  window.tidy = window.__datacache[0]
-  tidy.forEach(d => {
-    d.yearweek = d.year + d.week
+  window.weekendData = parsePeriod(window.__datacache[0])
+  window.weeklyData  = parsePeriod(window.__datacache[0])
 
-    d.rawGross = +d.gross
-    d.year = +d.year
-    d.week = +d.week
+  function parsePeriod(tidy){
+    tidy.forEach(d => {
+      d.yearweek = d.year + d.week
 
-    d.gross = d.rawGross*year2inflation[2020]/year2inflation[d.year]
-  })
+      d.rawGross = +d.gross
+      d.year = +d.year
+      d.week = +d.week
 
-  var yearweek2index = {}
-  d3.nestBy(tidy, d => d.yearweek).forEach((d, i) => yearweek2index[d.key] = i) 
+      d.gross = d.rawGross*year2inflation[2020]/year2inflation[d.year]
+    })
 
-  tidy.forEach(d => {
-    d.weekIndex = yearweek2index[d.yearweek]
-  })
+    var yearweek2index = {}
+    d3.nestBy(tidy, d => d.yearweek).forEach((d, i) => yearweek2index[d.key] = i) 
 
-  window.byYear = d3.nestBy(tidy, d => d.year)
-    .filter(d => d.key > 1981)
+    tidy.forEach(d => {
+      d.weekIndex = yearweek2index[d.yearweek]
+    })
 
-  window.byWeek = []
-  byYear.forEach(year => {
-    year.byWeek = d3.nestBy(year, d => d.week)
-      .filter(d => d.length > 1)
+    var byYear = d3.nestBy(tidy, d => d.year)
+      .filter(d => d.key > 1981)
 
-    year.byWeek.forEach(week => {
-      week.gross = d3.sum(week, d => d.gross)
-      week.forEach(d => {
-        d.percent = d.gross/week.gross
+    var byWeek = []
+    byYear.forEach(year => {
+      year.byWeek = d3.nestBy(year, d => d.week)
+        .filter(d => d.length > 1)
+
+      year.byWeek.forEach(week => {
+        week.gross = d3.sum(week, d => d.gross)
+        week.forEach(d => {
+          d.percent = d.gross/week.gross
+        })
+        week.top = week[0].name
+        week[0].isTop = true
+
+        byWeek.push(week)
       })
-      week.top = week[0].name
-      week[0].isTop = true
-
-      byWeek.push(week)
-    })
-  })
-
-  byWeek.forEach(d => {
-    d.week = d[0].week
-    d.year = d[0].year
-    // Wonky christmas weekend data
-    d.isHidden = d.week == 52 && (d.year == 1988 || d.year ==1989)
-  })
-
-  window.byMovie = d3.nestBy(tidy, d => d.id)
-  byMovie.idLookup = {}
-  byMovie.forEach(movie => {
-    movie.name = movie[0].name
-    movie.maxPercent = d3.max(movie, d => d.percent)
-    byMovie.idLookup[movie.key] = movie
-
-    movie.weekIndex0 = movie[0].weekIndex
-    movie.year = movie[0].year
-    movie.gross = d3.sum(movie, d => d.gross)
-    movie.highestWeeklyGross = d3.sum(_.sortBy(movie, d => -d.gross).slice(0, 1), d => d.gross)
-    movie.highestGrossPercent = movie.highestWeeklyGross/movie.gross
-
-    movie.forEach(d => {
-      d.weeksSinceRelease = d.weekIndex - movie.weekIndex0
     })
 
-  })
+    byWeek.forEach(d => {
+      d.week = d[0].week
+      d.year = d[0].year
+      // Wonky christmas weekend data
+      d.isHidden = (d.week == 51 || d.week == 52) && (d.year == 1988 || d.year ==1989)
+    })
 
-  window.topMovies = byMovie
-    // .filter(d => d.some(e => e.isTop))
-    .filter(d => d.gross > 200000000)
-    .filter(d => 1981 < d.year && d.year < 2022)
+    var byMovie = d3.nestBy(tidy, d => d.id)
+    byMovie.idLookup = {}
+    byMovie.forEach(movie => {
+      movie.name = movie[0].name
+      movie.maxPercent = d3.max(movie, d => d.percent)
+      byMovie.idLookup[movie.key] = movie
 
+      movie.weekIndex0 = movie[0].weekIndex
+      movie.year = movie[0].year
+      movie.gross = d3.sum(movie, d => d.gross)
+      movie.highestWeeklyGross = d3.sum(_.sortBy(movie, d => -d.gross).slice(0, 1), d => d.gross)
+      movie.highestGrossPercent = movie.highestWeeklyGross/movie.gross
+
+      movie.forEach(d => {
+        d.weeksSinceRelease = d.weekIndex - movie.weekIndex0
+      })
+
+    })
+
+    return {tidy, byWeek, byYear, byMovie}
+  }
 }
 
-function drawYearScatter(){
-  var sel = d3.select('.year-scatter').html('')
+function drawWeeklyTopPercent(){
+  var {byWeek, byMovie} = window.weekendData
+
+  var sel = d3.select('.weekly-top-percent').html('')
 
   var c = d3.conventions({
     sel: sel.append('div'),
@@ -140,42 +146,10 @@ function drawYearScatter(){
     .at({fill: '#f0f', stroke: '#f0f', fillOpacity: .4, opacity: 0, r: 4, pointerEvents: 'none'})
 }
 
-function drawBestWeekScatter(){
-  var sel = d3.select('.best-week-scatter').html('')
-
-  var c = d3.conventions({
-    sel: sel.append('div'),
-    width: 800,
-    height: 500,
-    margin: {left: 30, bottom: 40, top: 10}
-  })
-
-  c.x.domain([1982, 2022])
-  c.y.domain([0, 1])
-
-  c.xAxis.tickFormat(d => d)
-  c.yAxis.tickFormat(d3.format('.0%'))
-  d3.drawAxis(c)
-  ggPlot(c)
-
-  var rScale = d3.scaleSqrt().domain([0, 1e9]).range([0, 10])
-  var circleSel = c.svg.appendMany('circle', topMovies)
-    .translate(d => [c.x(d.year + d[0].week/52), c.y(d.highestGrossPercent)])
-    .at({
-      r: d => rScale(d.gross),
-      fill: 'rgba(0,0,0,.2)', 
-      stroke: '#000',
-    })
-    .call(d3.attachTooltip)
-    // .st({opacity: d => d.gross > 10000000 ? 1 : .1})
-
-  circleSel
-    .filter(d => d.year == 2021)
-    .at({strokeDasharray: '2 2'})
-}
-
 function drawYearDistribution(){
-  window.byReleaseYear = d3.nestBy(_.sortBy(_.sortBy(byMovie, d => -d.gross), d => d.year), d => d.year)
+  var {byMovie} = window.weeklyData
+
+  var byReleaseYear = d3.nestBy(_.sortBy(_.sortBy(byMovie, d => -d.gross), d => d.year), d => d.year)
     .filter(d => 1981 < d.key && d.key < 2022)
 
   byReleaseYear.forEach(year => {
@@ -207,6 +181,7 @@ function drawYearDistribution(){
 
   c.svg.selectAll('.axis path').at({strokeWidth: 1, stroke: '#000', strokeDasharray: '2 1'})
   c.svg.selectAll('.x.axis path').remove()
+
 
   var yearSel = c.svg
     .append('g').lower()
@@ -246,6 +221,46 @@ function drawYearDistribution(){
     .at({fill: '#000', x: .3, width: c.width, height: c.height - .1})
     // .at({fill: color(1000)})
 }
+
+function drawBestWeekScatter(){
+  var {byMovie} = window.weeklyData
+  var topMovies = byMovie
+    .filter(d => d.gross > 200000000)
+    .filter(d => 1981 < d.year && d.year < 2022)
+
+  var sel = d3.select('.best-week-scatter').html('')
+
+  var c = d3.conventions({
+    sel: sel.append('div'),
+    width: 800,
+    height: 500,
+    margin: {left: 30, bottom: 40, top: 10}
+  })
+
+  c.x.domain([1982, 2022])
+  c.y.domain([0, 1])
+
+  c.xAxis.tickFormat(d => d)
+  c.yAxis.tickFormat(d3.format('.0%'))
+  d3.drawAxis(c)
+  ggPlot(c)
+
+  var rScale = d3.scaleSqrt().domain([0, 1e9]).range([0, 10])
+  var circleSel = c.svg.appendMany('circle', topMovies)
+    .translate(d => [c.x(d.year + d[0].week/52), c.y(d.highestGrossPercent)])
+    .at({
+      r: d => rScale(d.gross),
+      fill: 'rgba(0,0,0,.2)', 
+      stroke: '#000',
+    })
+    .call(d3.attachTooltip)
+    // .st({opacity: d => d.gross > 10000000 ? 1 : .1})
+
+  circleSel
+    .filter(d => d.year == 2021)
+    .at({strokeDasharray: '2 2'})
+}
+
 
 
 function addAxisLabel(c, xText, yText, xOffset=40, yOffset=-40){

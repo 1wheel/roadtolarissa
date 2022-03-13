@@ -3,15 +3,15 @@ template: post.html
 title: Box Office Hits
 date: 2021-05-06
 permalink: /box-office-hits
-draft: false
+draft: true
 ---
 
 <link rel='stylesheet' type='text/css' href='style.css'>
 
-> “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. That means “No Way Home” made up 92 percent of the market. “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million.
+> “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. **That means “No Way Home” made up 92 percent of the market.** “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million.
 
-### Top Grossing Movie's Percentage of Weekly Box Office
-<div class='year-scatter'></div>
+### Top Grossing Movie's Percentage of Weekend Box Office
+<div class='weekly-top-percent'></div>
 
 
 ### Yearly distribution of box office receipts by year
