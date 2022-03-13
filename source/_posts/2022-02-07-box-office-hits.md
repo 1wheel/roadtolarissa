@@ -39,6 +39,11 @@ draft: true
 
 
 <script src='https://roadtolarissa.com/slinks/static-rss/d3_.js'></script>
+
+<script src='util.js'></script>
+<script src='draw-weekly-top-percent.js'></script>
+<script src='draw-best-week-scatter.js'></script>
+<script src='draw-year-distribution.js'></script>
 <script src='script.js'></script>
 
 
