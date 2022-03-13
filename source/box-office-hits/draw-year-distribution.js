@@ -1,7 +1,5 @@
 
-window.drawYearDistribution = function(){
-  var {byMovie} = window.weeklyData
-
+window.drawYearDistribution = function({byMovie}){
   var byReleaseYear = d3.nestBy(_.sortBy(_.sortBy(byMovie, d => -d.gross), d => d.year), d => d.year)
     .filter(d => 1981 < d.key && d.key < 2022)
 

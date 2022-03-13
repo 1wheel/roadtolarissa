@@ -1,10 +1,15 @@
+
 window.util = (function(){
   function parseData(){
-    var year2inflation = {}
-    window.__datacache[2].forEach(d => year2inflation[+d.year] = +d.price_per_ticket)
+    var cache = window.__datacache
 
-    window.weekendData = parsePeriod(window.__datacache[0])
-    window.weeklyData  = parsePeriod(window.__datacache[0])
+    var year2inflation = {}
+    cache[2].forEach(d => year2inflation[+d.year] = +d.price_per_ticket)
+
+    var weekendData = cache.weekendData = cache.weekendData || parsePeriod(window.__datacache[0])
+    var weeklyData  = cache.weeklyData  = cache.weeklyData  || parsePeriod(window.__datacache[1])
+
+    return {weekendData, weeklyData}
 
     function parsePeriod(tidy){
       tidy.forEach(d => {
@@ -72,8 +77,6 @@ window.util = (function(){
 
       return {tidy, byWeek, byYear, byMovie}
     }
-
-    return {weekendData, weeklyData}
   }
 
   function addAxisLabel(c, xText, yText, xOffset=40, yOffset=-40){

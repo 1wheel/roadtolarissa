@@ -1,6 +1,5 @@
 
-window.drawBestWeekScatter = function(){
-  var {byMovie} = window.weeklyData
+window.drawBestWeekScatter = function({byMovie}){
   var topMovies = byMovie
     .filter(d => d.gross > 200000000)
     .filter(d => 1981 < d.year && d.year < 2022)

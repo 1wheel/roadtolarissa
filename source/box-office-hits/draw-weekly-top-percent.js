@@ -1,6 +1,4 @@
-window.drawWeeklyTopPercent = function(){
-  var {byWeek, byMovie} = window.weekendData
-
+window.drawWeeklyTopPercent = function({byWeek, byMovie}){
   var sel = d3.select('.weekly-top-percent').html('')
 
   var c = d3.conventions({

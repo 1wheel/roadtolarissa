@@ -4,13 +4,13 @@ d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 
 window.init = async function(){
-  if (!window.weekendData) util.parseData()
+  var {weekendData, weeklyData} = util.parseData()
 
-  drawWeeklyTopPercent()
+  drawWeeklyTopPercent(weekendData)
   sleep(20)
 
-  drawYearDistribution()
-  drawBestWeekScatter()
+  drawYearDistribution(weeklyData)
+  drawBestWeekScatter(weeklyData)
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -30,5 +30,7 @@ if (window.__datacache){
       window.init() 
   })
 }
+
+
 
 
