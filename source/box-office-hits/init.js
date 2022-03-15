@@ -1,5 +1,5 @@
 console.clear()
-d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
+window.ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
 
 
@@ -9,8 +9,8 @@ window.init = async function(){
   drawWeeklyTopPercent(weekendData)
   sleep(20)
 
-  drawYearDistribution(weeklyData)
-  drawBestWeekScatter(weeklyData)
+  // drawYearDistribution(weeklyData)
+  // drawBestWeekScatter(weeklyData)
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))

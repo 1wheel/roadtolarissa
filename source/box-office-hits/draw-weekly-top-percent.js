@@ -32,6 +32,14 @@ window.drawWeeklyTopPercent = function({byWeek, byMovie}){
           c.x(movie[i].year + movie[i].week/52), 
           c.y(movie[i].percent)
         ])
+
+
+      window.ttSel.html(`
+        <div>
+        <b>${week.top}</b> 
+        grossed $${d3.format(',')(Math.round(week[0].gross))} —
+        ${d3.format('.0%')(week[0].percent)} of the weekend's box office.
+      `)
     })
 
   var hoverCircleSel = c.svg.appendMany('circle', d3.range(60))

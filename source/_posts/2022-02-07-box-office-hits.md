@@ -10,7 +10,7 @@ draft: true
 
 > “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. **That means “No Way Home” made up 92 percent of the market.** “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million.
 
-### Top Grossing Movie's Percentage of Weekend Box Office
+### The Top Grossing Movie's Percentage of Weekend Box Office
 <div class='weekly-top-percent'></div>
 
 
@@ -44,7 +44,7 @@ draft: true
 <script src='draw-weekly-top-percent.js'></script>
 <script src='draw-best-week-scatter.js'></script>
 <script src='draw-year-distribution.js'></script>
-<script src='script.js'></script>
+<script src='init.js'></script>
 
 
 
