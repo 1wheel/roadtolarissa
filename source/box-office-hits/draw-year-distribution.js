@@ -30,8 +30,9 @@ window.drawYearDistribution = function({byMovie}){
   d3.drawAxis(c)
   util.ggPlot(c, false)
 
-  c.svg.selectAll('.axis path').at({strokeWidth: 1, stroke: '#000', strokeDasharray: '2 1'})
+  c.svg.selectAll('.axis path').at({strokeWidth: 1, stroke: '#ddd', strokeDasharray: '1 2'})
   c.svg.selectAll('.x.axis path').remove()
+  c.svg.selectAll('.x text').at({x: (c.x(1) - c.x(0))/2})
 
 
   var yearSel = c.svg
@@ -67,10 +68,23 @@ window.drawYearDistribution = function({byMovie}){
       fill: '#fff',
       fillOpacity: .6,
     })
+    .st({pointerEvents: 'none'})
+
 
   c.svg.select('.bg-rect').lower()
     .at({fill: '#000', x: .3, width: c.width, height: c.height - .1})
     // .at({fill: color(1000)})
+
+  c.svg.append('text.annotation')
+    .text('E.T. →')
+    .translate([c.x(1982) - 5, c.y(.07)])
+    .at({textAnchor: 'end'})
+
+  c.svg.append('text.annotation')
+    .text('← No Way Home')
+    .translate([c.x(2022) + 5, c.y(.07)])
+    .at({textAnchor: 'start'})
+
 }
 
 if (window.init) window.init()
