@@ -24,6 +24,11 @@ html{
   transition-delay: .1s;
 }
 
+.tooltip text{
+  text-shadow: none;
+  fill: #000 !important;
+}
+
 @media (max-width: 590px){
   div.tooltip{
     bottom: -1px;
@@ -77,4 +82,16 @@ text{
 
 h3{
   max-width: 800px;
+}
+
+
+
+.sliders{
+  position: relative;
+  top: 10px;
+  padding-top:  5px;
+}
+
+.slider-container{
+  height: 30px;
 }

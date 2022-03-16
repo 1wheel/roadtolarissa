@@ -28,6 +28,7 @@ Looking at the super hero movies taking
 
 <div class='best-week-scatter'></div>
 
+
 - Don't go the "movies" anymore
 - Go early to avoid "spoilers"
 - Smaller, slow buring hits don't have a chance
