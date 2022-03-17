@@ -78,6 +78,11 @@ text{
 .annotation{
   font-family: sans-serif;
   font-size: 10px;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+.annotation.hidden{
+  opacity: 0;
 }
 
 h3{
@@ -95,3 +100,5 @@ h3{
 .slider-container{
   height: 30px;
 }
+
+

@@ -52,11 +52,43 @@ var oscarWinners = d3.csvParse(`year,name
 1971,Patton`)
 
 
+var bestWeeekAnnotations = [
+  {key: 'rl995132929', align: '', isBot: 1, str: 'E.T.'},
+  {key: 'rl3949954561', align: 'r', isBot: 1, str: `Schindler's List`},
+  {key: 'rl342132225', align: '', isBot: 1, str: 'My Big Fat Greek Wedding'},
+  {key: 'rl1816888833', align: 'r', isBot: 0, str: 'Chicago', y: 3, x: 2},
+  {key: 'rl876971521', align: '', isBot: 1, str: 'Avatar'},
+  {key: 'rl357926401', align: '', isBot: 1, str: 'Frozen'},
+  {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
+  // {key: 'rl2053801473', align: 'r', isBot: 1, str: 'Pulp Fiction'},
+  {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
+  {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
+
+
+  // {key: 'rl755467777', align: '', isBot: 1, str: 'Jumanji: The Next Level'},
+
+  {key: 'rl2993915393', align: 'r', str: 'Star Trek II'},
+  {key: 'rl3629483521', align: 'l', isBot: 1, str: 'Ghostbusters II', y: -3, x: 0},
+  {key: 'rl1380943361', align: 'l', str: 'Die Hard 2', y: 2, x: 2},
+  {key: 'rl3544548865', align: '', str: 'Batman Returns'},
+  {key: 'rl3561326081', align: 'l', str: 'Batman & Robin'},
+  {key: 'rl2488829441', align: 'l', str: 'Hulk'},
+  {key: 'rl3292956161', align: '', str: 'The Twilight Saga', x: -5},
+  {key: 'rl3561326081', align: 'l', str: 'Batman & Robin'},
+  {key: 'rl2238875137', align: 'r', str: 'Batman v Superman'},
+
+]
+
 window.drawBestWeekScatter = function({byMovie}){
   var isOscar = {}
   oscarWinners.forEach(d => isOscar[d.name] = d.year)
+
+  var key2annotation = {}
+  bestWeeekAnnotations.forEach(d => key2annotation[d.key] = d)
+
   byMovie.forEach(d => {
     d.isOscar = isOscar[d.name] && Math.abs(isOscar[d.name] - d.year) < 2
+    d.annotation = key2annotation[d.key]
   })
 
   var topMovies = byMovie
@@ -71,7 +103,7 @@ window.drawBestWeekScatter = function({byMovie}){
     sel: sel.append('div'),
     width: 800,
     height: 500,
-    margin: {left: 30, bottom: 40, top: 10}
+    margin: {left: 25, bottom: 40, top: 10}
   })
 
   c.x.domain([1982, 2022])
@@ -81,6 +113,13 @@ window.drawBestWeekScatter = function({byMovie}){
   c.yAxis.tickFormat(d3.format('.0%'))
   d3.drawAxis(c)
   util.ggPlot(c)
+
+  c.svg.select('.y .tick:last-child')
+    .append('text')
+    .text(`of movie’s total gross earned in its best week`)
+    .at({textAnchor: 'start', dy: '.33em'})
+    .parent()
+    .select('path').at({d: `M ${c.x(1992)} 0 H ${c.width}`})
 
   var rScale = d3.scaleSqrt().domain([0, 1e9]).range([0, 10])
   var circleSel = c.svg.appendMany('circle', topMovies)
@@ -97,7 +136,7 @@ window.drawBestWeekScatter = function({byMovie}){
         <b>${d.name}</b> 
 
         <br>
-        Grossed $${d3.format(',')(Math.round(d.gross))} — 
+        Total Gross: $${d3.format(',')(Math.round(d.gross))} — 
         
         ${d3.format('.0%')(d.highestGrossPercent)} during its best week.
       `)
@@ -132,11 +171,32 @@ window.drawBestWeekScatter = function({byMovie}){
           width: c.x(1) - c.x(0) - 1,
         })
 
-
-
     })
 
+  var annoSel = c.svg.appendMany('text.annotation', topMovies.filter(d => d.annotation))
+    .translate(d => [c.x(d.year + d[0].week/52), c.y(d.highestGrossPercent)])
+    .text(d => d.annotation.str)
+    .at({
+      textAnchor: d => ({l: 'end', r: 'start'}[d.annotation.align] || 'middle'),
+      dy: d => d.annotation.isBot ? 11 + rScale(d.gross) : -3 - rScale(d.gross),
+      dx: d => d.annotation.align == 'r' ? 0 + rScale(d.gross) : d.annotation.align == 'l' ? -0 -rScale(d.gross) : 0, 
+      x: d => d.annotation.x || 0,
+      y: d => d.annotation.y || 0,
+      fontWeight: d => d.annotation.weight || '',
+    })
+    .st({
+      pointerEvents: 'none',
+    })
 
+  var labels = [
+    {pos: [c.x(2015.3), c.y(.205)], str: `Since 2014, only kids movies have sold less than 30% of their tickets opening week while grossing more than $200M.`}
+  ]
+
+  var labelSel = c.svg.appendMany('text.annotation', labels)
+    .translate(d => d.pos)
+    .tspans(d => d3.wordwrap(d.str, 30), 12)
+
+  var allAnnoSel = c.svg.selectAll('text.annotation')
 
   var state = {minGross: 200000000, isOscar: true}
 
@@ -152,9 +212,9 @@ window.drawBestWeekScatter = function({byMovie}){
     } else{
       circleSel.order((a, b) => a.gross - b.gross)
     }
-  }
 
-  // renderCircles()
+    allAnnoSel.classed('hidden', state.minGross != 200000000)
+  }
 
 
   function addSliders(){

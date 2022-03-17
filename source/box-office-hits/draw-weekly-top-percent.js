@@ -20,7 +20,6 @@ var annotations = [
   {key: '1996 19', align: '', str: 'Twister'},
   {key: '1996 19', align: '', str: 'Twister'},
 ]
-
 var key2annotation = {}
 annotations.forEach(d => key2annotation[d.key] = d)
 

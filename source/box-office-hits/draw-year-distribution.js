@@ -20,7 +20,7 @@ window.drawYearDistribution = function({byMovie}){
     sel: sel.append('div'),
     width: 800,
     height: 500,
-    margin: {left: 30, bottom: 40, top: 10}
+    margin: {left: 25, bottom: 40, top: 10}
   })
 
   c.x.domain([1982, 2022])

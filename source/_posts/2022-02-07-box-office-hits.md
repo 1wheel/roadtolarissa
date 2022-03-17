@@ -24,7 +24,7 @@ Looking at the super hero movies taking
 
 
 
-### Percentage of movie's total gross earned in its best week
+### Movies are making more of their money opening week
 
 <div class='best-week-scatter'></div>
 
