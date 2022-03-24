@@ -1,7 +1,7 @@
 console.clear()
 window.ttSel = d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-
+throw 'up'
 
 window.init = async function(){
   var {weekendData, weeklyData} = util.parseData()

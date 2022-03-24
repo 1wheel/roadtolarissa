@@ -5,7 +5,7 @@ var oscarWinners = d3.csvParse(`year,name
 2018,The Shape of Water
 2017,Moonlight
 2016,Spotlight
-2015,Birdman
+2015,Birdman or (The Unexpected Virtue of Ignorance)
 2014,12 Years a Slave
 2013,Argo
 2012,The Artist
@@ -90,6 +90,8 @@ window.drawBestWeekScatter = function({byMovie}){
     d.isOscar = isOscar[d.name] && Math.abs(isOscar[d.name] - d.year) < 2
     d.annotation = key2annotation[d.key]
   })
+
+  window.byMovie = byMovie
 
   var topMovies = byMovie
     .filter(d => d.gross > 10000000)
