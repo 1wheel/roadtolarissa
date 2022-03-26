@@ -26,9 +26,14 @@ annotations.forEach(d => key2annotation[d.key] = d)
 window.drawWeeklyTopPercent = function({byWeek, byMovie}){
   var sel = d3.select('.weekly-top-percent').html('')
   
+  // sel.append('h3')
+    // .text(`“No Way Home” Collected 92% of the Domestic Box Office Opening Weekend`)
+    // .text(`“No Way Home” Was the First Movie To Collect More Than 90% Of A Weekend Box Office`)
+    // .st({width: 800})
+
   var c = d3.conventions({
     sel: sel.append('div'),
-    width: 800,
+    // width: 800,
     height: 500,
     margin: {left: 30, bottom: 40, top: 10}
   })
@@ -49,7 +54,7 @@ window.drawWeeklyTopPercent = function({byWeek, byMovie}){
     .text(`of weekend's box office taken by the top grossing movie`)
     .at({textAnchor: 'start', dy: '.33em'})
     .parent()
-    .select('path').at({d: `M ${c.x(1994)} 0 H ${c.width}`})
+    .select('path').at({d: `M ${c.x(1990)} 0 H ${c.width}`})
 
   byWeek.forEach(d => d.annotation = key2annotation[d.year + ' ' + d.week])
 

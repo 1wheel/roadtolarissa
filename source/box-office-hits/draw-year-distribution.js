@@ -18,7 +18,6 @@ window.drawYearDistribution = function({byMovie}){
 
   var c = d3.conventions({
     sel: sel.append('div'),
-    width: 800,
     height: 500,
     margin: {left: 25, bottom: 40, top: 10}
   })

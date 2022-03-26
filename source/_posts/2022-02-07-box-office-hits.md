@@ -7,9 +7,7 @@ draft: true
 ---
 
 <link rel='stylesheet' type='text/css' href='style.css'>
-
-
-Last year, I read statistic in the NYT that was so surprising I thought it was a typo:
+Last year, I read a statistic in the NYT that was so surprising I thought it was a typo:
 
 > “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. **That means “No Way Home” made up 92 percent of the market.** “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million.
 
@@ -17,7 +15,7 @@ Did all the other movies in theaters really split just 8% of the audience? Scrap
 
 ### “No Way Home” Is The First To Collect Over 90% Of A Weekend Box Office
 
-<div class='weekly-top-percent'></div>
+<div class='weekly-top-percent full-width'></div>
 
 Looking at the super hero sequels at the top of the scatter plot, I initially thought this trend was being driven caused by Hollywood becoming increasingly hit driven.
 
@@ -25,20 +23,28 @@ But the pattern is actually a little more complicated:
 
 ### Yearly distribution of box office receipts by year
 
-<div class='year-distribution'></div>
+<div class='year-distribution full-width'></div>
 
-While the biggest movies have taken a larger share of ticket sales of the last decade, 
+While the biggest movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. 
 
-2021 was the first time since 1985 that that top five grossing movies took more than a quarter of the year's total box office.
+In 2021, the top five grossing movies took more than a quarter of the year's total box office -- the first time that's happened since 1985.  
+
+2021 was the first time since 1985 that 
+
+There is, however, a difference in how the top grossing movies 
 
 ### Movies are making more of their money opening week
 
-<div class='best-week-scatter'></div>
+<div class='best-week-scatter full-width'></div>
 
+This points to a larger trend cause by televison and the inter
 
-- People don't "go the movies" anymore, they go to see specific movie
-- Go early to avoid spoilers
-- Smaller, slow burning hits don't have a chance
+People don't "go the movies" anymore, they go to see specific movie. Superhero movies encourage this with huge marketing budgets . 
+
+Smaller, slow burning hits don't have a chance. The type of midbrow Oscar movie the builds up word of mouth momement over several weeks doesn't exist in box offices anymore. 
+
+Will this exist on streaming platforms?
+
 
 
 <!-- <div class='year-sm'></div> -->
@@ -62,8 +68,16 @@ While the biggest movies have taken a larger share of ticket sales of the last d
 <script src='draw-year-distribution.js'></script>
 <script src='init.js'></script>
 
-
+<!-- 
 
 https://www.boxofficemojo.com/weekend/2021W51/
 
 https://www.nytimes.com/2021/12/26/business/movies-stars-hollywood.html
+
+
+Less than a million people have streamed CODA 
+
+https://deadline.com/2022/03/oscar-best-picture-nomiees-box-office-boost-streaming-viewership-1234985202/ 
+
+
+-->

@@ -111,3 +111,17 @@ blockquote{
 blockquote p{
   margin-bottom: 0px;
 }
+
+
+.full-width{
+  width: min(980px, 100vw);
+  position: relative;
+  /*margin-left: min(-490px, -50vw);*/
+  /*margin-right: min(-490px, -50vw);*/
+  /*overflow: hidden;*/
+
+  left: 50%;
+  transform: translateX(-50%);
+
+
+}
