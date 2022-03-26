@@ -118,7 +118,7 @@ window.drawBestWeekScatter = function({byMovie}){
 
   c.svg.select('.y .tick:last-child')
     .append('text')
-    .text(`of movie’s total gross earned in its best week`)
+    .text(`of movie’s total domestic gross earned in its best week`)
     .at({textAnchor: 'start', dy: '.33em'})
     .parent()
     .select('path').at({d: `M ${c.x(1990)} 0 H ${c.width}`})

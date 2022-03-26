@@ -21,7 +21,7 @@ Looking at the superhero sequels at the top of the scatter plot, I initially tho
 
 But the pattern is a little more complicated:
 
-### Yearly distribution of box office receipts by year
+### Yearly distribution of domestic box office receipts by year
 
 <div class='year-distribution full-width'></div>
 

@@ -51,10 +51,10 @@ window.drawWeeklyTopPercent = function({byWeek, byMovie}){
   c.svg.select('.y .tick:last-child')
     .append('text')
     .text(`of Weekend Box Office Taken by The Top Grossing Movie`)
-    .text(`of weekend's box office taken by the top grossing movie`)
+    .text(`of weekend's domestic box office taken by the top grossing movie`)
     .at({textAnchor: 'start', dy: '.33em'})
     .parent()
-    .select('path').at({d: `M ${c.x(1990)} 0 H ${c.width}`})
+    .select('path').at({d: `M ${c.x(1994)} 0 H ${c.width}`})
 
   byWeek.forEach(d => d.annotation = key2annotation[d.year + ' ' + d.week])
 
