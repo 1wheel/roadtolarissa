@@ -26,10 +26,10 @@ var oscarWinners = d3.csvParse(`year,name
 1997,The English Patient
 1996,Braveheart
 1995,Forrest Gump
-1994,Schindler’s List
+1994,Schindler's List
 1993,Unforgiven
 1992,The Silence of the Lambs
-1991,Dances With Wolves
+1991,Dances with Wolves
 1990,Driving Miss Daisy
 1989,Rain Man
 1988,The Last Emperor
@@ -55,8 +55,10 @@ var oscarWinners = d3.csvParse(`year,name
 var bestWeeekAnnotations = [
   {key: 'rl995132929', align: '', isBot: 1, str: 'E.T.'},
   {key: 'rl3949954561', align: 'r', isBot: 1, str: `Schindler's List`},
-  {key: 'rl342132225', align: '', isBot: 1, str: 'My Big Fat Greek Wedding'},
-  {key: 'rl1816888833', align: 'r', isBot: 0, str: 'Chicago', y: 3, x: 2},
+  // {key: 'rl342132225', align: '', isBot: 1, str: 'My Big Fat Greek Wedding'},
+  {key: 'rl21399041', align: 'r', isBot: 0, str: 'A Beautiful Mind', y: 3, x: 2},
+  {key: 'rl1816888833', align: 'r', isBot: 1, str: 'Chicago', y: -5, x: 2},
+  // {key: 'rl2839774721', align: 'm', isBot: 1, str: 'American Beauty', y: 0, x: -20},
   {key: 'rl876971521', align: '', isBot: 1, str: 'Avatar'},
   {key: 'rl357926401', align: '', isBot: 1, str: 'Frozen'},
   {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
@@ -81,13 +83,12 @@ var bestWeeekAnnotations = [
 
 window.drawBestWeekScatter = function({byMovie}){
   var isOscar = {}
-  oscarWinners.forEach(d => isOscar[d.name] = d.year)
-
+  oscarWinners.forEach(d => isOscar[d.name.toLowerCase()] = d.year)
   var key2annotation = {}
   bestWeeekAnnotations.forEach(d => key2annotation[d.key] = d)
 
   byMovie.forEach(d => {
-    d.isOscar = isOscar[d.name] && Math.abs(isOscar[d.name] - d.year) < 2
+    d.isOscar = isOscar[d.name.toLowerCase()] && Math.abs(isOscar[d.name.toLowerCase()] - d.year) < 4
     d.annotation = key2annotation[d.key]
   })
 
@@ -120,7 +121,7 @@ window.drawBestWeekScatter = function({byMovie}){
     .text(`of movie’s total gross earned in its best week`)
     .at({textAnchor: 'start', dy: '.33em'})
     .parent()
-    .select('path').at({d: `M ${c.x(1992)} 0 H ${c.width}`})
+    .select('path').at({d: `M ${c.x(1990)} 0 H ${c.width}`})
 
   var rScale = d3.scaleSqrt().domain([0, 1e9]).range([0, 10])
   var circleSel = c.svg.appendMany('circle', topMovies)
@@ -199,7 +200,7 @@ window.drawBestWeekScatter = function({byMovie}){
 
   var allAnnoSel = c.svg.selectAll('text.annotation')
 
-  var state = {minGross: 200000000, isOscar: true}
+  var state = {minGross: 200000000, isOscar: 0}
 
   function renderCircles(){
     circleSel
@@ -210,8 +211,16 @@ window.drawBestWeekScatter = function({byMovie}){
         .filter(d => d.isOscar)
         .at({stroke: '#f0f', fill: 'rgba(255,0,255,.2)'})
         .raise()
+
+      allAnnoSel
+        .filter(d => d.isOscar)
+        .st({fill: '#f0f'})
+
     } else{
       circleSel.order((a, b) => a.gross - b.gross)
+
+      allAnnoSel
+        .st({fill: ''})
     }
 
     allAnnoSel.classed('hidden', state.minGross != 200000000)

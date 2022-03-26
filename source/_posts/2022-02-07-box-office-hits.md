@@ -19,19 +19,15 @@ Did all the other movies in theaters really split just 8% of the audience? Scrap
 
 Looking at the super hero sequels at the top of the scatter plot, I initially thought this trend was being driven caused by Hollywood becoming increasingly hit driven.
 
-But the pattern is actually a little more complicated:
+But the pattern a little more complicated:
 
 ### Yearly distribution of box office receipts by year
 
 <div class='year-distribution full-width'></div>
 
-While the biggest movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. 
+While the biggest movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happen regularly.  
 
-In 2021, the top five grossing movies took more than a quarter of the year's total box office -- the first time that's happened since 1985.  
-
-2021 was the first time since 1985 that 
-
-There is, however, a difference in how the top grossing movies 
+What's changed is more smoothly over time is 
 
 ### Movies are making more of their money opening week
 
