@@ -125,3 +125,10 @@ blockquote p{
 
 
 }
+
+
+#notes{
+  font-family: sans-serif;
+  font-size: 12px;
+  opacity: .7;
+}

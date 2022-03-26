@@ -17,17 +17,19 @@ Did all the other movies in theaters really split just 8% of the audience? Scrap
 
 <div class='weekly-top-percent full-width'></div>
 
-Looking at the super hero sequels at the top of the scatter plot, I initially thought this trend was being driven caused by Hollywood becoming increasingly hit driven.
+Looking at the superhero sequels at the top of the scatter plot, I initially thought this trend was being driven caused by Hollywood trying to engineer bigger and bigger returns from hit blockbusters.
 
-But the pattern a little more complicated:
+But the pattern is a little more complicated:
 
 ### Yearly distribution of box office receipts by year
 
 <div class='year-distribution full-width'></div>
 
-While the biggest movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happen regularly.  
+While the biggest movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. 
 
-What's changed is more smoothly over time is 
+In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happen regularly.  
+
+What 
 
 ### Movies are making more of their money opening week
 
@@ -54,7 +56,12 @@ Will this exist on streaming platforms?
 
 
 
+<div id='notes'>
+<br>
 
+<p>[Inflation adjusted](https://help.imdb.com/article/imdbpro/industry-research/box-office-mojo-by-imdbpro-faq/GCWTV4MQKGWRAUAP?ref_=mojo_cso_md#inflation) data [scraped](https://github.com/1wheel/scraping-2018/tree/master/box-office-mojo) from Box Office Mojo // [chart code](https://github.com/1wheel/roadtolarissa/tree/master/source/box-office-hits)
+
+</div>
 
 <script src='https://roadtolarissa.com/slinks/static-rss/d3_.js'></script>
 
