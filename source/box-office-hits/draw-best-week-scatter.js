@@ -75,7 +75,7 @@ var bestWeeekAnnotations = [
   {key: 'rl3544548865', align: '', str: 'Batman Returns'},
   {key: 'rl3561326081', align: 'l', str: 'Batman & Robin'},
   {key: 'rl2488829441', align: 'l', str: 'Hulk'},
-  {key: 'rl3292956161', align: '', str: 'The Twilight Saga', x: -5},
+  {key: 'rl3292956161', align: '', str: 'The Twilight Saga', x: -2, y: -2},
   {key: 'rl3561326081', align: 'l', str: 'Batman & Robin'},
   {key: 'rl2238875137', align: 'r', str: 'Batman v Superman'},
 
@@ -200,7 +200,7 @@ window.drawBestWeekScatter = function({byMovie}){
 
   var allAnnoSel = c.svg.selectAll('text.annotation')
 
-  var state = {minGross: 200000000, isOscar: 0}
+  var state = {minGross: 200000000, isOscar: 1}
 
   function renderCircles(){
     circleSel

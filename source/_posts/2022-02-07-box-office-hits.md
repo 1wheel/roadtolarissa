@@ -13,7 +13,7 @@ Last year, I read a statistic in the NYT that was so surprising I thought it was
 
 Did all the other movies in theaters really split just 8% of the audience? Scraping domestic box office numbers, it turns out to be both surprising and true: 
 
-### “No Way Home” Is The First To Collect Over 90% Of A Weekend Box Office
+### “No Way Home” Is the First to Collect Over 90% Of a Weekend Box Office
 
 <div class='weekly-top-percent full-width'></div>
 
@@ -21,7 +21,7 @@ Looking at the superhero sequels at the top of the scatter plot, I initially tho
 
 But the pattern is a little more complicated:
 
-### Yearly distribution of domestic box office receipts by year
+### Yearly Distribution of Domestic Box Office Receipts by Year
 
 <div class='year-distribution full-width'></div>
 
@@ -29,19 +29,18 @@ While the biggest movies have taken a larger share of ticket sales of the last d
 
 In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happen regularly.  
 
-What 
+What has changed more smoothly over time? Movies are making less and less money during extended runs.
 
-### Movies are making more of their money opening week
+### Movies Are Making More of Their Money Opening Week
 
 <div class='best-week-scatter full-width'></div>
 
-This points to a larger trend cause by televison and the inter
+This suggests a larger trend, beyond the control of Hollywood execs' green-lighting decisions. 
 
-People don't "go the movies" anymore, they go to see specific movie. Superhero movies encourage this with huge marketing budgets . 
+Television and the internet are substitutes for movie going; people don't "go the movies" anymore, they go to see specific movie. 
+Superhero movies, with their franchises, familiar faces and spoilers, 
 
-Smaller, slow burning hits don't have a chance. The type of midbrow Oscar movie the builds up word of mouth momement over several weeks doesn't exist in box offices anymore. 
-
-Will this exist on streaming platforms?
+There's no longer a broad audience that can create slower burning hit. The type of middlebrow Oscar movie the builds up word of mouth momentum over several weeks doesn't exist in box offices anymore. and it doesn't seem to be replaced streaming platforms; CODA has been streamed less than a [million](https://deadline.com/2022/03/oscar-best-picture-nomiees-box-office-boost-streaming-viewership-1234985202/ times).
 
 
 
@@ -52,7 +51,10 @@ Will this exist on streaming platforms?
 <!-- <div class='by-movie'></div> -->
 
 
-<!-- > “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. **That means “No Way Home” made up 92 percent of the market.** “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million. -->
+<!-- > “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. **That means “No Way Home” made up 92 percent of the market.** “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million. 
+
+
+-->
 
 
 
@@ -80,7 +82,6 @@ https://www.nytimes.com/2021/12/26/business/movies-stars-hollywood.html
 
 Less than a million people have streamed CODA 
 
-https://deadline.com/2022/03/oscar-best-picture-nomiees-box-office-boost-streaming-viewership-1234985202/ 
 
 
 -->
