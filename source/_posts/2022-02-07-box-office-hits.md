@@ -1,7 +1,6 @@
 ---
 template: post.html
 title: Why The Box Office Hits
-title: Packed Opening Weekends and Why Best Picture Nominiees Aren't Hits Anymore
 title: Why Best Picture Winners Aren't Hits Anymore
 date: 2021-05-06
 permalink: /box-office-hits
@@ -19,13 +18,13 @@ Did all the other movies in theaters really split just 8% of the audience? Scrap
 <h3></h3>
 </div>
  -->
- ### “No Way Home” Is the First to Collect Over 90% Of a Weekend Box Office
+ ### “No Way Home” Is the First to Collect Over 90% of a Weekend Box Office
 
 <div class='weekly-top-percent full-width'></div>
 
 This continued beyond opening weekend: over the next three weekends, “No Way Home” continued to take in over half of the box office.
 
-Looking at the superhero sequels at the top of the scatter plot, I initially thought this trend was being driven by Hollywood trying to engineer bigger returns from biggest blockbusters.
+Looking at the superhero sequels at the top of the scatter plot, I initially thought this trend was being driven by Hollywood trying to engineer bigger returns from the biggest blockbusters.
 
 But the pattern is a little more complicated:
 
@@ -34,19 +33,19 @@ But the pattern is a little more complicated:
 <div class='year-distribution full-width'></div>
 <div class='year-distribution-legend'></div>
 
-While the top grossing movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happen regularly.  
+While the top grossing movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happened regularly.  
 
-What's changed more smoothly over time that's caused more weekends to be dominated by a single movie? Extended runs have slowly stopped earning a significant amount of money.
+What has changed more smoothly that's caused more weekends to be dominated by a single movie? Extended runs have slowly stopped earning a significant amount of money.
 
 ### The Biggest Movies Are Making More of Their Money Opening Week
 
 <div class='best-week-scatter full-width'></div>
 
-There's been a bigger change in how media is consumed, beyond the control of Hollywood execs' green-lighting decisions. Television, streaming and TikTok are increasingly good [substitutes](https://www.nytimes.com/2022/03/25/opinion/oscars-movies-end.html) for theater going; people don't "go the movies" anymore, they go to see specific movie. Superhero movies — which are engineered to create urgency around opening weekend with their franchises, familiar faces, spoilers and massive marketing budgets — are the only formula that can consistently still fill seats. 
+There's been a bigger change in how media is consumed, beyond the control of Hollywood execs' green-lighting decisions. Television, streaming and TikTok are increasingly good [substitutes](https://www.nytimes.com/2022/03/25/opinion/oscars-movies-end.html) for theater going; people don't "go the movies" anymore, they go to see a specific movie. Superhero movies — which are engineered to create urgency around opening weekend with their franchises, familiar faces, spoilers and massive marketing budgets — have the only formula that can consistently still fill seats. 
 
 This change in consumption has also created a <x>best picture Oscar winner</x> sized hole in the bottom right of the chart (adjust the minimum gross slider to see more recent winners). 
 
-With other genres playing to mostly empty theaters, there's no longer a broad audience that can build up word of mouth momentum for an original movie over several weeks. Best picture winners are still slow burning, but they're no longer hits; even on [streaming](https://www.nytimes.com/2022/03/26/business/media/academy-awards-streaming-services.html), favorite CODA has been viewed less than a [million times](https://deadline.com/2022/03/oscar-best-picture-nomiees-box-office-boost-streaming-viewership-1234985202/).
+With other genres playing to mostly empty theaters, there's no longer a broad audience that can build up word of mouth momentum for an original movie over several weeks. Best picture winners are still slow burning, but they're no longer hits; even on [streaming](https://www.nytimes.com/2022/03/26/business/media/academy-awards-streaming-services.html), Oscar-favorite CODA has been viewed less than a [million times](https://deadline.com/2022/03/oscar-best-picture-nomiees-box-office-boost-streaming-viewership-1234985202/).
 
 
 <!-- <div class='year-sm'></div> -->
