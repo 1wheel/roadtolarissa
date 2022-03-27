@@ -88,7 +88,7 @@ window.drawWeeklyTopPercent = function({byWeek, byMovie}){
         ${d3.format('.0%')(week[0].percent)} of the domestic box office.
       `)
     })
-    .at({strokeWidth: d => d.annotation?.weight ? 2 : ''})
+    .at({strokeWidth: d => d.top.includes('No Way Home') ? 2 : ''})
 
   var hoverCircleSel = c.svg.appendMany('circle', d3.range(60))
     .at({fill: '#f0f', stroke: '#f0f', fillOpacity: .4, opacity: 0, r: 4, pointerEvents: 'none'})

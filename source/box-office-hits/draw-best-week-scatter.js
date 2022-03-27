@@ -194,7 +194,7 @@ window.drawBestWeekScatter = function({byMovie}){
     .classed('m-hide', d => d.annotation.mHide)
 
   var labels = [
-    {pos: [c.x(2015.4), c.y(.192)], html: `Since 2005, Lincoln and Frozen are the only movies to sell less than 20% of their tickets opening week while grossing more than $200M — something <x style='color:${oscarColor}'>best picture Oscar winners</x> used to consistently do.`}
+    {pos: [c.x(2015.4), c.y(.192)], html: `Since 2005, Lincoln and Frozen are the only movies to gross more than $200M while selling less than 20% of their tickets opening week — something <x style='color:${oscarColor}'>best picture Oscar winners</x> used to consistently do.`}
   ]
 
   var labelSel = c.layers[1]
@@ -292,7 +292,7 @@ window.drawBestWeekScatter = function({byMovie}){
       })
 
     var circleSel = sliderSel.append('circle').call(drag)
-      .at({r: rScale(200000000) + 2, stroke: '#000'})
+      .at({r: rScale(200000000) + 2, stroke: 'rgba(0,0,0,0)', strokeWidth: 30})
 
     var innerCircleSel = sliderSel.append('circle').call(drag)
       .at({fill: '#ccc'})

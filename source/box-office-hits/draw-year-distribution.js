@@ -140,7 +140,7 @@ window.drawYearDistribution = function({byMovie}){
         width: w*ticks.length,
       })
 
-    svg.append('text').text('Rank').at({fontWeight: 600, y: -3, textAnchor: 'middle', x: w*ticks.length/2})
+    svg.append('text').text('Box Office Rank').at({fontWeight: 600, y: -3, textAnchor: 'middle', x: w*ticks.length/2})
 
     var tickSel = svg.appendMany('g', ticks)
       .translate((d, i) => i*w, 0)
