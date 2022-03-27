@@ -19,7 +19,7 @@ window.drawYearDistribution = function({byMovie}){
   var c = d3.conventions({
     sel: sel.append('div'),
     height: 500,
-    margin: {left: 25, bottom: 40, top: 10}
+    margin: {left: 25, bottom: 50, top: 10}
   })
 
   c.x.domain([1982, 2022])
@@ -96,6 +96,63 @@ window.drawYearDistribution = function({byMovie}){
     .text('← No Way Home')
     .translate([c.x(2022) + 5, c.y(.07)])
     .at({textAnchor: 'start'})
+
+
+  var ticks = [
+    {c: 0, s: '#1 Grossing Movie'},
+    {c: 2, s: '#2 - #5'},
+    {c: 6, s: '#6 - #15'},
+    {c: 16, s: '#16 - #25'},
+    {c: 16, s: '#26 - #50'},
+    {c: 16, s: '#51 - #100'},
+    {c: 16, s: '100'},
+  ]
+  // c.sel.append('div')
+  //   .st({textAlign: 'center'})
+  //   .appendMany('span', ticks)
+  //   .text(d => d.s)
+  //   .st({
+  //     display: 'inline-block',
+  //     width: 30
+  //   })
+
+
+  var ticks = [
+    {c: 0,  s: '#1'},
+    {c: 2,  s: '#5'},
+    {c: 6,  s: '#15'},
+    {c: 16, s: '#25'},
+    {c: 26, s: '#50'},
+    {c: 51, s: '#100'},
+    {c: 101, s: ''},
+  ]
+
+  // legend
+  !(function(){
+    var h = 10
+    var w = 40
+
+    var svg = d3.select('.year-distribution-legend').html('')
+      .st({textAlign: 'center', fontFamily: 'sans-serif', fontSize: 12})
+      .append('svg')
+      .at({
+        height: 20,
+        width: w*ticks.length,
+      })
+
+    svg.append('text').text('Rank').at({fontWeight: 600, y: -3, textAnchor: 'middle', x: w*ticks.length/2})
+
+    var tickSel = svg.appendMany('g', ticks)
+      .translate((d, i) => i*w, 0)
+
+    tickSel.append('rect')
+      .at({width: w - 1, height: h, fill: d => color(d.c)})
+
+    tickSel.append('text')
+      .text(d => d.s)
+      .at({y: h, x: w, dy: '1em', textAnchor: 'middle'})
+
+  })()
 
 }
 

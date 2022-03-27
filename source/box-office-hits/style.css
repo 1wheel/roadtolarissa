@@ -123,7 +123,6 @@ blockquote p{
   left: 50%;
   transform: translateX(-50%);
   min-height: 550px;
-  overflow-x: hidden;
 }
 .no-min-height{
   min-height: 0px;

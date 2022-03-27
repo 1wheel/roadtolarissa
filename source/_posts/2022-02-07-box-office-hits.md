@@ -28,6 +28,7 @@ But the pattern is a little more complicated:
 ### Yearly Distribution of Domestic Box Office Receipts by Year
 
 <div class='year-distribution full-width'></div>
+<div class='year-distribution-legend'></div>
 
 While the biggest movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happen regularly.  
 
