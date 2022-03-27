@@ -87,12 +87,12 @@ window.drawYearDistribution = function({byMovie}){
     .at({fill: '#000', x: .3, width: c.width, height: c.height - .1})
     // .at({fill: color(1000)})
 
-  c.svg.append('text.annotation')
+  c.svg.append('text.annotation.m-hide')
     .text('E.T. →')
     .translate([c.x(1982) - 5, c.y(.07)])
     .at({textAnchor: 'end'})
 
-  c.svg.append('text.annotation')
+  c.svg.append('text.annotation.m-hide')
     .text('← No Way Home')
     .translate([c.x(2022) + 5, c.y(.07)])
     .at({textAnchor: 'start'})

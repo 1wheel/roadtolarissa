@@ -54,30 +54,29 @@ var oscarWinners = d3.csvParse(`year,name
 
 var bestWeeekAnnotations = [
   {key: 'rl995132929', align: '', isBot: 1, str: 'E.T.'},
-  {key: 'rl3949954561', align: 'r', isBot: 1, str: `Schindler's List`},
+  {key: 'rl3949954561', align: 'r', isBot: 1, str: `Schindler's List`, mHide: 1},
   // {key: 'rl342132225', align: '', isBot: 1, str: 'My Big Fat Greek Wedding'},
   {key: 'rl21399041', align: 'r', isBot: 0, str: 'A Beautiful Mind', y: 3, x: 2},
   {key: 'rl1816888833', align: 'r', isBot: 1, str: 'Chicago', y: -5, x: 2},
   // {key: 'rl2839774721', align: 'm', isBot: 1, str: 'American Beauty', y: 0, x: -20},
   {key: 'rl876971521', align: '', isBot: 1, str: 'Avatar'},
   {key: 'rl357926401', align: '', isBot: 1, str: 'Frozen'},
-  {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
+  {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves', mHide: 1},
   // {key: 'rl2053801473', align: 'r', isBot: 1, str: 'Pulp Fiction'},
-  {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
-  {key: 'rl3698624001', align: '', isBot: 1, str: 'Titanic'},
+  {key: 'rl3698624001', align: '', isBot: 1, str: 'Titanic',mHide: 1},
 
 
   // {key: 'rl755467777', align: '', isBot: 1, str: 'Jumanji: The Next Level'},
 
   {key: 'rl2993915393', align: 'r', str: 'Star Trek II'},
-  {key: 'rl3629483521', align: 'l', isBot: 1, str: 'Ghostbusters II', y: -3, x: 0},
+  {key: 'rl3629483521', align: 'l', isBot: 1, str: 'Ghostbusters II', y: -3, x: 0, mHide: 1},
   {key: 'rl1380943361', align: 'l', str: 'Die Hard 2', y: 2, x: 2},
-  {key: 'rl3544548865', align: '', str: 'Batman Returns'},
+  {key: 'rl3544548865', align: '', str: 'Batman Returns', mHide: 1},
   {key: 'rl3561326081', align: 'l', str: 'Batman & Robin'},
   {key: 'rl2488829441', align: 'l', str: 'Hulk'},
   {key: 'rl3292956161', align: '', str: 'The Twilight Saga', x: -2, y: -2},
   {key: 'rl3561326081', align: 'l', str: 'Batman & Robin'},
-  {key: 'rl2238875137', align: 'r', str: 'Batman v Superman'},
+  {key: 'rl2238875137', align: 'r', str: 'Batman v Superman', mHide: 1},
 
 ]
 
@@ -192,6 +191,7 @@ window.drawBestWeekScatter = function({byMovie}){
     .st({
       pointerEvents: 'none',
     })
+    .classed('m-hide', d => d.annotation.mHide)
 
   var labels = [
     {pos: [c.x(2015.4), c.y(.192)], html: `Since 2005, Lincoln and Frozen are the only movies to sell less than 20% of their tickets opening week while grossing more than $200M — something <x style='color:${oscarColor}'>best picture Oscar winners</x> used to consistently do.`}
@@ -199,7 +199,7 @@ window.drawBestWeekScatter = function({byMovie}){
 
   var labelSel = c.layers[1]
     .st({pointerEvents: 'none'})
-    .appendMany('div.annotation', labels)
+    .appendMany('div.annotation.m-hide', labels)
     .translate(d => d.pos)
     .st({width: 164, lineHeight: 10})
     .html(d => d.html)

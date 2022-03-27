@@ -97,7 +97,7 @@ h3{
 }
 
 .slider-container{
-  height: 30px;
+  height: 35px;
 }
 
 
@@ -123,6 +123,7 @@ blockquote p{
   left: 50%;
   transform: translateX(-50%);
   min-height: 550px;
+  overflow-x: hidden;
 }
 .no-min-height{
   min-height: 0px;
@@ -133,4 +134,10 @@ blockquote p{
   font-family: sans-serif;
   font-size: 12px;
   opacity: .7;
+}
+
+@media (max-width: 800px){
+  .annotation.m-hide{
+    display: none;
+  }
 }

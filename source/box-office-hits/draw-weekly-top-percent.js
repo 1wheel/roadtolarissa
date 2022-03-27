@@ -1,7 +1,7 @@
 var annotations = [
-  {key: '1982 20', align: 'r', str: 'Conan'},
+  {key: '1982 20', align: 'r', str: 'Conan', mHide: 1},
   {key: '1984 21', align: '', str: 'Temple of Doom'},
-  {key: '1987 21', align: 'l', str: 'Beverly Hills Cop II'},
+  {key: '1987 21', align: 'l', str: 'Beverly Hills Cop II', mHide: 1},
   {key: '1992 20', align: 'l', str: 'Lethal Weapon 3'},
   {key: '1984 21', align: '', str: 'Temple of Doom'},
   {key: '1994 51', align: '', str: 'Street Fighter'},
@@ -9,16 +9,14 @@ var annotations = [
   {key: '2002 18', align: '', str: 'Spider-Man'},
   {key: '2007 18', align: 'l', str: 'Spider-Man 3'},
   {key: '2010 19', align: '', str: 'Iron Man 2'},
-  {key: '2012 18', align: 'l', str: 'The Advengers'},
+  {key: '2012 18', align: 'l', str: 'The Advengers', mHide: 1},
   {key: '2015 18', align: 'l', str: 'Age of Ultron'},
-  {key: '2018 17', align: '', str: 'Infinity War', y: -1},
+  {key: '2018 17', align: '', str: 'Infinity War', y: -1, mHide: 1},
   {key: '2019 17', align: 'l', str: 'Avengers: Endgame', y: 8, x: -5},
   {key: '2021 51', align: 'l', weight: 700, str: 'Spider-Man: No Way Home'},
-  {key: '1992 25', align: 'l', str: 'Batman Returns'},
+  {key: '1992 25', align: 'l', str: 'Batman Returns', mHide: 1},
   {key: '1996 19', align: '', str: 'Twister'},
   {key: '1993 24', align: 'l', str: 'Jurassic Park'},
-  {key: '1996 19', align: '', str: 'Twister'},
-  {key: '1996 19', align: '', str: 'Twister'},
 ]
 var key2annotation = {}
 annotations.forEach(d => key2annotation[d.key] = d)
@@ -106,6 +104,7 @@ window.drawWeeklyTopPercent = function({byWeek, byMovie}){
       y: d => d.annotation.y || 0,
       fontWeight: d => d.annotation.weight || '',
     })
+    .classed('m-hide', d => d.annotation.mHide)
 
 }
 
