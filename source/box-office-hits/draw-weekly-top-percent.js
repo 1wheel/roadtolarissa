@@ -89,8 +89,6 @@ window.drawWeeklyTopPercent = function({byWeek, byMovie}){
         gross on the weekend of ${dateStr} — <br>
         ${d3.format('.0%')(week[0].percent)} of the domestic box office.
       `)
-
-      console.log(week.year + ' ' + week.week)
     })
     .at({strokeWidth: d => d.annotation?.weight ? 2 : ''})
 

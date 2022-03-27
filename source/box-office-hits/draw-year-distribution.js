@@ -58,6 +58,19 @@ window.drawYearDistribution = function({byMovie}){
       // opacity: d => d.year == 2020 ? .3 : 1,
     })
     .call(d3.attachTooltip)
+    .on('mouseover', d => {
+      window.ttSel.html(`
+        <div>
+        <b>${d.name}</b> 
+
+        <br>
+        Total Gross: $${d3.format(',')(Math.round(d.gross))} — 
+        
+        ${d3.format('.2%')(d.yearPercent)} of the total earned by movies released in ${d.year}.
+      `)
+    })
+
+
 
   yearSel.filter(d => d.key == 2020)
     .append('rect')
