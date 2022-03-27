@@ -58,7 +58,7 @@ text{
 }
 
 .axis text{
-  fill: #999;
+  fill: #777;
   font-size: 10px;
 }   
 .x.axis text{
@@ -122,8 +122,10 @@ blockquote p{
 
   left: 50%;
   transform: translateX(-50%);
-
-
+  min-height: 550px;
+}
+.no-min-height{
+  min-height: 0px;
 }
 
 

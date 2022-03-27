@@ -1,19 +1,23 @@
 ---
 template: post.html
-title: Box Office Hits
+title: Why The Box Office Hits
 date: 2021-05-06
 permalink: /box-office-hits
 draft: true
 ---
 
 <link rel='stylesheet' type='text/css' href='style.css'>
-Last year, I read a statistic in the NYT that was so surprising I thought it was a typo:
+Last year, I read a [statistic](https://www.nytimes.com/2021/12/26/business/movies-stars-hollywood.html) in the NYT that was so surprising I thought it was a typo:
 
 > “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. **That means “No Way Home” made up 92 percent of the market.** “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million.
 
 Did all the other movies in theaters really split just 8% of the audience? Scraping domestic box office numbers, it turns out to be both surprising and true: 
 
-### “No Way Home” Is the First to Collect Over 90% Of a Weekend Box Office
+<!-- <div class='full-width no-min-height'>
+<h3></h3>
+</div>
+ -->
+ ### “No Way Home” Is the First to Collect Over 90% Of a Weekend Box Office
 
 <div class='weekly-top-percent full-width'></div>
 
@@ -25,23 +29,19 @@ But the pattern is a little more complicated:
 
 <div class='year-distribution full-width'></div>
 
-While the biggest movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. 
+While the biggest movies have taken a larger share of ticket sales of the last decade, there hasn't been a smooth increase in top-heaviness over the last 30 years. In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happen regularly.  
 
-In 2021, the top five grossing movies took more than a quarter of the year's total box office — the first time that's happened since the 80s, when it happen regularly.  
+What has changed more smoothly over time? Movies have slowly stopped making a significant amount of money during extended runs.
 
-What has changed more smoothly over time? Movies are making less and less money during extended runs.
-
-### Movies Are Making More of Their Money Opening Week
+### The Biggest Movies Are Making More of Their Money Opening Week
 
 <div class='best-week-scatter full-width'></div>
 
-This suggests a larger trend, beyond the control of Hollywood execs' green-lighting decisions. 
+There's been a bigger change in how media is consumed, beyond the control of Hollywood execs' green-lighting decisions. Television, streaming and TikTok are increasingly good [substitutes](https://www.nytimes.com/2022/03/25/opinion/oscars-movies-end.html) for theater going; people don't "go the movies" anymore, they go to see specific movie. Superhero movies — which are engineered to create urgency around opening weekend with their franchises, familiar faces, spoilers and massive marketing budgets — are the only way to consistently fill seats. 
 
-Television and the internet are substitutes for movie going; people don't "go the movies" anymore, they go to see specific movie. 
-Superhero movies, with their franchises, familiar faces and spoilers, 
+This change in consumption has also created a <x>best picture Oscar winner</x> sized hole in the bottom right of the chart. 
 
-There's no longer a broad audience that can create slower burning hit. The type of middlebrow Oscar movie the builds up word of mouth momentum over several weeks doesn't exist in box offices anymore. and it doesn't seem to be replaced streaming platforms; CODA has been streamed less than a [million](https://deadline.com/2022/03/oscar-best-picture-nomiees-box-office-boost-streaming-viewership-1234985202/ times).
-
+With everything else playing to mostly empty theaters, there's no longer a broad audience that can build up word of mouth momentum for an original movie over several weeks. Best picture winners are still slow burning, but they're no longer hits; even on [streaming](https://www.nytimes.com/2022/03/26/business/media/academy-awards-streaming-services.html), favorite CODA has been viewed less than a [million times](https://deadline.com/2022/03/oscar-best-picture-nomiees-box-office-boost-streaming-viewership-1234985202/).
 
 
 <!-- <div class='year-sm'></div> -->
@@ -51,7 +51,17 @@ There's no longer a broad audience that can create slower burning hit. The type 
 <!-- <div class='by-movie'></div> -->
 
 
-<!-- > “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. **That means “No Way Home” made up 92 percent of the market.** “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million. 
+<!-- > “Spider-Man: No Way Home” collected $260 million in the United States and Canada on its opening weekend. Total ticket sales for the two countries totaled $283 million, according to Comscore. **That means “No Way Home” made up 92 percent of the market.** “Nightmare Alley,” which was released on the same weekend, played to virtually empty auditoriums. It took in $2.7 million.
+
+There's no longer a broad audience that can create slower burning hit. The type of middlebrow Oscar movie the builds up word of mouth momentum over several weeks doesn't exist in box offices anymore. and it doesn't seem to be replaced streaming platforms; CODA has been streamed less than a [million times](https://deadline.com/2022/03/oscar-best-picture-nomiees-box-office-boost-streaming-viewership-1234985202/).
+
+
+There's no longer a broad audience that can sustain the type of slower burning hit building
+
+There's no longer a broad audience that can create slower burning hit. The type of middlebrow Oscar movie the builds up word of mouth momentum over several weeks doesn't exist in box offices anymore. and it doesn't seem to be replaced streaming platforms; .
+
+Everything else plays to empty theaters.
+
 
 
 -->

@@ -64,7 +64,7 @@ var bestWeeekAnnotations = [
   {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
   // {key: 'rl2053801473', align: 'r', isBot: 1, str: 'Pulp Fiction'},
   {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
-  {key: 'rl944539137', align: '', isBot: 1, str: 'Dances with Wolves'},
+  {key: 'rl3698624001', align: '', isBot: 1, str: 'Titanic'},
 
 
   // {key: 'rl755467777', align: '', isBot: 1, str: 'Jumanji: The Next Level'},
@@ -82,6 +82,8 @@ var bestWeeekAnnotations = [
 ]
 
 window.drawBestWeekScatter = function({byMovie}){
+  var oscarColor = '#d99803'
+
   var isOscar = {}
   oscarWinners.forEach(d => isOscar[d.name.toLowerCase()] = d.year)
   var key2annotation = {}
@@ -105,7 +107,8 @@ window.drawBestWeekScatter = function({byMovie}){
   var c = d3.conventions({
     sel: sel.append('div'),
     height: 500,
-    margin: {left: 25, bottom: 40, top: 10}
+    margin: {left: 25, bottom: 40, top: 10},
+    layers: 'sd',
   })
 
   c.x.domain([1982, 2022])
@@ -191,14 +194,19 @@ window.drawBestWeekScatter = function({byMovie}){
     })
 
   var labels = [
-    {pos: [c.x(2015.3), c.y(.205)], str: `Since 2014, only kids movies have sold less than 30% of their tickets opening week while grossing more than $200M.`}
+    {pos: [c.x(2015.4), c.y(.192)], html: `Since 2005, Lincoln and Frozen are the only movies to sell less than 20% of their tickets opening week while grossing more than $200M — something <x style='color:${oscarColor}'>best picture Oscar winners</x> used to consistently do.`}
   ]
 
-  var labelSel = c.svg.appendMany('text.annotation', labels)
+  var labelSel = c.layers[1]
+    .st({pointerEvents: 'none'})
+    .appendMany('div.annotation', labels)
     .translate(d => d.pos)
-    .tspans(d => d3.wordwrap(d.str, 30), 12)
+    .st({width: 164, lineHeight: 10})
+    .html(d => d.html)
 
-  var allAnnoSel = c.svg.selectAll('text.annotation')
+  d3.selectAll('x').st({color: oscarColor})
+
+  var allAnnoSel = c.sel.selectAll('.annotation')
 
   var state = {minGross: 200000000, isOscar: 1}
 
@@ -209,12 +217,12 @@ window.drawBestWeekScatter = function({byMovie}){
     if (state.isOscar){
       circleSel
         .filter(d => d.isOscar)
-        .at({stroke: '#f0f', fill: 'rgba(255,0,255,.2)'})
-        .raise()
+        .at({stroke: oscarColor, fill: oscarColor, fillOpacity: .2})
+        // .raise()
 
       allAnnoSel
         .filter(d => d.isOscar)
-        .st({fill: '#f0f'})
+        .st({fill: oscarColor})
 
     } else{
       circleSel.order((a, b) => a.gross - b.gross)
