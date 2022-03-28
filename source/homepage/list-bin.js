@@ -26,6 +26,7 @@ europe-right-wing
 hurricane-how-to
 uncertainty-over-space
 fill-in-the-blank
+private-and-fair
 `.split('\n')
 
 

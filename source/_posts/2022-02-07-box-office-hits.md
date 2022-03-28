@@ -2,9 +2,9 @@
 template: post.html
 title: Why The Box Office Hits
 title: Why Best Picture Winners Aren't Hits Anymore
-date: 2021-05-06
+date: 2022-03-27
 permalink: /box-office-hits
-draft: true
+shareimg: https://roadtolarissa.com/box-office-hits/share.png
 ---
 
 <link rel='stylesheet' type='text/css' href='style.css'>

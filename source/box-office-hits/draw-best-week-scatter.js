@@ -81,7 +81,7 @@ var bestWeeekAnnotations = [
 ]
 
 window.drawBestWeekScatter = function({byMovie}){
-  var oscarColor = '#d99803'
+  var oscarColor = '#f0f'
 
   var isOscar = {}
   oscarWinners.forEach(d => isOscar[d.name.toLowerCase()] = d.year)
@@ -251,7 +251,7 @@ window.drawBestWeekScatter = function({byMovie}){
     var svgSel = sel
       // .st({marginTop: 5, marginBottom: 5})
       .appendMany('div.slider-container', sliders)
-      .st({width: 140})
+      .st({width: 140, userSelect: 'none'})
       .translate((c.width - 140)/2, 0)
       .append('svg').at({width, height})
       .append('g').translate([10, 25])

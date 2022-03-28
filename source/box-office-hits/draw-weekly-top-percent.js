@@ -9,7 +9,7 @@ var annotations = [
   {key: '2002 18', align: '', str: 'Spider-Man'},
   {key: '2007 18', align: 'l', str: 'Spider-Man 3'},
   {key: '2010 19', align: '', str: 'Iron Man 2'},
-  {key: '2012 18', align: 'l', str: 'The Advengers', mHide: 1},
+  {key: '2012 18', align: 'l', str: 'The Avengers', mHide: 1},
   {key: '2015 18', align: 'l', str: 'Age of Ultron'},
   {key: '2018 17', align: '', str: 'Infinity War', y: -1, mHide: 1},
   {key: '2019 17', align: 'l', str: 'Avengers: Endgame', y: 8, x: -5},
@@ -23,6 +23,7 @@ annotations.forEach(d => key2annotation[d.key] = d)
 
 window.drawWeeklyTopPercent = function({byWeek, byMovie}){
   var sel = d3.select('.weekly-top-percent').html('')
+    .st({marginBottom: -10})
   
   // sel.append('h3')
     // .text(`“No Way Home” Collected 92% of the Domestic Box Office Opening Weekend`)
@@ -33,7 +34,7 @@ window.drawWeeklyTopPercent = function({byWeek, byMovie}){
     sel: sel.append('div'),
     // width: 800,
     height: 500,
-    margin: {left: 30, bottom: 40, top: 10}
+    margin: {left: 30, bottom: 30, top: 10}
   })
 
   c.sel.append('h3')
