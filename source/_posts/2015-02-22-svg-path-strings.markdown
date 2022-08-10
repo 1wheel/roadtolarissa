@@ -9,7 +9,7 @@ permalink: /blog/2015/02/22/svg-path-strings
 
 SVG comes with several shape elements - `rect`, `ellipse`, `line`, `polygon` - that can create basic forms. To create a map, streamgraph or other more complicated shapes, `path` elements are used. Instead of specifying the size and position of a path element with attributes like `height`, `radius` or `x` as we do with the basic shapes, the geometry of the path element is determined by a single `d` attribute.
 
-This `d` attribute processes a path string that describing the movement of a pen across a sheet of paper. [D3](https://github.com/mbostock/d3/wiki/SVG-Shapes#path-data-generators) has powerful path generators that are simple to use; this post describes how the path strings are interpreted so you can create your own.
+This `d` attribute processes a path string that describes the movement of a pen across a sheet of paper. [D3](https://github.com/mbostock/d3/wiki/SVG-Shapes#path-data-generators) has powerful path generators that are simple to use; this post describes how the path strings are interpreted so you can create your own.
 
 ## Straight Line
 
