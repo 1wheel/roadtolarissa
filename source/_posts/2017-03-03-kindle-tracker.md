@@ -9,9 +9,9 @@ shareimg: http://roadtolarissa.com/images/posts/kindle-tracker.png
 <link rel="stylesheet" type="text/css" href="/kindle-tracker/style.css">
 
 <script src="/kindle-tracker/d3v4.js"></script>
+<script src="/kindle-tracker/bbox-collide.js"></script>
 <script src="/kindle-tracker/lodash.js"></script>
 <script src="/kindle-tracker/script.js"></script>
-<script src="/kindle-tracker/bbox-collide.js"></script>
 
 
 Curious about how much and when I read on my Kindle, I decided to try and make some charts. Unfortunately while Amazon [tracks](http://www.npr.org/2010/12/15/132058735/is-your-e-book-reading-up-on-you) your Kindle page turns, it doesn't allow you to see your own reading data. 
