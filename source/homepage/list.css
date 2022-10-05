@@ -84,6 +84,9 @@ html{
   font-weight: 300;
 */}
 
+.header-right{
+  margin-right:  32px;
+}
 
 
 
@@ -120,6 +123,10 @@ html{
 
   .year:first-child .year-label{
     display: none;
+  }
+
+  .header-right{
+    margin-right: 0px;
   }
 
 }
