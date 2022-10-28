@@ -73,7 +73,7 @@ how-britain-voted-brexit-referendum
 `.split('\n')
 
 
-var isBoring = false
+var isBoring = true
 
 
 nytProjects.forEach(d => d.isNYT = true)
