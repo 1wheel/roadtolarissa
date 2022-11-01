@@ -1,4 +1,11 @@
+#golf-wl{
+	font-family: Helvetica, serif;
+	font-size: 14px;
+}
 
+svg{
+	overflow: visible;
+}
 
 rect{
 	fill-opacity: 0;

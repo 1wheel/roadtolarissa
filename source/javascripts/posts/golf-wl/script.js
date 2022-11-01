@@ -84,7 +84,7 @@ function addStaticSVG(){
       .style('text-anchor', 'end')
 
   var textG = svg.append('g')
-      .attr('transform', 'translate(-10,-2)')
+      .attr('transform', 'translate(-5,-20)')
 
   textG.append('text')
       .classed('selectedText', true)
