@@ -106,10 +106,21 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
     c.svg.append('text.race-title').text(raceSlug)
       .at({textAnchor: 'middle', x: c.width/2, y: -2, fontSize: 14, fontFamily: 'monospace'})
 
+    c.svg.appendMany('circle', race)
+      .at({r: 1, fill: '#f0f'})
+      .translate(d => [c.x(d.margin[2]), c.y(d.wapoMargin[1])])
+
+    var line = d3.line()
+      .x(d => c.x(d.margin[2]))
+      .y(d => c.y(d.wapoMargin[1]))
+    c.svg.append('path').at({d: line(race), fill: 'none', stroke: '#f0f', opacity: .3})
+
 
     var rectSel = c.svg.append('rect').st({opacity: .15})
     var rectBgSel = c.svg.append('rect').st({opacity: .15})
     var circleSel = c.svg.append('circle').at({r: 3, stroke: '#f0f', strokeWidth: 2, fill: 'none'})
+
+
 
     renderFns.push(curIndex => {
       // if (raceSlug != 'AZ-S') return
