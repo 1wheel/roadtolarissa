@@ -1,7 +1,7 @@
 console.clear()
 d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-var maxMargin = .3
+var maxMargin = .15
 window.renderFns = []
 
 d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
@@ -33,23 +33,46 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
   })
 
   var byRace = d3.nestBy(tidy, d => d.nyt_id)
-  console.log(byRace.map(d => d.key))
+  byRace = _.sortBy(byRace, d => -d.key.includes('-S-'))
 
-  drawChamber('s')
-  drawChamber('h')
+  drawChamber('all')
+  // drawChamber('s')
+  // drawChamber('h')
+  drawSlider()
+  
 
-  var curIndex = 55
-  renderFns.forEach(d => d(curIndex))
+  function renderIndex(index){
+    renderFns.forEach(d => d(index))
+  }
+
+  function drawSlider(){
+    var sel = d3.select('.slider').html('')
+    var lastIndex = times.length - 1
+
+    var timeSel = sel.append('div.time')
+
+    var sliderSel = sel.append('input')
+      .at({ type:'range', min: 0, max: lastIndex, step: 1, value: lastIndex})
+      .on('input', function(){
+        renderIndex(this.value)
+      })
+
+    renderFns.push(curIndex => {
+      var str = new Date(times[curIndex].scrapeTime) + ''
+      str = str.split('GMT')[0]
+      timeSel.text(str)
+    })
+
+    renderIndex(lastIndex)
+  }
 
   function drawChamber(chamber){
-    var width = Math.floor(innerWidth/370)*370
+    var width = Math.floor(innerWidth/360)*360
     var colMarginLeft =  -(width - 750)/2 + 40
     var sel = d3.select('.chamber-' + chamber).html('')
       .st({width, marginLeft: colMarginLeft})
-    
 
-
-    var races = byRace.filter(d => d.key.includes(`G-${chamber.toUpperCase()}-`))
+    var races = chamber != 'all' ? byRace.filter(d => d.key.includes(`G-${chamber.toUpperCase()}-`)) : byRace
     races.forEach(race => drawRace(sel, race))
   }
 
@@ -67,6 +90,7 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
     var tickFmt = d => {
       if (!d) return '0%'
       var str = d3.format('+.0%')(d)
+      if (str.includes(20)) return ''
       return (d < 0 ? 'D ' : 'R ') + str.replace('-', '+') 
     }
     c.xAxis.ticks(3).tickFormat(tickFmt)
@@ -85,7 +109,7 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
 
     var rectSel = c.svg.append('rect').st({opacity: .15})
     var rectBgSel = c.svg.append('rect').st({opacity: .15})
-    var circleSel = c.svg.append('circle').at({r: 4, fill: '#f0f'})
+    var circleSel = c.svg.append('circle').at({r: 3, stroke: '#f0f', strokeWidth: 2, fill: 'none'})
 
     renderFns.push(curIndex => {
       // if (raceSlug != 'AZ-S') return
@@ -96,9 +120,7 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
         return 
       }
       c.svg.st({opacity: curData.isFakeWapo ? .4 : 1})
-      // console.log(raceSlug, curData?.wapo)  
 
-      console.log(curData, curData.wapo)
       var y = c.y(curData.wapoMargin[2])
       var height = c.y(curData.wapoMargin[0]) - y
 
@@ -136,11 +158,7 @@ function addAxisLabel(c, xText, yText, xOffset=30, yOffset=-30){
 }
 
 function ggPlot(c, isBlack=true){
-  // if (isBlack){
   c.svg.append('rect.bg-rect')
-    // .at({width: c.width, height: c.height, fill: '#eee'})
-    // .lower()
-  // }
 
   c.svg.selectAll('.tick').selectAll('line').remove()
   c.svg.selectAll('.y .tick')
@@ -148,6 +166,4 @@ function ggPlot(c, isBlack=true){
   c.svg.selectAll('.y text').at({x: -3})
   c.svg.selectAll('.x .tick')
     .append('path').at({d: 'M 0 0 V -' + c.height, stroke: '#fff', strokeWidth: 1})
-
-  // c.svg.selectAll('.y .tick').filter(d => d == 0).remove()
 }
