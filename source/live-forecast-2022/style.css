@@ -1,0 +1,67 @@
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 7px;
+  background: rgba(255, 255, 255, .94);
+  border: 1px solid lightgray;
+  pointer-events: none;
+  width: 300px;
+  font-size: 12px;
+  font-family: sans-serif;
+  line-height: 1.3em;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+.tooltip text{
+  text-shadow: none;
+  fill: #000 !important;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  /*pointer-events: none;*/
+  text-shadow: 0 1px 0 #eee, 1px 0 0 #eee, 0 -1px 0 #eee, -1px 0 0 #eee;
+}
+
+.axis text{
+  fill: #777;
+}
+
+#notes{
+  font-family: sans-serif;
+  font-size: 12px;
+  opacity: .7;
+}
+
+
+.race{
+  display: inline-block;
+}
+
+.axis-label{
+  font-size: 12px;
+  font-family: monospace;
+  fill: #777;
+}
