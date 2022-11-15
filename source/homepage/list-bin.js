@@ -25,8 +25,10 @@ europe-right-wing
 2018-chart-diary
 hurricane-how-to
 uncertainty-over-space
+symptoms-search-trends
 fill-in-the-blank
 private-and-fair
+federated-learning
 `.split('\n')
 
 

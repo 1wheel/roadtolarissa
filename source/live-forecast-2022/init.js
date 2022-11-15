@@ -84,7 +84,7 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
   function drawRace(sel, race, chamberWidth){
     var nCols = Math.ceil(chamberWidth/(innerWidth > 800 ? 350 : 250))
     var margin = {left: 30, right: 30, bottom: 40}
-    var chartSize = chamberWidth/nCols - margin.left - margin.right
+    var chartSize = Math.round(chamberWidth/nCols - margin.left - margin.right)
 
     var c = d3.conventions({
       sel: sel.append('div.race'),
@@ -109,7 +109,7 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
     addAxisLabel(c, 'nyt', 'wapo')
 
     c.svg.selectAll('.tick').filter(d => d == 0).raise()
-      .select('path').st({strokeWidth: 3, xstroke: '#000'})
+      .select('path').st({strokeWidth: 1.5, stroke: '#000'})
 
     var raceSlug = race.key.replace('-G', '').replace('-2022-11-08', '')
     c.svg.append('text.race-title').text(raceSlug)
@@ -178,12 +178,12 @@ function addAxisLabel(c, xText, yText, xOffset=30, yOffset=-30){
 
 function ggPlot(c, isBlack=true){
   c.svg.append('rect.bg-rect')
-    .st({height: c.height, width: c.width, fill: '#eee'}).lower()
+    // .st({height: c.height, width: c.width, fill: '#eee'}).lower()
 
   c.svg.selectAll('.tick').selectAll('line').remove()
   c.svg.selectAll('.y .tick')
-    .append('path').at({d: 'M 0 0 H ' + c.width, stroke: '#fff', strokeWidth: 1})
+    .append('path').at({d: 'M 0 0 H ' + c.width, stroke: '#999', strokeWidth: .5})
   c.svg.selectAll('.y text').at({x: -3})
   c.svg.selectAll('.x .tick')
-    .append('path').at({d: 'M 0 0 V -' + c.height, stroke: '#fff', strokeWidth: 1})
+    .append('path').at({d: 'M 0 0 V -' + c.height, stroke: '#999', strokeWidth: .5})
 }
