@@ -84,7 +84,7 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
   function drawRace(sel, race, chamberWidth){
     var nCols = Math.ceil(chamberWidth/(innerWidth > 800 ? 350 : 250))
     var margin = {left: 30, right: 30, bottom: 40}
-    var chartSize = Math.round(chamberWidth/nCols - margin.left - margin.right)
+    var chartSize = Math.floor(chamberWidth/nCols - margin.left - margin.right)
 
     var c = d3.conventions({
       sel: sel.append('div.race'),
