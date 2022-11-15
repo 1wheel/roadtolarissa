@@ -82,3 +82,15 @@ input[type='range']{
   font-family: monospace;
   text-align: center;
 }
+
+.is-disabled{
+  opacity: .4;
+}
+.is-disabled .axis path{
+/*  opacity: 1;*/
+}
+
+html{
+  background: #fff;
+}
+

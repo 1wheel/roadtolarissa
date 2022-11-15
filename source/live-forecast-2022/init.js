@@ -1,11 +1,13 @@
 console.clear()
 d3.select('body').selectAppend('div.tooltip.tooltip-hidden')
 
-var maxMargin = .15
+var maxMargin = .2
 window.renderFns = []
 
 d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
   window.tidy = []
+
+  times = times.filter(d => d.scrapeTime < '2022-11-09T11:38:35.067Z')
   times.forEach(time => {
     time.races.forEach(race => {
       race.scrapeTime = time.scrapeTime
@@ -66,22 +68,29 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
     renderIndex(lastIndex)
   }
 
-  function drawChamber(chamber){
-    var width = Math.floor(innerWidth/360)*360
-    var colMarginLeft =  -(width - 750)/2 + 40
-    var sel = d3.select('.chamber-' + chamber).html('')
-      .st({width, marginLeft: colMarginLeft})
 
+  function drawChamber(chamber){
+    var sel = d3.select('.chamber-' + chamber).html('')
+
+    var width = innerWidth - 20
+    var pWidth = d3.select('p').node().offsetWidth
+    var marginLeft = -(width - pWidth)/2
+    sel.st({width, marginLeft})
+    
     var races = chamber != 'all' ? byRace.filter(d => d.key.includes(`G-${chamber.toUpperCase()}-`)) : byRace
-    races.forEach(race => drawRace(sel, race))
+    races.forEach(race => drawRace(sel, race, width))
   }
 
-  function drawRace(sel, race){
+  function drawRace(sel, race, chamberWidth){
+    var nCols = Math.ceil(chamberWidth/(innerWidth > 800 ? 350 : 250))
+    var margin = {left: 30, right: 30, bottom: 40}
+    var chartSize = chamberWidth/nCols - margin.left - margin.right
+
     var c = d3.conventions({
       sel: sel.append('div.race'),
-      width: 200,
-      height: 200,
-      margin: {left: 20, right: 50, bottom: 40}
+      width: chartSize,
+      height: chartSize,
+      margin,
     })
 
     c.x.domain([-maxMargin, maxMargin])
@@ -113,12 +122,11 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
     var line = d3.line()
       .x(d => c.x(d.margin[2]))
       .y(d => c.y(d.wapoMargin[1]))
-    c.svg.append('path').at({d: line(race), fill: 'none', stroke: '#f0f', opacity: .3})
+    c.svg.append('path.data-el').at({d: line(race), fill: 'none', stroke: '#f0f', opacity: .3})
 
-
-    var rectSel = c.svg.append('rect').st({opacity: .15})
-    var rectBgSel = c.svg.append('rect').st({opacity: .15})
-    var circleSel = c.svg.append('circle').at({r: 3, stroke: '#f0f', strokeWidth: 2, fill: 'none'})
+    var rectSel = c.svg.append('rect.data-el').st({opacity: .15})
+    var rectBgSel = c.svg.append('rect.data-el').st({opacity: .15})
+    var circleSel = c.svg.append('circle.data-el').at({r: 3, stroke: '#f0f', strokeWidth: 2, fill: 'none'})
 
 
 
@@ -130,7 +138,7 @@ d3.loadData('https://roadtolarissa.com/data/2022-wp.json', (err, [times]) => {
         circleSel.st({opacity: 0})
         return 
       }
-      c.svg.st({opacity: curData.isFakeWapo ? .4 : 1})
+      c.svg.classed('is-disabled', curData.isFakeWapo)
 
       var y = c.y(curData.wapoMargin[2])
       var height = c.y(curData.wapoMargin[0]) - y
@@ -170,6 +178,7 @@ function addAxisLabel(c, xText, yText, xOffset=30, yOffset=-30){
 
 function ggPlot(c, isBlack=true){
   c.svg.append('rect.bg-rect')
+    .st({height: c.height, width: c.width, fill: '#eee'}).lower()
 
   c.svg.selectAll('.tick').selectAll('line').remove()
   c.svg.selectAll('.y .tick')
