@@ -51,9 +51,9 @@ Hosting my own application and database seemed like too much work to just to dis
 
 osmosfeed's UI wasn't quite what I was looking for either, but the idea of working with static files made things simple enough to bang out a prototype, shown below, in [200 lines of code](https://github.com/chart-code/static-rss). 
 
-No database imposes significant limitations (read status doesn't sync 😔), but as a [home-cooked app](https://www.robinsloan.com/notes/home-cooked-app/) it's possible to explore new features* until everything is just right and then trust it won't change for years. 
+No database imposes significant limitations (read status doesn't sync 😔), but as a [home-cooked app](https://www.robinsloan.com/notes/home-cooked-app/) it's possible to tweak until everything is just right and then trust it won't change for years. 
 
-\* One here that I wish twitter had: only showing the most recent five or ten items per feed so less frequent posters don't get drowned out.
+<!-- \* One here that I wish twitter had: only showing the most recent five or ten items per feed so less frequent posters don't get drowned out. -->
 
 <div class='items' id='items'></div>
 
