@@ -22,4 +22,4 @@ yarn pub
 cd ../../roadtolarissa/source/homepage/
 
 node list-bin.js
-# yarn pub 
+yarn pub 
