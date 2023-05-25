@@ -571,3 +571,16 @@ What does reddit repeat?
 ### Has the NYT stopped reviewing as many off broadway shows?
 
 ### Custom tool to make diverging color scales
+
+### LeBron Point Record
+
+- Show every season as a grid games, color by points or other things
+- NYT/WaPo did vertical lines which aren't readable (he's played 1421 games!)
+
+### LeBron reddit nick names
+
+### Smushed Voroni 
+
+> “One-dimensional” is a slight misnomer: the pointerX and pointerY transforms consider distance in both dimensions, but the distance along the non-dominant dimension is divided by 100.
+
+https://observablehq.com/plot/interactions/pointer
