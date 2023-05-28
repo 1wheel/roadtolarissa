@@ -82,7 +82,7 @@ canvasSel
   })
 ```
 
-Still more complicated than simply checking every point though, so I'll probably stick with that unless I’m really trying to push performance the envelope or working with more complex [polygons](https://blocks.roadtolarissa.com/veltman/f539d97e922b918d47e2b2d1a8bcd2dd).
+Still more complicated than simply checking every point though, so I'll probably stick with that unless I’m really trying to push the performance envelope or working with more complex [polygons](https://blocks.roadtolarissa.com/veltman/f539d97e922b918d47e2b2d1a8bcd2dd).
 
 
 
