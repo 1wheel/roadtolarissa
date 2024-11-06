@@ -80,7 +80,7 @@ d3.loadData('https://roadtolarissa.com/data/2024-wp.json', (err, [times]) => {
   }
 
   function drawRace(sel, race, chamberWidth){
-    var nCols = Math.ceil(chamberWidth/(innerWidth > 800 ? 300 : 250))
+    var nCols = innerWidth > 800 ? 6 : Math.ceil(chamberWidth/250)
     var margin = {left: 30, right: 30, bottom: 40}
     var chartSize = Math.floor(chamberWidth/nCols - margin.left - margin.right)
 

@@ -42,7 +42,7 @@ svg{
 
 text{
   /*pointer-events: none;*/
-  text-shadow: 0 1px 0 #eee, 1px 0 0 #eee, 0 -1px 0 #eee, -1px 0 0 #eee;
+/*  text-shadow: 0 1px 0 #eee, 1px 0 0 #eee, 0 -1px 0 #eee, -1px 0 0 #eee;*/
 }
 
 .axis text{
