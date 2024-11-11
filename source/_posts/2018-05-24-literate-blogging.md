@@ -43,7 +43,7 @@ Markdown is converted to HTML with [marked](https://github.com/markedjs/marked) 
 var hljs = require('highlight.js')
 var marked = require('marked')
 marked.setOptions({
-  highlight: (code, lang) => hljs.highlight(lang, code).value,
+  highlight: (code, language) => hljs.highlight(code, {language}).value,
   smartypants: true
 })
 ```

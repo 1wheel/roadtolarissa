@@ -1,8 +1,8 @@
 {
-  "name": "static-site",
+  "license": "MIT",
   "dependencies": {
     "chokidar": "^1.7.0",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "11",
     "hot-server": "^0.0.16",
     "lit-node": "^0.0.1",
     "marked": "^0.3.6"
