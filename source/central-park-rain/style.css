@@ -1,11 +1,14 @@
+body{
+  height: 3000px;
+}
 .tooltip {
   top: -1000px;
   position: fixed;
   padding: 7px;
-  background: rgba(255, 255, 255, .94);
+  background: rgba(255, 255, 255, .8);
   border: 1px solid lightgray;
   pointer-events: none;
-  width: 300px;
+/*  width: 300px;*/
   font-size: 12px;
   font-family: sans-serif;
   line-height: 1.3em;
@@ -33,11 +36,15 @@
 }
 
 svg{
-/*  overflow: visible;*/
+  overflow: visible;
 }
 
+.axis{
+  stroke-width: .5;
+}
 .domain{
-  display: none;
+  stroke: #777;
+/*  display: none;*/
 }
 
 text{
@@ -56,7 +63,20 @@ text{
 }
 
 
+.by-month{
+  .month{
+    width: calc(33%);
+  }
+}
+
 text.month-year{
   font-family: monospace;
   font-size: 6px;
+  font-weight: 200;
+  cursor: default;
+}
+
+text.month-year.active{
+  font-weight: 900;
+  fill: #f0f;
 }

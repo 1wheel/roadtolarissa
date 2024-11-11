@@ -8,9 +8,10 @@ draft: true
 ---
 
 
+
+
 where's all the rain? 
 
-<link rel='stylesheet' type='text/css' href='style.css'>
 
 <div class='by-month'></div>
 
@@ -18,11 +19,15 @@ where's all the rain?
 
 <div id='notes'>
 <br>
-<p>[scraping code](https://github.com/1wheel/scraping-2018/tree/master/2024-wp) // [chart code](https://github.com/1wheel/roadtolarissa/tree/master/source/live-forecast-2024)
+<p>[scraping code](https://github.com/1wheel/scraping-2018/tree/master/2024-wp) // [chart code](https://github.com/1wheel/roadtolarissa/tree/master/source/central-park-rain)
 </div>
+
+
+<link rel='stylesheet' type='text/css' href='style.css'>
 
 
 <div class='tooltip'></div>
 
 <script src='https://roadtolarissa.com/slinks/static-rss/d3_.js'></script>
+<script src='util.js'></script>
 <script src='init.js'></script>
