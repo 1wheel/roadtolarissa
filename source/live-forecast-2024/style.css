@@ -76,7 +76,6 @@ text{
 input[type='range']{
   accent-color: #000;
   width: 250px;
-
 }
 .time{
   font-family: monospace;

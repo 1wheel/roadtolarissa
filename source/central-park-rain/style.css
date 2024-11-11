@@ -80,3 +80,21 @@ text.month-year.active{
   font-weight: 900;
   fill: #f0f;
 }
+
+
+
+.slider{
+  margin: 0px auto;
+  width: 150px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+input[type='range']{
+  accent-color: #000;
+  width: 150px;
+}
+.total-val{
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
