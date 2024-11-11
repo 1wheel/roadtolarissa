@@ -9,30 +9,32 @@ window.init = function(){
     d.PRCP = +d.PRCP
   })
 
-  initStreak()
+  initDailyRain('streak')
+  initDailyRain('rolling')
 
   initByMonth()
 }
 
-function initStreak(){
+function initDailyRain(type){
+  var isStreak = type == 'streak'
   var renderFns = []
-  function renderTotal(total){ renderFns.forEach(fn => fn(total)) }
+  function render(val){ renderFns.forEach(fn => fn(val)) }
 
   function drawSlider(){
-    var sel = d3.select('.slider').html('')
-
-    var timeSel = sel.append('div.total-val')
+    var sel = d3.select('.' + type + '-slider').html('')
+    var textSel = sel.append('div.streak-val')
     var sliderSel = sel.append('input')
-      .at({ type:'range', min: .01, max: 16, step: .01, value: 0.01})
-      .on('input', function(){
-        renderTotal(this.value)
-      })
+      .at(isStreak ? 
+        {type: 'range', min: .01, max: 16, value: 0.01, step: .01} :
+        // {type: 'range', min: 1,   max: 3650, value: 1})
+        {type: 'range', min: 1,   max: 60, value: 1})
+      .on('input', function(){ render(this.value) })
 
-    renderFns.push(total => timeSel.text(d3.format('.2f')(total) + '″'))
+    renderFns.push(val => textSel.text(isStreak ? d3.format('.2f')(val) + '″' : val + ' day' + (val > 1 ? 's' : '')))
   }
   drawSlider()
 
-  var streakDaily = daily.filter(d => d.year > '1869') // 
+  var streakDaily = daily.filter(d => d.year > '1879')
   var byYear = d3.nestBy(streakDaily, d => d.year)
   byYear.forEach((year, yearIndex) => {
     year.forEach((d, dayIndex) =>{
@@ -44,7 +46,7 @@ function initStreak(){
   var dw = 3
   var yh = 4
   var c = d3.conventions({
-    sel: d3.select('.streak').html(''),
+    sel: d3.select('.' + type).html(''),
     width: (366 + 1)*dw,
     height: (d3.max(daily, d => d.yearIndex) + 1)*yh,
     layers: 'sc',
@@ -52,51 +54,53 @@ function initStreak(){
   })
   util.setFullWidth(c.sel, c.totalWidth)
 
-
-  renderFns.push(total => {
-    var sum = 0
-    var start = 0
-    for (var i = 0; i < daily.length; i++) {
-     sum += daily[i].PRCP
-     daily[i].days = i - start + 1
-     
-     while (sum >= total && start <= i) {
-       sum -= daily[start].PRCP
-       start++
-       daily[i].days = i - start + 1
-     }
+  renderFns.push(val => {
+    if (isStreak){
+      var sum = 0
+      var start = 0
+      for (var i = 0; i < daily.length; i++) {
+        sum += daily[i].PRCP
+        daily[i][type] = i - start + 1
+        
+        while (sum >= val && start <= i) {
+          sum -= daily[start].PRCP
+          start++
+          daily[i][type] = i - start + 1
+        }
+      }
+    } else {
+      var sum = 0
+      for (var i = 0; i < daily.length; i++) {
+        sum += daily[i].PRCP
+        if (i >= val) sum -= daily[i - val].PRCP
+        daily[i][type] = sum
+      }
     }
 
-    var color = d3.scaleSequential(d3.interpolateTurbo).domain([0, d3.max(streakDaily, d => d.days)])
+    var [minVal, maxVal] = d3.extent(streakDaily, d => d[type])
+    if (isStreak){
+      var color = d3.scaleSequential(d3.interpolateTurbo).domain([0, maxVal])
+    } else {
+      var colorRaw = d3.scaleSequential(d3.interpolateCool).domain([minVal, maxVal])
+      var color = d => d < .015 ? '#000' : colorRaw(d)
+      // var color = d3.scaleSequential(d3.interpolateCool).domain([maxVal, minVal])
+      // var color = d3.scaleSequential(d3.interpolateTurbo).domain([maxVal, minVal])
+      // var color = d3.scaleSequential(d3.interpolateOranges).domain([maxVal, 0])
+    }
 
     var ctx = c.layers[1]
     ctx.clearRect(0, 0, c.width, c.height)
     streakDaily.forEach(d =>{
       ctx.beginPath()
       ctx.rect(dw*d.dayIndex, yh*d.yearIndex, dw, yh)
-      ctx.fillStyle = color(d.days)
+      ctx.fillStyle = color(d[type])
       ctx.fill()
     })
   })
 
-
-  // daily rainfal
-  // renderFns.push(total => {
-  //   var color = d3.scaleSequential(d3.interpolateBlues).domain([0, total])
-
-  //   var ctx = c.layers[1]
-  //   ctx.clearRect(0, 0, c.width, c.height)
-  //   streakDaily.forEach(d =>{
-  //     ctx.beginPath()
-  //     ctx.rect(dw*d.dayIndex, yh*d.yearIndex, dw, yh - 1)
-  //     ctx.fillStyle = color(d.PRCP)
-  //     ctx.fill()
-  //   })
-  // })
-
-
-  renderTotal(.01)
+  render(isStreak ? .01 : 1)
 }
+
 
 function initByMonth(){
   var byMonth = d3.nestBy(daily, d => d.month)

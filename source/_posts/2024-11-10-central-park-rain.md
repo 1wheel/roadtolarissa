@@ -15,9 +15,14 @@ Where's all the rain?
 
 For day n, here's how long to reach n inches of precipitation: 
 
-<div class='slider'></div>
-
+<div class='streak-slider'></div>
 <div class='streak'></div>
+
+
+On a longer scale, we're not in much of drought thanks to heavy rainfall in TK.
+
+<div class='rolling-slider'></div>
+<div class='rolling'></div>
 
 
 
