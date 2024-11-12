@@ -33,7 +33,10 @@ window.util = (function(){
       .append('path').at({d: 'M 0 0 V -' + c.height, stroke: '#999', strokeWidth: .5})
   }
 
-  return {addAxisLabel, ggPlot, setFullWidth}
+  var shortMonths = ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."]
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+  return {addAxisLabel, ggPlot, setFullWidth, shortMonths, months}
 })()
 
 window.init?.()

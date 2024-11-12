@@ -1,3 +1,8 @@
+window.visState = window.visState || {
+  streak: .01,
+  rolling: 1,
+}
+
 window.init = function(){
   console.clear()
 
@@ -17,18 +22,18 @@ window.init = function(){
 
 function initDailyRain(type){
   var isStreak = type == 'streak'
-  var renderFns = []
+  var renderFns = [val => visState[type] = val]
   function render(val){ renderFns.forEach(fn => fn(val)) }
 
   function drawSlider(){
     var sel = d3.select('.' + type + '-slider').html('')
     var textSel = sel.append('div.streak-val')
+
+    var scale = d3.scalePow().range(isStreak ? [.01, 50] : [1, 3652]).exponent(2)
+    if (!isStreak) scale.interpolate(d3.interpolateRound)
     var sliderSel = sel.append('input')
-      .at(isStreak ? 
-        {type: 'range', min: .01, max: 16, value: 0.01, step: .01} :
-        // {type: 'range', min: 1,   max: 3650, value: 1})
-        {type: 'range', min: 1,   max: 60, value: 1})
-      .on('input', function(){ render(this.value) })
+      .at({type: 'range', min: 0, max: 1, value: 0, step: .001})
+      .on('input', function(){ render(scale(this.value)) })
 
     renderFns.push(val => textSel.text(isStreak ? d3.format('.2f')(val) + '″' : val + ' day' + (val > 1 ? 's' : '')))
   }
@@ -37,6 +42,7 @@ function initDailyRain(type){
   var streakDaily = daily.filter(d => d.year > '1879')
   var byYear = d3.nestBy(streakDaily, d => d.year)
   byYear.forEach((year, yearIndex) => {
+    year.yearIndex = yearIndex
     year.forEach((d, dayIndex) =>{
       d.yearIndex = yearIndex
       d.dayIndex = dayIndex
@@ -49,10 +55,52 @@ function initDailyRain(type){
     sel: d3.select('.' + type).html(''),
     width: (366 + 1)*dw,
     height: (d3.max(daily, d => d.yearIndex) + 1)*yh,
-    layers: 'sc',
+    layers: 'cs',
     margin: {top: 0},
   })
   util.setFullWidth(c.sel, c.totalWidth)
+
+  c.svg.append('g.axis').appendMany('text', util.shortMonths)
+    .text(d => d)
+    .translate((d, i) => [dw*(i*30 + 15), c.height + 12])
+    .at({textAnchor: 'middle'})
+
+  c.svg.append('g.axis').appendMany('g', byYear.filter(d => d.key[3] == '0'))
+    .translate(d => [-14, yh*(d.yearIndex)])
+    .append('text')
+    .text(d => d.key)
+    .at({textAnchor: 'middle', dy: '.33em'})
+
+  c.svg.append('rect').at({width: c.width, height: c.height, opacity: 0})
+    .call(d3.attachTooltip)
+    .on('mousemove mouseover', function(){
+      var ttSel = d3.select('.tooltip')//.html('')
+
+      var [mx, my] = d3.mouse(this)
+
+      var year = byYear[Math.floor(Math.max(0, my)/yh)]
+      var d = year && year[Math.floor(mx/dw)]
+      if (!d) return ttSel.classed('.tooltip-hidden', 1)
+
+      ttSel.html(`
+        <div><b>${d.DATE}</b></div>
+
+        <div>${d3.format('.2f')(d.PRCP) + '″'} of precipitation</div>
+
+        <div>${d.streak} prior days ${visState.streak > .01 ? 
+          `to get to ${d3.format('.2f')(visState.streak) + '″'} of precipitation` :
+          `of no precipitation`
+        }</div>
+
+        <div>${visState.rolling > 1 ? 
+          `Over the last ${visState.rolling} days, ${d3.format('.2f')(d.rolling) + '″'} of precipitation` :
+          ``
+        }</div>
+      `)
+
+
+
+    })
 
   renderFns.push(val => {
     if (isStreak){
@@ -73,7 +121,7 @@ function initDailyRain(type){
       for (var i = 0; i < daily.length; i++) {
         sum += daily[i].PRCP
         if (i >= val) sum -= daily[i - val].PRCP
-        daily[i][type] = sum
+        daily[i][type] = sum < .001 ? 0 : sum
       }
     }
 
@@ -81,14 +129,23 @@ function initDailyRain(type){
     if (isStreak){
       var color = d3.scaleSequential(d3.interpolateTurbo).domain([0, maxVal])
     } else {
+      // var byVal = streakDaily.map(d => +d[type]).sort((a, b) => a - b)
+      // var maxVal = d3.quantile(byVal, 0.999)
+
       var colorRaw = d3.scaleSequential(d3.interpolateCool).domain([minVal, maxVal])
-      var color = d => d < .015 ? '#000' : colorRaw(d)
+      
+      // var colorRaw = d3.scaleQuantile()
+      //   .domain(streakDaily.map(d => d[type]))
+      //   .range(d3.schemePuOr[11].slice().reverse())
       // var color = d3.scaleSequential(d3.interpolateCool).domain([maxVal, minVal])
       // var color = d3.scaleSequential(d3.interpolateTurbo).domain([maxVal, minVal])
       // var color = d3.scaleSequential(d3.interpolateOranges).domain([maxVal, 0])
+
+      var color = d => d < .005 ? '#000' : colorRaw(d)
+
     }
 
-    var ctx = c.layers[1]
+    var ctx = c.layers[0]
     ctx.clearRect(0, 0, c.width, c.height)
     streakDaily.forEach(d =>{
       ctx.beginPath()
@@ -143,10 +200,9 @@ function initByMonth(){
     c.svg.select('.y').remove()
     c.x.interpolate(d3.interpolateNumber)
 
-    // var shortMonths = ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."]
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    c.svg.append('g.axis').append('text').text(months[month.key - 1] + ' Total Precipitation')
-      .at({textAnchor: 'middle', x: c.width/2, y: c.height + 33, fontFamily: 'sans-serif', fontSize: 12})
+    c.svg.append('g.axis').append('text').text(util.months[month.key - 1] + ' Total Precipitation')
+      .at({textAnchor: 'middle', x: c.width/2, y: c.height + 33})
+      .st({fontSize: 12})
 
     // filter out 1924 data and incomplete 2024 data
     var byYear = month.byYear.filter(d => d.key > '1924' && (d.key < '2024' || d[0].month < '11'))
@@ -163,7 +219,7 @@ function initByMonth(){
       .call(d3.attachTooltip)
       .on('mousemove', d => {
         d3.select('.tooltip')
-          .html(`${d3.round(d.total_prcp, 2)}″ of precipitation in ${months[d[0].month - 1]} ${d[0].year}`)
+          .html(`${d3.round(d.total_prcp, 2)}″ of precipitation in ${util.months[d[0].month - 1]} ${d[0].year}`)
       })
   }
 }

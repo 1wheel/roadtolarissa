@@ -54,6 +54,7 @@ text{
 
 .axis text{
   fill: #777;
+  font: 10px sans-serif;
 }
 
 #notes{
@@ -96,5 +97,6 @@ input[type='range']{
 .streak-val, .rolling-val{
   font-variant-numeric: tabular-nums;
   text-align: center;
+  font-family: sans-serif;
 }
 
