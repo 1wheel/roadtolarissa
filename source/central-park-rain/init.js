@@ -29,7 +29,7 @@ function initDailyRain(type){
     var sel = d3.select('.' + type + '-slider').html('')
     var textSel = sel.append('div.streak-val')
 
-    var scale = d3.scalePow().range(isStreak ? [.01, 50] : [1, 3652]).exponent(2)
+    var scale = d3.scalePow().range(isStreak ? [.01, 50] : [1, 3652]).exponent(2.5)
     if (!isStreak) scale.interpolate(d3.interpolateRound)
     var sliderSel = sel.append('input')
       .at({type: 'range', min: 0, max: 1, value: 0, step: .001})
