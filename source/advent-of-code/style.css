@@ -62,7 +62,7 @@ svg{
 }
 
 text{
-  pointer-events: none;
+/*  pointer-events: none;*/
 /*  text-shadow: 0 1px 0 #eee, 1px 0 0 #eee, 0 -1px 0 #eee, -1px 0 0 #eee;*/
 }
 
@@ -108,6 +108,52 @@ circle {
 }
 
 
+
+
+
+
+
+.annotation-container{
+  position: absolute;
+  pointer-events: none;
+  font-family: monospace;
+  font-size: 11px;
+
+/*  opacity: .5;*/
+
+  div{
+    position: absolute;
+    line-height: 1.1em;
+  }
+}
+.annotation-container.is-draggable{
+  pointer-events: all;
+}
+
+.annotation-container path{
+  stroke: #fff;
+  fill:  none;
+}
+
+.annotation-container svg{
+  position: relative;
+  text{
+    fill: #fff;
+  }
+}
+
+.annotation-container div ni{
+  display: inline-block;
+  font-family: sans-serif;
+  font-style: normal;
+  font-size: 10px;
+}
+
+
+.annotation-container div, .overlay-chart-label{
+/*  text-shadow: 0 1px 0 #0F0F22, 1px 0 0 #0F0F22, 0 -1px 0 #0F0F22, -1px 0 0 #0F0F22;*/
+  user-select: none;
+}
 
 
 

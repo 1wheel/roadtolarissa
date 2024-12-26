@@ -27,6 +27,9 @@ Before 2022, there were five Part 1 solves faster than 30 seconds. In 2024 there
 
 <script src='https://roadtolarissa.com/slinks/static-rss/d3_.js'></script>
 <script src='../shared/chromatic.js'></script>
+<script src='../worlds-group-2017/swoopy-drag.js'></script>
 
 <script src='util.js'></script>
+<script src='annotations.js'></script>
+<script src='init-swoopy.js'></script>
 <script src='init.js'></script>

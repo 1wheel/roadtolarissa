@@ -3,6 +3,7 @@ window.visState = window.visState || {
 
 var ttSel = d3.select('.tooltip')
 
+
 window.init = function(){
   console.clear()
 
@@ -18,17 +19,21 @@ window.init = function(){
   byDay.forEach(day => day.setName(util.params.get('name')))
 
 
-  console.table(tidy.filter(d => d.seconds < 30 && d.part == 1))
+  window.initSwoopy(window.annotations, byDay[0].c)
 
-  console.log('<30s & year < 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year < 2022).length)
-  console.log('<30s & year = 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year == 2024).length)
-  console.log('<20s & year = 22', tidy.filter(d => d.seconds < 20 && d.part == 1 && d.year == 2024).length)
-  console.log('<10s & year = 22', tidy.filter(d => d.seconds < 10 && d.part == 1 && d.year == 2024).length)
+
+  // stats
+  // console.table(tidy.filter(d => d.seconds < 30 && d.part == 1))
+
+  // console.log('<30s & year < 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year < 2022).length)
+  // console.log('<30s & year = 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year == 2024).length)
+  // console.log('<20s & year = 22', tidy.filter(d => d.seconds < 20 && d.part == 1 && d.year == 2024).length)
+  // console.log('<10s & year = 22', tidy.filter(d => d.seconds < 10 && d.part == 1 && d.year == 2024).length)
 }
 
 function drawDate(dayData){
   var c = d3.conventions({
-    sel: d3.select(this),
+    sel: d3.select(this).append('div').classed('day-' + dayData.key, 1),
     height: 200,
     layers: 'scs',
     margin: {left: 0, right: 0, top: 0, bottom: 0}
@@ -122,7 +127,7 @@ function drawDate(dayData){
       .filter(d => d)
       .translate(d => [d.px, d.py])
   }
-
+  dayData.c = c
 }
 
 
