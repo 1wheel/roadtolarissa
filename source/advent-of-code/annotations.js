@@ -11,7 +11,7 @@ window.annotations = [
     "st": {
       "width": 100
     },
-    "html": "Part 1 four second solve"
+    "html": "<span class='part-1'>Part 1</span> four second solve"
   },
   {
     "parent": ".day-1",
@@ -42,38 +42,70 @@ window.annotations = [
     },
     "isDraggable": 0,
     "textx": "First LLM solves in 2022",
-    "html": "First LLM solves in 2022"
+    "html": "First <a href='https://old.reddit.com/r/adventofcode/comments/zb8tdv/2022_day_3_part_1_openai_solved_part_1_in_10/'>LLM</a> <a href='https://old.reddit.com/r/adventofcode/comments/zc27zb/2022_day_4_placing_1st_with_gpt3/'>solves</a> in 2022"
   },
   {
     "parent": ".day-5",
-    "year": 2023,
+    "year": 2023.5,
     "seconds": 1600,
-    "path": "M 18,-40 A 13.707 13.707 0 0 1 18,-15",
+    "path": "M 5,-40 A 12.135 12.135 0 0 1 5,-17",
     "textOffset": [
-      -120,
+      -135,
       -31
     ],
     "st": {
       "width": 140
     },
     "isDraggable": 0,
-    "html": "100 <span class='part-2'>Part 2</span> solves on the leaderboard..."
+    "html": "100 <span class='part-2'>part 2</span> solves on the leaderboard..."
   },
   {
     "parent": ".day-5",
-    "year": 2022,
-    "seconds": 10,
-    "path": "M -2,-36 A 19.407 19.407 0 0 0 19,-63",
+    "year": 2023,
+    "seconds": 95,
+    "path": "M -16,13 A 15.654 15.654 0 0 0 1,-8",
     "textOffset": [
-      -95,
-      -30
+      -110,
+      13
     ],
     "st": {
       "width": 180
     },
     "class": "align-right",
     "isDraggable": 0,
-    "html": "...and 100 <br><span class='part-1'>Part 1</span> solves"
+    "html": "...and 100 <br><span class='part-1'>part 1</span> solves"
+  },
+  {
+    "parent": ".day-10",
+    "year": 2023,
+    "seconds": 65,
+    "path": "M -15,5 A 13.71 13.71 0 0 0 0,-10",
+    "textOffset": [
+      -149,
+      13
+    ],
+    "st": {
+      "width": 130
+    },
+    "class": "align-right",
+    "isDraggable": 0,
+    "html": "The winner solved 4× faster than the runner up"
+  },
+  {
+    "parent": ".day-12",
+    "year": 2024,
+    "seconds": 14,
+    "path": "M -21,1 A 12.573 12.573 0 0 0 0,-10",
+    "textOffset": [
+      -140,
+      -30
+    ],
+    "st": {
+      "width": 130
+    },
+    "class": "",
+    "isDraggable": 0,
+    "html": "Only 3 people made<br> both leaderboards on day 12, 2024 — the average is 64"
   },
   {
     "parent": ".day-17",
@@ -82,14 +114,29 @@ window.annotations = [
     "path": "M 15,65 A 93.378 93.378 0 0 1 -1,-10",
     "textOffset": [
       -45,
-      85
+      89
     ],
     "st": {
-      "width": 150
+      "width": 160
     },
     "isDraggable": 0,
     "textx": "First LLM solves in 2022",
-    "html": "A very straightforward part 2 — 95% leadboard overlap with part 1"
+    "html": "A very straightforward <span class='part-2'>part 2</span> — 95% leaderboard overlap with <span class='part-1'>part 1</span>"
+  },
+  {
+    "parent": ".day-25",
+    "year": 2018,
+    "seconds": 1964,
+    "path": "M 0 0",
+    "textOffset": [
+      -45,
+      105
+    ],
+    "st": {
+      "width": 180
+    },
+    "isDraggable": 0,
+    "html": "On Christmas, <span class='part-2'>part 2</span> just requires clicking a button"
   }
 ]
 

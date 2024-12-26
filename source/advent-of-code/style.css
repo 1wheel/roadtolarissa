@@ -12,10 +12,10 @@ a, .header{
   filter: invert(100%);
 }
 
-h1{
+h1, p{
   font-family: monospace;
-
 }
+
 
 .tooltip {
   top: -1000px;
@@ -148,7 +148,9 @@ text.day-label{
   fill:  none;
 
 }
-
+.annotation-container a{
+  pointer-events: all;
+}
 .annotation-container.align-right div{
   text-align: right;
 }

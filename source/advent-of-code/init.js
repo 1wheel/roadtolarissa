@@ -23,7 +23,7 @@ window.init = function(){
 
 
   // stats
-  // console.table(tidy.filter(d => d.seconds < 30 && d.part == 1))
+  console.table(tidy.filter(d => d.seconds < 30 && d.part == 1))
 
   // console.log('<30s & year < 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year < 2022).length)
   // console.log('<30s & year = 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year == 2024).length)
@@ -41,9 +41,11 @@ window.init = function(){
     problem.ratiop1 = d3.max(p1, d => d.seconds)/d3.min(p1, d => d.seconds)
     problem.ratiop2 = d3.max(p2, d => d.seconds)/d3.min(p2, d => d.seconds)
     problem.diffp1 = d3.max(p1, d => d.seconds) - d3.min(p1, d => d.seconds)
+    problem.ratiop1_12 = p1[1].seconds/p1[0].seconds
+    problem.diffp1_12 = p1[1].seconds - p1[0].seconds
 
   })
-  console.table(byProblem.map(({key, numBoth, ratio, ratiop1, ratiop2, diffp1}) => ({key, numBoth, ratio, ratiop1, ratiop2, diffp1})))
+  console.table(byProblem.map(({key, numBoth, ratio, ratiop1, ratiop2, diffp1, ratiop1_12, diffp1_12}) => ({key, numBoth, ratio, ratiop1, ratiop2, diffp1, ratiop1_12, diffp1_12})))
   console.log(d3.mean(byProblem, d => d.numBoth))
 
 }
@@ -82,17 +84,29 @@ function drawDate(dayData){
     .forEach(part => part.forEach((d, i) => d.rank = i))
 
   var yw = c.x(2016) - c.x(2015) 
-  var s = 1.5
+  var s = 1.1
   dayData.forEach(d => {
     d.px = c.x(d.year)     + d.rank/100*yw/2
     d.py = c.y(d.seconds)
   })
 
   var ctx = c.layers[1]
+  // d3.nestBy(dayData, d => d.name + '_' + d.year)
+  //   .filter(d => d.length == 2)
+  //   .forEach(([a, b]) => {
+  //     ctx.beginPath()
+  //     ctx.strokeStyle = 'rgba(255,255,255,.04)'
+  //     ctx.strokeWidth = .01
+  //     ctx.moveTo(a.px, a.py)
+  //     ctx.lineTo(b.px, b.py)
+  //     ctx.stroke()
+  //   })
+
   dayData.forEach(d =>{
     ctx.beginPath()
     ctx.fillStyle = d.part == 1 ? '#9999cc' : '#ffff66'
-    ctx.rect(d.px - s/4, d.py - s/4, s, s)
+    ctx.moveTo(d.px + s, d.py)
+    ctx.arc(d.px, d.py, s, 0, 2 * Math.PI)
     ctx.fill()
   })
 
@@ -117,7 +131,11 @@ function drawDate(dayData){
 
       setActive(calcDist(match) < 400 ? match : null)
     })
-    .on('mouseexit', () => setActive(null))
+    // .on('mouseexit', () => setActive(null))
+    .on('mouseleave', () => {
+      if (d3.event.shiftKey) return
+      setActive(null)
+    })
     .call(d3.attachTooltip)
     .on('mouseover.attachTooltip', _ => null)
 
@@ -129,7 +147,7 @@ function drawDate(dayData){
     // console.log(d)
     ttSel.classed('tooltip-hidden', 0)
       .html(`
-        <div>${d.year} Day ${d.day} Part ${d.part == 1 ? 2 : 1}</div>
+        <div>${d.year} Day ${d.day} Part ${d.part}</div>
         <div>solved in ${d.seconds}s by</div>
         <div class='glow'>${d.name}</div>
       `)

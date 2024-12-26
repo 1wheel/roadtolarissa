@@ -2,6 +2,10 @@
 x hover
 x all user select
 
+x links
+x circles
+- slope (too dense)
+- click to open problem (or leaderboard?)
 
 # annotations
 - data break
@@ -13,6 +17,11 @@ x all user select
 - day 11 2016 — Slowest solve after 2015
 - denest solve time/widest
 - 1.7988505747126438 ratiop1 '2020_12'
+
+'2023_10' p1 fastest was 4x faster than the closest person
+
+
+
 
 
 https://old.reddit.com/r/adventofcode/comments/zc27zb/2022_day_4_placing_1st_with_gpt3/

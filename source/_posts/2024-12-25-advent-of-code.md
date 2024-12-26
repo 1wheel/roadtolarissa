@@ -10,7 +10,11 @@ draft: true
 
 <div class='graph'></div>
 
-Before 2022, there were five Part 1 solves faster than 30 seconds. In 2024 there were 85. 
+For the last decade, [Advent of Code]() has posted daily programming problems at midnight during the month of December. The first 100 people to solve <span class='part-1'>part 1</span> and <span class='part-2'>part 2</span> of the problem are enshrined on the leaderboard. 
+
+In 2024 the fastest solve times decreased drastically — before 2023 the five fastest solves were 23s, 26s, 28s, 28s, and [29s](https://youtu.be/Vl1w7kWRtDg?si=WqSkv5kJ6qbbmQN1&t=145). This year there were 40 solves under 20s. Still, some of the trickier problems require human assistance. 
+
+Using Claude to reduce drudgery is great — they wrote the css for this post! — but having an LLM complete this contest on its own feels unsporting.
 
 
 
