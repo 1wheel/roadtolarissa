@@ -10,7 +10,7 @@ draft: true
 
 <div class='graph'></div>
 
-LLMs in 2024?
+Before 2022, there were five Part 1 solves faster than 30 seconds. In 2024 there were 85. 
 
 
 

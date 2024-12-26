@@ -4,7 +4,7 @@ window.visState = window.visState || {
 var ttSel = d3.select('.tooltip')
 
 window.init = function(){
-  // console.clear()
+  console.clear()
 
   var graphSel = d3.select('.graph').html('')
   util.setFullWidth(graphSel, d3.clamp(1024, window.innerWidth - 40, 1440))
@@ -16,6 +16,14 @@ window.init = function(){
 
   // http://localhost:3989/advent-of-code/?name=Adam%2520Pearce
   byDay.forEach(day => day.setName(util.params.get('name')))
+
+
+  console.table(tidy.filter(d => d.seconds < 30 && d.part == 1))
+
+  console.log('<30s & year < 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year < 2022).length)
+  console.log('<30s & year = 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year == 2024).length)
+  console.log('<20s & year = 22', tidy.filter(d => d.seconds < 20 && d.part == 1 && d.year == 2024).length)
+  console.log('<10s & year = 22', tidy.filter(d => d.seconds < 10 && d.part == 1 && d.year == 2024).length)
 }
 
 function drawDate(dayData){
@@ -52,7 +60,7 @@ function drawDate(dayData){
     .forEach(part => part.forEach((d, i) => d.rank = i))
 
   var yw = c.x(2016) - c.x(2015) 
-  var s = 2
+  var s = 1.5
   dayData.forEach(d => {
     d.px = c.x(d.year)     + d.rank/100*yw/2
     d.py = c.y(d.seconds)
@@ -61,7 +69,7 @@ function drawDate(dayData){
   var ctx = c.layers[1]
   dayData.forEach(d =>{
     ctx.beginPath()
-    ctx.fillStyle = d.part == 2 ? '#9999cc' : '#ffff66'
+    ctx.fillStyle = d.part == 1 ? '#9999cc' : '#ffff66'
     ctx.rect(d.px - s/4, d.py - s/4, s, s)
     ctx.fill()
   })
@@ -97,6 +105,7 @@ function drawDate(dayData){
     util.params.set('name', d?.name)
 
     if (!d) return ttSel.classed('tooltip-hidden', 1)
+    console.log(d)
     ttSel.classed('tooltip-hidden', 0)
       .html(`
         <div>${d.year} Day ${d.day} Part ${d.part == 1 ? 2 : 1}</div>
@@ -121,6 +130,13 @@ function drawDate(dayData){
 if (!window.tidy){
   d3.loadData('https://roadtolarissa.com/data/2024-advent-of-code-tidy.tsv', (err, res) => {
     window.tidy = res[0]
+
+    tidy.forEach(d => {
+      d.part = +d.part
+      d.seconds = +d.seconds
+      d.year = +d.year
+      d.day = +d.day
+    })
     init()
   })
 } else{

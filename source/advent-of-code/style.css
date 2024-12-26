@@ -22,7 +22,7 @@ h1{
   position: fixed;
   padding: 7px;
   background: rgba(0, 0, 0, .8);
-  border: 1px solid #333;
+  border: .1px solid rgba(255, 255, 255, .3);
   pointer-events: none;
   width: 130px;
   font: 10px monospace;
