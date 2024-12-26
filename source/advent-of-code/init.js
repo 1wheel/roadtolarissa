@@ -29,6 +29,13 @@ window.init = function(){
   // console.log('<30s & year = 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year == 2024).length)
   // console.log('<20s & year = 22', tidy.filter(d => d.seconds < 20 && d.part == 1 && d.year == 2024).length)
   // console.log('<10s & year = 22', tidy.filter(d => d.seconds < 10 && d.part == 1 && d.year == 2024).length)
+
+  // '2024_12' 3 numBoth — avg is 64.3
+  var byProblem = d3.nestBy(tidy, d => d.year + '_' + d.day)
+  byProblem.forEach(problem => problem.numBoth = d3.nestBy(problem, d => d.name).filter(d => d.length == 2).length)
+  console.table(byProblem.map(({key, numBoth}) => ({key, numBoth})))
+  console.log(d3.mean(byProblem, d => d.numBoth))
+
 }
 
 function drawDate(dayData){
@@ -79,7 +86,6 @@ function drawDate(dayData){
     ctx.fill()
   })
 
-
   c.sel.select('canvas').st({pointerEvents: 'none'})
   c.layers[2].parent().st({pointerEvents: 'none'})
 
@@ -110,7 +116,7 @@ function drawDate(dayData){
     util.params.set('name', d?.name)
 
     if (!d) return ttSel.classed('tooltip-hidden', 1)
-    console.log(d)
+    // console.log(d)
     ttSel.classed('tooltip-hidden', 0)
       .html(`
         <div>${d.year} Day ${d.day} Part ${d.part == 1 ? 2 : 1}</div>

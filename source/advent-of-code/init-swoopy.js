@@ -12,7 +12,7 @@ window.initSwoopy = function(annotations, c){
   // d3.selectAll('.annotation-container').remove()
 
   annotations.forEach(d => {
-    var isDraggable = !!annotations.isDraggable || 0
+    var isDraggable = !!annotations.isDraggable || d.isDraggable || 0
 
     var sel = d3.select(d.parent)
       .append('div.annotation-container')
@@ -28,7 +28,6 @@ window.initSwoopy = function(annotations, c){
     }
     
     var htmlSel = sel.append('div').html(d.html).translate(d.textOffset)
-    console.log(d.html, htmlSel.node())
 
     var swoopy = d3.swoopyDrag()
       .x(d => 0).y(d => 0)
@@ -36,12 +35,6 @@ window.initSwoopy = function(annotations, c){
       .annotations([d])
 
     sel.append('svg').at({width: 1, height: 1}).call(swoopy)
-
-    if (isDraggable){
-      sel.select('svg').append('circle').at({r: 4, fill: '#f0f'})
-    }
-
-    console.log(sel.node())
   })
 
 
@@ -55,7 +48,7 @@ window.initSwoopy = function(annotations, c){
       .attr('orient', 'auto')
     .append('path')
       .attr('d', 'M-10,-10 L 0,0 L -10,10')
-      .st({stroke: '#000', fill: 'none', })
+      .st({stroke: '#fff', fill: 'none', })
 
   d3.selectAll('.annotation-container path')
     .at({
