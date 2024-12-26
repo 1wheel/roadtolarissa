@@ -34,7 +34,7 @@ window.initSwoopy = function(annotations, c){
       .draggable(isDraggable)
       .annotations([d])
 
-    sel.append('svg').at({width: 1, height: 1}).call(swoopy)
+    sel.append('svg').at({width: 1, height: 1, 'textAlign': 'left'}).call(swoopy)
   })
 
 

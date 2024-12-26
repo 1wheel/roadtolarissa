@@ -32,8 +32,18 @@ window.init = function(){
 
   // '2024_12' 3 numBoth — avg is 64.3
   var byProblem = d3.nestBy(tidy, d => d.year + '_' + d.day)
-  byProblem.forEach(problem => problem.numBoth = d3.nestBy(problem, d => d.name).filter(d => d.length == 2).length)
-  console.table(byProblem.map(({key, numBoth}) => ({key, numBoth})))
+  byProblem.forEach(problem => {
+    problem.numBoth = d3.nestBy(problem, d => d.name).filter(d => d.length == 2).length
+
+    var p1 = problem.filter(d => d.part == 1)
+    var p2 = problem.filter(d => d.part == 2)
+    problem.ratio = d3.max(problem, d => d.seconds)/d3.min(problem, d => d.seconds)
+    problem.ratiop1 = d3.max(p1, d => d.seconds)/d3.min(p1, d => d.seconds)
+    problem.ratiop2 = d3.max(p2, d => d.seconds)/d3.min(p2, d => d.seconds)
+    problem.diffp1 = d3.max(p1, d => d.seconds) - d3.min(p1, d => d.seconds)
+
+  })
+  console.table(byProblem.map(({key, numBoth, ratio, ratiop1, ratiop2, diffp1}) => ({key, numBoth, ratio, ratiop1, ratiop2, diffp1})))
   console.log(d3.mean(byProblem, d => d.numBoth))
 
 }
@@ -89,7 +99,7 @@ function drawDate(dayData){
   c.sel.select('canvas').st({pointerEvents: 'none'})
   c.layers[2].parent().st({pointerEvents: 'none'})
 
-  var nameSel = c.layers[2].appendMany('circle', d3.range(20))
+  var nameSel = c.layers[2].appendMany('circle.glow', d3.range(20))
     .st({r: 3, stroke: '#0c0', fill: 'none', display: 'none'})
 
   c.svg

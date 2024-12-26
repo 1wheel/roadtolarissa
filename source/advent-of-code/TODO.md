@@ -10,6 +10,9 @@ x all user select
 - biggest/smallest percent/time gap
 - day 25 part 2 auto solves
 - lowest part1 part2 overlap
+- day 11 2016 — Slowest solve after 2015
+- denest solve time/widest
+- 1.7988505747126438 ratiop1 '2020_12'
 
 
 https://old.reddit.com/r/adventofcode/comments/zc27zb/2022_day_4_placing_1st_with_gpt3/

@@ -45,6 +45,37 @@ window.annotations = [
     "html": "First LLM solves in 2022"
   },
   {
+    "parent": ".day-5",
+    "year": 2023,
+    "seconds": 1600,
+    "path": "M 18,-40 A 13.707 13.707 0 0 1 18,-15",
+    "textOffset": [
+      -120,
+      -31
+    ],
+    "st": {
+      "width": 140
+    },
+    "isDraggable": 0,
+    "html": "100 <span class='part-2'>Part 2</span> solves on the leaderboard..."
+  },
+  {
+    "parent": ".day-5",
+    "year": 2022,
+    "seconds": 10,
+    "path": "M -2,-36 A 19.407 19.407 0 0 0 19,-63",
+    "textOffset": [
+      -95,
+      -30
+    ],
+    "st": {
+      "width": 180
+    },
+    "class": "align-right",
+    "isDraggable": 0,
+    "html": "...and 100 <br><span class='part-1'>Part 1</span> solves"
+  },
+  {
     "parent": ".day-17",
     "year": 2018,
     "seconds": 1964,

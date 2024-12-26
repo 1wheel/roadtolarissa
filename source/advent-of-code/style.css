@@ -96,18 +96,30 @@ text.day-label{
 
 
 
-circle {
-  filter: drop-shadow(0 0 2px #0c0) 
-          drop-shadow(0 0 4px #0c0);
+:root {
+  --green: #0c0;
+  --silver: #9999cc;
+  --gold: #ffff66;
 }
-
 
 .glow{
-  filter: drop-shadow(0 0 2px #0c0) 
-          drop-shadow(0 0 8px #0c0);
-  color: #0c0;
+  filter: drop-shadow(0 0 2px var(--green)) 
+          drop-shadow(0 0 8px var(--green));
+  color: var(--green);
+  stroke: var(--green);
 }
 
+.part-1{
+  filter: drop-shadow(0 0 1.5px var(--silver)) 
+          drop-shadow(0 0 8px var(--silver));
+  color: var(--silver);
+}
+
+.part-2 {
+  filter: drop-shadow(0 0 1.5px var(--gold)) 
+          drop-shadow(0 0 8px var(--gold));
+  color: var(--gold);
+}
 
 
 
@@ -134,8 +146,12 @@ circle {
 .annotation-container path{
   stroke: #fff;
   fill:  none;
+
 }
 
+.annotation-container.align-right div{
+  text-align: right;
+}
 .annotation-container svg{
   position: relative;
   text{
