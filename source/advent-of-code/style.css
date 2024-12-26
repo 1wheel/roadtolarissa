@@ -1,0 +1,90 @@
+html{
+  background: #000;
+  color: #fff;
+}
+a, .header{
+  color: #fff;
+}
+.header a img{
+  filter: invert(100%);
+}
+
+
+body{
+  height: 3000px;
+}
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 7px;
+  background: rgba(255, 255, 255, .8);
+  border: 1px solid lightgray;
+  pointer-events: none;
+/*  width: 300px;*/
+  font-size: 12px;
+  font-family: sans-serif;
+  line-height: 1.3em;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+.tooltip text{
+  text-shadow: none;
+  fill: #000 !important;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+.axis{
+  stroke-width: .5;
+}
+.domain{
+  display: none;
+}
+
+text{
+  pointer-events: none;
+/*  text-shadow: 0 1px 0 #eee, 1px 0 0 #eee, 0 -1px 0 #eee, -1px 0 0 #eee;*/
+}
+
+text.day-label{
+  text-shadow: 0 2px 0 #0F0F22, 2px 0 0 #0F0F22, 0 -2px 0 #0F0F22, -2px 0 0 #0F0F22;
+}
+
+.axis text{
+  fill: #777;
+  font: 9px monospace;
+}
+
+#notes{
+  font-family: monospace;
+  font-size: 12px;
+  opacity: .7;
+  color: #fff;
+}
+
+
+
+
+.graph {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 30px 35px;
+  font-family: monospace;
+}
