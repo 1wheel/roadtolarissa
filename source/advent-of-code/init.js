@@ -1,24 +1,28 @@
 window.visState = window.visState || {
 }
 
+var ttSel = d3.select('.tooltip')
+
 window.init = function(){
-  console.clear()
+  // console.clear()
 
   var graphSel = d3.select('.graph').html('')
-  util.setFullWidth(graphSel, d3.clamp(1024, window.innerWidth, 1440))
+  util.setFullWidth(graphSel, d3.clamp(1024, window.innerWidth - 40, 1440))
+
+  window.byDay = d3.nestBy(tidy, d => d.day)
   graphSel
-    .appendMany('div.day', d3.nestBy(tidy, d => d.day))
+    .appendMany('div.day', byDay)
     .each(drawDate)
+
+  // http://localhost:3989/advent-of-code/?name=Adam%2520Pearce
+  byDay.forEach(day => day.setName(util.params.get('name')))
 }
 
 function drawDate(dayData){
-  d3.nestBy(dayData, d => d.part + '_' + d.year)
-    .forEach(part => part.forEach((d, i) => d.rank = i))
-
   var c = d3.conventions({
     sel: d3.select(this),
     height: 200,
-    layers: 'sc',
+    layers: 'scs',
     margin: {left: 0, right: 0, top: 0, bottom: 0}
   })
 
@@ -38,23 +42,78 @@ function drawDate(dayData){
   util.ggPlot(c)
   c.svg.select('.x').translate([.5, c.height])
 
+  c.x.interpolate(d3.interpolate)
+  c.y.interpolate(d3.interpolate)
+
   c.svg.append('text.day-label').text('Day ' + dayData.key)
     .at({fill: '#999', fontSize: 9, x: c.width - 5, textAnchor: 'end', dy: 14})
 
-  var ctx = c.layers[1]
+  d3.nestBy(dayData, d => d.part + '_' + d.year)
+    .forEach(part => part.forEach((d, i) => d.rank = i))
+
   var yw = c.x(2016) - c.x(2015) 
   var s = 2
+  dayData.forEach(d => {
+    d.px = c.x(d.year)     + d.rank/100*yw/2
+    d.py = c.y(d.seconds)
+  })
+
+  var ctx = c.layers[1]
   dayData.forEach(d =>{
     ctx.beginPath()
     ctx.fillStyle = d.part == 2 ? '#9999cc' : '#ffff66'
-    ctx.rect(
-      c.x(d.year)     + d.rank/100*yw/2, 
-      c.y(d.seconds)  - s/4, 
-      s, 
-      s
-    )
+    ctx.rect(d.px - s/4, d.py - s/4, s, s)
     ctx.fill()
   })
+
+
+  c.sel.select('canvas').st({pointerEvents: 'none'})
+  c.layers[2].parent().st({pointerEvents: 'none'})
+
+  var nameSel = c.layers[2].appendMany('circle', d3.range(20))
+    .st({r: 3, stroke: '#0c0', fill: 'none', display: 'none'})
+
+  c.svg
+    .on('mousemove', function(){
+      if (d3.event.shiftKey) return
+      var [px, py] = d3.mouse(this)
+
+      function calcDist(d){
+        var dx = d.px - px
+        var dy = d.py - py
+        return dx*dx + dy*dy
+      }
+
+      var match = _.minBy(dayData, calcDist)
+
+      setActive(calcDist(match) < 400 ? match : null)
+    })
+    .on('mouseexit', () => setActive(null))
+    .call(d3.attachTooltip)
+    .on('mouseover.attachTooltip', _ => null)
+
+  function setActive(d){
+    byDay.forEach(day => day.setName(d?.name))
+    util.params.set('name', d?.name)
+
+    if (!d) return ttSel.classed('tooltip-hidden', 1)
+    ttSel.classed('tooltip-hidden', 0)
+      .html(`
+        <div>${d.year} Day ${d.day} Part ${d.part == 1 ? 2 : 1}</div>
+        <div>solved in ${d.seconds}s by</div>
+        <div class='glow'>${d.name}</div>
+      `)
+  }
+
+  dayData.setName = name => {
+    var zeros = d3.range(20).map(_ => 0)
+    var nameData = dayData.filter(d => d.name == name).concat(zeros).slice(0, 20)
+    nameSel.data(nameData)
+      .st({display: d => d ? '' : 'none'})
+      .filter(d => d)
+      .translate(d => [d.px, d.py])
+  }
+
 }
 
 

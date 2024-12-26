@@ -1,28 +1,31 @@
 html{
   background: #000;
   color: #fff;
+  min-width: 1024px;
+  font-family: monospace;
 }
 a, .header{
   color: #fff;
+  font-family: monospace;
 }
 .header a img{
   filter: invert(100%);
 }
 
+h1{
+  font-family: monospace;
 
-body{
-  height: 3000px;
 }
+
 .tooltip {
   top: -1000px;
   position: fixed;
   padding: 7px;
-  background: rgba(255, 255, 255, .8);
-  border: 1px solid lightgray;
+  background: rgba(0, 0, 0, .8);
+  border: 1px solid #333;
   pointer-events: none;
-/*  width: 300px;*/
-  font-size: 12px;
-  font-family: sans-serif;
+  width: 130px;
+  font: 10px monospace;
   line-height: 1.3em;
 }
 .tooltip-hidden{
@@ -87,4 +90,24 @@ text.day-label{
   grid-template-columns: repeat(5, 1fr); 
   gap: 30px 35px;
   font-family: monospace;
+  min-height: 600px;
 }
+
+
+
+circle {
+  filter: drop-shadow(0 0 2px #0c0) 
+          drop-shadow(0 0 4px #0c0);
+}
+
+
+.glow{
+  filter: drop-shadow(0 0 2px #0c0) 
+          drop-shadow(0 0 8px #0c0);
+  color: #0c0;
+}
+
+
+
+
+
