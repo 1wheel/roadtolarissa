@@ -47,9 +47,8 @@ window.init = function(){
     problem.diffp1 = d3.max(p1, d => d.seconds) - d3.min(p1, d => d.seconds)
     problem.ratiop1_12 = p1[1].seconds/p1[0].seconds
     problem.diffp1_12 = p1[1].seconds - p1[0].seconds
-
   })
-  console.log('')
+  console.log('daily summary stats')
   console.table(byProblem.map(({key, numBoth, ratio, ratiop1, ratiop2, diffp1, ratiop1_12, diffp1_12}) => ({key, numBoth, ratio, ratiop1, ratiop2, diffp1, ratiop1_12, diffp1_12})))
   // console.log(d3.mean(byProblem, d => d.numBoth))
   console.log('Reloaded with the dev tools open to see more data tables')
@@ -122,22 +121,30 @@ function drawDate(dayData){
   var nameSel = c.layers[2].appendMany('circle.glow', d3.range(20))
     .st({r: 3, stroke: '#0c0', fill: 'none', display: 'none'})
 
+  function findMatch([px, py]){
+    function calcDist(d){
+      var dx = d.px - px
+      var dy = d.py - py
+      return dx*dx + dy*dy
+    }
+
+    var match = _.minBy(dayData, calcDist)
+    var dist = calcDist(match)
+    return {match, dist}
+  }
+
   c.svg
+    .st({cursor: 'pointer'})
     .on('mousemove', function(){
       if (d3.event.shiftKey) return
-      var [px, py] = d3.mouse(this)
-
-      function calcDist(d){
-        var dx = d.px - px
-        var dy = d.py - py
-        return dx*dx + dy*dy
-      }
-
-      var match = _.minBy(dayData, calcDist)
-
-      setActive(calcDist(match) < 400 ? match : null)
+      var {match, dist} = findMatch(d3.mouse(this))
+      setActive(dist < 400 ? match : null)
     })
-    // .on('mouseexit', () => setActive(null))
+    .on('click', function(){
+      if (d3.event.shiftKey) return
+      var {match, dist} = findMatch(d3.mouse(this))
+      window.open(`https://adventofcode.com/${match.year}/day/${match.day}`, '_blank')
+    })
     .on('mouseleave', () => {
       if (d3.event.shiftKey) return
       setActive(null)
