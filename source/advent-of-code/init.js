@@ -31,7 +31,7 @@ window.init = function(){
   console.log('<20s & year = 24', tidy.filter(d => d.seconds < 20 && d.part == 1 && d.year == 2024).length)
   console.log('<10s & year = 24', tidy.filter(d => d.seconds < 10 && d.part == 1 && d.year == 2024).length)
 
-  console.log('fastest solves')
+  console.log('part 1 solves faster than 30s:')
   console.table(tidy.filter(d => d.seconds < 30 && d.part == 1))
 
   // '2024_12' 3 numBoth — avg is 64.3
@@ -48,7 +48,7 @@ window.init = function(){
     problem.ratiop1_12 = p1[1].seconds/p1[0].seconds
     problem.diffp1_12 = p1[1].seconds - p1[0].seconds
   })
-  console.log('daily summary stats')
+  console.log('daily summary stats: ')
   console.table(byProblem.map(({key, numBoth, ratio, ratiop1, ratiop2, diffp1, ratiop1_12, diffp1_12}) => ({key, numBoth, ratio, ratiop1, ratiop2, diffp1, ratiop1_12, diffp1_12})))
   // console.log(d3.mean(byProblem, d => d.numBoth))
   console.log('Reloaded with the dev tools open to see more data tables')

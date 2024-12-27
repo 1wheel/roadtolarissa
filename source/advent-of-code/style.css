@@ -102,7 +102,7 @@ html{
   grid-template-columns: repeat(5, 1fr); 
   gap: 30px 35px;
   font-family: monospace;
-  min-height: 600px;
+  min-height: 1000px;
   overflow: hidden;
 }
 

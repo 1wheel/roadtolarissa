@@ -12,9 +12,9 @@ shareimg: https://roadtolarissa.com/share/advent-of-code.png
 
 For the last decade, [Advent of Code](https://adventofcode.com/) has posted daily programming problems at midnight during the month of December. The first 100 people to solve <span class='part-1'>part 1</span> and <span class='part-2'>part 2</span> of the problem are enshrined on the day's leaderboard. 
 
-In 2024 solve times decreased drastically. Before 2023 the five fastest solves were 23s, 26s, 28s, 28s, and [29s](https://youtu.be/Vl1w7kWRtDg?si=WqSkv5kJ6qbbmQN1&t=145). This year there were forty solves under 20s. Still, some of the trickier problems require human assistance. 
+In 2024 solve times decreased drastically. Before 2023 the five fastest <span class='part-1'>part&nbsp;1</span> solves were 23s, 26s, 28s, 28s, and [29s](https://youtu.be/Vl1w7kWRtDg?si=WqSkv5kJ6qbbmQN1&t=145). This year there were forty solves under 20s. Still, some of the trickier problems require human assistance. 
 
-Using Claude to reduce drudgery is great — they wrote the css for this post! — but having an LLM complete this contest on its own feels unsporting.
+Using Claude to avoid drudgery is great — they wrote the css for this post! — but having an LLM complete this contest on its own feels unsporting.
 
 
 

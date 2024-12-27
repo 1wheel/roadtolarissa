@@ -1,11 +1,11 @@
-- annotatins
+x annotatins
 x hover
 x all user select
 
 x links
 x circles
 - slope (too dense)
-- click to open problem (or leaderboard?)
+x click to open problem (or leaderboard?)
 
 # annotations
 - data break
