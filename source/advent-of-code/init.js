@@ -7,28 +7,32 @@ var ttSel = d3.select('.tooltip')
 window.init = function(){
   console.clear()
 
-  var graphSel = d3.select('.graph').html('')
-  util.setFullWidth(graphSel, d3.clamp(1024, window.innerWidth - 40, 1440))
-
   window.byDay = d3.nestBy(tidy, d => d.day)
-  graphSel
-    .appendMany('div.day', byDay)
-    .each(drawDate)
 
-  // http://localhost:3989/advent-of-code/?name=Adam%2520Pearce
-  byDay.forEach(day => day.setName(util.params.get('name')))
+  var prevInnerWidth = -1
+  function drawDays(){
+    if (prevInnerWidth == window.innerWidth) return 
+    prevInnerWidth = window.innerWidth
 
+    d3.select('.graph').html('')
+      .appendMany('div.day', byDay)
+      .each(drawDate)
 
-  window.initSwoopy(window.annotations, byDay[0].c)
+    byDay.forEach(day => day.setName(util.params.get('name')))
+    window.initSwoopy(window.annotations, byDay[0].c)
+  }
+  drawDays()
+  d3.select(window).on('resize', _.throttle(drawDays, 200))
 
 
   // stats
-  console.table(tidy.filter(d => d.seconds < 30 && d.part == 1))
+  console.log('<30s & year < 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year < 2022).length)
+  console.log('<30s & year = 24', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year == 2024).length)
+  console.log('<20s & year = 24', tidy.filter(d => d.seconds < 20 && d.part == 1 && d.year == 2024).length)
+  console.log('<10s & year = 24', tidy.filter(d => d.seconds < 10 && d.part == 1 && d.year == 2024).length)
 
-  // console.log('<30s & year < 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year < 2022).length)
-  // console.log('<30s & year = 22', tidy.filter(d => d.seconds < 30 && d.part == 1 && d.year == 2024).length)
-  // console.log('<20s & year = 22', tidy.filter(d => d.seconds < 20 && d.part == 1 && d.year == 2024).length)
-  // console.log('<10s & year = 22', tidy.filter(d => d.seconds < 10 && d.part == 1 && d.year == 2024).length)
+  console.log('fastest solves')
+  console.table(tidy.filter(d => d.seconds < 30 && d.part == 1))
 
   // '2024_12' 3 numBoth — avg is 64.3
   var byProblem = d3.nestBy(tidy, d => d.year + '_' + d.day)
@@ -45,9 +49,11 @@ window.init = function(){
     problem.diffp1_12 = p1[1].seconds - p1[0].seconds
 
   })
+  console.log('')
   console.table(byProblem.map(({key, numBoth, ratio, ratiop1, ratiop2, diffp1, ratiop1_12, diffp1_12}) => ({key, numBoth, ratio, ratiop1, ratiop2, diffp1, ratiop1_12, diffp1_12})))
-  console.log(d3.mean(byProblem, d => d.numBoth))
-
+  // console.log(d3.mean(byProblem, d => d.numBoth))
+  console.log('Reloaded with the dev tools open to see more data tables')
+  // http://localhost:3989/advent-of-code/?name=Adam%2520Pearce
 }
 
 function drawDate(dayData){

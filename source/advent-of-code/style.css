@@ -1,9 +1,3 @@
-html{
-  background: #000;
-  color: #fff;
-  min-width: 1024px;
-  font-family: monospace;
-}
 a, .header{
   color: #fff;
   font-family: monospace;
@@ -15,6 +9,7 @@ a, .header{
 h1, p{
   font-family: monospace;
 }
+
 
 
 .tooltip {
@@ -84,14 +79,31 @@ text.day-label{
 
 
 
+html{
+  background: #000;
+  color: #fff;
+  min-width: 1024px;
+  font-family: monospace;
+}
+
+.full-bleed {
+  margin-left: calc(50% - max(50vw, 512px));
+  margin-right: calc(50% - max(50vw, 512px));
+  width: max(100vw, 1024px);
+}
 
 .graph {
+  max-width: 1440px;
+  padding: 0 20px;
+  margin: 0 auto;
+  margin-bottom: 60px;
+  
   display: grid;
   grid-template-columns: repeat(5, 1fr); 
   gap: 30px 35px;
   font-family: monospace;
   min-height: 600px;
-  margin-bottom: 60px;
+  overflow: hidden;
 }
 
 
@@ -175,4 +187,6 @@ text.day-label{
 }
 
 
-
+* > *{
+/*  outline: 1px solid red;*/
+}
