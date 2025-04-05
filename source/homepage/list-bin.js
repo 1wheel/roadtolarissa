@@ -29,6 +29,8 @@ symptoms-search-trends
 fill-in-the-blank
 private-and-fair
 grokking
+scaling-monosemanticity
+circuit-tracing
 `.split('\n')
 
 
