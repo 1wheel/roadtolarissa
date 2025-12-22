@@ -43,7 +43,7 @@ Markdown is converted to HTML with [marked](https://github.com/markedjs/marked) 
 var hljs = require('highlight.js')
 var marked = require('marked')
 marked.setOptions({
-  highlight: (code, language) => hljs.highlight(code, {language}).value,
+  highlight: (code, language) => language ? hljs.highlight(code, {language}).value : code,
   smartypants: true
 })
 ```
@@ -79,7 +79,7 @@ function parsePost(path){
     .replace('---\n', '')
     .split('\n---\n')
 
-  var post = {html: marked(body)}
+  var post = {html: marked.parse(body)}
   top.split('\n').forEach(line => {
     var [key, val] = line.split(/: (.+)/)
     post[key] = val
