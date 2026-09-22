@@ -81,10 +81,10 @@ d3.loadData(
 
   if (!window.mapsEco){
     var url = 'https://roadtolarissa.com/data/forecast-correlation/maps-538.buf'
-    window.maps538 = model538.maps = new Int16Array(await(await fetch(url)).arrayBuffer())
+    window.maps538 = model538.maps = new Int16Array(await fetchBufSafe(url))
 
     var url = 'https://roadtolarissa.com/data/forecast-correlation/maps-eco.buf'
-    window.mapsEco = modelEco.maps = new Int16Array(await(await fetch(url)).arrayBuffer())
+    window.mapsEco = modelEco.maps = new Int16Array(await fetchBufSafe(url))
   } else {
     model538.maps = window.maps538
     modelEco.maps = window.mapsEco
@@ -106,6 +106,19 @@ d3.loadData(
 
   initStateSm()
 })
+
+async function fetchBufSafe(url, maxBytes = 5e6, timeoutMs = 10000){
+  var controller = new AbortController()
+  var timer = setTimeout(() => controller.abort(), timeoutMs)
+  var res = await fetch(url, {signal: controller.signal})
+  clearTimeout(timer)
+  if (!res.ok) throw new Error('Failed to fetch ' + url + ': ' + res.status)
+  var len = +res.headers.get('content-length')
+  if (len && len > maxBytes) throw new Error('Response too large: ' + url)
+  var buf = await res.arrayBuffer()
+  if (buf.byteLength > maxBytes) throw new Error('Response too large: ' + url)
+  return buf
+}
 
 function initMatrix(model, index2cluster){
   var isLock = false
