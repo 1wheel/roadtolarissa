@@ -7,7 +7,7 @@ draft: false
 ---
 
 <link rel='manifest' href='manifest.json'>
-<link rel='stylesheet' href='https://roadtolarissa.com/slinks/static-rss/style.css'>
+<link rel='stylesheet' href='style.css'>
 <meta name='theme-color' content='#111' />
 
 
@@ -58,11 +58,11 @@ No database imposes significant limitations (read status doesn't sync 😔), but
 <div class='items' id='items'></div>
 
 <script>
-  window.datapath = 'https://roadtolarissa.com/slinks/static-rss/'
+  window.datapath = ''
 </script>
 
-<script src='https://roadtolarissa.com/slinks/static-rss/d3_.js'></script>
-<script src='https://roadtolarissa.com/slinks/static-rss/script.js'></script>
+<script src='d3_.js'></script>
+<script src='script.js'></script>
 
 
 
