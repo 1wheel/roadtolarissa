@@ -1,0 +1,6 @@
+{
+ "Jasmine Sun": "#e0a100",
+ "Nate Silver": "#00c832",
+ "Annie Lowrey": "#dd1001",
+ "_": "Jasmine = jasmi.news Substack accent; Nate = Silver Bulletin accent; Annie = The Atlantic red. Others fall back to the muted palette: Helen Lewis's Substack uses the same #f3c016 default as Jasmine's, Ben Smith's Semafor yellow is near-identical too, Jeanna Smialek / Kashmir Hill / Joanna Stern / Matthew Ball / Alex Imas have no distinct site color (NYT/WSJ black, Booth maroon)."
+}

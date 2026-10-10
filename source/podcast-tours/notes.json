@@ -1,0 +1,18 @@
+{
+  "_": "per-card captions, keyed by the guest name printed on the card. A blank value draws no caption, so every run card is listed here whether or not it has one. HTML is allowed. Card order below = page order: the lead card first, then the rest as drawMultiples lays them out.",
+  "Jasmine Sun": "",
+  "Kashmir Hill": "",
+  "Jeanna Smialek": "",
+  "Annie Lowrey": "",
+  "Helen Lewis": "",
+  "Alex Imas": "",
+  "Joanna Stern": "",
+  "Dan Wang": "",
+  "Nate Silver": "",
+  "Zeke Faux": "",
+  "Ben Smith": "",
+  "Matthew Ball": "",
+  "Matthew C. Klein": "",
+  "Jia Tolentino": "",
+  "Hillary Clinton": ""
+}

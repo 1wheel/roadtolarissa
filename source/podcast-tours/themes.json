@@ -1,0 +1,90 @@
+{
+ "_": "floater themes: members take neighbouring spots on their hosts' side of the blob; order matters (the first names are the core). Keys are first|last. 3-host members stay on the ring unless their theme is in _lift. _next puts a clump right beside another without mixing.",
+ "_next": {
+  "ai others": "ai ceos",
+  "antitrust": "tech press"
+ },
+ "ai ceos": [
+  "dario|amodei",
+  "sam|altman",
+  "demis|hassabis",
+  "satya|nadella",
+  "mark|zuckerberg"
+ ],
+ "ai others": [
+  "jasmine|sun",
+  "dean|ball",
+  "eliezer|yudkowsky",
+  "daniel|kokotajlo",
+  "jack|clark",
+  "ethan|mollick"
+ ],
+ "candidates": [
+  "barack|obama",
+  "hillary|clinton",
+  "pete|buttigieg",
+  "andrew|yang",
+  "elizabeth|warren"
+ ],
+ "crypto": [
+  "sam|bankman-fried",
+  "zeke|faux",
+  "michael|lewis"
+ ],
+ "econ": [
+  "paul|krugman",
+  "jason|furman",
+  "larry|summers",
+  "austan|goolsbee",
+  "kenneth|rogoff",
+  "brad|setser",
+  "adam|tooze",
+  "noah|smith",
+  "kyla|scanlon",
+  "sebastian|mallaby",
+  "matt|levine",
+  "jeanna|smialek",
+  "annie|lowrey"
+ ],
+ "tech press": [
+  "kevin|roose",
+  "casey|newton",
+  "zoe|schiffer",
+  "kashmir|hill",
+  "kara|swisher",
+  "charlie|warzel",
+  "kyle|chayka"
+ ],
+ "antitrust": [
+  "lina|khan",
+  "jonathan|kanter"
+ ],
+ "columnists": [
+  "ross|douthat",
+  "david|brooks",
+  "chris|hayes",
+  "ta-nehisi|coates",
+  "jonathan|haidt",
+  "francis|fukuyama",
+  "matthew|yglesias",
+  "ezra|klein",
+  "derek|thompson"
+ ],
+ "political press": [
+  "maggie|haberman",
+  "mckay|coppins",
+  "tim|alberta",
+  "nate|silver"
+ ],
+ "foreign policy": [
+  "fareed|zakaria",
+  "anne|applebaum",
+  "masha|gessen",
+  "evan|osnos",
+  "dan|wang",
+  "henry|farrell"
+ ],
+ "_lift": [
+  "candidates"
+ ]
+}

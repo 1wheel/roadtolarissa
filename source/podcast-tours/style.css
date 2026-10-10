@@ -1,0 +1,135 @@
+/* ---- tokens ---- */
+:root{
+  --ink: #333; --ink-2: #666; --ink-3: #aaa;      /* three text grays */
+  --line: #e2e2e2;                                 /* every hairline */
+  --accent: #1d3557; --hi: #f0f;                   /* links; the selected episode */
+  --bg-soft: #f4f6f9; --page: #f5f5f5;             /* hover rows; the blog background (text halos) */
+  --r: 4px; --pad: 12px;
+}
+
+/* ---- text roles: one rule each, for svg text (fill) and html (color) ---- */
+.t-name, .t-sub, .t-axis, .t-body{ fill: currentColor; }
+.t-name{ font-size: 12px; font-weight: 600; color: var(--ink); }                       /* show labels on the chart, guest names on cards */
+.t-body{ font-size: 12px; color: var(--ink); }                                          /* episode titles, notes */
+.t-sub{ font-size: 10.5px; color: var(--ink-2); }                                       /* lane sub-labels, show names, descriptions */
+.t-axis{ font-size: 10px; color: var(--ink-3); font-variant-numeric: tabular-nums; }   /* ticks, dates, quiet links */
+.tour-lead a, .tour-cards a, .panel a{ color: inherit; text-decoration: none; cursor: pointer; }   /* card links come from notes.json, the rail's from the feed */
+.tour-lead a:hover, .tour-cards a:hover, .panel a:hover{ text-decoration: underline; }
+
+/* ---- the blocks: left edge on the 750px post column, right edge into the gutter (up to 1100px) ---- */
+.tour-chart, .tour-lead, .tour-cards, .tour-ranks{
+  position: relative; box-sizing: border-box;
+  width: calc(50vw + 351px); min-width: 100%; max-width: min(1100px, 100vw - 30px);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--ink); line-height: 1.45; -webkit-font-smoothing: antialiased;
+  margin: 20px 0 30px;
+}
+/* these two override the shared block above, so they have to stay after it */
+.tour-lead{ width: 100%; }                                                                                   /* the lead card centers on the text column */
+.tour-cards{ width: min(1100px, 100vw - 30px); max-width: none; margin-left: calc(50% - min(550px, 50vw - 15px)); }   /* centred on the page, capped at the other blocks' 1100px; draw-tours.js splits the cards into balanced rows */
+
+/* ---- svg marks ---- */
+svg line{ stroke: var(--line); shape-rendering: crispEdges; }        /* lane lines, ticks, card rows; run lines set their color inline */
+.tour-chart svg, .tour-force svg, .mult-card svg{ display: block; overflow: visible; cursor: pointer; }
+.tour-force svg.fixed{ width: 100%; height: auto; }   /* the baked layout scales as one picture and fills the column */
+.tour-force .shell{ fill: #fff; stroke: var(--line); }
+.tour-force .on > .shell{ stroke-width: 1.4; }
+.tour-force .leader{ stroke: #d4d4d4; stroke-width: .7px; fill: none; }   /* very grey: the leaders should almost disappear */
+.tour-force .halo{ stroke: none; }   /* no halo: labels never sit on marks now, and a stroked halo turns black under the browser's find-in-page highlight */
+.tour-force text.perm{ font-size: 10px; }
+.tour-chart .chart text.lane-sub, .mult-card text.lane-sub{ font-size: 10px; }   /* lane "+" lines and card show names use the force graph's label type */
+.tour-force text{ pointer-events: none; }
+
+/* ---- layout: force graph over the by-show chart on the left, a sticky rail (search + list) on the right ---- */
+.tour-chart{ display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px 0; align-items: start; }
+.tour-chart .tour-force{ grid-column: 1 / -1; margin-bottom: 6px; }   /* the graph spans both columns */
+.tour-chart .chart{ position: relative; min-width: 0; }
+.tour-chart .side{ display: flex; flex-direction: column; gap: 8px; min-width: 0; position: sticky; top: 12px; align-self: start; height: var(--rail-h, 420px); max-height: calc(100vh - 24px); }   /* rail = lane-chart height (set by draw-tours), never taller than the screen */
+.tour-chart .side .panel{ flex: 1 1 auto; min-height: 0; }                                                                                                   /* the list fills it and scrolls */
+.search-wrap{ position: relative; display: block; }
+.guest-search{
+  font: inherit; font-weight: 600; color: var(--ink); width: 100%; box-sizing: border-box;
+  border: 1px solid var(--line); border-radius: var(--r); padding: 4px 8px 4px 28px;
+  background: #fff no-repeat 9px center / 13px 13px
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.5 15.5L21 21'/%3E%3C/svg%3E");
+}
+.guest-search::placeholder{ font-weight: 400; color: var(--ink-3); }
+.guest-search:focus{ outline: none; border-color: var(--accent); }
+
+/* ---- run cards ---- */
+.mult-rowline{ display: flex; justify-content: center; gap: 12px; margin-bottom: 6px; }
+.mult-card{ width: 204px; padding-top: 4px; cursor: pointer; }
+.tour-lead .mult-card{ margin: 0 auto; }
+.mult-note{ margin: 2px 0 4px; }   /* the hand-written caption for this run, when notes.json has one */
+
+/* ---- the rail's list: rows select an episode; the selected row runs edge to edge and expands ---- */
+.panel{ overflow-y: auto; background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 0 var(--pad) 6px; }
+.panel.long{ padding-bottom: 60vh; overscroll-behavior: contain; }   /* only a list that overflows (set in renderPanel) gets room below its last row, and only a scrolling one traps the wheel: a short list must not rubber-band */
+.panel, .panel *{ line-height: 1.3; }
+.panel, .panel li{ font-size: 12px; }                                   /* the blog's body size would otherwise set every li's strut */
+.panel .t-body{ font-size: 11px; color: #444; }                       /* titles a touch lighter than the cards */
+.panel .p-list{ list-style: none; padding: 0; margin: 0; }
+.panel .p-row, .panel .sug{ display: block; cursor: pointer; margin: 0 calc(-1 * var(--pad)); padding: 4px var(--pad); }
+.panel .p-row > .t-axis{ display: block; margin-bottom: -1px; }        /* date · show on its own line, title below */
+.panel .p-detail > div{ margin-top: 2px; }
+.panel .p-row:hover, .panel .sug:hover{ background: var(--bg-soft); }
+.panel .p-row.cur{ background: rgba(255, 0, 255, .07); }               /* the selected episode, matching the --hi marks */
+.panel .sug{ width: calc(100% + 2 * var(--pad)); text-align: left; font: inherit; border: 0; background: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.panel-hidden{ display: none; }                                        /* nothing selected: renderPanel hides the rail rather than leaving a white box */
+
+/* ---- leaderboards: two columns of guest rows, one dot per host ---- */
+.tour-ranks{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; width: 100%; align-items: start; }
+.rank-head{ margin-bottom: 4px; }
+.rank-row{ display: flex; align-items: center; gap: 5px; padding: 0 4px; margin: 0 -4px; cursor: pointer; border-radius: var(--r); line-height: 1.25; font-size: 11px; }
+.rank-row:hover{ background: var(--bg-soft); }
+.rank-row.on{ background: rgba(255, 0, 255, .07); }
+.rank-name{ flex: 0 0 auto; white-space: nowrap; font-size: 11px; }
+.rank-dots{ flex: 1 1 auto; display: flex; gap: 2px; }
+.rank-dot{ width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.rank-n{ flex: 0 0 auto; }
+
+/* ---- breakpoints, last so they override the base rules. the phone query must stay in step with isMobile in
+       draw-tours.js (innerWidth <= 640, or a coarse pointer up to 1024), which picks label widths and touch handling ---- */
+
+/* ---- desktop: two columns; the search box and the list read as one card ---- */
+@media (min-width: 900px) and (pointer: fine){
+  .tour-chart{ grid-template-columns: minmax(0, 1fr) 270px; gap: 0 18px; }
+  .tour-chart .tour-force{ width: min(1100px, 100vw - 30px); margin-left: calc(375px - min(550px, 50vw - 15px)); }   /* the graph centres on the viewport: the chart block itself starts at the 750px column's left edge and runs right into the gutter */
+  .tour-chart .side{ gap: 0; }
+  .side .guest-search{ border-radius: var(--r) var(--r) 0 0; padding: 6px var(--pad) 6px 32px; font-size: 13px; background-position-x: 11px; }
+  .side .panel{ margin-top: 0; border-top: 0; border-radius: 0 0 var(--r) var(--r); }   /* one 1px line between the search box and the list: the search box draws it */
+  /* no room below a long list here: the list ends at its last row, and a selected last episode sits at the bottom.
+     (a 60vh padding-bottom would also be a floor on the panel's own height and spill it over the lane chart) */
+  .side .panel.long{ padding-bottom: 6px; }
+}
+/* ---- wide screens: the rail sits on the LEFT over the lane labels' gutter, the force graph beside it at the full 1100px;
+   the rail is exactly the graph's height and scrolls inside; the lane chart runs full width underneath ----
+   The graph never gives up width to the rail: this layout starts only where the rail (270), the gap (18) and a 1100px graph
+   fit with the page's 15px gutters (1418px, plus room for a scrollbar), so the graph's width never drops as the window grows.
+   Below it the desktop rules above keep the graph full width, min(1100px, 100vw - 30px), with the rail beside the lanes. */
+@media (min-width: 1440px) and (pointer: fine){
+  .tour-chart{ grid-template-columns: 122px 1100px; grid-template-areas: 'side force' 'chart chart'; grid-template-rows: auto auto; gap: 10px 18px;
+    width: 1240px; max-width: none; margin-left: calc(50% - 546px); }   /* 122 + the 148px gutter = a 270px rail; 148 + 1240 = 1388 centred on the post column: 1388/2 - 148 = 546 */
+  .tour-chart .tour-force{ grid-area: force; width: auto; margin: 0; }
+  .tour-chart .chart{ grid-area: chart; }
+  .tour-chart .side{ grid-area: side; width: 270px; justify-self: start; margin-left: -148px; position: static; align-self: stretch; height: auto; max-height: none; contain: size; }   /* 148px = how far the lane labels hang left of the block (LABEL_W 152); contain: the list never sets the row height */
+}
+/* ---- phone: search above the chart, list inline below it; tapping a dot lifts the list into a bottom sheet ---- */
+@media (max-width: 640px), ((pointer: coarse) and (max-width: 1024px)){
+  .tour-chart .chart{ overflow: hidden; }
+  .tour-chart .side{ display: contents; }
+  .side .search-wrap{ order: -1; display: inline-block; }
+  .side .guest-search{ width: 170px; }
+  .side .panel{ order: 1; max-height: 50vh; margin-top: 8px; }
+  .side .panel.sheet{
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; margin: 0;
+    max-height: 45vh; border-radius: 10px 10px 0 0; border-bottom: 0;
+    box-shadow: 0 -4px 18px rgba(0,0,0,.14); padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+  .tour-cards{ width: 100%; margin-left: 0; }   /* the base rule's centring margin pushed a 100%-wide block 10px past the right edge */
+  .mult-rowline{ flex-wrap: wrap; }
+}
+/* the leaderboards stack on width alone: a touch tablet has room for both columns even in the phone layout */
+@media (max-width: 640px){
+  .tour-ranks{ grid-template-columns: 1fr; gap: 12px 0; }
+}
