@@ -76,7 +76,7 @@ var templateHTML = `<!DOCTYPE html>
   </div>
 
   <div id='boring' class='skip-link'>boringHTML</div>
-  <a href='https://diary.roadtolarissa.com/' aria-hidden='true' tabindex='-1' style='position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0'>diary</a>
+  <a href='https://log.roadtolarissa.com/' aria-hidden='true' tabindex='-1' style='position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0'>diary</a>
 </body>
 </main>
 </html>`
